@@ -1,28 +1,11 @@
 # Master Task List 
 
-## Marketing Naming 
+## Marketing Name Change 
 
-- We are not a 'single-file-agent' any longer
-- New project directory to clean things up and avoid path mistakes 
-- Current name update: OC for Orchestrator Claude 
-- But I'm leaning towards something like 
-  - OA = orchestrated agents / OAW / WOA  
-  - Some combination of W (workflow) F (flow) A (agent/ic) O (orchestrated) 
-  - Very good collection of consonants and vowels 
-  - Might find something really good; goal = use it as a verb 
+- We recently changed from SFA --> OC or the_oc 
+- I just changed it again, for good this time --> mao 
 
-workflow orchestrated agentic claude
-orchestrator built agentic workflow obaf
-agentic built orchestrated workflow abow abowf foab afob foab fao oaf 
-flow orchestrated agentic builder 
-aof aod oa opaw 
-foas 
-soaf
-spaof
-modoaf
-maos 
-mao
-
+**Modular Agent Orchestrator (MAO)** 
 
 ## Configs 
 
@@ -80,54 +63,56 @@ This is more a point of curiosity that I imagine would come in helpful in the fu
 
 ## Directory 
 ```
-~/Development/the_oc/...
+~/Development/modular-agent-orchestrator/...
 ├── mao_v4.py
 ├── build/...
 │   ├── api/...
 │   │   ├── auth.py
+│   │   ├── models.py
 │   │   └── service.py
 │   ├── interfaces/...
-│   │   ├── ui_terminal.py
-│   │   └── ui_web.py
+│   │   ├── ui_terminal.py                 <-- ‼️ updated filename; added 'ui_' master
+│   │   └── ui_web.py                      <-- ‼️ updated filename; added 'ui_'
 │   └── orchestrator/...
+│       ├── cache/...
+│       │   ├── __init__.py
+│       │   ├── cache_system.py            <-- ‼️ updated filename; was hybrid_cache 
+│       │   └── xTEMP
+│       │       ├── cache_coordinator.py   <-- 💀 duplicates need to be fixed 
+│       │       └── universal_cache.py     <-- 💀 duplicates need to be fixed 
 │       ├── core.py
-│       ├── protocol.md
-│       ├── memory.py
-│       └── master/...
-│           ├── buttons_manager.py
-│           ├── cache_system.py
-│           ├── error_handling.py
-│           ├── model_manager.py
-│           └── tool_manager.py
+│       ├── master/...
+│       │   ├── buttons_manager.py         <-- ‼️ updated filename; was human_buttons master
+│       │   ├── error_handling.py          <-- Shared error handling utility
+│       │   ├── model_manager.py
+│       │   └── tool_manager.py            <-- ‼️ updated filename; was tool_discovery
+│       ├── memory.py                      <-- MAO added conversation history for context
+│       └── protocol.md
 ├── components/...
 │   ├── ai/...
 │   │   ├── connections/...
-│   │   │   ├── models_x_tools.json
-│   │   │   └── providers_x_models.json
+│   │   │   ├── models_x_tools.json        <-- Matching up models to tools
+│   │   │   └── providers_x_models.json    <-- 👻 doesn't exist, example only
 │   │   ├── model_registry/...
-│   │   │   ├── model_name.json
-│   │   │   └── model_name.json
+│   │   │   ├── model_name.json            <-- 👻 doesn't exist, example only 
+│   │   │   ├── model_name.json            <-- 👻 doesn't exist, example only
+│   │   │   └── models.json                <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART 
 │   │   └── provider_registry/...
-│   │       ├── provider_name.json
-│   │       └── provider_name.json
+│   │       ├── provider_name.json         <-- 👻 doesn't exist, example only
+│   │       ├── provider_name.json         <-- 👻 doesn't exist, example only
+│   │       └── providers.json             <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART 
 │   └── tools/...
-│       ├── tool_name/...
-│       │   ├── tool_name.py
-│       │   ├── button_tool.py
-│       │   ├── model_tool.json
-│       │   ├── cache_tool.py
-│       │   └── ui_tool.py
-│       └── tool_name/...
+│       └── tool_name/...                  <-- ‼️ EXAMPLE; every tool file now like this
 │           ├── tool_name.py
-│           ├── button_tool.py
-│           ├── model_tool.json
+│           ├── button_tool.py             <-- 🔄 Human buttons for tools
+│           ├── model_tool.json            <-- 🔄 Tool definitions and metadata
 │           ├── cache_tool.py
 │           └── ui_tool.py
 └── technical-docs/...
     ├── introduction/...
-    │   ├── SPECIFICATIONS.md  <-- an overview with a 'how' focus
-    │   ├── MODULAR_PHILOSOPHY.md  <-- all of the important reasons 
-    │   └── MODULAR_STRUCTURE.md  <-- modular layout doubling as table of contents
+    │   ├── SPECIFICATIONS.md              <-- 📓 an overview with a 'how' focus
+    │   ├── MODULAR_PHILOSOPHY.md          <-- 📓  all of the important reasons 
+    │   └── MODULAR_STRUCTURE.md           <-- 📓 modular layout doubling as table of contents
 ```
 IMPORTANT FUNCTION I-X
   - What component is 
@@ -142,19 +127,19 @@ Organized into tangible categories like below examples
 - --> Write in full, review in full, critique, made final edits 
 ```
     ├── orchestrator/...
-    │   ├── INTELLIGENCE.md  <-- model, provider JSON, API 
-    │   ├── BEHAVIOR.md  <-- an overview, re: core.py, protocol.md, memory.py 
-    │   ├── AGENCY.md  <-- UI, setup scripts, use-cases, workflow JSON config 
-    │   ├── ABILITY.md  <-- tools, JSON registry, buttons, cache, error handling 
-    │   └── MANAGEMENT.md <-- workflow and file management, ending tasks, recording 
+    │   ├── INTELLIGENCE.md                <-- model, provider JSON, API 
+    │   ├── BEHAVIOR.md                    <-- an overview, re: core.py, protocol.md, memory.py 
+    │   ├── AGENCY.md                      <-- user-chat setup scripts, use-cases, workflow JSON config 
+    │   ├── ABILITY.md                     <-- tools, JSON registry, buttons, cache, error handling 
+    │   └── MANAGEMENT.md                  <-- workflow and file management, ending tasks, recording 
     ├── agents/...
-    │   ├── ASSIGNMENT.md <-- get task, token count max reminder and live counter, auto-save docs, 
-    │   └── COMPLETION.md <-- calling MAO, reporting, hand-off 
+    │   ├── ASSIGNMENT.md                  <-- get task, token count max reminder and live counter, auto-save docs, 
+    │   └── COMPLETION.md                  <-- calling MAO, reporting, hand-off 
     ├── human/... 
-    │   ├── UI_MODULARITY.md 
-    │   ├── VERBOSE_ARGS.md
-    │   ├── TOOL_CREATION_GUIDE.md 
-    │   └── WORKFLOW_SELF_SETUP.md 
+    │   ├── UI_MODULARITY.md               <-- UI files and master file
+    │   ├── VERBOSE_ARGS.md                <-- file exists in part; expand 
+    │   ├── TOOL_CREATION_GUIDE.md         <-- file exists; review for accuracy 
+    │   └── WORKFLOW_SELF_SETUP.md         <-- setup script, use-case JSON, how to skip orchestrator 
     └── versioning/...
         ├── CHANGE_LOG.md
         ├── v1_v2_v3_SFA/...
