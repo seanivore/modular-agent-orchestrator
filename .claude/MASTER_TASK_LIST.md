@@ -7,6 +7,11 @@
 
 **Modular Agent Orchestrator (MAO)** 
 
+## Project Structure Overhaul 
+
+We are currently looking at this project in a new workspace directory. 
+
+
 ## Configs 
 
 ### API Setup Phase 

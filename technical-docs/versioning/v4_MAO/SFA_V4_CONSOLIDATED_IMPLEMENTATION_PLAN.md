@@ -42,14 +42,7 @@ sfa-v4/
 │   ├── button_dalle_generate.py
 │   └── button_think.py
 ├── configs/tool_registry/           # ✅ 8 tool registry files
-│   ├── tool_brave_search.json
-│   ├── tool_web_search.json
-│   ├── tool_perplexity_search.json
-│   ├── tool_text_editor.json
-│   ├── tool_file_operations.json
-│   ├── tool_graphic_design.json
-│   ├── tool_dalle_generate.json
-│   └── tool_think.json
+│   ├── 
 └── utilities/error_handling.py     # ✅ Shared error handling
 ```
 
