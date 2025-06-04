@@ -8,33 +8,78 @@
 1. **This is v4.0.0** - A revolutionary AI orchestration system with 95% token reduction
 2. **Agentic Solution FKA. SFA** - Today it is MAO (Modular Agent Orchestrator)
 3. **Foundation is COMPLETE** - 40 modular files, human button interface, JSON configs all built
-4. **Your job is INTEGRATION** - Follow the phases sequentially, test each step
-5. **Key Philosophy**: Variable-input architecture (NO hardcoded specifics, categories, or templates)
-6. **Revolutionary Feature**: Human buttons generate executable code for ANY model (eliminates SDK hell)
-7. **Critical Rule**: Always use sequential thinking for complex decisions and planning
+```
+4. *WILDCARD* **but the directory structure has been changed** - YEAH, LET'S FOCUS HERE FIRST; I THINK IT WAS A GOOD IDEA, BUT I HAVE THE OLD PROJECT DIRECTORY SAVED AS WELL JUST IN CASE IT WAS A BAD IDEA OR IS MORE WORK THAN IT IS WORTH IT. 
+```
+5. **Your job is INTEGRATION** - Follow the phases sequentially, test each step
+6. **Key Philosophy**: Variable-input architecture (NO hardcoded specifics, categories, or templates)
+7. **Revolutionary Feature**: Human buttons generate executable code for ANY model (eliminates SDK hell)
+8. **Critical Rule**: Always use sequential thinking for complex decisions and planning
 
 **What makes this system revolutionary:**
 - **Human Button Interface**: Generates executable Python snippets that work with Anthropic, OpenAI, Gemini
-- **5-File Modular Pattern**: Core logic + UI display + Human buttons + Registry + Error handling
+- **6-File Modular Pattern**: Core logic + UI display + Human buttons + Registry + Error handling + Cache 
 - **Universal Model Support**: Add new models via JSON config, no code changes needed
 - **Cost Optimization**: <$0.01 per workflow execution vs $0.07+ in v3
 
 **Your mission**: Complete the integration work outlined in the phases below. The foundation is solid - we just need to wire everything together and build the missing UX flow.
 
+**BUT FIRST**: WE'LL CONFIRM ALL IS A-OKAY AFTER DIRECTORY STRUCTURE CHANGE. 
+
+**ALSO FIRST**: Scrub all files and code for oc in the cases it meant "Orchestrating Claude" and replace it with "mao"
+
 ### 🔍 QUICK STATUS REFERENCE FOR AIs
 
 **✅ WHAT'S ALREADY BUILT (Don't rebuild these!):**
-- 40 modular files following 5-file pattern
-- `/tools/` - 8 core logic files (brave_search.py, web_search.py, etc.)
-- `/interfaces/ui_tools/` - 8 UI display files
-- `/utilities/human_button_tools/` - 8 button generators
-- `/configs/tool_registry/` - 8 JSON registry files
-- `/utilities/error_handling.py` - Professional error patterns
-- `/configs/models.json` - 10+ model definitions
-- `/configs/providers.json` - API provider configs
-- `/configs/model_tool.json` - Model-tool mappings
-- `/orchestrator/human_buttons.py` - Master button generator (799 lines)
-- `/orchestrator/hybrid_cache.py` - Unified caching system (339 lines) ✅ ACTIVE
+- 40 modular files following 6-file pattern
+
+8 tool directories each with 4 of the core: 
+  `./components/tools/tool_name/`
+  - `tool_name.py` - 8 core logic files
+  - `ui_tool_name.py` - 8 UI display files
+  - `button_tool_name.py` - 8 button generators
+  - `tool_tool_name.json` - 8 JSON registry files
+
+Shared files for the remaining 2 files in the pattern: 
+- `./build/orchestrator/`
+  - `/master/error_handling.py` - Professional error patterns (414)
+  - `/cache/cache_system.py` - Fingerprinted and traditional caching (339)
+
+Master files for the two not shared files in the pattern:
+- `./build/`
+  - `/orchestrator/buttons_manager.py` - Master button generator (542 lines)
+  - `/interfaces/ui_terminal.py` - Unified UI terminal system (552 lines)
+
+**⚠️ THESE UPDATES TO PATTERN NEED HELP** 
+
+Some file renames & files to sort properly: 
+1. `human_buttons.py` is now `buttons_manager.py`
+2. `hybrid_cache.py` is now `cache_system.py`
+
+Then both of those don't look reviewed. They should be carefully reviewed for three items: 
+1. UI 'print()' functions that go in the `ui_terminal.py` file 
+2. Should be checked for error handling; might need it still, though those go in `error_handling.py`
+3. Then just the buttons_manager will need to be double checked that it got cached into `cache_system.py`
+
+Finally, these two JSON should be broken down into individual files to better fit with the rest of the modular system. 
+- `./components/ai/model_registry/models.json` - 10+ model definitions
+- `./components/ai/provider_registry/providers.json` - API provider configs
+
+In the case of those two files we just need to make sure that they do not hardcode reference (anything but especially keep eyes peeled for) each other, or referencing tools JSON. In all cases, we create "connections" files to show what models can use what tools and what models come from what providers; note that there are models that we have coming from multiple providers. 
+
+- `./components/ai/connections/models_x_tools.json` - the model and tool connection 
+- `models_x_providers.json` - this one has not been created yet
+
+The last step in this part of the process then is that we should create template versions of each JSON config type: 
+- model_model_name.json
+- provider_provider_name.json
+- tool_tool_name.json 
+- models_x_tools.json
+- models_x_providers.json 
+Each of these can be placed in the updated specification document which is the starting point for our technical-docs overhaul. 
+`./technical-docs/versioning/v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
+
+---
 
 **⚠️ WHAT NEEDS WORK (Your focus areas!):**
 - User experience flow (setup conversation, custom commands)
@@ -54,11 +99,11 @@
 
 **Current Status**: 95% complete revolutionary foundation
 **Missing Pieces**: System integration + User experience flow
-**Goal**: Complete, tested, production-ready SFA v4.0.0
+**Goal**: Complete, tested, production-ready MAO v4.0.0
 
 ### **The Big Picture**:
 1. **Foundation** ✅ DONE - 40 modular files, human buttons, JSON configs
-2. **Integration** ✅ DONE - Cache systems, orchestrator cleanup
+2. **Integration** ⚠️ PARTIALLY DONE - Cache systems, orchestrator cleanup, other file clean-up, connection files, breaking down models and providers into their own files. 
 3. **User Experience** ❌ MISSING - First-time setup flow (Sean's discovery!)
 4. **Testing** ❌ TODO - End-to-end validation
 
@@ -143,7 +188,7 @@ These files likely have hardcoded categories and templates that violate our vari
 ### **Steps**:
 
 #### **Step 2.1: Review Core Orchestrator** ✅ COMPLETE!
-**File**: `/orchestrator/core.py` (799 lines)
+**File**: `./build/orchestrator/core.py` (799 lines)
 **What**: Find and remove hardcoded specifics, categories, templates
 **Simple Explanation**: Make the main orchestrator brain follow our "blank canvas" rule
 
@@ -154,12 +199,12 @@ These files likely have hardcoded categories and templates that violate our vari
 - Domain-specific assumptions
 
 #### **Step 2.2: Review Model Manager** ✅ COMPLETE!
-**File**: `/orchestrator/model_manager.py` (333 lines)
+**File**: `./build/orchestrator/master/model_manager.py` (333 lines)
 **What**: Ensure model selection is dynamic, not hardcoded
 **Simple Explanation**: Make sure model picking is smart, not based on fixed rules
 
 #### **Step 2.3: Review Tool Discovery** ✅ COMPLETE!
-**File**: `/orchestrator/tool_discovery.py` (800+ lines)
+**File**: `./build/orchestrator/master/tool_manager.py` (800+ lines) *renamed from tool_discovery.py*
 **What**: Remove hardcoded tool categories, make discovery truly dynamic
 **Simple Explanation**: Tool suggestions should be based on goals, not predefined lists
 
@@ -188,7 +233,7 @@ Later: Custom Command → Workflow Execution → Results
 ### **Steps**:
 
 #### **Step 3.1: Create Setup Entry Point**
-**File**: `/sfa_v4_setup.py`
+**File**: `/mao_v4_setup.py`
 **What**: Main script that determines setup vs run mode
 **Simple Explanation**: Smart entry point that knows if you're setting up or running
 
@@ -201,11 +246,11 @@ def main():
         run_existing_workflow()
 ```
 
-**Test**: `python sfa_v4_setup.py` should start OC conversation for new users
+**Test**: `python mao_v4_setup.py` should start MAO conversation for new users
 
-#### **Step 3.2: Build OC Setup Conversation**
-**File**: `/orchestrator/setup_conversation.py`
-**What**: OC interviews user and creates JSON workflow config
+#### **Step 3.2: Build MAO Setup Conversation**
+**File**: `./build/interfaces/setup_conversation.py`
+**What**: MAO interviews user and creates JSON workflow config
 **Simple Explanation**: Friendly chat with OC that turns your goal into a workflow
 
 **Flow**:

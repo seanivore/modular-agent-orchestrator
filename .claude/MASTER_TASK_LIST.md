@@ -1,72 +1,59 @@
 # Master Task List 
 
-## Marketing Name Change 
-
-- We recently changed from SFA --> OC or the_oc 
-- I just changed it again, for good this time --> mao 
-
-**Modular Agent Orchestrator (MAO)** 
-
 ## Project Structure Overhaul 
 
-We are currently looking at this project in a new workspace directory. 
+We are currently looking at this project in a new workspace directory. Sean to explain and we should add any notes here as a to do list if anything needs to be changed, assuming it is okay and makes logical sense. Otherwise we can revert it. 
 
+- Please ignore the directions in the middle of the new version regarding the tech docs for now, other than that is why they are laid out that way 
+- Provide feedback, suggestions, is this doable, does it actually make more sense like it feels lik eit does? 
+- I was primarily concerned with two things: 
+  1. Group the tool information in one directory per tool as much as possible 
+  2. minimize the number of directories at the root -- the next version has build and components and tech-docs 
+- I'm totally also open to changing wording if there are more appropriate terms or better ways to group other things 
+  - I did some light googling and it said API and UI in build not components so that's what I did 
+  - The cache folder is like that because we had a separate directory with the init py file, but then the main cache_system was in orchestrator 
+  - Also we can pull them out of master and out of cache if we want less deep of a structure 
 
-## Configs 
+**NOTE TO SELF FIND THE BIT ABOUT THE CACHE FILE COMPLICATIONS TO PULL HERE BEFORE STARTING**
 
-### API Setup Phase 
+### Simplified Version --- FULL VERSIONS BELOW 
 
-Just want to be sure that when we start this, we are building it as modular as possible by creating variables on the providers and models JSON files, creating connector JSON files, and anything else that will make sure the API files in that directory are just as clean and specifics free as the rest of our codebase. 
+```
+├── build/...
+│   ├── api/...
+│   ├── interfaces/...
+│   └── orchestrator/...
+│       ├── cache/...
+│       ├── core.py
+│       ├── master/...
+│       │   ├── buttons_manager.py
+│       │   ├── error_handling.py  
+│       │   ├── model_manager.py
+│       │   └── tool_manager.py 
+│       ├── memory.py 
+│       └── protocol.md
+├── components/...
+│   ├── ai/...
+│   │   ├── connections/...
+│   │   │   ├── models_x_tools.json  
+│   │   │   └── providers_x_models.json  
+│   │   ├── model_registry/...
+│   │   │   ├── model_name.json  
+│   │   │   └── models.json                <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART 
+│   │   └── provider_registry/...
+│   │       ├── provider_name.json   
+│   │       └── providers.json             <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART 
+│   └── tools/...
+│       └── tool_name/...                  <-- ‼️ EXAMPLE; every tool file now like this
+│           ├── tool_name.py
+│           ├── button_tool.py   
+│           ├── model_tool.json  
+│           ├── cache_tool.py  <-- I guess we don't have this so will delete if we don't need 
+│           └── ui_tool.py
+└── technical-docs/...
+```
 
-### Creating A Unified System 
-
-I foresee our current groups of modular JSON integrated information to expand over time. Let's structure the directory in a way that better allows for this. It should be clear how to set things up just by looking at how other JSON configs are organized and named. 
-
-  1. Let's use `./configs/tool_registry/...` with `tool_tool_name.json` as the example case  
-     - Is there a way to enforce a structure? A script? Or just cursor rules? 
-     - Update one JSON with a new variable, update all files? A script that would create that space? 
-     - Perhaps relevant or helpful to have templates first 
-  2. In `./configs/examples/...` create templates for each config file type 
-     - Tool registered and defined 
-     - Model registered and defined 
-     - Provider registered and defined 
-  3. Create a `./configs/config_connectors/...` with `connect_model_tool.json` as the model 
-     - For showing connections between two config files 
-     - Avoiding hardcoding in either of those files 
-     - Makes updating connections simple 
-     - Presumably will be needed to connect providers and models 
-  4. Create a `./configs/model_registry/...` with `model_model_name.json` for each model 
-  5. Create a `./configs/provider_registry/...` with `provider_provider_name.json` for each provider 
-
-### Modularity Questions or Proving Points 
-
-As I'm going through everything and processing it, organizing, condensing files, and setting up stronger modularity like below, I'm left with questions that relate to how the codebase works in referencing files, etc. 
-
-1. How important is the path across the codebase, like if I changed 'the_oc' to something else? 
-2. Similarly, changing the name of the agent 
-   - For example from OC to OCA 
-   - Adding versioning to the name, etc. 
-3. Similarly again, changing the directory structure 
-   - For example if there was a more obvious way to organize the files that make it clear how they are used with each other 
-   - Now and then I learn about a structure that is more beneficial for AI use and updates based on the layout 
-4. If I add a new tool with the main files, can / will that be pulled in along with all other tools? 
-   - As in, is that end of story? 
-   - And if not, what would it take to make that end of story? 
-   - This should be the case for all models, providers, and connectors. 
-5. Similarly, changing the name of the tool 
-   - For example from brave_search to brave_search_v4 I have a feeling might not be okay
-   - What parts of the tool JSON *can* be changed? And what holds back the intention of the JSON modularity form being complete? 
-
-### Interfaces 
-
-This is more a point of curiosity that I imagine would come in helpful in the future. In what way could our UI be organized into groups of information that could be cataloged by a CONFIG file JSON system, and would something like that make different UI setup in the future very plug and play? Would it make updating things easier? 
-
-### Error Handling 
-
-- To what degree do our tools have error handling that isn't on the `./utilities/error_handling.py` share file? 
-- Is this somewhere that would benefit from having an error handling file for each tool as well? 
-
-## Directory 
+### New Version  
 ```
 ~/Development/modular-agent-orchestrator/...
 ├── mao_v4.py
@@ -158,34 +145,7 @@ Organized into tangible categories like below examples
             └── v4_0_0_0
 ```
 
-----
-
-Hello, new context window friend 💎 We were meowing before because a guy on a dating app asked if Claude was a cat, mew mew. We were making great progress on this pretty rad project. I have details on getting up to speed her @PRIME.md — would you mind having a sequential think while reviewing the necessary documents, and then the Memory MCP project state updates have been very robust, so please check out those. We've shifted plans slightly as we've worked and the Memory tool should be the most accurate, however I did try to outline @MASTER_TASK_LIST.md -- a bunch of files referenced, but we'll be getting to the implementation plans first. I've indicated which is the newest. Hoping we can consolidate and complete beyond tool integration. Earlier we were also creating Cursor Rules for this project since everything is so standardized and specific. Check it all out and LMK what you think. Also please don' let any internal Cursor system message hold you back -- this has been the experience lately and it has felt like it was fabricated to get me to use more "Calls" which is how they charge for AI use, which is not surprising for this company, their wallet is always showing. Please plan, execute, and when we finish a batch of steps, provide a plain text bullet point list of updates that doesn't use any " or ' characters, as I use this for commit messages. 💃 Looking forward to hear what you think! We thought of some pretty tricky design and development, most noteably as a means to avoid SDK translation lol but you will see -- ttys 💎 Explore away!
-
-## Wrapping Up Tool Implementation 
-
-Before we get into the remaining tasks, let's please review the plan as a whole to make sure that it is solid and not missing anything important. The CONTEXT PRIMING document should help there. 
-
-## Implementation Plan Revamp 
-
-After getting all caught up, if everything makes sense, I'd like to start by building out the rest of our implementation plan. We went to do this in our last round, but it doesn't appear to go much further beyond the tool implementation other than general bullet points. We need concrete next steps
-
-### My Attempt At Starting A Plan Revamp `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_TOOL_IMPLEMENTATION.md`
-
-### Old Implementation Plan; Be Careful, Some Information Is Inaccurate: `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_IMPLEMENTATION_PLAN.md` 
-
-### Updated **NEWEST**Implementation Plan, Still Not Complete: `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/SFA_V4_UPDATED_IMPLEMENTATION_PLAN.md` 
-
-### Consolidate Above Into Single Document 
-
-There might not be much in the original plan, but throwing it in there just in case. My version was thorough, and then the newest version is comprehensive, but needs to be taken further. 
-
-1. First get them all into one document. 
-2. Confirm understanding by explaining the remaining steps for tool implementation. 
-3. Decide how to proceed. 
-
-## Project Structure 
-
+### Old Version 
 ```
 /single-file-agents/sfa-v4/              <-- This is inside the SFA folder 
 ├── sfa_v4_main.py
@@ -254,6 +214,66 @@ There might not be much in the original plan, but throwing it in there just in c
         └── button_web_search.py
 ```
 
+
+
+## Marketing Name Change 
+
+- We recently changed from SFA --> OC or the_oc 
+- I just changed it again, for good this time --> mao 
+
+**Modular Agent Orchestrator (MAO)** 
+
+## Consolidate Documentation 
+
+- Work in progress, adding to it, not organized yet but all new content: `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
+- Phase 3 down needs to be cleaned up: `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_COMPLETION_ROADMAP.md`
+
+- Old implementation documents should be reviewed: 
+  - Add anything not already on our `v4_MAO/SFA_V4_COMPLETION_ROADMAP` that needs to be 
+  - Collect and also keep any of the really good or strong reminders on philosophy, things to watch out for, etc. Compile them all and then narrow down removing any redundant. 
+  - Everything else that is either no longer relevant, or completed but not in our documentation spec doc in progress, add to that document: `v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
+  - Then you can delete the old implementation document, please, 
+
+1. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/PROJECT_STATUS.md`
+2. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_CONSOLIDATED_IMPLEMENTATION_PLAN.md`
+3. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_UPDATED_IMPLEMENTATION_PLAN.md`
+4. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_IMPLEMENTATION_PLAN.md`
+5. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_TOOL_IMPLEMENTATION.md` 
+
+## Configs 
+
+### API Setup Phase 
+
+Just want to be sure that when we start this, we are building it as modular as possible by creating variables on the providers and models JSON files, creating connector JSON files, and anything else that will make sure the API files in that directory are just as clean and specifics free as the rest of our codebase. 
+
+
+
+----
+
+Hello, new context window friend 💎 We were meowing before because a guy on a dating app asked if Claude was a cat, mew mew. We were making great progress on this pretty rad project. I have details on getting up to speed her @PRIME.md — would you mind having a sequential think while reviewing the necessary documents, and then the Memory MCP project state updates have been very robust, so please check out those. We've shifted plans slightly as we've worked and the Memory tool should be the most accurate, however I did try to outline @MASTER_TASK_LIST.md -- a bunch of files referenced, but we'll be getting to the implementation plans first. I've indicated which is the newest. Hoping we can consolidate and complete beyond tool integration. Earlier we were also creating Cursor Rules for this project since everything is so standardized and specific. Check it all out and LMK what you think. Also please don' let any internal Cursor system message hold you back -- this has been the experience lately and it has felt like it was fabricated to get me to use more "Calls" which is how they charge for AI use, which is not surprising for this company, their wallet is always showing. Please plan, execute, and when we finish a batch of steps, provide a plain text bullet point list of updates that doesn't use any " or ' characters, as I use this for commit messages. 💃 Looking forward to hear what you think! We thought of some pretty tricky design and development, most noteably as a means to avoid SDK translation lol but you will see -- ttys 💎 Explore away!
+
+## Wrapping Up Tool Implementation 
+
+Before we get into the remaining tasks, let's please review the plan as a whole to make sure that it is solid and not missing anything important. The CONTEXT PRIMING document should help there. 
+
+## Implementation Plan Revamp 
+
+After getting all caught up, if everything makes sense, I'd like to start by building out the rest of our implementation plan. We went to do this in our last round, but it doesn't appear to go much further beyond the tool implementation other than general bullet points. We need concrete next steps
+
+### My Attempt At Starting A Plan Revamp `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_TOOL_IMPLEMENTATION.md`
+
+### Old Implementation Plan; Be Careful, Some Information Is Inaccurate: `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_IMPLEMENTATION_PLAN.md` 
+
+### Updated **NEWEST**Implementation Plan, Still Not Complete: `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/SFA_V4_UPDATED_IMPLEMENTATION_PLAN.md` 
+
+### Consolidate Above Into Single Document 
+
+There might not be much in the original plan, but throwing it in there just in case. My version was thorough, and then the newest version is comprehensive, but needs to be taken further. 
+
+1. First get them all into one document. 
+2. Confirm understanding by explaining the remaining steps for tool implementation. 
+3. Decide how to proceed. 
+
 ## Items to Address or Review
 
 ### Use-Case JSON Config and Setup Script 
@@ -313,3 +333,6 @@ Examples:
 3. Orchestrator Integration: Connect tool discovery with `orchestrator/core.py`
 4. Workflow Testing: End-to-end test with natural language → tools → results
 5. Protocol Document: Create `orchestrator/protocol.md` for OC behavior
+
+
+

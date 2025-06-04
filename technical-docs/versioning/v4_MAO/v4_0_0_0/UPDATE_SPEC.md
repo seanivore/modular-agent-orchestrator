@@ -1,6 +1,7 @@
 ---
 NOTES: 
 Philosophy, problem, solution, orchestrator role, agent role regarding generated button interface. 
+--> Please move the above sentence to a new document called 'tech-docs.md' in the `./technical-docs/1-introduction/` directory. Then continue making an outline of the information. Organize the outline to make the most sense. Expand on what parts of the documentation are missing so that in the end we have a very comprehensive outline of all the v4 UPDATE which in this case happens to be everything we will need in our technical documentation. No need to try and fill out missing parts now, please just notate them clearly so that we can circle back. There might be some cases we can pull from old technical documentation, and in other cases it might be planning that still needs to be completed and thus added to a to do list. 
 ---
 
 # v4.0.0 Update Overview 
