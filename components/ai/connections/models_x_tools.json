@@ -1,0 +1,266 @@
+{
+  "model_tool_compatibility": {
+    "claude-sonnet-4-20250514": {
+      "optimal_tools": [
+        "think",
+        "text_editor", 
+        "file_operations",
+        "web_search",
+        "brave_search",
+        "perplexity_search"
+      ],
+      "supported_tools": ["all"],
+      "cost_efficiency": "high",
+      "reasoning_strength": "excellent",
+      "tool_execution": "parallel",
+      "notes": "Best for complex reasoning and multi-tool workflows"
+    },
+    "claude-opus-4-20250514": {
+      "optimal_tools": [
+        "graphic_design",
+        "dalle_generate", 
+        "text_editor",
+        "think",
+        "file_operations"
+      ],
+      "supported_tools": ["all"],
+      "cost_efficiency": "premium",
+      "reasoning_strength": "exceptional", 
+      "tool_execution": "parallel",
+      "notes": "Premium model for complex creative and coding tasks"
+    },
+    "claude-3-7-sonnet-20250219": {
+      "optimal_tools": [
+        "text_editor",
+        "file_operations", 
+        "web_search",
+        "brave_search",
+        "think"
+      ],
+      "supported_tools": ["all"],
+      "cost_efficiency": "good",
+      "reasoning_strength": "very_good",
+      "tool_execution": "sequential",
+      "notes": "Reliable workhorse for standard tasks"
+    },
+    "google/gemini-2.5-pro-exp-03-25": {
+      "optimal_tools": [
+        "web_search",
+        "brave_search",
+        "perplexity_search",
+        "text_editor"
+      ],
+      "supported_tools": [
+        "web_search",
+        "brave_search", 
+        "perplexity_search",
+        "text_editor",
+        "file_operations"
+      ],
+      "cost_efficiency": "free",
+      "reasoning_strength": "good",
+      "tool_execution": "human_button_only",
+      "notes": "Free option for research and large context tasks, no native tool support"
+    },
+    "anthropic/claude-3-7-sonnet-latest": {
+      "optimal_tools": [
+        "text_editor",
+        "file_operations",
+        "web_search", 
+        "brave_search",
+        "think"
+      ],
+      "supported_tools": ["all"],
+      "cost_efficiency": "good",
+      "reasoning_strength": "very_good", 
+      "tool_execution": "sequential",
+      "notes": "Via Requesty - same capabilities as direct Claude 3.7"
+    },
+    "vertex/anthropic/claude-3-7-sonnet-latest": {
+      "optimal_tools": [
+        "text_editor",
+        "file_operations",
+        "web_search",
+        "brave_search", 
+        "think"
+      ],
+      "supported_tools": ["all"],
+      "cost_efficiency": "good",
+      "reasoning_strength": "very_good",
+      "tool_execution": "sequential", 
+      "notes": "Privacy-focused option via Vertex, no training data usage"
+    },
+    "openai/gpt-4.1-nano": {
+      "optimal_tools": [
+        "graphic_design",
+        "dalle_generate",
+        "web_search",
+        "text_editor"
+      ],
+      "supported_tools": [
+        "graphic_design",
+        "dalle_generate", 
+        "web_search",
+        "brave_search",
+        "text_editor",
+        "file_operations",
+        "think"
+      ],
+      "cost_efficiency": "very_high",
+      "reasoning_strength": "good",
+      "tool_execution": "parallel",
+      "notes": "Excellent for image tasks and cost-sensitive workflows"
+    },
+    "dalle-3": {
+      "optimal_tools": [
+        "dalle_generate"
+      ],
+      "supported_tools": [
+        "dalle_generate"
+      ],
+      "cost_efficiency": "specialized",
+      "reasoning_strength": "n/a",
+      "tool_execution": "single_purpose",
+      "notes": "Specialized image generation model only"
+    },
+    "openai/gpt-4.1-mini": {
+      "optimal_tools": [
+        "graphic_design",
+        "dalle_generate",
+        "web_search", 
+        "text_editor",
+        "think"
+      ],
+      "supported_tools": [
+        "graphic_design",
+        "dalle_generate",
+        "web_search",
+        "brave_search", 
+        "text_editor",
+        "file_operations",
+        "think"
+      ],
+      "cost_efficiency": "high",
+      "reasoning_strength": "good",
+      "tool_execution": "parallel",
+      "notes": "Good balance of capabilities and cost"
+    }
+  },
+  "tool_model_recommendations": {
+    "brave_search": {
+      "primary": "claude-sonnet-4-20250514",
+      "cost_optimized": "google/gemini-2.5-pro-exp-03-25",
+      "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest",
+      "fallback": "anthropic/claude-3-7-sonnet-latest"
+    },
+    "web_search": {
+      "primary": "claude-sonnet-4-20250514", 
+      "cost_optimized": "google/gemini-2.5-pro-exp-03-25",
+      "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest",
+      "fallback": "openai/gpt-4.1-mini"
+    },
+    "perplexity_search": {
+      "primary": "claude-sonnet-4-20250514",
+      "cost_optimized": "google/gemini-2.5-pro-exp-03-25", 
+      "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest",
+      "fallback": "claude-3-7-sonnet-20250219"
+    },
+    "text_editor": {
+      "primary": "claude-sonnet-4-20250514",
+      "cost_optimized": "google/gemini-2.5-pro-exp-03-25",
+      "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest", 
+      "fallback": "openai/gpt-4.1-mini"
+    },
+    "file_operations": {
+      "primary": "claude-sonnet-4-20250514",
+      "cost_optimized": "claude-3-7-sonnet-20250219",
+      "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest",
+      "fallback": "openai/gpt-4.1-mini"
+    },
+    "graphic_design": {
+      "primary": "claude-opus-4-20250514",
+      "cost_optimized": "openai/gpt-4.1-nano", 
+      "privacy_focused": "claude-sonnet-4-20250514",
+      "fallback": "openai/gpt-4.1-mini"
+    },
+    "dalle_generate": {
+      "primary": "dalle-3",
+      "cost_optimized": "openai/gpt-4.1-nano",
+      "privacy_focused": "claude-opus-4-20250514",
+      "fallback": "openai/gpt-4.1-mini"
+    },
+    "think": {
+      "primary": "claude-opus-4-20250514",
+      "cost_optimized": "claude-sonnet-4-20250514",
+      "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest",
+      "fallback": "claude-3-7-sonnet-20250219"
+    }
+  },
+  "workflow_optimization": {
+    "research_heavy": {
+      "recommended_models": [
+        "google/gemini-2.5-pro-exp-03-25",
+        "claude-sonnet-4-20250514"
+      ],
+      "optimal_tools": [
+        "brave_search",
+        "web_search", 
+        "perplexity_search",
+        "text_editor"
+      ]
+    },
+    "creative_design": {
+      "recommended_models": [
+        "claude-opus-4-20250514",
+        "dalle-3",
+        "openai/gpt-4.1-nano"
+      ],
+      "optimal_tools": [
+        "graphic_design",
+        "dalle_generate",
+        "text_editor"
+      ]
+    },
+    "complex_reasoning": {
+      "recommended_models": [
+        "claude-opus-4-20250514",
+        "claude-sonnet-4-20250514"
+      ],
+      "optimal_tools": [
+        "think",
+        "text_editor",
+        "file_operations"
+      ]
+    },
+    "cost_sensitive": {
+      "recommended_models": [
+        "google/gemini-2.5-pro-exp-03-25",
+        "openai/gpt-4.1-nano",
+        "claude-3-7-sonnet-20250219"
+      ],
+      "optimal_tools": [
+        "web_search",
+        "text_editor", 
+        "file_operations"
+      ]
+    },
+    "privacy_focused": {
+      "recommended_models": [
+        "vertex/anthropic/claude-3-7-sonnet-latest",
+        "claude-sonnet-4-20250514"
+      ],
+      "optimal_tools": [
+        "brave_search",
+        "text_editor",
+        "file_operations",
+        "think"
+      ]
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-27",
+    "philosophy": "Dynamic model-tool matching without hardcoded use cases",
+    "notes": "Recommendations based on model capabilities, not predetermined workflows"
+  }
+}

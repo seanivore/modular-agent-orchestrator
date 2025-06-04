@@ -1,0 +1,288 @@
+{
+  "name": "text_editor",
+  "version": "4.0.0",
+  "description": "Advanced text editing with AI assistance and seamless autosave functionality",
+  "category": "content_creation",
+  "capabilities": [
+    "document_creation",
+    "content_editing", 
+    "content_appending",
+    "document_formatting",
+    "content_analysis",
+    "path_validation",
+    "template_support",
+    "seamless_autosave",
+    "backup_creation"
+  ],
+  "tags": [
+    "text",
+    "editor", 
+    "document",
+    "content",
+    "writing",
+    "formatting",
+    "autosave",
+    "backup",
+    "template",
+    "analysis"
+  ],
+  "cost_estimate": 0.002,
+  "token_efficiency": "high",
+  "models_supported": [
+    "claude-sonnet-4",
+    "claude-haiku-4",
+    "gpt-4", 
+    "gpt-4-turbo",
+    "gemini-pro"
+  ],
+  "operations": {
+    "create_document": {
+      "description": "Create a new document with optional initial content",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path where the document should be created"
+        },
+        "content": {
+          "type": "string", 
+          "required": false,
+          "default": "",
+          "description": "Initial content for the document"
+        },
+        "document_type": {
+          "type": "string",
+          "required": false,
+          "default": "general",
+          "description": "Type of document for formatting hints"
+        }
+      },
+      "cost_estimate": 0.001
+    },
+    "edit_content": {
+      "description": "Edit specific content in a document with automatic backup",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path to the document to edit"
+        },
+        "old_text": {
+          "type": "string",
+          "required": true,
+          "description": "Text to find and replace"
+        },
+        "new_text": {
+          "type": "string",
+          "required": true,
+          "description": "Replacement text"
+        },
+        "create_backup": {
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to create a backup before editing"
+        }
+      },
+      "cost_estimate": 0.002
+    },
+    "append_content": {
+      "description": "Append content to an existing document",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path to the document"
+        },
+        "content": {
+          "type": "string",
+          "required": true,
+          "description": "Content to append"
+        },
+        "separator": {
+          "type": "string",
+          "required": false,
+          "default": "\n",
+          "description": "Separator to use before new content"
+        }
+      },
+      "cost_estimate": 0.001
+    },
+    "format_document": {
+      "description": "Prepare document for AI-powered formatting",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path to the document to format"
+        },
+        "format_type": {
+          "type": "string",
+          "required": false,
+          "default": "markdown",
+          "description": "Type of formatting to apply"
+        },
+        "preserve_backup": {
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "Whether to create a backup before formatting"
+        }
+      },
+      "cost_estimate": 0.003
+    },
+    "get_document_info": {
+      "description": "Get comprehensive information about a document",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path to the document"
+        }
+      },
+      "cost_estimate": 0.001
+    },
+    "validate_document_path": {
+      "description": "Validate a document path for editing operations",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path to validate"
+        }
+      },
+      "cost_estimate": 0.0005
+    },
+    "create_document_from_template": {
+      "description": "Create a document from a predefined template",
+      "parameters": {
+        "file_path": {
+          "type": "string",
+          "required": true,
+          "description": "Path where the document should be created"
+        },
+        "template_type": {
+          "type": "string",
+          "required": true,
+          "description": "Type of template to use"
+        },
+        "title": {
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Document title"
+        },
+        "author": {
+          "type": "string",
+          "required": false,
+          "default": "",
+          "description": "Document author"
+        }
+      },
+      "cost_estimate": 0.002
+    }
+  },
+  "features": {
+    "seamless_autosave": {
+      "description": "Automatic saving without manual commands",
+      "enabled": true
+    },
+    "backup_creation": {
+      "description": "Automatic backup creation before edits",
+      "enabled": true
+    },
+    "ai_formatting_prep": {
+      "description": "Prepare documents for AI-powered formatting",
+      "enabled": true
+    },
+    "template_support": {
+      "description": "Create documents from predefined templates",
+      "enabled": true,
+      "available_templates": [
+        "markdown",
+        "technical", 
+        "business",
+        "report",
+        "plain"
+      ]
+    },
+    "content_analysis": {
+      "description": "Comprehensive document content analysis",
+      "enabled": true,
+      "metrics": [
+        "characters",
+        "words",
+        "lines",
+        "paragraphs",
+        "document_type_detection"
+      ]
+    },
+    "path_validation": {
+      "description": "Validate file paths before operations",
+      "enabled": true
+    }
+  },
+  "limitations": {
+    "max_file_size_mb": 10,
+    "supported_encodings": ["utf-8"],
+    "backup_retention": "session_only",
+    "concurrent_edits": false
+  },
+  "integration": {
+    "orchestrator_compatible": true,
+    "human_button_support": true,
+    "ui_display_support": true,
+    "cache_compatible": true,
+    "error_handling": "comprehensive"
+  },
+  "file_structure": {
+    "core_logic": "tools/text_editor_modular.py",
+    "ui_display": "interfaces/ui_tools/ui_text_editor.py", 
+    "human_buttons": "utilities/human_button_tools/button_text_editor.py",
+    "tool_registry": "configs/tool_registry/tool_text_editor.json",
+    "error_handling": "utilities/error_handling.py"
+  },
+  "dependencies": {
+    "python_modules": [
+      "os",
+      "shutil", 
+      "pathlib",
+      "datetime",
+      "rich"
+    ],
+    "sfa_modules": [
+      "utilities.error_handling"
+    ]
+  },
+  "testing": {
+    "unit_tests": "tests/test_text_editor.py",
+    "integration_tests": "tests/integrated_tools_test/",
+    "ui_tests": "tests/terminal_ui_tests/",
+    "human_button_tests": "tests/human_button_tests/"
+  },
+  "documentation": {
+    "implementation_guide": "v4_0_0_TOOL_IMPLEMENTATION.md",
+    "api_reference": "docs/api/text_editor.md",
+    "examples": "examples/text_editor_examples.py"
+  },
+  "changelog": {
+    "4.0.0": {
+      "date": "2024-12-19",
+      "changes": [
+        "Complete modularization into 5-file architecture",
+        "Seamless autosave functionality implementation", 
+        "Removed manual save commands and 'I'm done' messaging",
+        "Enhanced template support with variable content",
+        "Universal model compatibility via human buttons",
+        "Comprehensive content analysis and document info",
+        "Professional backup system with timestamp naming",
+        "Clean separation of core logic, UI, and human buttons"
+      ],
+      "breaking_changes": [
+        "Removed manual save operations",
+        "Changed return format to structured data",
+        "Moved UI formatting to separate module"
+      ]
+    }
+  }
+} 

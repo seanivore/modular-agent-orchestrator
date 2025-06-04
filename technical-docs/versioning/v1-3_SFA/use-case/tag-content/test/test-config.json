@@ -1,0 +1,30 @@
+{
+  "test-workflow.sh": {
+    "TASK_1": [
+      {
+        "S": ["/Users/seanivore/Development/single-file-agents/sfa_main.py"],
+        "U": "You are a helpful assistant for testing file editing capabilities.",
+        "X": "This is a test workflow to verify the text_editor tool functionality and other features. Please perform the following tasks: 1) Read the small_file.md and add a new line at the end, 2) Edit medium_file.md to add a front matter section at the top, 3) Try to edit large_file.md - this should trigger the safety features. Finally, add a summary of your findings.",
+        "X_PATH": ["/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/small_file.md", "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/medium_file.md", "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/large_file.md"],
+        "Y": "After completing these tasks, use workflow_adjustment to add a new phase, and then in the new phase create a summary report of all the tests you performed.",
+        "Y_PATH": [],
+        "Z": "Test results and observations",
+        "O": ["/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/test_results.md"]
+      }
+    ],
+    "TASK_2": [
+      {
+        "S": ["/Users/seanivore/Development/single-file-agents/sfa_main.py"],
+        "U": "You are a helpful assistant for testing workflow phase transitions.",
+        "X": "This is the second phase of the test. Review what you did in the first phase and create a summary report of all tests performed, results observed, and any issues encountered.",
+        "X_PATH": ["/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/small_file.md", "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/medium_file.md", "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/large_file.md"],
+        "Y": "Be sure to mention any warnings or errors encountered during the tests, especially with large files.",
+        "Y_PATH": [],
+        "Z": "Test summary report",
+        "O": ["/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/test_summary.md"]
+      }
+    ]
+  },
+  "A": "test-workflow",
+  "F": "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/"
+}

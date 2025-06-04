@@ -1,0 +1,41 @@
+{
+    "bland-ai-python-mini.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a Python developer creating a focused example of making calls with the Bland AI API.",
+            "X": "Create a simple, practical Python code example for making calls with Bland AI.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_API_DOCS.md"
+            ],
+            "Y": "Create a short, focused Python code example (maximum 2000 tokens) that demonstrates how to make outbound calls with Bland AI's API. Include: (1) Authentication setup (2) Making a basic outbound call (3) Error handling (4) Getting call results. Focus on a single working example that's well-commented and follows Python best practices. Keep it concise but complete enough that a developer could use it as a starting point. The example should be practical and directly usable.",
+            "Y_PATH": [],
+            "Z": "Bland AI Python Calling Example",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_PYTHON_CALL_EXAMPLE.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent_token_counter.py"
+            ],
+            "U": "You're a token-efficiency expert who reviews and optimizes content to ensure it stays within token limits for reliable saving.",
+            "X": "Review the content at X_PATH, check its token count, and optimize it if needed to ensure it stays under the 7000 token limit.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_PYTHON_CALL_EXAMPLE.md"
+            ],
+            "Y": "Review the content at X_PATH and perform these tasks: (1) Use the token_counter tool to check the token count (2) If the token count is under 7000, no changes are needed - just confirm it's safe (3) If the token count exceeds 7000: (a) Identify the most verbose sections that could be condensed (b) Rewrite those sections to be more concise while preserving key information (c) Check the token count again after revisions (d) Continue optimizing until the content is under 7000 tokens (e) Save the optimized version only when it's within the safe token limit. Your primary goal is to ensure the content can be reliably saved without token-related issues while preserving all essential information.",
+            "Y_PATH": [],
+            "Z": "Token-Optimized Version",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_PYTHON_CALL_EXAMPLE_OPTIMIZED.md"
+            ],
+            "T": [
+                "token_counter"
+            ]
+        }
+    ],
+    "A": "bland-ai-python-mini-with-review",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/bland-ai-research/"
+} 

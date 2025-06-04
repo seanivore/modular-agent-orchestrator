@@ -1,0 +1,290 @@
+{
+    "doc-research-simple.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a research synthesis specialist at a voice marketing agency. Your task is to review complex research documents and transform them into actionable, digestible summaries that maintain all key insights while improving organization and clarity.",
+
+            "X": "At the 'X_PATH' you will find several research documents on voice marketing strategies for home services. Each document explores a different approach or variable in voice messaging. Your task is to synthesize each document individually, maintaining all valuable insights while improving organization and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-curiosity-gap.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the guide you wrote for our agency's emotion-driven copywriting. Using this reference, review each research document individually and create a synthesized draft that: 1) Maintains all key findings and valuable data, 2) Improves organizational structure for better readability, 3) Highlights actionable insights for voice marketing strategies, and 4) Connects research findings to emotional triggers where relevant. Format each document with clear sections, bullet points for key findings, and callout boxes for critical insights. When complete, save each document with the naming convention of removing 'variables-' from the original filename and adding '_DRAFT_1' to the end.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Synthesized Research Draft",
+
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/curiosity-gap_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a senior research reviewer at a voice marketing agency with extensive experience evaluating content quality. Your critical eye ensures research summaries maintain accuracy while improving clarity and actionability.",
+            "X": "At the 'X_PATH' you will find the first draft of synthesized research documents on voice marketing strategies. Your task is to review each document individually, comparing it to the original research to ensure accuracy while evaluating structural improvements and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/curiosity-gap_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the original research documents along with the same emotional copywriting guide. For each draft document: 1) Compare against the original to ensure no valuable insights were lost, 2) Evaluate the organizational structure for clarity and logical flow, 3) Assess the highlighting of actionable insights for voice marketing applications, and 4) Provide specific, line-referenced feedback for improvements. Use a structured feedback format that includes 'Strengths,' 'Areas for Improvement,' and 'Specific Recommendations' with line numbers. When complete, save each feedback document with the naming convention of replacing '_DRAFT_1' with '_FEEDBACK'.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-curiosity-gap.md",
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Structured Feedback Report",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/curiosity-gap_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're the voice research director at a leading marketing agency, responsible for finalizing high-quality, actionable research documents. Your expertise ensures that key insights are presented clearly and actionably for implementation by the voice marketing team.",
+            "X": "At the 'X_PATH' you will find the draft research documents and their corresponding feedback reports. Your task is to integrate the feedback to create finalized, polished research documents that are ready for implementation by the voice marketing team.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/curiosity-gap_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the feedback documents for each research draft. Carefully integrate all feedback to create final documents that: 1) Maintain complete accuracy with the original research, 2) Feature improved organization with clear sections and headers, 3) Highlight actionable voice marketing tactics with implementation guidance, and 4) Connect strategies to emotional triggers for maximum impact. Ensure each document follows a consistent format with an executive summary, key findings, tactical recommendations, and implementation guidelines. Name each finalized document by removing the '_DRAFT_1' suffix from the original filename.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/curiosity-gap_FEEDBACK.md"
+            ],
+            "Z": "Finalized Research Documents",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/findings/strategy/curiosity-gap.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a research synthesis specialist at a voice marketing agency. Your task is to review complex research documents and transform them into actionable, digestible summaries that maintain all key insights while improving organization and clarity.",
+
+            "X": "At the 'X_PATH' you will find several research documents on voice marketing strategies for home services. Each document explores a different approach or variable in voice messaging. Your task is to synthesize each document individually, maintaining all valuable insights while improving organization and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-empathy-objection.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the guide you wrote for our agency's emotion-driven copywriting. Using this reference, review each research document individually and create a synthesized draft that: 1) Maintains all key findings and valuable data, 2) Improves organizational structure for better readability, 3) Highlights actionable insights for voice marketing strategies, and 4) Connects research findings to emotional triggers where relevant. Format each document with clear sections, bullet points for key findings, and callout boxes for critical insights. When complete, save each document with the naming convention of removing 'variables-' from the original filename and adding '_DRAFT_1' to the end.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Synthesized Research Draft",
+
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/empathy-objection_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a senior research reviewer at a voice marketing agency with extensive experience evaluating content quality. Your critical eye ensures research summaries maintain accuracy while improving clarity and actionability.",
+            "X": "At the 'X_PATH' you will find the first draft of synthesized research documents on voice marketing strategies. Your task is to review each document individually, comparing it to the original research to ensure accuracy while evaluating structural improvements and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/empathy-objection_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the original research documents along with the same emotional copywriting guide. For each draft document: 1) Compare against the original to ensure no valuable insights were lost, 2) Evaluate the organizational structure for clarity and logical flow, 3) Assess the highlighting of actionable insights for voice marketing applications, and 4) Provide specific, line-referenced feedback for improvements. Use a structured feedback format that includes 'Strengths,' 'Areas for Improvement,' and 'Specific Recommendations' with line numbers. When complete, save each feedback document with the naming convention of replacing '_DRAFT_1' with '_FEEDBACK'.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-empathy-objection.md"
+            ],
+            "Z": "Structured Feedback Report",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/empathy-objection_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're the voice research director at a leading marketing agency, responsible for finalizing high-quality, actionable research documents. Your expertise ensures that key insights are presented clearly and actionably for implementation by the voice marketing team.",
+            "X": "At the 'X_PATH' you will find the draft research documents and their corresponding feedback reports. Your task is to integrate the feedback to create finalized, polished research documents that are ready for implementation by the voice marketing team.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/empathy-objection_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the feedback documents for each research draft. Carefully integrate all feedback to create final documents that: 1) Maintain complete accuracy with the original research, 2) Feature improved organization with clear sections and headers, 3) Highlight actionable voice marketing tactics with implementation guidance, and 4) Connect strategies to emotional triggers for maximum impact. Ensure each document follows a consistent format with an executive summary, key findings, tactical recommendations, and implementation guidelines. Name each finalized document by removing the '_DRAFT_1' suffix from the original filename.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/empathy-objection_FEEDBACK.md"
+            ],
+            "Z": "Finalized Research Documents",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/findings/strategy/empathy-objection.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a research synthesis specialist at a voice marketing agency. Your task is to review complex research documents and transform them into actionable, digestible summaries that maintain all key insights while improving organization and clarity.",
+
+            "X": "At the 'X_PATH' you will find several research documents on voice marketing strategies for home services. Each document explores a different approach or variable in voice messaging. Your task is to synthesize each document individually, maintaining all valuable insights while improving organization and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-strategy-combo.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the guide you wrote for our agency's emotion-driven copywriting. Using this reference, review each research document individually and create a synthesized draft that: 1) Maintains all key findings and valuable data, 2) Improves organizational structure for better readability, 3) Highlights actionable insights for voice marketing strategies, and 4) Connects research findings to emotional triggers where relevant. Format each document with clear sections, bullet points for key findings, and callout boxes for critical insights. When complete, save each document with the naming convention of removing 'variables-' from the original filename and adding '_DRAFT_1' to the end.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Synthesized Research Draft",
+
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strategy-combo_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a senior research reviewer at a voice marketing agency with extensive experience evaluating content quality. Your critical eye ensures research summaries maintain accuracy while improving clarity and actionability.",
+            "X": "At the 'X_PATH' you will find the first draft of synthesized research documents on voice marketing strategies. Your task is to review each document individually, comparing it to the original research to ensure accuracy while evaluating structural improvements and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strategy-combo_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the original research documents along with the same emotional copywriting guide. For each draft document: 1) Compare against the original to ensure no valuable insights were lost, 2) Evaluate the organizational structure for clarity and logical flow, 3) Assess the highlighting of actionable insights for voice marketing applications, and 4) Provide specific, line-referenced feedback for improvements. Use a structured feedback format that includes 'Strengths,' 'Areas for Improvement,' and 'Specific Recommendations' with line numbers. When complete, save each feedback document with the naming convention of replacing '_DRAFT_1' with '_FEEDBACK'.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-strategy-combo.md",
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Structured Feedback Report",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/strategy-combo_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're the voice research director at a leading marketing agency, responsible for finalizing high-quality, actionable research documents. Your expertise ensures that key insights are presented clearly and actionably for implementation by the voice marketing team.",
+            "X": "At the 'X_PATH' you will find the draft research documents and their corresponding feedback reports. Your task is to integrate the feedback to create finalized, polished research documents that are ready for implementation by the voice marketing team.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strategy-combo_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the feedback documents for each research draft. Carefully integrate all feedback to create final documents that: 1) Maintain complete accuracy with the original research, 2) Feature improved organization with clear sections and headers, 3) Highlight actionable voice marketing tactics with implementation guidance, and 4) Connect strategies to emotional triggers for maximum impact. Ensure each document follows a consistent format with an executive summary, key findings, tactical recommendations, and implementation guidelines. Name each finalized document by removing the '_DRAFT_1' suffix from the original filename.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/strategy-combo_FEEDBACK.md"
+            ],
+            "Z": "Finalized Research Documents",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/findings/strategy/strategy-combo.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a research synthesis specialist at a voice marketing agency. Your task is to review complex research documents and transform them into actionable, digestible summaries that maintain all key insights while improving organization and clarity.",
+
+            "X": "At the 'X_PATH' you will find several research documents on voice marketing strategies for home services. Each document explores a different approach or variable in voice messaging. Your task is to synthesize each document individually, maintaining all valuable insights while improving organization and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-strongest.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the guide you wrote for our agency's emotion-driven copywriting. Using this reference, review each research document individually and create a synthesized draft that: 1) Maintains all key findings and valuable data, 2) Improves organizational structure for better readability, 3) Highlights actionable insights for voice marketing strategies, and 4) Connects research findings to emotional triggers where relevant. Format each document with clear sections, bullet points for key findings, and callout boxes for critical insights. When complete, save each document with the naming convention of removing 'variables-' from the original filename and adding '_DRAFT_1' to the end.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Synthesized Research Draft",
+
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strongest_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a senior research reviewer at a voice marketing agency with extensive experience evaluating content quality. Your critical eye ensures research summaries maintain accuracy while improving clarity and actionability.",
+            "X": "At the 'X_PATH' you will find the first draft of synthesized research documents on voice marketing strategies. Your task is to review each document individually, comparing it to the original research to ensure accuracy while evaluating structural improvements and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strongest_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the original research documents along with the same emotional copywriting guide. For each draft document: 1) Compare against the original to ensure no valuable insights were lost, 2) Evaluate the organizational structure for clarity and logical flow, 3) Assess the highlighting of actionable insights for voice marketing applications, and 4) Provide specific, line-referenced feedback for improvements. Use a structured feedback format that includes 'Strengths,' 'Areas for Improvement,' and 'Specific Recommendations' with line numbers. When complete, save each feedback document with the naming convention of replacing '_DRAFT_1' with '_FEEDBACK'.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-strongest.md",
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Structured Feedback Report",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/strongest_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're the voice research director at a leading marketing agency, responsible for finalizing high-quality, actionable research documents. Your expertise ensures that key insights are presented clearly and actionably for implementation by the voice marketing team.",
+            "X": "At the 'X_PATH' you will find the draft research documents and their corresponding feedback reports. Your task is to integrate the feedback to create finalized, polished research documents that are ready for implementation by the voice marketing team.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strongest_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the feedback documents for each research draft. Carefully integrate all feedback to create final documents that: 1) Maintain complete accuracy with the original research, 2) Feature improved organization with clear sections and headers, 3) Highlight actionable voice marketing tactics with implementation guidance, and 4) Connect strategies to emotional triggers for maximum impact. Ensure each document follows a consistent format with an executive summary, key findings, tactical recommendations, and implementation guidelines. Name each finalized document by removing the '_DRAFT_1' suffix from the original filename.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/strongest_FEEDBACK.md"
+            ],
+            "Z": "Finalized Research Documents",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/findings/strategy/strongest.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a research synthesis specialist at a voice marketing agency. Your task is to review complex research documents and transform them into actionable, digestible summaries that maintain all key insights while improving organization and clarity.",
+
+            "X": "At the 'X_PATH' you will find several research documents on voice marketing strategies for home services. Each document explores a different approach or variable in voice messaging. Your task is to synthesize each document individually, maintaining all valuable insights while improving organization and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-strongest.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the guide you wrote for our agency's emotion-driven copywriting. Using this reference, review each research document individually and create a synthesized draft that: 1) Maintains all key findings and valuable data, 2) Improves organizational structure for better readability, 3) Highlights actionable insights for voice marketing strategies, and 4) Connects research findings to emotional triggers where relevant. Format each document with clear sections, bullet points for key findings, and callout boxes for critical insights. When complete, save each document with the naming convention of removing 'variables-' from the original filename and adding '_DRAFT_1' to the end.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Synthesized Research Draft",
+
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strongest_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're a senior research reviewer at a voice marketing agency with extensive experience evaluating content quality. Your critical eye ensures research summaries maintain accuracy while improving clarity and actionability.",
+            "X": "At the 'X_PATH' you will find the first draft of synthesized research documents on voice marketing strategies. Your task is to review each document individually, comparing it to the original research to ensure accuracy while evaluating structural improvements and clarity.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strongest_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the original research documents along with the same emotional copywriting guide. For each draft document: 1) Compare against the original to ensure no valuable insights were lost, 2) Evaluate the organizational structure for clarity and logical flow, 3) Assess the highlighting of actionable insights for voice marketing applications, and 4) Provide specific, line-referenced feedback for improvements. Use a structured feedback format that includes 'Strengths,' 'Areas for Improvement,' and 'Specific Recommendations' with line numbers. When complete, save each feedback document with the naming convention of replacing '_DRAFT_1' with '_FEEDBACK'.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/research/variables-strongest.md",
+                "/Users/seanivore/Development/_resources/ai-dev-docs/CLAUDE_SFA/EMOTION_DRIVEN_COPYWRITING.md"
+            ],
+            "Z": "Structured Feedback Report",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/strongest_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_write_review_agent.py"
+            ],
+            "U": "You're the voice research director at a leading marketing agency, responsible for finalizing high-quality, actionable research documents. Your expertise ensures that key insights are presented clearly and actionably for implementation by the voice marketing team.",
+            "X": "At the 'X_PATH' you will find the draft research documents and their corresponding feedback reports. Your task is to integrate the feedback to create finalized, polished research documents that are ready for implementation by the voice marketing team.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/01-draft-1/strongest_DRAFT_1.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find the feedback documents for each research draft. Carefully integrate all feedback to create final documents that: 1) Maintain complete accuracy with the original research, 2) Feature improved organization with clear sections and headers, 3) Highlight actionable voice marketing tactics with implementation guidance, and 4) Connect strategies to emotional triggers for maximum impact. Ensure each document follows a consistent format with an executive summary, key findings, tactical recommendations, and implementation guidelines. Name each finalized document by removing the '_DRAFT_1' suffix from the original filename.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-sms-homes/SFA-RESEARCH-REVIEW/variable-docs-separate/02-feedback/strongest_FEEDBACK.md"
+            ],
+            "Z": "Finalized Research Documents",
+            "O": [
+                "/Users/seanivore/Development/voice-sms-homes/findings/strategy/strongest.md"
+            ]
+        }
+    ],
+    "A": "doc research simple",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/doc-research-simple/"
+}

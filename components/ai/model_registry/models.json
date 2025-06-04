@@ -1,0 +1,251 @@
+{
+  "models": {
+    "claude-sonnet-4-20250514": {
+      "provider": "anthropic-direct",
+      "display_name": "Claude Sonnet 4",
+      "model_id": "claude-sonnet-4-20250514",
+      "context_window": 200000,
+      "max_output": 32000,
+      "max_output_beta": 128000,
+      "input_price_per_million": 3.00,
+      "output_price_per_million": 15.00,
+      "cache_write_5m_multiplier": 1.25,
+      "cache_write_1h_multiplier": 2.0,
+      "cache_read_multiplier": 0.1,
+      "capabilities": {
+        "tools": true,
+        "vision": false,
+        "caching": true,
+        "parallel_tools": true,
+        "extended_thinking": true,
+        "code_execution": true,
+        "files_api": true
+      },
+      "safe_token_limit": 7000,
+      "optimal_use_cases": ["reasoning", "creative", "complex_workflows"]
+    },
+    "claude-opus-4-20250514": {
+      "provider": "anthropic-direct", 
+      "display_name": "Claude Opus 4",
+      "model_id": "claude-opus-4-20250514",
+      "context_window": 200000,
+      "max_output": 32000,
+      "max_output_beta": 128000,
+      "input_price_per_million": 15.00,
+      "output_price_per_million": 75.00,
+      "cache_write_5m_multiplier": 1.25,
+      "cache_write_1h_multiplier": 2.0,
+      "cache_read_multiplier": 0.1,
+      "capabilities": {
+        "tools": true,
+        "vision": false,
+        "caching": true,
+        "parallel_tools": true,
+        "extended_thinking": true,
+        "code_execution": true,
+        "files_api": true
+      },
+      "safe_token_limit": 7000,
+      "optimal_use_cases": ["coding", "complex_analysis", "long_workflows"]
+    },
+    "claude-3-7-sonnet-20250219": {
+      "provider": "anthropic-direct",
+      "display_name": "Claude 3.7 Sonnet",
+      "model_id": "claude-3-7-sonnet-20250219", 
+      "context_window": 200000,
+      "max_output": 64000,
+      "max_output_beta": 128000,
+      "input_price_per_million": 3.00,
+      "output_price_per_million": 15.00,
+      "cache_write_5m_multiplier": 1.25,
+      "cache_write_1h_multiplier": 2.0,
+      "cache_read_multiplier": 0.1,
+      "capabilities": {
+        "tools": true,
+        "vision": false,
+        "caching": true,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false
+      },
+      "safe_token_limit": 7000,
+      "optimal_use_cases": ["reasoning", "creative", "general_tasks"]
+    },
+    "google/gemini-2.5-pro-exp-03-25": {
+      "provider": "requesty",
+      "display_name": "Gemini 2.5 Pro (FREE)",
+      "model_id": "google/gemini-2.5-pro-exp-03-25",
+      "context_window": 1048576,
+      "max_output": 65536,
+      "input_price_per_million": 0.00,
+      "output_price_per_million": 0.00,
+      "capabilities": {
+        "tools": false,
+        "vision": false,
+        "caching": false,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false
+      },
+      "safe_token_limit": 30000,
+      "optimal_use_cases": ["research", "large_context", "cost_optimization"]
+    },
+    "anthropic/claude-3-7-sonnet-latest": {
+      "provider": "requesty",
+      "display_name": "Claude 3.7 Sonnet (via Requesty)",
+      "model_id": "anthropic/claude-3-7-sonnet-latest",
+      "context_window": 200000,
+      "max_output": 64000,
+      "input_price_per_million": 3.00,
+      "output_price_per_million": 15.00,
+      "capabilities": {
+        "tools": true,
+        "vision": false,
+        "caching": true,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false
+      },
+      "safe_token_limit": 7000,
+      "optimal_use_cases": ["reasoning", "creative", "tools"]
+    },
+    "vertex/anthropic/claude-3-7-sonnet-latest": {
+      "provider": "requesty",
+      "display_name": "Claude 3.7 Sonnet (Vertex - No Training)",
+      "model_id": "vertex/anthropic/claude-3-7-sonnet-latest",
+      "context_window": 200000,
+      "max_output": 64000,
+      "input_price_per_million": 3.00,
+      "output_price_per_million": 15.00,
+      "capabilities": {
+        "tools": true,
+        "vision": false,
+        "caching": true,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false
+      },
+      "safe_token_limit": 7000,
+      "optimal_use_cases": ["reasoning", "privacy_focused", "tools"],
+      "privacy_note": "Vertex doesn't use data for training"
+    },
+    "openai/gpt-4.1-nano": {
+      "provider": "openai-direct",
+      "display_name": "GPT-4.1 Nano (OpenAI Direct)",
+      "model_id": "gpt-4.1-nano",
+      "context_window": 1047576,
+      "max_output": 32768,
+      "input_price_per_million": 0.10,
+      "output_price_per_million": 0.40,
+      "image_input_price_per_million": 10.00,
+      "image_output_price_per_million": 40.00,
+      "capabilities": {
+        "tools": true,
+        "vision": true,
+        "caching": false,
+        "parallel_tools": true,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false,
+        "image_generation": true
+      },
+      "safe_token_limit": 15000,
+      "optimal_use_cases": ["image_generation", "vision", "cheap_tasks"]
+    },
+    "dalle-3": {
+      "provider": "openai-direct",
+      "display_name": "DALL-E 3 (Image Generation)",
+      "model_id": "dall-e-3",
+      "context_window": 4000,
+      "max_output": 1,
+      "input_price_per_million": 0.0,
+      "output_price_per_million": 0.0,
+      "image_generation_price_per_image": 0.04,
+      "capabilities": {
+        "tools": false,
+        "vision": false,
+        "caching": false,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false,
+        "image_generation": true
+      },
+      "safe_token_limit": 1000,
+      "optimal_use_cases": ["image_generation", "art_creation", "visual_design"]
+    },
+    "openai/gpt-4.1-mini": {
+      "provider": "requesty",
+      "display_name": "GPT-4.1 Mini", 
+      "model_id": "openai/gpt-4.1-mini",
+      "context_window": 1047576,
+      "max_output": 32768,
+      "input_price_per_million": 0.40,
+      "output_price_per_million": 1.60,
+      "image_input_price_per_million": 10.00,
+      "image_output_price_per_million": 40.00,
+      "capabilities": {
+        "tools": true,
+        "vision": true,
+        "caching": false,
+        "parallel_tools": true,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false,
+        "image_generation": true
+      },
+      "safe_token_limit": 15000,
+      "optimal_use_cases": ["image_generation", "vision", "general_tasks"]
+    },
+    "gemini-2.5-pro": {
+      "provider": "gemini-direct",
+      "display_name": "Gemini 2.5 Pro (Direct SDK)",
+      "model_id": "gemini-2.5-pro",
+      "context_window": 1048576,
+      "max_output": 65536,
+      "input_price_per_million": 0.00,
+      "output_price_per_million": 0.00,
+      "capabilities": {
+        "tools": true,
+        "vision": true,
+        "caching": false,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false
+      },
+      "safe_token_limit": 30000,
+      "optimal_use_cases": ["research", "large_context", "free_backup"]
+    },
+    "local-llama-3.1-8b": {
+      "provider": "lm-studio",
+      "display_name": "Llama 3.1 8B (Local)",
+      "model_id": "llama-3.1-8b-instruct",
+      "context_window": 128000,
+      "max_output": 32000,
+      "input_price_per_million": 0.00,
+      "output_price_per_million": 0.00,
+      "capabilities": {
+        "tools": true,
+        "vision": false,
+        "caching": false,
+        "parallel_tools": false,
+        "extended_thinking": false,
+        "code_execution": false,
+        "files_api": false
+      },
+      "safe_token_limit": 10000,
+      "optimal_use_cases": ["local_processing", "privacy", "offline"],
+      "privacy_note": "Runs entirely locally, no data leaves your machine"
+    }
+  },
+  "_metadata": {
+    "version": "4.0.0",
+    "last_updated": "2025-01-19",
+    "notes": "Dynamic model configuration for SFA v4 orchestrator. Add new models here without code changes!"
+  }
+}

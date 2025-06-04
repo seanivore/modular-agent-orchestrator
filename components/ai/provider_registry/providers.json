@@ -1,0 +1,139 @@
+{
+  "providers": {
+    "anthropic-direct": {
+      "display_name": "Anthropic Direct API",
+      "api_type": "anthropic",
+      "base_url": "https://api.anthropic.com",
+      "auth_header": "x-api-key",
+      "env_var": "ANTHROPIC_API_KEY",
+      "supports_streaming": true,
+      "supports_caching": true,
+      "supports_beta_features": true,
+      "rate_limits": {
+        "requests_per_minute": 1000,
+        "tokens_per_minute": 200000
+      },
+      "description": "Official Anthropic API with full Claude 4 feature support"
+    },
+    "requesty": {
+      "display_name": "Requesty Router",
+      "api_type": "openai",
+      "base_url": "https://router.requesty.ai/v1",
+      "auth_header": "authorization",
+      "env_var": "REQUESTY_API_KEY",
+      "supports_streaming": true,
+      "supports_caching": false,
+      "supports_beta_features": false,
+      "rate_limits": {
+        "requests_per_minute": 500,
+        "tokens_per_minute": 100000
+      },
+      "description": "Multi-model router supporting Anthropic, OpenAI, and Google models",
+      "supported_model_families": ["anthropic", "openai", "google"],
+      "cost_optimization": "Routes to cheapest available model for task"
+    },
+    "gemini-direct": {
+      "display_name": "Google Gemini Direct",
+      "api_type": "gemini",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta",
+      "auth_header": "authorization",
+      "env_var": "GEMINI_API_KEY",
+      "supports_streaming": true,
+      "supports_caching": false,
+      "supports_beta_features": false,
+      "rate_limits": {
+        "requests_per_minute": 300,
+        "tokens_per_minute": 150000
+      },
+      "description": "Direct Google Gemini API for maximum context window and free usage",
+      "backup_provider": true
+    },
+    "lm-studio": {
+      "display_name": "LM Studio (Local)",
+      "api_type": "openai",
+      "base_url": "http://localhost:1234/v1",
+      "auth_header": null,
+      "env_var": null,
+      "supports_streaming": true,
+      "supports_caching": false,
+      "supports_beta_features": false,
+      "rate_limits": {
+        "requests_per_minute": 999999,
+        "tokens_per_minute": 999999
+      },
+      "description": "Local LLM server for privacy and offline operation",
+      "privacy_level": "maximum",
+      "requires_local_setup": true
+    },
+    "litellm": {
+      "display_name": "LiteLLM Proxy",
+      "api_type": "openai",
+      "base_url": "http://localhost:4000/v1",
+      "auth_header": "authorization",
+      "env_var": "LITELLM_API_KEY",
+      "supports_streaming": true,
+      "supports_caching": false,
+      "supports_beta_features": false,
+      "rate_limits": {
+        "requests_per_minute": 1000,
+        "tokens_per_minute": 200000
+      },
+      "description": "Universal LLM proxy supporting 100+ models",
+      "supported_model_families": ["all"],
+      "universal_access": true
+    },
+    "openai-direct": {
+      "display_name": "OpenAI Direct API",
+      "api_type": "openai",
+      "base_url": "https://api.openai.com/v1",
+      "auth_header": "authorization",
+      "env_var": "OPENAI_API_KEY",
+      "supports_streaming": true,
+      "supports_caching": false,
+      "supports_beta_features": true,
+      "rate_limits": {
+        "requests_per_minute": 500,
+        "tokens_per_minute": 150000
+      },
+      "description": "Official OpenAI API for GPT models and image generation",
+      "primary_use": "image_generation"
+    }
+  },
+  "fallback_chains": {
+    "reasoning": [
+      "anthropic-direct",
+      "requesty", 
+      "gemini-direct"
+    ],
+    "research": [
+      "requesty",
+      "gemini-direct",
+      "anthropic-direct"
+    ],
+    "creative": [
+      "anthropic-direct",
+      "requesty",
+      "lm-studio"
+    ],
+    "image_generation": [
+      "requesty",
+      "openai-direct"
+    ],
+    "privacy_focused": [
+      "lm-studio",
+      "gemini-direct",
+      "anthropic-direct"
+    ]
+  },
+  "health_check": {
+    "interval_minutes": 5,
+    "timeout_seconds": 10,
+    "test_prompt": "Hi",
+    "expected_response_contains": ["hello", "hi", "greet"]
+  },
+  "_metadata": {
+    "version": "4.0.0",
+    "last_updated": "2025-01-19",
+    "notes": "Provider configurations for universal LLM access. Add any OpenAI-compatible endpoint!"
+  }
+}

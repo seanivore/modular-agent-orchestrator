@@ -1,0 +1,55 @@
+{
+    "bland-ai-tech-section.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a technical consultant analyzing Bland AI's platform for potential implementation. Focus on the core API functionality, endpoints, and authentication mechanisms.",
+            "X": "Research Bland AI's technical documentation focusing on API basics and structure.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_RESEARCH.md"
+            ],
+            "Y": "Create Part 1 of a technical guide for Bland AI focusing ONLY on: (1) API overview and architecture (2) Authentication methods (3) Core endpoints (4) Request/response formats. Keep this focused and concise (maximum 3000 words). Include code examples where relevant. Format with clear headings and structure. This is part 1 of a multi-part technical guide.",
+            "Y_PATH": [],
+            "Z": "Bland AI Technical Guide - Part 1: API Basics",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_TECHNICAL_PART1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a technical consultant analyzing Bland AI's platform for potential implementation. Focus on the workflow builder capabilities and branching conversation system.",
+            "X": "Research Bland AI's technical documentation focusing on workflow builder and conversation branching.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_RESEARCH.md"
+            ],
+            "Y": "Create Part 2 of a technical guide for Bland AI focusing ONLY on: (1) Workflow builder architecture (2) Branching conversation system (3) Logic implementation (4) Conversation pathways. Keep this focused and concise (maximum 3000 words). Include code examples or configuration examples where relevant. Format with clear headings and structure. This is part 2 of a multi-part technical guide.",
+            "Y_PATH": [],
+            "Z": "Bland AI Technical Guide - Part 2: Workflow Builder",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_TECHNICAL_PART2.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a technical consultant analyzing Bland AI's platform for potential integration. Focus on coding examples and implementation patterns.",
+            "X": "Research Bland AI sample code and implementation examples for developers.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_RESEARCH.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_TECHNICAL_PART1.md"
+            ],
+            "Y": "Create Part 3 of a technical guide for Bland AI focusing ONLY on: (1) Python implementation examples (2) Key API call patterns (3) Error handling best practices (4) Integration with existing systems. Keep this focused and concise (maximum 3000 words). Include practical code examples that developers can adapt. Format with clear headings and structure. This is part 3 of a multi-part technical guide.",
+            "Y_PATH": [],
+            "Z": "Bland AI Technical Guide - Part 3: Implementation Examples",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_TECHNICAL_PART3.md"
+            ]
+        }
+    ],
+    "A": "bland-ai-tech-section",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/bland-ai-research/"
+} 

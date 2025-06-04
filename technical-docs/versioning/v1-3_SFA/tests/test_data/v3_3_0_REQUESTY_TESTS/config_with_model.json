@@ -1,0 +1,18 @@
+{
+  "A": "model-test-config",
+  "F": "/Users/seanivore/Development/single-file-agents/tests/test_data/requesty_test",
+  "M": "google/gemini-2.5-pro-exp-03-25",
+  "test": [
+    {
+      "PHASE_0": [
+        {
+          "U": "You are a test assistant",
+          "X": "Print the name of the model being used",
+          "O": [
+            "/Users/seanivore/Development/single-file-agents/tests/test_data/requesty_test/model_from_config.txt"
+          ]
+        }
+      ]
+    }
+  ]
+}

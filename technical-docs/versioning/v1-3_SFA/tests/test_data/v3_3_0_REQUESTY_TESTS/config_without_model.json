@@ -1,0 +1,17 @@
+{
+  "A": "model-test-config-no-model",
+  "F": "/Users/seanivore/Development/single-file-agents/tests/test_data/requesty_test",
+  "test": [
+    {
+      "PHASE_0": [
+        {
+          "U": "You are a test assistant",
+          "X": "Print the name of the model being used",
+          "O": [
+            "/Users/seanivore/Development/single-file-agents/tests/test_data/requesty_test/model_from_arg.txt"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+    "folders": [
+        {
+            "name": "single-file-agents",
+            "path": ".."
+        },
+        {
+            "path": "../../_resources/ai_docs"
+        }
+    ]
+}

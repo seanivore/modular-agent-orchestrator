@@ -1,0 +1,308 @@
+{
+  "id": "perplexity_search",
+  "name": "Perplexity AI Search",
+  "description": "AI-powered search with reasoning, source citations, and comprehensive analysis",
+  "version": "4.0.0",
+  "category": "search",
+  "capabilities": [
+    "ai_search",
+    "research_analysis", 
+    "source_citation",
+    "reasoning",
+    "real_time_information",
+    "comprehensive_analysis",
+    "query_validation",
+    "research_suggestions"
+  ],
+  "tags": [
+    "search",
+    "ai",
+    "research", 
+    "analysis",
+    "reasoning",
+    "citations",
+    "perplexity",
+    "premium"
+  ],
+  "cost_estimate": 0.025,
+  "model_compatibility": ["all"],
+  "requires_api_key": true,
+  "api_provider": "perplexity",
+  "operations": {
+    "perform_perplexity_search": {
+      "description": "Basic AI-powered search with reasoning and citations",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Search or research query",
+          "min_length": 1,
+          "max_length": 500
+        },
+        "model": {
+          "type": "string",
+          "default": "llama-3.1-sonar-large-128k-online",
+          "description": "Perplexity model to use",
+          "enum": [
+            "llama-3.1-sonar-small-128k-online",
+            "llama-3.1-sonar-large-128k-online",
+            "llama-3.1-sonar-huge-128k-online"
+          ]
+        },
+        "search_context": {
+          "type": "string",
+          "default": "general",
+          "description": "Context or approach for the search (flexible, user-defined)"
+        }
+      },
+      "cost_estimate": 0.025,
+      "returns": "Search configuration ready for execution"
+    },
+    "perform_enhanced_research": {
+      "description": "Advanced research with flexible approach and analysis focus",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Research query",
+          "min_length": 1,
+          "max_length": 500
+        },
+        "research_approach": {
+          "type": "string",
+          "default": "comprehensive",
+          "description": "Approach to research (flexible, user-defined)"
+        },
+        "analysis_focus": {
+          "type": "string",
+          "default": "general",
+          "description": "Focus area for analysis (flexible, user-defined)"
+        },
+        "model": {
+          "type": "string",
+          "default": "llama-3.1-sonar-large-128k-online",
+          "description": "Perplexity model to use",
+          "enum": [
+            "llama-3.1-sonar-small-128k-online",
+            "llama-3.1-sonar-large-128k-online",
+            "llama-3.1-sonar-huge-128k-online"
+          ]
+        }
+      },
+      "cost_estimate": 0.038,
+      "returns": "Enhanced research configuration ready for execution"
+    },
+    "validate_perplexity_query": {
+      "description": "Validate a query for optimal Perplexity search results",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Query to validate",
+          "min_length": 1
+        }
+      },
+      "cost_estimate": 0.001,
+      "returns": "Validation results with suggestions for improvement"
+    },
+    "get_research_suggestions": {
+      "description": "Generate research query suggestions and improvements",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Original research query",
+          "min_length": 1
+        },
+        "suggestion_type": {
+          "type": "string",
+          "default": "enhancement",
+          "description": "Type of suggestions to generate (flexible, user-defined)"
+        }
+      },
+      "cost_estimate": 0.002,
+      "returns": "List of suggested research queries and improvements"
+    },
+    "check_api_configuration": {
+      "description": "Check Perplexity API configuration and availability",
+      "parameters": {},
+      "cost_estimate": 0.000,
+      "returns": "API configuration status and setup guidance"
+    }
+  },
+  "features": {
+    "ai_reasoning": {
+      "description": "Advanced AI reasoning and analysis capabilities",
+      "supported": true
+    },
+    "source_citations": {
+      "description": "Automatic source citations and references",
+      "supported": true
+    },
+    "real_time_information": {
+      "description": "Access to current web information",
+      "supported": true
+    },
+    "comprehensive_analysis": {
+      "description": "Multi-perspective comprehensive analysis",
+      "supported": true
+    },
+    "related_questions": {
+      "description": "Generates related research questions",
+      "supported": true
+    },
+    "query_optimization": {
+      "description": "Query validation and optimization suggestions",
+      "supported": true
+    },
+    "flexible_research_approaches": {
+      "description": "User-defined research approaches and analysis focus",
+      "supported": true
+    },
+    "multi_model_support": {
+      "description": "Support for different Perplexity model sizes",
+      "supported": true
+    }
+  },
+  "limitations": {
+    "api_key_required": {
+      "description": "Requires PERPLEXITY_API_KEY environment variable",
+      "severity": "critical"
+    },
+    "rate_limits": {
+      "description": "Subject to Perplexity API rate limits",
+      "severity": "moderate"
+    },
+    "query_length": {
+      "description": "Maximum query length of 500 characters",
+      "severity": "low"
+    },
+    "timeout": {
+      "description": "Request timeout of 180 seconds for enhanced research",
+      "severity": "low"
+    },
+    "cost_per_operation": {
+      "description": "Each operation incurs API costs",
+      "severity": "moderate"
+    }
+  },
+  "setup_requirements": {
+    "api_key": {
+      "provider": "Perplexity AI",
+      "environment_variable": "PERPLEXITY_API_KEY",
+      "signup_url": "https://www.perplexity.ai/settings/api",
+      "documentation": "https://docs.perplexity.ai/"
+    },
+    "dependencies": [
+      "requests",
+      "json",
+      "os",
+      "datetime"
+    ]
+  },
+  "cost_structure": {
+    "currency": "USD",
+    "model_costs": {
+      "llama-3.1-sonar-small-128k-online": 0.015,
+      "llama-3.1-sonar-large-128k-online": 0.025,
+      "llama-3.1-sonar-huge-128k-online": 0.040
+    },
+    "operation_multipliers": {
+      "basic_search": 1.0,
+      "enhanced_research": 1.5,
+      "validation": 0.04,
+      "suggestions": 0.08,
+      "api_check": 0.0
+    }
+  },
+  "file_locations": {
+    "core_logic": "tools/perplexity_search_modular.py",
+    "ui_display": "interfaces/ui_tools/ui_perplexity_search.py", 
+    "human_buttons": "utilities/human_button_tools/button_perplexity_search.py",
+    "tool_registry": "configs/tool_registry/tool_perplexity_search.json"
+  },
+  "integration": {
+    "orchestrator_compatible": true,
+    "human_button_support": true,
+    "multi_model_execution": true,
+    "cost_tracking": true,
+    "error_handling": "comprehensive",
+    "retry_logic": true,
+    "auto_save": true
+  },
+  "examples": {
+    "basic_search": {
+      "operation": "perform_perplexity_search",
+      "parameters": {
+        "query": "latest developments in artificial intelligence",
+        "model": "llama-3.1-sonar-large-128k-online",
+        "search_context": "technology"
+      }
+    },
+    "enhanced_research": {
+      "operation": "perform_enhanced_research", 
+      "parameters": {
+        "query": "impact of climate change on agriculture",
+        "research_approach": "comprehensive",
+        "analysis_focus": "environmental",
+        "model": "llama-3.1-sonar-huge-128k-online"
+      }
+    },
+    "query_validation": {
+      "operation": "validate_perplexity_query",
+      "parameters": {
+        "query": "AI"
+      }
+    },
+    "research_suggestions": {
+      "operation": "get_research_suggestions",
+      "parameters": {
+        "query": "renewable energy",
+        "suggestion_type": "analytical"
+      }
+    }
+  },
+  "documentation": {
+    "overview": "Perplexity AI Search provides advanced AI-powered search capabilities with reasoning, source citations, and comprehensive analysis. The tool supports flexible research approaches and analysis focus areas defined by the user.",
+    "key_benefits": [
+      "AI-powered reasoning and analysis",
+      "Automatic source citations and references", 
+      "Real-time web information access",
+      "Flexible research approaches (user-defined)",
+      "Query validation and optimization",
+      "Multiple model size options",
+      "Comprehensive error handling and retry logic"
+    ],
+    "best_practices": [
+      "Frame queries as specific questions for better results",
+      "Include context and background information in queries",
+      "Use query validation before expensive operations",
+      "Choose appropriate model size based on complexity needs",
+      "Define clear research approaches and analysis focus",
+      "Monitor API usage and costs",
+      "Set up proper API key environment variable"
+    ],
+    "troubleshooting": {
+      "api_key_missing": "Set PERPLEXITY_API_KEY environment variable",
+      "rate_limited": "Wait and retry, or reduce request frequency",
+      "timeout_errors": "Check network connection, reduce query complexity",
+      "poor_results": "Use query validation and suggestions for optimization",
+      "high_costs": "Use smaller models for simpler queries"
+    }
+  },
+  "changelog": {
+    "4.0.0": {
+      "date": "2024-01-XX",
+      "changes": [
+        "Complete modularization into 5-file architecture",
+        "Eliminated hardcoded use cases and research types",
+        "Implemented variable-input philosophy",
+        "Added flexible research approaches and analysis focus",
+        "Enhanced human button generation with universal model compatibility",
+        "Improved error handling and retry logic",
+        "Added comprehensive query validation and suggestions",
+        "Integrated with SFA v4 orchestrator system"
+      ]
+    }
+  }
+} 

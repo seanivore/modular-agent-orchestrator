@@ -1,0 +1,22 @@
+{
+    "bland-ai-python-mini.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a Python developer creating a focused example of making calls with the Bland AI API.",
+            "X": "Create a simple, practical Python code example for making calls with Bland AI.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_API_DOCS.md"
+            ],
+            "Y": "Create a short, focused Python code example (maximum 2000 tokens) that demonstrates how to make outbound calls with Bland AI's API. Include: (1) Authentication setup (2) Making a basic outbound call (3) Error handling (4) Getting call results. Focus on a single working example that's well-commented and follows Python best practices. Keep it concise but complete enough that a developer could use it as a starting point. The example should be practical and directly usable.",
+            "Y_PATH": [],
+            "Z": "Bland AI Python Calling Example",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_PYTHON_CALL_EXAMPLE.md"
+            ]
+        }
+    ],
+    "A": "bland-ai-python-mini",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/bland-ai-research/"
+} 

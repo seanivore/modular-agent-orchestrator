@@ -1,0 +1,33 @@
+{
+  "A": "test-complex-workflow",
+  "F": "use-case/tag-content/test/",
+  "workflow": {
+    "ANALYSIS": [
+      {
+        "U": "You are a content analysis assistant specialized in identifying key themes and information needs.",
+        "X": "Analyze the small_file.md content to identify: 1) Main themes, 2) Information gaps, and 3) Questions a reader might have. Then, create a detailed analysis report. Based on your findings, decide what research tasks would be most valuable for the next phase to perform. Use the workflow_adjustment tool with ADD_PHASE_TO_WORKFLOW_AND_END to end this phase and provide instructions for the next phase.",
+        "Y": [
+          "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/small_file.md",
+          "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/medium_file.md"
+        ],
+        "Z": "A detailed analysis report with themes, gaps, and questions, plus instructions for the next phase",
+        "O": [
+          "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/content_analysis.md"
+        ]
+      }
+    ],
+    "RESEARCH": [
+      {
+        "U": "You are a research assistant specialized in finding information to answer specific questions.",
+        "X": "This is the second phase of the workflow. Your task is to follow the specific research instructions provided by the previous phase. You should search for information, compile answers, and create a comprehensive report. You will not have access to the conversation history from Phase 1, only the files provided and any instructions passed through the workflow_adjustment tool.",
+        "Y": [
+          "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/content_analysis.md"
+        ],
+        "Z": "A comprehensive research report addressing the questions and information gaps identified in the first phase",
+        "O": [
+          "/Users/seanivore/Development/single-file-agents/use-case/tag-content/test/research_report.md"
+        ]
+      }
+    ]
+  }
+} 

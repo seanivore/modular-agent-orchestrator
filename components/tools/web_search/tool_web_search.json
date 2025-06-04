@@ -1,0 +1,266 @@
+{
+  "name": "web_search",
+  "version": "4.0.0",
+  "description": "Real-time web search using Anthropic's native capabilities",
+  "category": "research",
+  "capabilities": [
+    "web_search",
+    "filtered_search",
+    "content_search",
+    "query_validation",
+    "search_suggestions",
+    "real_time_results",
+    "source_verification"
+  ],
+  "tags": [
+    "search",
+    "web",
+    "research",
+    "realtime",
+    "native",
+    "anthropic",
+    "information",
+    "sources",
+    "validation",
+    "suggestions"
+  ],
+  "cost_estimate": 0.01,
+  "token_efficiency": "high",
+  "models_supported": [
+    "claude-sonnet-4",
+    "claude-3-5-sonnet",
+    "claude-3-7-sonnet"
+  ],
+  "operations": {
+    "perform_web_search": {
+      "description": "Perform basic web search with query and result limit",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Search query string"
+        },
+        "max_results": {
+          "type": "integer",
+          "required": false,
+          "default": 5,
+          "description": "Maximum number of results to return"
+        },
+        "search_context": {
+          "type": "string",
+          "required": false,
+          "default": "general",
+          "description": "Context or approach for the search"
+        }
+      },
+      "cost_estimate": 0.01
+    },
+    "perform_filtered_search": {
+      "description": "Perform web search with domain and date constraints",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Base search query"
+        },
+        "domain": {
+          "type": "string",
+          "required": false,
+          "description": "Specific domain to search within"
+        },
+        "date_range": {
+          "type": "string",
+          "required": false,
+          "description": "Date range filter (e.g., '2024', '2023-01-01')"
+        },
+        "max_results": {
+          "type": "integer",
+          "required": false,
+          "default": 5,
+          "description": "Maximum number of results"
+        }
+      },
+      "cost_estimate": 0.012
+    },
+    "perform_content_search": {
+      "description": "Perform content-specific web search",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Search query"
+        },
+        "content_type": {
+          "type": "string",
+          "required": false,
+          "default": "general",
+          "description": "Type of content to search for"
+        },
+        "max_results": {
+          "type": "integer",
+          "required": false,
+          "default": 5,
+          "description": "Maximum number of results"
+        }
+      },
+      "cost_estimate": 0.015
+    },
+    "validate_search_query": {
+      "description": "Validate a search query for potential issues",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Search query to validate"
+        }
+      },
+      "cost_estimate": 0.001
+    },
+    "get_search_suggestions": {
+      "description": "Generate search query suggestions and improvements",
+      "parameters": {
+        "query": {
+          "type": "string",
+          "required": true,
+          "description": "Original search query"
+        },
+        "suggestion_type": {
+          "type": "string",
+          "required": false,
+          "default": "enhancement",
+          "description": "Type of suggestions to generate"
+        }
+      },
+      "cost_estimate": 0.002
+    }
+  },
+  "features": {
+    "anthropic_native_search": {
+      "description": "Uses Anthropic's built-in web search capabilities",
+      "enabled": true
+    },
+    "real_time_results": {
+      "description": "Access to current web information",
+      "enabled": true
+    },
+    "source_urls": {
+      "description": "Provides source URLs with results",
+      "enabled": true
+    },
+    "publication_dates": {
+      "description": "Includes publication dates where available",
+      "enabled": true
+    },
+    "content_filtering": {
+      "description": "Filter by domain, date, and content type",
+      "enabled": true,
+      "filter_types": [
+        "domain_restriction",
+        "date_range",
+        "content_type",
+        "file_type"
+      ]
+    },
+    "query_validation": {
+      "description": "Validate queries before execution",
+      "enabled": true,
+      "validation_checks": [
+        "length_validation",
+        "character_validation",
+        "quality_estimation"
+      ]
+    },
+    "search_suggestions": {
+      "description": "Generate query improvements and alternatives",
+      "enabled": true,
+      "suggestion_types": [
+        "enhancement",
+        "related",
+        "specific"
+      ]
+    }
+  },
+  "limitations": {
+    "max_results_per_search": 20,
+    "min_query_length": 1,
+    "max_query_length": 200,
+    "rate_limits": "subject_to_anthropic_api_limits",
+    "search_regions": "global",
+    "language_support": "multi_language"
+  },
+  "integration": {
+    "orchestrator_compatible": true,
+    "human_button_support": true,
+    "ui_display_support": true,
+    "cache_compatible": true,
+    "error_handling": "comprehensive"
+  },
+  "workflow_phase": {
+    "phase_name": "web_research_phase",
+    "agent_role": "Research specialist with web search capabilities",
+    "task_instructions": "Use web search to gather current information relevant to the goal. Focus on real-time data and credible sources.",
+    "input_sources": [],
+    "output_files": ["web_research_results.md", "source_links.json"],
+    "preferred_model": "",
+    "task_type": "research"
+  },
+  "file_structure": {
+    "core_logic": "tools/web_search_modular.py",
+    "ui_display": "interfaces/ui_tools/ui_web_search.py",
+    "human_buttons": "utilities/human_button_tools/button_web_search.py",
+    "tool_registry": "configs/tool_registry/tool_web_search.json",
+    "error_handling": "utilities/error_handling.py"
+  },
+  "dependencies": {
+    "python_modules": [
+      "json",
+      "datetime",
+      "anthropic",
+      "rich"
+    ],
+    "sfa_modules": [
+      "utilities.error_handling"
+    ],
+    "external_apis": [
+      "anthropic_web_search_20250305"
+    ]
+  },
+  "cost_structure": {
+    "base_cost": 0.01,
+    "per_result_cost": 0.002,
+    "currency": "USD",
+    "billing_model": "per_search_operation"
+  },
+  "testing": {
+    "unit_tests": "tests/test_web_search.py",
+    "integration_tests": "tests/integrated_tools_test/",
+    "ui_tests": "tests/terminal_ui_tests/",
+    "human_button_tests": "tests/human_button_tests/"
+  },
+  "documentation": {
+    "implementation_guide": "v4_0_0_TOOL_IMPLEMENTATION.md",
+    "api_reference": "docs/api/web_search.md",
+    "examples": "examples/web_search_examples.py"
+  },
+  "changelog": {
+    "4.0.0": {
+      "date": "2024-12-19",
+      "changes": [
+        "Complete modularization into 5-file architecture",
+        "Removed hardcoded use cases and analysis types",
+        "Implemented variable-input philosophy for search contexts",
+        "Enhanced query validation and suggestion system",
+        "Universal model compatibility via human buttons",
+        "Clean separation of core logic, UI, and human buttons",
+        "Integrated Anthropic native web search capabilities",
+        "Added comprehensive filtering and content-type support"
+      ],
+      "breaking_changes": [
+        "Removed hardcoded analysis types and use cases",
+        "Changed return format to structured data",
+        "Moved UI formatting to separate module",
+        "Replaced predefined search templates with flexible contexts"
+      ]
+    }
+  }
+} 

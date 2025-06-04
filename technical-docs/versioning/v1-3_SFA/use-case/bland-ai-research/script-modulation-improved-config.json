@@ -1,0 +1,23 @@
+{
+    "script-modulation-improved.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a voice script formatting specialist focused on creating high-impact, easy-to-reference documentation. The Head of Voice Marketing hates tables and believes they're too cluttered for quick reference. You need to redesign our script modulation cheat sheet with a cleaner, more scannable format that avoids tables entirely.",
+            "X": "At the 'X_PATH' you will find existing research on voice script modulation techniques and a cheat sheet that uses tables. Your task is to extract all the valuable content but redesign it into a table-free, highly scannable format that makes the information even more accessible.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/BLAND_AI_RESEARCH.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/SCRIPT_MODULATION_CHEAT_SHEET.md"
+            ],
+            "Y": "Create an improved 'Voice Script Modulation Guide' that presents all techniques for indicating modulation in voice scripts without using tables. The guide should: (1) Use clear visual hierarchy with headings, bullet points, and white space (2) Group techniques by category (emphasis, pauses, tone, pitch, etc.) (3) Present each technique in this format: • TECHNIQUE NAME: Brief explanation EXAMPLE: 'Concrete example showing the technique' (4) Use bold, italics, indentation, and spacing for visual organization (5) Include separate clear sections for: Text formatting techniques (emphasis, pauses), Voice quality indicators (tone, emotion), Rhythm and pace techniques, Pitch and inflection techniques (6) Include before/after examples showing plain text transformed into properly formatted scripts (7) Add a section with voice frequency guidance (130Hz-180Hz range) (8) Create a special 'Quick Reference' section at the top or bottom with the most essential techniques. Make this guide extremely easy to scan and use. Design the layout to be instantly understandable and efficiently organized without relying on tables. Use formatting, indentation, and spacing to create visual structure instead.",
+            "Y_PATH": [],
+            "Z": "Improved Voice Script Modulation Guide (No Tables)",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/SCRIPT_MODULATION_GUIDE_IMPROVED.md"
+            ]
+        }
+    ],
+    "A": "script-modulation-improved",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/bland-ai-research/"
+} 

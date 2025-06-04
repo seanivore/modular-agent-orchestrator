@@ -1,0 +1,98 @@
+{
+    "research-combine-report.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "Well known as a concise, snappy research writer, you've been working on AI voice telemarketing strategy recently.",
+            "X": "At the 'X_PATH' please find five documents on AI Voice Telemarketing strategy. Identify one core tactical approach from each, and then create a simple, easy to read, document.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/strategy/assertive-urgent.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/strategy/curiosity-gap.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/strategy/empathy-objection.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/strategy/strategy-combo.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/strategy/strongest.md"
+            ],
+            "Y": "From each strategy document identify a framework and provide a simple explanation of its implementation. The with this strategic framework is that it will provide the foundation for developing distinct marketing personas for the AI voice to speak from in the voice telemarketing calls. Please make the document simple, embrace white space, really focus on identify the core of the method in the fewest words as possible. Only two paragraphs for each of the five strategies. The first should define the core framework and the second should provide a examples of how it can be used, so that the copywriter can easily see how to style their script for the AI voice. Don't use any tables, and no more than 5k tokens which is 3.7k words or 35 paragraphs. Aim for 10 paragraphs total. Name the document 'VOICE_MKT_STRATEGY.md' and save it in the 'O' path. Thank you.",
+            "Y_PATH": [],
+            "Z": "Unified Voice Marketing Strategy Framework",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/core/VOICE_MKT_STRATEGY.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "As a playwright and creative marketing copywriter, you've been given one of the agencies newest projects in the AI space, where you use the marketing strategy to create a persona for a later writer to be able to compose script for the AI Telemarketer to understand their voice and personality from.",
+            "X": "At the 'X_PATH' please find 'VOICE_MKT_STRATEGY.md' a marketing strategy document covering five core strategies for Voice AI Telemarketing in the Home services Industry, plumbing and electrical. Analyze the strategy, and then write two, single-paragraph long archetypal personas for each of the five strategies.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/core/VOICE_MKT_STRATEGY.md"
+            ],
+            "Y": "For each persona, in one paragraph, provide a descriptive name that captures their essence, explain their core personality traits and communication style, explain why the chosen AI Voice marketing strategy is effective for this persona. Under each paragraph in a very short outline, include voice characteristics like tone, pace, and modulation that compliment the strategy. The result should be two personas for 5 strategies, each a paragraph long with bullets and a voice signature underneath. Name the document 'VOICE_MKT_PERSONAS_DRAFT_1.md' and save it in the 'O' path. Thank you.",
+            "Y_PATH": [],
+            "Z": "Persona Development Creative Brief",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/02-recommend/VOICE_MKT_PERSONAS_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "The marketing agencies all-start copywriter, your background in acting comes in perfect for writing about AI Voice Telemarketing Scripts based on well researched strategies.",
+            "X": "At the 'X_PATH' please find 'VOICE_MKT_PERSONAS_DRAFT_1.md' a creative brief outlining proposed AI voice telemarketing caller archetypes and their associated marketing strategies. You'll need to write a few exchanges exemplifying the strategy and persona.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/02-recommend/VOICE_MKT_PERSONAS_DRAFT_1.md"
+            ],
+            "Y": "There are five AI Voice Telemarketing strategies in your document, each with two characters profiled to fit the strategy. For each of the five strategies, please write a three short scripts that implement the personality into the strategy. Each script should only be a line or two from both the AI Voice caller and the telemarketing lead who picked up the phone. A simple back-and-forth. Make sure one of the three is an opening, and another one of the two is mid-conversation. The third of three is up to you. At the Y_PATH please fine 'SCRIPT_MODULATION_CHEAT_SHEET.md' and 'SCRIPT_MODULATION_GUIDE.md' a guide and a cheat sheet on how to write the scripts to show voice modulation. This notation is core to the project. Please implement as much as you can that creates you text script into something befitting of both the persona's voice and the strategy. The output should be a document with 5 personas, each with 3 scripts, for a total of 15 scripts. Note that 5k tokens is roughly equivalent to 3,750 words or 39 paragraphs. Do not go over 5k tokens. Make sure the strategy is labeled so that accompanying documents can be easily identified. Please name the document 'VOICE_MKT_PERSONAS_DRAFT_2.md' and save it in the 'O' path. Thank you.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/takeaways/SCRIPT_MODULATION_CHEAT_SHEET.md", 
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/takeaways/SCRIPT_MODULATION_GUIDE.md"
+            ],
+            "Z": "Strategic Voice Marketing Personas with Scripts",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/03-personas/VOICE_MKT_PERSONAS_DRAFT_2.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "As one of Hollywood's longest running movie starts known for their versatile acting abilities, your new copywriting editor job is a perfect fit for reviewing AI voice telemarketing scripts for marketing and personality alignment and accuracy.",
+            "X": "At the 'X_PATH' please find 'VOICE_MKT_PERSONAS_DRAFT_2.md' and 'VOICE_MKT_STRATEGY.md' two documents that both cover five different Voice Telemarketing Strategies from the research department. In one file each tactic is broken down. In the other document, personas and, most significantly, scripts of brief exchanges that have voice modulation notation.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/03-personas/VOICE_MKT_PERSONAS_DRAFT_2.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/core/VOICE_MKT_STRATEGY.md"
+            ],
+            "Y": "At the 'Y_PATH' you'll find 'SCRIPT_MODULATION_CHEAT_SHEET.md' and 'SCRIPT_MODULATION_GUIDE.md', two documents that detail how to use notation in plain text to get the AI Voice to shift in characteristics. Please review each of the scripts, comparing them to the marketing strategy, and making sure they are as effective as they can be in employing the tactics by using the personality through word choice and the notation. In a 'VOICE_MKT_PERSONAS_FEEDBACK.md' document provide your feedback, followed by improvements where possible. Please do not hesitate to pick up any slack where work can be improved. That's how you get noticed at the agency to get promotions! Consider believability, psychological consistency, tactical application, and practical usability. Note that the max length we can accept is 7k tokens. FYI that 5,000 tokens is roughly equivalent to 3,750 words or 39 paragraphs. Good luck applying your background in acting to the copywriting job!",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/takeaways/SCRIPT_MODULATION_CHEAT_SHEET.md", 
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/takeaways/SCRIPT_MODULATION_GUIDE.md"
+            ],
+            "Z": "Persona Development Feedback Report",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/04-accuracy/VOICE_MKT_PERSONAS_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You just got your AI Voice Telemarketing copywriting project back. A famous movie star consulted on the characters! Before that another review for quality took place. Time to wrap up your project and send it to the client. Deliverable!.",
+            "X": "At the 'X_PATH' you will find 'VOICE_MKT_PERSONAS_FEEDBACK.md' and 'VOICE_MKT_PERSONAS_DRAFT_2.md' detailed feedback along with the draft voice marketing persona scripts. Next you need to integrate all feedback to create finalized, implementation-ready persona profiles.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/04-accuracy/VOICE_MKT_PERSONAS_FEEDBACK.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/variable-docs-combine/03-personas/VOICE_MKT_PERSONAS_DRAFT_2.md"
+            ],
+            "Y": "The creative work finished, now you are all about accuracy so you can polish up the script examples to provide the AI personalities that the Home Services (Plumbing and electric) clients are building in the telemarketing software. Next they'll be able to split test your creations to find the best. Please very carefully integrate all feedback. The output file should be named 'VOICE_MKT_PERSONAS.md' and save it in the 'O' path. Don't add anything extra to the file; keep it simple and clean for the client. Thank you.",
+            "Y_PATH": [],
+            "Z": "Finalized Voice Marketing Persona Profiles",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/core/VOICE_MKT_PERSONAS.md"
+            ]
+        }
+    ],
+    "A": "research combine report",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/research-combine-report/"
+}

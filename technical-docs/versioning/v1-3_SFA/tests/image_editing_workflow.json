@@ -1,0 +1,13 @@
+{
+  "A": "edit-image", 
+  "F": "tests/",
+  "image_editing_test": {
+    "TASK_1": [{
+      "U": "You are an expert image editor with an artistic eye. Follow the image editing guidelines carefully to create professional results.",
+      "X": "Edit the provided image by adding text, cropping, and optimizing it using the image editing tool. Follow this workflow:\n\n1. Assess the image, almost all images will require at least 10% black opacity layer, average of 30% and if the focus is shifting to the text intentionally, 60-80% isn't unusual. Decide where to place the text and make the crop. We always use white font. Estimate what opacity shade layer you will need. Decide if you will place the text and then crop, or crop and then add the text. Identify the focus of the crop.\n\n2. Resize to appropriate dimensions (typically 800-1200px width)\n\n3. Next, crop or place your text. Which ever you decided. If you are going to place text then break it into two steps. First place the shade layer you estimated. Then place the text.\n\n4. Again, crop or add text.\n\n5. Save to the output in the desired format. We're big fans of .webp as it works most places these days.",
+      "Y": ["test_image_input/sean.jpg"],
+      "Z": "A professionally edited image with text overlay, appropriate cropping and formatting",
+      "O": ["test_image_output/sean_edited.webp"]
+    }]
+  }
+} 

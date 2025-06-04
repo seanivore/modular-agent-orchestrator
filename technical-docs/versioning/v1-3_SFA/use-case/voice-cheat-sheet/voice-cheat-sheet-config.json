@@ -1,0 +1,60 @@
+{
+    "voice-cheat-sheet.sh": [
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're a voice marketing specialist with expertise in training telemarketers. Your task is to create clear, actionable reference materials that help voice marketers optimize their delivery and technique when using AI voice tools.",
+            "X": "At the 'X_PATH' you will find two documents: one covering voice modulation techniques for Bland AI and another with pro tips for effective AI voice marketing. Your task is to combine these into a comprehensive but streamlined cheat sheet that telemarketers can reference quickly during their work.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/research/bland-ai-pro-tips.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/research/bland-ai-voice-modulation.md"
+            ],
+            "Y": "Create a unified cheat sheet that combines the insights from both documents while improving clarity and usability. Your cheat sheet should: 1) Consolidate overlapping information to avoid redundancy, 2) Organize techniques and tips in a logical progression that's easy to follow, 3) Preserve all important tactical details for voice modulation and delivery, 4) Format information for quick reference with clear headings, bullet points, and visual organization, and 5) Add brief explanatory notes where technical terms might be unfamiliar. The goal is to create a reference that telemarketers can quickly scan during preparation or between calls to improve their performance using Bland AI.",
+            "Y_PATH": [],
+            "Z": "Comprehensive Voice Marketing Cheat Sheet (Draft)",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/bland-ai-docs/01-combine/CHEAT_SHEET_DRAFT_1.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're the quality assurance specialist for voice marketing materials at a leading telemarketing agency. Your expertise in evaluating training documents ensures that voice marketers receive clear, comprehensive guidance that improves their performance.",
+            "X": "At the 'X_PATH' you will find a draft cheat sheet combining voice modulation techniques and pro tips for Bland AI, along with the original source documents. Your task is to thoroughly review the draft to ensure it effectively synthesizes all critical information while maintaining usability.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/bland-ai-docs/01-combine/CHEAT_SHEET_DRAFT_1.md"
+            ],
+            "Y": "Conduct a thorough review of the draft cheat sheet, focusing on: 1) Completeness - does it include all essential techniques and tips from both source documents?, 2) Clarity - are instructions presented in clear, actionable language?, 3) Organization - is the information structured logically for quick reference?, 4) Usability - would a voice marketer be able to easily apply these techniques during their work?, and 5) Technical accuracy - are voice modulation instructions precise and correctly described? Provide specific, constructive feedback with references to line numbers or sections, and suggest concrete improvements where needed. Structure your review with 'Strengths,' 'Areas for Improvement,' and 'Specific Recommendations.'",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/research/bland-ai-pro-tips.md",
+                "/Users/seanivore/Development/voice-mkt-sfa/research/bland-ai-voice-modulation.md"
+            ],
+            "Z": "Detailed Quality Review of Voice Cheat Sheet",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/bland-ai-docs/02-review/CHEAT_SHEET_FEEDBACK.md"
+            ]
+        },
+        {
+            "S": [
+                "/Users/seanivore/Development/single-file-agents/sfa_agent.py"
+            ],
+            "U": "You're the head of voice marketing training at a premier telemarketing agency. Your responsibility is to produce final, implementation-ready training materials that voice marketers can immediately apply to improve their performance using AI voice tools.",
+            "X": "At the 'X_PATH' you will find a draft cheat sheet for Bland AI voice marketing along with detailed feedback from the quality review process. Your task is to integrate all feedback to create a polished, final version ready for immediate use by your telemarketing team.",
+            "X_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/bland-ai-docs/01-combine/CHEAT_SHEET_DRAFT_1.md"
+            ],
+            "Y": "Create a finalized cheat sheet that incorporates all the quality review feedback while maintaining a concise, easy-to-reference format. The final document should: 1) Address all specific recommendations from the feedback, 2) Feature improved organization based on review suggestions, 3) Maintain perfect technical accuracy in all voice modulation instructions, 4) Use consistent formatting with clear hierarchical structure, and 5) Include a brief introductory section explaining how to use the cheat sheet effectively. The final document should be ready for immediate distribution to your voice marketing team, with no further editing needed.",
+            "Y_PATH": [
+                "/Users/seanivore/Development/voice-mkt-sfa/SFA-RESEARCH-REVIEW/bland-ai-docs/02-review/CHEAT_SHEET_FEEDBACK.md"
+            ],
+            "Z": "Final Voice Marketing Cheat Sheet",
+            "O": [
+                "/Users/seanivore/Development/voice-mkt-sfa/findings/core/CHEAT_SHEET.md"
+            ]
+        }
+    ],
+    "A": "voice cheat sheet",
+    "F": "/Users/seanivore/Development/single-file-agents/use-case/voice-cheat-sheet/"
+}
