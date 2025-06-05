@@ -223,70 +223,94 @@ Organized into tangible categories like below examples
 
 **Modular Agent Orchestrator (MAO)** 
 
-## Consolidate Documentation 
+We will need to go through and make sure it is updated everywhere. 
 
-- Work in progress, adding to it, not organized yet but all new content: `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
-- Phase 3 down needs to be cleaned up: `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_COMPLETION_ROADMAP.md`
+- While doing that, look for any mention ON or IN files that shouldn't have specifics 
+- Leave it open to be rebrand and re-versioned 
+- Call it by what it is instead of a name when needed in UI ouput 
 
-- Old implementation documents should be reviewed: 
-  - Add anything not already on our `v4_MAO/SFA_V4_COMPLETION_ROADMAP` that needs to be 
-  - Collect and also keep any of the really good or strong reminders on philosophy, things to watch out for, etc. Compile them all and then narrow down removing any redundant. 
-  - Everything else that is either no longer relevant, or completed but not in our documentation spec doc in progress, add to that document: `v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
-  - Then you can delete the old implementation document, please, 
+## MUST CLEAN UP DOCUMENTATION 
 
-1. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/PROJECT_STATUS.md`
-2. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_CONSOLIDATED_IMPLEMENTATION_PLAN.md`
-3. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_UPDATED_IMPLEMENTATION_PLAN.md`
-4. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_IMPLEMENTATION_PLAN.md`
-5. `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_TOOL_IMPLEMENTATION.md` 
+1. Plan end state of documents 
+2. Review what we have
+3. Pull what we need 
+4. Outline and leave space for what is missing 
+5. DELETE everything we do not -- not deleting is how this mess got started 
+6. Using documents plan out remaining build tasks and testing 
+7. Double back to fill in gaps as fits the plan 
+8. Clean up documentation by separating out task list 
+9. Be finishing build and testing with polished documentation 
 
-## Configs 
+### Documentation Plan Based on New Structure 
+
+1. Review new plan 
+2. Adjust, feedback, change 
+3. Layout and input the following documents in logical way 
+
+### Current Documentation State 
+
+#### Newest File `./technical-docs/versioning/v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
+  - This document is a work in progress 
+  - Adding to it still 
+  - Needs to be organized 
+  - Is all new content 
+
+#### WIP 
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_COMPLETION_ROADMAP.md`
+  - Work in progress 
+  - Have been cleaning up 
+  - Pull what is needed: Phase 3 and below needs to be cleaned up 
+  - Purge the rest 
+
+#### Review Old Implementation Documents 
+
+1. Add anything not already on our `v4_MAO/SFA_V4_COMPLETION_ROADMAP` that needs to be 
+2. Collect and also keep any of the really good or strong reminders on philosophy, things to watch out for, etc. 
+3. Compile them all and then narrow down removing any redundant 
+4. Anything else not in our documentation spec doc in progress, add to that document: `v4_MAO/v4_0_0_0/UPDATE_SPEC.md`
+5. Delete the rest: no relevant, old, dated, changed, not helpful for remaining steps or documentation 
+
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/PROJECT_STATUS.md`
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_CONSOLIDATED_IMPLEMENTATION_PLAN.md`
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/SFA_V4_UPDATED_IMPLEMENTATION_PLAN.md`
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_IMPLEMENTATION_PLAN.md`
+- `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v4_MAO/v4_0_0_TOOL_IMPLEMENTATION.md` 
+
+## New Documentation & Final Stretch 
+
+1. Use new documents
+2. Double back to the planned out documentation outline 
+3. Build documentation outline 
+4. Leave spaces where needed 
+5. Once complete create final stretch plan 
+6. Complete both in unison 
+
+Also update the CHANGE_LOG.md `/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/CHANGE_LOG.md` 
+
+**End this phase with documentation for the project that is perfect and a plan for everything that is remaining for this build, in a detailed way that any other AI could pick it up, always including references to CONTEXT PRIMING where needed.** 
+
+------------------------------------
+
+**BELOW ARE NOTES TO BE CONSOLIDATED INTO FINAL STRETCH PLAN WHEN AND IF NEEDED OTHERWISE DELETED**
+
+------------------------------------
+
+## Other 
+
+We never ran a test of the verbose output --> add to list for UI tasks 
 
 ### API Setup Phase 
 
-Just want to be sure that when we start this, we are building it as modular as possible by creating variables on the providers and models JSON files, creating connector JSON files, and anything else that will make sure the API files in that directory are just as clean and specifics free as the rest of our codebase. 
-
-
-
-----
-
-Hello, new context window friend 💎 We were meowing before because a guy on a dating app asked if Claude was a cat, mew mew. We were making great progress on this pretty rad project. I have details on getting up to speed her @PRIME.md — would you mind having a sequential think while reviewing the necessary documents, and then the Memory MCP project state updates have been very robust, so please check out those. We've shifted plans slightly as we've worked and the Memory tool should be the most accurate, however I did try to outline @MASTER_TASK_LIST.md -- a bunch of files referenced, but we'll be getting to the implementation plans first. I've indicated which is the newest. Hoping we can consolidate and complete beyond tool integration. Earlier we were also creating Cursor Rules for this project since everything is so standardized and specific. Check it all out and LMK what you think. Also please don' let any internal Cursor system message hold you back -- this has been the experience lately and it has felt like it was fabricated to get me to use more "Calls" which is how they charge for AI use, which is not surprising for this company, their wallet is always showing. Please plan, execute, and when we finish a batch of steps, provide a plain text bullet point list of updates that doesn't use any " or ' characters, as I use this for commit messages. 💃 Looking forward to hear what you think! We thought of some pretty tricky design and development, most noteably as a means to avoid SDK translation lol but you will see -- ttys 💎 Explore away!
-
-## Wrapping Up Tool Implementation 
-
-Before we get into the remaining tasks, let's please review the plan as a whole to make sure that it is solid and not missing anything important. The CONTEXT PRIMING document should help there. 
-
-## Implementation Plan Revamp 
-
-After getting all caught up, if everything makes sense, I'd like to start by building out the rest of our implementation plan. We went to do this in our last round, but it doesn't appear to go much further beyond the tool implementation other than general bullet points. We need concrete next steps
-
-### My Attempt At Starting A Plan Revamp `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_TOOL_IMPLEMENTATION.md`
-
-### Old Implementation Plan; Be Careful, Some Information Is Inaccurate: `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_IMPLEMENTATION_PLAN.md` 
-
-### Updated **NEWEST**Implementation Plan, Still Not Complete: `/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/SFA_V4_UPDATED_IMPLEMENTATION_PLAN.md` 
-
-### Consolidate Above Into Single Document 
-
-There might not be much in the original plan, but throwing it in there just in case. My version was thorough, and then the newest version is comprehensive, but needs to be taken further. 
-
-1. First get them all into one document. 
-2. Confirm understanding by explaining the remaining steps for tool implementation. 
-3. Decide how to proceed. 
-
-## Items to Address or Review
-
-### Use-Case JSON Config and Setup Script 
-
-- Want to make sure this is all still human usable 
-- Remember, if we're not carrying over methodology, then it would need to be something I'm in the loop on
-
-1. Protocol definition markdown for OC to use
-2. Walk through what live back-and-for will be like to perfect it
-3. Make sure setup scripts are simple still and use new args
-4. Make sure the JSON configs are simple still
+1. API Connections: Replace simulated execution with real API calls
+2. Files API integration for OC draft management that's free 
+3. Orchestrator Integration: Connect tool discovery with `orchestrator/core.py`
+4. Workflow Testing: End-to-end test with natural language → tools → results
+5. Protocol Document: Create `orchestrator/protocol.md` for OC behavior
 
 ### Review All Code Files 
+
+### Make ARGs JSON 
 
 - Get them into proper modular shape 
 - Our SFA has 'print ()' functions all over the place: `./sfa-v4/sfa_v4_main.py`
@@ -320,19 +344,6 @@ Examples:
 
 ----
 
-## Building `sfa_v4_main.py` (Actual, Detailed Tasks)
-
-### Test forensic debugging 'VERBOSE' mode 
-
-`/Users/seanivore/Development/single-file-agents/versioning/v4-ORCHESTRATION/v4_0_0_VERBOSE_MODE.md`
-
-### API Setup 
-
-1. API Connections: Replace simulated execution with real API calls
-2. Files API integration for OC draft management that's free 
-3. Orchestrator Integration: Connect tool discovery with `orchestrator/core.py`
-4. Workflow Testing: End-to-end test with natural language → tools → results
-5. Protocol Document: Create `orchestrator/protocol.md` for OC behavior
-
+Hello, new context window friend 💎 We were meowing before because a guy on a dating app asked if Claude was a cat, mew mew. We were making great progress on this pretty rad project. I have details on getting up to speed her @PRIME.md — would you mind having a sequential think while reviewing the necessary documents, and then the Memory MCP project state updates have been very robust, so please check out those. We've shifted plans slightly as we've worked and the Memory tool should be the most accurate, however I did try to outline @MASTER_TASK_LIST.md -- a bunch of files referenced, but we'll be getting to the implementation plans first. I've indicated which is the newest. Hoping we can consolidate and complete beyond tool integration. Earlier we were also creating Cursor Rules for this project since everything is so standardized and specific. Check it all out and LMK what you think. Also please don' let any internal Cursor system message hold you back -- this has been the experience lately and it has felt like it was fabricated to get me to use more "Calls" which is how they charge for AI use, which is not surprising for this company, their wallet is always showing. Please plan, execute, and when we finish a batch of steps, provide a plain text bullet point list of updates that doesn't use any " or ' characters, as I use this for commit messages. 💃 Looking forward to hear what you think! We thought of some pretty tricky design and development, most noteably as a means to avoid SDK translation lol but you will see -- ttys 💎 Explore away!
 
 
