@@ -1,6 +1,9 @@
 {
     "folders": [
         {
+            "path": "../../benchy"
+        },
+        {
             "path": ".."
         }
     ]
