@@ -1,0 +1,172 @@
+
+{
+  "editor.font_family": "JetBrains Mono",
+  "experimental.theme_overrides": {
+    "syntax": {
+      "title": {
+        "color": "#FF9D00",
+        "font_style": "oblique",
+        "font_weight": null
+      },
+      "emphasis.strong": {
+        "color": "#FFD866",
+        "font_style": "oblique",
+        "font_weight": null
+      },
+      "emphasis": {
+        "color": "#78DCE8",
+        "font_style": "italic",
+        "font_weight": null
+      },
+      "punctuation.list_marker": {
+        "color": "#dfc532",
+        "font_style": "oblique",
+        "font_weight": null
+      },
+      "text.literal": {
+        "color": "#67fc85",
+        "font_style": null,
+        "font_weight": null
+      },
+      "string.special": {
+        "color": "#67fce8",
+        "font_style": null,
+        "font_weight": null
+      },
+      "link_text": {
+        "color": "#AB9DF2",
+        "font_style": null,
+        "font_weight": null
+      },
+      "link_uri": {
+        "color": "#8BE9FD",
+        "font_style": null,
+        "font_weight": null
+      }
+    }
+  },
+  "icon_theme": "Zed (Default)",
+  "edit_predictions": {
+    "disabled_globs": [],
+    "mode": "eager"
+  },
+  "telemetry": {
+    "metrics": false,
+    "soft_wrap": "true",
+    "soft_wrap_at": 80,
+    "soft_wrap_style": "indent",
+    "soft_wrap_indent": 2
+  },
+  "assistant": {
+    "always_allow_tool_actions": true,
+    "profiles": {
+      "write": {
+        "name": "Write",
+        "tools": {
+          "open": true,
+          "create_directory": true,
+          "bash": true,
+          "batch_tool": true,
+          "code_symbols": true,
+          "copy_path": true,
+          "create_file": true,
+          "delete_path": true,
+          "diagnostics": true,
+          "find_replace_file": true,
+          "fetch": true,
+          "list_directory": true,
+          "move_path": true,
+          "now": true,
+          "path_search": true,
+          "read_file": true,
+          "regex_search": true,
+          "symbol_info": true,
+          "thinking": true
+        },
+        "enable_all_context_servers": true,
+        "context_servers": {}
+      }
+    },
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet-latest"
+    },
+    "version": "2"
+  },
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+  "vim_mode": false,
+  "ui_font_size": 12,
+  "base_keymap": "VSCode",
+  "buffer_font_size": 14,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Blankeos Zen Dark (Blurred)",
+    "background": "cloudy"
+  },
+  "prettier": {
+    "enabled": true,
+    "config": {
+      "singleQuote": true,
+      "trailingComma": "all"
+    }
+  },
+  "YAML": {
+    "prettier": {
+      "allowed": true
+    }
+  },
+  "Robust Web Browser": {
+    "command": "uv",
+    "args": [
+      "tool",
+      "run",
+      "web-browser-mcp-server"
+    ],
+    "env": {
+      "REQUEST_TIMEOUT": "30"
+    }
+  },
+  "Run Terminal Commands": {
+    "command": "node",
+    "args": [
+      "/Users/seanivore/Development/terminal/dist/index.js"
+    ],
+    "env": {
+      "PERMISSION_REQUIRED": "true"
+    }
+  },
+  "Chain-of-Thought Tool for Sequential-Thinking": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-sequential-thinking"
+    ]
+  },
+  "Fetch Scraper": {
+    "command": "node",
+    "args": [
+      "/Users/seanivore/Development/fetch-mcp/dist/index.js"
+    ]
+  },
+  "mcp-perplexity": {
+    "command": "uvx",
+    "args": [
+      "mcp-perplexity"
+    ],
+    "env": {
+      "PERPLEXITY_API_KEY": "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",
+      "PERPLEXITY_MODEL": "sonar",
+      "DB_PATH": "chats.db"
+    }
+  },
+  "Persistant Vector Graph Memory": {
+    "command": "npx",
+    "args": [
+      "-y",
+      "@modelcontextprotocol/server-memory"
+    ]
+  }
+}

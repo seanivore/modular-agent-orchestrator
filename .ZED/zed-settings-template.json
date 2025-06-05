@@ -1,0 +1,68 @@
+
+{
+  "editor.font_family": "JetBrains Mono",
+  "experimental.theme_overrides": {
+    "syntax": {
+      "title": {
+        "color": "#FF9D00",
+        "font_style": "italic",
+        "font_weight": null
+      },
+      "emphasis.strong": {
+        "color": "#FFD866",
+        "font_style": "italic",
+        "font_weight": null
+      },
+      "emphasis": {
+        "color": "#78DCE8",
+        "font_style": "italic",
+        "font_weight": null
+      },
+      "punctuation.list_marker": {
+        "color": "#dfc532",
+        "font_style": "italic",
+        "font_weight": null
+      },
+      "text.literal": {
+        "color": "#67fc85",
+        "font_style": null,
+        "font_weight": null
+      },
+      "string.special": {
+        "color": "#67fce8",
+        "font_style": null,
+        "font_weight": null
+      },
+      "link_text": {
+        "color": "#AB9DF2",
+        "font_style": null,
+        "font_weight": null
+      },
+      "link_uri": {
+        "color": "#8BE9FD",
+        "font_style": null,
+        "font_weight": null
+      }
+    }
+  },
+
+  "icon_theme": "Zed (Default)",
+  "edit_predictions": {
+    "disabled_globs": [],
+    "mode": "eager"
+  },
+  "telemetry": {
+    "metrics": false,
+    "soft_wrap": "true",
+    "soft_wrap_at": 80,
+    "soft_wrap_style": "indent",
+    "soft_wrap_indent": 2
+  },
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Blankeos Zen Dark (Blurred)",
+    "background": "cloudy"
+  }
+
+}
