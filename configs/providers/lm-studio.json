@@ -1,0 +1,15 @@
+{
+  "display_name": "LM Studio (Local)",
+  "api_type": "openai",
+  "base_url": "http://localhost:1234/v1",
+  "auth_header": null,
+  "env_var": null,
+  "supports_streaming": true,
+  "rate_limits": {
+    "requests_per_minute": 999999,
+    "tokens_per_minute": 999999
+  },
+  "description": "Local LLM server for privacy and offline operation",
+  "privacy_level": "maximum",
+  "requires_local_setup": true
+}

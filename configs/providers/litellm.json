@@ -1,0 +1,15 @@
+{
+  "display_name": "LiteLLM Proxy",
+  "api_type": "openai",
+  "base_url": "http://localhost:4000/v1",
+  "auth_header": "authorization",
+  "env_var": "LITELLM_API_KEY",
+  "supports_streaming": true,
+  "rate_limits": {
+    "requests_per_minute": 1000,
+    "tokens_per_minute": 200000
+  },
+  "description": "Universal LLM proxy supporting 100+ models",
+  "supported_model_families": ["all"],
+  "universal_access": true
+}

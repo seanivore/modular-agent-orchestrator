@@ -1,0 +1,15 @@
+{
+  "display_name": "Requesty Router",
+  "api_type": "openai",
+  "base_url": "https://router.requesty.ai/v1",
+  "auth_header": "authorization",
+  "env_var": "REQUESTY_API_KEY",
+  "supports_streaming": true,
+  "rate_limits": {
+    "requests_per_minute": 500,
+    "tokens_per_minute": 100000
+  },
+  "description": "Multi-model router supporting Anthropic, OpenAI, and Google models",
+  "supported_model_families": ["anthropic", "openai", "google"],
+  "cost_optimization": "Routes to cheapest available model for task"
+}
