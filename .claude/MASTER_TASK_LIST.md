@@ -45,90 +45,9 @@
   > Did you MAO that research assignment we got in class yesterday? 
   > That's a great idea, let's MAO it. We'll be so prepared. 
 
-### Simplified Version --- FULL VERSIONS BELOW
-
-```
-├── build/...
-│   ├── api/...
-│   ├── interfaces/...
-│   └── orchestrator/...
-│       ├── cache/...
-│       ├── core.py
-│       ├── master/...
-│       │   ├── buttons_manager.py
-│       │   ├── error_handling.py
-│       │   ├── model_manager.py
-│       │   └── tool_manager.py
-│       ├── memory.py
-│       └── protocol.md
-├── components/...
-│   ├── ai/...
-│   │   ├── connections/...
-│   │   │   ├── models_x_tools.json
-│   │   │   └── providers_x_models.json
-│   │   ├── model_registry/...
-│   │   │   ├── model_name.json
-│   │   │   └── models.json                <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART
-│   │   └── provider_registry/...
-│   │       ├── provider_name.json
-│   │       └── providers.json             <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART
-│   └── tools/...
-│       └── tool_name/...                  <-- ‼️ EXAMPLE; every tool file now like this
-│           ├── tool_name.py
-│           ├── button_tool.py
-│           ├── model_tool.json
-│           ├── cache_tool.py  <-- I guess we don't have this so will delete if we don't need
-│           └── ui_tool.py
-└── technical-docs/...
-```
 
 ### New Version
 ```
-~/Development/modular-agent-orchestrator/...
-├── mao_v4.py
-├── build/...
-│   ├── api/...
-│   │   ├── auth.py
-│   │   ├── models.py
-│   │   └── service.py
-│   ├── interfaces/...
-│   │   ├── ui_terminal.py                 <-- ‼️ updated filename; added 'ui_' master
-│   │   └── ui_web.py                      <-- ‼️ updated filename; added 'ui_'
-│   └── orchestrator/...
-│       ├── cache/...
-│       │   ├── __init__.py
-│       │   ├── cache_system.py            <-- ‼️ updated filename; was hybrid_cache
-│       │   └── xTEMP
-│       │       ├── cache_coordinator.py   <-- 💀 duplicates need to be fixed
-│       │       └── universal_cache.py     <-- 💀 duplicates need to be fixed
-│       ├── core.py
-│       ├── master/...
-│       │   ├── buttons_manager.py         <-- ‼️ updated filename; was human_buttons master
-│       │   ├── error_handling.py          <-- Shared error handling utility
-│       │   ├── model_manager.py
-│       │   └── tool_manager.py            <-- ‼️ updated filename; was tool_discovery
-│       ├── memory.py                      <-- MAO added conversation history for context
-│       └── protocol.md
-├── components/...
-│   ├── ai/...
-│   │   ├── connections/...
-│   │   │   ├── models_x_tools.json        <-- Matching up models to tools
-│   │   │   └── providers_x_models.json    <-- 👻 doesn't exist, example only
-│   │   ├── model_registry/...
-│   │   │   ├── model_name.json            <-- 👻 doesn't exist, example only
-│   │   │   ├── model_name.json            <-- 👻 doesn't exist, example only
-│   │   │   └── models.json                <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART
-│   │   └── provider_registry/...
-│   │       ├── provider_name.json         <-- 👻 doesn't exist, example only
-│   │       ├── provider_name.json         <-- 👻 doesn't exist, example only
-│   │       └── providers.json             <-- CURRENTLY ALL MODELS, NEEDS TO BE BROKEN APART
-│   └── tools/...
-│       └── tool_name/...                  <-- ‼️ EXAMPLE; every tool file now like this
-│           ├── tool_name.py
-│           ├── button_tool.py             <-- 🔄 Human buttons for tools
-│           ├── model_tool.json            <-- 🔄 Tool definitions and metadata
-│           ├── cache_tool.py
-│           └── ui_tool.py
 └── technical-docs/...
     ├── introduction/...
     │   ├── SPECIFICATIONS.md              <-- 📓 an overview with a 'how' focus
@@ -174,73 +93,80 @@ Organized into tangible categories like below examples
             └── v4_0_0_0
 ```
 
-### Old Version
+### Almost Final 
+
 ```
-/single-file-agents/sfa-v4/              <-- This is inside the SFA folder
-├── sfa_v4_main.py
-├── api
-│   ├── auth.py
-│   ├── models.py
-│   └── service.py
+
 ├── configs
-│   ├── model_tool.json                  <-- Matching up models to tools
-│   ├── models.json
-│   ├── providers.json
-│   └── tool_registry                    <-- Tool definitions and metadata
-│       ├── tool_brave_search.json
-│       ├── tool_dalle_generate.json
-│       ├── tool_file_operations.json
-│       ├── tool_graphic_design.json
-│       ├── tool_perplexity_search.json
-│       ├── tool_text_editor.json
-│       ├── tool_think.json
-│       └── tool_web_search.json
+│   ├── connections
+│   │   ├── providers_x_models.json  <-- 👻 create; match provider to model 
+│   │   └── models_x_tools.json      <-- ‼️ empty; match models to tools
+│   ├── models
+│   │   └── models.json              <-- Separate; don't hardcode cross references 
+│   └── providers
+│       └── providers.json           <-- Separate; don't hardcode cross references
 ├── interfaces
-│   ├── terminal.py                      <-- Master UI file
-│   ├── ui_tools
-│   │   ├── ui_brave_search.py
-│   │   ├── ui_dalle_generate.py
-│   │   ├── ui_file_operations.py
-│   │   ├── ui_graphic_design.py
-│   │   ├── ui_perplexity_search.py
-│   │   ├── ui_text_editor.py
-│   │   ├── ui_think.py
-│   │   └── ui_web_search.py
-│   └── web.py
+│   ├── terminal.py                  <-- UI manager  
+│   └── web.py                       <-- UI manager 
+├── mao_v4.py                        <-- ‼️ updated filename; no hardcoding anyway  
 ├── orchestrator
+│   ├── cache
+│   │   ├── __init__.py
+│   │   ├── cache_system.py          <-- ‼️ updated filename; was hybrid_cache
+│   │   └── xTEMP
+│   │       ├── cache_coordinator.py <-- 💀 duplicates need to be fixed
+│   │       └── universal_cache.py   <-- 💀 duplicates need to be fixed
 │   ├── core.py
-│   ├── human_buttons.py                <-- Master human button file
-│   ├── hybrid_cache.py                 <-- Original cache, confirm re: utility cache below
-│   ├── memory.py                       <-- OC adds history like conversation for context
-│   ├── model_manager.py
-│   ├── protocol.md
-│   └── tool_discovery.py
-├── tests                              <-- Testing suite
-├── tools
-│   ├── brave_search.py
-│   ├── dalle_generate.py
-│   ├── file_operations.py
-│   ├── fonts
-│   ├── graphic_design.py
-│   ├── perplexity_search.py
-│   ├── text_editor.py
-│   ├── think.py
-│   └── web_search.py
-└── utilities
-    ├── cache_tools
-    │   ├── __init__.py
-    │   ├── integration_example.py
-    │   └── universal_cache.py         <-- Possibly made by mistake, re: original above
-    ├── error_handling.py              <-- Shared error handling utility
-    └── human_button_tools             <-- Human buttons for tools
-        ├── button_brave_search.py
-        ├── button_dalle_generate.py
-        ├── button_file_operations.py
-        ├── button_graphic_design.py
-        ├── button_perplexity_search.py
-        ├── button_text_editor.py
-        ├── button_think.py
-        └── button_web_search.py
+│   ├── error_handling.py            <-- Shared error handling utility
+│   ├── manager_buttons.py           <-- ‼️ updated filename; was human_buttons master
+│   ├── manager_models.py            <-- ‼️ updated filename; was model_manager
+│   ├── manager_tools.py             <-- ‼️ updated filename; was tool_discovery
+│   ├── memory.py                    <-- ‼️ empty; conversation history for context
+│   └── protocol.md                  <-- ‼️ empty; guide for setup chat 
+├── technical-docs
+│   └── versioning
+└── tools
+    ├── brave_search
+    │   ├── brave_search.py
+    │   ├── button_brave_search.py
+    │   ├── tool_brave_search.json
+    │   └── ui_brave_search.py
+    ├── dalle_generate
+    │   ├── button_dalle_generate.py
+    │   ├── dalle_generate.py
+    │   ├── tool_dalle_generate.json
+    │   └── ui_dalle_generate.py
+    ├── file_operations
+    │   ├── button_file_operations.py
+    │   ├── file_operations.py
+    │   ├── tool_file_operations.json
+    │   └── ui_file_operations.py
+    ├── graphic_design
+    │   ├── button_graphic_design.py
+    │   ├── fonts
+    │   ├── graphic_design.py
+    │   ├── tool_graphic_design.json
+    │   └── ui_graphic_design.py
+    ├── perplexity_search
+    │   ├── button_perplexity_search.py
+    │   ├── perplexity_search.py
+    │   ├── tool_perplexity_search.json
+    │   └── ui_perplexity_search.py
+    ├── text_editor
+    │   ├── button_text_editor.py
+    │   ├── text_editor.py
+    │   ├── tool_text_editor.json
+    │   └── ui_text_editor.py
+    ├── think
+    │   ├── button_think.py
+    │   ├── think.py
+    │   ├── tool_think.json
+    │   └── ui_think.py
+    └── web_search
+        ├── button_web_search.py
+        ├── tool_web_search.json
+        ├── ui_web_search.py
+        └── web_search.py
 ```
 
 What code to be updated when the following are changed? 
