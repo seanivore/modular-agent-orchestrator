@@ -6,66 +6,45 @@
 
 ## Codebase Structure & File Name Updates 
 
-  1. Review changes, logic, and intention 
-  2. Provide feedback, suggestions, better naming 
-  3. Help finalize new system setup 
-  4. Create prompt for file updates as a result 
+Simplified version: 
 
-#### Codebase Structure Logic  
+```
+~/Development/seanivore/modular-agent-orchestrator/ <-- all files moved if that effects any script files
+├── configs
+│   ├── connections
+│   ├── models
+│   └── providers
+├── interfaces               <-- UI managers
+│   ├── terminal.py     
+│   └── web.py
+├── mao_v4.py                <-- ‼️ updated filename; no hardcoding anyway  
+├── orchestrator 
+│   ├── cache
+│   │   ├── __init__.py
+│   │   ├── cache_system.py          <-- ‼️ updated filename; was hybrid_cache
+│   │   └── xTEMP
+│   │       ├── cache_coordinator.py    <-- 💀 duplicates need to be fixed
+│   │       └── universal_cache.py      <-- 💀 duplicates need to be fixed
+│   ├── core.py
+│   ├── error_handling.py           <-- Shared error handling utility
+│   ├── manager_buttons.py           <-- ‼️ updated filename; was human_buttons master
+│   ├── manager_models.py            <-- ‼️ updated filename; was model_manager
+│   ├── manager_tools.py            <-- ‼️ updated filename; was tool_discovery
+│   ├── memory.py               <-- ‼️ empty; conversation history for context
+│   └── protocol.md               <-- ‼️ empty; guide for setup chat 
+└── tools  
+```
 
-- Make more modular 
-  - Group files by element not file type 
-  - All tool files in that tool's directory 
-- AI context friendly 
-  - Not working across directories 
-  - Update and implementation ready 
-- Human navigation friendly 
-  - Minimize files, directories at root 
-  - Hierarchy still shallow 
-- Similar modular documentation directory 
-  - Accessible names for grouping concepts 
-  - Convert old implementation docs 
+### Plan Documentation Structure 
 
-#### Agentic Product Name  
+Loose concept below. 
 
---> MAO (Modular Agent Orchestrator)
-
-- Accuracy 
-  - Certainly no longer single file 
-  - emphasizes actual agentic ability 
-- Understandable 
-  - Know what it does immediately 
-  - Common terms; not trite 
-- Marketing 
-  - Can be used as a verb 
-  - Flow, punchy, multi-meaning 
-
-  > Create a new MAO workflow for that data analysis next week. 
-  > Sure, let me message the OA (Orchestrator Agent) and chat it out. 
-  > Did you MAO that research assignment we got in class yesterday? 
-  > That's a great idea, let's MAO it. We'll be so prepared. 
-
-
-### New Version
 ```
 └── technical-docs/...
     ├── introduction/...
     │   ├── SPECIFICATIONS.md              <-- 📓 an overview with a 'how' focus
     │   ├── MODULAR_PHILOSOPHY.md          <-- 📓  all of the important reasons
     │   └── MODULAR_STRUCTURE.md           <-- 📓 modular layout doubling as table of contents
-```
-IMPORTANT FUNCTION I-X
-  - What component is
-  - The file organization
-  - Logic benefits and tips
-  - How it is integrated
-Organized into tangible categories like below examples
-- --> Process: sequential thinking list parts organized like below
-- --> Think: review, critique, break-down, any separated,
-- --> Think: make clear where each file fits, write intro. for each section
-- --> Think: review section intros., make final organization
-- --> Write in full, review in full, critique, made final edits
-```
     ├── orchestrator/...
     │   ├── INTELLIGENCE.md                <-- model, provider JSON, API
     │   ├── BEHAVIOR.md                    <-- an overview, re: core.py, protocol.md, memory.py
@@ -80,105 +59,10 @@ Organized into tangible categories like below examples
     │   ├── VERBOSE_ARGS.md                <-- file exists in part; expand
     │   ├── TOOL_CREATION_GUIDE.md         <-- file exists; review for accuracy
     │   └── WORKFLOW_SELF_SETUP.md         <-- setup script, use-case JSON, how to skip orchestrator
-    └── versioning/...
-        ├── CHANGE_LOG.md
-        ├── v1_v2_v3_SFA/...
-        │   ├── v1/...
-        │   ├── v2/...
-        │   └── v3/...
-        │       ├── v3_0_0_0
-        │       ├── v3_1_0_0
-        │       └── v3_1_1_2
-        └── v4_MAO/...
-            └── v4_0_0_0
+    └── versioning/.
 ```
 
-### Almost Final 
-
-```
-
-├── configs
-│   ├── connections
-│   │   ├── models_x_tools.json
-│   │   └── providers_x_models.json
-│   ├── models
-│   │   ├── claude-3-7-sonnet.json
-│   │   ├── claude-opus-4.json
-│   │   ├── claude-sonnet-4.json
-│   │   ├── gemini-2.5-pro.json
-│   │   ├── gpt-4.1-mini.json
-│   │   ├── gpt-4.1-nano.json
-│   │   └── local-llama-3.1-8b.json
-│   └── providers
-│       ├── anthropic-direct.json
-│       ├── gemini-direct.json
-│       ├── litellm.json
-│       ├── lm-studio.json
-│       ├── openai-direct.json
-│       └── requesty.json
-├── interfaces
-│   ├── terminal.py                  <-- UI manager  
-│   └── web.py                       <-- UI manager 
-├── mao_v4.py                        <-- ‼️ updated filename; no hardcoding anyway  
-├── orchestrator
-│   ├── cache
-│   │   ├── __init__.py
-│   │   ├── cache_system.py          <-- ‼️ updated filename; was hybrid_cache
-│   │   └── xTEMP
-│   │       ├── cache_coordinator.py <-- 💀 duplicates need to be fixed
-│   │       └── universal_cache.py   <-- 💀 duplicates need to be fixed
-│   ├── core.py
-│   ├── error_handling.py            <-- Shared error handling utility
-│   ├── manager_buttons.py           <-- ‼️ updated filename; was human_buttons master
-│   ├── manager_models.py            <-- ‼️ updated filename; was model_manager
-│   ├── manager_tools.py             <-- ‼️ updated filename; was tool_discovery
-│   ├── memory.py                    <-- ‼️ empty; conversation history for context
-│   └── protocol.md                  <-- ‼️ empty; guide for setup chat 
-├── technical-docs
-│   └── versioning
-└── tools
-    ├── brave_search
-    │   ├── brave_search.py
-    │   ├── button_brave_search.py
-    │   ├── tool_brave_search.json
-    │   └── ui_brave_search.py
-    ├── dalle_generate
-    │   ├── button_dalle_generate.py
-    │   ├── dalle_generate.py
-    │   ├── tool_dalle_generate.json
-    │   └── ui_dalle_generate.py
-    ├── file_operations
-    │   ├── button_file_operations.py
-    │   ├── file_operations.py
-    │   ├── tool_file_operations.json
-    │   └── ui_file_operations.py
-    ├── graphic_design
-    │   ├── button_graphic_design.py
-    │   ├── fonts
-    │   ├── graphic_design.py
-    │   ├── tool_graphic_design.json
-    │   └── ui_graphic_design.py
-    ├── perplexity_search
-    │   ├── button_perplexity_search.py
-    │   ├── perplexity_search.py
-    │   ├── tool_perplexity_search.json
-    │   └── ui_perplexity_search.py
-    ├── text_editor
-    │   ├── button_text_editor.py
-    │   ├── text_editor.py
-    │   ├── tool_text_editor.json
-    │   └── ui_text_editor.py
-    ├── think
-    │   ├── button_think.py
-    │   ├── think.py
-    │   ├── tool_think.json
-    │   └── ui_think.py
-    └── web_search
-        ├── button_web_search.py
-        ├── tool_web_search.json
-        ├── ui_web_search.py
-        └── web_search.py
-```
+### File Updates  
 
 What code to be updated when the following are changed? 
 
@@ -196,26 +80,6 @@ What code to be updated when the following are changed?
 - Cache folder is like that because we had a separate directory with the init py file, but then the main cache_system was in orchestrator
 - We might want to pull them out of master and out of cache if we want less deep of a structure
 
-Let's talk through ideas and find what is most logical. The idea is the codebase is structured so that an AI will immediately understand it, a human can get around, and most importantly, an AI can do work and make updates without needing files spread all over the place. 
-
-**NOTE TO SELF FIND THE BIT ABOUT THE CACHE FILE COMPLICATIONS TO PULL HERE BEFORE STARTING**
-
-### Discuss Logic & Finalize 
-
-Let's break this into parts. First the actual product, meanwhile me learning how or where they are referencing each other, then we'll think about documentation after. 
-
-#### Codebase Structure Feedback 
-
-1. Consider modular grouping 
-2. Consider placement and directory naming 
-3. Any groupings I missed 
-
-#### Discuss Codebase 
-
-1. Feedback, decisions, and codebase changes made 
-2. List any necessary 'to do' updates because of these changes to address after this next task 
-3. Now let's structure the documentation; my example is a loose concept 
-4. Then files update
 
 ------------------------------------
 
