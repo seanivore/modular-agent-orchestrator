@@ -99,12 +99,23 @@ Organized into tangible categories like below examples
 
 ├── configs
 │   ├── connections
-│   │   ├── providers_x_models.json  <-- 👻 create; match provider to model 
-│   │   └── models_x_tools.json      <-- ‼️ empty; match models to tools
+│   │   ├── models_x_tools.json
+│   │   └── providers_x_models.json
 │   ├── models
-│   │   └── models.json              <-- Separate; don't hardcode cross references 
+│   │   ├── claude-3-7-sonnet.json
+│   │   ├── claude-opus-4.json
+│   │   ├── claude-sonnet-4.json
+│   │   ├── gemini-2.5-pro.json
+│   │   ├── gpt-4.1-mini.json
+│   │   ├── gpt-4.1-nano.json
+│   │   └── local-llama-3.1-8b.json
 │   └── providers
-│       └── providers.json           <-- Separate; don't hardcode cross references
+│       ├── anthropic-direct.json
+│       ├── gemini-direct.json
+│       ├── litellm.json
+│       ├── lm-studio.json
+│       ├── openai-direct.json
+│       └── requesty.json
 ├── interfaces
 │   ├── terminal.py                  <-- UI manager  
 │   └── web.py                       <-- UI manager 
