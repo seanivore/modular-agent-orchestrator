@@ -2,6 +2,10 @@
 
 Please review the following and have an understanding of the project scope and current state. 
 
+## Project Overview 
+
+We took the modular approach of use-cases, then pulled apart the entire agent system and made everything modular. Tools, model, provider. We cut down on logistical tools we'll have an orchestrator who manages the workflow and is called to hand in each deliverable. They can also meet with the User to setup the workflow. The whole approach has created probably hundred plus files, but everything is so much simpler it is magical. Even to eliminate SDK translating we use Clade 4 tool 'Code Execution' tool to create "button" snippets for their tools and to call the OC (orchestrator claude) when complete. And the whole thing uses about 1% the amount of tokens. Pure magic ✨
+
 ## Files in the Project Directory 
 
 ### The ORIGINAL Agentic System 

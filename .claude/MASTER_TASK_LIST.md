@@ -1,24 +1,52 @@
-
-MAO
-Modular Agent Orchestrator 
-Modular Agentic Orchestration 
-MAO Workflow 
-
 # Master Task List
 
-## Project Structure Overhaul
+## **SESSION**: Project Name & Codebase Structure Updates 
 
-We are currently looking at this project in a new workspace directory. Sean to explain and we should add any notes here as a to do list if anything needs to be changed, assuming it is okay and makes logical sense. Otherwise we can revert it.
+### More Modular Structure Goals 
 
-- Please ignore the directions in the middle of the new version regarding the tech docs for now, other than that is why they are laid out that way
-- Provide feedback, suggestions, is this doable, does it actually make more sense like it feels lik eit does?
-- I was primarily concerned with two things:
-  1. Group the tool information in one directory per tool as much as possible
-  2. minimize the number of directories at the root -- the next version has build and components and tech-docs
-- I'm totally also open to changing wording if there are more appropriate terms or better ways to group other things
-  - I did some light googling and it said API and UI in build not components so that's what I did
-  - The cache folder is like that because we had a separate directory with the init py file, but then the main cache_system was in orchestrator
-  - Also we can pull them out of master and out of cache if we want less deep of a structure
+Logic of changes. I'll list the new structure below another update and then a task regarding me learning what these kind of changes mean. At that point I'll be looking for feedback, taking into consideration my logic. I think I could use help with naming and am not 100% on some directory placements though I did look it up. 
+
+- Minimize number of files or directories at the project root 
+  - Help the human navigate better 
+  - Was pretty sure it didn't need to be much deeper 
+- Tool directories contain all the modular tool files 
+  - Important for AI context priming to know about a tool 
+  - Easier to know how to add a new tool 
+- Created modular documentation directory 
+  - Uses tangible names for grouping concepts 
+  - Stands as a place for us to consolidate current mess of documents 
+
+### Updated Product Name 
+
+Our MAO (Modular Agent Orchestrator) now has many more than a single file, but is somehow still simpler. Or, I'm creating a MAO Workflow (Modular Agentic Orchestrated) Workflow. 
+
+- So I couldn't decide which makes more sense 
+- I also played around with other combinations 
+  - MAO, MOA, MWAO, MWOA, MWO AGNENT 
+  - I wanted it to be something that could be turned into a verb 
+  - Happy with MAO, only really looked at others because I kept thinking of the CCP 
+
+Feedback? 
+
+### Sean's Codebase Change Implications Education 
+
+What code to be updated when the following are changed? 
+
+  1. Files are moved 
+  2. Structure changed 
+  3. Files are renamed 
+  4. New modular addition 
+     - Tool directory with all files 
+     - New model JSON 
+     - Updated connection between model and tool JSON 
+     - Updated costs, etc. 
+
+- Once I understand I want to contemplate, is this as modular as possible? 
+- Again, totally also open to changing wording if there are more appropriate terms or better ways to group other things
+- Cache folder is like that because we had a separate directory with the init py file, but then the main cache_system was in orchestrator
+- We might want to pull them out of master and out of cache if we want less deep of a structure
+
+Let's talk through ideas and find what is most logical. The idea is the codebase is structured so that an AI will immediately understand it, a human can get around, and most importantly, an AI can do work and make updates without needing files spread all over the place. 
 
 **NOTE TO SELF FIND THE BIT ABOUT THE CACHE FILE COMPLICATIONS TO PULL HERE BEFORE STARTING**
 
@@ -220,22 +248,53 @@ Organized into tangible categories like below examples
         └── button_web_search.py
 ```
 
+### Discuss Logic & Finalize 
 
+Let's break this into parts. First the actual product, meanwhile me learning how or where they are referencing each other, then we'll think about documentation after. 
 
-## Marketing Name Change
+#### Codebase Structure Feedback 
 
-- We recently changed from SFA --> OC or the_oc
-- I just changed it again, for good this time --> mao
+1. Consider modular grouping 
+2. Consider placement and directory naming 
+3. Any groupings I missed 
 
-**Modular Agent Orchestrator (MAO)**
+I think of it like this: 
 
-We will need to go through and make sure it is updated everywhere.
+> Modular groups of files, like the tool directories and their 4 (5 or 6) files, then the Model JSONs. I do think we should break down the models.json and providers.json into individual files. And then if there were or are other files that should go with each model to make it work, like the tools, then we should do the same as tools. 
 
-- While doing that, look for any mention ON or IN files that shouldn't have specifics
-- Leave it open to be rebrand and re-versioned
-- Call it by what it is instead of a name when needed in UI ouput
+(GROUP TYPE A NO. 1) (GROUP TYPE A NO. 2) (GROUP TYPE A NO. 3) 
+(GROUP TYPE B NO. 1) (GROUP TYPE B NO. 2)
 
-## MUST CLEAN UP DOCUMENTATION
+> I think of it like this because in an ideal world we'll be able to add or remove a whole tool directory or model directory, and not have to change any system files at all. I'll be curious too see if it is like that now and pushing for that when we review to accommodate my changes. 
+
+> Then I think about the system files, presumably with each having a 'MASTER' or 'SHARED' file that pulls from the different parts across the tool directories or models, etc. 
+
+(MAIN SYSTEM TOOL)
+(MASTER THAT PULLS X FROM EACH GROUP TYPE A)
+(MASTER THAT PULLS X FROM EACH GROUP TYPE B)
+
+> Etc. and so on. Again, my curiosity and goal here is to see how they reference each other and think about how it could be as plug-and-play as possible. 
+
+> Like... NEW MODEL COMES OUT TODAY ... I drop in the CONFIG. When I run my setup JSON I reference using that agent for whatever task, and it is useable just by placing all the necessary pieces exactly where they should be, but NOT by pointing to a specific number of or named item in those necessary pieces where they should be. If that makes sense. 
+
+> I keep thinking about one function I remember vaguely in the SFA that listed all the tools when requested. Ideally that is all that is ever necessary, for each modular grouping, regardless of the file type or data. 
+
+#### Discuss Codebase 
+
+1. Feedback, decisions, and codebase changes made 
+2. List any necessary 'to do' updates because of these changes to address after this next task 
+3. Now let's structure the documentation; my example is a loose concept 
+4. Then files update
+
+------------------------------------
+
+**End this phase with new structure planned and ready for the next session of documentation and planning the final stretch.**
+
+**Below is the next session task.**
+
+------------------------------------
+
+## **SESSION**: MUST CLEAN UP DOCUMENTATION
 
 1. Plan end state of documents
 2. Review what we have
@@ -309,10 +368,12 @@ We never ran a test of the verbose output --> add to list for UI tasks
 ### API Setup Phase
 
 1. API Connections: Replace simulated execution with real API calls
-2. Files API integration for OC draft management that's free
-3. Orchestrator Integration: Connect tool discovery with `orchestrator/core.py`
+2. Files API integration for OC draft management that's free `./.claude/TOOL_FILES_API.md`
+3. Orchestrator Integration: 
+   - Connect tool discovery with `core.py`
+   - Implement code execution tool via documentation here: `./.claude/TOOL_CODE_EXECUTION.md`
 4. Workflow Testing: End-to-end test with natural language → tools → results
-5. Protocol Document: Create `orchestrator/protocol.md` for OC behavior
+5. Protocol Document: Create `protocol.md` for OC behavior
 
 ### Review All Code Files
 
