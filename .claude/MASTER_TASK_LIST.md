@@ -199,27 +199,6 @@ Let's break this into parts. First the actual product, meanwhile me learning how
 2. Consider placement and directory naming 
 3. Any groupings I missed 
 
-I think of it like this: 
-
-> Modular groups of files, like the tool directories and their 4 (5 or 6) files, then the Model JSONs. I do think we should break down the models.json and providers.json into individual files. And then if there were or are other files that should go with each model to make it work, like the tools, then we should do the same as tools. 
-
-(GROUP TYPE A NO. 1) (GROUP TYPE A NO. 2) (GROUP TYPE A NO. 3) 
-(GROUP TYPE B NO. 1) (GROUP TYPE B NO. 2)
-
-> I think of it like this because in an ideal world we'll be able to add or remove a whole tool directory or model directory, and not have to change any system files at all. I'll be curious too see if it is like that now and pushing for that when we review to accommodate my changes. 
-
-> Then I think about the system files, presumably with each having a 'MASTER' or 'SHARED' file that pulls from the different parts across the tool directories or models, etc. 
-
-(MAIN SYSTEM TOOL)
-(MASTER THAT PULLS X FROM EACH GROUP TYPE A)
-(MASTER THAT PULLS X FROM EACH GROUP TYPE B)
-
-> Etc. and so on. Again, my curiosity and goal here is to see how they reference each other and think about how it could be as plug-and-play as possible. 
-
-> Like... NEW MODEL COMES OUT TODAY ... I drop in the CONFIG. When I run my setup JSON I reference using that agent for whatever task, and it is useable just by placing all the necessary pieces exactly where they should be, but NOT by pointing to a specific number of or named item in those necessary pieces where they should be. If that makes sense. 
-
-> I keep thinking about one function I remember vaguely in the SFA that listed all the tools when requested. Ideally that is all that is ever necessary, for each modular grouping, regardless of the file type or data. 
-
 #### Discuss Codebase 
 
 1. Feedback, decisions, and codebase changes made 
