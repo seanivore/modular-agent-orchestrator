@@ -1,54 +1,49 @@
 # Master Task List
 
-## **SESSION**: Project Name & Codebase Structure Updates 
+|----------------------|
+| **SESSION 13 TASKS** |
+| -------------------- |
 
-### More Modular Structure Goals 
+## Codebase Structure & File Name Updates 
 
-Logic of changes. I'll list the new structure below another update and then a task regarding me learning what these kind of changes mean. At that point I'll be looking for feedback, taking into consideration my logic. I think I could use help with naming and am not 100% on some directory placements though I did look it up. 
+  1. Review changes, logic, and intention 
+  2. Provide feedback, suggestions, better naming 
+  3. Help finalize new system setup 
+  4. Create prompt for file updates as a result 
 
-- Minimize number of files or directories at the project root 
-  - Help the human navigate better 
-  - Was pretty sure it didn't need to be much deeper 
-- Tool directories contain all the modular tool files 
-  - Important for AI context priming to know about a tool 
-  - Easier to know how to add a new tool 
-- Created modular documentation directory 
-  - Uses tangible names for grouping concepts 
-  - Stands as a place for us to consolidate current mess of documents 
+#### Codebase Structure Logic  
 
-### Updated Product Name 
+- Make more modular 
+  - Group files by element not file type 
+  - All tool files in that tool's directory 
+- AI context friendly 
+  - Not working across directories 
+  - Update and implementation ready 
+- Human navigation friendly 
+  - Minimize files, directories at root 
+  - Hierarchy still shallow 
+- Similar modular documentation directory 
+  - Accessible names for grouping concepts 
+  - Convert old implementation docs 
 
-Our MAO (Modular Agent Orchestrator) now has many more than a single file, but is somehow still simpler. Or, I'm creating a MAO Workflow (Modular Agentic Orchestrated) Workflow. 
+#### Agentic Product Name  
 
-- So I couldn't decide which makes more sense 
-- I also played around with other combinations 
-  - MAO, MOA, MWAO, MWOA, MWO AGNENT 
-  - I wanted it to be something that could be turned into a verb 
-  - Happy with MAO, only really looked at others because I kept thinking of the CCP 
+--> MAO (Modular Agent Orchestrator)
 
-Feedback? 
+- Accuracy 
+  - Certainly no longer single file 
+  - emphasizes actual agentic ability 
+- Understandable 
+  - Know what it does immediately 
+  - Common terms; not trite 
+- Marketing 
+  - Can be used as a verb 
+  - Flow, punchy, multi-meaning 
 
-### Sean's Codebase Change Implications Education 
-
-What code to be updated when the following are changed? 
-
-  1. Files are moved 
-  2. Structure changed 
-  3. Files are renamed 
-  4. New modular addition 
-     - Tool directory with all files 
-     - New model JSON 
-     - Updated connection between model and tool JSON 
-     - Updated costs, etc. 
-
-- Once I understand I want to contemplate, is this as modular as possible? 
-- Again, totally also open to changing wording if there are more appropriate terms or better ways to group other things
-- Cache folder is like that because we had a separate directory with the init py file, but then the main cache_system was in orchestrator
-- We might want to pull them out of master and out of cache if we want less deep of a structure
-
-Let's talk through ideas and find what is most logical. The idea is the codebase is structured so that an AI will immediately understand it, a human can get around, and most importantly, an AI can do work and make updates without needing files spread all over the place. 
-
-**NOTE TO SELF FIND THE BIT ABOUT THE CACHE FILE COMPLICATIONS TO PULL HERE BEFORE STARTING**
+  > Create a new MAO workflow for that data analysis next week. 
+  > Sure, let me message the OA (Orchestrator Agent) and chat it out. 
+  > Did you MAO that research assignment we got in class yesterday? 
+  > That's a great idea, let's MAO it. We'll be so prepared. 
 
 ### Simplified Version --- FULL VERSIONS BELOW
 
@@ -248,6 +243,26 @@ Organized into tangible categories like below examples
         └── button_web_search.py
 ```
 
+What code to be updated when the following are changed? 
+
+  1. Files are moved 
+  2. Structure changed 
+  3. Files are renamed 
+  4. New modular addition 
+     - Tool directory with all files 
+     - New model JSON 
+     - Updated connection between model and tool JSON 
+     - Updated costs, etc. 
+
+- Once I understand I want to contemplate, is this as modular as possible? 
+- Again, totally also open to changing wording if there are more appropriate terms or better ways to group other things
+- Cache folder is like that because we had a separate directory with the init py file, but then the main cache_system was in orchestrator
+- We might want to pull them out of master and out of cache if we want less deep of a structure
+
+Let's talk through ideas and find what is most logical. The idea is the codebase is structured so that an AI will immediately understand it, a human can get around, and most importantly, an AI can do work and make updates without needing files spread all over the place. 
+
+**NOTE TO SELF FIND THE BIT ABOUT THE CACHE FILE COMPLICATIONS TO PULL HERE BEFORE STARTING**
+
 ### Discuss Logic & Finalize 
 
 Let's break this into parts. First the actual product, meanwhile me learning how or where they are referencing each other, then we'll think about documentation after. 
@@ -293,6 +308,10 @@ I think of it like this:
 **Below is the next session task.**
 
 ------------------------------------
+
+|----------------------|
+| **SESSION 14 TASKS** |
+| -------------------- |
 
 ## **SESSION**: MUST CLEAN UP DOCUMENTATION
 

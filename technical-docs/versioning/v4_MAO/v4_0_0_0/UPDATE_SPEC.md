@@ -1,68 +1,149 @@
 ---
-NOTES: 
-Philosophy, problem, solution, orchestrator role, agent role regarding generated button interface. 
---> Please move the above sentence to a new document called 'tech-docs.md' in the `./technical-docs/1-introduction/` directory. Then continue making an outline of the information. Organize the outline to make the most sense. Expand on what parts of the documentation are missing so that in the end we have a very comprehensive outline of all the v4 UPDATE which in this case happens to be everything we will need in our technical documentation. No need to try and fill out missing parts now, please just notate them clearly so that we can circle back. There might be some cases we can pull from old technical documentation, and in other cases it might be planning that still needs to be completed and thus added to a to do list. 
+NOTES: Sections we have and need, and the order. When they get large we can put into a separate document for things like philosophy, etc. 
+1. Philosophy, Philosophical Journey 
+2. Problems, Solutions; Orchestrator Role in Solutions, Agents Role in Solutions 
+3. Human UI & UX; Workflow Setup, Terminal Display 
+4. Start of protocol.md workflow planning 
+5. Terminal UX 
+(Right here we are currently breaking down a complex workflow to identify what goes in the terminal display, and more. When done we can convert it into a protocol that can go in the protocol.md document.)
+6. Verbose mode 
+7. Tool Creation with File-by-File Integration Breakdown and Code Snippets 
+8. Shared Error Handling and Shared Cache 
+9. Important Rules (for tools)
+
 ---
 
-# v4.0.0 Update Overview 
-*JSON Config + Code Execution "Human Button" Architecture*
+# MAO v4.0.0 Update Specifications  
+*JSON Config + Code Execution "Button" Architecture*
 
-## Vision: Universal AI Orchestrator
-SFA was only free of hardcoded details when it came to use-case variables. This update transforms the codebase to a dynamic AI orchestrated, workflow planner solution that can use ANY model through simple 'human button' interface powered by Claude 4's Code Execution Tool and as many JSON config files as we can think of including. 
+## The MAO Philosophy 
 
-## Expanding On Core Philosophy 
-- **MODULARITY**: Orchestrator-Operated Variables 
-- **RENAMED**: SFA --> MAO (Modular Agent Orchestrator) pronounced 'meow' like a cat. 
-Doubling down on modularity means we can no longer claim to be a 'single-file' agent; this approach is more about many files in a well structured codebase. The core philosophy of having an 'empty' agent that functions through variable input is more alive now than ever. 
+Our philosophical journey. 
 
-### The Problem v4 Solves
-- **Token Cost Explosion**: v3.3.0 grew to 23,400 tokens per read ($0.07+ per phase)
-- **Manual JSON Bottleneck**: Sean spending excessive time crafting workflow configurations
-- **Hardcoded Assumptions**: Claude model assumptions throughout codebase
-- **Tool Bloat**: Every agent sees all tools, even irrelevant ones
+### Our Original Needs 
 
-### The v4 Solution
-- **Claude Orchestrator**: Creates workflows dynamically from natural language goals
-- **Provider Agnostic**: Works with any LLM provider/model via human like buttons and code execution
-- **Just-in-Time Tools**: Present only relevant tools to each specialist agent
-- **Modular Architecture**: Orchestrator coordinates, specialists execute
+Our simple single-file agent grew rapidly and was a hassle to update. As it become more and more unwieldly, we were also stacking up hopeful ideas of what the future of the product looked like. 
+
+1. Multiple Models Needed 
+   - Needed cheaper options 
+   - Potential to delegate tasks 
+   - Expand capabilities but not complexity 
+2. Serious Spring Cleaning 
+   - Spotted specifics in agent system code 
+   - Elements that could have started modular 
+   - Became a very heavy and costly file 
+3. Actual Agentic Workflows 
+   - No over-planned branching 
+   - Knowing creative decision choices isn't realistic 
+   - AI needs to make more decisions 
+4. Workflow Orchestrator Dream 
+   - Delegation to other agents 
+   - Access to more creative workflows 
+   - Make simpler for human and agents  
+
+### Puritanical Realism 
+
+Thinking through the big picture challenges, they were too specific and loud not to adhere to them absolutely. It was seeing flaws in the old design, realizing things hardcoded actually were modular, that pointed to the solution. 
+
+1. Accept: **AI Is Changing Every Constantly** 
+
+- The product must not ever have a shelf life 
+- Absolute protection from all that has been changing frequently 
+- Must embrace changes fast enough to always be cutting edge 
+
+2. Identify: **What Doesn't Change In AI?** 
+
+- There are AI models 
+- Models interact with tools 
+- Python adopted early in docs 
+- We want it to do something for us 
+- Can't predict what we want it to do 
+- Abilities will always be changing  
+
+3. Solution: **Our Variable Input Use-Case** 
+
+- Original product was free of hardcoded use-case information 
+- Modularity solved many points 
+- The part of the system it plugged into were all modular 
+
+### Modularity Obsession 
+
+Recognizing that the design system, the architecture, was essentially text-book 'good art' it became obvious we were on to something legitimate. The shift from chaos to calm was too profound, the end point was too clear. You couldn't look away. 
+
+- **VARIABLES LIGHTBULB MOMENT**
+  - Use-cases were input by variables in a config JSON 
+  - Models have variables to config JSON
+  - Tools have variables to config JSON 
+  - Files can be organized as variables themselves 
+
+- **MODULARITY IS DESIGN PERFECTION** 
+  - Start with something chaotic 
+  - End with a complete simplicity 
+  - That is art; that is good design  
+
+- **UNEXPECTED TRANSFORMATION DENOTES COMPLETION**
+  - Figuring out modular logic is challenging
+  - Our tasks are always more complicated than we think 
+  - The tools stack up and constantly morph 
+  - But the outcome is always unexpectedly simple 
+ 
+## Defined Problem & Solution 
+
+### Problems 
+- **Token Cost Explosion** 
+  - v3.3.0 grew to 23,400 tokens per read 
+  - It was being read every loop 
+  - Workflow writing targeted resume cost multiple dollars 
+  - Dollars instead of pennies was no longer usable  
+- **Manual JSON Bottleneck** 
+  - Creating workflow configurations was time consuming 
+  - We weren't even getting into unique workflow patterns 
+  - Our branching decisions had multiple choices 
+  - It wasn't agentic enough 
+- **Hardcoded Assumptions** 
+  - Claude model assumptions throughout codebase 
+  - Costs, print functions and more in the scripts 
+  - Expanding became too complicated as it stood 
+- **Tool Bloat** 
+  - Every agent sees all tools, even irrelevant ones
+  - We were stacking up the tools quickly 
+  - Their error handling, definitions, etc. was a lot 
+
+### Solutions 
+- **Claude Orchestrator** 
+  - Can create workflows dynamically in chat 
+  - Works rapidly meaning access to more interesting workflows 
+  - They can be called between agents and alter the workflow live 
+  - Provides 'just in time' tools along with the task  
+  - Collects deliverables directly 
+- **Modular Architecture** 
+  - Everything cached on its own, one time 
+  - Only what is needed by the agent is passed to the agent 
+  - More files didn't mean more code overall 
+  - Easier to add new updates 
+  - Cost estimates got into low fractions 
+- **Provider Agnostic** 
+  - SDK translation is side-stepped completely  
+  - Works with any LLM provider or model, just like use-case variables 
+  - The buttons are human-like and code execution 
+  - Its really many-things-agnostic 
 
 ### Orchestrator Agent
-**Setup Role**: Workflow architect
-- Live setup chat with User about Use-Case 
-- If needed, analyzes user goals and available resources
-- Creates dynamic JSON workflows using variable system 
-- Assigns optimal models for each task type
+- **Setup Role** 
+  - Available in chat as workflow architect 
+  - Can rapidly build workflow 
+  - Provides ideas, cost, etc. 
+- **Workflow Role** 
+  - They are the on-call project manager
+  - Agents call to end task, eliminating logistical tools 
+  - Monitors progress and handles error recovery
+  - Can change the next planned task or workflow on the fly 
+**Human-Friendly** 
+  - Improves with essential simplicity 
+  - Same JSON config and be hand written 
+  - Same setup script can create workflow 
+  - Same custom command selection to run workflow 
 
-**Workflow Role**: Project manager
-- Agents call to end task, eliminating logistical tools 
-- Monitors progress and handles error recovery
-- Can change the next planned task or workflow on the fly 
-
-**Key Capabilities**: Improving on the best 
-- Natural language → JSON workflow conversion when needed 
-- Model selection based on task requirements
-- Real-time workflow adjustment 
-
-**Important Considerations**: Improving essential simplicity 
-- Setup script and JSON still human-usable and designed 
-- If User has something simple to execute, nothing has changed 
-- Short on time doesn't matter if User can shoot off objective to MAO 
-
-#### Real-Time Workflow Monitoring 
-```
-┌─ SFA v4 Workflow Monitor ─────────────────────────┐
-│ Marketing Strategy • Running 3m 24s               │
-├───────────────────────────────────────────────────┤
-│ ✅ Research Agent    • Analyzed market trends     │
-│ 🔄 Strategy Agent    • Creating frameworks...     │
-│ ⏸️  Writing Agent     • Waiting for strategy      │
-├───────────────────────────────────────────────────┤
-│ Models: Gemini (FREE) → Claude Sonnet 4           │
-│ Tokens: 2,847 used • $0.02 spent • Est: $0.08     │
-│ ETA: 2 minutes remaining                          │
-└───────────────────────────────────────────────────┘
-```
 
 ### Agent Role, Re: Generated Button Interface
 **Role**: Task + Buttons 
@@ -102,6 +183,7 @@ Doubling down on modularity means we can no longer claim to be a 'single-file' a
 - Verify cost calculations from JSON pricing
 - Test result of agent button function calls 
 
+
 ## MAO Protocol 
 Editable markdown file defining orchestrator decision-making at `./build/orchestrator/protocol.md`
 
@@ -131,6 +213,87 @@ Editable markdown file defining orchestrator decision-making at `./build/orchest
 
 - All tools have a `ui_tool_name.py` file 
 - Master build has a `./build/interfaces/ui_terminal.py` 
+
+
+## Human UI & UX 
+
+### Workflow Project Planning 
+
+WE NEED TO COME UP WITH A REALLY FORMULAIC WAY TO THINK ABOUT BREAKING DOWN PROJECTS THAT IS CREATIVE ENOUGH TO FIT ALL KINDS OF USE CASES, BIG OR SMALL. Let's take a great example and break it down. 
+
+1. Think PROJECTS as the workflow now 
+   - We need to plan big picture as smaller will come more easily then. 
+   - I want to *really* think this stuff through before creating actual UI, attempting to get it right as possible the first time. 
+   - Perhaps it will help to think of the project itself as modular. 
+2. We need a hierarchy to break down the most complex projects that has enough chunks to handle very large tasks. 
+   - I want to use an example that I had Perplexity Pro do once which was a "where to move" analysis for two cities that took into account many variables, it gave scoring to qualitative variables, and created a matrix, then analyzed that. 
+   - I exported a markdown of the chat; could you please go through it and pull out the variables and phases? The phases can be simplified, in that, towards the end of the conversation is the best matrix when we really had nailed down what variables to look at, how to weight them, etc. Think of the chat itself as the evolution of Perplexity and I figuring out the best way to do that as we went, so no need to have multiple phases that are the same: `./technical-docs/versioning/v4_MAO/WORKFLOW_PROJECT.md`
+3. Need to have a "Workflow evolves as it progresses" setting that I'd like to be the primary type of workflow. 
+   - I'm not a fan of having "branching" that uses multiple choice options because it doesn't leave room for creativity 
+   - For example in the sample project from Perplexity, maybe when OC gets it back to review they think of another variable 
+   - OMG also we need to have a 'human input' sort of 'pause' for similar reasons 
+4. I'm actually really excited about the workflow example from Perplexity because so much of what they did we can do running agents in parallel 
+
+- Project  
+- Tasks are par
+
+### Terminal Updates Printed Text Without Reprinting 
+
+- Enough with the constantly printing feed 
+- Prints so much that you end up reading and reading 
+- Then you realize you didn't need to read much of anything 
+- Instead we'll create a static, real-time monitoring display 
+
+```
+┌─—————— Workflow Monitor ─────────────────────────┐
+│ Marketing Strategy • Running 3m 24s               │
+├───────────────────────────────────────────────────┤
+│ ✅ Research Agent    • Analyzed market trends     │
+│ 🔄 Strategy Agent    • Creating frameworks...     │
+│ ⏸️  Writing Agent     • Waiting for strategy      │
+├───────────────────────────────────────────────────┤
+│ Models: Gemini (FREE) → Claude Sonnet 4           │
+│ Tokens: 2,847 used • $0.02 spent • Est: $0.08     │
+│ ETA: 2 minutes remaining                          │
+└───────────────────────────────────────────────────┘
+```
+
+┌——— WORKFLOW MONITOR ————┐
+| Use Case Name           |
+├—————————————————————————┤
+| STATUS: 
+Phase 1 of 3 — Research 
+Elapsed Time: 00:00:00 
+Spent: $0.021 
+├—————————————— Vegas & San Jose Standard of Life Analysis ——————————————┤
+| Research, Calculation, Analysis 
+| Phase 1: Matrix Creation 
+| 
+| 10 Year Climate Change Cost Impact 
+├———————————————————————————————— ACTIVE ————————————————————————————————┤
+| Parallel Agents  | Phase 3 (00:00:23) of 4 (00:06:45)  |
+| Agent Gemini 2.5 Pro | Task: Cost Analysis 
+| TASK NAME: Overall Cost Analysis 
+
+ 
+
+Agent Analysis of data 
+Parallel agent: Analysis of research   
+Elapsed Time: 00:00:00 
+Spent: $0.021 
+├—————————————————————————┤
+| UP NEXT 
+Phase(s): 3 
+Total Phases: 5
+Agents running in parallel 
+Elapsed Time: 00:00:00 
+Spent: $0.021 
+├—————————————————————————┤
+DETAILS 
+
+### Web UX 
+
+Planning this display will make translating it to other UI solutions all the easier.  
 
 ### Verbose Mode With Forensic Debugging (ADDED ✅)
 
