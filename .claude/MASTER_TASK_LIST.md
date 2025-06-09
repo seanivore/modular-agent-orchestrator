@@ -6,23 +6,21 @@
 
 ## Codebase Structure & File Name Updates 
 
-Simplified version: 
-
 ```
 ~/Development/seanivore/modular-agent-orchestrator/ <-- all files moved if that effects any script files
-├── configs
-│   ├── connections
-│   ├── models
-│   └── providers
-├── interfaces               <-- UI managers
+├── configs/
+│   ├── connections/
+│   ├── models/
+│   └── providers/
+├── interfaces/               <-- UI managers
 │   ├── terminal.py     
 │   └── web.py
-├── mao_v4.py                <-- ‼️ updated filename; no hardcoding anyway  
-├── orchestrator 
-│   ├── cache
+├── mao_v4.py                <-- ‼️ updated filename; no hardcoding anyway
+├── orchestrator/ 
+│   ├── cache/
 │   │   ├── __init__.py
 │   │   ├── cache_system.py          <-- ‼️ updated filename; was hybrid_cache
-│   │   └── xTEMP
+│   │   └── xTEMP/
 │   │       ├── cache_coordinator.py    <-- 💀 duplicates need to be fixed
 │   │       └── universal_cache.py      <-- 💀 duplicates need to be fixed
 │   ├── core.py
@@ -32,35 +30,58 @@ Simplified version:
 │   ├── manager_tools.py            <-- ‼️ updated filename; was tool_discovery
 │   ├── memory.py               <-- ‼️ empty; conversation history for context
 │   └── protocol.md               <-- ‼️ empty; guide for setup chat 
-└── tools  
+└── tools/ 
 ```
 
-### Plan Documentation Structure 
+----
 
-Loose concept below. 
+## Planning Technical Documentation 
 
-```
-└── technical-docs/...
-    ├── introduction/...
-    │   ├── SPECIFICATIONS.md              <-- 📓 an overview with a 'how' focus
-    │   ├── MODULAR_PHILOSOPHY.md          <-- 📓  all of the important reasons
-    │   └── MODULAR_STRUCTURE.md           <-- 📓 modular layout doubling as table of contents
-    ├── orchestrator/...
-    │   ├── INTELLIGENCE.md                <-- model, provider JSON, API
-    │   ├── BEHAVIOR.md                    <-- an overview, re: core.py, protocol.md, memory.py
-    │   ├── AGENCY.md                      <-- user-chat setup scripts, use-cases, workflow JSON config
-    │   ├── ABILITY.md                     <-- tools, JSON registry, buttons, cache, error handling
-    │   └── MANAGEMENT.md                  <-- workflow and file management, ending tasks, recording
-    ├── agents/...
-    │   ├── ASSIGNMENT.md                  <-- get task, token count max reminder and live counter, auto-save docs,
-    │   └── COMPLETION.md                  <-- calling MAO, reporting, hand-off
-    ├── human/...
-    │   ├── UI_MODULARITY.md               <-- UI files and master file
-    │   ├── VERBOSE_ARGS.md                <-- file exists in part; expand
-    │   ├── TOOL_CREATION_GUIDE.md         <-- file exists; review for accuracy
-    │   └── WORKFLOW_SELF_SETUP.md         <-- setup script, use-case JSON, how to skip orchestrator
-    └── versioning/.
-```
+### **What is the best way to organize the documentation?**
+  - Start with the most important terms at the top, clearly visible 
+  - Create a flow that mirrors the flow of using the tool 
+  - Fill in the gaps, adding each concept and file where they make the most sense 
+  - Use the flow's 'loop' from running multiple agents for tasks to introduce under-the-hood concepts 
+  - This creates a logic flow 
+  - It builds on itself, helping non-tech users understand
+
+
+- How the workflow is setup with the user --> 
+  - Human communication UI/UX 
+  - Option to have human in the loop touch-point 
+- How much agency MAO has --> 
+  - Normalized to be open ended to be reviewed and planned in the flow 
+  - Deciding who to delegate to 
+- What MAO does to put the enough of a workflow together to start --> 
+  - Putting together the plan, the use-case workflow CONFIG 
+  - Using the setup script to create the workflow 
+  - Starts memory history for when they're called back in 
+- How MAO starts the workflow --> 
+  - Calling in the agent 
+  - Handing off the work
+  - Providing them with buttons 
+  - Updates their workflow report 
+- The role of the agent --> 
+  - Completing the work 
+  - Using the tools; auto-save so no saving output; live token counter UI as they work 
+  - Calling OC when finished or if needed 
+  - Handing in deliverables 
+  - Providing a report of their task in the moment 
+- How MAO manages the workflow --> 
+  - Returns when agent calls to hand in task 
+  - Reviews work and decides the next phase 
+  - Saves documents in the Files API as "working" documents 
+  - Human touch-point if planned to have one 
+  - Records the agent's report in their workflow report 
+  - Updates memory history 
+- MAO continues workflow --> 
+  - Same content as 'How MAO starts the workflow' 
+  - Same content as 'The role of the agent' 
+  - Same content as 'How MAO manages the workflow' until the tasks are complete 
+  - WHAT IS HAPPENING UNDER THE HOOD? 
+
+----
+
 
 ### File Updates  
 

@@ -1,6 +1,131 @@
-# Project Status of Files Moved 
+# Project Status 
 
-## Tools & Their Master Files 
+## Changed Project Structure & File Names 
+
+### JSON Config Files 
+
+```
+├── configs/
+│   ├── connections/
+│   │   ├── models_x_tools.json
+│   │   └── providers_x_models.json
+```
+CONNECTIONS OLD LOCATION: `./components/ai/connections/models_x_tools.json`
+CONNECTIONS NEW LOCATION: `./configs/connections/`
+
+```
+│   ├── models/ 
+│   │   ├── claude-3-7-sonnet.json
+│   │   ├── claude-opus-4.json
+│   │   ├── claude-sonnet-4.json
+│   │   ├── gemini-2.5-pro.json
+│   │   ├── gpt-4.1-mini.json
+│   │   ├── gpt-4.1-nano.json
+│   │   └── local-llama-3.1-8b.json
+```
+MODELS OLD LOCATION: `./components/ai/model_registry/models.json`
+MODELS NEW LOCATION: `./configs/models/`
+```
+│   └── providers/
+│       ├── anthropic-direct.json
+│       ├── gemini-direct.json
+│       ├── litellm.json
+│       ├── lm-studio.json
+│       ├── openai-direct.json
+│       └── requesty.json
+```
+PROVIDERS OLD LOCATION: `./components/ai/provider_registry/providers.json`
+PROVIDERS NEW LOCATION: `./configs/providers/`
+
+### UI Interface Files 
+
+OLD LOCATION: `./components/ui/`
+NEW LOCATION: `./interfaces/`
+
+```
+├── interfaces
+│   ├── ui_terminal.py
+│   └── ui_web.py
+```
+### Renamed the MAO Agent File 
+
+```
+├── mao_v4.py
+```
+
+### Orchestrator Files 
+
+OLD LOCATION: `./sfa-v4/orchestrator/`
+NEW LOCATION: `./orchestrator/`
+
+
+```
+├── orchestrator
+│   ├── cache
+│   │   ├── __init__.py
+│   │   ├── cache_system.py
+│   │   └── xTEMP
+│   │       ├── cache_coordinator.py
+│   │       └── universal_cache.py
+│   ├── core.py
+│   ├── error_handling.py
+│   ├── manager_buttons.py
+│   ├── manager_models.py
+│   ├── manager_tools.py
+│   ├── memory.py
+│   └── protocol.md
+```
+
+```
+├── tests
+├── tools
+│   ├── brave_search
+│   │   ├── brave_search.py
+│   │   ├── button_brave_search.py
+│   │   ├── tool_brave_search.json
+│   │   └── ui_brave_search.py
+│   ├── dalle_generate
+│   │   ├── button_dalle_generate.py
+│   │   ├── dalle_generate.py
+│   │   ├── tool_dalle_generate.json
+│   │   └── ui_dalle_generate.py
+│   ├── file_operations
+│   │   ├── button_file_operations.py
+│   │   ├── file_operations.py
+│   │   ├── tool_file_operations.json
+│   │   └── ui_file_operations.py
+│   ├── graphic_design
+│   │   ├── button_graphic_design.py
+│   │   ├── fonts
+│   │   ├── graphic_design.py
+│   │   ├── tool_graphic_design.json
+│   │   └── ui_graphic_design.py
+│   ├── perplexity_search
+│   │   ├── button_perplexity_search.py
+│   │   ├── perplexity_search.py
+│   │   ├── tool_perplexity_search.json
+│   │   └── ui_perplexity_search.py
+│   ├── text_editor
+│   │   ├── button_text_editor.py
+│   │   ├── text_editor.py
+│   │   ├── tool_text_editor.json
+│   │   └── ui_text_editor.py
+│   ├── think
+│   │   ├── button_think.py
+│   │   ├── think.py
+│   │   ├── tool_think.json
+│   │   └── ui_think.py
+│   └── web_search
+│       ├── button_web_search.py
+│       ├── tool_web_search.json
+│       ├── ui_web_search.py
+│       └── web_search.py
+└── versioning-docs
+    ├── CHANGE_LOG.md
+    ├── technical-documentation
+    ├── v1-3_SFA
+    └── v4_MAO
+```
 
 8 tool directories each with 4 of the core: 
   `./components/tools/tool_name/`
@@ -29,15 +154,6 @@ Then both of those don't look reviewed. They should be carefully reviewed for th
 1. UI 'print()' functions that go in the `ui_terminal.py` file 
 2. Should be checked for error handling; might need it still, though those go in `error_handling.py`
 3. Then just the buttons_manager will need to be double checked that it got cached into `cache_system.py`
-
-Finally, these two JSON should be broken down into individual files to better fit with the rest of the modular system. 
-- `./components/ai/model_registry/models.json` - 10+ model definitions
-- `./components/ai/provider_registry/providers.json` - API provider configs
-
-In the case of those two files we just need to make sure that they do not hardcode reference (anything but especially keep eyes peeled for) each other, or referencing tools JSON. In all cases, we create "connections" files to show what models can use what tools and what models come from what providers; note that there are models that we have coming from multiple providers. 
-
-- `./components/ai/connections/models_x_tools.json` - the model and tool connection 
-- `models_x_providers.json` - this one has not been created yet
 
 The last step in this part of the process then is that we should create template versions of each JSON config type: 
 - model_model_name.json
