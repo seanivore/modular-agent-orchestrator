@@ -238,6 +238,32 @@ Presumably all of these documents will end up in our documentation. Let's keep a
    - I mention this because after we're done we should create real cursor rules for this project (the AI previously used the legacy format)
    - And because I think it might be worth setting up our remaining home stretch task list as a set of prompts; I'm curious about using Claude Code because I watch IndyDevDan use it a lot, but I need assistance because I write a lot and he writes very concise prompts that are actually prompts about writing prompts that they pass off to multiple instances of Claude Code to run in parallel. Anyway just mentioning this to be aware, we'll obviously chat before we do anything. 
 
+------------------------------------
+
+## Review Document Outline Feedback 
+
+- Anthropic blog that has gone viral a few times. I'd like to touch on it in the documentation, including linking to it. Primarily I'm interested in explaining the different kinds of workflows. I think it would fit nicely right before we start to talk about '1.3 Types of Workflows MAO Handles'. 
+`https://www.anthropic.com/engineering/building-effective-agents`
+
+- They also have these three documents from their cookbook covering 'Basic Workflows', 'Evaluator Optimizer', and then our own 'Orchestrator Workers.' These have a lot of code unlike the above blog, so probably just a little bit of information they might provide. I have no idea what the code is; presuming we don't need it  but go for it if it makes sense to! 
+`/Users/seanivore/Development/modular-agent-orchestrator/.archive/COOKBOOK_WORKFLOWS/basic_workflows.ipynb`
+`/Users/seanivore/Development/modular-agent-orchestrator/.archive/COOKBOOK_WORKFLOWS/evaluator_optimizer.ipynb`
+`/Users/seanivore/Development/modular-agent-orchestrator/.archive/COOKBOOK_WORKFLOWS/orchestrator_workers.ipynb`
+
+- Actually, I'm just realizing that under '1.3 Types of Workflows MAO Handles' we're talking about Use-Cases. We should have a Use-Case section, but this isn't what I was thinking here. We shouldn't discuss 'Use-Cases' until we get to variables-input architecture. There was a fairly good intro in the old SFA README.md, so I pulled that version into the archive directory in this project. I would recommend checking out these sections: 'Agentic Basics', 'LLMs As "Software"', 'Variable-Input Architecture', 'Configuration Variables Explained'. This time I think we'll want to open up the variable-input to not be specifically about setting up Use-Cases since we've made everything modular. 
+`/Users/seanivore/Development/modular-agent-orchestrator/.archive/SFA_README.md`
+
+- Between those three points above I think we'd have a good 1.1, 1.2, and 1.3. And then I'd make 1.4 be more about the modularity of the codebase. Hmm, I'm thinking about how like HUGE this is to the entire product and wondering if it might even be an entire section. I see "3.2 Modular Architecture" but in order of conceptual importance for core concepts, I think we'd want to start from more of a philosophical standpoint. Like, EVERYTHING was allllways about being modular, and I spent every session with you going through files and pruning out what the last AI wrote in the code that specific in certain ways. 
+
+- Ah here we are. From this document, I got very into describing the philosophy, why it became clear that this was a winning architecture --> that weird magic where everything is CHAOS, even while trying to figure out how the hell to make it all modular, and then, just like art, when you have it you are just done and there is nothing more to be done because you've simplified things so much. Almost like finding a fractions lowest common denominator or whatever that was in math lol. I really took my time with these sections so I think we might be able to copy and paste them almost exactly. We even go through the whole "problem" and "solution" that is so common and understandable to non-tech people. In general, if you can't tell by the feedback yet haha, I feel like the outline is just too much like standard documentation. And I don't even want to think of other developers as our target market. If we're going to push this product to a point where other people are using it, it will be wrapped in a clean UX and have so little about the inner workings. Since we're obviously early in the game for that, I'm really just trying to plant seeds with all of this and push the way of thinking this way now. I want the uniqueness of the product to speak through the documentation. 
+
+- The sections: 'The MAO Philosophy', 'Our Original Needs', 'Puritanical Realism', 'Modularity Obsession', 'Defined Problem & Solution' --> oh and looks like it sort of ends with the variable-input agent philosophy. 
+`/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/UPDATE_SPEC.md`
+
+
+
+
+
 -------------------------------------
 
 |----------------------|
