@@ -17,8 +17,8 @@ MAO v4.0.0.0 (Modular Agent Orchestrator)
 ```
 ~/Development/seanivore/modular-agent-orchestrator/ <-- all files moved if that effects any script files
 ├── configs/
-│   ├── connections/         <-- ⚠️ models_x_tools.json, providers_x_models.json eliminate config hardcoding 
-│   │   ├── models_x_tools.json
+│   ├── connections/
+│   │   ├── models_x_tools.json      <-- ⚠️ new file; eliminates cross-config file reference hardcoding
 │   │   └── providers_x_models.json  <-- ‼️ new file
 │   ├── models/              <-- ⚠️ model registry, models.json broken into per-model JSON files
 │   │   ├── claude-3-7-sonnet.json
