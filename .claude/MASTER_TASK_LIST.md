@@ -99,6 +99,29 @@ MAO v4.0.0.0 (Modular Agent Orchestrator)
 └── versioning-docs
     ├── CHANGE_LOG.md
     ├── technical-documentation
+    │   ├── 1.INTRODUCTION
+    │   │   ├── 1.1_MEET_MAO.md
+    │   │   ├── 1.2_THE_AGENT_HYPE.md  
+    │   │   └── 1.3_MODULAR_PHILOSOPHY.md
+    │   ├── 2.BUILDING_WITH_MAO
+    │   │   ├── 2.1_COMMUNICATION.md
+    │   │   ├── 2.2_WORKFLOW_PLANNING.md
+    │   │   ├── 2.3_TOOL_IMPLEMENTATION_GUIDE.md
+    │   │   └── 2.4_ITS_ALL_VARIABLE.md
+    │   ├── 3.AGENCY
+    │   │   ├── 3.1_BEHAVIOR.md
+    │   │   ├── 3.2_SPAWN.md
+    │   │   ├── 3.3_ORCHESTRATION.md
+    │   │   └── 3.4_WORKFLOW_MANAGEMENT.md
+    │   ├── 4.COST_OF_MAO
+    │   │   ├── 4.1_FINGERPRINTING.md
+    │   │   └── 4.2_RESOURCE_EFFICIENCY.md
+    │   └── 5.SET_UP_FOR_SUCCESS
+    │       ├── 5.1_RUNNING_ESTABLISHED_WORKFLOWS
+    │       ├── 5.2_WORKFLOW_MONITOR.md
+    │       ├── 5.3_WORKFLOW_REPORT.md
+    │       ├── 5.4_VERBOSE_MODE.md
+    │       └── 5.5_ERROR_HANDLING.md
     ├── v1-3_SFA
     └── v4_MAO
 ```
