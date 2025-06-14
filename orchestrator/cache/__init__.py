@@ -3,20 +3,14 @@ SFA v4.0.0 Cache Tools
 Universal caching infrastructure for modular tools
 """
 
-from .universal_cache import (
-    UniversalCache,
-    CacheFingerprint, 
-    ModelToolMapper,
-    get_global_cache,
-    cache_operation
+from .cache_system import (
+    CacheManager,
+    CacheEntry
 )
 
 __all__ = [
-    'UniversalCache',
-    'CacheFingerprint',
-    'ModelToolMapper', 
-    'get_global_cache',
-    'cache_operation'
+    'CacheManager',
+    'CacheEntry'
 ]
 
 # Version info
