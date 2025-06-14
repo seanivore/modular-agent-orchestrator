@@ -216,9 +216,9 @@
     }
   },
   "file_locations": {
-    "core_logic": "tools/perplexity_search_modular.py",
-    "ui_display": "interfaces/ui_tools/ui_perplexity_search.py", 
-    "buttons": "utilities/button_tools/button_perplexity_search.py",
+    "core_logic": "tools/perplexity_search/perplexity_search.py",
+          "ui_display": "tools/perplexity_search/ui_perplexity_search.py", 
+      "buttons": "tools/perplexity_search/button_perplexity_search.py",
     "tool_registry": "configs/tool_registry/tool_perplexity_search.json"
   },
   "integration": {

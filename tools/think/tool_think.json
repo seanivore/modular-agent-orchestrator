@@ -134,9 +134,9 @@
     "display_agent_handoff"
   ],
   "file_structure": {
-    "core_logic": "tools/think_modular.py",
-    "ui_display": "interfaces/ui_tools/ui_think.py", 
-    "buttons": "utilities/button_tools/button_think.py",
+    "core_logic": "tools/think/think.py",
+          "ui_display": "tools/think/ui_think.py", 
+      "buttons": "tools/think/button_think.py",
     "tool_registry": "configs/tool_registry/tool_think.json",
     "error_handling": "utilities/error_handling.py"
   },

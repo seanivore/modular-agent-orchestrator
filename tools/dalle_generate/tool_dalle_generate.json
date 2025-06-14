@@ -372,9 +372,9 @@
   },
   
   "file_structure": {
-    "core_logic": "tools/dalle_generate_modular.py",
-    "ui_display": "interfaces/ui_tools/ui_dalle_generate.py", 
-    "buttons": "utilities/button_tools/button_dalle_generate.py",
+    "core_logic": "tools/dalle_generate/dalle_generate.py",
+          "ui_display": "tools/dalle_generate/ui_dalle_generate.py", 
+      "buttons": "tools/dalle_generate/button_dalle_generate.py",
     "tool_registry": "configs/tool_registry/tool_dalle_generate.json",
     "error_handling": "utilities/error_handling.py"
   },

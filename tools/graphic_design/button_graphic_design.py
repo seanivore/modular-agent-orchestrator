@@ -6,7 +6,7 @@ Human Button Generators
 from typing import Dict, Any, Optional
 
 
-def create_analysis_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable code snippet for AI-powered image analysis
     

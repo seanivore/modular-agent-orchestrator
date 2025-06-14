@@ -236,9 +236,9 @@
     "error_handling": "comprehensive"
   },
   "file_structure": {
-    "core_logic": "tools/text_editor_modular.py",
-    "ui_display": "interfaces/ui_tools/ui_text_editor.py", 
-    "buttons": "utilities/button_tools/button_text_editor.py",
+    "core_logic": "tools/text_editor/text_editor.py",
+    "ui_display": "tools/text_editor/ui_text_editor.py", 
+    "buttons": "tools/text_editor/button_text_editor.py",
     "tool_registry": "configs/tool_registry/tool_text_editor.json",
     "error_handling": "utilities/error_handling.py"
   },

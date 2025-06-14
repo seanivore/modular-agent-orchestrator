@@ -205,9 +205,9 @@
     "task_type": "research"
   },
   "file_structure": {
-    "core_logic": "tools/web_search_modular.py",
-    "ui_display": "interfaces/ui_tools/ui_web_search.py",
-    "buttons": "utilities/button_tools/button_web_search.py",
+    "core_logic": "tools/web_search/web_search.py",
+          "ui_display": "tools/web_search/ui_web_search.py",
+      "buttons": "tools/web_search/button_web_search.py",
     "tool_registry": "configs/tool_registry/tool_web_search.json",
     "error_handling": "utilities/error_handling.py"
   },

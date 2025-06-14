@@ -311,9 +311,9 @@
   },
   
   "file_structure": {
-    "core_logic": "tools/graphic_design_modular.py",
-    "ui_display": "interfaces/ui_tools/ui_graphic_design.py", 
-    "buttons": "utilities/button_tools/button_graphic_design.py",
+    "core_logic": "tools/graphic_design/graphic_design.py",
+          "ui_display": "tools/graphic_design/ui_graphic_design.py", 
+      "buttons": "tools/graphic_design/button_graphic_design.py",
     "tool_registry": "configs/tool_registry/tool_graphic_design.json",
     "shared_error_handling": "utilities/error_handling.py"
   },

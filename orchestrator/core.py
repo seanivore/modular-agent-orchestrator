@@ -67,7 +67,7 @@ class WorkflowOrchestrator:
     def __init__(self, config_dir: str = "configs"):
         self.model_manager = ModelManager(config_dir)
         self.buttons = ButtonManager(self.model_manager)
-        self.tool_discovery = ToolDiscovery(config_dir)
+        self.tool_discovery = ToolManager(config_dir)
         self.cache_manager = CacheManager()
         self.protocol = self._load_protocol()
         

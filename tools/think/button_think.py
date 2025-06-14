@@ -6,7 +6,7 @@ Simple executable snippets for AI thinking operations
 from typing import Dict, Any
 import json
 
-def create_thinking_button(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable snippet for AI thinking
     

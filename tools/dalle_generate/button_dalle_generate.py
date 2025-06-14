@@ -6,7 +6,7 @@ Human Button Generators
 import json
 from typing import Dict, Any, List
 
-def create_dalle_generation_button(prompt: str, size: str = "1024x1024", quality: str = "standard", 
+def create_button_snippet(prompt: str, size: str = "1024x1024", quality: str = "standard", 
                                   style: str = "vivid", n: int = 1, output_dir: str = "generated_images",
                                   model: str = "claude-sonnet-4") -> str:
     """
