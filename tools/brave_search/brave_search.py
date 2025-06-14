@@ -40,10 +40,7 @@ def search_web(query: str, count: int = 10, country: str = "US", search_type: st
         
         cached_result = cache.get_cached_analysis(cache_key, "brave_search")
         if cached_result:
-            print(f"💾 Cache HIT: Brave search for '{query}' (instant!)")
             return json.loads(cached_result)
-        
-        print(f"🔍 Cache MISS: Performing Brave search for '{query}'...")
         
         # API Configuration
         api_key = os.getenv("BRAVE_API_KEY") or os.getenv("X_SUBSCRIPTION_TOKEN")
@@ -185,7 +182,6 @@ def search_web(query: str, count: int = 10, country: str = "US", search_type: st
         
         # 💾 FINGERPRINT CACHING - Cache successful results
         cache.cache_content_analysis(cache_key, json.dumps(search_results), "brave_search")
-        print(f"💾 Cached search results for '{query}' - future searches will be instant!")
         
         return search_results
         

@@ -33,7 +33,6 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
         cache_key = f"{query.strip()}|{model}|{search_context}"
         cached_result = cache.get_cached_analysis(cache_key, "perplexity_search")
         if cached_result:
-            print(f"💾 Cache HIT: Perplexity search config for '{query}' (instant!)")
             return json.loads(cached_result)
         
         # Validate model
@@ -61,7 +60,6 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
         
         # Cache the result (fingerprinting)
         cache.cache_content_analysis(cache_key, json.dumps(search_config), "perplexity_search")
-        print(f"💾 Cached Perplexity search config for '{query}' - future identical searches will be instant!")
         
         return search_config
         
@@ -92,7 +90,6 @@ def perform_enhanced_research(query: str, research_approach: str = "comprehensiv
         cache_key = f"{query.strip()}|{research_approach}|{analysis_focus}|{model}"
         cached_result = cache.get_cached_analysis(cache_key, "perplexity_enhanced_research")
         if cached_result:
-            print(f"💾 Cache HIT: Enhanced research config for '{query}' (instant!)")
             return json.loads(cached_result)
         
         # Prepare enhanced research configuration
@@ -111,7 +108,6 @@ def perform_enhanced_research(query: str, research_approach: str = "comprehensiv
         
         # Cache the result (fingerprinting)
         cache.cache_content_analysis(cache_key, json.dumps(research_config), "perplexity_enhanced_research")
-        print(f"💾 Cached enhanced research config for '{query}' - future identical requests will be instant!")
         
         return research_config
         

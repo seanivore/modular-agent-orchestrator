@@ -26,9 +26,10 @@ class CacheEntry:
 class CacheManager:
     """🔄 Dual-layer caching: Files API + Local fingerprinting"""
     
-    def __init__(self, cache_dir: str = "~/.oc_cache"):
+    def __init__(self, cache_dir: str = "~/.oc_cache", verbose: bool = False):
         self.cache_dir = Path(cache_dir).expanduser()
         self.cache_dir.mkdir(exist_ok=True)
+        self.verbose = verbose
         
         # Create cache subdirectories
         (self.cache_dir / "content_analysis").mkdir(exist_ok=True)
@@ -39,7 +40,8 @@ class CacheManager:
         self.workflow_files: Dict[str, str] = {}  # file_id -> content_hash
         self.session_memory: Dict[str, Any] = {}
         
-        print(f"💾 Cache initialized at {self.cache_dir}")
+        if self.verbose:
+            print(f"💾 Cache initialized at {self.cache_dir}")
     
     def generate_content_hash(self, content: str) -> str:
         """📄 Generate fingerprint for content"""
@@ -70,7 +72,8 @@ class CacheManager:
         with open(cache_file, 'w') as f:
             json.dump(asdict(cache_entry), f, indent=2)
         
-        print(f"💾 Cached {cache_type}: {content_hash}")
+        if self.verbose:
+            print(f"💾 Cached {cache_type}: {content_hash}")
         return content_hash
     
     def get_cached_analysis(self, content: str, cache_type: str = "content_analysis") -> Optional[str]:
@@ -82,10 +85,12 @@ class CacheManager:
             with open(cache_file, 'r') as f:
                 cache_entry = json.load(f)
             
-            print(f"💾 Cache HIT: {content_hash} ({cache_type})")
+            if self.verbose:
+                print(f"💾 Cache HIT: {content_hash} ({cache_type})")
             return cache_entry["content"]
         
-        print(f"💾 Cache MISS: {content_hash} ({cache_type})")
+        if self.verbose:
+            print(f"💾 Cache MISS: {content_hash} ({cache_type})")
         return None
     
     def cache_tool_definition(self, tool_name: str, tool_definition: Dict) -> str:
@@ -103,7 +108,8 @@ class CacheManager:
         with open(cache_file, 'w') as f:
             json.dump(asdict(cache_entry), f, indent=2)
         
-        print(f"🔧 Cached tool: {tool_name} ({tool_hash})")
+        if self.verbose:
+            print(f"🔧 Cached tool: {tool_name} ({tool_hash})")
         return tool_hash
     
     def get_cached_tool(self, tool_name: str, tool_definition: Dict) -> Optional[Dict]:
@@ -115,10 +121,12 @@ class CacheManager:
             with open(cache_file, 'r') as f:
                 cache_entry = json.load(f)
             
-            print(f"🔧 Tool cache HIT: {tool_name} ({tool_hash})")
+            if self.verbose:
+                print(f"🔧 Tool cache HIT: {tool_name} ({tool_hash})")
             return json.loads(cache_entry["content"])
         
-        print(f"🔧 Tool cache MISS: {tool_name} ({tool_hash})")
+        if self.verbose:
+            print(f"🔧 Tool cache MISS: {tool_name} ({tool_hash})")
         return None
     
     # ========================================================================
@@ -141,11 +149,13 @@ class CacheManager:
             # Track for this workflow session
             self.workflow_files[file_id] = content_hash
             
-            print(f"📁 Stored in Files API: {filename} (ID: {file_id[:8]}...)")
+            if self.verbose:
+                print(f"📁 Stored in Files API: {filename} (ID: {file_id[:8]}...)")
             return file_id
             
         except Exception as e:
-            print(f"❌ Files API error: {e}")
+            if self.verbose:
+                print(f"❌ Files API error: {e}")
             # Fallback to session memory
             self.session_memory[filename] = content
             return f"session_{filename}"
@@ -159,11 +169,13 @@ class CacheManager:
         
         try:
             file_content = await anthropic_client.files.retrieve(file_id)
-            print(f"📁 Retrieved from Files API: {file_id[:8]}... (FREE!)")
+            if self.verbose:
+                print(f"📁 Retrieved from Files API: {file_id[:8]}... (FREE!)")
             return file_content.decode()
             
         except Exception as e:
-            print(f"❌ Files API retrieval error: {e}")
+            if self.verbose:
+                print(f"❌ Files API retrieval error: {e}")
             return None
     
     def build_workflow_memory(self, completed_phases: List[Dict]) -> Dict[str, Any]:
@@ -229,7 +241,8 @@ class CacheManager:
         result["workflow_file_id"] = file_id
         result["strategy"] += "workflow"
         
-        print(f"🧠 Smart cache: {content_type} → {result['strategy']}")
+        if self.verbose:
+            print(f"🧠 Smart cache: {content_type} → {result['strategy']}")
         return result
     
     # ========================================================================
@@ -281,9 +294,11 @@ class CacheManager:
                         cleaned += 1
                         
                 except Exception as e:
-                    print(f"⚠️ Error cleaning {cache_file}: {e}")
+                    if self.verbose:
+                        print(f"⚠️ Error cleaning {cache_file}: {e}")
         
-        print(f"🗑️ Cleaned {cleaned} old cache entries")
+        if self.verbose:
+            print(f"🗑️ Cleaned {cleaned} old cache entries")
         return cleaned
 
 
@@ -294,7 +309,7 @@ async def demo_hybrid_caching():
     print("🔄 HYBRID CACHING SYSTEM DEMO")
     print("=" * 60)
     
-    cache = CacheManager()
+    cache = CacheManager(verbose=True)  # Demo should show output
     
     # Simulate job description analysis
     job_description = """Senior Software Engineer

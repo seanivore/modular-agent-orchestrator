@@ -34,7 +34,6 @@ def perform_web_search(query: str, max_results: int = 5, search_context: str = "
         cache_key = f"{query.strip()}|{max_results}|{search_context}"
         cached_result = cache.get_cached_analysis(cache_key, "web_search")
         if cached_result:
-            print(f"💾 Cache HIT: Web search config for '{query}' (instant!)")
             return json.loads(cached_result)
         
         # Prepare search configuration
@@ -51,7 +50,6 @@ def perform_web_search(query: str, max_results: int = 5, search_context: str = "
         
         # Cache the result (fingerprinting)
         cache.cache_content_analysis(cache_key, json.dumps(search_config), "web_search")
-        print(f"💾 Cached web search config for '{query}' - future identical searches will be instant!")
         
         return search_config
         
@@ -78,7 +76,6 @@ def perform_filtered_search(query: str, domain: Optional[str] = None,
         cache_key = f"{query.strip()}|{domain}|{date_range}|{max_results}"
         cached_result = cache.get_cached_analysis(cache_key, "web_search_filtered")
         if cached_result:
-            print(f"💾 Cache HIT: Filtered search config for '{query}' (instant!)")
             return json.loads(cached_result)
         
         # Build enhanced query with filters
@@ -103,7 +100,6 @@ def perform_filtered_search(query: str, domain: Optional[str] = None,
             
             # Cache the result (fingerprinting)
             cache.cache_content_analysis(cache_key, json.dumps(result), "web_search_filtered")
-            print(f"💾 Cached filtered search config for '{query}' - future identical searches will be instant!")
         
         return result
         
@@ -128,7 +124,6 @@ def perform_content_search(query: str, content_type: str = "general", max_result
         cache_key = f"{query.strip()}|{content_type}|{max_results}"
         cached_result = cache.get_cached_analysis(cache_key, "web_search_content")
         if cached_result:
-            print(f"💾 Cache HIT: Content search config for '{query}' (instant!)")
             return json.loads(cached_result)
         
         # Enhance query based on content type
@@ -151,7 +146,6 @@ def perform_content_search(query: str, content_type: str = "general", max_result
             
             # Cache the result (fingerprinting)
             cache.cache_content_analysis(cache_key, json.dumps(result), "web_search_content")
-            print(f"💾 Cached content search config for '{query}' - future identical searches will be instant!")
         
         return result
         

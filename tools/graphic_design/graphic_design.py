@@ -42,7 +42,6 @@ def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> 
             cache_key = f"{image_path}|{analysis_approach}|{mtime}"
             cached_result = cache.get_cached_analysis(cache_key, "image_analysis")
             if cached_result:
-                print(f"💾 Cache HIT: Image analysis for '{os.path.basename(image_path)}' (instant!)")
                 return json.loads(cached_result)
         except:
             pass  # If we can't get mtime, proceed without cache
@@ -89,7 +88,6 @@ def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> 
                 # Cache the result (fingerprinting)
                 try:
                     cache.cache_content_analysis(cache_key, json.dumps(result), "image_analysis")
-                    print(f"💾 Cached image analysis for '{os.path.basename(image_path)}' - future analysis will be instant!")
                 except:
                     pass  # Cache failure shouldn't break image analysis
                 

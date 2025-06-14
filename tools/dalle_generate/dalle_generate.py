@@ -38,9 +38,8 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
         # Check cache first (fingerprinting) - DALL-E is expensive!
         cache = CacheManager()
         cache_key = f"{prompt.strip()}|{size}|{quality}|{style}|{n}|{output_dir}"
-        cached_result = cache.get_cached_analysis(cache_key, "dalle_generate")
+        cached_result = cache.get_cached_analysis(cache_key, "dalle_generation")
         if cached_result:
-            print(f"💾 Cache HIT: DALL-E generation for '{prompt[:50]}...' (instant!)")
             return json.loads(cached_result)
         
         if len(prompt) > 4000:
@@ -244,8 +243,7 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
             result_data["metadata"]["metadata_save_error"] = str(metadata_error)
         
         # Cache the result (fingerprinting) - DALL-E is expensive!
-        cache.cache_content_analysis(cache_key, json.dumps(result_data), "dalle_generate")
-        print(f"💾 Cached DALL-E generation for '{prompt[:50]}...' - future identical requests will be instant!")
+        cache.cache_content_analysis(cache_key, json.dumps(result_data), "dalle_generation")
         
         return result_data
         
@@ -277,7 +275,6 @@ def enhance_dalle_prompt(basic_prompt: str, enhancement_approach: str = "profess
         cache_key = f"{basic_prompt.strip()}|{enhancement_approach}|{enhancement_focus}"
         cached_result = cache.get_cached_analysis(cache_key, "dalle_prompt_enhancement")
         if cached_result:
-            print(f"💾 Cache HIT: Prompt enhancement for '{basic_prompt[:30]}...' (instant!)")
             return json.loads(cached_result)
         
         # Build enhanced prompt based on approach and focus
@@ -330,7 +327,6 @@ def enhance_dalle_prompt(basic_prompt: str, enhancement_approach: str = "profess
         
         # Cache the result (fingerprinting)
         cache.cache_content_analysis(cache_key, json.dumps(enhancement_result), "dalle_prompt_enhancement")
-        print(f"💾 Cached prompt enhancement for '{basic_prompt[:30]}...' - future identical requests will be instant!")
         
         return enhancement_result
         
