@@ -4,14 +4,15 @@ Advanced text editing with AI assistance and seamless autosave
 """
 
 import os
-import shutil
-import hashlib
 import json
-from pathlib import Path
-from typing import Dict, Any, Optional
+import shutil
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, Any, List, Optional
 from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, ValidationError, ResourceError
 
+@handle_errors(operation_name="create_document", return_dict=True)
 def create_document(file_path: str, content: str = "", document_type: str = "general") -> Dict[str, Any]:
     """
     Create a new document with optional initial content
@@ -24,32 +25,33 @@ def create_document(file_path: str, content: str = "", document_type: str = "gen
     Returns:
         Dict with creation results or error details
     """
-    try:
-        # Ensure directory exists
-        directory = Path(file_path).parent
-        directory.mkdir(parents=True, exist_ok=True)
-        
-        # Check if file already exists
-        if Path(file_path).exists():
-            return {"error": f"File already exists: {file_path}"}
-        
-        # Create file with content
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(content)
-        
-        return {
-            "status": "success",
-            "operation": "create_document",
-            "file_path": str(Path(file_path).resolve()),
-            "file_name": Path(file_path).name,
-            "content_length": len(content),
-            "document_type": document_type,
-            "timestamp": datetime.now().isoformat()
-        }
-        
-    except Exception as e:
-        return {"error": f"Failed to create document: {str(e)}"}
+    # Validation
+    if not file_path or not file_path.strip():
+        raise ValidationError("File path cannot be empty", "file_path", file_path)
+    
+    # Ensure directory exists
+    directory = Path(file_path).parent
+    directory.mkdir(parents=True, exist_ok=True)
+    
+    # Check if file already exists
+    if Path(file_path).exists():
+        raise ResourceError(f"File already exists: {file_path}", "file", file_path)
+    
+    # Create file with content
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    
+    return {
+        "status": "success",
+        "operation": "create_document",
+        "file_path": str(Path(file_path).resolve()),
+        "file_name": Path(file_path).name,
+        "content_length": len(content),
+        "document_type": document_type,
+        "timestamp": datetime.now().isoformat()
+    }
 
+@handle_errors(operation_name="edit_content", return_dict=True)
 def edit_content(file_path: str, old_text: str, new_text: str, create_backup: bool = True) -> Dict[str, Any]:
     """
     Edit specific content in a document with automatic backup
@@ -63,51 +65,52 @@ def edit_content(file_path: str, old_text: str, new_text: str, create_backup: bo
     Returns:
         Dict with edit results or error details
     """
-    try:
-        file_path = Path(file_path).resolve()
-        
-        if not file_path.exists():
-            return {"error": f"File not found: {file_path}"}
-        
-        # Read current content
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        if old_text not in content:
-            return {"error": f"Text not found in document: '{old_text[:50]}...'"}
-        
-        # Create backup if requested
-        backup_path = None
-        if create_backup:
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            backup_path = f"{file_path}.backup_{timestamp}"
-            try:
-                shutil.copy2(file_path, backup_path)
-            except Exception as backup_error:
-                return {"error": f"Backup creation failed: {str(backup_error)}"}
-        
-        # Perform replacement
-        updated_content = content.replace(old_text, new_text)
-        
-        # Write updated content
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(updated_content)
-        
-        return {
-            "status": "success",
-            "operation": "edit_content",
-            "file_path": str(file_path),
-            "file_name": file_path.name,
-            "original_length": len(content),
-            "updated_length": len(updated_content),
-            "change_delta": len(updated_content) - len(content),
-            "backup_path": backup_path,
-            "timestamp": datetime.now().isoformat()
-        }
-        
-    except Exception as e:
-        return {"error": f"Content editing failed: {str(e)}"}
+    # Validation
+    if not file_path or not file_path.strip():
+        raise ValidationError("File path cannot be empty", "file_path", file_path)
+    
+    file_path = Path(file_path).resolve()
+    
+    if not file_path.exists():
+        raise ResourceError(f"File not found: {file_path}", "file", str(file_path))
+    
+    # Read current content
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    if old_text not in content:
+        return {"error": f"Text not found in document: '{old_text[:50]}...'"}
+    
+    # Create backup if requested
+    backup_path = None
+    if create_backup:
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        backup_path = f"{file_path}.backup_{timestamp}"
+        try:
+            shutil.copy2(file_path, backup_path)
+        except Exception as backup_error:
+            return {"error": f"Backup creation failed: {str(backup_error)}"}
+    
+    # Perform replacement
+    updated_content = content.replace(old_text, new_text)
+    
+    # Write updated content
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(updated_content)
+    
+    return {
+        "status": "success",
+        "operation": "edit_content",
+        "file_path": str(file_path),
+        "file_name": file_path.name,
+        "original_length": len(content),
+        "updated_length": len(updated_content),
+        "change_delta": len(updated_content) - len(content),
+        "backup_path": backup_path,
+        "timestamp": datetime.now().isoformat()
+    }
 
+@handle_errors(operation_name="append_content", return_dict=True)
 def append_content(file_path: str, content: str, separator: str = "\n") -> Dict[str, Any]:
     """
     Append content to an existing document
@@ -120,33 +123,33 @@ def append_content(file_path: str, content: str, separator: str = "\n") -> Dict[
     Returns:
         Dict with append results or error details
     """
-    try:
-        file_path = Path(file_path).resolve()
-        
-        if not file_path.exists():
-            return {"error": f"File not found: {file_path}"}
-        
-        # Read current content to get original length
-        with open(file_path, 'r', encoding='utf-8') as f:
-            original_content = f.read()
-        
-        # Append new content
-        with open(file_path, 'a', encoding='utf-8') as f:
-            f.write(separator + content)
-        
-        return {
-            "status": "success",
-            "operation": "append_content",
-            "file_path": str(file_path),
-            "file_name": file_path.name,
-            "original_length": len(original_content),
-            "appended_length": len(content),
-            "total_length": len(original_content) + len(separator) + len(content),
-            "timestamp": datetime.now().isoformat()
-        }
-        
-    except Exception as e:
-        return {"error": f"Content append failed: {str(e)}"}
+    # Validation
+    if not file_path or not file_path.strip():
+        raise ValidationError("File path cannot be empty", "file_path", file_path)
+    
+    file_path = Path(file_path).resolve()
+    
+    if not file_path.exists():
+        raise ResourceError(f"File not found: {file_path}", "file", str(file_path))
+    
+    # Read current content to get original length
+    with open(file_path, 'r', encoding='utf-8') as f:
+        original_content = f.read()
+    
+    # Append new content
+    with open(file_path, 'a', encoding='utf-8') as f:
+        f.write(separator + content)
+    
+    return {
+        "status": "success",
+        "operation": "append_content",
+        "file_path": str(file_path),
+        "file_name": file_path.name,
+        "original_length": len(original_content),
+        "appended_length": len(content),
+        "total_length": len(original_content) + len(separator) + len(content),
+        "timestamp": datetime.now().isoformat()
+    }
 
 def format_document(file_path: str, format_type: str = "markdown", preserve_backup: bool = True) -> Dict[str, Any]:
     """

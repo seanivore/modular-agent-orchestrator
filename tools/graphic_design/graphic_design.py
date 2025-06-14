@@ -4,17 +4,21 @@ Professional image editing with sophisticated workflow
 Independent tool logic with enhanced error handling
 """
 
-import json
-import base64
 import os
-import hashlib
+import json
+import random
+from datetime import datetime
+from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
-from datetime import datetime
+import base64
+import hashlib
 import time
 from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, ValidationError, ResourceError
 
 
+@handle_errors(operation_name="image_analysis", return_dict=True)
 def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> Dict[str, Any]:
     """
     Analyze image for composition, quality, and optimization potential

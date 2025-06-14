@@ -3,13 +3,16 @@ Perplexity Search Tool - Core Logic
 AI-powered search with reasoning and source citations
 """
 
-import json
 import os
-import hashlib
+import json
+import requests
 from typing import Dict, Any, Optional
 from datetime import datetime
 from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError, ValidationError
 
+@handle_errors(operation_name="perplexity_search", return_dict=True)
+@retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(requests.exceptions.RequestException, APIError))
 def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-128k-online", 
                             search_context: str = "general") -> Dict[str, Any]:
     """
@@ -336,12 +339,8 @@ def get_perplexity_capabilities() -> Dict[str, Any]:
             "get_research_suggestions",
             "check_api_configuration"
         ],
-        "search_types": [
-            "ai_powered_search",
-            "enhanced_research",
-            "reasoning_analysis",
-            "source_cited_research"
-        ],
+        "search_approach": "variable_input_philosophy",
+        "research_types": "user_defined_no_restrictions",
         "supported_models": [
             "llama-3.1-sonar-small-128k-online",
             "llama-3.1-sonar-large-128k-online", 

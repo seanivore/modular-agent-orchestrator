@@ -3,17 +3,20 @@ DALL-E Image Generation Tool - Core Logic
 AI-powered image generation with professional workflow and error recovery
 """
 
-import json
 import os
-import requests
+import json
 import base64
-import hashlib
-from typing import Dict, Any, List, Optional
+import requests
 from datetime import datetime
+from typing import Dict, Any, List, Optional
+import hashlib
 from pathlib import Path
 import time
 from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError, ValidationError
 
+@handle_errors(operation_name="dalle_image_generation", return_dict=True)
+@retry_with_backoff(max_retries=3, base_delay=2.0, exceptions=(requests.exceptions.RequestException, APIError))
 def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "standard", 
                         style: str = "vivid", n: int = 1, output_dir: str = "generated_images") -> Dict[str, Any]:
     """

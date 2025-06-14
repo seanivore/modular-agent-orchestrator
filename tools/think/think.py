@@ -7,6 +7,10 @@ import json
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, ValidationError
+
+@handle_errors(operation_name="thinking_process", return_dict=True)
 def perform_thinking(topic: str, thinking_approach: str = "systematic analysis", 
                     thinking_focus: str = "comprehensive insights", 
                     context: str = "", save_results: bool = True) -> Dict[str, Any]:
