@@ -108,6 +108,7 @@ def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> 
         }
 
 
+@handle_errors(operation_name="edit_image", return_dict=True)
 def edit_image(
     image_path: str,
     output_path: Optional[str] = None,
@@ -421,6 +422,7 @@ def edit_image(
         }
 
 
+@handle_errors(operation_name="optimize_image", return_dict=True)
 def optimize_image(image_path: str, quality: int = 85, target_format: str = "webp") -> Dict[str, Any]:
     """
     Optimize image for web/storage with professional settings
@@ -512,6 +514,7 @@ def optimize_image(image_path: str, quality: int = 85, target_format: str = "web
         }
 
 
+@handle_errors(operation_name="get_curated_fonts", return_dict=True)
 def get_curated_fonts() -> Dict[str, Any]:
     """
     Get information about curated font collection
@@ -557,6 +560,7 @@ def get_curated_fonts() -> Dict[str, Any]:
     }
 
 
+@handle_errors(operation_name="estimate_cost", return_dict=True)
 def estimate_cost(params: Dict[str, Any]) -> float:
     """Estimate cost for graphic design operations"""
     # Base cost for image processing

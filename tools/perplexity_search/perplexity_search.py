@@ -69,6 +69,7 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
     except Exception as e:
         return {"error": f"Perplexity search preparation failed: {str(e)}"}
 
+@handle_errors(operation_name="enhanced_research", return_dict=True)
 def perform_enhanced_research(query: str, research_approach: str = "comprehensive", 
                             analysis_focus: str = "general", model: str = "llama-3.1-sonar-large-128k-online") -> Dict[str, Any]:
     """
@@ -117,6 +118,7 @@ def perform_enhanced_research(query: str, research_approach: str = "comprehensiv
     except Exception as e:
         return {"error": f"Enhanced research preparation failed: {str(e)}"}
 
+@handle_errors(operation_name="validate_perplexity_query", return_dict=True)
 def validate_perplexity_query(query: str) -> Dict[str, Any]:
     """
     Validate a Perplexity search query for potential issues
@@ -189,6 +191,7 @@ def validate_perplexity_query(query: str) -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"Query validation failed: {str(e)}"}
 
+@handle_errors(operation_name="get_research_suggestions", return_dict=True)
 def get_research_suggestions(query: str, suggestion_type: str = "enhancement") -> Dict[str, Any]:
     """
     Generate research query suggestions and improvements
@@ -263,6 +266,7 @@ def get_research_suggestions(query: str, suggestion_type: str = "enhancement") -
     except Exception as e:
         return {"error": f"Suggestion generation failed: {str(e)}"}
 
+@handle_errors(operation_name="check_api_configuration", return_dict=True)
 def check_api_configuration() -> Dict[str, Any]:
     """
     Check Perplexity API configuration and availability
@@ -324,6 +328,7 @@ def _calculate_perplexity_cost(model: str, enhanced: bool = False) -> float:
     
     return base_cost
 
+@handle_errors(operation_name="get_perplexity_capabilities", return_dict=True)
 def get_perplexity_capabilities() -> Dict[str, Any]:
     """
     Get information about Perplexity search capabilities and limitations

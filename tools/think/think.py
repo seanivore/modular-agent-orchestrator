@@ -61,6 +61,7 @@ def perform_thinking(topic: str, thinking_approach: str = "systematic analysis",
             "message": "Failed to prepare thinking session"
         }
 
+@handle_errors(operation_name="enhance_thinking_prompt", return_dict=True)
 def enhance_thinking_prompt(base_topic: str, enhancement_approach: str = "add depth and structure",
                           enhancement_focus: str = "actionable insights") -> Dict[str, Any]:
     """
@@ -98,6 +99,7 @@ def enhance_thinking_prompt(base_topic: str, enhancement_approach: str = "add de
             "message": "Failed to prepare prompt enhancement"
         }
 
+@handle_errors(operation_name="validate_thinking_setup", return_dict=True)
 def validate_thinking_setup() -> Dict[str, Any]:
     """
     Validate that thinking operations can be performed
@@ -133,6 +135,7 @@ def validate_thinking_setup() -> Dict[str, Any]:
             "message": "Think tool validation failed"
         }
 
+@handle_errors(operation_name="get_thinking_capabilities", return_dict=True)
 def get_thinking_capabilities() -> Dict[str, Any]:
     """
     Get information about thinking tool capabilities

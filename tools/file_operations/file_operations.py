@@ -8,11 +8,14 @@ import json
 import glob
 import shutil
 import hashlib
+import fnmatch
 from pathlib import Path
-from typing import List, Dict, Any, Union
+from typing import List, Dict, Any, Union, Optional
 from datetime import datetime
 from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, ValidationError, ResourceError
 
+@handle_errors(operation_name="read_file", return_dict=True)
 def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0) -> Dict[str, Any]:
     """
     Read a single file with comprehensive safety checks and encoding fallback
@@ -98,6 +101,7 @@ def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0
     except Exception as e:
         return {"error": f"Error reading {file_path}: {str(e)}"}
 
+@handle_errors(operation_name="read_multiple_files", return_dict=True)
 def read_multiple_files(file_paths: List[str], fail_fast: bool = False) -> Dict[str, Any]:
     """
     Read multiple files with progress tracking and error handling
@@ -164,6 +168,7 @@ def read_multiple_files(file_paths: List[str], fail_fast: bool = False) -> Dict[
         "timestamp": datetime.now().isoformat()
     }
 
+@handle_errors(operation_name="list_directory", return_dict=True)
 def list_directory(directory_path: str, pattern: str = "*", include_hidden: bool = False) -> Dict[str, Any]:
     """
     List directory contents with metadata and sorting
@@ -261,6 +266,7 @@ def list_directory(directory_path: str, pattern: str = "*", include_hidden: bool
     except Exception as e:
         return {"error": f"Error listing directory: {str(e)}"}
 
+@handle_errors(operation_name="get_file_info", return_dict=True)
 def get_file_info(file_path: str) -> Dict[str, Any]:
     """
     Get comprehensive file information and metadata
@@ -317,6 +323,7 @@ def get_file_info(file_path: str) -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"Error getting file info: {str(e)}"}
 
+@handle_errors(operation_name="search_files", return_dict=True)
 def search_files(directory: str, pattern: str, recursive: bool = True, case_sensitive: bool = False) -> Dict[str, Any]:
     """
     Search for files and directories matching pattern
@@ -403,8 +410,9 @@ def search_files(directory: str, pattern: str, recursive: bool = True, case_sens
         }
         
     except Exception as e:
-        return {"error": f"Search failed: {str(e)}"}
+        return {"error": f"Error searching files: {str(e)}"}
 
+@handle_errors(operation_name="move_file", return_dict=True)
 def move_file(source: str, destination: str, overwrite: bool = False) -> Dict[str, Any]:
     """
     Move or rename files and directories safely
@@ -439,8 +447,9 @@ def move_file(source: str, destination: str, overwrite: bool = False) -> Dict[st
         }
         
     except Exception as e:
-        return {"error": f"Move failed: {str(e)}"}
+        return {"error": f"Error moving file: {str(e)}"}
 
+@handle_errors(operation_name="delete_file", return_dict=True)
 def delete_file(file_path: str, force: bool = False) -> Dict[str, Any]:
     """
     Delete files or directories safely
@@ -488,8 +497,9 @@ def delete_file(file_path: str, force: bool = False) -> Dict[str, Any]:
                     return {"error": f"Directory not empty (use force=True): {file_path}"}
         
     except Exception as e:
-        return {"error": f"Delete failed: {str(e)}"}
+        return {"error": f"Error deleting file: {str(e)}"}
 
+@handle_errors(operation_name="validate_paths", return_dict=True)
 def validate_paths(paths: List[str]) -> Dict[str, Any]:
     """
     Validate multiple file paths and return status information

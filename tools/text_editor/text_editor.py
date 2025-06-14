@@ -151,6 +151,7 @@ def append_content(file_path: str, content: str, separator: str = "\n") -> Dict[
         "timestamp": datetime.now().isoformat()
     }
 
+@handle_errors(operation_name="format_document", return_dict=True)
 def format_document(file_path: str, format_type: str = "markdown", preserve_backup: bool = True) -> Dict[str, Any]:
     """
     Apply formatting to a document (placeholder for AI formatting)
@@ -198,6 +199,7 @@ def format_document(file_path: str, format_type: str = "markdown", preserve_back
     except Exception as e:
         return {"error": f"Document formatting preparation failed: {str(e)}"}
 
+@handle_errors(operation_name="get_document_info", return_dict=True)
 def get_document_info(file_path: str) -> Dict[str, Any]:
     """
     Get comprehensive information about a document
@@ -296,6 +298,7 @@ def _detect_document_type(file_path: Path, content: str) -> str:
     
     return "general"
 
+@handle_errors(operation_name="validate_document_path", return_dict=True)
 def validate_document_path(file_path: str) -> Dict[str, Any]:
     """
     Validate a document path for editing operations
@@ -324,6 +327,7 @@ def validate_document_path(file_path: str) -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"Path validation failed: {str(e)}"}
 
+@handle_errors(operation_name="create_document_from_template", return_dict=True)
 def create_document_from_template(file_path: str, template_type: str, title: str = "", author: str = "") -> Dict[str, Any]:
     """
     Create a document from a predefined template

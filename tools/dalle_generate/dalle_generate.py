@@ -256,6 +256,7 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
             "timestamp": datetime.now().isoformat()
         }
 
+@handle_errors(operation_name="enhance_dalle_prompt", return_dict=True)
 def enhance_dalle_prompt(basic_prompt: str, enhancement_approach: str = "professional", 
                         enhancement_focus: str = "quality") -> Dict[str, Any]:
     """
@@ -336,6 +337,7 @@ def enhance_dalle_prompt(basic_prompt: str, enhancement_approach: str = "profess
     except Exception as e:
         return {"error": f"Prompt enhancement failed: {str(e)}"}
 
+@handle_errors(operation_name="validate_dalle_setup", return_dict=True)
 def validate_dalle_setup() -> Dict[str, Any]:
     """
     Validate DALL-E API setup and configuration
@@ -385,6 +387,7 @@ def validate_dalle_setup() -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"Setup validation failed: {str(e)}"}
 
+@handle_errors(operation_name="batch_generate_images", return_dict=True)
 def batch_generate_images(prompts: List[str], shared_params: Dict[str, Any] = None) -> Dict[str, Any]:
     """
     Generate multiple images with different prompts using shared parameters
@@ -461,6 +464,7 @@ def batch_generate_images(prompts: List[str], shared_params: Dict[str, Any] = No
     except Exception as e:
         return {"error": f"Batch generation failed: {str(e)}"}
 
+@handle_errors(operation_name="get_dalle_image_info", return_dict=True)
 def get_dalle_image_info(image_path: str) -> Dict[str, Any]:
     """
     Get information about a generated image file
@@ -540,6 +544,7 @@ def _calculate_dalle_cost(size: str, quality: str, n: int) -> float:
     base_cost = cost_per_image.get(size, {}).get(quality, 0.040)
     return base_cost * n
 
+@handle_errors(operation_name="get_dalle_capabilities", return_dict=True)
 def get_dalle_capabilities() -> Dict[str, Any]:
     """
     Get information about DALL-E capabilities and limitations
