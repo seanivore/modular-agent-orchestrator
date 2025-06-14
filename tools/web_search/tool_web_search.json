@@ -190,7 +190,7 @@
   },
   "integration": {
     "orchestrator_compatible": true,
-    "human_button_support": true,
+    "button_support": true,
     "ui_display_support": true,
     "cache_compatible": true,
     "error_handling": "comprehensive"
@@ -207,7 +207,7 @@
   "file_structure": {
     "core_logic": "tools/web_search_modular.py",
     "ui_display": "interfaces/ui_tools/ui_web_search.py",
-    "human_buttons": "utilities/human_button_tools/button_web_search.py",
+    "buttons": "utilities/button_tools/button_web_search.py",
     "tool_registry": "configs/tool_registry/tool_web_search.json",
     "error_handling": "utilities/error_handling.py"
   },
@@ -235,7 +235,7 @@
     "unit_tests": "tests/test_web_search.py",
     "integration_tests": "tests/integrated_tools_test/",
     "ui_tests": "tests/terminal_ui_tests/",
-    "human_button_tests": "tests/human_button_tests/"
+    "button_tests": "tests/button_tests/"
   },
   "documentation": {
     "implementation_guide": "v4_0_0_TOOL_IMPLEMENTATION.md",

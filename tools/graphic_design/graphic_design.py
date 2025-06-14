@@ -12,7 +12,7 @@ from typing import Dict, Any, List, Optional, Union
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from datetime import datetime
 import time
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 
 def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> Dict[str, Any]:
@@ -35,7 +35,7 @@ def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> 
             return {"error": f"Image file not found: {image_path}"}
         
         # Check cache first (fingerprinting) - image analysis can be expensive
-        cache = HybridCacheManager()
+        cache = CacheManager()
         # Include file modification time for freshness
         try:
             mtime = os.path.getmtime(image_path)
@@ -81,7 +81,7 @@ def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> 
                     },
                     "metadata": {
                         "requires_ai_analysis": True,
-                        "human_button_needed": True,
+                        "button_needed": True,
                         "processing_time": 0.001
                     }
                 }

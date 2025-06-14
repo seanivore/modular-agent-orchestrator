@@ -6,7 +6,7 @@ Human Button Generators
 from typing import Dict, Any
 
 
-def create_human_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable code snippet for Claude 4 execution
     Universal model compatibility via code generation
@@ -232,14 +232,14 @@ def create_news_search_snippet(params: Dict[str, Any], model: str = "claude-sonn
     """Generate news search specific snippet"""
     news_params = params.copy()
     news_params["search_type"] = "news"
-    return create_human_button_snippet(news_params, model)
+    return create_button_snippet(news_params, model)
 
 
 def create_local_search_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """Generate local search specific snippet"""
     local_params = params.copy()
     local_params["search_type"] = "local"
-    return create_human_button_snippet(local_params, model)
+    return create_button_snippet(local_params, model)
 
 
 def create_api_validation_snippet(model: str = "claude-sonnet-4") -> str:

@@ -14,11 +14,10 @@ from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
-from .model_manager import UniversalModelManager
-from .human_buttons import HumanButtonInterface
-from .tool_discovery import ToolDiscovery
-from .hybrid_cache import HybridCacheManager
-
+from .manager_models import ModelManager
+from .manager_buttons import ButtonManager
+from .manager_tools import ToolManager
+from .cache.cache_system import CacheManager
 
 @dataclass
 class WorkflowPhase:
@@ -66,10 +65,10 @@ class WorkflowOrchestrator:
     """
     
     def __init__(self, config_dir: str = "configs"):
-        self.model_manager = UniversalModelManager(config_dir)
-        self.human_buttons = HumanButtonInterface(self.model_manager)
+        self.model_manager = ModelManager(config_dir)
+        self.buttons = ButtonManager(self.model_manager)
         self.tool_discovery = ToolDiscovery(config_dir)
-        self.cache_manager = HybridCacheManager()
+        self.cache_manager = CacheManager()
         self.protocol = self._load_protocol()
         
         # Workflow state
@@ -557,7 +556,7 @@ class WorkflowOrchestrator:
         if context_content:
             full_instructions += f"\n\nContext from previous phases:{context_content}"
         
-        snippet = self.human_buttons.create_api_call_snippet(
+        snippet = self.buttons.create_api_call_snippet(
             phase.model,
             full_instructions,
             system_message=phase.agent_role

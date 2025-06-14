@@ -345,7 +345,7 @@
     }
   },
   
-  "human_buttons": {
+  "buttons": {
     "available_buttons": [
       "create_dalle_generation_button",
       "create_dalle_enhancement_button",
@@ -374,7 +374,7 @@
   "file_structure": {
     "core_logic": "tools/dalle_generate_modular.py",
     "ui_display": "interfaces/ui_tools/ui_dalle_generate.py", 
-    "human_buttons": "utilities/human_button_tools/button_dalle_generate.py",
+    "buttons": "utilities/button_tools/button_dalle_generate.py",
     "tool_registry": "configs/tool_registry/tool_dalle_generate.json",
     "error_handling": "utilities/error_handling.py"
   },

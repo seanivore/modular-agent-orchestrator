@@ -11,7 +11,7 @@ import hashlib
 from pathlib import Path
 from typing import List, Dict, Any, Union
 from datetime import datetime
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0) -> Dict[str, Any]:
     """
@@ -30,7 +30,7 @@ def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0
         path = Path(file_path).resolve()
         
         # Check cache first (fingerprinting) - file I/O can be expensive
-        cache = HybridCacheManager()
+        cache = CacheManager()
         # Include file modification time in cache key for freshness
         try:
             mtime = path.stat().st_mtime if path.exists() else 0

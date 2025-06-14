@@ -7,7 +7,7 @@ import json
 import hashlib
 from typing import Dict, Any, Optional
 from datetime import datetime
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 def perform_web_search(query: str, max_results: int = 5, search_context: str = "general") -> Dict[str, Any]:
     """
@@ -30,7 +30,7 @@ def perform_web_search(query: str, max_results: int = 5, search_context: str = "
             return {"error": "Max results must be between 1 and 20"}
         
         # Check cache first (fingerprinting)
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{query.strip()}|{max_results}|{search_context}"
         cached_result = cache.get_cached_analysis(cache_key, "web_search")
         if cached_result:
@@ -74,7 +74,7 @@ def perform_filtered_search(query: str, domain: Optional[str] = None,
     """
     try:
         # Check cache first (fingerprinting)
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{query.strip()}|{domain}|{date_range}|{max_results}"
         cached_result = cache.get_cached_analysis(cache_key, "web_search_filtered")
         if cached_result:
@@ -124,7 +124,7 @@ def perform_content_search(query: str, content_type: str = "general", max_result
     """
     try:
         # Check cache first (fingerprinting)
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{query.strip()}|{content_type}|{max_results}"
         cached_result = cache.get_cached_analysis(cache_key, "web_search_content")
         if cached_result:

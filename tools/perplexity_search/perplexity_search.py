@@ -8,7 +8,7 @@ import os
 import hashlib
 from typing import Dict, Any, Optional
 from datetime import datetime
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-128k-online", 
                             search_context: str = "general") -> Dict[str, Any]:
@@ -29,7 +29,7 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
             return {"error": "Search query cannot be empty"}
         
         # Check cache first (fingerprinting)
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{query.strip()}|{model}|{search_context}"
         cached_result = cache.get_cached_analysis(cache_key, "perplexity_search")
         if cached_result:
@@ -88,7 +88,7 @@ def perform_enhanced_research(query: str, research_approach: str = "comprehensiv
             return {"error": "Research query cannot be empty"}
         
         # Check cache first (fingerprinting)
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{query.strip()}|{research_approach}|{analysis_focus}|{model}"
         cached_result = cache.get_cached_analysis(cache_key, "perplexity_enhanced_research")
         if cached_result:

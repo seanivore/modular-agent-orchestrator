@@ -218,12 +218,12 @@
   "file_locations": {
     "core_logic": "tools/perplexity_search_modular.py",
     "ui_display": "interfaces/ui_tools/ui_perplexity_search.py", 
-    "human_buttons": "utilities/human_button_tools/button_perplexity_search.py",
+    "buttons": "utilities/button_tools/button_perplexity_search.py",
     "tool_registry": "configs/tool_registry/tool_perplexity_search.json"
   },
   "integration": {
     "orchestrator_compatible": true,
-    "human_button_support": true,
+    "button_support": true,
     "multi_model_execution": true,
     "cost_tracking": true,
     "error_handling": "comprehensive",

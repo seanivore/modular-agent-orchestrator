@@ -118,7 +118,7 @@
     "framework_support": "AI naturally applies appropriate frameworks based on user request",
     "domain_agnostic": "Works across all domains and use cases"
   },
-  "human_button_operations": [
+  "button_operations": [
     "create_thinking_button",
     "create_prompt_enhancement_button",
     "create_thinking_validation_button", 
@@ -136,7 +136,7 @@
   "file_structure": {
     "core_logic": "tools/think_modular.py",
     "ui_display": "interfaces/ui_tools/ui_think.py", 
-    "human_buttons": "utilities/human_button_tools/button_think.py",
+    "buttons": "utilities/button_tools/button_think.py",
     "tool_registry": "configs/tool_registry/tool_think.json",
     "error_handling": "utilities/error_handling.py"
   },

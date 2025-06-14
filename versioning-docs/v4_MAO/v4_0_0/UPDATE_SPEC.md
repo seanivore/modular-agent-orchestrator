@@ -301,7 +301,7 @@ Human Button Generators
 from typing import Dict, Any
 
 
-def create_human_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable code snippet for Claude 4 execution
     Universal model compatibility via code generation
@@ -507,7 +507,7 @@ def get_tool_capabilities() -> Dict[str, Any]:
   "files": {
     "core_logic": "tools/tool_name_modular.py",
     "ui_display": "interfaces/ui_tools/ui_tool_name.py", 
-    "human_buttons": "utilities/human_button_tools/button_tool_name.py"
+    "buttons": "utilities/button_tools/button_tool_name.py"
   },
   "error_handling": {
     "retry_logic": true,
@@ -865,7 +865,7 @@ tools = tool_discovery.find_tools_by_budget(max_cost=0.10)
 ### Human Button Generation
 ```python
 # Each tool generates executable snippets
-snippet = tool.create_human_button_snippet(
+snippet = tool.create_button_snippet(
     params={"query": "renewable energy trends"},
     model="claude-sonnet-4"
 )
@@ -906,7 +906,7 @@ def generate_workflow(goal: str) -> dict:
 
 ```python
 class WorkflowOrchestrator:
-    def __init__(self, model_manager: UniversalModelManager):
+    def __init__(self, model_manager: ModelManager):
         self.models = model_manager
         self.protocol = self.load_protocol()
     
@@ -971,11 +971,11 @@ def test_tool_definition():
     """Validate tool definition structure"""
     definition = tool.get_tool_definition()
     assert "id" in definition
-    assert "human_button_generator" in definition
+    assert "button_generator" in definition
     
-def test_human_button_generation():
+def test_button_generation():
     """Test snippet generation"""
-    snippet = tool.create_human_button_snippet(test_params, "claude-sonnet-4")
+    snippet = tool.create_button_snippet(test_params, "claude-sonnet-4")
     assert snippet.startswith("# Tool:")
     assert "import" in snippet
     assert "return" in snippet

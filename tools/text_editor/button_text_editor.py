@@ -6,7 +6,7 @@ Human Button Generators
 from typing import Dict, Any, List
 import json
 
-def create_human_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable code snippet for text editor operations
     Universal model compatibility via code generation

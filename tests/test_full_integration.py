@@ -5,7 +5,7 @@ Tests orchestrator + tool discovery + cache coordinator working together
 """
 
 from orchestrator.core import WorkflowOrchestrator
-from orchestrator.tool_discovery import discover_tools_for_goal
+from orchestrator.manager_tools import discover_tools_for_goal
 
 def test_full_integration():
     """Test the complete Phase 1 integration"""

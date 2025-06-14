@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any, Optional
 from datetime import datetime
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 def create_document(file_path: str, content: str = "", document_type: str = "general") -> Dict[str, Any]:
     """

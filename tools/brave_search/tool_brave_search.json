@@ -71,7 +71,7 @@
   "files": {
     "core_logic": "tools/brave_search_modular.py",
     "ui_display": "interfaces/ui_tools/ui_brave_search.py", 
-    "human_buttons": "utilities/human_button_tools/button_brave_search.py"
+    "buttons": "utilities/button_tools/button_brave_search.py"
   },
   "error_handling": {
     "retry_logic": true,

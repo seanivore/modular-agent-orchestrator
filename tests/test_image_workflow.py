@@ -7,7 +7,7 @@ Test the orchestrator's ability to create multi-modal workflows with DALL-E 3
 import asyncio
 import json
 from orchestrator.core import WorkflowOrchestrator
-from orchestrator.model_manager import UniversalModelManager
+from orchestrator.manager_models import ModelManager
 
 async def test_logo_design_workflow():
     """Test: Create a comprehensive logo design strategy with image generation"""

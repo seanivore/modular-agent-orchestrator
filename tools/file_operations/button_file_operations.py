@@ -749,7 +749,7 @@ else:
             print(f"❌ {{path}} (Not found)")
 '''
 
-def create_human_button_snippet(operation: str, params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+def create_button_snippet(operation: str, params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable code snippet for any file operation
     Universal model compatibility via code generation

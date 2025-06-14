@@ -35,7 +35,7 @@ alwaysApply: false
 the_oc/
 ├── tools/tool_name.py                    # Pure logic, structured data return
 ├── interfaces/ui_tools/ui_tool_name.py   # Terminal display, formatting  
-├── utilities/human_button_tools/button_tool_name.py  # Human button generators
+├── utilities/button_tools/button_tool_name.py  # Human button generators
 ├── configs/tool_registry/tool_name.json  # Tool metadata and discovery
 └── utilities/error_handling.py           # Shared error handling patterns
 ```
@@ -95,14 +95,14 @@ def display_tool_result(result: Dict, verbose: bool = False):
     # No business logic - pure display
 ```
 
-### Human Button Files (`utilities/human_button_tools/button_tool_name.py`)
+### Human Button Files (`utilities/button_tools/button_tool_name.py`)
 ```python
 """
 TOOL NAME  
 Human Button Generators
 """
 
-def create_human_button_snippet(params: Dict, model: str) -> str:
+def create_button_snippet(params: Dict, model: str) -> str:
     """
     Generate executable code snippet for Claude 4 execution
     Universal model compatibility via code generation
@@ -182,7 +182,7 @@ tool_metadata = {
 ### Human Button Integration
 ```python
 # Orchestrator generates buttons for any model
-button_snippet = human_buttons.create_api_call_snippet(
+button_snippet = buttons.create_api_call_snippet(
     model="claude-sonnet-4",
     prompt=user_prompt,
     tools=[selected_tools]

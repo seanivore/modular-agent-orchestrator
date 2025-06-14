@@ -12,7 +12,7 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 from pathlib import Path
 import time
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "standard", 
                         style: str = "vivid", n: int = 1, output_dir: str = "generated_images") -> Dict[str, Any]:
@@ -36,7 +36,7 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
             return {"error": "Image generation prompt cannot be empty"}
         
         # Check cache first (fingerprinting) - DALL-E is expensive!
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{prompt.strip()}|{size}|{quality}|{style}|{n}|{output_dir}"
         cached_result = cache.get_cached_analysis(cache_key, "dalle_generate")
         if cached_result:
@@ -273,7 +273,7 @@ def enhance_dalle_prompt(basic_prompt: str, enhancement_approach: str = "profess
             return {"error": "Basic prompt cannot be empty"}
         
         # Check cache first (fingerprinting)
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{basic_prompt.strip()}|{enhancement_approach}|{enhancement_focus}"
         cached_result = cache.get_cached_analysis(cache_key, "dalle_prompt_enhancement")
         if cached_result:

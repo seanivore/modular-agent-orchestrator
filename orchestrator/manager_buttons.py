@@ -7,16 +7,16 @@ Creates executable code snippets for any model/provider combo, avoids SDK hell
 import json
 import os
 from typing import Dict, List, Optional, Any
-from .model_manager import UniversalModelManager
+from .manager_models import ModelManager
 
 
-class HumanButtonInterface:
+class ButtonManager:
     """
     🎭 THE MAGIC MAKER!
     Generates executable code snippets that Claude 4 can run via Code Execution Tool
     """
     
-    def __init__(self, model_manager: UniversalModelManager):
+    def __init__(self, model_manager: ModelManager):
         self.models = model_manager
         
     def create_api_call_snippet(
@@ -510,11 +510,11 @@ Optimal for: {", ".join(model.optimal_use_cases)}
 
 # Example usage and testing
 if __name__ == "__main__":
-    from model_manager import UniversalModelManager
+    from model_manager import ModelManager
     
     # Initialize
-    manager = UniversalModelManager()
-    buttons = HumanButtonInterface(manager)
+    manager = ModelManager()
+    buttons = ButtonManager(manager)
     
     print("🎭 HUMAN BUTTON EXAMPLES:")
     print("=" * 50)

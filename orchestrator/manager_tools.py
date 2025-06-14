@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 
 
-class ToolDiscovery:
+class ToolManager:
     """
     🔍 Dynamic tool discovery without hardcoded specifics
     Suggests tools based on goal analysis, not predefined categories
@@ -240,5 +240,5 @@ def discover_tools_for_goal(goal: str, model: str = "claude-sonnet-4",
     🎯 Simple interface for tool discovery
     Used by orchestrator for dynamic tool selection
     """
-    discovery = ToolDiscovery()
+    discovery = ToolManager()
     return discovery.interactive_tool_selection(goal, model, budget) 

@@ -10,7 +10,7 @@ from datetime import datetime
 import os
 import time
 import hashlib
-from orchestrator.hybrid_cache import HybridCacheManager
+from orchestrator.cache.cache_system import CacheManager
 
 
 def search_web(query: str, count: int = 10, country: str = "US", search_type: str = "web") -> Dict[str, Any]:
@@ -35,7 +35,7 @@ def search_web(query: str, count: int = 10, country: str = "US", search_type: st
         count = min(20, max(1, count))
         
         # 🔍 FINGERPRINT CACHING - Check cache first
-        cache = HybridCacheManager()
+        cache = CacheManager()
         cache_key = f"{query}|{count}|{country}|{search_type}"
         
         cached_result = cache.get_cached_analysis(cache_key, "brave_search")

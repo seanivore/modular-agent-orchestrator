@@ -304,7 +304,7 @@
   
   "integration": {
     "orchestrator_compatible": true,
-    "human_button_support": true,
+    "button_support": true,
     "ui_display_available": true,
     "error_handling": "comprehensive",
     "cost_tracking": true
@@ -313,7 +313,7 @@
   "file_structure": {
     "core_logic": "tools/graphic_design_modular.py",
     "ui_display": "interfaces/ui_tools/ui_graphic_design.py", 
-    "human_buttons": "utilities/human_button_tools/button_graphic_design.py",
+    "buttons": "utilities/button_tools/button_graphic_design.py",
     "tool_registry": "configs/tool_registry/tool_graphic_design.json",
     "shared_error_handling": "utilities/error_handling.py"
   },

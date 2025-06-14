@@ -23,7 +23,7 @@ class CacheEntry:
     expires_at: Optional[str] = None
 
 
-class HybridCacheManager:
+class CacheManager:
     """🔄 Dual-layer caching: Files API + Local fingerprinting"""
     
     def __init__(self, cache_dir: str = "~/.oc_cache"):
@@ -294,7 +294,7 @@ async def demo_hybrid_caching():
     print("🔄 HYBRID CACHING SYSTEM DEMO")
     print("=" * 60)
     
-    cache = HybridCacheManager()
+    cache = CacheManager()
     
     # Simulate job description analysis
     job_description = """Senior Software Engineer

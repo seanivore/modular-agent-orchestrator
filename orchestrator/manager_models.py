@@ -58,7 +58,7 @@ class ProviderConfig:
     description: str
 
 
-class UniversalModelManager:
+class ModelManager:
     """
     The brain of v4! 🧠
     Loads JSON configs and provides intelligent model selection
@@ -350,7 +350,7 @@ class UniversalModelManager:
 # Example usage and testing (DEVELOPMENT ONLY - UI layer handles display in production)
 if __name__ == "__main__":
     # Test the model manager
-    manager = UniversalModelManager()
+    manager = ModelManager()
     
     print("\n🎯 Dynamic Model Selection Examples:")
     print(f"Balanced selection: {manager.get_best_model_for_task()}")
