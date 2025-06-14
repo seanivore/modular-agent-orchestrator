@@ -20,6 +20,113 @@ MAO v4.0.0.0 (Modular Agent Orchestrator)
 - Whatever we discover during documentation review
 - Integrate sections and notes from below 
 
+```
+/Development/modular-agent-orchestrator/
+├── configs
+│   ├── connections
+│   │   ├── models_x_tools.json
+│   │   └── providers_x_models.json
+│   ├── models
+│   │   ├── claude-3-7-sonnet.json
+│   │   ├── claude-opus-4.json
+│   │   ├── claude-sonnet-4.json
+│   │   ├── gemini-2.5-pro.json
+│   │   ├── gpt-4.1-mini.json
+│   │   ├── gpt-4.1-nano.json
+│   │   └── local-llama-3.1-8b.json
+│   └── providers
+│       ├── anthropic-direct.json
+│       ├── gemini-direct.json
+│       ├── litellm.json
+│       ├── lm-studio.json
+│       ├── openai-direct.json
+│       └── requesty.json
+├── interfaces
+│   ├── ui_terminal.py
+│   └── ui_web.py
+├── mao_v4.py
+├── orchestrator
+│   ├── cache
+│   │   ├── __init__.py
+│   │   └── cache_system.py
+│   ├── core.py
+│   ├── error_handling.py
+│   ├── manager_buttons.py
+│   ├── manager_models.py
+│   ├── manager_tools.py
+│   ├── memory.py
+│   └── protocol.md
+├── tests
+├── tools
+│   ├── brave_search
+│   │   ├── brave_search.py
+│   │   ├── button_brave_search.py
+│   │   ├── tool_brave_search.json
+│   │   └── ui_brave_search.py
+│   ├── dalle_generate
+│   │   ├── button_dalle_generate.py
+│   │   ├── dalle_generate.py
+│   │   ├── tool_dalle_generate.json
+│   │   └── ui_dalle_generate.py
+│   ├── file_operations
+│   │   ├── button_file_operations.py
+│   │   ├── file_operations.py
+│   │   ├── tool_file_operations.json
+│   │   └── ui_file_operations.py
+│   ├── graphic_design
+│   │   ├── button_graphic_design.py
+│   │   ├── fonts
+│   │   ├── graphic_design.py
+│   │   ├── tool_graphic_design.json
+│   │   └── ui_graphic_design.py
+│   ├── perplexity_search
+│   │   ├── button_perplexity_search.py
+│   │   ├── perplexity_search.py
+│   │   ├── tool_perplexity_search.json
+│   │   └── ui_perplexity_search.py
+│   ├── text_editor
+│   │   ├── button_text_editor.py
+│   │   ├── text_editor.py
+│   │   ├── tool_text_editor.json
+│   │   └── ui_text_editor.py
+│   ├── think
+│   │   ├── button_think.py
+│   │   ├── think.py
+│   │   ├── tool_think.json
+│   │   └── ui_think.py
+│   └── web_search
+│       ├── button_web_search.py
+│       ├── tool_web_search.json
+│       ├── ui_web_search.py
+│       └── web_search.py
+└── versioning-docs
+    ├── CHANGE_LOG.md
+    ├── technical-documentation
+    │   ├── OLD
+    │   │   ├── 1.1_MEET_MAO.md
+    │   │   ├── 1.2_SOLVING_PROBLEMS.md
+    │   │   ├── 1.3_VARIABLE_INPUT.md
+    │   │   ├── 2.1_ORCHESTRATOR.md
+    │   │   ├── 2.2_AGENT_ROLE.md
+    │   │   ├── 2.3_TOOL_IMPLEMENTATION_GUIDE.md
+    │   │   ├── 3.1_BEHAVIOR.md
+    │   │   ├── 3.1_USE_CASE_SETUP.md
+    │   │   ├── 3.2_EXECUTE_USE_CASE.md
+    │   │   ├── 3.2_SPAWN.md
+    │   │   ├── 3.3_ORCHESTRATION.md
+    │   │   ├── 3.4_WORKFLOW_MANAGEMENT.md
+    │   │   ├── 4.1_FINGERPRINTING.md
+    │   │   ├── 4.2_RESOURCE_EFFICIENCY.md
+    │   │   ├── 5.1_RUNNING_ESTABLISHED_WORKFLOWS.md
+    │   │   ├── 5.2_WORKFLOW_MONITOR.md
+    │   │   ├── 5.3_WORKFLOW_REPORT.md
+    │   │   └── 5.5_ERROR_HANDLING.md
+    │   └── OTHER-DOCS-TO-REVIEW-INCLUDE
+    │       ├── UPDATE_SPEC.md
+    │       └── WORKFLOW_PROJECT.md
+    └── v1-3_SFA
+```
+
 -----------------
 
 |----------------------|
