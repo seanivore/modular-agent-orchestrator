@@ -1,149 +1,10 @@
-# Mao Protection Rules
-**Critical "DO NOT CHANGE" Rules & AI Mistake Prevention**
-
-*Protecting Mao's architectural integrity from well-meaning but destructive "improvements"*
-
----
-
-## 🛡️ Purpose of This Document
-
-This document protects Mao's revolutionary architecture from common AI mistakes that would undermine its core innovations. Every rule exists because violating it would break fundamental capabilities.
-
-**When AI suggests "improvements" that violate these rules, the answer is always NO.**
-
-Any changes must be *at least* suggested, rather than making assumptions and updates. 
-
-### How to Use This Document
-
-1. **Reference during development** - Check proposed changes against these rules
-2. **Cite when AI suggests violations** - "This violates Protection Rule #3, see documentation"  
-3. **Onboard new developers** - Share this before they start making changes
-4. **Validate external contributions** - Ensure community tools follow these patterns
-
----
-
-## 🎯 CORE ARCHITECTURAL PROTECTIONS
-
-### Rule #1: Variable-Input Philosophy is SACRED
-
-**NEVER add hardcoded categories, templates, or domain-specific assumptions anywhere in the system.**
-
-#### Variable-Input Philosophy
-- **NEVER** hardcode use cases, categories, or specific domains
-- **ALWAYS** return structured data, not predetermined choices
-- **ALWAYS** let prompts define specifics, not the code
-
-#### What This Means:
-- Tools are blank canvases - prompts define specifics, not code
-- No "choose your method" dropdown menus
-- No predefined templates or frameworks  
-- No enum parameters for analysis types or workflow categories
-- Return structured data, not predetermined choices
-
-#### Common AI Violations:
-```python
-# ❌ FORBIDDEN - AI often suggests these "improvements"
-analysis_types = ["financial", "marketing", "technical"]
-frameworks = ["SWOT", "PESTLE", "Porter's Five Forces"] 
-workflow_categories = ["research", "content", "analysis"]
-
-class AnalysisFramework(Enum):
-    SWOT = "swot"
-    PESTLE = "pestle"
-    COMPETITIVE = "competitive"
-```
-
-#### ✅ CORRECT Patterns:
-```python
-# Variable input - let prompts define everything
-def analyze_content(content: str, analysis_approach: str) -> Dict:
-    """Analysis approach defined by user prompt, not code"""
-    
-def create_workflow(goal: str, user_preferences: Dict) -> WorkflowPlan:
-    """Goal and preferences define workflow, not hardcoded categories"""
-    
-# Structured data return - flexible interpretation
-return {
-    "analysis": analysis_result,
-    "key_points": extracted_points,
-    "metadata": {"approach": analysis_approach}  # User-defined approach
-}
-```
-
-#### Why This Rule Exists:
-- **Maximum Flexibility**: Supports unlimited use cases without code changes
-- **Future-Proof**: New domains work automatically without predefined categories
-- **Universal Appeal**: Different users can use same tools completely differently
-- **Competitive Advantage**: No other AI system has this level of flexibility
-
-#### When AI Tries to Violate:
-**AI Says**: "Let me add some helpful categories to make this more user-friendly"  
-**Correct Response**: "Categories violate the variable-input philosophy. Users define specifics via prompts, not predefined menus. This keeps tools universally flexible."
-
----
-
-### Rule #2: 4-File Tool Architecture is IMMUTABLE
-
-**NEVER merge the 4-file tool pattern back into monolithic structures.**
-
-#### Required Structure:
-```
-tools/tool_name/
-├── tool_name.py              # Core logic ONLY (NO print statements)
-├── ui_tool_name.py           # Display formatting ONLY (print statements OK)
-├── button_tool_name.py       # Human button generators ONLY (print statements OK)
-└── tool_tool_name.json       # Metadata and configuration ONLY
-```
-
-#### What Each File Does:
-- **Core Logic**: Pure functionality, returns structured data
-- **UI Display**: Transforms data into beautiful terminal output  
-- **Button Generator**: Creates executable snippets for any AI model
-- **Tool Registry**: Metadata for discovery and integration
-
-#### Common AI Violations:
-```python
-# ❌ FORBIDDEN - AI often suggests "simplifying" into one file
-class ToolWithEverything:
-    def execute(self):        # Core logic
-        result = process()
-        print(result)         # UI display mixed in
-        return result
-    
-    def display(self):        # UI in same file
-        pass
-    
-    def create_button(self):  # Button generation mixed in
-        pass
-```
-
-#### ✅ CORRECT Separation:
-```python
-# tool_name.py - ONLY core logic
-def main_function(params) -> Dict:
-    """Pure logic, returns structured data"""
-    return {"status": "success", "results": data}
-
-# ui_tool_name.py - ONLY display formatting  
-def display_tool_results(result: Dict, verbose: bool):
-    """Rich terminal output formatting"""
-    console.print(Panel(result["results"]))
-
-# button_tool_name.py - ONLY snippet generation
-def create_button_snippet(params: Dict, model: str) -> str:
-    """Self-contained executable code"""
-    return "# Executable snippet..."
-```
-
-#### Why This Rule Exists:
-- **Testing**: Each component testable in isolation
-- **Multiple Interfaces**: Terminal, web, API all possible without code changes
-- **Maintenance**: Clear responsibility separation prevents bugs
+ separation prevents bugs
 - **Extensibility**: Easy to modify UI without touching logic
+- **Performance**: Shared caching and error handling optimize all tools
 
 #### When AI Tries to Violate:
 **AI Says**: "Let me combine these files for simplicity and better organization"  
-**Correct Response**: "4-file separation is protected architecture. It enables testing, multiple interfaces, and clean maintenance. Never merge these concerns."
+**Correct Response**: "6-file architecture is protected. It enables testing, multiple interfaces, and clean maintenance. Never merge these concerns."
 
 ---
 
@@ -362,7 +223,7 @@ class SimplifiedTool:
 
 **Why It's Wrong**: Destroys separation of concerns, prevents testing and multiple interfaces
 
-**Correct Response**: "4-file separation is protected architecture. Never merge these concerns. Clean separation enables testing and multiple interfaces."
+**Correct Response**: "6-file architecture is protected. Never merge these concerns. Clean separation enables testing and multiple interfaces."
 
 ### Mistake #3: "Modernizing SDK Integration"
 
@@ -457,7 +318,7 @@ def create_dynamic_snippet():    # AI "modernization"
 - [ ] Prompts define specifics, not code
 
 #### Architecture Integrity Check:
-- [ ] 4-file tool separation maintained
+- [ ] 6-file architecture separation maintained
 - [ ] Print statements only in UI layer
 - [ ] Human button interface preserved
 - [ ] No SDK dependencies introduced
@@ -502,7 +363,7 @@ When AI says these phrases, immediately check against protection rules:
 "This violates Mao Protection Rule #X. Stop and explain why you suggested this change."
 
 #### Step 2: Reference Documentation  
-"See 4_Mao_PROTECTION_RULES.md section Y for why this pattern is forbidden."
+"See 4_MAO_PROTECTION_RULES.md section Y for why this pattern is forbidden."
 
 #### Step 3: Demand Compliance
 "Rewrite the solution following the protected patterns. No exceptions."
@@ -518,7 +379,7 @@ When AI says these phrases, immediately check against protection rules:
 def analyze_content(content: str, analysis_approach: str):
     """Analysis approach defined by user prompt, never by code"""
 
-# PROTECTED: 4-file separation - core logic only, NO print statements  
+# PROTECTED: 6-file architecture - core logic only, NO print statements  
 def main_function(param: str) -> Dict[str, Any]:
     """Pure functionality, returns structured data for UI layer"""
 
@@ -530,7 +391,7 @@ def create_button_snippet(params: Dict, model: str) -> str:
 #### Include Protection References:
 ```python
 # This function follows Mao Protection Rule #1: Variable-Input Philosophy
-# See 4_Mao_PROTECTION_RULES.md for why hardcoded categories are forbidden
+# See 4_MAO_PROTECTION_RULES.md for why hardcoded categories are forbidden
 
 def process_request(input_data: str, approach: str) -> Dict:
     # Approach is user-defined, never hardcoded
@@ -562,7 +423,7 @@ def validate_variable_input_compliance(function_code: str) -> bool:
 ### Architecture Evolution Guidelines:
 
 **Safe Changes** (Don't require rule updates):
-- Adding new tools following 4-file pattern
+- Adding new tools following 6-file architecture pattern
 - Adding new models via JSON configuration
 - Adding new providers via configuration
 - Performance optimizations within existing patterns
@@ -577,7 +438,7 @@ def validate_variable_input_compliance(function_code: str) -> bool:
 
 **Forbidden Changes** (Never acceptable):
 - Violating variable-input philosophy
-- Breaking 4-file tool architecture
+- Breaking 6-file architecture pattern
 - Removing human button interface
 - Adding print statements to core logic
 - Changing protected naming standards
@@ -586,7 +447,7 @@ def validate_variable_input_compliance(function_code: str) -> bool:
 
 #### Automated Validation:
 ```python
-def validate_Mao_compliance(codebase_path: str) -> List[str]:
+def validate_mao_compliance(codebase_path: str) -> List[str]:
     """Automated compliance checking for CI/CD"""
     violations = []
     
