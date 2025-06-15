@@ -11,6 +11,8 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
 
 oc.get_stats --> mao.get_stats
 oc.list_workflows --> mao.list_workflows
+oc.job_application_workflow --> mao.job_application_workflow
+oc.display.success_summary --> mao.display.success_summary
 
 ### Also On This File 
 
@@ -18,8 +20,6 @@ oc.list_workflows --> mao.list_workflows
 - Specifics about job applications 
 - Mentions of args that are specific 
 
-oc.job_application_workflow --> mao.job_application_workflow
-oc.display.success_summary --> mao.display.success_summary
 
 -----------------
 
