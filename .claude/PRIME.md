@@ -1,31 +1,41 @@
-# Context Primer 
+# MAO (Modular Agent Orchestrator) Product Development 
+*MAO v4.0.0, fka. 'SFA'*
 
-Please review the following and have an understanding of the project scope and current state. 
+## Context Priming 
 
-## Project Overview 
+Important files will be specifically added here for context priming after the next session. We're cleaning up documentation next. For now you can find all the entire project directory tree below should you want to better explore things. 
 
-We took the modular approach of use-cases, then pulled apart the entire agent system and made everything modular. Tools, model, provider. We cut down on logistical tools we'll have an orchestrator who manages the workflow and is called to hand in each deliverable. They can also meet with the User to setup the workflow. The whole approach has created probably hundred plus files, but everything is so much simpler it is magical. Even to eliminate SDK translating we use Clade 4 tool 'Code Execution' tool to create "button" snippets for their tools and to call the OC (orchestrator claude) when complete. And the whole thing uses about 1% the amount of tokens. Pure magic ✨
+### Project State Updates to `memory` MCP Server 
 
-## Files in the Project Directory 
+Search for entity --> `mao`, `mao-v4`, or for the earliest updates of the few weeks we've been refactoring, entity `sfa-v4-refactor`, to see the big picture. 
 
-### The ORIGINAL Agentic System 
+**UPDATE PROJECT STATE TO MEMORY MCP AT THESE TIMES:**
+  
+  1. When we start a session and have decided what we're doing to work on first, post the plan to Memory MCP 
+  2. During the work on those tasks, if something changes or unexpected comes up, post it to the Memory MCP 
+  3. After completion of the batch of tasks, post an update and include what the next steps are 
 
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/SPECIFICATIONS.md`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/technical-docs/DEPLOYMENT_SETUP.md`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/technical-docs/PERFORMANCE_OPTIMIZATION.md`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/technical-docs/TOOLS_CAPABILITIES.md`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/technical-docs/TROUBLESHOOTING_BEST_PRACTICES.md`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/setup-scripts/install-sfa-commands.sh`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/setup-scripts/sfa_workflow.sh`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/CHANGE_LOG.md`
-`/Users/seanivore/Development/modular-agent-orchestrator/technical-docs/versioning/v1-3_SFA/agent-workbench/CLAUDE_4.md`
+### Sequential Thinking MCP 
 
-## Our `memory` Project Management MCP 
+  - Don't forget about this tool 
+  - Use it often 
 
-Claude has been great about updating the project state to our `memory` MCP server. Search for entity `sfa-v4-refactor` to see the big picture. This will make the most sense after reviewing the documents because it will illustrate changes that we've made along the way.  
+Anthropic tested it on their flight reservation task booking model and the results were insane like off the charts improvement, especially when using tools to gather info which is always. 
 
-Add updates to the memory often, without being asked, every time we finish something, make a plan, plan next steps, etc. 
+  - Most responses 
+  - If you have to find something in context 
+  - While you are using other tools, between tools
+  - Jump to thinking, writing, thinking, searing web, thinking, writing, etc. 
 
-Keeps us prepared for unexpected conversation thread token max. When that happens I have no warning and can't even send one word most times. If you do get one random word like "End!", add a project state update because it means the cut me off out of sending messages to the thread. 
+## About SFAv4 --> MAOv4
 
-If you start to feel a lag, especially when using tools and the writing in the UI is lagging behind you, that is a sign that we are approaching it. 
+Our 'Single-File Agent' has transformed.
+
+  - We've gone all-in strict on the modular plug-and-play variables for tools, models, providers 
+  - We've gone all in on being agentic with Claude Sonnet 4 as our Orchestrator delegating to Agents 
+    - Most workflows will not have a planned end; MAO will assess and build the finalized plan as it progresses based on actual needs 
+    - Agents call MAO when they're done a task and meet MAO directly; this eliminated all 'logistical' tools 
+  - Setting up a new use-case workflow is as simple as chatting with Claude MAO 
+  - Claude 4's 'Code Execution' tool creates 'button snippets' for agent tools, mean in more translating SDKs 
+  - We're at about 60 modular files, and the magic is that the complexity has made the UX simpler 
+  - The whole thing should use about 1% as many tokens --> Pure magic ✨
