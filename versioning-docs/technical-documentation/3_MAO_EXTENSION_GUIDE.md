@@ -26,9 +26,26 @@ Mao's modular architecture enables unlimited extension without performance degra
 
 ## 🛠️ Adding New Tools
 
-### Complete 4-File Tool Creation Process
+### Complete 6-File Tool Creation Process
 
-Adding a new tool requires creating exactly 4 files following Mao's standardized pattern.
+Every Mao tool follows the same structure. 
+
+```
+tools/your_new_tool/
+├── your_new_tool.py          # Core functionality
+├── tool_your_new_tool.json   # Configuration and metadata  
+├── button_your_new_tool.py   # Human button interface
+└── ui_your_new_tool.py       # User interface components
+```
+
+Every Mao tool shares two other files. 
+
+```
+orchestrator/
+└── error_handling.py         # Shared across all files 
+    └── cache/
+        └── cache_system.py   # Shared across all files 
+```
 
 #### Step 1: Create Tool Directory
 

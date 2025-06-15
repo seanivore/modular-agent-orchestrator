@@ -1,5 +1,6 @@
 # Mao Overview
 **Modular Agent Orchestrator - Revolutionary AI Workflow System**
+/maʊ̯/ --> pronounce it like "mau" (no "H" sound). Think of a cat. Mao Mao meow. 
 
 *Transform natural language goals into sophisticated multi-agent workflows*
 
@@ -10,6 +11,28 @@
 **Mao (Modular Agent Orchestrator)** revolutionizes AI workflows by eliminating the three core problems that make AI tools impractical for real work:
 
 ### The Problems Mao Solves
+
+#### Problems With The Rapidly Changing AI Industry  
+
+1. Accept: **AI Is Changing Every Constantly** 
+- The product must not ever have a shelf life 
+- Absolute protection from all that has been changing frequently 
+- Must embrace changes fast enough to always be cutting edge 
+
+2. Identify: **What Doesn't Change (quickly) In AI?** 
+- There are AI models 
+- Models interact with tools 
+- Python adopted early in docs 
+- We want it to do something for us 
+- Can't predict what we want it to do 
+- Abilities will always be changing  
+
+3. Solution: **Our Variable Input Use-Case** 
+- Original product was free of hardcoded use-case information 
+- Modularity solved many points 
+- The part of the system it plugged into were all modular 
+
+#### Problems With AI Agents  
 
 **1. Cost Explosion** 💸
 - Traditional AI workflows: $0.07+ per execution

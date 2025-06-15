@@ -2,8 +2,8 @@
 
 ## Branding Updates 
 
-- It is no longer 'Mao' it is 'Mao' to encourage proper pronunciation of the product 
-- I'm not using the word 'human buttons' anymore, I'm calling them 'button snippets' 
+- It is no longer 'Mao' it is 'Mao' to encourage proper pronunciation of the product (a find and replace across codebase has already been run)
+- I'm not using the word 'human buttons' anymore, I'm calling them 'button snippets' just FYI
 
 ## Setup Script & Terminal UX Application Considerations 
 
@@ -44,18 +44,18 @@
 
 ### New Use-Case, Lazy Setup 
 
-1. User runs command `Mao chat` 
+1. User runs command `mao chat` 
 2. Claude Sonnet 4, orchestrator, arrives in terminal 
 3. Claude and User back-and-forth conversation 
 4. Claude asks all needed information to setup a workflow for the use-case 
 5. Claude create the JSON config for that Use-Case 
-6. Claude runs the setup script `Mao setup` with the JSON config for that use case 
+6. Claude runs the setup script `mao setup` with the JSON config for that use case 
 
 ### New Use-Case, Invested Setup 
 
 1. User has all necessary JSON config information prepared 
 2. User fills out the JSON config themselves or sends Claude the complete information 
-3. User runs the setup script `Mao setup` with the JSON config for the at new use case 
+3. User runs the setup script `mao setup` with the JSON config for the at new use case 
 
 ### Active Use-Case  
 

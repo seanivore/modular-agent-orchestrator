@@ -138,7 +138,7 @@ class WorkflowOrchestrator:
 class WorkflowPhase:
     name: str                    # Phase identifier
     model: str                   # Selected AI model
-    agent_role: str             # Specialized agent persona
+    agent_role: str              # Specialized agent persona
     task_instructions: str       # Detailed task specification
     input_sources: List[str]     # Data sources and dependencies
     output_files: List[str]      # Expected deliverables
@@ -552,17 +552,25 @@ def retry_with_backoff(func, max_retries=3, base_delay=1):
 
 ## 🔧 Tool Ecosystem (`tools/`)
 
-**Standardized 4-file architecture enabling infinite extensibility.**
+**Standardized 6-file architecture enabling infinite extensibility.**
 
 ### Universal Tool Architecture
 
 **Every tool follows identical structure:**
+
 ```
-tools/tool_name/
-├── tool_name.py              # Core logic (NO print statements)
-├── ui_tool_name.py           # Display formatting (print statements OK)
-├── button_tool_name.py       # Human button generators (print statements OK)
-└── tool_tool_name.json       # Metadata and discovery config
+tools/your_new_tool/
+├── your_new_tool.py          # Core functionality
+├── tool_your_new_tool.json   # Configuration and metadata  
+├── button_your_new_tool.py   # Human button interface
+└── ui_your_new_tool.py       # User interface components
+```
+
+```
+orchestrator/
+└── error_handling.py         # Shared across all files 
+    └── cache/
+        └── cache_system.py   # Shared across all files 
 ```
 
 ### Current Tool Library (8 Core Tools)

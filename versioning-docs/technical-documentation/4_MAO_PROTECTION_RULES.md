@@ -11,6 +11,8 @@ This document protects Mao's revolutionary architecture from common AI mistakes 
 
 **When AI suggests "improvements" that violate these rules, the answer is always NO.**
 
+Any changes must be *at least* suggested, rather than making assumptions and updates. 
+
 ### How to Use This Document
 
 1. **Reference during development** - Check proposed changes against these rules
@@ -25,6 +27,11 @@ This document protects Mao's revolutionary architecture from common AI mistakes 
 ### Rule #1: Variable-Input Philosophy is SACRED
 
 **NEVER add hardcoded categories, templates, or domain-specific assumptions anywhere in the system.**
+
+#### Variable-Input Philosophy
+- **NEVER** hardcode use cases, categories, or specific domains
+- **ALWAYS** return structured data, not predetermined choices
+- **ALWAYS** let prompts define specifics, not the code
 
 #### What This Means:
 - Tools are blank canvases - prompts define specifics, not code
