@@ -1,9 +1,44 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
-
 |----------------------|
 | **SESSION 18 TASKS** |
+| -------------------- |
+
+# **Need To Audit `mao_v4.py` File**
+
+## Updated Code "OC" to "MAO"
+
+oc.get_stats --> mao.get_stats
+oc.list_workflows --> mao.list_workflows
+
+### Also On This File 
+
+- Print functions 
+- Specifics about job applications 
+- Mentions of args that are specific 
+
+oc.job_application_workflow --> mao.job_application_workflow
+oc.display.success_summary --> mao.display.success_summary
+
+-----------------
+
+# **Walk Through of UX Flow**
+
+`/Users/seanivore/Development/modular-agent-orchestrator/.claude/MAO_PROCESS_FLOW.md`
+
+-----------------
+
+# **Combine Final Stretch Task Lists** 
+
+  1. There are tasks listed on the walk-through UX 
+  2. We have this implementation plan: `/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/v4_PHASE_2_IMPLEMENTATION_PLANNING.md` 
+  3. All of the points below 
+
+Comb through and combine the task lists. Then organize them to be completed in the most efficient way. 
+
+|----------------------|
+| **SESSION 19 TASKS** |
 | -------------------- |
 
 # Final Build Tasks (Unless they fit below)

@@ -51,11 +51,11 @@ Examples:
     
     # Handle different command types
     if args.stats:
-        oc.get_stats()
+        mao.get_stats()
         return
     
     if args.list_workflows:
-        oc.list_workflows()
+        mao.list_workflows()
         return
     
     if args.job_app:
@@ -71,7 +71,7 @@ Examples:
             print(f"❌ Job description file not found: {args.job_app}")
             sys.exit(1)
         
-        result = await oc.job_application_workflow(
+        result = await mao.job_application_workflow(
             job_description, 
             args.company, 
             args.workspace
@@ -92,10 +92,10 @@ Examples:
         if args.privacy:
             preferences["privacy_focused"] = True
         
-        result = await oc.execute_goal(args.goal, args.workspace, preferences)
+        result = await mao.execute_goal(args.goal, args.workspace, preferences)
         
         if result.get("success"):
-            oc.display.success_summary(result["workspace"], result["total_cost"])
+            mao.display.success_summary(result["workspace"], result["total_cost"])
         elif result.get("cancelled"):
             print("👋 See you next time!")
         else:
@@ -120,17 +120,17 @@ Examples:
                     continue
                 
                 if goal.lower() == 'stats':
-                    oc.get_stats()
+                    mao.get_stats()
                     continue
                 
                 if goal.lower() == 'list':
-                    oc.list_workflows()
+                    mao.list_workflows()
                     continue
                 
-                result = await oc.execute_goal(goal)
+                result = await mao.execute_goal(goal)
                 
                 if result.get("success"):
-                    oc.display.success_summary(result["workspace"], result["total_cost"])
+                    mao.display.success_summary(result["workspace"], result["total_cost"])
                 elif not result.get("cancelled"):
                     print("Try rephrasing your goal or type 'quit' to exit")
                 

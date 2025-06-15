@@ -537,7 +537,7 @@ async def demo_clean_interface():
     oc = OCTerminalInterface(verbose=False)
     
     print("🎨 REGULAR USER EXPERIENCE:")
-    await oc.execute_goal("Create a marketing plan for my startup")
+    await mao.execute_goal("Create a marketing plan for my startup")
     
     print("\n" + "="*60 + "\n")
     
