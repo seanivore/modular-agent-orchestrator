@@ -1,4 +1,9 @@
-# Mao (Modular Agent Orchestrator) Product Development 
+# Context Primer 
+
+RUN:
+    git ls-files
+
+READ:# Mao (Modular Agent Orchestrator) Product Development 
 *Mao v4.0.0, fka. 'SFA'*
 
 ## Context Priming 
