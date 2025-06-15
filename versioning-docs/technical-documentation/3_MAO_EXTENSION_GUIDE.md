@@ -1,13 +1,13 @@
-# MAO Extension Guide
+# Mao Extension Guide
 **Complete Guide to Adding Tools, Models, and Providers**
 
-*Step-by-step instructions for extending MAO capabilities*
+*Step-by-step instructions for extending Mao capabilities*
 
 ---
 
 ## 🎯 Overview
 
-MAO's modular architecture enables unlimited extension without performance degradation. This guide provides complete instructions for adding new capabilities to your MAO instance.
+Mao's modular architecture enables unlimited extension without performance degradation. This guide provides complete instructions for adding new capabilities to your Mao instance.
 
 ### What You Can Add
 
@@ -17,7 +17,7 @@ MAO's modular architecture enables unlimited extension without performance degra
 
 ### Prerequisites
 
-- Working MAO installation
+- Working Mao installation
 - Basic understanding of Python and JSON
 - API keys for new providers (if applicable)
 - Text editor and terminal access
@@ -28,7 +28,7 @@ MAO's modular architecture enables unlimited extension without performance degra
 
 ### Complete 4-File Tool Creation Process
 
-Adding a new tool requires creating exactly 4 files following MAO's standardized pattern.
+Adding a new tool requires creating exactly 4 files following Mao's standardized pattern.
 
 #### Step 1: Create Tool Directory
 
@@ -873,8 +873,8 @@ validation_result
 
 **Automatic Discovery Test:**
 ```bash
-# MAO automatically discovers new tools on restart
-python mao-v4.py --verbose "Test the new your_tool_name tool"
+# Mao automatically discovers new tools on restart
+python Mao-v4.py --verbose "Test the new your_tool_name tool"
 ```
 
 **Integration Verification:**
@@ -902,9 +902,9 @@ print(snippet)
 **Model Compatibility Testing:**
 ```bash
 # Test with different models
-python mao-v4.py --verbose "Use your_tool_name with claude-sonnet-4"
-python mao-v4.py --verbose "Use your_tool_name with gemini-2.5-pro"  
-python mao-v4.py --verbose "Use your_tool_name with gpt-4.1-mini"
+python Mao-v4.py --verbose "Use your_tool_name with claude-sonnet-4"
+python Mao-v4.py --verbose "Use your_tool_name with gemini-2.5-pro"  
+python Mao-v4.py --verbose "Use your_tool_name with gpt-4.1-mini"
 ```
 
 ---
@@ -995,7 +995,7 @@ If provider doesn't exist, create `configs/providers/new-provider.json`:
   "auth_type": "api_key",
   "env_var": "NEW_PROVIDER_API_KEY",
   "headers": {
-    "User-Agent": "MAO/4.0",
+    "User-Agent": "Mao/4.0",
     "Content-Type": "application/json"
   },
   "rate_limits": {
@@ -1061,13 +1061,13 @@ export NEW_PROVIDER_API_KEY="your-api-key"
 **Integration Testing:**
 ```bash
 # Test model discovery
-python mao-v4.py --verbose --stats
+python Mao-v4.py --verbose --stats
 
 # Test simple workflow with new model
-python mao-v4.py --verbose "Simple test task using the new model"
+python Mao-v4.py --verbose "Simple test task using the new model"
 
-# Test cost optimization (MAO should select new model for cost-sensitive tasks)
-python mao-v4.py --free-only "Research basic information about renewable energy"
+# Test cost optimization (Mao should select new model for cost-sensitive tasks)
+python Mao-v4.py --free-only "Research basic information about renewable energy"
 ```
 
 **Validation Script:**
@@ -1096,7 +1096,7 @@ print(f"Can handle text/analysis: {can_handle}")
 
 ### Provider Integration Process
 
-Adding new API providers enables MAO to work with additional model endpoints and services.
+Adding new API providers enables Mao to work with additional model endpoints and services.
 
 #### Step 1: Create Provider Configuration
 
@@ -1111,7 +1111,7 @@ Adding new API providers enables MAO to work with additional model endpoints and
   "auth_type": "api_key",
   "env_var": "NEW_PROVIDER_API_KEY",
   "headers": {
-    "User-Agent": "MAO/4.0",
+    "User-Agent": "Mao/4.0",
     "Content-Type": "application/json",
     "X-Custom-Header": "custom-value"
   },
@@ -1265,13 +1265,13 @@ test_provider_connection()
 **Provider Discovery Test:**
 ```bash
 # Verify provider is discovered
-python mao-v4.py --verbose --stats
+python Mao-v4.py --verbose --stats
 ```
 
 **End-to-End Test:**
 ```bash
 # Test workflow with new provider
-python mao-v4.py --verbose "Simple task to test new provider integration"
+python Mao-v4.py --verbose "Simple task to test new provider integration"
 ```
 
 **Performance Validation:**
@@ -1292,7 +1292,7 @@ def test_provider_performance():
     for i in range(5):
         start_time = time.time()
         try:
-            # Simulate model request through MAO
+            # Simulate model request through Mao
             result = models.test_model_request("new-model-name", "Simple test")
             response_time = time.time() - start_time
             response_times.append(response_time)
@@ -1357,7 +1357,7 @@ class CustomProviderAdapter:
         self.api_key = config["api_key"]
     
     def format_request(self, model: str, messages: List[Dict], **kwargs) -> Dict:
-        """Convert MAO request format to provider format"""
+        """Convert Mao request format to provider format"""
         
         # Custom request formatting
         return {
@@ -1370,7 +1370,7 @@ class CustomProviderAdapter:
         }
     
     def parse_response(self, response: Dict) -> Dict:
-        """Convert provider response to MAO format"""
+        """Convert provider response to Mao format"""
         
         # Custom response parsing
         return {
@@ -1530,7 +1530,7 @@ if __name__ == "__main__":
 ```python
 # test_integration.py
 def test_tool_workflow_integration():
-    """Test tool integration with MAO orchestrator"""
+    """Test tool integration with Mao orchestrator"""
     
     from orchestrator.core import WorkflowOrchestrator
     
@@ -1634,7 +1634,7 @@ def test_cost_accuracy():
 - [ ] Performance meets response time requirements
 
 #### Integration Testing  
-- [ ] Tool discovered automatically by MAO
+- [ ] Tool discovered automatically by Mao
 - [ ] Works with multiple AI models
 - [ ] Integrates properly in multi-tool workflows
 - [ ] Button generation produces valid executable code
@@ -1802,9 +1802,9 @@ def discover_community_tools(source: str = "official_registry") -> List[Dict]:
     """
     
     registries = {
-        "official_registry": "https://registry.mao.tools/tools",
-        "community_hub": "https://community.mao.tools/api/tools",
-        "github_releases": "https://api.github.com/orgs/mao-tools/repos"
+        "official_registry": "https://registry.Mao.tools/tools",
+        "community_hub": "https://community.Mao.tools/api/tools",
+        "github_releases": "https://api.github.com/orgs/Mao-tools/repos"
     }
     
     # Fetch and validate community tools
@@ -1815,4 +1815,4 @@ def discover_community_tools(source: str = "official_registry") -> List[Dict]:
 
 ---
 
-*This extension guide provides everything needed to expand MAO's capabilities while maintaining its architectural integrity and performance characteristics.*
+*This extension guide provides everything needed to expand Mao's capabilities while maintaining its architectural integrity and performance characteristics.*

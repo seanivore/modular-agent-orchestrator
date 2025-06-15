@@ -1,11 +1,11 @@
-# MAO Technical Documentation Contents 
+# Mao Technical Documentation Contents 
 
-  1. What it is and why it matters --> [1_MAO_OVERVIEW.md](./1_MAO_OVERVIEW.md)
-  2. Complete technical deep-dive --> [2_MAO_ARCHITECTURE.md](./2_MAO_ARCHITECTURE.md)
-  3. How to add tools/models/providers --> [3_MAO_EXTENSION_GUIDE.md](./3_MAO_EXTENSION_GUIDE.md)
-  4. What never to change and why --> [4_MAO_PROTECTION_RULES.md](./4_MAO_PROTECTION_RULES.md)
+  1. What it is and why it matters --> [1_Mao_OVERVIEW.md](./1_Mao_OVERVIEW.md)
+  2. Complete technical deep-dive --> [2_Mao_ARCHITECTURE.md](./2_Mao_ARCHITECTURE.md)
+  3. How to add tools/models/providers --> [3_Mao_EXTENSION_GUIDE.md](./3_Mao_EXTENSION_GUIDE.md)
+  4. What never to change and why --> [4_Mao_PROTECTION_RULES.md](./4_Mao_PROTECTION_RULES.md)
 
-## 1. MAO Overview 
+## 1. Mao Overview 
 
 Clean, focused overview. 
 
@@ -23,7 +23,7 @@ Clean, focused overview.
   - Extension development guide
   - Protection rules documentation
 
-## 2. MAO Architecture 
+## 2. Mao Architecture 
 
 Complete technical deep-dive to understand how everything connects under the hood. 
 
@@ -38,11 +38,11 @@ Complete technical deep-dive to understand how everything connects under the hoo
 ### Perfect For 
 
   - Developers who need to understand how everything connects
-  - Technical users extending or integrating with MAO
+  - Technical users extending or integrating with Mao
   - System architects evaluating the design
   - Anyone who needs the deep technical reference
 
-## 3. MAO Extension Guide  
+## 3. Mao Extension Guide  
 
 Practical "how to add stuff" guide with complete step-by-step examples. 
 
@@ -56,9 +56,9 @@ Practical "how to add stuff" guide with complete step-by-step examples.
   - Best practices and quality assurance guidelines
   - Advanced features like dynamic tool creation
 
-**Zero hype, just clear instructions.** Exactly what developers need to extend MAO capabilities without breaking anything.
+**Zero hype, just clear instructions.** Exactly what developers need to extend Mao capabilities without breaking anything.
 
-## 4. MAO Protection Rules  
+## 4. Mao Protection Rules  
 
 The 'what to never change an why' guide, to protect all our architectural decisions. 
 

@@ -1,15 +1,15 @@
-# MAO Overview
+# Mao Overview
 **Modular Agent Orchestrator - Revolutionary AI Workflow System**
 
 *Transform natural language goals into sophisticated multi-agent workflows*
 
 ---
 
-## 🎯 What is MAO?
+## 🎯 What is Mao?
 
-**MAO (Modular Agent Orchestrator)** revolutionizes AI workflows by eliminating the three core problems that make AI tools impractical for real work:
+**Mao (Modular Agent Orchestrator)** revolutionizes AI workflows by eliminating the three core problems that make AI tools impractical for real work:
 
-### The Problems MAO Solves
+### The Problems Mao Solves
 
 **1. Cost Explosion** 💸
 - Traditional AI workflows: $0.07+ per execution
@@ -26,10 +26,10 @@
 - Hardcoded assumptions and limitations
 - Hours of setup for simple tasks
 
-### The MAO Solution
+### The Mao Solution
 
 **Revolutionary Human Button Interface** 🔘
-Instead of managing SDKs, MAO generates **executable code snippets** that work with any AI model. Claude 4 executes these "human buttons" directly, eliminating format conversion forever.
+Instead of managing SDKs, Mao generates **executable code snippets** that work with any AI model. Claude 4 executes these "human buttons" directly, eliminating format conversion forever.
 
 **Variable-Input Philosophy** 🎨
 No hardcoded categories, templates, or assumptions anywhere. Tools are blank canvases - prompts define specifics, not code.
@@ -61,19 +61,19 @@ Everything is a swappable component: models, providers, tools, workflows. Add un
 
 ---
 
-## 🎬 How MAO Works
+## 🎬 How Mao Works
 
 ### Simple User Experience
 
 ```bash
 # Direct goal execution
-python mao-v4.py "Create a marketing strategy for my B2B startup"
+python Mao-v4.py "Create a marketing strategy for my B2B startup"
 
 # Specialized workflows  
-python mao-v4.py --job-app job_description.txt --company "TechCorp"
+python Mao-v4.py --job-app job_description.txt --company "TechCorp"
 
 # Interactive mode
-python mao-v4.py
+python Mao-v4.py
 ```
 
 ### What Happens Behind the Scenes
@@ -103,7 +103,7 @@ python mao-v4.py
 ```
 User: "Create a content strategy for my B2B SaaS startup"
 
-MAO Analysis:
+Mao Analysis:
 ├─ Goal Type: Content Strategy Development
 ├─ Complexity: Medium (multi-phase research and analysis)
 ├─ Estimated Cost: $0.35-0.60
@@ -157,18 +157,18 @@ Total Cost: $0.42 | Duration: 28m | Quality: 9.1/10
 "I need to research competitors for my SaaS startup"
 ```
 
-**2. MAO Setup Conversation**
+**2. Mao Setup Conversation**
 ```
-MAO: "I'll help you create a competitor research workflow. 
+Mao: "I'll help you create a competitor research workflow. 
       Tell me about your startup in 2-3 sentences:"
 
 User: "B2B project management platform for remote teams"
 
-MAO: "Who are your main competitors or companies you'd like to analyze?"
+Mao: "Who are your main competitors or companies you'd like to analyze?"
 
 User: "Asana, Monday.com, Notion, Clickup"
 
-MAO: "What specific aspects interest you most?"
+Mao: "What specific aspects interest you most?"
 
 User: "Pricing, features, and market positioning"
 ```
@@ -200,7 +200,7 @@ Usage: competitor_research_saas "B2B project management" "Asana,Monday,Notion,Cl
    - Tool registry (`tool_new_tool.json`)
 
 2. **Automatic Integration**
-   - Tool automatically discovered by MAO
+   - Tool automatically discovered by Mao
    - Universal model compatibility via human buttons
    - Cost estimation and performance tracking
 
@@ -286,22 +286,22 @@ Usage: competitor_research_saas "B2B project management" "Asana,Monday,Notion,Cl
 
 ### Content Marketing Team
 **Challenge**: Create consistent, high-quality content across multiple channels
-**MAO Solution**: Content strategy workflows with automated research, analysis, and sample generation
+**Mao Solution**: Content strategy workflows with automated research, analysis, and sample generation
 **Results**: 10x productivity improvement, 90% cost reduction vs agencies, consistent brand voice
 
 ### Market Research Consultant  
 **Challenge**: Deliver comprehensive competitor analysis in tight timeframes
-**MAO Solution**: Automated research workflows with multi-source analysis and professional reporting
+**Mao Solution**: Automated research workflows with multi-source analysis and professional reporting
 **Results**: 5x faster delivery, 85% cost savings, higher quality insights
 
 ### Startup Founder
 **Challenge**: Need professional business documents without expensive consultants
-**MAO Solution**: Business planning workflows for strategy, marketing, and operational documentation
+**Mao Solution**: Business planning workflows for strategy, marketing, and operational documentation
 **Results**: Professional results in minutes, <$1 cost vs $5,000+ consultant fees
 
 ### Enterprise Development Team
 **Challenge**: Integrate AI capabilities without vendor lock-in or complexity
-**MAO Solution**: Custom tool development with universal model compatibility
+**Mao Solution**: Custom tool development with universal model compatibility
 **Results**: 50+ custom tools deployed, zero vendor dependencies, seamless scaling
 
 ---
@@ -310,7 +310,7 @@ Usage: competitor_research_saas "B2B project management" "Asana,Monday,Notion,Cl
 
 ### Installation & Setup
 ```bash
-# Clone MAO repository
+# Clone Mao repository
 git clone https://github.com/your-org/modular-agent-orchestrator
 cd modular-agent-orchestrator
 
@@ -323,42 +323,42 @@ export OPENAI_API_KEY="your-key"
 export GEMINI_API_KEY="your-key"
 
 # Run your first workflow
-python mao-v4.py "Create a marketing plan for my startup"
+python Mao-v4.py "Create a marketing plan for my startup"
 ```
 
 ### First Workflow Examples
 
 **Content Creation**
 ```bash
-python mao-v4.py "Create a blog post about AI productivity tools"
+python Mao-v4.py "Create a blog post about AI productivity tools"
 ```
 
 **Market Research**  
 ```bash
-python mao-v4.py "Research the competitive landscape for project management software"
+python Mao-v4.py "Research the competitive landscape for project management software"
 ```
 
 **Business Planning**
 ```bash
-python mao-v4.py "Develop a go-to-market strategy for my B2B SaaS product"
+python Mao-v4.py "Develop a go-to-market strategy for my B2B SaaS product"
 ```
 
 **Job Applications**
 ```bash
-python mao-v4.py --job-app job_description.txt --company "TechCorp"
+python Mao-v4.py --job-app job_description.txt --company "TechCorp"
 ```
 
 ### Next Steps
 
-1. **Try Basic Workflows** - Start with simple goals to understand MAO's capabilities
+1. **Try Basic Workflows** - Start with simple goals to understand Mao's capabilities
 2. **Explore Tool Ecosystem** - See how different tools coordinate for complex tasks  
 3. **Create Custom Workflows** - Build repeatable processes for your specific needs
-4. **Develop Custom Tools** - Add organization-specific capabilities to your MAO instance
+4. **Develop Custom Tools** - Add organization-specific capabilities to your Mao instance
 5. **Scale Team Usage** - Implement shared workflows and collaboration patterns
 
 ---
 
-## 🎯 Why MAO Changes Everything
+## 🎯 Why Mao Changes Everything
 
 ### For Individual Users
 - **Professional Results**: Enterprise-quality deliverables without enterprise costs
@@ -378,8 +378,8 @@ python mao-v4.py --job-app job_description.txt --company "TechCorp"
 - **Integration Ready**: API access for existing business systems and workflows
 - **Competitive Advantage**: AI-powered productivity with measurable ROI
 
-**MAO represents the evolution from AI tools to AI orchestration** - transforming how we work with artificial intelligence from complicated, expensive, and limited to simple, cost-effective, and unlimited.
+**Mao represents the evolution from AI tools to AI orchestration** - transforming how we work with artificial intelligence from complicated, expensive, and limited to simple, cost-effective, and unlimited.
 
 ---
 
-*Ready to experience the future of AI workflows? Start with a simple goal and watch MAO orchestrate professional results in minutes.*
+*Ready to experience the future of AI workflows? Start with a simple goal and watch Mao orchestrate professional results in minutes.*

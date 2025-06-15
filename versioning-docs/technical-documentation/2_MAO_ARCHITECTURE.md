@@ -1,13 +1,13 @@
-# MAO Architecture
+# Mao Architecture
 **Complete System Architecture & Integration Guide**
 
-*Deep technical understanding of how MAO components work together*
+*Deep technical understanding of how Mao components work together*
 
 ---
 
 ## 🏗️ System Overview
 
-MAO's architecture is built on **principled modularity** - every component is independent, replaceable, and universally compatible. This enables infinite extensibility without performance degradation.
+Mao's architecture is built on **principled modularity** - every component is independent, replaceable, and universally compatible. This enables infinite extensibility without performance degradation.
 
 ### Core Architectural Principles
 
@@ -33,7 +33,7 @@ MAO's architecture is built on **principled modularity** - every component is in
 
 ---
 
-## 🎭 Entry Point: `mao-v4.py`
+## 🎭 Entry Point: `Mao-v4.py`
 
 **Main CLI interface** providing multiple interaction modes and routing.
 
@@ -42,7 +42,7 @@ MAO's architecture is built on **principled modularity** - every component is in
 ```python
 # Core functionality
 def main():
-    parser = argparse.ArgumentParser(description="MAO - AI Workflow Orchestrator")
+    parser = argparse.ArgumentParser(description="Mao - AI Workflow Orchestrator")
     
     # Primary execution modes
     parser.add_argument("goal", nargs="?", help="Natural language goal")
@@ -88,7 +88,7 @@ oc = OCTerminalInterface(verbose=args.verbose)
 
 ## 🧠 Orchestrator Core (`orchestrator/`)
 
-The brain of MAO - coordinates all system components for intelligent workflow execution.
+The brain of Mao - coordinates all system components for intelligent workflow execution.
 
 ### `core.py` - The Maestro
 
@@ -489,7 +489,7 @@ def retry_with_backoff(func, max_retries=3, base_delay=1):
   "auth_type": "api_key",
   "env_var": "ANTHROPIC_API_KEY",
   "headers": {
-    "User-Agent": "MAO/4.0",
+    "User-Agent": "Mao/4.0",
     "Content-Type": "application/json"
   },
   "rate_limits": {
@@ -774,9 +774,9 @@ result
 
 ### Goal → Results: Complete Technical Flow
 
-**1. Entry Point Processing (`mao-v4.py`)**
+**1. Entry Point Processing (`Mao-v4.py`)**
 ```
-User Input: python mao-v4.py "Create marketing strategy for B2B startup"
+User Input: python Mao-v4.py "Create marketing strategy for B2B startup"
 ↓
 Argument Parsing: goal="Create marketing strategy...", verbose=False
 ↓
@@ -1105,7 +1105,7 @@ def display_success_summary(self, workspace: str, total_cost: float):
 **Planned Web Interface Architecture:**
 
 ```python
-class MAOWebInterface:
+class MaoWebInterface:
     """
     Browser-based workflow design and execution
     Future implementation for non-technical users
@@ -1149,7 +1149,7 @@ class ConversationMemory:
         self.workflow_context = {}
         self.user_preferences = {}
     
-    def store_interaction(self, user_input: str, mao_response: Dict):
+    def store_interaction(self, user_input: str, Mao_response: Dict):
         """Store conversation for context awareness"""
         pass
     
@@ -1164,10 +1164,10 @@ class ConversationMemory:
 
 ### `protocol.md` - Behavioral Specification (Foundation)
 
-**Planned MAO Behavioral Protocol Documentation:**
+**Planned Mao Behavioral Protocol Documentation:**
 
 ```markdown
-# MAO Behavioral Protocol
+# Mao Behavioral Protocol
 
 ## Decision Trees
 - When to ask clarifying questions vs proceed autonomously
@@ -1280,4 +1280,4 @@ class ConversationMemory:
 
 ---
 
-*This architecture enables MAO to be more than just another AI tool - it's a platform for the future of intelligent work automation.*
+*This architecture enables Mao to be more than just another AI tool - it's a platform for the future of intelligent work automation.*

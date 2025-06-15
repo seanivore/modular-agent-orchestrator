@@ -1,13 +1,13 @@
-# MAO Protection Rules
+# Mao Protection Rules
 **Critical "DO NOT CHANGE" Rules & AI Mistake Prevention**
 
-*Protecting MAO's architectural integrity from well-meaning but destructive "improvements"*
+*Protecting Mao's architectural integrity from well-meaning but destructive "improvements"*
 
 ---
 
 ## 🛡️ Purpose of This Document
 
-This document protects MAO's revolutionary architecture from common AI mistakes that would undermine its core innovations. Every rule exists because violating it would break fundamental capabilities.
+This document protects Mao's revolutionary architecture from common AI mistakes that would undermine its core innovations. Every rule exists because violating it would break fundamental capabilities.
 
 **When AI suggests "improvements" that violate these rules, the answer is always NO.**
 
@@ -483,7 +483,7 @@ When AI says these phrases, immediately check against protection rules:
 - "This simplified approach is cleaner..."
 - "Pre-built templates would help users..."
 
-**Every one of these suggests a violation of MAO's protected architecture.**
+**Every one of these suggests a violation of Mao's protected architecture.**
 
 ---
 
@@ -492,10 +492,10 @@ When AI says these phrases, immediately check against protection rules:
 ### When AI Violates Rules:
 
 #### Step 1: Immediate Stop
-"This violates MAO Protection Rule #X. Stop and explain why you suggested this change."
+"This violates Mao Protection Rule #X. Stop and explain why you suggested this change."
 
 #### Step 2: Reference Documentation  
-"See 4_MAO_PROTECTION_RULES.md section Y for why this pattern is forbidden."
+"See 4_Mao_PROTECTION_RULES.md section Y for why this pattern is forbidden."
 
 #### Step 3: Demand Compliance
 "Rewrite the solution following the protected patterns. No exceptions."
@@ -522,8 +522,8 @@ def create_button_snippet(params: Dict, model: str) -> str:
 
 #### Include Protection References:
 ```python
-# This function follows MAO Protection Rule #1: Variable-Input Philosophy
-# See 4_MAO_PROTECTION_RULES.md for why hardcoded categories are forbidden
+# This function follows Mao Protection Rule #1: Variable-Input Philosophy
+# See 4_Mao_PROTECTION_RULES.md for why hardcoded categories are forbidden
 
 def process_request(input_data: str, approach: str) -> Dict:
     # Approach is user-defined, never hardcoded
@@ -579,7 +579,7 @@ def validate_variable_input_compliance(function_code: str) -> bool:
 
 #### Automated Validation:
 ```python
-def validate_mao_compliance(codebase_path: str) -> List[str]:
+def validate_Mao_compliance(codebase_path: str) -> List[str]:
     """Automated compliance checking for CI/CD"""
     violations = []
     
@@ -609,4 +609,4 @@ def validate_mao_compliance(codebase_path: str) -> List[str]:
 
 ---
 
-*These protection rules ensure MAO's revolutionary architecture remains intact as it evolves. Every violation makes the system less flexible, less universal, or less maintainable. When in doubt, preserve the existing patterns that enable MAO's unique capabilities.*
+*These protection rules ensure Mao's revolutionary architecture remains intact as it evolves. Every violation makes the system less flexible, less universal, or less maintainable. When in doubt, preserve the existing patterns that enable Mao's unique capabilities.*

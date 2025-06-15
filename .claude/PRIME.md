@@ -1,5 +1,5 @@
-# MAO (Modular Agent Orchestrator) Product Development 
-*MAO v4.0.0, fka. 'SFA'*
+# Mao (Modular Agent Orchestrator) Product Development 
+*Mao v4.0.0, fka. 'SFA'*
 
 ## Context Priming 
 
@@ -7,7 +7,7 @@ Important files will be specifically added here for context priming after the ne
 
 ### Project State Updates to `memory` MCP Server 
 
-Search for entity --> `mao`, `mao-v4`, or for the earliest updates of the few weeks we've been refactoring, entity `sfa-v4-refactor`, to see the big picture. 
+Search for entity --> `Mao`, `Mao-v4`, or for the earliest updates of the few weeks we've been refactoring, entity `sfa-v4-refactor`, to see the big picture. 
 
 **UPDATE PROJECT STATE TO MEMORY MCP AT THESE TIMES:**
   
@@ -27,15 +27,15 @@ Anthropic tested it on their flight reservation task booking model and the resul
   - While you are using other tools, between tools
   - Jump to thinking, writing, thinking, searing web, thinking, writing, etc. 
 
-## About SFAv4 --> MAOv4
+## About SFAv4 --> Maov4
 
 Our 'Single-File Agent' has transformed.
 
   - We've gone all-in strict on the modular plug-and-play variables for tools, models, providers 
   - We've gone all in on being agentic with Claude Sonnet 4 as our Orchestrator delegating to Agents 
-    - Most workflows will not have a planned end; MAO will assess and build the finalized plan as it progresses based on actual needs 
-    - Agents call MAO when they're done a task and meet MAO directly; this eliminated all 'logistical' tools 
-  - Setting up a new use-case workflow is as simple as chatting with Claude MAO 
+    - Most workflows will not have a planned end; Mao will assess and build the finalized plan as it progresses based on actual needs 
+    - Agents call Mao when they're done a task and meet Mao directly; this eliminated all 'logistical' tools 
+  - Setting up a new use-case workflow is as simple as chatting with Claude Mao 
   - Claude 4's 'Code Execution' tool creates 'button snippets' for agent tools, mean in more translating SDKs 
   - We're at about 60 modular files, and the magic is that the complexity has made the UX simpler 
   - The whole thing should use about 1% as many tokens --> Pure magic ✨

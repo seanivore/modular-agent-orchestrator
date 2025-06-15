@@ -1,5 +1,5 @@
 # Master Task List
-MAO v4.0.0.0 (Modular Agent Orchestrator)
+Mao v4.0.0.0 (Modular Agent Orchestrator)
 
 |----------------------|
 | **SESSION 17 TASKS** |
@@ -44,7 +44,7 @@ MAO v4.0.0.0 (Modular Agent Orchestrator)
 ├── interfaces
 │   ├── ui_terminal.py
 │   └── ui_web.py
-├── mao_v4.py
+├── Mao_v4.py
 ├── orchestrator
 │   ├── cache
 │   │   ├── __init__.py
@@ -103,7 +103,7 @@ MAO v4.0.0.0 (Modular Agent Orchestrator)
     ├── CHANGE_LOG.md
     ├── technical-documentation
     │   ├── OLD
-    │   │   ├── 1.1_MEET_MAO.md
+    │   │   ├── 1.1_MEET_Mao.md
     │   │   ├── 1.2_SOLVING_PROBLEMS.md
     │   │   ├── 1.3_VARIABLE_INPUT.md
     │   │   ├── 2.1_ORCHESTRATOR.md
@@ -153,7 +153,7 @@ The file that was called 'tool_discovery' now called `manager_tools.py` needs to
 
 ### Protocol Document 
 
-Create `protocol.md` for MAO behavior. 
+Create `protocol.md` for Mao behavior. 
 
 -----------------
 
@@ -166,7 +166,7 @@ Create `protocol.md` for MAO behavior.
 **This is what we're missing still:**
 
 ```
-First Time: Goal → MAO Setup → JSON Config → Custom Command → Ready!
+First Time: Goal → Mao Setup → JSON Config → Custom Command → Ready!
 Later: Custom Command → Workflow Execution → Results
 ```
 
@@ -185,7 +185,7 @@ Decide what JSON Config looks like:
 
   1. New variables needed 
      - Must answer variables 
-     - Optional variables (because MAO will decide)
+     - Optional variables (because Mao will decide)
   2. Old variables carried over 
   3. Set up the use-case directory `./configs/use_case/*/...`
 
@@ -219,7 +219,7 @@ Generated command should execute the workflow.
 
 ## Create Setup Entry Point
 
-- File: `/mao_v4_setup.py`
+- File: `/Mao_v4_setup.py`
 - What: Main script that determines setup vs run mode
 - Simple Explanation: Smart entry point that knows if you're setting up or running
 
@@ -227,26 +227,26 @@ Generated command should execute the workflow.
 # What we're building
 def main():
     if is_first_time_or_setup_requested():
-        launch_mao_setup_conversation()
+        launch_Mao_setup_conversation()
     else:
         run_existing_workflow()
 ```
 
 ### Test 
 
-`python mao_v4_setup.py` should start MAO conversation for new users
+`python Mao_v4_setup.py` should start Mao conversation for new users
 
-## Build MAO Setup Conversation
+## Build Mao Setup Conversation
 
 - File: `./build/interfaces/setup_conversation.py`
-- What: MAO interviews user and creates JSON workflow config
+- What: Mao interviews user and creates JSON workflow config
 - Simple Explanation: Friendly chat with OC that turns your goal into a workflow
 
 - Flow:
-  1. MAO asks about your goal
-  2. MAO suggests tools and models
-  3. MAO creates JSON config
-  4. MAO explains what will happen
+  1. Mao asks about your goal
+  2. Mao suggests tools and models
+  3. Mao creates JSON config
+  4. Mao explains what will happen
 
 ### Test
 
