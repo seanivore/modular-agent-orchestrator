@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "description": "Mao - Modular Agent Orchestrator",
+    "version": "4.0.0"
+  },
+  "arguments": {
+    "goal": {
+      "type": "positional",
+      "nargs": "?",
+      "help": "Natural language goal - any task, any domain, any approach"
+    },
+    "stats": {
+      "type": "flag",
+      "terminal_flag": "--stats",
+      "app_command": "/stats",
+      "help": "Show system performance and orchestrator statistics"
+    },
+    "workflows": {
+      "type": "flag", 
+      "terminal_flag": "--workflows",
+      "app_command": "/workflows",
+      "help": "List all configured workflows and their status"
+    },
+    "interactive": {
+      "type": "flag",
+      "terminal_flag": "--interactive",
+      "app_command": "/chat",
+      "help": "Start interactive chat mode for workflow creation"
+    },
+    "setup": {
+      "type": "value",
+      "terminal_flag": "--setup",
+      "app_command": "/setup",
+      "help": "Setup JSON workflow config",
+      "example": "mao --setup ./config.json"
+    },
+    "update": {
+      "type": "value",
+      "terminal_flag": "--update", 
+      "app_command": "/update",
+      "help": "Update additional workflow phase",
+      "example": "mao --update ./config.json"
+    },
+    "fix_it": {
+      "type": "value",
+      "terminal_flag": "--fix-it",
+      "app_command": "/fix-it", 
+      "help": "Fix deliverable from workflow phase",
+      "example": "mao --fix-it ./config.json"
+    },
+    "workspace": {
+      "type": "value",
+      "terminal_flag": ["--workspace", "-w"],
+      "help": "Custom workspace directory for outputs"
+    },
+    "verbose": {
+      "type": "flag",
+      "terminal_flag": ["--verbose", "-v"],
+      "help": "Show detailed technical information"
+    },
+    "free_only": {
+      "type": "flag", 
+      "terminal_flag": "--free-only",
+      "help": "Use only free models (cost optimization)"
+    },
+    "privacy": {
+      "type": "flag",
+      "terminal_flag": "--privacy", 
+      "help": "Use privacy-focused models and providers"
+    },
+    "debug": {
+      "type": "flag",
+      "terminal_flag": "--debug",
+      "app_command": "/debug",
+      "help": "Enable debug mode with detailed logging"
+    },
+    "config": {
+      "type": "flag",
+      "terminal_flag": "--config",
+      "app_command": "/config", 
+      "help": "Show configuration management interface"
+    },
+    "doctor": {
+      "type": "flag",
+      "terminal_flag": "--doctor",
+      "app_command": "/doctor",
+      "help": "Checks the health of your Mao installation"
+    },
+    "continue": {
+      "type": "flag",
+      "terminal_flag": "--continue",
+      "app_command": "/continue",
+      "help": "Continue most recent session"
+    },
+    "dry_run": {
+      "type": "flag",
+      "terminal_flag": "--dry-run", 
+      "app_command": "/dry-run",
+      "help": "Simulate workflow execution without actually running"
+    },
+    "help": {
+      "type": "flag",
+      "terminal_flag": "--help",
+      "app_command": "/help", 
+      "help": "Show this help message"
+    }
+  },
+  "examples": [
+    "mao \"Create a marketing strategy for my startup\"",
+    "mao \"Help me prepare for job interviews\"", 
+    "mao --stats",
+    "mao --workflows",
+    "mao --setup ./my-workflow.json"
+  ],
+  "app_commands": {
+    "restart": "/restart",
+    "exit": "/exit",
+    "review": "/review [workflow-name]",
+    "logs": "/logs",
+    "goal": "/goal"
+  }
+}
