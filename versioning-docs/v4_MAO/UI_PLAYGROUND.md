@@ -1,3 +1,21 @@
+# UI Playground 
+
+```bash
+cd /Users/seanivore/Development/modular-agent-orchestrator
+python mao_ui_playground.py
+```
+
+The playground lets you:
+
+Experiment with the 4-color palette (Yellow focus, Light blue accent, White normal, Pink emphasis)
+Try different character combinations for bullets and icons
+Adjust spacing and alignment (the critical gap between anchors and text)
+Save/load different design configurations
+See real-time preview of how changes affect the interface
+
+------ 
+
+
 ### Visual Brand Identity 
 
 - We don't use emojis 
