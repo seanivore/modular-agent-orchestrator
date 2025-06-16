@@ -682,13 +682,13 @@ Mao features a sophisticated monitoring interface that provides real-time visibi
 └───────────────────────────────────────────────────────────┘
 ```
 
-### Forensic Debugging Interface
+### Verbose Output With Forensic Debugging Features
 
-For technical users and debugging, Mao provides comprehensive execution forensics:
+For technical users and debugging, Mao provides comprehensive, verbose execution with developer-tools-style forensics:
 
 #### Network and API Tracing
 ```
-🌐 NETWORK FORENSICS:
+🌐 NETWORK:
 ┌─ Request #247 ─────────────────────────────────────────┐
 │ 📡 Target: https://api.anthropic.com/v1/messages      │
 │ 📤 Payload: 2,847 bytes (compressed: 1,203 bytes)     │
@@ -702,7 +702,7 @@ For technical users and debugging, Mao provides comprehensive execution forensic
 
 #### Model Performance Analytics
 ```
-📊 MODEL EXECUTION FORENSICS:
+📊 MODEL EXECUTION:
 ┌─ Claude Sonnet 4 Performance ─────────────────────────┐
 │ 🎯 Input Tokens: 8,247 • Output Tokens: 2,156        │
 │ 💸 Cost Breakdown: $0.024741 input + $0.032340 out   │

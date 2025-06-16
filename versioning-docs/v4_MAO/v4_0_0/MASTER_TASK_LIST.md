@@ -349,46 +349,76 @@ Beautiful, professional terminal interface that:
 | **SESSION 19 TASK B** |
 | --------------------- |
 
-# Setup Script & Terminal UX Application Considerations 
+# Mao CLI Flag Arguments & Application Commands 
 
-1. A few of them I just happened to find in other documentation 
-   - I'm not actually sure what dry run will do 
-   - IDK what interactive setup mode is 
-2. Viewing workflows and workflow details in app 
-   - So the app will need to know where the workflow directories are to be able to show the, right?
-   - If so, we should also add below the ability to look at the Workflow Log
-3. Setup script additional complexity compared to the SFA 
-   - Per the walkthrough above we need the setup script to do a few things 
-   - Namely just adding a new phase that was planned on being added, as well as including the readme update, etc. 
-   - Adding a phase that wasn't planned to be able to fix a deliverable that isn't up to par from the agent 
-4. What else? Add others! 
-5. Others that I like when looking at the CLI Claude Code documentation 
-   - | `/doctor`                 | Checks the health of your Claude Code installation      |
-   - | `/init`                   | Initialize project with CLAUDE.md guide                 |
+These are modular, fed into the agent `mao_v4.py` via JSON in the config directory. 
 
- 
+| **COMMAND**                          | **IN TERMINAL**                     | **IN APPLICATION**             |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| **START APPLICATION**                | `mao mao`                           |                                |
+| Restart the application              |                                     | `/restart`  `! mao restart`    |
+| Exit the application                 |                                     | `/exit`  `! mao exit`          |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Terminal command example; add '!'    |                                     | `! cd /Users/*/*/`             |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| **Activate a workflow**              | `custom command`                    | `/custom command`              |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Setup JSON workflow config           | `mao --setup ./use-case.json`       | `/setup ./use-case.json`       |
+| Update additional workflow phase     | `mao --update ./phase-two.json`     | `/update ./phase-two.json`     |
+| Fix deliverable from workflow phase  | `mao --fix-it ./fix-doc.json`       | `/fix-it ./fix-doc.json`       |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Jump into app with first message     | `mao --chat targeted resumes`       | `/chat targeted resumes`       |
+| Create entire workflow from goal     | `mao --goal startup marketing plan` | `/goal startup marketing plan` |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| View all workflows                   | `mao --workflows`                   | `/workflows`                   |
+| View a workflow's details            | `mao --review custom command`       | `/review custom command`       |
+| System performance statistics        | `mao --stats`                       | `/stats`                       |
+| Override default output directory    | `mao --output ~/downloads`          | `/output ~/downloads`          |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Use free AI agent models only        | `mao --free`                        | `/free`                        |
+| Privacy-focused models, providers    | `mao --privacy`                     | `/privacy`                     |
+| Show these help messages             | `mao --help`                        | `/help`                        |
+| Configuration management interface   | `mao --config`                      | `/config`                      |
+| Check health of Mao installation     | `mao --doctor`                      | `/doctor`                      |
+| Verbose, developer-tools detail      | `mao --verbose`                     | `/verbose`                     |
+| Simulate workflow execution only     | `mao --dry-run`                     | `/dry-run`                     |
+| Continue most recent session         | `mao --continue`                    | `/continue`                    |
+| View recent workflow logs            | `mao --logs`                        | `/logs`                        |
 
-| **COMMAND**                         | **IN TERMINAL**               | **IN APPLICATION**       |
-| ----------------------------------- | ----------------------------- | ------------------------ |
-| **START (OR MANAGE) APPLICATION**   | `mao mao`                     | `/restart`  `/exit`      |
-| ----------------------------------- | ----------------------------- | ------------------------ |
-| Setup JSON workflow config          | `mao --setup ./*.json`        | `/setup ./*.json`        |
-| Update additional workflow phase    | `mao --update ./*.json`       | `/update ./*.json`       |
-| Fix deliverable from workflow phase | `mao --fix-it ./*.json`       | `/fix-it ./*.json`       |
-| ----------------------------------- | ----------------------------- | ------------------------ |
-| Activate a workflow                 | `custom command`              | `/custom command`        |
-| View all workflows                  | `mao --workflows`             | `/workflows`             |
-| View a workflow's details           | `mao --review custom command` | `/review custom command` |
-| ----------------------------------- | ----------------------------- | ------------------------ |
-| Start right at setup chat           | `mao --chat`                  | `/chat`                  |
-| Create entire workflow from goal    | `mao --goal`                  | `/goal`                  |
-| Help                                | `mao --help`                  | `/help`                  |
-| Configuration settings              | `mao --config`                | `/config`                |
-| Verbose debug mode                  | `mao --debug`                 | `/debug`                 |
-| Dry run                             | `mao --dry-run`               | `/dry-run`               |
-| Interactive setup mode              | `mao --interactive`           | `/interactive`           |
-| Continue most recent session        | `mao --continue`              | `/continue`              |
+## Example Terminal Modifier Commands  
 
+```bash
+    "mao mao                                # Start application",
+    "mao --goal create marketing plan       # Execute goal directly",
+    "mao --stats --verbose                  # Detailed system statistics",
+    "mao --setup ./my-workflow.json         # Setup new workflow",
+    "mao --workflows                        # List all workflows",
+    "mao --doctor                           # Check installation health"
+```
+
+## Example Application Commands  
+
+```bash
+    "/restart                               # Restart application",
+    "/goal create marketing plan            # Execute goal directly",
+    "/stats                                 # Detailed system statistics",
+    "/setup ./my-workflow.json              # Setup new workflow",
+    "/workflows                             # List all workflows",
+    "/doctor                                # Check installation health"
+```
+
+## Concerns To Address 
+
+1. A file somewhere needs to know how to find the workflow directories 
+2. Looking up 'Logs' before the workflow is complete, if in a intermission, won't be reached in the Files API 
+3. I removed the debug flag because the verbose output was created with developer-tools in mind to debug
+4. Any commands they would normally run outside of the application can be run by adding '!' before the command; like moving to a new directory for example 
+5. Output directory update only really makes any sense to be used with a setup command for a workflow, or custom command 
+6. I made "Goal" a command that Claude interprets and makes a workflow from 
+7. Similarly, I made "Chat" *NOT* that same purpose and instead just sends the first message to the AI 
+8. We need to figure out what file stores the most recent session; this is helpful if you're interrupted or lose internet 
+9. For "Help" I'm not sure what there will be other than the help messages and the UI text color and highlight color 
+10. To see details of a workflow, instead of the name, which is harder to remember, they use the custom command 
 
 --------------------------------
 

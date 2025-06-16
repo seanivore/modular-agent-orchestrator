@@ -194,7 +194,7 @@ Mao features a sophisticated real-time monitoring interface that updates without
 └───────────────────────────────────────────────────┘
 ```
 
-### Forensic Debugging Features
+### Verbose Output With Forensic Debugging Features
 
 For deep analysis, Mao provides browser development tools-style debugging:
 
@@ -208,9 +208,9 @@ For deep analysis, Mao provides browser development tools-style debugging:
 🚦 Rate limits: {'x-ratelimit-remaining': '499'}
 ```
 
-#### Model Forensics
+#### Model Details
 ```
-📊 EXECUTION FORENSICS:
+📊 EXECUTION:
 🎯 Tokens: 6,000
 💸 Cost: $0.039600
 ⚡ Rate: 2,609 tokens/sec

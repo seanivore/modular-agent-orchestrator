@@ -1,122 +1,138 @@
 {
-  "meta": {
-    "description": "Mao - Modular Agent Orchestrator",
-    "version": "4.0.0"
+  "mao_command_modifiers": "Modify the base 'mao' command, encouraged to be used as 'mao mao'",
+  "default_behavior": "New users are shown the color contrast selection, otherwise starts on main chat UI",
+  "modifier_types": {
+    "standalone": "Modifier with no additional input",
+    "in-app-only": "Slash command or run terminal command from inside the application by putting '!' before the command",
+    "needs_file": "Modifier then a file path",
+    "needs_input": "Modifier followed by text input"
   },
-  "arguments": {
+    "restart_application": {
+      "modifier_type": "in-app-only",
+      "terminal_modifier": "! mao restart",
+      "app_modifier": "/restart",
+      "help": "Restart the Mao application"
+    },
+    "exit_application": {
+      "modifier_type": "in-app-only",
+      "terminal_modifier": "! mao exit",
+      "app_modifier": "/exit",
+      "help": "Exit the Mao application"
+    },
+    "chat": {
+      "modifier_type": "needs_input",
+      "terminal_modifier": "mao --chat let's build a targeted resume maker",
+      "app_modifier": "/chat let's build a targeted resume maker",
+      "help": "Jump into application and send first message to AI"
+    },
     "goal": {
-      "type": "positional",
-      "nargs": "?",
-      "help": "Natural language goal - any task, any domain, any approach"
+      "modifier_type": "needs_input",
+      "terminal_modifier": "mao --goal startup marketing plan",
+      "app_modifier": "/goal startup marketing plan",
+      "help": "Create entire workflow from goal"
     },
     "stats": {
-      "type": "flag",
-      "terminal_flag": "--stats",
-      "app_command": "/stats",
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --stats",
+      "app_modifier": "/stats",
       "help": "Show system performance and orchestrator statistics"
     },
     "workflows": {
-      "type": "flag", 
-      "terminal_flag": "--workflows",
-      "app_command": "/workflows",
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --workflows",
+      "app_modifier": "/workflows",
       "help": "List all configured workflows and their status"
     },
-    "interactive": {
-      "type": "flag",
-      "terminal_flag": "--interactive",
-      "app_command": "/chat",
-      "help": "Start interactive chat mode for workflow creation"
-    },
     "setup": {
-      "type": "value",
-      "terminal_flag": "--setup",
-      "app_command": "/setup",
-      "help": "Setup JSON workflow config",
-      "example": "mao --setup ./config.json"
+      "modifier_type": "needs_file",
+      "terminal_modifier": "mao --setup ./use-case.json",
+      "app_modifier": "/setup ./use-case.json",
+      "help": "Setup workflow from JSON configuration file"
     },
     "update": {
-      "type": "value",
-      "terminal_flag": "--update", 
-      "app_command": "/update",
-      "help": "Update additional workflow phase",
-      "example": "mao --update ./config.json"
+      "modifier_type": "needs_file",
+      "terminal_modifier": "mao --update ./phase-two.json",
+      "app_modifier": "/update ./phase-two.json",
+      "help": "Add additional phase to existing workflow"
     },
     "fix_it": {
-      "type": "value",
-      "terminal_flag": "--fix-it",
-      "app_command": "/fix-it", 
-      "help": "Fix deliverable from workflow phase",
-      "example": "mao --fix-it ./config.json"
+      "modifier_type": "needs_file",
+      "terminal_modifier": "mao --fix-it ./fix-doc.json",
+      "app_modifier": "/fix-it ./fix-doc.json",
+      "help": "Fix deliverable by re-running workflow phase"
     },
-    "workspace": {
-      "type": "value",
-      "terminal_flag": ["--workspace", "-w"],
-      "help": "Custom workspace directory for outputs"
+    "output_directory": {
+      "modifier_type": "needs_input",
+      "terminal_modifier": "mao --output ~/downloads",
+      "app_modifier": "/output ~/downloads",
+      "help": "Set a custom output directory that overrides workflow default"
     },
     "verbose": {
-      "type": "flag",
-      "terminal_flag": ["--verbose", "-v"],
-      "help": "Show detailed technical information"
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --verbose",
+      "app_modifier": "/verbose",
+      "help": "Show detailed, forensic, developer-tools-style information for debugging purposes (stack traces, API details, etc.)"
     },
     "free_only": {
-      "type": "flag", 
-      "terminal_flag": "--free-only",
-      "help": "Use only free models (cost optimization)"
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --free",
+      "app_modifier": "/free",
+      "help": "Use only free AI models for cost optimization"
     },
     "privacy": {
-      "type": "flag",
-      "terminal_flag": "--privacy", 
-      "help": "Use privacy-focused models and providers"
-    },
-    "debug": {
-      "type": "flag",
-      "terminal_flag": "--debug",
-      "app_command": "/debug",
-      "help": "Enable debug mode with detailed logging"
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --privacy",
+      "app_modifier": "/privacy",
+      "help": "Use privacy-focused models and providers only"
     },
     "config": {
-      "type": "flag",
-      "terminal_flag": "--config",
-      "app_command": "/config", 
-      "help": "Show configuration management interface"
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --config",
+      "app_modifier": "/config",
+      "help": "Open configuration management interface"
     },
     "doctor": {
-      "type": "flag",
-      "terminal_flag": "--doctor",
-      "app_command": "/doctor",
-      "help": "Checks the health of your Mao installation"
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --doctor",
+      "app_modifier": "/doctor",
+      "help": "Check health and status of Mao installation"
     },
     "continue": {
-      "type": "flag",
-      "terminal_flag": "--continue",
-      "app_command": "/continue",
-      "help": "Continue most recent session"
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --continue",
+      "app_modifier": "/continue",
+      "help": "Resume most recent workflow session"
     },
     "dry_run": {
-      "type": "flag",
-      "terminal_flag": "--dry-run", 
-      "app_command": "/dry-run",
+      "modifier_type": "standalone",
+      "terminal_modifier": "--dry-run",
+      "app_modifier": "/dry-run",
       "help": "Simulate workflow execution without actually running"
     },
+    "review": {
+      "modifier_type": "needs_input",
+      "terminal_modifier": "mao --review custom command",
+      "app_modifier": "/review custom command",
+      "help": "Review specific workflow detail by using the workflow's custom set command"
+    },
+    "workflow_logs": {
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --logs",
+      "app_modifier": "/logs",
+      "help": "View Orchestrator's workflow logs from recent executions"
+    },
     "help": {
-      "type": "flag",
-      "terminal_flag": "--help",
-      "app_command": "/help", 
-      "help": "Show this help message"
-    }
-  },
-  "examples": [
-    "mao \"Create a marketing strategy for my startup\"",
-    "mao \"Help me prepare for job interviews\"", 
-    "mao --stats",
-    "mao --workflows",
-    "mao --setup ./my-workflow.json"
-  ],
-  "app_commands": {
-    "restart": "/restart",
-    "exit": "/exit",
-    "review": "/review [workflow-name]",
-    "logs": "/logs",
-    "goal": "/goal"
-  }
+      "modifier_type": "standalone",
+      "terminal_modifier": "mao --help",
+      "app_modifier": "/help",
+      "help": "View these help messages"
+    },
+  "usage_examples": [
+    "mao mao                                # Start application",
+    "mao --goal create marketing plan       # Execute goal directly",
+    "mao --stats --verbose                  # Detailed system statistics",
+    "mao --setup ./my-workflow.json         # Setup new workflow",
+    "mao --workflows                        # List all workflows",
+    "mao --doctor                           # Check installation health"
+  ]
 }
