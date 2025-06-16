@@ -24,8 +24,6 @@
   - There is a large gap between that anchor and the text 
   - Then they only sparingly, specifically, choose to not have an icon anchor and the text goes all that far way over 
 
-`--> Is it possible to build me a playground in the terminal? Like a file for me to mess around with the rules, color, etc. and see where the boundaries are, etc. I want to start perfecting this. It is ALL typography with such curious simplicity required, and grouping text. 
-
 ">^.^<" Mao          <-- Mao cat potentially  
 
 ^.^   Hello! I'm Mao. What do you want to build today? Let me

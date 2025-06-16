@@ -1,7 +1,26 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
+## Error Handling and UI_terminal Need Audits 
+
 Ahh, was just adding error handling to the shared file from our mao_v4.py file and I see a bunch of things named things like "OCTerminalInterface" --> like all the "OCs need ot be changed... I hope they are everywhere else. We did change them in the mao_v4.py file. 
+
+I'm also seeing "SFAError and stuff. Even the title is: 
+
+"""
+SFA v4.0.0 Shared Error Handling
+Professional error handling patterns for all tools
+"""
+
+And The versioning should not be mentioned. I try to avoid Mao too but eh. 
+
+line 81 "SFA Error" 
+
+Line 392 --> # Configure logging for SFA v4
+def setup_sfa_logging(log_level: str = "INFO", log_file: str = None) -> None:
+
+
+`/Users/seanivore/Development/modular-agent-orchestrator/orchestrator/error_handling.py`
 
 `/Users/seanivore/Development/modular-agent-orchestrator/interfaces/ui_terminal.py`
 
