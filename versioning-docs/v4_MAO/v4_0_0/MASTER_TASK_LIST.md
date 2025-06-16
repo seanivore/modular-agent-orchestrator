@@ -25,9 +25,9 @@ oc.display.success_summary --> mao.display.success_summary
 
 # **Walk Through of UX Flow**
 
-  - Review the walkthrough below for accuracy 
-  - Add in any missing details or steps 
-  - Any notes it reminds you of, add them to the task list in the next session task section or other appropriate place 
+  1. Review the walkthrough below for accuracy 
+  2. Add in any missing details or steps 
+  3. Any notes it reminds you of, add them to the task list in the next session task section or other appropriate place 
 
 ## Setting Up A New Project's Workflow 
 
@@ -221,15 +221,144 @@ oc.display.success_summary --> mao.display.success_summary
 
 --------------------------------
 
-| **SESSION 18 TASK C** |
+| **SESSION 19 TASK A** |
+| --------------------- |
+
+# Terminal UI Foundation
+
+A few little tasks before activating a SPEC in Claude Code. 
+
+## Beautiful Interface for MAO
+
+**Status:** Foundation prepared, awaiting walkthrough completion  
+**Complexity:** Medium-High integration task  
+
+## What We Have Ready:
+- ✅ Terminal UI foundation files (app.py, styles.py, styles.css, main_menu.py)
+- ✅ Professional color palette and styling system (Anthropic-inspired, no emojis)
+- ✅ Navigation system architecture
+- ✅ Integration specification for Claude Code
+- ✅ Clear understanding of MAO codebase structure (from cursor audit)
+
+### What This "Replaces"
+- Current print-statement based `interfaces/ui_terminal.py`
+- **IMPORTANT:** Print functions contain valuable UI requirements 
+  - These should be integrated into new UI, NOT discarded 
+  - So not really "replace" but rather "update" 
+
+### Directory Structure to Continue Creating 
+```
+interfaces/
+├── ui_terminal.py          # KEEP existing print functions - add beautiful UI option
+├── ui_web.py              # (existing)
+└── terminal/              # NEW - beautiful UI system
+    ├── app.py             # Main terminal application
+    ├── styles.py          # Professional color schemes
+    ├── styles.css         # Textual CSS styling
+    ├── navigation.py      # Navigation management
+    ├── orchestrator_bridge.py # Direct integration with MAO core
+    ├── workflow_bridge.py # UI to workflow execution
+    ├── config_bridge.py   # Integration with configs/ system
+    └── components/        # UI components
+        ├── main_menu.py   # Main navigation
+        ├── workflow_wizard.py # Workflow creation
+        ├── workflow_manager.py # Workflow management  
+        ├── command_runner.py # Execution interface
+        ├── settings_screen.py # Configuration
+        ├── base_widgets.py # Reusable components
+        ├── progress_display.py # Progress tracking
+        └── notification_system.py # Status messages
+```
+
+### Foundation Files That Exist ✅
+1. `app.py` - Main terminal application 
+2. `styles.py` - Color schemes and styling 
+3. `styles.css` - Textual CSS styling 
+4. `navigation.py` - Navigation system 
+5. `main_menu.py` - Main navigation component
+
+### Setup Steps (When Ready):
+1. **Create directory structure:**
+   ```bash
+   mkdir -p interfaces/terminal/components
+   touch interfaces/terminal/__init__.py
+   touch interfaces/terminal/components/__init__.py
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install rich textual
+   ```
+
+3. **Copy foundation files** to `interfaces/terminal/` directory
+
+4. **Modify ui_terminal.py** to offer both modes:
+   ```python
+   def main():
+       import sys
+       if "--ui" in sys.argv:
+           from interfaces.terminal.app import MaoTerminalApp
+           app = MaoTerminalApp()
+           app.run()
+       else:
+           # Existing print-based interface
+           launch_print_interface()
+   ```
+
+5. **Run integration in Claude Code** using integration spec
+
+### Integration Requirements:
+- **Use existing print function content** as UI requirements (don't discard)
+- **Direct integration** with orchestrator core (no print interception needed)
+- **Preserve button snippet prints** (functional, keep unchanged)
+- **Preserve demo prints** (examples, keep unchanged)
+- **Use existing configs/** for model/provider management
+- **Integrate with existing workflow patterns**
+
+### Key Architectural Decisions Made:
+- **Professional aesthetic** - Clean, Anthropic-inspired, no emojis
+- **Modular memory system** - workflow-specific memory.py in each use-case directory
+- **Direct orchestrator calls** - UI calls core functions directly
+- **Print function preservation** - Existing prints are UI requirements, not waste
+
+### Dependencies:
+- Must complete walkthrough first (contains true holistic UI/UX planning)
+- Requires integration spec (see spec comparison below)
+- Needs clean MAO codebase structure (already audited with cursor)
+
+### Expected Outcome:
+Beautiful, professional terminal interface that:
+- Rivals Claude Code quality
+- Integrates seamlessly with existing MAO functionality  
+- Uses print function content as elegant UI components
+- Provides smooth workflow creation, management, execution
+- Maintains all existing functionality while enhancing UX
+
+### Notes:
+- This is foundational work prepared during planning phase
+- Implementation should wait for walkthrough completion
+- Print functions contain valuable UI requirements - integrate, don't replace
+- Foundation is solid but integration requires full context from walkthrough
+
+
+--------------------------------
+
+| **SESSION 19 TASK B** |
 | --------------------- |
 
 # Setup Script & Terminal UX Application Considerations 
 
-- So the app will need to know where the workflow directories are to be able to show the, right? 
-- If so, we should also add below the ability to look at the Workflow Log 
-- Note the differences in the needs of the setup script from the walkthrough above 
-- Add any others we want and define them as I did below 
+1. A few of them I just happened to find in other documentation 
+   - I'm not actually sure what dry run will do 
+   - IDK what interactive setup mode is 
+2. Viewing workflows and workflow details in app 
+   - So the app will need to know where the workflow directories are to be able to show the, right?
+   - If so, we should also add below the ability to look at the Workflow Log
+3. Setup script additional complexity compared to the SFA 
+   - Per the walkthrough above we need the setup script to do a few things 
+   - Namely just adding a new phase that was planned on being added, as well as including the readme update, etc. 
+   - Adding a phase that wasn't planned to be able to fix a deliverable that isn't up to par from the agent 
+4. What else? Add others! 
  
 
 | **COMMAND**                         | **IN TERMINAL**               | **IN APPLICATION**       |
@@ -256,7 +385,7 @@ oc.display.success_summary --> mao.display.success_summary
 
 --------------------------------
 
-| **SESSION 18 TASK C** |
+| **SESSION 19 TASK C** |
 | --------------------- |
 
 # "Phase 2 Implementation Planning" Document Feedback 
@@ -321,7 +450,7 @@ My point was just that I liked how the entire session of Claude Code, with  my t
 
 --------------------------------
 
-| **SESSION 19 TASK** |
+| **SESSION 20 TASK** |
 | ------------------- |
 
 
@@ -362,7 +491,7 @@ My point was just that I liked how the entire session of Claude Code, with  my t
 
 --------------------------------
 
-| **SESSION 20 TASK** |
+| **SESSION 21 TASK** |
 | ------------------- |
 
 ### **PHASE 2: Complete UX Flow** 
@@ -392,7 +521,7 @@ Custom Command → Workflow Execution → Results
 
 --------------------------------
 
-| **SESSION 21 TASK** |
+| **SESSION 22 TASK** |
 | ------------------- |
 
 ### **PHASE 3: Testing & Validation** (Session 20)
@@ -419,7 +548,7 @@ Custom Command → Workflow Execution → Results
 
 --------------------------------
 
-| **SESSION 22 TASK** |
+| **SESSION 23 TASK** |
 | ------------------- |
 
 ## 📊 COMPLETION STATUS
