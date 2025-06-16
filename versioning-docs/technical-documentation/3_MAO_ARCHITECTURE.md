@@ -657,6 +657,8 @@ class ContextualErrorRecovery:
 
 ---
 
+
+
 ## 🖥️ Advanced Workflow Monitoring (`interfaces/monitor.py`)
 
 **Real-Time Workflow Visualization and Control**
@@ -668,17 +670,17 @@ Mao features a sophisticated monitoring interface that provides real-time visibi
 ```
 ┌─────────── Workflow Monitor ─────────────────────────────┐
 │ Marketing Strategy Analysis • Running 4m 12s             │
+├──────────────────────────────────────────────────────────┤
+│ ✅ Research Agent     • Analyzed 47 sources               │
+│ 🔄 Analysis Agent     • Processing competitive data...    │
+│ ⏸️  Strategy Agent     • Waiting for analysis results     │
+│ ⏸️  Content Agent      • Queued for strategy input        │
 ├───────────────────────────────────────────────────────────┤
-│ ✅ Research Agent     • Analyzed 47 sources              │
-│ 🔄 Analysis Agent     • Processing competitive data...   │
-│ ⏸️  Strategy Agent     • Waiting for analysis results    │
-│ ⏸️  Content Agent      • Queued for strategy input       │
-├───────────────────────────────────────────────────────────┤
-│ Models: Gemini-2.5-Pro (FREE) → Claude Sonnet 4         │
-│ Progress: ████████░░ 80% • 2 phases remaining            │
-│ Tokens: 18,247 used • $0.12 spent • Est: $0.23          │
-│ Cache Hits: 12 (saving $0.08) • Performance: 94%        │
-│ ETA: 1m 30s remaining • Quality Score: 8.7/10           │
+│ Models: Gemini-2.5-Pro (FREE) → Claude Sonnet 4           │
+│ Progress: ████████░░ 80% • 2 phases remaining             │
+│ Tokens: 18,247 used • $0.12 spent • Est: $0.23            │
+│ Cache Hits: 12 (saving $0.08) • Performance: 94%          │
+│ ETA: 1m 30s remaining • Quality Score: 8.7/10             │
 └───────────────────────────────────────────────────────────┘
 ```
 
@@ -925,7 +927,12 @@ class WorkflowOptimizer:
 
 ---
 
-*This architecture enables Mao to be more than just another AI tool - it's a platform for the future of intelligent work automation.*": 0.001,
+*This architecture enables Mao to be more than just another AI tool - it's a platform for the future of intelligent work automation.*
+```json
+{
+  "name": "your_new_tool",
+  "description": "Description of your tool",
+  "cost": 0.001,
   "model_compatibility": ["all"],
   "parameters": {
     "param1": {
