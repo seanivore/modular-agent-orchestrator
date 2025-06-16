@@ -359,6 +359,10 @@ Beautiful, professional terminal interface that:
    - Namely just adding a new phase that was planned on being added, as well as including the readme update, etc. 
    - Adding a phase that wasn't planned to be able to fix a deliverable that isn't up to par from the agent 
 4. What else? Add others! 
+5. Others that I like when looking at the CLI Claude Code documentation 
+   - | `/doctor`                 | Checks the health of your Claude Code installation      |
+   - | `/init`                   | Initialize project with CLAUDE.md guide                 |
+
  
 
 | **COMMAND**                         | **IN TERMINAL**               | **IN APPLICATION**       |
@@ -376,7 +380,7 @@ Beautiful, professional terminal interface that:
 | Start right at setup chat           | `mao --chat`                  | `/chat`                  |
 | Create entire workflow from goal    | `mao --goal`                  | `/goal`                  |
 | Help                                | `mao --help`                  | `/help`                  |
-| Update settings                     | `mao --settings`              | `/settings`              |
+| Configuration settings              | `mao --config`                | `/config`                |
 | Verbose debug mode                  | `mao --debug`                 | `/debug`                 |
 | Dry run                             | `mao --dry-run`               | `/dry-run`               |
 | Interactive setup mode              | `mao --interactive`           | `/interactive`           |
@@ -415,6 +419,7 @@ The idea of tags is nice, but again, let's not get too far ahead of ourselves. Y
 
   1. Unique ID space left open to be filled in by setup script 
   2. Desired command with spaces, not hyphens 
+  3. Model and then fallback model, then failsafe model 
 
 ### Project Use-Case Directory Structure Pattern 
 
@@ -571,3 +576,15 @@ Custom Command → Workflow Execution → Results
 - **Performance**: <$0.01 per workflow, <5 second cache hits
 - **Adoption**: Zero technical knowledge required for basic usage
 - **Reliability**: 99%+ success rate for standard workflow patterns
+
+
+--------------------------------
+
+| **FUTURE UPDATE V4.1.0** |
+| ------------------------ |
+
+- We should consider looking into Claude Orchestrator staying around during the entire workflow. 
+  - I'm curious how they do it for Claude Code 
+  - Is that a WebSocket? 
+  - Is a WebSocket expensive? 
+  - I thought of it because I'm looking through the CLI Claude Code documentation and there are some flags that would be cool to have but only actually helpful if the user was able to message a command at any time while their workflow is running 
