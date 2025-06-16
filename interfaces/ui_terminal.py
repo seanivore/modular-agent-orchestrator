@@ -276,6 +276,95 @@ class TerminalDisplay:
         print(f"📁 Results: {workspace}")
         print(f"💰 Cost: ${cost:.4f}")
 
+# These are from the mao_v4.py file to go in the 'MaoTerminalInterface' class
+
+def handle_critical_error(self, error: Exception) -> None:
+    """
+    Handle critical system errors with beautiful formatting
+    """
+    from rich.panel import Panel
+    from rich.text import Text
+    
+    error_text = Text()
+    error_text.append("❌ Critical System Error\n\n", style="bold red")
+    error_text.append(f"Error: {str(error)}\n", style="red")
+    error_text.append(f"Type: {type(error).__name__}\n", style="dim")
+    
+    if self.verbose:
+        import traceback
+        error_text.append(f"\nStack trace:\n{traceback.format_exc()}", style="dim red")
+    
+    error_text.append("\n💡 Troubleshooting:\n", style="bold yellow")
+    error_text.append("   • Check system requirements\n", style="yellow")
+    error_text.append("   • Verify dependencies: pip install -r requirements.txt\n", style="yellow")
+    error_text.append("   • Try running with --debug for more details\n", style="yellow")
+    
+    panel = Panel(
+        error_text,
+        title="[bold red]System Error[/bold red]",
+        border_style="red",
+        padding=(1, 2)
+    )
+    
+    self.console.print(panel)
+
+def handle_bootstrap_failure(self, error_details: str) -> None:
+    """
+    Handle bootstrap failures with user-friendly guidance
+    """
+    from rich.panel import Panel
+    from rich.text import Text
+    
+    help_text = Text()
+    help_text.append("🚨 Bootstrap Failure\n\n", style="bold red")
+    help_text.append("Mao cannot start due to missing dependencies.\n\n", style="red")
+    help_text.append("📋 Required Actions:\n", style="bold yellow")
+    help_text.append("   1. pip install -r requirements.txt\n", style="green")
+    help_text.append("   2. python -m pip install --upgrade pip\n", style="green")
+    help_text.append("   3. Check Python version (3.8+ required)\n", style="green")
+    help_text.append(f"\n🔍 Technical Details: {error_details}", style="dim")
+    
+    panel = Panel(
+        help_text,
+        title="[bold red]Installation Required[/bold red]",
+        border_style="red",
+        padding=(1, 2)
+    )
+    
+    self.console.print(panel)
+
+def show_installation_help(self) -> None:
+    """
+    Show comprehensive installation and setup help
+    """
+    from rich.panel import Panel
+    from rich.text import Text
+    
+    help_text = Text()
+    help_text.append("🛠️ Mao Installation Guide\n\n", style="bold blue")
+    help_text.append("Required Dependencies:\n", style="bold")
+    help_text.append("   • Python 3.8 or higher\n", style="green")
+    help_text.append("   • pip (Python package manager)\n", style="green")
+    help_text.append("   • Internet connection for AI models\n", style="green")
+    
+    help_text.append("\n📦 Installation Steps:\n", style="bold")
+    help_text.append("   1. pip install -r requirements.txt\n", style="cyan")
+    help_text.append("   2. Set up API keys (see documentation)\n", style="cyan")
+    help_text.append("   3. Run: python mao_v4.py --doctor\n", style="cyan")
+    
+    help_text.append("\n🔧 Common Issues:\n", style="bold")
+    help_text.append("   • ImportError: Missing dependencies\n", style="yellow")
+    help_text.append("   • AuthError: Invalid API keys\n", style="yellow")
+    help_text.append("   • NetworkError: Internet connection\n", style="yellow")
+    
+    panel = Panel(
+        help_text,
+        title="[bold blue]Installation Help[/bold blue]",
+        border_style="blue",
+        padding=(1, 2)
+    )
+    
+    self.console.print(panel)
 
 class OCTerminalInterface:
     """🎭 Clean terminal interface - UI separated from logic!"""
