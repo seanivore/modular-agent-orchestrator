@@ -2,6 +2,8 @@
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 **FYI it is now Mao, not MAO**
 
+NOTE: See full project directory structure tree at bottom of this file. 
+
 | **SESSION 18 TASK A** |
 | --------------------- |
 
@@ -588,3 +590,153 @@ Custom Command → Workflow Execution → Results
   - Is that a WebSocket? 
   - Is a WebSocket expensive? 
   - I thought of it because I'm looking through the CLI Claude Code documentation and there are some flags that would be cool to have but only actually helpful if the user was able to message a command at any time while their workflow is running 
+
+
+
+
+
+--------------------------------
+
+
+# Project Directory Structure Tree
+
+```
+~/Development/modular-agent-orchestrator/ 
+├── configs
+│   ├── connections
+│   │   ├── models_x_tools.json
+│   │   └── providers_x_models.json
+│   ├── models
+│   │   ├── claude-3-7-sonnet.json
+│   │   ├── claude-opus-4.json
+│   │   ├── claude-sonnet-4.json
+│   │   ├── gemini-2.5-pro.json
+│   │   ├── gpt-4.1-mini.json
+│   │   ├── gpt-4.1-nano.json
+│   │   └── local-llama-3.1-8b.json
+│   └── providers
+│       ├── anthropic-direct.json
+│       ├── gemini-direct.json
+│       ├── litellm.json
+│       ├── lm-studio.json
+│       ├── openai-direct.json
+│       └── requesty.json
+├── interfaces
+│   ├── terminal
+│   │   ├── app.py
+│   │   ├── components
+│   │   │   ├── command_runner.py
+│   │   │   ├── main_menu.py
+│   │   │   └── workflow_manager.py
+│   │   ├── navigation.py
+│   │   ├── styles.css
+│   │   └── styles.py
+│   ├── ui_terminal.py
+│   └── ui_web.py
+├── mao_v4.py
+├── orchestrator
+│   ├── cache
+│   │   ├── __init__.py
+│   │   └── cache_system.py
+│   ├── core.py
+│   ├── error_handling.py
+│   ├── manager_buttons.py
+│   ├── manager_models.py
+│   ├── manager_tools.py
+│   ├── memory.py
+│   └── protocol.md
+├── tests
+├── tools
+│   ├── brave_search
+│   │   ├── __pycache__
+│   │   │   └── brave_search.cpython-313.pyc
+│   │   ├── brave_search.py
+│   │   ├── button_brave_search.py
+│   │   ├── tool_brave_search.json
+│   │   └── ui_brave_search.py
+│   ├── dalle_generate
+│   │   ├── __pycache__
+│   │   │   └── dalle_generate.cpython-313.pyc
+│   │   ├── button_dalle_generate.py
+│   │   ├── dalle_generate.py
+│   │   ├── tool_dalle_generate.json
+│   │   └── ui_dalle_generate.py
+│   ├── file_operations
+│   │   ├── __pycache__
+│   │   │   └── file_operations.cpython-313.pyc
+│   │   ├── button_file_operations.py
+│   │   ├── file_operations.py
+│   │   ├── tool_file_operations.json
+│   │   └── ui_file_operations.py
+│   ├── graphic_design
+│   │   ├── __pycache__
+│   │   │   └── graphic_design.cpython-313.pyc
+│   │   ├── button_graphic_design.py
+│   │   ├── fonts
+│   │   │   ├── BebasNeue-Regular.ttf
+│   │   │   ├── Georgia-Bold.ttf
+│   │   │   ├── Georgia-Italic.ttf
+│   │   │   ├── Georgia-Regular.ttf
+│   │   │   ├── Montserrat-ExtraBold.ttf
+│   │   │   ├── Montserrat-ExtraBoldItalic.ttf
+│   │   │   ├── Montserrat-ExtraLight.ttf
+│   │   │   ├── Montserrat-ExtraLightItalic.ttf
+│   │   │   ├── Montserrat-Regular.ttf
+│   │   │   ├── OpenSans-MediumItalic.ttf
+│   │   │   ├── OpenSans-Regular.ttf
+│   │   │   ├── PlayfairDisplay-Black.ttf
+│   │   │   ├── PlayfairDisplay-BlackItalic.ttf
+│   │   │   ├── PlayfairDisplay-Bold.ttf
+│   │   │   ├── PlayfairDisplay-BoldItalic.ttf
+│   │   │   ├── PlayfairDisplay-Italic.ttf
+│   │   │   └── PlayfairDisplay-Regular.ttf
+│   │   ├── graphic_design.py
+│   │   ├── tool_graphic_design.json
+│   │   └── ui_graphic_design.py
+│   ├── perplexity_search
+│   │   ├── __pycache__
+│   │   │   └── perplexity_search.cpython-313.pyc
+│   │   ├── button_perplexity_search.py
+│   │   ├── perplexity_search.py
+│   │   ├── tool_perplexity_search.json
+│   │   └── ui_perplexity_search.py
+│   ├── text_editor
+│   │   ├── __pycache__
+│   │   │   └── text_editor.cpython-313.pyc
+│   │   ├── button_text_editor.py
+│   │   ├── text_editor.py
+│   │   ├── tool_text_editor.json
+│   │   └── ui_text_editor.py
+│   ├── think
+│   │   ├── __pycache__
+│   │   │   └── think.cpython-313.pyc
+│   │   ├── button_think.py
+│   │   ├── think.py
+│   │   ├── tool_think.json
+│   │   └── ui_think.py
+│   └── web_search
+│       ├── __pycache__
+│       │   └── web_search.cpython-313.pyc
+│       ├── button_web_search.py
+│       ├── tool_web_search.json
+│       ├── ui_web_search.py
+│       └── web_search.py
+└── versioning-docs
+    ├── CHANGE_LOG.md
+    ├── technical-documentation
+    │   ├── 0_TECH_DOC_CONTENTS.md
+    │   ├── 1_MAO_OVERVIEW.md
+    │   ├── 2_MAO_ARCHITECTURE.md
+    │   ├── 3_MAO_EXTENSION_GUIDE.md
+    │   └── 4_MAO_PROTECTION_RULES.md
+    ├── v1-3_SFA
+    └── v4_MAO
+        └── v4_0_0
+            ├── mao_ui_spec.md
+            ├── MASTER_TASK_LIST.md
+            ├── TOOL_API_MCP_CONNECT.md
+            ├── TOOL_CODE_EXECUTION.md
+            ├── TOOL_FILES_API.md
+            ├── v4_PHASE_2_IMPLEMENTATION_PLANNING.md
+            └── WORKFLOW_PROJECT.md
+```
