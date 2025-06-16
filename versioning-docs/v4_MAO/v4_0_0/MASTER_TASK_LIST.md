@@ -219,16 +219,17 @@ oc.display.success_summary --> mao.display.success_summary
    - The `Workflow Log` and `memory.py` file are saved to final output directory for the project use case as well 
 5.  Claude then signs off 
 
+--------------------------------
+
 | **SESSION 18 TASK C** |
 | --------------------- |
 
 # Setup Script & Terminal UX Application Considerations 
 
 - So the app will need to know where the workflow directories are to be able to show the, right? 
-  - If so, we should also add below the ability to look ad the Workflow Log 
-
-  - Note the differences in the needs of the setup script from the walkthrough above 
-  - Add any others we want and define them as I did below 
+- If so, we should also add below the ability to look at the Workflow Log 
+- Note the differences in the needs of the setup script from the walkthrough above 
+- Add any others we want and define them as I did below 
  
 
 | **COMMAND**                         | **IN TERMINAL**               | **IN APPLICATION**       |
@@ -244,10 +245,68 @@ oc.display.success_summary --> mao.display.success_summary
 | View a workflow's details           | `mao --review custom command` | `/review custom command` |
 | ----------------------------------- | ----------------------------- | ------------------------ |
 | Start right at setup chat           | `mao --chat`                  | `/chat`                  |
+| Create entire workflow from goal    | `mao --goal`                  | `/goal`                  |
 | Help                                | `mao --help`                  | `/help`                  |
 | Update settings                     | `mao --settings`              | `/settings`              |
 | Verbose debug mode                  | `mao --debug`                 | `/debug`                 |
+| Dry run                             | `mao --dry-run`               | `/dry-run`               |
+| Interactive setup mode              | `mao --interactive`           | `/interactive`           |
 | Continue most recent session        | `mao --continue`              | `/continue`              |
+
+
+--------------------------------
+
+| **SESSION 18 TASK C** |
+| --------------------- |
+
+# "Phase 2 Implementation Planning" Document Feedback 
+
+## Project Workflow JSON Config File
+
+The intention is that it is easily done by a User. 
+
+  - Claude is an extra convenience, not a reason to make it more complicated 
+  - Most of it looks like what comes up after planning the workflow anyway, like cost, time, etc. 
+
+So let's make this simpler by creating two. 
+
+  1. The simple one without details that aren't known until the workflow is chosen 
+  2. A second one that has the finer details and is only completed after the workflow is chosen 
+
+There is also some stuff that is just a bit extra over the top in general. Like maybe something for an update, but I don't think we need things like version numbers for Use-Cases yet. 
+
+I also don't like the date in the master directory folder name. Ideally it will be the same name as the Use-Case and as the command except with hyphens instead of spaces. This would allow the Use-Cases with the same first word to the command to be grouped next to each other. So like `job target docs` and `job find openings` could have been built months apart but will sit next to each other. And if I remember correctly regarding how the command is created, it will basically be the same command but with different args. 
+
+The idea of tags is nice, but again, let's not get too far ahead of ourselves. You know I like to build for myself in the future, but not as much when it is something that can be done easily -- or like in the case of tags, agentically. 
+
+### New Version Needs 
+
+  1. Unique ID space left open to be filled in by setup script 
+  2. Desired command with spaces, not hyphens 
+
+### Project Use-Case Directory Structure Pattern 
+
+ - The directory structure pattern for workflows is okay 
+     - Intricate and very detailed 
+       - Seems like there might be spots for drafts? 
+       - We are keeping drafts in the Files API 
+       - Then deleting drafts when the final deliverables are saved 
+       - It's a big token save 
+     - Whatever we end up with 
+       - Let's have the setup script create the entire thing 
+       - We won't even create the named folder for the use-case 
+
+
+## Regarding the Interactive Command Builder 
+
+ - This is all categorical, themed, hard-coding. 
+ - I mentioned in the walkthrough my thoughts, which was that we let Claude be Claude and not give them any kind of script at all. 
+   - All they need to know is what variables they need to get filled out. 
+   - Their primary role should be to try to anticipate the user's needs to give the best UX possible. 
+   - We want them to be able to tell if someone needs help or not. 
+   - We can always change this over time, but based on working on these things with you in the SFA, the setup assistant stuff just seems like it is way overthinking it. 
+
+--> The 'Natural Language Goal Processing' looks like it is the same issue. It's code, but still seems like we're scripting Claude Sonnet 4, which just seems crazy. 
 
 
 --------------------------------
@@ -296,7 +355,7 @@ oc.display.success_summary --> mao.display.success_summary
 | **SESSION 20 TASK** |
 | ------------------- |
 
-### **PHASE 2: Complete UX Flow** (Session 19)
+### **PHASE 2: Complete UX Flow** 
 **Status**: 🔴 NOT STARTED
 
 #### A. First-Time Setup Experience 🎬 **USER ONBOARDING**
@@ -306,7 +365,6 @@ Goal → MAO Setup → JSON Config → Custom Command → Ready!
 - **Missing**: Setup conversation interface
 - **Missing**: JSON config generation
 - **Missing**: Custom command creation
-- **Effort**: 4-5 hours for complete flow
 
 #### B. Workflow Execution UX 🚀 **CORE EXPERIENCE**
 ```
@@ -315,13 +373,11 @@ Custom Command → Workflow Execution → Results
 - **Missing**: Seamless execution from custom commands
 - **Missing**: Progress monitoring during execution
 - **Missing**: Results presentation and storage
-- **Effort**: 3-4 hours for polished UX
 
 #### C. Use Case Configuration System 📁 **WORKFLOW PERSISTENCE**
 - **What**: `./configs/use_case/*/` directory structure
 - **What**: JSON variable-input config files
 - **What**: Use case README generation
-- **Effort**: 2-3 hours implementation
 
 
 --------------------------------
