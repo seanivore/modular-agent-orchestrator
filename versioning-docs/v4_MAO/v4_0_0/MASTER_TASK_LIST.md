@@ -261,6 +261,9 @@ oc.display.success_summary --> mao.display.success_summary
 
 # "Phase 2 Implementation Planning" Document Feedback 
 
+This is for reference with the feedback. When we edit and use the things we need to plan from this, we'll do it together. 
+`/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/v4_PHASE_2_IMPLEMENTATION_PLANNING.md`
+
 ## Project Workflow JSON Config File
 
 The intention is that it is easily done by a User. 
@@ -308,6 +311,13 @@ The idea of tags is nice, but again, let's not get too far ahead of ourselves. Y
 
 --> The 'Natural Language Goal Processing' looks like it is the same issue. It's code, but still seems like we're scripting Claude Sonnet 4, which just seems crazy. 
 
+## UI Terminal Display Stuff 
+
+I love this as a starting point. I'm not sure I'll be too much help until I'm actual in the terminal and can see it and move stuff around. 
+
+You mentioned somewhere about how Claude Code is really simple and then referenced my comment about how it doesn't roll up like a receipt as if the receipt thing was what we'd want. But newsflash, AI, humans hate receipts. People always hate them to us just so we can throw them out a second later it is so annoying. When you think about employees needing to keep receipts it becomes easily memorable that the are not good. 
+
+My point was just that I liked how the entire session of Claude Code, with  my terminal from top of screen to bottom and 70 character wide or 120 or something like that, it just barely filled up more than that when done because when the information you don't need anymore is done, it disappears. We don't want it to "print" on the terminal because if it is something we'd want to see later then we'd want it somewhere convenient like automatically saved to the use case directory. 
 
 --------------------------------
 
