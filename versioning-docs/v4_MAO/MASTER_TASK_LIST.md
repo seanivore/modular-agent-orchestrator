@@ -1,28 +1,6 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
-**FYI it is now Mao, not MAO**
-
-NOTE: See full project directory structure tree at bottom of this file. 
-
-| **SESSION 18 TASK A** |
-| --------------------- |
-
-# **Need To Audit `mao_v4.py` File**
-
-## Updated Code "OC" to "MAO"
-
-oc.get_stats --> mao.get_stats
-oc.list_workflows --> mao.list_workflows
-oc.job_application_workflow --> mao.job_application_workflow
-oc.display.success_summary --> mao.display.success_summary
-
-### Also On This File 
-
-- Print functions 
-- Specifics about job applications 
-- Mentions of args that are specific 
-
 | **SESSION 18 TASK B** |
 | --------------------- |
 
@@ -35,8 +13,8 @@ oc.display.success_summary --> mao.display.success_summary
 ## Setting Up A New Project's Workflow 
 
 1. User runs command `mao mao` and the Mao application is launched 
-2. Startup asks you to chose a text color and highlight color (just like in Claude Code)
-3. Next screen is just a chat with 'Project Workflow Design' as the title 
+2. Firsts time user gets asked to chose a text color and highlight color (just like in Claude Code)
+3. Next screen is the main page which is where the chat and everything is
 4. Simple directions sit below the text input field, 'Describe your project or ask Claude to guide you' 
 5. Below the title are icons that indicate the necessary variables 
    - They change color when the information is provided
@@ -384,27 +362,28 @@ These are modular, fed into the agent `mao_v4.py` via JSON in the config directo
 | Simulate workflow execution only     | `mao --dry-run`                     | `/dry-run`                     |
 | Continue most recent session         | `mao --continue`                    | `/continue`                    |
 | View recent workflow logs            | `mao --logs`                        | `/logs`                        |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
 
 ## Example Terminal Modifier Commands  
 
 ```bash
-    "mao mao                                # Start application",
-    "mao --goal create marketing plan       # Execute goal directly",
-    "mao --stats --verbose                  # Detailed system statistics",
-    "mao --setup ./my-workflow.json         # Setup new workflow",
-    "mao --workflows                        # List all workflows",
-    "mao --doctor                           # Check installation health"
+    mao mao                                # Start application
+    mao --goal create marketing plan       # Execute goal directly
+    mao --stats --verbose                  # Detailed system statistics
+    mao --setup ./my-workflow.json         # Setup new workflow
+    mao --workflows                        # List all workflows
+    mao --doctor                           # Check installation health
 ```
 
 ## Example Application Commands  
 
 ```bash
-    "/restart                               # Restart application",
-    "/goal create marketing plan            # Execute goal directly",
-    "/stats                                 # Detailed system statistics",
-    "/setup ./my-workflow.json              # Setup new workflow",
-    "/workflows                             # List all workflows",
-    "/doctor                                # Check installation health"
+    /restart                               # Restart application
+    /goal create marketing plan            # Execute goal directly
+    /stats                                 # Detailed system statistics
+    /setup ./my-workflow.json              # Setup new workflow
+    /workflows                             # List all workflows
+    /doctor                                # Check installation health
 ```
 
 ## Concerns To Address 
@@ -486,6 +465,7 @@ You mentioned somewhere about how Claude Code is really simple and then referenc
 
 My point was just that I liked how the entire session of Claude Code, with  my terminal from top of screen to bottom and 70 character wide or 120 or something like that, it just barely filled up more than that when done because when the information you don't need anymore is done, it disappears. We don't want it to "print" on the terminal because if it is something we'd want to see later then we'd want it somewhere convenient like automatically saved to the use case directory. 
 
+
 --------------------------------
 
 | **SESSION 20 TASK** |
@@ -499,31 +479,26 @@ My point was just that I liked how the entire session of Claude Code, with  my t
 - **What**: Model Context Protocol Server API Connector (recent Anthropic release)
 - **File**: Based on `/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/TOOL_API_MCP_CONNECT.md`
 - **Why Critical**: Latest Anthropic standard for AI tool integration
-- **Effort**: 2-3 hours implementation
 
 #### B. Code Execution Tool 🎯 **CORE FEATURE**
 - **What**: Direct integration with Claude 4 Code Execution for human buttons
 - **File**: Based on `/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/TOOL_CODE_EXECUTION.md`
 - **Why Critical**: Makes human buttons actually executable vs just code snippets
-- **Effort**: 3-4 hours implementation
 - **Dependencies**: Must work with button system
 
 #### C. Files API Integration 💾 **WORKFLOW ESSENTIAL**
 - **What**: Anthropic Files API for workflow handoffs and temp storage
 - **File**: Based on `/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/TOOL_FILES_API.md`
 - **Why Critical**: Agent-to-agent communication and workflow continuity
-- **Effort**: 2-3 hours implementation
 
 #### D. Tool Discovery Connection 🔗 **MISSING LINK**
 - **What**: Connect `manager_tools.py` to `core.py` for dynamic tool discovery
 - **Why Critical**: Orchestrator can't currently discover tools automatically
-- **Effort**: 1-2 hours integration
 - **Status**: Files exist but not connected
 
 #### E. Protocol Document 📋 **BEHAVIOR GUIDE**
 - **What**: Create `protocol.md` defining MAO's orchestrator behavior patterns
 - **Why Critical**: Consistent, predictable AI behavior across workflows
-- **Effort**: 1-2 hours documentation
 - **File**: `orchestrator/protocol.md` (currently empty)
 
 
@@ -609,24 +584,6 @@ Custom Command → Workflow Execution → Results
 - **Performance**: <$0.01 per workflow, <5 second cache hits
 - **Adoption**: Zero technical knowledge required for basic usage
 - **Reliability**: 99%+ success rate for standard workflow patterns
-
-
---------------------------------
-
-| **FUTURE UPDATE V4.1.0** |
-| ------------------------ |
-
-- We should consider looking into Claude Orchestrator staying around during the entire workflow. 
-  - I'm curious how they do it for Claude Code 
-  - Is that a WebSocket? 
-  - Is a WebSocket expensive? 
-  - I thought of it because I'm looking through the CLI Claude Code documentation and there are some flags that would be cool to have but only actually helpful if the user was able to message a command at any time while their workflow is running 
-
-
-
-
-
---------------------------------
 
 
 # Project Directory Structure Tree

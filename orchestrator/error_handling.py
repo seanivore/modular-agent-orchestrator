@@ -412,3 +412,32 @@ def setup_sfa_logging(log_level: str = "INFO", log_file: str = None) -> None:
         console_handler.setLevel(getattr(logging, log_level.upper()))
         console_handler.setFormatter(logging.Formatter(log_format))
         logging.getLogger().addHandler(console_handler) 
+
+# From the mao_v4.py file 
+
+def handle_bootstrap_error(import_error: ImportError) -> None:
+    """
+    Handle critical bootstrap failures when interface can't be imported
+    Minimal error display for when the full UI system is unavailable
+    
+    Args:
+        import_error: ImportError that occurred during bootstrap
+    """
+    import sys
+    
+    # Minimal error output to stderr (bootstrap only)
+    error_message = f"""
+❌ Bootstrap Error: Cannot import Mao interface
+
+🔍 Details: {str(import_error)}
+
+💡 Troubleshooting:
+   1. Run: pip install -r requirements.txt
+   2. Check Python path and dependencies
+   3. Verify Mao installation
+
+📧 If issue persists, check documentation or report issue
+"""
+    
+    sys.stderr.write(error_message)
+    sys.stderr.flush()
