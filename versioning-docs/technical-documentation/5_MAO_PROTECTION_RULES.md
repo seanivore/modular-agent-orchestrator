@@ -388,7 +388,7 @@ def display_tool_results():     # UI display standard across all tools
 
 ---
 
-### **Rule #6: No Automatic Backward Compatibility**
+### Rule #6: No Automatic Backward Compatibility
 
 - **Never add legacy aliases, compatibility layers, or "keeping the old name" patterns**
 - This is a completely new tool - there's no legacy to maintain

@@ -23,6 +23,13 @@
 - **Rule #5** 
   * File Naming Standards are PROTECTED
   * Current standardized names cannot be changed for "clarity" or "consistency"
+- **Rule #6** 
+  * No Automatic Backward Compatibility
+  * NEVER add legacy aliases, compatibility layers, or "keeping the old name" patterns
+  * This is a completely new tool - there's no legacy to maintain
+  * When backward compatibility becomes needed in the future, it must be:
+    - Explicitly discussed with Sean first
+    - Properly planned and architected
 
 ## Documentation Contents 
 
