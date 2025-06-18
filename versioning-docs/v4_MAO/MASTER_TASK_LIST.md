@@ -1,7 +1,7 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
-| **SESSION 18 TASK B** |
+| **SESSION 19 TASK A** |
 | --------------------- |
 
 # **Walk Through of UX Flow**
@@ -202,7 +202,149 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
 
 --------------------------------
 
-| **SESSION 19 TASK A** |
+| **SESSION 19 TASK B** |
+| --------------------- |
+
+# Mao CLI Flag Arguments & Application Commands 
+
+These are modular, fed into the agent `mao_v4.py` via JSON in the config directory via this file: `/Users/seanivore/Development/modular-agent-orchestrator/configs/cli/arguments.json` -- The chart below is for our technical documentation. 
+
+| **COMMAND**                          | **IN TERMINAL**                     | **IN APPLICATION**             |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| **START APPLICATION**                | `mao mao`                           |                                |
+| Restart the application              |                                     | `/restart`  `! mao restart`    |
+| Exit the application                 |                                     | `/exit`  `! mao exit`          |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Terminal command example; add '!'    |                                     | `! cd /Users/*/*/`             |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| **Activate a workflow**              | `custom command`                    | `/custom command`              |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Setup JSON workflow config           | `mao --setup ./use-case.json`       | `/setup ./use-case.json`       |
+| Update additional workflow phase     | `mao --update ./phase-two.json`     | `/update ./phase-two.json`     |
+| Fix deliverable from workflow phase  | `mao --fix-it ./fix-doc.json`       | `/fix-it ./fix-doc.json`       |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Jump into app with first message     | `mao --chat targeted resumes`       | `/chat targeted resumes`       |
+| Create entire workflow from goal     | `mao --goal startup marketing plan` | `/goal startup marketing plan` |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| View all workflows                   | `mao --workflows`                   | `/workflows`                   |
+| View a workflow's details            | `mao --review custom command`       | `/review custom command`       |
+| System performance statistics        | `mao --stats`                       | `/stats`                       |
+| Override default output directory    | `mao --output ~/downloads`          | `/output ~/downloads`          |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+| Use free AI agent models only        | `mao --free`                        | `/free`                        |
+| Privacy-focused models, providers    | `mao --privacy`                     | `/privacy`                     |
+| Show these help messages             | `mao --help`                        | `/help`                        |
+| Configuration management interface   | `mao --config`                      | `/config`                      |
+| Check health of Mao installation     | `mao --doctor`                      | `/doctor`                      |
+| Verbose, developer-tools detail      | `mao --verbose`                     | `/verbose`                     |
+| Simulate workflow execution only     | `mao --dry-run`                     | `/dry-run`                     |
+| Continue most recent session         | `mao --continue`                    | `/continue`                    |
+| View recent workflow logs            | `mao --logs`                        | `/logs`                        |
+| ------------------------------------ | ----------------------------------- | ------------------------------ |
+
+## Example Terminal Modifier Commands  
+
+```bash
+    mao mao                                # Start application
+    mao --goal create marketing plan       # Execute goal directly
+    mao --stats --verbose                  # Detailed system statistics
+    mao --setup ./my-workflow.json         # Setup new workflow
+    mao --workflows                        # List all workflows
+    mao --doctor                           # Check installation health
+```
+
+## Example Application Commands  
+
+```bash
+    /restart                               # Restart application
+    /goal create marketing plan            # Execute goal directly
+    /stats                                 # Detailed system statistics
+    /setup ./my-workflow.json              # Setup new workflow
+    /workflows                             # List all workflows
+    /doctor                                # Check installation health
+```
+
+## Concerns & FYIs 
+
+1. I recommend that when we need to identify a workflow, we use the custom command as the identifier. It is just going to be more fool-proof 
+2. For example, to pull up details of a workflow, instead of name, use custom command; should be similar anyway 
+3. Error handling for looking up 'Logs" before a workflow is complete (on is in an intermission) because everything will be in the Files API 
+4. Just FYI, verbose has robust developer-console-like-tools *for* debugging, so I removed the debugging flag 
+5. We need to make sure that bash/zsh commands from inside the application run if '!' is added before the command 
+6. Goal and Chat were conceptually overlapping; now goal is "here's my entire project, create a workflow" and chat is "first message to AI" 
+7. Figure out how to make sure we track what the most recent session is; this is helpful if you're interrupted or lose internet, for --continue 
+
+
+--------------------------------
+
+| **SESSION 19 TASK C** |
+| --------------------- |
+
+# "Phase 2 Implementation Planning" Document Feedback 
+
+This is for reference with the feedback. When we edit and use the things we need to plan from this, we'll do it together. 
+`/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/v4_PHASE_2_IMPLEMENTATION_PLANNING.md`
+
+## Project Workflow JSON Config File
+
+The intention is that it is easily done by a User. 
+
+  - Claude is an extra convenience, not a reason to make it more complicated 
+  - Most of it looks like what comes up after planning the workflow anyway, like cost, time, etc. 
+
+So let's make this simpler by creating two. 
+
+  1. The simple one without details that aren't known until the workflow is chosen 
+  2. A second one that has the finer details and is only completed after the workflow is chosen 
+
+There is also some stuff that is just a bit extra over the top in general. Like maybe something for an update, but I don't think we need things like version numbers for Use-Cases yet. 
+
+I also don't like the date in the master directory folder name. Ideally it will be the same name as the Use-Case and as the command except with hyphens instead of spaces. This would allow the Use-Cases with the same first word to the command to be grouped next to each other. So like `job target docs` and `job find openings` could have been built months apart but will sit next to each other. And if I remember correctly regarding how the command is created, it will basically be the same command but with different args. 
+
+The idea of tags is nice, but again, let's not get too far ahead of ourselves. You know I like to build for myself in the future, but not as much when it is something that can be done easily -- or like in the case of tags, agentically. 
+
+### New Version Needs 
+
+  1. Unique ID space left open to be filled in by setup script 
+  2. Desired command with spaces, not hyphens 
+  3. Model and then fallback model, then failsafe model 
+
+### Project Use-Case Directory Structure Pattern 
+
+ - The directory structure pattern for workflows is okay 
+     - Intricate and very detailed 
+       - Seems like there might be spots for drafts? 
+       - We are keeping drafts in the Files API 
+       - Then deleting drafts when the final deliverables are saved 
+       - It's a big token save 
+     - Whatever we end up with 
+       - Let's have the setup script create the entire thing 
+       - We won't even create the named folder for the use-case 
+
+
+## Regarding the Interactive Command Builder 
+
+ - This is all categorical, themed, hard-coding. 
+ - I mentioned in the walkthrough my thoughts, which was that we let Claude be Claude and not give them any kind of script at all. 
+   - All they need to know is what variables they need to get filled out. 
+   - Their primary role should be to try to anticipate the user's needs to give the best UX possible. 
+   - We want them to be able to tell if someone needs help or not. 
+   - We can always change this over time, but based on working on these things with you in the SFA, the setup assistant stuff just seems like it is way overthinking it. 
+
+--> The 'Natural Language Goal Processing' looks like it is the same issue. It's code, but still seems like we're scripting Claude Sonnet 4, which just seems crazy. 
+
+## UI Terminal Display Stuff 
+
+I love this as a starting point. I'm not sure I'll be too much help until I'm actual in the terminal and can see it and move stuff around. 
+
+You mentioned somewhere about how Claude Code is really simple and then referenced my comment about how it doesn't roll up like a receipt as if the receipt thing was what we'd want. But newsflash, AI, humans hate receipts. People always hate them to us just so we can throw them out a second later it is so annoying. When you think about employees needing to keep receipts it becomes easily memorable that the are not good. 
+
+My point was just that I liked how the entire session of Claude Code, with  my terminal from top of screen to bottom and 70 character wide or 120 or something like that, it just barely filled up more than that when done because when the information you don't need anymore is done, it disappears. We don't want it to "print" on the terminal because if it is something we'd want to see later then we'd want it somewhere convenient like automatically saved to the use case directory. 
+
+
+--------------------------------
+
+| **SESSION 20 TASK A** |
 | --------------------- |
 
 # Terminal UI Foundation
@@ -219,7 +361,7 @@ A few little tasks before activating a SPEC in Claude Code.
 - ✅ Professional color palette and styling system (Anthropic-inspired, no emojis)
 - ✅ Navigation system architecture
 - ✅ Integration specification for Claude Code
-- ✅ Clear understanding of MAO codebase structure (from cursor audit)
+- ✅ Clear understanding of Mao codebase structure (from cursor audit)
 
 ### What This "Replaces"
 - Current print-statement based `interfaces/ui_terminal.py`
@@ -324,151 +466,7 @@ Beautiful, professional terminal interface that:
 
 --------------------------------
 
-| **SESSION 19 TASK B** |
-| --------------------- |
-
-# Mao CLI Flag Arguments & Application Commands 
-
-These are modular, fed into the agent `mao_v4.py` via JSON in the config directory. 
-
-| **COMMAND**                          | **IN TERMINAL**                     | **IN APPLICATION**             |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| **START APPLICATION**                | `mao mao`                           |                                |
-| Restart the application              |                                     | `/restart`  `! mao restart`    |
-| Exit the application                 |                                     | `/exit`  `! mao exit`          |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Terminal command example; add '!'    |                                     | `! cd /Users/*/*/`             |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| **Activate a workflow**              | `custom command`                    | `/custom command`              |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Setup JSON workflow config           | `mao --setup ./use-case.json`       | `/setup ./use-case.json`       |
-| Update additional workflow phase     | `mao --update ./phase-two.json`     | `/update ./phase-two.json`     |
-| Fix deliverable from workflow phase  | `mao --fix-it ./fix-doc.json`       | `/fix-it ./fix-doc.json`       |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Jump into app with first message     | `mao --chat targeted resumes`       | `/chat targeted resumes`       |
-| Create entire workflow from goal     | `mao --goal startup marketing plan` | `/goal startup marketing plan` |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| View all workflows                   | `mao --workflows`                   | `/workflows`                   |
-| View a workflow's details            | `mao --review custom command`       | `/review custom command`       |
-| System performance statistics        | `mao --stats`                       | `/stats`                       |
-| Override default output directory    | `mao --output ~/downloads`          | `/output ~/downloads`          |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Use free AI agent models only        | `mao --free`                        | `/free`                        |
-| Privacy-focused models, providers    | `mao --privacy`                     | `/privacy`                     |
-| Show these help messages             | `mao --help`                        | `/help`                        |
-| Configuration management interface   | `mao --config`                      | `/config`                      |
-| Check health of Mao installation     | `mao --doctor`                      | `/doctor`                      |
-| Verbose, developer-tools detail      | `mao --verbose`                     | `/verbose`                     |
-| Simulate workflow execution only     | `mao --dry-run`                     | `/dry-run`                     |
-| Continue most recent session         | `mao --continue`                    | `/continue`                    |
-| View recent workflow logs            | `mao --logs`                        | `/logs`                        |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-
-## Example Terminal Modifier Commands  
-
-```bash
-    mao mao                                # Start application
-    mao --goal create marketing plan       # Execute goal directly
-    mao --stats --verbose                  # Detailed system statistics
-    mao --setup ./my-workflow.json         # Setup new workflow
-    mao --workflows                        # List all workflows
-    mao --doctor                           # Check installation health
-```
-
-## Example Application Commands  
-
-```bash
-    /restart                               # Restart application
-    /goal create marketing plan            # Execute goal directly
-    /stats                                 # Detailed system statistics
-    /setup ./my-workflow.json              # Setup new workflow
-    /workflows                             # List all workflows
-    /doctor                                # Check installation health
-```
-
-## Concerns To Address 
-
-1. A file somewhere needs to know how to find the workflow directories 
-2. Looking up 'Logs' before the workflow is complete, if in a intermission, won't be reached in the Files API 
-3. I removed the debug flag because the verbose output was created with developer-tools in mind to debug
-4. Any commands they would normally run outside of the application can be run by adding '!' before the command; like moving to a new directory for example 
-5. Output directory update only really makes any sense to be used with a setup command for a workflow, or custom command 
-6. I made "Goal" a command that Claude interprets and makes a workflow from 
-7. Similarly, I made "Chat" *NOT* that same purpose and instead just sends the first message to the AI 
-8. We need to figure out what file stores the most recent session; this is helpful if you're interrupted or lose internet 
-9. For "Help" I'm not sure what there will be other than the help messages and the UI text color and highlight color 
-10. To see details of a workflow, instead of the name, which is harder to remember, they use the custom command 
-
---------------------------------
-
-| **SESSION 19 TASK C** |
-| --------------------- |
-
-# "Phase 2 Implementation Planning" Document Feedback 
-
-This is for reference with the feedback. When we edit and use the things we need to plan from this, we'll do it together. 
-`/Users/seanivore/Development/modular-agent-orchestrator/versioning-docs/v4_MAO/v4_0_0/v4_PHASE_2_IMPLEMENTATION_PLANNING.md`
-
-## Project Workflow JSON Config File
-
-The intention is that it is easily done by a User. 
-
-  - Claude is an extra convenience, not a reason to make it more complicated 
-  - Most of it looks like what comes up after planning the workflow anyway, like cost, time, etc. 
-
-So let's make this simpler by creating two. 
-
-  1. The simple one without details that aren't known until the workflow is chosen 
-  2. A second one that has the finer details and is only completed after the workflow is chosen 
-
-There is also some stuff that is just a bit extra over the top in general. Like maybe something for an update, but I don't think we need things like version numbers for Use-Cases yet. 
-
-I also don't like the date in the master directory folder name. Ideally it will be the same name as the Use-Case and as the command except with hyphens instead of spaces. This would allow the Use-Cases with the same first word to the command to be grouped next to each other. So like `job target docs` and `job find openings` could have been built months apart but will sit next to each other. And if I remember correctly regarding how the command is created, it will basically be the same command but with different args. 
-
-The idea of tags is nice, but again, let's not get too far ahead of ourselves. You know I like to build for myself in the future, but not as much when it is something that can be done easily -- or like in the case of tags, agentically. 
-
-### New Version Needs 
-
-  1. Unique ID space left open to be filled in by setup script 
-  2. Desired command with spaces, not hyphens 
-  3. Model and then fallback model, then failsafe model 
-
-### Project Use-Case Directory Structure Pattern 
-
- - The directory structure pattern for workflows is okay 
-     - Intricate and very detailed 
-       - Seems like there might be spots for drafts? 
-       - We are keeping drafts in the Files API 
-       - Then deleting drafts when the final deliverables are saved 
-       - It's a big token save 
-     - Whatever we end up with 
-       - Let's have the setup script create the entire thing 
-       - We won't even create the named folder for the use-case 
-
-
-## Regarding the Interactive Command Builder 
-
- - This is all categorical, themed, hard-coding. 
- - I mentioned in the walkthrough my thoughts, which was that we let Claude be Claude and not give them any kind of script at all. 
-   - All they need to know is what variables they need to get filled out. 
-   - Their primary role should be to try to anticipate the user's needs to give the best UX possible. 
-   - We want them to be able to tell if someone needs help or not. 
-   - We can always change this over time, but based on working on these things with you in the SFA, the setup assistant stuff just seems like it is way overthinking it. 
-
---> The 'Natural Language Goal Processing' looks like it is the same issue. It's code, but still seems like we're scripting Claude Sonnet 4, which just seems crazy. 
-
-## UI Terminal Display Stuff 
-
-I love this as a starting point. I'm not sure I'll be too much help until I'm actual in the terminal and can see it and move stuff around. 
-
-You mentioned somewhere about how Claude Code is really simple and then referenced my comment about how it doesn't roll up like a receipt as if the receipt thing was what we'd want. But newsflash, AI, humans hate receipts. People always hate them to us just so we can throw them out a second later it is so annoying. When you think about employees needing to keep receipts it becomes easily memorable that the are not good. 
-
-My point was just that I liked how the entire session of Claude Code, with  my terminal from top of screen to bottom and 70 character wide or 120 or something like that, it just barely filled up more than that when done because when the information you don't need anymore is done, it disappears. We don't want it to "print" on the terminal because if it is something we'd want to see later then we'd want it somewhere convenient like automatically saved to the use case directory. 
-
-
---------------------------------
-
-| **SESSION 20 TASK** |
+| **SESSION 21 TASK** |
 | ------------------- |
 
 
@@ -504,7 +502,7 @@ My point was just that I liked how the entire session of Claude Code, with  my t
 
 --------------------------------
 
-| **SESSION 21 TASK** |
+| **SESSION 22 TASK** |
 | ------------------- |
 
 ### **PHASE 2: Complete UX Flow** 
@@ -534,7 +532,7 @@ Custom Command → Workflow Execution → Results
 
 --------------------------------
 
-| **SESSION 22 TASK** |
+| **SESSION 23 TASK** |
 | ------------------- |
 
 ### **PHASE 3: Testing & Validation** (Session 20)
@@ -561,7 +559,7 @@ Custom Command → Workflow Execution → Results
 
 --------------------------------
 
-| **SESSION 23 TASK** |
+| **SESSION 24 TASK** |
 | ------------------- |
 
 ## 📊 COMPLETION STATUS
@@ -585,146 +583,3 @@ Custom Command → Workflow Execution → Results
 - **Adoption**: Zero technical knowledge required for basic usage
 - **Reliability**: 99%+ success rate for standard workflow patterns
 
-
-# Project Directory Structure Tree
-
-```
-~/Development/modular-agent-orchestrator/ 
-├── configs
-│   ├── connections
-│   │   ├── models_x_tools.json
-│   │   └── providers_x_models.json
-│   ├── models
-│   │   ├── claude-3-7-sonnet.json
-│   │   ├── claude-opus-4.json
-│   │   ├── claude-sonnet-4.json
-│   │   ├── gemini-2.5-pro.json
-│   │   ├── gpt-4.1-mini.json
-│   │   ├── gpt-4.1-nano.json
-│   │   └── local-llama-3.1-8b.json
-│   └── providers
-│       ├── anthropic-direct.json
-│       ├── gemini-direct.json
-│       ├── litellm.json
-│       ├── lm-studio.json
-│       ├── openai-direct.json
-│       └── requesty.json
-├── interfaces
-│   ├── terminal
-│   │   ├── app.py
-│   │   ├── components
-│   │   │   ├── command_runner.py
-│   │   │   ├── main_menu.py
-│   │   │   └── workflow_manager.py
-│   │   ├── navigation.py
-│   │   ├── styles.css
-│   │   └── styles.py
-│   ├── ui_terminal.py
-│   └── ui_web.py
-├── mao_v4.py
-├── orchestrator
-│   ├── cache
-│   │   ├── __init__.py
-│   │   └── cache_system.py
-│   ├── core.py
-│   ├── error_handling.py
-│   ├── manager_buttons.py
-│   ├── manager_models.py
-│   ├── manager_tools.py
-│   ├── memory.py
-│   └── protocol.md
-├── tests
-├── tools
-│   ├── brave_search
-│   │   ├── __pycache__
-│   │   │   └── brave_search.cpython-313.pyc
-│   │   ├── brave_search.py
-│   │   ├── button_brave_search.py
-│   │   ├── tool_brave_search.json
-│   │   └── ui_brave_search.py
-│   ├── dalle_generate
-│   │   ├── __pycache__
-│   │   │   └── dalle_generate.cpython-313.pyc
-│   │   ├── button_dalle_generate.py
-│   │   ├── dalle_generate.py
-│   │   ├── tool_dalle_generate.json
-│   │   └── ui_dalle_generate.py
-│   ├── file_operations
-│   │   ├── __pycache__
-│   │   │   └── file_operations.cpython-313.pyc
-│   │   ├── button_file_operations.py
-│   │   ├── file_operations.py
-│   │   ├── tool_file_operations.json
-│   │   └── ui_file_operations.py
-│   ├── graphic_design
-│   │   ├── __pycache__
-│   │   │   └── graphic_design.cpython-313.pyc
-│   │   ├── button_graphic_design.py
-│   │   ├── fonts
-│   │   │   ├── BebasNeue-Regular.ttf
-│   │   │   ├── Georgia-Bold.ttf
-│   │   │   ├── Georgia-Italic.ttf
-│   │   │   ├── Georgia-Regular.ttf
-│   │   │   ├── Montserrat-ExtraBold.ttf
-│   │   │   ├── Montserrat-ExtraBoldItalic.ttf
-│   │   │   ├── Montserrat-ExtraLight.ttf
-│   │   │   ├── Montserrat-ExtraLightItalic.ttf
-│   │   │   ├── Montserrat-Regular.ttf
-│   │   │   ├── OpenSans-MediumItalic.ttf
-│   │   │   ├── OpenSans-Regular.ttf
-│   │   │   ├── PlayfairDisplay-Black.ttf
-│   │   │   ├── PlayfairDisplay-BlackItalic.ttf
-│   │   │   ├── PlayfairDisplay-Bold.ttf
-│   │   │   ├── PlayfairDisplay-BoldItalic.ttf
-│   │   │   ├── PlayfairDisplay-Italic.ttf
-│   │   │   └── PlayfairDisplay-Regular.ttf
-│   │   ├── graphic_design.py
-│   │   ├── tool_graphic_design.json
-│   │   └── ui_graphic_design.py
-│   ├── perplexity_search
-│   │   ├── __pycache__
-│   │   │   └── perplexity_search.cpython-313.pyc
-│   │   ├── button_perplexity_search.py
-│   │   ├── perplexity_search.py
-│   │   ├── tool_perplexity_search.json
-│   │   └── ui_perplexity_search.py
-│   ├── text_editor
-│   │   ├── __pycache__
-│   │   │   └── text_editor.cpython-313.pyc
-│   │   ├── button_text_editor.py
-│   │   ├── text_editor.py
-│   │   ├── tool_text_editor.json
-│   │   └── ui_text_editor.py
-│   ├── think
-│   │   ├── __pycache__
-│   │   │   └── think.cpython-313.pyc
-│   │   ├── button_think.py
-│   │   ├── think.py
-│   │   ├── tool_think.json
-│   │   └── ui_think.py
-│   └── web_search
-│       ├── __pycache__
-│       │   └── web_search.cpython-313.pyc
-│       ├── button_web_search.py
-│       ├── tool_web_search.json
-│       ├── ui_web_search.py
-│       └── web_search.py
-└── versioning-docs
-    ├── CHANGE_LOG.md
-    ├── technical-documentation
-    │   ├── 0_TECH_DOC_CONTENTS.md
-    │   ├── 1_MAO_OVERVIEW.md
-    │   ├── 2_MAO_ARCHITECTURE.md
-    │   ├── 3_MAO_EXTENSION_GUIDE.md
-    │   └── 4_MAO_PROTECTION_RULES.md
-    ├── v1-3_SFA
-    └── v4_MAO
-        └── v4_0_0
-            ├── mao_ui_spec.md
-            ├── MASTER_TASK_LIST.md
-            ├── TOOL_API_MCP_CONNECT.md
-            ├── TOOL_CODE_EXECUTION.md
-            ├── TOOL_FILES_API.md
-            ├── v4_PHASE_2_IMPLEMENTATION_PLANNING.md
-            └── WORKFLOW_PROJECT.md
-```
