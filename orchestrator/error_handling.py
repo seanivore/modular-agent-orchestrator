@@ -5,7 +5,7 @@ Professional error handling patterns for all tools
 
 import time
 import logging
-from typing import Dict, Any, Optional, Callable
+from typing import Dict, Any, Optional, Callable, List
 from datetime import datetime
 import traceback
 
