@@ -5,7 +5,17 @@ Test that all imports work correctly after the error handling fixes
 """
 
 import sys
+import os
 from pathlib import Path
+
+# Debug output
+print("🔍 DEBUG INFO:")
+print(f"Current working directory: {os.getcwd()}")
+print(f"Script location: {__file__}")
+print(f"Python path: {sys.path[:3]}...")  # Just first 3 entries
+print(f"orchestrator directory exists: {os.path.exists('orchestrator')}")
+print(f"orchestrator/__init__.py exists: {os.path.exists('orchestrator/__init__.py')}")
+print("")
 
 def test_imports():
     """Test all critical imports work correctly"""
