@@ -108,18 +108,37 @@ class TerminalDisplay:
                 print(f"     📄 {len(phase.output_files)} deliverable{'s' if len(phase.output_files) > 1 else ''}")
     
     def _format_model_name(self, model: str) -> str:
-        """🎨 Make model names human-friendly"""
-        model_names = {
-            "claude-sonnet-4-20250514": "Claude Sonnet 4",
-            "claude-opus-4-20250514": "Claude Opus 4", 
-            "claude-3-7-sonnet-20250219": "Claude 3.7 Sonnet",
-            "google/gemini-2.5-pro-exp-03-25": "Gemini 2.5 Pro (FREE)",
-            "openai/gpt-4.1-nano": "GPT-4.1 Nano",
-            "openai/gpt-4.1-mini": "GPT-4.1 Mini",
-            "dalle-3": "DALL-E 3",
-            "local-llama-3.1-8b": "Llama 3.1 8B (Local)"
-        }
-        return model_names.get(model, model)
+        """🎨 Make model names human-friendly using dynamic lookup"""
+        # Use the orchestrator's model manager to get display names
+        try:
+            from orchestrator.manager_models import ModelManager
+            model_manager = ModelManager()
+            model_config = model_manager.get_model_config(model)
+            if model_config and hasattr(model_config, 'display_name'):
+                return model_config.display_name
+        except Exception:
+            pass
+        
+        # Fallback to cleaning up the model name if lookup fails
+        if model.startswith('claude-'):
+            if 'sonnet-4' in model:
+                return "Claude Sonnet 4"
+            elif 'opus-4' in model:
+                return "Claude Opus 4"
+            elif '3-7-sonnet' in model:
+                return "Claude 3.7 Sonnet"
+            return model.replace('-', ' ').title()
+        elif model.startswith('openai/'):
+            return model.split('/')[-1].replace('-', ' ').upper()
+        elif model.startswith('google/'):
+            return model.split('/')[-1].replace('-', ' ').title()
+        elif 'gemini' in model.lower():
+            return model.replace('-', ' ').title()
+        elif 'local-' in model:
+            return model.replace('local-', '').replace('-', ' ').title() + " (Local)"
+        
+        # Default: return the model name cleaned up
+        return model.replace('-', ' ').title()
     
     def execution_confirm(self, workflow: WorkflowPlan) -> bool:
         """⚠️ Confirm execution for multi-phase workflows"""
@@ -142,104 +161,57 @@ class TerminalDisplay:
                 all_files.extend(phase.output_files)
             print(f"   📁 Will create {len(all_files)} files: {', '.join(all_files)}")
         
-        response = input("Continue? (y/N): ").lower().strip()
-        return response == 'y'
+        response = input("Continue? [Y/n]: ").strip().lower()
+        return response in ['', 'y', 'yes']
     
     def execution_start(self) -> None:
-        """🚀 Show execution starting"""
-        print(f"\n🚀 EXECUTING WORKFLOW...")
-        print("=" * 60)
+        """🚀 Show execution start"""
+        print(f"\n🚀 Starting workflow execution...")
     
-    def phase_start(self, phase_num: int, total_phases: int, phase_name: str, model: str, estimated_cost: float) -> None:
-        """🎯 Show phase starting"""
+    def phase_progress(self, phase_name: str, progress: float, current_step: str = None) -> None:
+        """📊 Show phase progress"""
+        bar_length = 20
+        filled_length = int(bar_length * progress)
+        bar = '█' * filled_length + '░' * (bar_length - filled_length)
+        
         phase_display = phase_name.replace('_', ' ').title()
-        model_display = self._format_model_name(model)
         
-        print(f"\n🎯 Phase {phase_num}/{total_phases}: {phase_display}")
-        print(f"   🤖 {model_display}")
-        
-        if self.verbose:
-            print(f"   💰 Estimated cost: ${estimated_cost:.6f}")
-            print(f"   🔄 Status: Initializing model connection...")
-            print(f"   📡 Sending request to {model_display}...")
+        if current_step:
+            print(f"   {phase_display}: [{bar}] {progress:.1%} - {current_step}")
         else:
-            print(f"   💰 ${estimated_cost:.4f}")
+            print(f"   {phase_display}: [{bar}] {progress:.1%}")
     
-    def phase_complete(self, result: ExecutionResult) -> None:
+    def phase_complete(self, phase_name: str, result: Dict[str, Any]) -> None:
         """✅ Show phase completion"""
-        if result.success:
-            print(f"   ✅ Completed in {result.duration_seconds:.1f}s")
-            
-            if self.verbose:
-                print(f"   📊 Tokens used: {result.tokens_used:,}")
-                print(f"   💸 Actual cost: ${result.cost:.6f}")
-                print(f"   🔧 Tool calls made: {len(result.tool_calls)}")
-                if result.tool_calls:
-                    print(f"   🛠️  Tools used: {', '.join(set(tc.get('name', 'unknown') for tc in result.tool_calls))}")
-                print(f"   📝 Content length: {len(result.content)} characters")
-                print(f"   ⚡ Processing rate: {result.tokens_used/result.duration_seconds:.0f} tokens/second")
-        else:
-            print(f"   ❌ Failed: {result.error}")
-            if self.verbose:
-                print(f"   ⏱️  Failed after: {result.duration_seconds:.1f}s")
-                print(f"   💸 Cost before failure: ${result.cost:.6f}")
-                print(f"   🔍 Debug info: Check logs for detailed error trace")
+        phase_display = phase_name.replace('_', ' ').title()
+        print(f"✅ {phase_display} completed")
+        
+        if self.verbose and result:
+            if 'cost' in result:
+                print(f"   💰 Cost: ${result['cost']:.4f}")
+            if 'tokens_used' in result:
+                print(f"   📊 Tokens: {result['tokens_used']:,}")
+            if 'files_created' in result:
+                print(f"   📄 Files: {', '.join(result['files_created'])}")
     
-    def workflow_complete(self, workflow: WorkflowPlan, results: Dict[str, Any]) -> None:
+    def workflow_complete(self, workflow: WorkflowPlan, results: List[Dict[str, Any]]) -> None:
         """🎉 Show workflow completion"""
-        print("=" * 60)
+        print(f"\n🎉 Workflow '{workflow.name}' completed successfully!")
         
-        successful = len([r for r in results['results'] if r['success']])
-        total = len(workflow.phases)
+        total_cost = sum(r.get('cost', 0) for r in results)
+        total_tokens = sum(r.get('tokens_used', 0) for r in results)
         
-        if successful == total:
-            print("🎉 WORKFLOW COMPLETED!")
-        else:
-            print(f"⚠️  WORKFLOW COMPLETED WITH ISSUES")
-        
-        print(f"💰 Total cost: ${results['total_cost']:.4f}")
-        print(f"📊 Success rate: {successful}/{total} phases")
+        print(f"💰 Total cost: ${total_cost:.4f}")
         
         if self.verbose:
-            total_tokens = sum(r['tokens_used'] for r in results['results'])
-            total_time = sum(r['duration_seconds'] for r in results['results'])
-            avg_cost_per_token = results['total_cost'] / total_tokens if total_tokens > 0 else 0
+            print(f"📊 Total tokens: {total_tokens:,}")
+            print(f"⏱️  Duration: {workflow.estimated_duration_minutes} minutes (estimated)")
             
-            print(f"\n📊 DETAILED STATISTICS:")
-            print(f"   Total tokens processed: {total_tokens:,}")
-            print(f"   Total execution time: {total_time:.1f} seconds")
-            print(f"   Average processing rate: {total_tokens/total_time:.0f} tokens/second")
-            print(f"   Average cost per token: ${avg_cost_per_token:.8f}")
-            print(f"   Cost efficiency: {total_tokens/results['total_cost']:.0f} tokens per dollar")
-            
-            # Show per-phase performance
-            print(f"\n⚡ PHASE PERFORMANCE:")
-            for i, result in enumerate(results['results'], 1):
-                status = "✅" if result['success'] else "❌"
-                rate = result['tokens_used']/result['duration_seconds'] if result['duration_seconds'] > 0 else 0
-                print(f"   Phase {i}: {status} {result['tokens_used']:,} tokens in {result['duration_seconds']:.1f}s ({rate:.0f} t/s)")
-            
-            # Show cost breakdown
-            print(f"\n💸 COST BREAKDOWN:")
-            model_costs = {}
-            for result in results['results']:
-                model = result['model_used']
-                if model not in model_costs:
-                    model_costs[model] = {'cost': 0, 'tokens': 0}
-                model_costs[model]['cost'] += result['cost']
-                model_costs[model]['tokens'] += result['tokens_used']
-            
-            for model, data in model_costs.items():
-                model_display = self._format_model_name(model)
-                print(f"   {model_display}: ${data['cost']:.4f} ({data['tokens']:,} tokens)")
-                
-            # Show any tool usage
-            all_tools = []
-            for result in results['results']:
-                for tool_call in result.get('tool_calls', []):
-                    tool_name = tool_call.get('name', 'unknown')
-                    if tool_name not in all_tools:
-                        all_tools.append(tool_name)
+            # Show tools used across all phases
+            all_tools = set()
+            for result in results:
+                if 'tools_used' in result:
+                    all_tools.update(result['tools_used'])
             
             if all_tools:
                 print(f"\n🛠️  TOOLS USED: {', '.join(all_tools)}")
@@ -276,97 +248,8 @@ class TerminalDisplay:
         print(f"📁 Results: {workspace}")
         print(f"💰 Cost: ${cost:.4f}")
 
-# These are from the mao_v4.py file to go in the 'MaoTerminalInterface' class
 
-def handle_critical_error(self, error: Exception) -> None:
-    """
-    Handle critical system errors with beautiful formatting
-    """
-    from rich.panel import Panel
-    from rich.text import Text
-    
-    error_text = Text()
-    error_text.append("❌ Critical System Error\n\n", style="bold red")
-    error_text.append(f"Error: {str(error)}\n", style="red")
-    error_text.append(f"Type: {type(error).__name__}\n", style="dim")
-    
-    if self.verbose:
-        import traceback
-        error_text.append(f"\nStack trace:\n{traceback.format_exc()}", style="dim red")
-    
-    error_text.append("\n💡 Troubleshooting:\n", style="bold yellow")
-    error_text.append("   • Check system requirements\n", style="yellow")
-    error_text.append("   • Verify dependencies: pip install -r requirements.txt\n", style="yellow")
-    error_text.append("   • Try running with --debug for more details\n", style="yellow")
-    
-    panel = Panel(
-        error_text,
-        title="[bold red]System Error[/bold red]",
-        border_style="red",
-        padding=(1, 2)
-    )
-    
-    self.console.print(panel)
-
-def handle_bootstrap_failure(self, error_details: str) -> None:
-    """
-    Handle bootstrap failures with user-friendly guidance
-    """
-    from rich.panel import Panel
-    from rich.text import Text
-    
-    help_text = Text()
-    help_text.append("🚨 Bootstrap Failure\n\n", style="bold red")
-    help_text.append("Mao cannot start due to missing dependencies.\n\n", style="red")
-    help_text.append("📋 Required Actions:\n", style="bold yellow")
-    help_text.append("   1. pip install -r requirements.txt\n", style="green")
-    help_text.append("   2. python -m pip install --upgrade pip\n", style="green")
-    help_text.append("   3. Check Python version (3.8+ required)\n", style="green")
-    help_text.append(f"\n🔍 Technical Details: {error_details}", style="dim")
-    
-    panel = Panel(
-        help_text,
-        title="[bold red]Installation Required[/bold red]",
-        border_style="red",
-        padding=(1, 2)
-    )
-    
-    self.console.print(panel)
-
-def show_installation_help(self) -> None:
-    """
-    Show comprehensive installation and setup help
-    """
-    from rich.panel import Panel
-    from rich.text import Text
-    
-    help_text = Text()
-    help_text.append("🛠️ Mao Installation Guide\n\n", style="bold blue")
-    help_text.append("Required Dependencies:\n", style="bold")
-    help_text.append("   • Python 3.8 or higher\n", style="green")
-    help_text.append("   • pip (Python package manager)\n", style="green")
-    help_text.append("   • Internet connection for AI models\n", style="green")
-    
-    help_text.append("\n📦 Installation Steps:\n", style="bold")
-    help_text.append("   1. pip install -r requirements.txt\n", style="cyan")
-    help_text.append("   2. Set up API keys (see documentation)\n", style="cyan")
-    help_text.append("   3. Run: python mao_v4.py --doctor\n", style="cyan")
-    
-    help_text.append("\n🔧 Common Issues:\n", style="bold")
-    help_text.append("   • ImportError: Missing dependencies\n", style="yellow")
-    help_text.append("   • AuthError: Invalid API keys\n", style="yellow")
-    help_text.append("   • NetworkError: Internet connection\n", style="yellow")
-    
-    panel = Panel(
-        help_text,
-        title="[bold blue]Installation Help[/bold blue]",
-        border_style="blue",
-        padding=(1, 2)
-    )
-    
-    self.console.print(panel)
-
-class OCTerminalInterface:
+class TerminalInterface:
     """🎭 Clean terminal interface - UI separated from logic!"""
     
     def __init__(self, config_dir: str = "configs", verbose: bool = False):
@@ -382,7 +265,7 @@ class OCTerminalInterface:
     ) -> Dict[str, Any]:
         """🚀 Execute a goal with beautiful UI"""
         
-        self.display.header("OC - AI Workflow Orchestrator", goal)
+        self.display.header("AI Workflow Orchestrator", goal)
         
         try:
             # Create workflow
@@ -419,49 +302,48 @@ class OCTerminalInterface:
                 "success": True,
                 "workflow_id": workflow.id,
                 "workspace": str(workspace_path),
-                "total_cost": results["total_cost"],
-                "deliverables": [str(workspace_path / f) for phase in workflow.phases for f in phase.output_files]
+                "total_cost": workflow.total_estimated_cost,
+                "results": results
             }
             
         except Exception as e:
             self.display.error(str(e))
-            return {"success": False, "error": str(e)}
+            return {
+                "success": False,
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
+            }
     
-    async def _execute_with_progress(self, workflow: WorkflowPlan) -> Dict[str, Any]:
-        """Execute workflow with live progress display"""
-        results = {"results": [], "total_cost": 0.0}
+    async def _execute_with_progress(self, workflow: WorkflowPlan) -> List[Dict[str, Any]]:
+        """🔄 Execute workflow phases with progress display"""
+        results = []
         
-        for i, phase in enumerate(workflow.phases, 1):
-            self.display.phase_start(i, len(workflow.phases), phase.name, phase.model, phase.estimated_cost)
+        for i, phase in enumerate(workflow.phases):
+            # Phase start
+            self.display.phase_progress(phase.name, 0.0, "Starting...")
             
-            # For now, simulate execution (in real version, this calls orchestrator)
-            # This is where the orchestrator.execute_workflow would be called per-phase
-            result = ExecutionResult(
-                phase_name=phase.name,
-                model_used=phase.model,
-                content="[Generated content would be here]",
-                tool_calls=[],
-                tokens_used=phase.estimated_tokens,
-                cost=phase.estimated_cost,
-                duration_seconds=2.0,  # Simulated
-                success=True
-            )
+            # Execute phase (this would call the actual orchestrator)
+            result = await self.orchestrator.execute_phase(phase)
             
-            self.display.phase_complete(result)
-            results["results"].append(asdict(result))
-            results["total_cost"] += result.cost
+            # Phase completion
+            self.display.phase_complete(phase.name, result)
+            results.append(result)
         
         return results
     
     async def _create_deliverables(self, workspace_path: Path, workflow: WorkflowPlan) -> None:
-        """Create actual deliverable files"""
+        """📁 Create deliverable files in workspace"""
+        
         # Create workflow summary
         summary = {
-            "workflow_name": workflow.name,
-            "executed_at": datetime.now().isoformat(),
-            "total_cost": workflow.total_estimated_cost,
-            "phases_completed": len(workflow.phases),
-            "workspace": str(workspace_path)
+            "workflow_id": workflow.id,
+            "name": workflow.name,
+            "description": workflow.description,
+            "total_phases": len(workflow.phases),
+            "total_estimated_cost": workflow.total_estimated_cost,
+            "estimated_duration_minutes": workflow.estimated_duration_minutes,
+            "created_timestamp": datetime.now().isoformat(),
+            "phases": [asdict(phase) for phase in workflow.phases]
         }
         
         summary_file = workspace_path / "workflow_summary.json"
@@ -487,7 +369,7 @@ Agent Role: {phase.agent_role}
 [This would be the actual AI-generated content from {phase.model}]
 
 ---
-*Generated by OC Orchestrator*
+*Generated by AI Workflow Orchestrator*
 *Timestamp: {datetime.now().isoformat()}*
 *Cost: ${phase.estimated_cost:.4f}*
 """
@@ -505,31 +387,11 @@ Agent Role: {phase.agent_role}
                 with open(file_path, 'w') as f:
                     f.write(content)
     
-    async def job_application_workflow(
-        self, 
-        job_description: str, 
-        company: str,
-        workspace: Optional[str] = None
-    ) -> Dict[str, Any]:
-        """📄 Specialized job application workflow"""
-        
-        goal = f"""Create a complete job application package for a position at {company}. 
-        Research the company, analyze the job requirements, create a tailored resume and cover letter, 
-        and prepare interview talking points. Job description: {job_description}"""
-        
-        preferences = {
-            "optimize_for": "job_application",
-            "include_research": True,
-            "output_formats": ["pdf", "docx", "txt"]
-        }
-        
-        return await self.execute_goal(goal, workspace, preferences)
-    
     def get_stats(self) -> None:
         """📊 Show orchestrator statistics"""
         stats = self.orchestrator.model_manager.get_stats()
         
-        print("📊 OC ORCHESTRATOR STATS")
+        print("📊 AI WORKFLOW ORCHESTRATOR STATS")
         print("=" * 40)
         print(f"🤖 Total models: {stats['total_models']}")
         print(f"🏢 Total providers: {stats['total_providers']}")
@@ -558,84 +420,81 @@ Agent Role: {phase.agent_role}
                 if capabilities.get('tools'): caps.append('tools')
                 if capabilities.get('vision'): caps.append('vision')
                 if capabilities.get('image_generation'): caps.append('images')
-                if capabilities.get('caching'): caps.append('caching')
-                if capabilities.get('code_execution'): caps.append('code')
-                print(f"    Capabilities: {', '.join(caps) if caps else 'text-only'}")
-                
-            print(f"\n🏢 PROVIDER DETAILS:")
-            for provider_name, provider_info in self.orchestrator.model_manager.providers.items():
-                print(f"  • {provider_info.get('display_name', provider_name)}:")
-                print(f"    Base URL: {provider_info.get('base_url', 'N/A')}")
-                print(f"    API Type: {provider_info.get('api_type', 'unknown')}")
-                rate_limits = provider_info.get('rate_limits', {})
-                if rate_limits:
-                    print(f"    Rate limits: {rate_limits.get('requests_per_minute', 'N/A')} req/min, {rate_limits.get('tokens_per_minute', 'N/A')} tokens/min")
-                    
-            print(f"\n📈 OPTIMIZATION OPPORTUNITIES:")
-            free_models = [m for m, info in self.orchestrator.model_manager.models.items() 
-                          if info.get('input_price_per_million', 1) == 0]
-            if free_models:
-                print(f"   💰 {len(free_models)} free models available for cost optimization")
-                
-            tool_models = [m for m, info in self.orchestrator.model_manager.models.items() 
-                          if info.get('capabilities', {}).get('tools')]
-            print(f"   🔧 {len(tool_models)} models support tool use")
-            
-            vision_models = [m for m, info in self.orchestrator.model_manager.models.items() 
-                            if info.get('capabilities', {}).get('vision')]
-            if vision_models:
-                print(f"   👁️  {len(vision_models)} models support vision tasks")
-                
-            # Show current workflow history
-            workflows = self.orchestrator.list_workflows()
-            if workflows:
-                total_workflow_cost = sum(w.get('estimated_cost', 0) for w in workflows)
-                print(f"\n📊 WORKFLOW HISTORY:")
-                print(f"   Total workflows created: {len(workflows)}")
-                print(f"   Total estimated cost: ${total_workflow_cost:.4f}")
-        else:
-            # Show a hint about verbose mode
-            print(f"\n💡 Use --verbose flag for detailed model and provider information")
+                if caps:
+                    print(f"    Capabilities: {', '.join(caps)}")
     
     def list_workflows(self) -> None:
-        """📋 List all available workflows"""
-        workflows = self.orchestrator.list_workflows()
+        """📋 Show available workflow patterns"""
+        print("📋 AVAILABLE WORKFLOW PATTERNS")
+        print("=" * 40)
         
-        if not workflows:
-            print("📋 No workflows found")
-            return
+        patterns = [
+            {
+                "name": "Research & Analysis",
+                "description": "Multi-source research with comprehensive analysis",
+                "example": "Research renewable energy trends and create investment recommendations",
+                "phases": ["research", "analysis", "synthesis"],
+                "cost_range": "$0.05-0.25"
+            },
+            {
+                "name": "Content Creation",
+                "description": "Research-backed content with multiple formats",
+                "example": "Create blog post series about AI developments",
+                "phases": ["research", "writing", "editing"],
+                "cost_range": "$0.03-0.15"
+            },
+            {
+                "name": "Technical Development",
+                "description": "Code generation with documentation",
+                "example": "Build a REST API with documentation",
+                "phases": ["planning", "coding", "documentation", "testing"],
+                "cost_range": "$0.10-0.50"
+            },
+            {
+                "name": "Creative Projects",
+                "description": "Visual and written content generation",
+                "example": "Design marketing campaign with visuals and copy",
+                "phases": ["concept", "design", "copywriting", "refinement"],
+                "cost_range": "$0.15-0.75"
+            }
+        ]
         
-        print("📋 AVAILABLE WORKFLOWS:")
-        print("-" * 50)
+        for i, pattern in enumerate(patterns, 1):
+            print(f"\n{i}. {pattern['name']}")
+            print(f"   📝 {pattern['description']}")
+            print(f"   💡 Example: {pattern['example']}")
+            print(f"   🎭 Phases: {' → '.join(pattern['phases'])}")
+            print(f"   💰 Cost range: {pattern['cost_range']}")
         
-        for wf in workflows:
-            print(f"🎭 {wf['name']}")
-            if self.verbose:
-                print(f"   📝 {wf['description']}")
-                print(f"   📊 {wf['phases']} phases | ${wf['estimated_cost']:.4f} | {wf['status']}")
-            else:
-                print(f"   📊 {wf['phases']} phases • ${wf['estimated_cost']:.4f}")
-            print()
+        print(f"\n💡 Tip: Describe your goal naturally - the orchestrator will create the optimal workflow!")
+    
+    def help(self) -> None:
+        """❓ Show help information"""
+        print("❓ AI WORKFLOW ORCHESTRATOR HELP")
+        print("=" * 40)
+        print("🎯 GETTING STARTED:")
+        print("   Just describe what you want to accomplish!")
+        print("   Example: 'Research competitor pricing and create a strategy document'")
+        print("")
+        print("📊 USEFUL COMMANDS:")
+        print("   --stats     Show system statistics")
+        print("   --workflows Show available workflow patterns") 
+        print("   --verbose   Show detailed execution information")
+        print("   --help      Show this help message")
+        print("")
+        print("💡 TIPS:")
+        print("   • Be specific about your desired outputs")
+        print("   • Mention if you need specific formats (PDF, JSON, etc.)")
+        print("   • Include any constraints or preferences")
+        print("")
+        print("🔧 TROUBLESHOOTING:")
+        print("   1. Set up API keys (see documentation)")
+        print("   2. Run: python mao_v4.py --doctor")
+        print("")
+        print("🔧 Common Issues:")
+        print("   • ImportError: Missing dependencies")
+        print("   • AuthError: Invalid API keys") 
+        print("   • NetworkError: Internet connection")
 
 
-# Example usage showing the clean separation
-async def demo_clean_interface():
-    """🎨 Demo the beautiful clean interface"""
-    
-    # Regular user experience (clean and simple)
-    oc = OCTerminalInterface(verbose=False)
-    
-    print("🎨 REGULAR USER EXPERIENCE:")
-    await mao.execute_goal("Create a marketing plan for my startup")
-    
-    print("\n" + "="*60 + "\n")
-    
-    # Developer experience (verbose technical details)
-    oc_verbose = OCTerminalInterface(verbose=True)
-    
-    print("🛠️  DEVELOPER EXPERIENCE:")
-    await oc_verbose.execute_goal("Create a marketing plan for my startup")
-
-
-if __name__ == "__main__":
-    asyncio.run(demo_clean_interface())
+# Clean interface - no legacy compatibility needed

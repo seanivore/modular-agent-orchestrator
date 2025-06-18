@@ -1,5 +1,5 @@
 """
-SFA v4.0.0 Shared Error Handling
+Shared Error Handling
 Professional error handling patterns for all tools
 """
 
@@ -10,9 +10,9 @@ from datetime import datetime
 import traceback
 
 
-class SFAError(Exception):
-    """Base exception for SFA v4 tools"""
-    def __init__(self, message: str, error_code: str = "SFA_ERROR", details: Optional[Dict] = None):
+class OrchestrationError(Exception):
+    """Base exception for orchestration tools"""
+    def __init__(self, message: str, error_code: str = "ORCHESTRATION_ERROR", details: Optional[Dict] = None):
         self.message = message
         self.error_code = error_code
         self.details = details or {}
@@ -20,28 +20,28 @@ class SFAError(Exception):
         super().__init__(self.message)
 
 
-class ValidationError(SFAError):
+class ValidationError(OrchestrationError):
     """Raised when input validation fails"""
     def __init__(self, message: str, field: str = None, value: Any = None):
         details = {"field": field, "value": str(value) if value is not None else None}
         super().__init__(message, "VALIDATION_ERROR", details)
 
 
-class ProcessingError(SFAError):
+class ProcessingError(OrchestrationError):
     """Raised when tool processing fails"""
     def __init__(self, message: str, operation: str = None, stage: str = None):
         details = {"operation": operation, "stage": stage}
         super().__init__(message, "PROCESSING_ERROR", details)
 
 
-class ResourceError(SFAError):
+class ResourceError(OrchestrationError):
     """Raised when resource access fails"""
     def __init__(self, message: str, resource_type: str = None, resource_path: str = None):
         details = {"resource_type": resource_type, "resource_path": resource_path}
         super().__init__(message, "RESOURCE_ERROR", details)
 
 
-class APIError(SFAError):
+class APIError(OrchestrationError):
     """Raised when external API calls fail"""
     def __init__(self, message: str, api_name: str = None, status_code: int = None):
         details = {"api_name": api_name, "status_code": status_code}
@@ -67,8 +67,8 @@ def handle_errors(operation_name: str = "operation",
             try:
                 return func(*args, **kwargs)
             
-            except SFAError as e:
-                # Handle known SFA errors
+            except OrchestrationError as e:
+                # Handle known orchestration errors
                 error_info = {
                     "error": e.message,
                     "error_code": e.error_code,
@@ -78,7 +78,7 @@ def handle_errors(operation_name: str = "operation",
                 }
                 
                 if log_errors:
-                    logging.error(f"SFA Error in {operation_name}: {e.message}", extra=e.details)
+                    logging.error(f"Orchestration Error in {operation_name}: {e.message}", extra=e.details)
                 
                 if return_dict:
                     return error_info
@@ -121,6 +121,42 @@ def handle_errors(operation_name: str = "operation",
                 else:
                     raise ResourceError(f"Permission denied: {str(e)}", "permission", str(e))
             
+            except KeyError as e:
+                # Handle configuration/key errors
+                error_info = {
+                    "error": f"Required key missing: {str(e)}",
+                    "error_code": "KEY_ERROR",
+                    "operation": operation_name,
+                    "timestamp": datetime.now().isoformat(),
+                    "details": {"missing_key": str(e)}
+                }
+                
+                if log_errors:
+                    logging.error(f"Key error in {operation_name}: {str(e)}")
+                
+                if return_dict:
+                    return error_info
+                else:
+                    raise ValidationError(f"Required key missing: {str(e)}", "configuration", str(e))
+            
+            except ValueError as e:
+                # Handle value/type errors
+                error_info = {
+                    "error": f"Invalid value: {str(e)}",
+                    "error_code": "VALUE_ERROR",
+                    "operation": operation_name,
+                    "timestamp": datetime.now().isoformat(),
+                    "details": {"value_error": str(e)}
+                }
+                
+                if log_errors:
+                    logging.error(f"Value error in {operation_name}: {str(e)}")
+                
+                if return_dict:
+                    return error_info
+                else:
+                    raise ValidationError(f"Invalid value: {str(e)}", "value", str(e))
+            
             except Exception as e:
                 # Handle unexpected errors
                 error_info = {
@@ -130,7 +166,7 @@ def handle_errors(operation_name: str = "operation",
                     "timestamp": datetime.now().isoformat(),
                     "details": {
                         "exception_type": type(e).__name__,
-                        "traceback": traceback.format_exc() if log_errors else None
+                        "traceback": traceback.format_exc()
                     }
                 }
                 
@@ -140,25 +176,23 @@ def handle_errors(operation_name: str = "operation",
                 if return_dict:
                     return error_info
                 else:
-                    raise ProcessingError(f"Unexpected error: {str(e)}", operation_name)
+                    raise ProcessingError(f"Unexpected error: {str(e)}", operation_name, "exception")
         
         return wrapper
     return decorator
 
 
-def retry_with_backoff(max_retries: int = 3,
-                      base_delay: float = 1.0,
-                      max_delay: float = 60.0,
-                      backoff_factor: float = 2.0,
-                      exceptions: tuple = (Exception,)) -> Callable:
+def retry_on_failure(max_retries: int = 3,
+                    delay: float = 1.0,
+                    backoff_factor: float = 2.0,
+                    exceptions: tuple = (Exception,)) -> Callable:
     """
-    Decorator for retry logic with exponential backoff
+    Decorator for retrying operations with exponential backoff
     
     Args:
         max_retries: Maximum number of retry attempts
-        base_delay: Initial delay between retries (seconds)
-        max_delay: Maximum delay between retries (seconds)
-        backoff_factor: Multiplier for delay after each retry
+        delay: Initial delay between retries (seconds)
+        backoff_factor: Multiplier for delay after each failure
         exceptions: Tuple of exceptions to retry on
         
     Returns:
@@ -167,6 +201,7 @@ def retry_with_backoff(max_retries: int = 3,
     def decorator(func: Callable) -> Callable:
         def wrapper(*args, **kwargs) -> Any:
             last_exception = None
+            current_delay = delay
             
             for attempt in range(max_retries + 1):
                 try:
@@ -177,74 +212,76 @@ def retry_with_backoff(max_retries: int = 3,
                     
                     if attempt == max_retries:
                         # Final attempt failed
-                        break
+                        logging.error(f"Function {func.__name__} failed after {max_retries} retries: {str(e)}")
+                        raise
                     
-                    # Calculate delay with exponential backoff
-                    delay = min(base_delay * (backoff_factor ** attempt), max_delay)
+                    # Log retry attempt
+                    logging.warning(f"Function {func.__name__} failed (attempt {attempt + 1}/{max_retries + 1}): {str(e)}")
+                    logging.info(f"Retrying in {current_delay:.1f} seconds...")
                     
-                    logging.warning(f"Attempt {attempt + 1} failed, retrying in {delay:.1f}s: {str(e)}")
-                    time.sleep(delay)
+                    # Wait before retry
+                    time.sleep(current_delay)
+                    current_delay *= backoff_factor
+                
+                except Exception as e:
+                    # Don't retry on unexpected exceptions
+                    logging.error(f"Function {func.__name__} failed with non-retryable exception: {str(e)}")
+                    raise
             
-            # All retries exhausted
-            raise last_exception
+            # Should never reach here, but just in case
+            if last_exception:
+                raise last_exception
         
         return wrapper
     return decorator
 
 
-def validate_parameters(params: Dict[str, Any], 
-                       required_fields: list = None,
-                       field_types: Dict[str, type] = None,
-                       field_validators: Dict[str, Callable] = None) -> Dict[str, Any]:
+def validate_params(required_fields: List[str] = None,
+                   field_validators: Dict[str, Callable] = None) -> Dict[str, Any]:
     """
-    Comprehensive parameter validation with detailed error reporting
+    Validate operation parameters with comprehensive error handling
     
     Args:
-        params: Parameters to validate
-        required_fields: List of required field names
-        field_types: Dict mapping field names to expected types
+        required_fields: List of required parameter names
         field_validators: Dict mapping field names to validation functions
         
     Returns:
-        Validated parameters dict
+        Validated parameters
         
     Raises:
         ValidationError: If validation fails
     """
-    if not isinstance(params, dict):
-        raise ValidationError("Parameters must be a dictionary", "params", type(params))
-    
-    # Check required fields
-    if required_fields:
-        for field in required_fields:
-            if field not in params:
-                raise ValidationError(f"Required field missing: {field}", field, None)
+    def decorator(func: Callable) -> Callable:
+        def wrapper(*args, **kwargs) -> Any:
+            # Extract params dict from args or kwargs
+            params = kwargs.get('params', {})
+            if not params and args:
+                # Try to find dict in args
+                for arg in args:
+                    if isinstance(arg, dict):
+                        params = arg
+                        break
             
-            if params[field] is None:
-                raise ValidationError(f"Required field cannot be None: {field}", field, None)
-    
-    # Check field types
-    if field_types:
-        for field, expected_type in field_types.items():
-            if field in params and params[field] is not None:
-                if not isinstance(params[field], expected_type):
-                    raise ValidationError(
-                        f"Field {field} must be of type {expected_type.__name__}, got {type(params[field]).__name__}",
-                        field, 
-                        params[field]
-                    )
-    
-    # Run custom validators
-    if field_validators:
-        for field, validator in field_validators.items():
-            if field in params and params[field] is not None:
-                try:
-                    if not validator(params[field]):
-                        raise ValidationError(f"Field {field} failed validation", field, params[field])
-                except Exception as e:
-                    raise ValidationError(f"Validation error for field {field}: {str(e)}", field, params[field])
-    
-    return params
+            # Validate required fields
+            if required_fields:
+                for field in required_fields:
+                    if field not in params or params[field] is None:
+                        raise ValidationError(f"Required field missing: {field}", field, None)
+            
+            # Run field validators
+            if field_validators:
+                for field, validator in field_validators.items():
+                    if field in params and params[field] is not None:
+                        try:
+                            if not validator(params[field]):
+                                raise ValidationError(f"Field {field} failed validation", field, params[field])
+                        except Exception as e:
+                            raise ValidationError(f"Validation error for field {field}: {str(e)}", field, params[field])
+            
+            return func(*args, **kwargs)
+        
+        return wrapper
+    return decorator
 
 
 def safe_file_operation(operation: Callable, 
@@ -389,10 +426,9 @@ def estimate_operation_cost(operation_type: str,
     return (base_cost * complexity_factor) + error_handling_overhead
 
 
-# Configure logging for SFA v4
-def setup_sfa_logging(log_level: str = "INFO", log_file: str = None) -> None:
+def setup_orchestrator_logging(log_level: str = "INFO", log_file: str = None) -> None:
     """
-    Set up logging configuration for SFA v4 tools
+    Set up logging configuration for orchestrator tools
     
     Args:
         log_level: Logging level (DEBUG, INFO, WARNING, ERROR)
@@ -413,7 +449,6 @@ def setup_sfa_logging(log_level: str = "INFO", log_file: str = None) -> None:
         console_handler.setFormatter(logging.Formatter(log_format))
         logging.getLogger().addHandler(console_handler) 
 
-# From the mao_v4.py file 
 
 def handle_bootstrap_error(import_error: ImportError) -> None:
     """
@@ -427,14 +462,14 @@ def handle_bootstrap_error(import_error: ImportError) -> None:
     
     # Minimal error output to stderr (bootstrap only)
     error_message = f"""
-❌ Bootstrap Error: Cannot import Mao interface
+❌ Bootstrap Error: Cannot import orchestrator interface
 
 🔍 Details: {str(import_error)}
 
 💡 Troubleshooting:
    1. Run: pip install -r requirements.txt
    2. Check Python path and dependencies
-   3. Verify Mao installation
+   3. Verify orchestrator installation
 
 📧 If issue persists, check documentation or report issue
 """
