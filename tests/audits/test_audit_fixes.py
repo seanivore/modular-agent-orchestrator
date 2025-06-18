@@ -15,6 +15,11 @@ print(f"Script location: {__file__}")
 print(f"Python path: {sys.path[:3]}...")  # Just first 3 entries
 print(f"orchestrator directory exists: {os.path.exists('orchestrator')}")
 print(f"orchestrator/__init__.py exists: {os.path.exists('orchestrator/__init__.py')}")
+
+# Add project root to Python path (THIS GOES HERE - BEFORE THE FUNCTION)
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+print(f"Added to Python path: {project_root}")
 print("")
 
 def test_imports():
