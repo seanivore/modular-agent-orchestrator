@@ -54,8 +54,8 @@ def create_parser_from_config(config):
 def bootstrap_interface():
     """Bootstrap interface with error recovery"""
     try:
-        from interfaces.ui_terminal import MaoTerminalInterface
-        return MaoTerminalInterface()
+        from interfaces.ui_terminal import TerminalInterface
+        return TerminalInterface()
     except ImportError:
         # Critical bootstrap failure - minimal fallback
         import sys

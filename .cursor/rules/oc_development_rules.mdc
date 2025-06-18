@@ -235,7 +235,7 @@ button_snippet = buttons.create_api_call_snippet(
 
 ### File Naming Conventions
 - Main entry: `oc_v4_main.py` (version in filename for setup script logic)
-- Interface class: `OCTerminalInterface` (not SFA*)
+- Interface class: `TerminalInterface` (not SFA*)
 - Cache directory: `~/.oc_cache` (not sfa_cache)
 - All "SFA" references have been renamed to "OC"
 

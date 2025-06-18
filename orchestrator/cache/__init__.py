@@ -1,5 +1,5 @@
 """
-SFA v4.0.0 Cache Tools
+Mao Cache Tools
 Universal caching infrastructure for modular tools
 """
 
@@ -15,4 +15,4 @@ __all__ = [
 
 # Version info
 __version__ = "4.0.0"
-__description__ = "Universal caching system for SFA v4 modular tools" 
+__description__ = "Universal caching system for modular orchestration tools" 

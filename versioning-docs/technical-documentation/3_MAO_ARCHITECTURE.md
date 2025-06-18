@@ -67,7 +67,7 @@ def main():
 
 **2. Interface Initialization**
 ```python
-mao = MaoTerminalInterface(verbose=args.verbose)
+mao = TerminalInterface(verbose=args.verbose)
 ```
 
 **3. Request Routing**
@@ -536,9 +536,9 @@ class ToolManager:
 
 **Core Classes & Functionality:**
 
-#### `MaoTerminalInterface`
+#### `TerminalInterface`
 ```python
-class MaoTerminalInterface:
+class TerminalInterface:
     def __init__(self, verbose: bool = False):
         self.verbose = verbose
         self.orchestrator = WorkflowOrchestrator()

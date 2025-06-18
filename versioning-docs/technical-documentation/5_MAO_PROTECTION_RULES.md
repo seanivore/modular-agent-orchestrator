@@ -388,6 +388,35 @@ def display_tool_results():     # UI display standard across all tools
 
 ---
 
+### **Rule #6: No Automatic Backward Compatibility**
+
+- **Never add legacy aliases, compatibility layers, or "keeping the old name" patterns**
+- This is a completely new tool - there's no legacy to maintain
+- When backward compatibility becomes needed in the future, it must be:
+  - Explicitly discussed with Sean first
+  - Properly planned and architected
+  - Not assumed or added "just in case"
+
+Examples of what NOT to do:
+```python
+# ❌ WRONG - Don't add these without discussion
+MaoTerminalInterface = TerminalInterface  # Legacy alias
+OCTerminalInterface = TerminalInterface   # Legacy alias
+
+# ❌ WRONG - Don't add compatibility layers
+def old_function_name(*args, **kwargs):
+    """Deprecated: Use new_function_name instead"""
+    return new_function_name(*args, **kwargs)
+```
+
+The reasoning: 
+- Clean slate means clean slate
+- Compatibility layers add complexity without current benefit
+- Future compatibility needs should be properly architected, not band-aided
+- Prevents accumulation of "just in case" code that never gets used
+
+---
+
 ## 🚨 ADVANCED PROTECTION PATTERNS
 
 ### Performance Regression Prevention
