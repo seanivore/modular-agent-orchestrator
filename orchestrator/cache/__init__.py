@@ -1,5 +1,5 @@
 """
-Mao Cache Tools
+Cache Tools
 Universal caching infrastructure for modular tools
 """
 
@@ -13,6 +13,5 @@ __all__ = [
     'CacheEntry'
 ]
 
-# Version info
-__version__ = "4.0.0"
-__description__ = "Universal caching system for modular orchestration tools" 
+# Cache system description
+__description__ = "Universal caching system for modular orchestration tools"
