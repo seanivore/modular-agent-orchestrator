@@ -58,4 +58,3 @@
 
 - Rule #1 Violation: Hardcoded model mappings must be removed
 - Rule #5 Violation: Inconsistent naming standards (OC vs Mao)
-
