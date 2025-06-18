@@ -3,9 +3,9 @@
 ## **IMPLEMENTATION READINESS ASSESSMENT** ✅📋🔄
 
 ### ✅ **WELL-DOCUMENTED ELEMENTS**
-1. **Terminal UI structure** - Main page with chat and progress icons
+~~1. **Terminal UI structure** - Main page with chat and progress icons~~
 2. **Natural conversation flow** - Claude adapts to user experience level
-3. **Variable collection approach** - Visual progress indicators
+~~3. **Variable collection approach** - Visual progress indicators~~
 4. **Workflow Log concept** - Record keeping throughout process
 5. **Files API integration** - For draft management and handoffs
 6. **Custom command creation** - Spaces not hyphens
@@ -145,3 +145,11 @@
 - Assess whether multiple draft workflows are needed for MVP
 
 The walkthrough is conceptually sound but needs significant implementation work to match the described user experience. The missing components are substantial but achievable with focused development.
+
+----
+
+1. `mao mao` command launches application 
+2. First time user: choose text color and highlight color
+3. Next screen is the everything screen where everything in the app happens 
+
+
