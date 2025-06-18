@@ -250,8 +250,8 @@
       "datetime",
       "rich"
     ],
-    "sfa_modules": [
-      "utilities.error_handling"
+    "internal_modules": [
+      "orchestrator.error_handling"
     ]
   },
   "testing": {

@@ -218,8 +218,8 @@
       "anthropic",
       "rich"
     ],
-    "sfa_modules": [
-      "utilities.error_handling"
+    "internal_modules": [
+      "orchestrator.error_handling"
     ],
     "external_apis": [
       "anthropic_web_search_20250305"

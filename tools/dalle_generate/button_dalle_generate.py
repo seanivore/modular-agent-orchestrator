@@ -109,7 +109,7 @@ def generate_dalle_image():
         headers = {{
             "Authorization": f"Bearer {{api_key}}",
             "Content-Type": "application/json",
-            "User-Agent": "SFA-v4-DALLE-Tool/1.0"
+            "User-Agent": "Mao-DALLE-Tool/1.0"
         }}
         
         payload = {{

@@ -45,7 +45,7 @@ def _create_basic_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Basic Search
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import perform_web_search
 from interfaces.ui_tools.ui_web_search import display_web_search_result, display_search_execution_status
@@ -170,7 +170,7 @@ def _create_filtered_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Filtered Search
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import perform_filtered_search
 from interfaces.ui_tools.ui_web_search import display_web_search_result, display_search_execution_status
@@ -298,7 +298,7 @@ def _create_content_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Content-Specific Search
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import perform_content_search
 from interfaces.ui_tools.ui_web_search import display_web_search_result, display_search_execution_status
@@ -409,7 +409,7 @@ def _create_validation_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Query Validation
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import validate_search_query
 from interfaces.ui_tools.ui_web_search import display_web_search_result
@@ -465,7 +465,7 @@ def _create_suggestions_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Search Suggestions
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import get_search_suggestions
 from interfaces.ui_tools.ui_web_search import display_web_search_result
@@ -516,7 +516,7 @@ def _create_generic_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Generic Operation
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import *
 from interfaces.ui_tools.ui_web_search import display_web_search_result
@@ -563,7 +563,7 @@ def create_multi_search_snippet(searches: List[Dict[str, Any]], model: str = "cl
     snippet_parts = ['''
 # Web Search - Multiple Search Operations
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.web_search_modular import *
 from interfaces.ui_tools.ui_web_search import *

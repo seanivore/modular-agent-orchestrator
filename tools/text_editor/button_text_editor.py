@@ -49,7 +49,7 @@ def _create_document_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Create Document
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import create_document
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -90,7 +90,7 @@ def _edit_content_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Edit Content
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import edit_content
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -131,7 +131,7 @@ def _append_content_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Append Content
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import append_content
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -167,7 +167,7 @@ def _format_document_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Format Document
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import format_document
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -203,7 +203,7 @@ def _get_document_info_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Get Document Info
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import get_document_info
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -228,7 +228,7 @@ def _validate_path_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Validate Path
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import validate_document_path
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -256,7 +256,7 @@ def _create_from_template_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Create from Template
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import create_document_from_template
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -291,7 +291,7 @@ def _generic_operation_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Text Editor - Generic Operation
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import *
 from interfaces.ui_tools.ui_text_editor import display_text_editor_result
@@ -337,7 +337,7 @@ def create_editing_session_snippet(operations: List[Dict[str, Any]], model: str 
     snippet_parts = ['''
 # Text Editor - Complete Editing Session
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import *
 from interfaces.ui_tools.ui_text_editor import *
@@ -433,7 +433,7 @@ def create_autosave_workflow_snippet(file_path: str, content_updates: List[str],
     snippet = f'''
 # Text Editor - Seamless Autosave Workflow
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.text_editor_modular import *
 from interfaces.ui_tools.ui_text_editor import *

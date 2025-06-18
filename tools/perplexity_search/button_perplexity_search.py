@@ -45,7 +45,7 @@ def _create_basic_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Perplexity AI Search - Basic Search
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import perform_perplexity_search
 from interfaces.ui_tools.ui_perplexity_search import display_perplexity_result, display_search_execution_status
@@ -261,7 +261,7 @@ def _create_enhanced_research_snippet(params: Dict[str, Any], model: str) -> str
     snippet = f'''
 # Perplexity AI Search - Enhanced Research
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import perform_enhanced_research
 from interfaces.ui_tools.ui_perplexity_search import display_perplexity_result, display_search_execution_status, display_research_progress
@@ -519,7 +519,7 @@ def _create_validation_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Perplexity AI Search - Query Validation
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import validate_perplexity_query
 from interfaces.ui_tools.ui_perplexity_search import display_perplexity_result
@@ -586,7 +586,7 @@ def _create_suggestions_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Perplexity AI Search - Research Suggestions
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import get_research_suggestions
 from interfaces.ui_tools.ui_perplexity_search import display_perplexity_result
@@ -644,7 +644,7 @@ def _create_api_check_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Perplexity AI Search - API Configuration Check
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import check_api_configuration, get_perplexity_capabilities
 from interfaces.ui_tools.ui_perplexity_search import display_perplexity_result, display_perplexity_capabilities
@@ -703,7 +703,7 @@ def _create_generic_perplexity_snippet(params: Dict[str, Any], model: str) -> st
     snippet = f'''
 # Perplexity AI Search - Generic Operation
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import *
 from interfaces.ui_tools.ui_perplexity_search import display_perplexity_result, display_perplexity_capabilities
@@ -750,7 +750,7 @@ def create_multi_research_snippet(research_queries: List[Dict[str, Any]], model:
     snippet_parts = ['''
 # Perplexity AI Search - Multiple Research Operations
 import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/sfa-v4')
+sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
 
 from tools.perplexity_search_modular import *
 from interfaces.ui_tools.ui_perplexity_search import *
