@@ -21,4 +21,9 @@ REVIEW:
    3. After completion of the batch of tasks, post an update and include what the next steps are 
 
 SEQUENTIAL THINKING MCP: 
-    When set up use this frequently instead of anything else. It has performed light years better on more than a few studies. It is also more versatile than any other thinking tool we have. 
+    When set up use this frequently instead of anything else. It has performed light years better on more than a few studies. It is more versatile than any other thinking tool we have.
+
+    - Most responses 
+    - If you have to find something in context 
+    - While you are using other tools, between tools
+    - Jump to thinking, writing, thinking, searing web, thinking, writing, etc. 
