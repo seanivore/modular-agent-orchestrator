@@ -1,0 +1,8 @@
+{
+  "command": "help",
+  "type": "standalone",
+  "terminal_flag": "--help",
+  "app_command": "/help",
+  "interface_method": "show_help",
+  "help": "View these help messages"
+}

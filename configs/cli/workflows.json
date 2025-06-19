@@ -1,0 +1,8 @@
+{
+  "command": "workflows",
+  "type": "standalone",
+  "terminal_flag": "--workflows",
+  "app_command": "/workflows",
+  "interface_method": "workflows",
+  "help": "List all configured workflows and their status"
+}

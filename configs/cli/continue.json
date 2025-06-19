@@ -1,0 +1,8 @@
+{
+  "command": "continue",
+  "type": "standalone",
+  "terminal_flag": "--continue",
+  "app_command": "/continue",
+  "interface_method": "resume_workflow",
+  "help": "Resume most recent workflow session"
+}

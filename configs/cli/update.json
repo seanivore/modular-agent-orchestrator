@@ -1,0 +1,8 @@
+{
+  "command": "update",
+  "type": "needs_file",
+  "terminal_flag": "--update",
+  "app_command": "/update",
+  "interface_method": "update_workflow",
+  "help": "Add additional phase to existing workflow"
+}

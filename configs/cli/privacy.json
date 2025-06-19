@@ -1,0 +1,8 @@
+{
+  "command": "privacy",
+  "type": "standalone",
+  "terminal_flag": "--privacy",
+  "app_command": "/privacy",
+  "interface_method": "enable_privacy_mode",
+  "help": "Use privacy-focused models and providers only"
+}

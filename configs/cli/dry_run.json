@@ -1,0 +1,8 @@
+{
+  "command": "dry_run",
+  "type": "standalone",
+  "terminal_flag": "--dry-run",
+  "app_command": "/dry-run",
+  "interface_method": "simulate_workflow",
+  "help": "Simulate workflow execution without actually running"
+}

@@ -1,0 +1,8 @@
+{
+  "command": "output_directory",
+  "type": "needs_input",
+  "terminal_flag": "--output",
+  "app_command": "/output",
+  "interface_method": "set_output_directory",
+  "help": "Set a custom output directory that overrides workflow default"
+}

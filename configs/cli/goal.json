@@ -1,0 +1,8 @@
+{
+  "command": "goal",
+  "type": "needs_input",
+  "terminal_flag": "--goal",
+  "app_command": "/goal",
+  "interface_method": "goal",
+  "help": "Create entire workflow from goal"
+}

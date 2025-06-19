@@ -1,0 +1,8 @@
+{
+  "command": "config",
+  "type": "standalone",
+  "terminal_flag": "--config",
+  "app_command": "/config",
+  "interface_method": "open_config",
+  "help": "Open configuration management interface"
+}

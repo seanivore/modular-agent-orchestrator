@@ -1,0 +1,8 @@
+{
+  "command": "review",
+  "type": "needs_input",
+  "terminal_flag": "--review",
+  "app_command": "/review",
+  "interface_method": "review_workflow",
+  "help": "Review specific workflow detail by using the workflow's custom set command"
+}

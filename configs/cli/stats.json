@@ -1,0 +1,8 @@
+{
+  "command": "stats",
+  "type": "standalone",
+  "terminal_flag": "--stats",
+  "app_command": "/stats",
+  "interface_method": "stats",
+  "help": "Show system performance and orchestrator statistics"
+}

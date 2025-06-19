@@ -1,0 +1,8 @@
+{
+  "command": "doctor",
+  "type": "standalone",
+  "terminal_flag": "--doctor",
+  "app_command": "/doctor",
+  "interface_method": "run_health_check",
+  "help": "Check health and status of Mao installation"
+}

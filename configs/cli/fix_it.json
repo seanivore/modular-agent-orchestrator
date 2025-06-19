@@ -1,0 +1,8 @@
+{
+  "command": "fix_it",
+  "type": "needs_file",
+  "terminal_flag": "--fix-it",
+  "app_command": "/fix-it",
+  "interface_method": "fix_workflow",
+  "help": "Fix deliverable by re-running workflow phase"
+}

@@ -1,0 +1,8 @@
+{
+  "command": "logs",
+  "type": "standalone",
+  "terminal_flag": "--logs",
+  "app_command": "/logs",
+  "interface_method": "show_workflow_logs",
+  "help": "View Orchestrator's workflow logs from recent executions"
+}

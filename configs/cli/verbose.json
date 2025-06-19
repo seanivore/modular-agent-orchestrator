@@ -1,0 +1,8 @@
+{
+  "command": "verbose",
+  "type": "standalone",
+  "terminal_flag": "--verbose",
+  "app_command": "/verbose",
+  "interface_method": "toggle_verbose",
+  "help": "Show detailed, forensic, developer-tools-style information for debugging purposes"
+}

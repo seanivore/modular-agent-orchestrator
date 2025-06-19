@@ -1,0 +1,8 @@
+{
+  "command": "setup",
+  "type": "needs_file",
+  "terminal_flag": "--setup",
+  "app_command": "/setup",
+  "interface_method": "setup",
+  "help": "Setup workflow from JSON configuration file"
+}
