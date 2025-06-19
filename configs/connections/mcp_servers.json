@@ -1,0 +1,45 @@
+{
+  "description": "MCP Server Configurations for external tool integration",
+  "servers": {
+    "aider": {
+      "name": "aider",
+      "command": ["python", "-m", "aider.mcp"],
+      "description": "Aider code editing MCP server",
+      "enabled": false,
+      "tools": ["edit_file", "create_file", "read_file"],
+      "requirements": ["aider-chat"]
+    },
+    "filesystem": {
+      "name": "filesystem", 
+      "command": ["npx", "@modelcontextprotocol/server-filesystem"],
+      "description": "File system operations MCP server",
+      "enabled": false,
+      "tools": ["read_file", "write_file", "list_directory"],
+      "requirements": ["@modelcontextprotocol/server-filesystem"]
+    },
+    "brave_search": {
+      "name": "brave_search",
+      "command": ["npx", "@modelcontextprotocol/server-brave-search"],
+      "description": "Brave search MCP server",
+      "enabled": false,
+      "tools": ["brave_web_search"],
+      "requirements": ["@modelcontextprotocol/server-brave-search"],
+      "env_vars": ["BRAVE_API_KEY"]
+    },
+    "github": {
+      "name": "github",
+      "command": ["npx", "@modelcontextprotocol/server-github"],
+      "description": "GitHub repository operations MCP server",
+      "enabled": false,
+      "tools": ["create_repository", "search_repositories", "get_file_contents"],
+      "requirements": ["@modelcontextprotocol/server-github"],
+      "env_vars": ["GITHUB_TOKEN"]
+    }
+  },
+  "global_settings": {
+    "auto_start": false,
+    "timeout_seconds": 30,
+    "retry_attempts": 3,
+    "log_level": "INFO"
+  }
+}
