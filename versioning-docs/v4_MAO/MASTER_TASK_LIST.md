@@ -10,20 +10,35 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
 
 - Review all technical docs against new implementation plans
 - Include the remaining concerns and FYIs below 
-- Include the blocks of phase integration details below 
-- Integrate the phase integration details below into the implementation plan docs 
+- Include the blocks of 'Phase 1-3' integration details below 
 - Add missing concepts (setup scripts, custom commands, quality framework)
+- Leave space for needed info, e.g. Specific Design of New Use-Case JSON Config File 
 - Update architecture descriptions with enhanced workflows
 - Ensure docs match actual implementation approach
 - Fix any outdated SFA references or patterns
 
-## New Final Stretch Implementation Docs 
+**THE END RESULT:** 
+  - Two sets of documents and no others 
+  - The first set is a complete implementation plan for the final stretch 
+  - The second set is a complete technical documentation with remaining build details now added  
+
+## New Final Stretch Implementation Plans 
 
 - `versioning-docs/v4_MAO/1.1_IMPLEMENTATION_CONSOLIDATION_PLAN.md`
 - `versioning-docs/v4_MAO/1.2_MCP_INTEGRATION_HUB_PLAN.md`
 - `versioning-docs/v4_MAO/1.3_TOOL_INTEGRATION_FRAMEWORK_PLAN.md`
 - `versioning-docs/v4_MAO/1.4_WORKFLOW_ENGINE_CORE_PLAN.md`
 - `versioning-docs/v4_MAO/1.5_TERMINAL_UI_UX_SYSTEM_PLAN.md`
+
+## Technical Documentation 
+
+- `versioning-docs/technical-documentation/0_TECH_DOC_CONTENTS.md`
+- `versioning-docs/technical-documentation/1_MAO_OVERVIEW.md`
+- `versioning-docs/technical-documentation/2_MAO_SYSTEM_FILES.md`
+- `versioning-docs/technical-documentation/3_MAO_ARCHITECTURE.md`
+- `versioning-docs/technical-documentation/4_MAO_EXTENSION_GUIDE.md`
+- `versioning-docs/technical-documentation/5_MAO_PROTECTION_RULES.md`
+- `versioning-docs/technical-documentation/6_MAO_VISUAL_IDENTITY.md`
 
 ## Concerns & FYIs 
 
