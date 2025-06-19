@@ -1,4 +1,4 @@
-# 3. Mao Extension Guide: Building on Revolutionary Architecture
+# MAO Extension Guide: Building on Revolutionary Architecture
 
 ## Introduction: Expanding the Possible
 

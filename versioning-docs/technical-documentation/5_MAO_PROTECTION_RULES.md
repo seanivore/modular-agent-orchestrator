@@ -1,4 +1,4 @@
-# 4. Mao Protection Rules: Architectural Integrity Insurance
+# MAO Protection Rules: Architectural Integrity Insurance
 
 ## Introduction: Protecting Revolutionary Breakthroughs
 
