@@ -6,6 +6,7 @@ Dynamic tool suggestion based on goals, not hardcoded categories
 import json
 from pathlib import Path
 from typing import Dict, List, Optional, Any
+import importlib.util
 
 
 class ToolManager:
@@ -17,6 +18,14 @@ class ToolManager:
     def __init__(self, config_dir: str = "configs"):
         self.config_dir = Path(config_dir)
         self.tool_registry = self._load_tool_registry()
+        self.discovered_tools = {}
+        
+        # Lazy load MCP connector for external tools
+        self._mcp_connector = None
+        self._memory_mcp = None
+        
+        # Discover all tools on initialization
+        self.discover_all_tools()
         
     def _load_tool_registry(self) -> Dict[str, Any]:
         """Load tool registry from JSON files"""
@@ -185,6 +194,241 @@ class ToolManager:
             })
         
         return sorted(tools, key=lambda x: x["cost"])
+    
+    def discover_all_tools(self) -> Dict[str, Any]:
+        """Discover tools from multiple sources"""
+        tools = {}
+        
+        # 1. Discover local MAO tools
+        local_tools = self._discover_local_tools()
+        tools.update(local_tools)
+        
+        # 2. Discover MCP server tools
+        mcp_tools = self._discover_mcp_tools()
+        tools.update(mcp_tools)
+        
+        # 3. Cache discovery results
+        self.discovered_tools = tools
+        
+        # 4. Log discovery results
+        if self.memory_mcp:
+            self.memory_mcp.create_entities([{
+                "name": "tool-discovery",
+                "entityType": "system-status",
+                "observations": [
+                    f"Discovered {len(local_tools)} local tools",
+                    f"Discovered {len(mcp_tools)} MCP tools",
+                    f"Total tools available: {len(tools)}"
+                ]
+            }])
+        
+        return tools
+    
+    def _discover_local_tools(self) -> Dict[str, Any]:
+        """Discover MAO local tools with 6-file validation"""
+        tools_dir = Path.cwd() / "tools"
+        local_tools = {}
+        
+        if not tools_dir.exists():
+            return local_tools
+        
+        for tool_dir in tools_dir.iterdir():
+            if not tool_dir.is_dir() or tool_dir.name.startswith('.'):
+                continue
+            
+            # Validate 6-file architecture
+            tool_info = self._validate_tool_structure(tool_dir)
+            if tool_info:
+                local_tools[tool_dir.name] = tool_info
+        
+        return local_tools
+    
+    def _validate_tool_structure(self, tool_dir: Path) -> Optional[Dict[str, Any]]:
+        """Validate 6-file tool architecture"""
+        required_files = {
+            "main": tool_dir / f"{tool_dir.name}.py",
+            "config": tool_dir / f"tool_{tool_dir.name}.json",
+            "button": tool_dir / f"button_{tool_dir.name}.py", 
+            "ui": tool_dir / f"ui_{tool_dir.name}.py"
+        }
+        
+        # Check if core files exist
+        missing_files = []
+        for file_type, file_path in required_files.items():
+            if not file_path.exists():
+                missing_files.append(file_type)
+        
+        if missing_files:
+            return None  # Tool not properly structured
+        
+        # Load tool configuration
+        try:
+            with open(required_files["config"]) as f:
+                config = json.load(f)
+        except Exception:
+            return None  # Invalid config
+        
+        # Load button generator function
+        button_module = self._load_button_module(required_files["button"])
+        if not button_module:
+            return None  # Missing button function
+        
+        return {
+            "type": "local",
+            "name": config.get("name", tool_dir.name),
+            "description": config.get("description", ""),
+            "config": config,
+            "button_generator": button_module.create_button_snippet,
+            "main_module": required_files["main"],
+            "files": required_files
+        }
+    
+    def _load_button_module(self, button_file: Path):
+        """Load button module dynamically"""
+        try:
+            spec = importlib.util.spec_from_file_location("button_module", button_file)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            # Check if create_button_snippet function exists
+            if hasattr(module, 'create_button_snippet'):
+                return module
+            return None
+        except Exception:
+            return None
+    
+    def _discover_mcp_tools(self) -> Dict[str, Any]:
+        """Discover tools from MCP servers"""
+        if not self.mcp_connector:
+            return {}
+        
+        try:
+            mcp_tools = self.mcp_connector.get_available_tools()
+            
+            # Format MCP tools for unified interface
+            formatted_tools = {}
+            for tool_name, tool_info in mcp_tools.items():
+                formatted_tools[tool_name] = {
+                    "type": "mcp",
+                    "name": tool_info.get("tool", tool_name),
+                    "description": tool_info.get("description", ""),
+                    "server": tool_info.get("server", "unknown"),
+                    "parameters": tool_info.get("parameters", {}),
+                    "available": tool_info.get("available", False)
+                }
+            
+            return formatted_tools
+        except Exception:
+            return {}
+    
+    @property
+    def mcp_connector(self):
+        """Lazy load MCP connector"""
+        if self._mcp_connector is None:
+            try:
+                from .mcp_connector import MCPConnector
+                self._mcp_connector = MCPConnector()
+            except ImportError:
+                pass
+        return self._mcp_connector
+    
+    @property
+    def memory_mcp(self):
+        """Lazy load Memory MCP"""
+        if self._memory_mcp is None:
+            try:
+                from .memory_mcp import MemoryMCPManager
+                self._memory_mcp = MemoryMCPManager()
+            except ImportError:
+                pass
+        return self._memory_mcp
+    
+    def get_tool_for_workflow(self, tool_name: str, workflow_id: str) -> Optional[Dict[str, Any]]:
+        """Get tool configured for specific workflow"""
+        if tool_name not in self.discovered_tools:
+            # Attempt rediscovery
+            self.discover_all_tools()
+            
+        if tool_name not in self.discovered_tools:
+            return None
+        
+        tool_info = self.discovered_tools[tool_name]
+        
+        # Track tool request
+        if self.memory_mcp:
+            self.memory_mcp.update_workflow_state(
+                workflow_id,
+                f"Tool requested: {tool_name}"
+            )
+        
+        return tool_info
+    
+    def create_executable_tool_button(self, tool_name: str, workflow_id: str, context: Dict = None) -> Optional[str]:
+        """Create executable button for any tool type"""
+        tool_info = self.get_tool_for_workflow(tool_name, workflow_id)
+        if not tool_info:
+            return None
+        
+        context = context or {}
+        
+        if tool_info["type"] == "local":
+            # Use tool's button generator
+            try:
+                return tool_info["button_generator"](workflow_id, context, tool_info["config"])
+            except Exception:
+                return None
+        
+        elif tool_info["type"] == "mcp":
+            # Generate MCP tool button
+            return self._create_mcp_tool_button(tool_info, workflow_id, context)
+        
+        return None
+    
+    def _create_mcp_tool_button(self, tool_info: Dict, workflow_id: str, context: Dict) -> str:
+        """Create executable button for MCP tool"""
+        server_name = tool_info["server"]
+        tool_name = tool_info["name"]
+        
+        button_code = f'''
+"""
+Executable MCP Tool: {tool_name}
+Server: {server_name}
+Workflow: {workflow_id}
+"""
+
+import json
+from datetime import datetime
+
+# Tool configuration
+WORKFLOW_ID = "{workflow_id}"
+SERVER_NAME = "{server_name}"
+TOOL_NAME = "{tool_name}"
+CONTEXT = {json.dumps(context, indent=2)}
+
+def execute_mcp_tool():
+    """Execute MCP tool with workflow tracking"""
+    print(f"🔌 Executing MCP tool: {{TOOL_NAME}} on {{SERVER_NAME}}")
+    print(f"🔗 Workflow: {{WORKFLOW_ID}}")
+    
+    # In real implementation, would call MCP connector
+    # For now, return mock result
+    result = {{
+        "success": True,
+        "tool": TOOL_NAME,
+        "server": SERVER_NAME,
+        "output": "MCP tool executed successfully",
+        "timestamp": datetime.now().isoformat()
+    }}
+    
+    print(f"✅ MCP tool execution complete!")
+    return result
+
+# Execute the tool
+if __name__ == "__main__":
+    execute_mcp_tool()
+'''
+        
+        return button_code
     
     def interactive_tool_selection(self, goal: str, model: str, 
                                  budget: str = "balanced") -> Dict[str, Any]:

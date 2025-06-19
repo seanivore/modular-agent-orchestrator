@@ -68,7 +68,16 @@ def bootstrap_interface():
     """Bootstrap interface with error recovery"""
     try:
         from interfaces.ui_terminal import TerminalInterface
-        return TerminalInterface()
+        
+        # Initialize MCP Integration Hub during bootstrap
+        print("Initializing MCP Integration Hub...")
+        from orchestrator.mcp_hub import create_mcp_hub
+        mcp_hub = create_mcp_hub()
+        
+        interface = TerminalInterface()
+        interface.mcp_hub = mcp_hub  # Provide MCP Hub access to interface
+        
+        return interface
     except ImportError:
         sys.stderr.write("Bootstrap error: Cannot import Mao interface\n")
         sys.exit(1)

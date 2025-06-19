@@ -18,6 +18,9 @@ from .manager_models import ModelManager
 from .manager_buttons import ButtonManager
 from .manager_tools import ToolManager
 from .cache.cache_system import CacheManager
+from .mcp_hub import MCPIntegrationHub
+from .agent_callback import AgentCallbackHandler
+from tools.code_execution.code_execution import CodeExecutionTool
 
 @dataclass
 class WorkflowPhase:
@@ -65,11 +68,19 @@ class WorkflowOrchestrator:
     """
     
     def __init__(self, config_dir: str = "configs"):
+        self.config_dir = Path(config_dir)
         self.model_manager = ModelManager(config_dir)
         self.buttons = ButtonManager(self.model_manager)
         self.tool_discovery = ToolManager(config_dir)
         self.cache_manager = CacheManager()
         self.protocol = self._load_protocol()
+        
+        # Initialize MCP Integration Hub
+        self.mcp_hub = MCPIntegrationHub()
+        
+        # Initialize Tool Integration Framework
+        self.agent_callback = AgentCallbackHandler()
+        self.code_execution = CodeExecutionTool()
         
         # Workflow state
         self.active_workflows: Dict[str, WorkflowPlan] = {}
@@ -171,6 +182,9 @@ class WorkflowOrchestrator:
         
         # 5. Store for execution
         self.active_workflows[workflow_plan.id] = workflow_plan
+        
+        # 6. Initialize MCP workflow context
+        self.mcp_hub.create_workflow(workflow_plan.id, user_goal)
         
         # Add creation metadata for UI layer
         workflow_plan.creation_info = {

@@ -1,0 +1,31 @@
+{
+  "description": "Anthropic Files API configuration for workflow file management",
+  "files_api": {
+    "enabled": true,
+    "base_url": "https://api.anthropic.com/v1/files",
+    "max_file_size_mb": 50,
+    "allowed_file_types": [".txt", ".md", ".json", ".py", ".js", ".ts", ".html", ".css"],
+    "auto_cleanup": {
+      "enabled": true,
+      "cleanup_after_days": 7,
+      "keep_deliverables": true
+    }
+  },
+  "workspace_settings": {
+    "default_workspace_name": "mao-workflow-{workflow_id}",
+    "create_readme": true,
+    "organize_by_date": true,
+    "compress_large_files": false
+  },
+  "fallback_storage": {
+    "enabled": true,
+    "local_directory": "./configs/files_fallback",
+    "use_when_api_unavailable": true,
+    "sync_with_api_when_restored": false
+  },
+  "security": {
+    "encrypt_sensitive_files": false,
+    "redact_api_keys": true,
+    "file_scan_enabled": true
+  }
+}
