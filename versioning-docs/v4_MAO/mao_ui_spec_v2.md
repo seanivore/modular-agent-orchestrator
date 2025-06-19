@@ -1,9 +1,9 @@
-# MAO Terminal UI Integration Specification
-> Complete the beautiful terminal UI foundation by integrating with MAO orchestrator and building missing components
+# Mao Terminal UI Integration Specification
+> Complete the beautiful terminal UI foundation by integrating with Mao orchestrator and building missing components
 
 ## High-Level Objective
 
-Transform the prepared terminal UI foundation into a **fully functional, production-ready interface** that integrates seamlessly with MAO's orchestrator system, implementing the comprehensive UX patterns from our implementation plans while preserving all existing functionality.
+Transform the prepared terminal UI foundation into a **fully functional, production-ready interface** that integrates seamlessly with our modular agent orchestrator system, implementing the comprehensive UX patterns from our implementation plans while preserving all existing functionality.
 
 ## Mid-Level Objectives
 
@@ -18,7 +18,7 @@ Transform the prepared terminal UI foundation into a **fully functional, product
 
 - **Foundation Ready**: app.py, styles.py, styles.css, main_menu.py, navigation.py prepared
 - **Print Functions Are UI Requirements**: Use print content as elegant UI components, don't replace
-- **Clean Core Integration**: MAO orchestrator has no prints - perfect for direct UI calls
+- **Clean Core Integration**: Mao has no prints - perfect for direct UI calls
 - **Enhanced Progress Monitoring**: Implement sub-task tracking with beautiful completion summaries
 - **Quality Assurance Integration**: Success criteria validation and auto-improvement loops
 - **Setup Script Bridge**: Connect conversations to executable command creation

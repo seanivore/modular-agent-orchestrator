@@ -1,6 +1,30 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
+I saw this in the docs while reviewing them and had an idea. We should make sure that the orchestrator can search the web or use any other tools during chat sessions. It should be the same UX that everyone is already used to. Plus, when someone is suspicious about the freshness of information, or knows that there is new information that came out after the training data cutoff date, our Claude needs to be able to deal with that just like users will expect. 
+
+```
+### Smart Freshness Assessment
+
+Mao understands that different types of information have different freshness requirements:
+
+Mao: "I found cached research on B2B SaaS trends from 45 days ago.
+
+Freshness Analysis:
+✅ Industry analysis: Still valid (180-day freshness window)
+⚠️ Market trends: Partially stale (30-day window, 50% confidence)
+❌ Pricing data: Expired (7-day window, requires refresh)
+
+Optimization Strategy:
+- Reuse: Industry analysis and competitive framework
+- Refresh: Current market trends and pricing data
+- Effort Reduction: 60% vs. full research
+- Quality Maintained: Fresh data where it matters most"
+```
+
+--------------------------------
+
+I deleted the pretend case studies from 1_MAO_OVERVIEW.md. It was a bunch in two different sections, one offering examples and the other framed as actual case studies. Instead it just mentions that we're building a database for workflows, tools, and model information. <-- All of which Claude Orchestrator should have direct access to instead of users having to look it up on some website somewhere as if it was 2020. 
 
 --------------------------------
 

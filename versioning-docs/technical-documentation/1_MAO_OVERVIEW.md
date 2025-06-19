@@ -6,7 +6,7 @@
 
 ---
 
-## 🎯 What is Mao?
+## What is Mao?
 
 **Mao (Modular Agent Orchestrator)** revolutionizes AI workflows by eliminating the three core problems that make AI tools impractical for real work:
 
@@ -94,12 +94,22 @@ You describe what you want to accomplish in plain English. Mao asks clarifying q
 
 ### Simple User Experience
 
-```bash
-# Direct goal execution
-python mao_v4.py "Create a marketing strategy for my B2B startup"
+Chat with Mao in the the Mao Application main page. 
 
-# Interactive mode
-python mao_v4.py
+```plaintext 
+/goal "Create a marketing strategy for my B2B startup"
+
+/chat "Help me set up a workflow to create a marketing strategy for my B2B startup"
+```
+
+Use the CLI to directly create a workflow. 
+
+```bash
+# Direct Goal Into Workflow 
+python mao_v4.py --goal "Create a marketing strategy for my B2B startup"
+
+# Standard Chat Mode
+python mao_v4.py --chat "Help me set up a workflow to create a marketing strategy for my B2B startup"
 ```
 
 ### What Happens Behind the Scenes
@@ -118,8 +128,6 @@ python mao_v4.py
 When multiple agents work on a complex project, Mao doesn't just manage a task queue—it conducts a **symphony of specialized intelligence**.
 
 Each agent has their role, their timing, their contribution to the whole. Mao ensures they work in harmony, building on each other's strengths while maintaining focus on the ultimate goal.
-
-This is **orchestration as an art form**.
 
 **4. Professional Delivery**
 - Structured deliverables in organized workspace
@@ -178,7 +186,7 @@ Total Cost: $0.42 | Duration: 28m | Quality: 9.1/10
 
 ## 🖥️ The Workflow Monitor
 
-Mao features a sophisticated real-time monitoring interface that updates without reprinting. No more constantly scrolling feeds - instead, you get a static, real-time monitoring display:
+Mao features a sophisticated real-time monitoring interface that updates without reprinting. No more constantly scrolling the workflow with the agents printing literally everything. Now, important information displays in a timely fashion, and then disappears to keep you focused on what is relevant at that time. 
 
 ```
 ┌─—————— Workflow Monitor ─────────────────────────┐
@@ -273,17 +281,18 @@ Usage: competitor_research_saas "B2B project management" "Asana,Monday,Notion,Cl
 
 ### Power User: Custom Tool Creation
 
-**Adding New Capabilities in <30 Minutes**
+**Adding New Capabilities in <30 Minutes --> PLUG AND PLAY**
 
 1. **Create 6-File Tool Structure**
    - Core logic (`new_tool.py`)
    - UI display (`ui_new_tool.py`) 
    - Human buttons (`button_new_tool.py`)
    - Tool registry (`tool_new_tool.json`)
-   - Shared error handling and caching
+   - Shared error handling file 
+   - Shared caching file 
 
 2. **Automatic Integration**
-   - Tool automatically discovered by Mao
+   - Tool automatically discovered by Mao, there is no setup 
    - Universal model compatibility via human buttons
    - Cost estimation and performance tracking
 
@@ -303,88 +312,19 @@ Usage: competitor_research_saas "B2B project management" "Asana,Monday,Notion,Cl
 
 ---
 
-## 📚 Established Workflow Library
+## 📚 Resource Libraries 
 
-Mao comes with **battle-tested workflows** that have been refined through real-world usage. These established patterns give you immediate access to sophisticated AI orchestration without the learning curve.
+### Established Workflow Collection 
 
-### Business Strategy Workflows
+Mao creators are collecting the best workflows that have been **battle-tested** and refined through real-world usage. These established patterns give you immediate access to sophisticated AI orchestration without the learning curve.
 
-**Market Research & Analysis**
-```
-Pattern: research_analysis_strategy
-Agents: Research → Analysis → Strategy
-Duration: 20-35 minutes
-Cost: $0.25-0.45
-Best for: Market entry, competitive analysis, opportunity assessment
+### Established Tool Collection 
 
-Example outputs:
-- Market size and growth analysis
-- Competitive landscape mapping
-- Strategic recommendations
-- Risk assessment and mitigation plans
-```
+Our collection of tools is growing every day. Don't forget, they work for any model, because we gave the agent AI "human buttons" -- at least, that's what I called them when I asked, 'Why do we have to do this SDK thing? Can't we just create a code that is a button that the agent, like, presses?' Claude: 'Oh... OH! I think we actually can with Claude 4's Code Execution tool.' Me: 'Woa, and I was just complaining to complain. Hey!' 
 
-**Content Strategy Development**
-```
-Pattern: content_strategy_comprehensive
-Agents: Research → Analysis → Strategy → Content
-Duration: 30-45 minutes  
-Cost: $0.35-0.60
-Best for: Content marketing, thought leadership, brand positioning
+### Model & Provider Directory 
 
-Example outputs:
-- Content audit and gap analysis
-- Editorial calendar and themes
-- Content templates and guidelines
-- Distribution strategy recommendations
-```
-
-**Product Launch Planning**
-```
-Pattern: product_launch_orchestration
-Agents: Research → Analysis → Strategy → Marketing → Operations
-Duration: 45-60 minutes
-Cost: $0.50-0.80
-Best for: Product launches, feature releases, market expansion
-
-Example outputs:
-- Launch strategy and timeline
-- Marketing campaign framework
-- Operational readiness checklist
-- Success metrics and KPIs
-```
-
-### Research & Analysis Workflows
-
-**Comprehensive Market Research**
-```
-Pattern: market_research_deep_dive
-Agents: Multiple Research → Analysis → Synthesis
-Duration: 25-40 minutes
-Cost: $0.30-0.50
-Best for: Investment decisions, strategic planning, market validation
-
-Example outputs:
-- Market trends and drivers
-- Customer segment analysis
-- Technology landscape overview
-- Investment and growth opportunities
-```
-
-**Competitive Intelligence**
-```
-Pattern: competitive_intelligence_comprehensive
-Agents: Research → Analysis → Intelligence → Strategy
-Duration: 30-45 minutes
-Cost: $0.35-0.55
-Best for: Competitive positioning, strategic planning, market defense
-
-Example outputs:
-- Competitor profiles and strategies
-- Competitive advantage analysis
-- Market positioning recommendations
-- Threat assessment and response plans
-```
+Know who you want to use? We have been building a directory of all the models and providers we can think of. But hey, if it is missing, you can literally just ask AI to fill out the JSON file for the model or provider and then drop it in the directory. Thats. Literally. It. 
 
 ---
 
@@ -452,13 +392,17 @@ Example outputs:
 
 ## 💎 The Art of Intelligent Caching
 
-Mao achieves **5,108x speed improvements** and **95% token reduction** through intelligent caching that identifies what can be reused, what needs updating, and what requires fresh computation.
+Mao achieves **5,108x speed improvements** and **95% token reduction** through intelligent caching that identifies what can be reused, what needs updating, and what requires fresh computation. 
 
 ### From Waste to Efficiency
 
 Traditional AI systems treat every request as if it's the first time they've ever seen it. They reprocess the same information, regenerate the same analyses, and waste enormous amounts of computational resources on redundant work.
 
 Mao takes a radically different approach: **intelligent fingerprinting** that creates a learning system that gets smarter and more efficient with every use.
+
+Additionally, the orchestrator takes advantage of systems offered for free. All working files are kept in the Anthropic Files API; free to use. Not until there is a final version do they push your deliverables to the directory of your choice, charging you for tokens just that one time. 
+
+Context continuity and workflow logs are also completely free thanks to using a Persistent Memory Vector Graph Directory. Innovation saves money. 
 
 ### Smart Freshness Assessment
 
@@ -534,30 +478,6 @@ Cost per hour of equivalent work: $0.035
 
 ---
 
-## 🔮 Success Stories & Use Cases
-
-### Content Marketing Team
-**Challenge**: Create consistent, high-quality content across multiple channels
-**Mao Solution**: Content strategy workflows with automated research, analysis, and sample generation
-**Results**: 10x productivity improvement, 90% cost reduction vs agencies, consistent brand voice
-
-### Market Research Consultant  
-**Challenge**: Deliver comprehensive competitor analysis in tight timeframes
-**Mao Solution**: Automated research workflows with multi-source analysis and professional reporting
-**Results**: 5x faster delivery, 85% cost savings, higher quality insights
-
-### Startup Founder
-**Challenge**: Need professional business documents without expensive consultants
-**Mao Solution**: Business planning workflows for strategy, marketing, and operational documentation
-**Results**: Professional results in minutes, <$1 cost vs $5,000+ consultant fees
-
-### Enterprise Development Team
-**Challenge**: Integrate AI capabilities without vendor lock-in or complexity
-**Mao Solution**: Custom tool development with universal model compatibility
-**Results**: 50+ custom tools deployed, zero vendor dependencies, seamless scaling
-
----
-
 ## 🚀 Getting Started
 
 ### Installation & Setup
@@ -575,24 +495,10 @@ export OPENAI_API_KEY="your-key"
 export GEMINI_API_KEY="your-key"
 
 # Run your first workflow
-python mao_v4.py "Create a marketing plan for my startup"
-```
-
-### First Workflow Examples
-
-**Content Creation**
-```bash
-python mao_v4.py "Create a blog post about AI productivity tools"
-```
-
-**Market Research**  
-```bash
-python mao_v4.py "Research the competitive landscape for project management software"
-```
-
-**Business Planning**
-```bash
-python mao_v4.py "Develop a go-to-market strategy for my B2B SaaS product"
+python mao_v4.py --goal "Create a marketing plan for my startup"
+python mao_v4.py --goal "Create a blog post about AI productivity tools"
+python mao_v4.py --goal "Research the competitive landscape for project management software"
+python mao_v4.py --goal "Develop a go-to-market strategy for my B2B SaaS product"
 ```
 
 ### Next Steps
@@ -605,7 +511,7 @@ python mao_v4.py "Develop a go-to-market strategy for my B2B SaaS product"
 
 ---
 
-## 🎯 Why Mao Changes Everything
+## What Makes Mao More Than Other Agentic Systems 
 
 ### For Individual Users
 - **Professional Results**: Enterprise-quality deliverables without enterprise costs

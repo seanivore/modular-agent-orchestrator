@@ -1,36 +1,34 @@
 # MAO Foundation Repairs - Technical Documentation Patch
 *Complete implementation details for modular CLI system and interface layer*
 
----
 
-What This Patch Covers:
-🔧 Complete Problem → Solution Documentation
+On document `./versioning-docs/technical-documentation/3_MAO_ARCHITECTURE.md` it is showing code snippets from the hardcoded method before everything was made modular. Starts at the heading below. The next section below this snippet is the system to replace it with. 
 
-What was broken and why
-Exact architectural approach taken
-All implementation details with code examples
+```
+## 🎭 **Entry Point: `mao_v4.py`**
 
-📋 Technical Specifications
+**Main CLI interface** providing multiple interaction modes and routing.
 
-File structures and JSON schemas
-Dynamic loading algorithms
-Error handling strategies
-Integration points with future domains
+### **Command Line Interface**
 
-🎯 Developer Guidance
-
-How to add new commands (drop in JSON file)
-How the routing system works
-Where each piece fits in the architecture
-Testing and validation approaches
-
-🔗 Future Integration Ready
-
-How this connects to MCP Hub, Workflow Engine, etc.
-What's still needed for full functionality
-Clear handoff points for next implementations
-
-This patch can be efficiently distributed into the technical docs later - pieces go to different sections (CLI architecture, interface patterns, modularity philosophy, etc.) without having to recreate the implementation details.
+```python
+# Core functionality
+def main():
+    parser = argparse.ArgumentParser(description="MAO - AI Workflow Orchestrator")
+    
+    # Primary execution modes
+    parser.add_argument("goal", nargs="?", help="Natural language goal")
+    
+    # System management
+    parser.add_argument("--list-workflows", action="store_true")
+    parser.add_argument("--stats", action="store_true") 
+    parser.add_argument("--verbose", "-v", action="store_true")
+    
+    # Execution preferences
+    parser.add_argument("--workspace", "-w", help="Custom workspace directory")
+    parser.add_argument("--free-only", action="store_true", help="Use only free models")
+    parser.add_argument("--privacy", action="store_true", help="Privacy-focused models")
+```
 
 
 ---
