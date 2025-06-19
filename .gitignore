@@ -36,3 +36,6 @@ target/
 **/*.rs.bk
 .cargo/
 rusty-tags.vi
+
+# Logistical Files
+.archive/
