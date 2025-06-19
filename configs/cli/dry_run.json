@@ -3,6 +3,6 @@
   "type": "standalone",
   "terminal_flag": "--dry-run",
   "app_command": "/dry-run",
-  "interface_method": "simulate_workflow",
+  "interface_method": "dry_run",
   "help": "Simulate workflow execution without actually running"
 }
