@@ -31,97 +31,119 @@
     - Explicitly discussed with Sean first
     - Properly planned and architected
 
-## Documentation Contents 
+## Documentation Organization 
 
-  1. What it is and why it matters; about the magic of Mao --> [1_MAO_OVERVIEW.md](./1_MAO_OVERVIEW.md)
-  2. How do all these files fit together; understand it isn't chaos --> [2_MAO_SYSTEM_FILES.md](./2_MAO_SYSTEM_FILES.md)
-  3. Complete technical deep-dive; when you need specifics --> [3_MAO_ARCHITECTURE.md](./3_MAO_ARCHITECTURE.md)
-  4. How to add tools/models/providers; enjoy being modular --> [4_MAO_EXTENSION_GUIDE.md](./4_MAO_EXTENSION_GUIDE.md) 
-  5. What never to change and why; specifications to follow --> [5_MAO_PROTECTION_RULES.md](./5_MAO_PROTECTION_RULES.md)
+### **📚 User-Facing Documentation**
 
-## 1. Mao Overview 
+**7. Application Usage Guide** 
+How to use MAO as an interactive application platform --> [7_MAO_USER_GUIDE.md](./7_MAO_USER_GUIDE.md)
 
-Clean, focused overview. 
+**What This Covers:**
+- Command reference with terminal and in-app variants
+- User experience flows and workflow creation patterns  
+- Setup scripts and custom command usage
+- Quality framework integration and troubleshooting
+- Advanced configuration and Memory MCP integration
 
-### What This Covers 
+**Perfect For:**
+- Users learning MAO application features
+- Command reference and troubleshooting
+- Understanding workflow creation and execution
+- Setup script and custom command usage
 
-  - Clear value proposition and problem/solution
-  - How it actually works with real examples
-  - User journeys for different audiences
-  - Performance metrics and success stories
-  - Getting started guide
+### **🔧 Technical Documentation**
 
-### What This Doesn't Try To Be 
+**1. MAO Overview**
+Clean, focused overview --> [1_MAO_OVERVIEW.md](./1_MAO_OVERVIEW.md)
 
-  - Technical architecture reference
-  - Extension development guide
-  - Protection rules documentation
+**What This Covers:**
+- Clear value proposition and problem/solution
+- How it actually works with real examples
+- User journeys for different audiences
+- Performance metrics and success stories
+- Getting started guide
 
-## 2. Mao System File Roles 
+**What This Doesn't Try To Be:**
+- Technical architecture reference
+- Extension development guide
+- Protection rules documentation
 
-### What This Covers 
+**2. MAO System File Roles**
+How all these files fit together --> [2_MAO_SYSTEM_FILES.md](./2_MAO_SYSTEM_FILES.md)
 
-  - Overview of system files and their roles
-  - How they interact with each other
-  - How they are used to create tools/models/providers
-  - How they are used to create the orchestrator
-  - Aka. how everything fits together 
+**What This Covers:**
+- Overview of system files and their roles
+- How they interact with each other
+- How they are used to create tools/models/providers
+- How they are used to create the orchestrator
+- Aka. how everything fits together 
 
-### Perfect For 
+**Perfect For:**
+- Quick reference to understand the system 
+- Understanding the system files and their roles 
 
-  - Quick reference to understand the system 
-  - Understanding the system files and their roles 
+**3. MAO Architecture**
+Complete technical deep-dive --> [3_MAO_ARCHITECTURE.md](./3_MAO_ARCHITECTURE.md)
 
-## 3. Mao Architecture 
+**What This Covers:**
+- Complete system architecture and integration patterns
+- Memory MCP integration and workflow state management
+- Tool integration framework and human button system
+- Implementation status and roadmap with clear gaps
+- Performance characteristics and optimization strategies
 
-Complete technical deep-dive to understand how everything connects under the hood. 
+**Perfect For:**
+- Architects and senior developers
+- Understanding complex integration patterns
+- Implementation planning and dependency analysis
+- Performance optimization and troubleshooting
 
-### What This Covers 
+**4. MAO Extension Guide**
+How to add tools/models/providers --> [4_MAO_EXTENSION_GUIDE.md](./4_MAO_EXTENSION_GUIDE.md)
 
-  - Complete system overview with architectural principles 
-  - Every component explained in technical detail (orchestrator, managers, configs, tools)
-  - Full integration flow from goal input to result delivery
-  - Interface layer and future web capabilities
-  - Performance metrics and architectural strengths
+**What This Covers:**
+- Adding new tools following 6-file pattern
+- Model and provider integration
+- Variable-input philosophy implementation
+- Testing and validation requirements
 
-### Perfect For 
+**Perfect For:**
+- Developers extending MAO capabilities
+- Tool creators and integration partners
+- Understanding modular architecture patterns
 
-  - Developers who need to understand how everything connects
-  - Technical users extending or integrating with Mao
-  - System architects evaluating the design
-  - Anyone who needs the deep technical reference
+**5. MAO Protection Rules**
+What never to change and why --> [5_MAO_PROTECTION_RULES.md](./5_MAO_PROTECTION_RULES.md)
 
-## 4. Mao Extension Guide  
+**What This Covers:**
+- Architectural integrity insurance
+- Variable-input philosophy protection
+- Human button interface requirements
+- Performance regression prevention
+- File naming and structure standards
 
-Practical "how to add stuff" guide with complete step-by-step examples. 
+**Perfect For:**
+- All developers working on MAO
+- Architectural decision validation
+- Code review and quality assurance
+- Preventing regression and maintaining innovation
 
-### What This Covers 
+### **🧪 Post-Implementation Documentation**
 
-  - Complete 4-file tool creation process with real code examples
-  - Model configuration and integration steps
-  - Provider setup and connection testing
-  - Advanced patterns for multi-tool coordination
-  - Comprehensive testing and validation strategies
-  - Best practices and quality assurance guidelines
-  - Advanced features like dynamic tool creation
+**8. Tests & Validations Guide**
+Comprehensive testing, benchmarking & operational validation --> [8_MAO_TESTS_VALIDATIONS.md](./8_MAO_TESTS_VALIDATIONS.md)
 
-**Zero hype, just clear instructions.** Exactly what developers need to extend Mao capabilities without breaking anything.
+**What This Will Cover** *(Post-Implementation)*:
+- Real-world performance benchmarking with actual data
+- End-to-end integration examples from completed workflows
+- Operational error patterns discovered during testing
+- Quality validation methodologies and success criteria
+- User experience testing results and optimization strategies
+- Continuous improvement framework with monitoring metrics
 
-## 5. Mao Protection Rules  
-
-The 'what to never change an why' guide, to protect all our architectural decisions. 
-
-### What This Protects 
-
-  - Variable-input philosophy (the core breakthrough)
-  - 4-file tool architecture (clean separation)
-  - Human button interface (universal compatibility)
-  - Print statement rules (UI separation)
-  - Naming standards (consistency)
-
-### Plus Practical Enforcement 
-
-  - Common AI mistake patterns with examples
-  - Red flag phrases to watch for
-  - Validation checklists
-  - Step-by-step enforcement strategies
+**Perfect For** *(After Implementation)*:
+- QA teams validating system performance
+- Operations teams troubleshooting and optimizing
+- Developers understanding real integration patterns
+- Users learning from actual operational experiences
+- Stakeholders evaluating system effectiveness and ROI

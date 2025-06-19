@@ -1,1485 +1,1042 @@
-# Mao Architecture
-**Complete System Architecture & Integration Guide**
+### **Quality Framework Integration**
 
-*Deep technical understanding of how Mao components work together*
-
----
-
-## 🎯 **Architectural Philosophy: Full Interactive Application Platform**
-
-### **MAO v4 vs Legacy SFA Approach**
-
-MAO represents a **fundamental paradigm shift** from traditional AI workflow tools:
-
-**Legacy SFA Approach (What We Moved Beyond):**
-- Passive monitoring and ticker-style interfaces
-- Minimal user interaction during execution  
-- Single-purpose, terminal-only utilities
-- Status updates without rich interaction capabilities
-
-**MAO v4 Revolutionary Approach:**
-- **Complete interactive application experience** with rich UI/UX
-- **Multi-platform architecture** designed for seamless UI portability
-- **Professional application quality** rivaling tools like Claude Code
-- **Comprehensive workflow management** with live monitoring, settings, chat interfaces
-- **User-centric design** that adapts to experience levels and preferences
-
-### **UI Portability by Design**
-
-MAO's architecture is specifically designed for **cross-platform compatibility**:
-
-- **Terminal-first implementation** with full application features
-- **Clean separation** between logic and presentation layers
-- **Modular interface system** enabling web, mobile, desktop expansion
-- **Professional polish** that translates across platforms
-
-### **Interactive Application Features**
-
-Unlike monitoring utilities, MAO provides:
-
-- **Rich chat interfaces** for natural workflow creation
-- **Live workflow monitoring** with real-time progress tracking
-- **Settings management** with user preferences and customization
-- **Dynamic command system** with both CLI and in-app variants
-- **Visual progress indicators** and status management
-- **Audio notifications** and non-intrusive awareness systems
-- **Error recovery interfaces** with guided resolution options
-
-This architectural philosophy influences every component design decision and ensures MAO delivers a **complete application experience** rather than a simple workflow execution tool.
-
----
-
-## 🏗️ System Overview
-
-Mao's architecture is built on **principled modularity** - every component is independent, replaceable, and universally compatible. This enables infinite extensibility without performance degradation.
-
-### Core Architectural Principles
-
-**1. Universal Compatibility** 🌐
-- Any AI model works with any tool via human buttons
-- Provider-agnostic design eliminates vendor lock-in
-- Future AI advances integrate automatically
-
-**2. Clean Separation of Concerns** 🧩
-- Logic, UI, execution, and configuration are completely separate
-- Each component testable and replaceable in isolation
-- Multiple interfaces possible without code changes
-
-**3. Variable-Input Philosophy** 🎨
-- No hardcoded specifics anywhere in the system
-- Tools are blank canvases - prompts define behavior
-- Maximum flexibility for unlimited use cases
-
-**4. Performance Optimization** ⚡
-- Intelligent caching with fingerprinting
-- Dynamic resource allocation
-- Cost optimization through smart model selection
-
----
-
-## 🎭 Entry Point: `mao_v4.py`
-
-**Main CLI interface** providing multiple interaction modes and routing.
-
-### Command Line Interface
-
+**Success Criteria Validation System:**
 ```python
-# Core functionality
-def main():
-    parser = argparse.ArgumentParser(description="Mao - AI Workflow Orchestrator")
+# orchestrator/quality_framework.py
+class QualityFramework:
+    """Automated quality validation and improvement system"""
     
-    # Primary execution modes
-    parser.add_argument("goal", nargs="?", help="Natural language goal")
-    
-    # System management
-    parser.add_argument("--list-workflows", action="store_true")
-    parser.add_argument("--stats", action="store_true") 
-    parser.add_argument("--verbose", "-v", action="store_true")
-    
-    # Execution preferences
-    parser.add_argument("--workspace", "-w", help="Custom workspace directory")
-    parser.add_argument("--free-only", action="store_true", help="Use only free models")
-    parser.add_argument("--privacy", action="store_true", help="Privacy-focused models")
-```
-
-### Execution Flow
-
-**1. Argument Parsing & Validation**
-- Command line argument processing
-- Execution mode determination (direct, interactive)
-- Preference extraction and validation
-
-**2. Interface Initialization**
-```python
-mao = TerminalInterface(verbose=args.verbose)
-```
-
-**3. Request Routing**
-- Stats requests → `mao.get_stats()`
-- Workflow listing → `mao.list_workflows()`
-- General goals → `mao.execute_goal()`
-- Interactive mode → Input loop with continuous execution
-
-**4. Result Processing**
-- Success summary generation
-- Error handling and user guidance
-- Workspace management and file organization
-
-### Mao CLI Flag Arguments & Application Commands 
-
-These are modular, fed into the agent `mao_v4.py` via JSON in the config directory via this file: `/Users/seanivore/Development/modular-agent-orchestrator/configs/cli/arguments.json` -- The chart below is for our technical documentation. 
-
-| **COMMAND**                          | **IN TERMINAL**                     | **IN APPLICATION**             |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| **START APPLICATION**                | `mao mao`                           |                                |
-| Restart the application              |                                     | `/restart`  `! mao restart`    |
-| Exit the application                 |                                     | `/exit`  `! mao exit`          |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Terminal command example; add '!'    |                                     | `! cd /Users/*/*/`             |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| **Activate a workflow**              | `custom command`                    | `/custom command`              |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Setup JSON workflow config           | `mao --setup ./use-case.json`       | `/setup ./use-case.json`       |
-| Update additional workflow phase     | `mao --update ./phase-two.json`     | `/update ./phase-two.json`     |
-| Fix deliverable from workflow phase  | `mao --fix-it ./fix-doc.json`       | `/fix-it ./fix-doc.json`       |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Jump into app with first message     | `mao --chat targeted resumes`       | `/chat targeted resumes`       |
-| Create entire workflow from goal     | `mao --goal startup marketing plan` | `/goal startup marketing plan` |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| View all workflows                   | `mao --workflows`                   | `/workflows`                   |
-| View a workflow's details            | `mao --review custom command`       | `/review custom command`       |
-| System performance statistics        | `mao --stats`                       | `/stats`                       |
-| Override default output directory    | `mao --output ~/downloads`          | `/output ~/downloads`          |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-| Use free AI agent models only        | `mao --free`                        | `/free`                        |
-| Privacy-focused models, providers    | `mao --privacy`                     | `/privacy`                     |
-| Show these help messages             | `mao --help`                        | `/help`                        |
-| Configuration management interface   | `mao --config`                      | `/config`                      |
-| Check health of Mao installation     | `mao --doctor`                      | `/doctor`                      |
-| Verbose, developer-tools detail      | `mao --verbose`                     | `/verbose`                     |
-| Simulate workflow execution only     | `mao --dry-run`                     | `/dry-run`                     |
-| Continue most recent session         | `mao --continue`                    | `/continue`                    |
-| View recent workflow logs            | `mao --logs`                        | `/logs`                        |
-| ------------------------------------ | ----------------------------------- | ------------------------------ |
-
-#### Example Terminal Modifier Commands  
-
-```bash
-    mao mao                                # Start application
-    mao --goal create marketing plan       # Execute goal directly
-    mao --stats --verbose                  # Detailed system statistics
-    mao --setup ./my-workflow.json         # Setup new workflow
-    mao --workflows                        # List all workflows
-    mao --doctor                           # Check installation health
-```
-
-#### Example Application Commands  
-
-```bash
-    /restart                               # Restart application
-    /goal create marketing plan            # Execute goal directly
-    /stats                                 # Detailed system statistics
-    /setup ./my-workflow.json              # Setup new workflow
-    /workflows                             # List all workflows
-    /doctor                                # Check installation health
-```
-
----
-
-## 🧠 Orchestrator Core (`orchestrator/`)
-
-The brain of Mao - coordinates all system components for intelligent workflow execution.
-
-### `core.py` - The Maestro
-
-**Primary Classes & Responsibilities:**
-
-#### `WorkflowOrchestrator`
-```python
-class WorkflowOrchestrator:
-    def __init__(self, config_dir: str = "configs"):
-        self.model_manager = ModelManager(config_dir)
-        self.buttons = ButtonManager(self.model_manager)
-        self.tool_discovery = ToolManager(config_dir)
-        self.cache_manager = CacheManager()
-```
-
-**Core Orchestration Methods:**
-
-**`create_workflow_from_goal(user_goal: str, preferences: Optional[Dict] = None) -> WorkflowPlan`**
-- Natural language processing and intent recognition
-- Complexity assessment and resource estimation
-- Workflow pattern matching and optimization
-- Multi-phase workflow creation based on goal analysis
-
-#### Supporting Data Classes
-
-**`WorkflowPhase`**
-```python
-@dataclass
-class WorkflowPhase:
-    name: str                    # Phase identifier
-    model: str                   # Selected AI model
-    agent_role: str              # Specialized agent persona
-    task_instructions: str       # Detailed task specification
-    input_sources: List[str]     # Data sources and dependencies
-    output_files: List[str]      # Expected deliverables
-    estimated_tokens: int        # Resource estimation
-    estimated_cost: float        # Budget allocation
-```
-
-**`WorkflowPlan`**
-```python
-@dataclass  
-class WorkflowPlan:
-    id: str                           # Unique workflow identifier
-    name: str                         # Human-readable name
-    description: str                  # Workflow purpose and scope
-    phases: List[WorkflowPhase]       # Ordered execution phases
-    total_estimated_cost: float       # Complete workflow budget
-    estimated_duration_minutes: int   # Timeline estimation
-    workspace_dir: str                # Output organization
-```
-
-**`ExecutionResult`**
-```python
-@dataclass
-class ExecutionResult:
-    phase_name: str              # Completed phase identifier
-    model_used: str              # Actual model executed
-    content: str                 # Primary deliverable content
-    tool_calls: List[Dict]       # Tool usage and results
-    tokens_used: int             # Actual resource consumption
-    cost: float                  # Actual execution cost
-    duration_seconds: float      # Actual execution time
-    success: bool                # Completion status
-    error: Optional[str]         # Error details if applicable
-```
-
----
-
-## 🎭 The Art of Agent Creation
-
-When Mao determines that a specialized agent is needed, it doesn't just spin up a generic AI instance. It **crafts a purpose-built agent** with precisely the right capabilities, tools, and behavioral parameters for the specific task at hand.
-
-This isn't automation—it's **intelligent delegation**.
-
-### Task Delegation Logic
-
-Mao's agent spawning follows sophisticated logic that considers multiple factors:
-
-#### 1. **Task Analysis**
-```python
-def analyze_task_requirements(self, task):
-    return {
-        "complexity": self.assess_complexity(task),
-        "domain": self.identify_domain(task),
-        "required_skills": self.extract_skills(task),
-        "estimated_duration": self.estimate_time(task),
-        "resource_needs": self.calculate_resources(task)
-    }
-```
-
-#### 2. **Agent Specification**
-Based on the analysis, Mao designs the optimal agent:
-
-```json
-{
-    "agent_type": "content_researcher",
-    "specialization": "B2B_SaaS_marketing",
-    "model_selection": {
-        "primary": "claude-sonnet-4",
-        "reasoning": "Complex analysis and creative synthesis required"
-    },
-    "tool_allocation": ["web_search", "perplexity_search", "text_editor"],
-    "behavioral_parameters": {
-        "research_depth": "comprehensive",
-        "fact_checking": "rigorous", 
-        "creativity_level": "moderate"
-    },
-    "success_criteria": {
-        "source_diversity": "minimum_10_sources",
-        "insight_quality": "actionable_recommendations",
-        "deliverable_format": "structured_research_brief"
-    }
-}
-```
-
-#### 3. **Resource Allocation**
-Mao ensures each agent has exactly what it needs:
-- **Computational resources** (model access, processing power)
-- **Tool access** (research, creation, analysis capabilities)
-- **Knowledge base** (relevant context and background information)
-- **Working environment** (file access, collaboration interfaces)
-
-### Meeting Agents After Completion
-
-When an agent completes their work, Mao doesn't just collect the output and move on. It conducts a **comprehensive handoff meeting** that captures both the deliverable and the intelligence behind it.
-
-#### The Agent Debrief Process
-
-```
-Mao: "Research Agent, I see you've completed the market analysis. Let's review what you discovered."
-
-Research Agent: "I analyzed 23 sources and found three major trends that weren't in our initial scope. The enterprise segment is shifting faster than expected, and there's an emerging opportunity in mid-market companies that we should consider."
-
-Mao: "Interesting. How confident are you in these findings, and what would you recommend for next steps?"
-
-Research Agent: "High confidence on the enterprise trend (8 independent sources). Medium confidence on mid-market opportunity (needs deeper analysis). I recommend spawning a specialized enterprise analyst and extending research into the mid-market segment."
-
-Mao: "Excellent insights. I'm documenting these recommendations and will factor them into the next phase planning."
-```
-
-#### What Mao Captures
-
-**Deliverable Content**
-- Primary outputs and results
-- Supporting data and evidence
-- Quality metrics and validation
-
-**Process Intelligence**
-- Unexpected discoveries and insights
-- Challenges encountered and solutions found
-- Resource usage and efficiency patterns
-- Recommendations for future similar tasks
-
-**Strategic Context**
-- Implications for overall project goals
-- Dependencies and prerequisites identified
-- Opportunities for optimization or expansion
-- Risk factors and mitigation strategies
-
----
-
-## 🎼 Multi-Agent Coordination Patterns
-
-Mao orchestrates different types of multi-agent workflows based on project needs:
-
-### Sequential Workflows
-```
-Research → Analysis → Strategy → Implementation
-Each phase builds on the previous, with clean handoffs
-```
-
-**Example: Content Strategy Development**
-1. **Research Agent** gathers market data and trends
-2. **Analysis Agent** processes findings and identifies opportunities  
-3. **Strategy Agent** develops comprehensive content plan
-4. **Implementation Agent** creates editorial calendar and templates
-
-### Parallel Workflows
-```
-Agent A: Market Research    Agent B: Competitor Analysis    Agent C: Customer Interviews
-                           ↓
-                    Synthesis Agent combines all findings
-```
-
-**Example: Product Launch Planning**
-- Multiple agents work simultaneously on different aspects
-- Regular sync points ensure alignment
-- Final synthesis creates comprehensive launch strategy
-
-### Iterative Workflows
-```
-Draft → Review → Revise → Review → Finalize
-Multiple rounds of improvement and refinement
-```
-
-**Example: High-Stakes Proposal Development**
-- Draft agent creates initial version
-- Review agent provides detailed feedback
-- Revision agent implements improvements
-- Process repeats until quality threshold is met
-
-### Adaptive Workflows
-```
-Dynamic workflow that changes based on discoveries and results
-```
-
-**Example: Research Project with Unknown Scope**
-- Initial research reveals unexpected directions
-- Mao spawns additional specialized agents as needed
-- Workflow structure evolves based on findings
-- Final scope emerges organically from investigation
-
-### Real-Time Coordination Challenges
-
-Mao handles complex coordination scenarios that would overwhelm traditional systems:
-
-#### Resource Conflicts
-```
-Mao: "Both the Research Agent and Analysis Agent need access to the premium data source, but we're hitting rate limits. I'm implementing a queue system and will have the Research Agent share raw data with Analysis Agent to avoid duplication."
-```
-
-#### Priority Shifts
-```
-Mao: "The client just requested urgent competitive analysis. I'm pausing the content strategy work and reallocating the Analysis Agent to this priority task. The content work will resume once this is complete."
-```
-
-#### Quality Issues
-```
-Mao: "The initial research quality is below our standards. I'm spawning a second research agent with different parameters to validate findings and fill gaps. This will add 15 minutes but ensure reliable results."
-```
-
-#### Scope Expansion
-```
-Mao: "The research uncovered a significant opportunity we hadn't considered. I recommend expanding scope to include this analysis. This would require one additional agent and approximately $0.08 in additional costs. Shall I proceed?"
-```
-
----
-
-## 🧠 Model Management (`manager_models.py`)
-
-**Dynamic Model Intelligence and Universal Compatibility**
-
-### Core Functionality
-
-#### `ModelManager`
-```python
-class ModelManager:
-    def __init__(self, config_dir: str = "configs"):
-        self.config_dir = Path(config_dir)
-        self.models: Dict[str, ModelConfig] = {}
-        self.providers: Dict[str, ProviderConfig] = {}
-        self.fallback_chains: Dict[str, List[str]] = {}
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
         
-        self.load_all_configs()
-```
-
-**Model Selection Intelligence:**
-
-**`get_best_model_for_task(task_description: str = None, preferences: Optional[Dict] = None) -> Optional[str]`**
-- Task complexity analysis and capability matching
-- Cost optimization with quality threshold enforcement
-- Provider availability and rate limit consideration
-- Fallback strategy implementation
-
-**`get_model_config(model_name: str) -> Optional[ModelConfig]`**
-- Retrieve complete model configuration
-- Capabilities and pricing information
-- Provider association via connection mappings
-
-**`get_provider_for_model(model_name: str) -> Optional[ProviderConfig]`**
-- Dynamic provider lookup via connection files
-- No hardcoded provider-model relationships
-- Uses `providers_x_models.json` for mapping
-
-#### Configuration Loading
-
-**Model Configuration Schema (modular approach):**
-```json
-{
-  "id": "claude-sonnet-4-20250514",
-  "display_name": "Claude Sonnet 4",
-  "model_id": "claude-3-5-sonnet-20241022",
-  "context_window": 200000,
-  "max_output": 8192,
-  "input_price": 3.0,
-  "output_price": 15.0,
-  "capabilities": {
-    "tools": true,
-    "vision": false,
-    "caching": true
-  },
-  "optimal_use_cases": ["reasoning", "code", "analysis"]
-}
-```
-
----
-
-## 🔘 Revolutionary Human Button Interface (`manager_buttons.py`)
-
-**Universal Model Compatibility via Executable Code Generation**
-
-### The Problem with Traditional AI Integration
-
-Traditional AI agent systems require:
-- Complex API integrations
-- SDK knowledge and maintenance
-- Format conversions between different AI providers
-- Constant updates as APIs change
-- Technical expertise for every team member
-
-### Mao's Solution: Universal Human Buttons
-
-Instead of forcing agents to navigate complex APIs, Mao provides a **universal interface** that works with any AI model:
-
-#### `ButtonManager`
-```python
-class ButtonManager:
-    def __init__(self, model_manager: ModelManager):
-        self.models = model_manager
-```
-
-**Core Button Generation:**
-
-**`create_api_call_snippet(model_name: str, prompt: str, system_message: Optional[str] = None, tools: Optional[List[Dict]] = None, max_tokens: int = 8192, temperature: float = 0.3) -> str`**
-- Universal executable code snippet generation
-- Multi-provider compatibility (Anthropic, OpenAI, Gemini)
-- Self-contained dependency management
-- Cost tracking and performance monitoring
-
-**`create_workflow_execution_snippet(workflow: WorkflowPlan) -> str`**
-- Complete workflow execution snippet generation
-- Multi-phase coordination code
-- Error handling and recovery logic
-- Progress reporting and status updates
-
-#### Universal Model Adaptation
-
-The ButtonManager automatically adapts API calls based on provider type:
-- **Anthropic**: Direct SDK integration with proper message formatting
-- **OpenAI**: Compatible format for OpenAI and Requesty
-- **Gemini**: Google GenerativeAI SDK integration
-- **Universal**: Fallback for any OpenAI-compatible endpoint
-
-### How It Works in Practice
-
-When Mao spawns an agent, that agent sees a clean, intuitive interface:
-
-```
-🔍 Web Search
-   Search the internet for information
-   
-🧠 Perplexity Research  
-   Advanced AI-powered research and analysis
-   
-📝 Text Editor
-   Create, edit, and format documents
-   
-🎨 Graphic Design
-   Create visual content and designs
-   
-📁 File Operations
-   Manage files and documents
-   
-💭 Think
-   Advanced reasoning and problem-solving
-   
-🔄 Call Mao
-   Request orchestrator assistance or report completion
-```
-
-**No API documentation. No SDK complexity. Just intuitive, human-readable interfaces.**
-
----
-
-## 🔧 Tool Management (`manager_tools.py`)
-
-**Dynamic Tool Discovery and Ecosystem Management**
-
-### Intelligent Tool Ecosystem Management
-
-#### `ToolManager`
-```python
-class ToolManager:
-    def __init__(self, config_dir: str = "configs"):
-        self.config_dir = Path(config_dir)
-        self.tool_registry = self._load_tool_registry()
-```
-
-**Tool Discovery & Management:**
-
-**`suggest_tools_for_goal(goal: str, model: str = "claude-sonnet-4", budget_limit: float = 1.0) -> Dict[str, Any]`**
-- Goal-to-capability semantic matching
-- Tool combination optimization
-- Model compatibility filtering
-- Resource efficiency consideration
-
-**`get_tool_details(tool_id: str) -> Optional[Dict[str, Any]]`**
-- Complete tool specification retrieval
-- Parameter schema and validation rules
-- Cost estimation and performance metrics
-
-**`list_all_tools() -> List[Dict[str, Any]]`**
-- Available tool enumeration
-- Capability and cost information
-- Integration metadata
-
-#### Tool Registry Integration
-
-**Tool Configuration Schema:**
-```json
-{
-  "id": "tool_name",
-  "name": "Tool Display Name", 
-  "description": "Comprehensive functionality description",
-  "version": "1.0.0",
-  "capabilities": ["capability1", "capability2"],
-  "tags": ["category1", "category2"],
-  "cost_estimate": 0.001,
-  "model_compatibility": ["all"],
-  "parameters": {
-    "param1": {
-      "type": "string",
-      "required": true,
-      "description": "Primary input parameter"
-    }
-  }
-}
-```
-
-**5. Shared Error Handling (`orchestrator/error_handling.py`)**
-- Comprehensive retry logic with exponential backoff
-- Graceful degradation and fallback strategies
-- User-friendly error communication and recovery
-
-**6. Shared Caching (`orchestrator/cache/cache_system.py`)**
-- Intelligent performance optimization across all tools
-- Content fingerprinting and cache management
-- 5,108x performance improvements on cache hits
-
----
-
-## 🎯 Interface Layer (`interfaces/`)
-
-**Clean separation enabling multiple interaction modes.**
-
-### `ui_terminal.py` - Professional Terminal Interface
-
-**Core Classes & Functionality:**
-
-#### `TerminalInterface`
-```python
-class TerminalInterface:
-    def __init__(self, verbose: bool = False):
-        self.verbose = verbose
-        self.orchestrator = WorkflowOrchestrator()
-        self.display = TerminalDisplay(verbose)
-```
-
-**Primary Interface Methods:**
-
-**`execute_goal(goal: str, workspace: str, preferences: Dict) -> Dict`**
-- Goal processing and workflow initiation
-- Progress monitoring and status updates
-- Result presentation and workspace management
-- Error handling and user guidance
-
-**`get_stats() -> None`**
-- System performance metrics display
-- Cache utilization and efficiency reports
-- Model usage and cost analytics
-- Tool performance and reliability statistics
-
-**`list_workflows() -> None`**
-- Available workflow pattern enumeration
-- Usage examples and parameter descriptions
-- Cost estimates and duration projections
-- Success rate and quality metrics
-
----
-
-## 🎯 Advanced Error Handling System (`orchestrator/error_handling.py`)
-
-**Professional Error Recovery and Resilience**
-
-### Comprehensive Error Categories
-
-Mao implements sophisticated error handling that goes beyond simple try-catch blocks:
-
-#### Network and API Errors
-```python
-class NetworkErrorHandler:
-    def handle_api_failure(self, error, attempt, max_retries):
-        if isinstance(error, requests.exceptions.Timeout):
-            return self.handle_timeout(attempt, max_retries)
-        elif isinstance(error, requests.exceptions.ConnectionError):
-            return self.handle_connection_error(attempt, max_retries)
-        elif error.status_code == 429:
-            return self.handle_rate_limit(error.headers, attempt)
-        elif error.status_code >= 500:
-            return self.handle_server_error(attempt, max_retries)
-```
-
-#### Model and Provider Failures
-```python
-class ModelFailureHandler:
-    def handle_model_unavailable(self, primary_model, task_requirements):
-        # Automatic fallback to compatible models
-        fallback_chain = self.get_fallback_chain(primary_model)
+    def validate_deliverable(self, workflow_id: str, deliverable: dict, criteria: dict):
+        """Validate deliverable against success criteria"""
         
-        for fallback_model in fallback_chain:
-            if self.validate_model_capability(fallback_model, task_requirements):
-                return self.switch_to_model(fallback_model)
+        validation_results = {
+            "workflow_id": workflow_id,
+            "deliverable_id": deliverable.get("id"),
+            "validation_timestamp": datetime.now().isoformat(),
+            "criteria_results": {},
+            "overall_score": 0,
+            "pass_threshold": criteria.get("pass_threshold", 0.7),
+            "recommendations": []
+        }
         
-        # Graceful degradation if no suitable fallback
-        return self.degrade_gracefully(task_requirements)
-```
-
-#### Resource and Cost Management
-```python
-class ResourceErrorHandler:
-    def handle_budget_exceeded(self, current_cost, budget_limit, remaining_tasks):
-        optimization_strategies = [
-            self.switch_to_cost_optimized_models(),
-            self.enable_aggressive_caching(),
-            self.prioritize_essential_tasks(remaining_tasks),
-            self.request_budget_approval(projected_overage)
-        ]
+        total_weight = 0
+        weighted_score = 0
         
-        return self.apply_optimization_strategy(optimization_strategies)
-```
-
-### Exponential Backoff with Jitter
-
-```python
-def exponential_backoff_with_jitter(attempt: int, base_delay: float = 1.0) -> float:
-    """
-    Calculate backoff delay with exponential growth and random jitter
-    Prevents thundering herd problems in distributed scenarios
-    """
-    max_delay = min(300, base_delay * (2 ** attempt))  # Cap at 5 minutes
-    jitter = random.uniform(0.1, 0.3) * max_delay
-    return max_delay + jitter
-```
-
-### Context-Aware Error Recovery
-
-Mao's error handling system maintains context about what the user is trying to accomplish:
-
-```python
-class ContextualErrorRecovery:
-    def recover_from_failure(self, error, workflow_context, user_intent):
-        recovery_options = []
+        for criterion_name, criterion_config in criteria.get("validation_rules", {}).items():
+            result = self._evaluate_criterion(deliverable, criterion_config)
+            
+            validation_results["criteria_results"][criterion_name] = {
+                "score": result["score"],
+                "weight": criterion_config.get("weight", 1.0),
+                "status": "pass" if result["score"] >= criterion_config.get("threshold", 0.5) else "fail",
+                "feedback": result.get("feedback", ""),
+                "suggestions": result.get("suggestions", [])
+            }
+            
+            weight = criterion_config.get("weight", 1.0)
+            weighted_score += result["score"] * weight
+            total_weight += weight
         
-        # Analyze what can be salvaged
-        completed_phases = workflow_context.get_completed_phases()
-        partial_results = self.extract_partial_results(completed_phases)
+        # Calculate overall score
+        validation_results["overall_score"] = weighted_score / total_weight if total_weight > 0 else 0
+        validation_results["overall_status"] = "pass" if validation_results["overall_score"] >= validation_results["pass_threshold"] else "fail"
         
-        # Determine recovery strategies based on user intent
-        if user_intent.priority == "speed":
-            recovery_options.append(self.quick_recovery_with_cached_data())
-        elif user_intent.priority == "quality":
-            recovery_options.append(self.comprehensive_retry_with_validation())
-        elif user_intent.priority == "cost":
-            recovery_options.append(self.cost_optimized_alternative_approach())
+        # Generate improvement recommendations
+        if validation_results["overall_status"] == "fail":
+            validation_results["recommendations"] = self._generate_improvement_recommendations(validation_results)
         
-        return self.execute_best_recovery_option(recovery_options)
-```
-
----
-
-
-
-## 🖥️ Advanced Workflow Monitoring (`interfaces/monitor.py`)
-
-**Real-Time Workflow Visualization and Control**
-
-### Dynamic Status Display
-
-Mao features a sophisticated monitoring interface that provides real-time visibility into workflow execution:
-
-```
-┌─────────── Workflow Monitor ─────────────────────────────┐
-│ Marketing Strategy Analysis • Running 4m 12s             │
-├──────────────────────────────────────────────────────────┤
-│ ✅ Research Agent     • Analyzed 47 sources               │
-│ 🔄 Analysis Agent     • Processing competitive data...    │
-│ ⏸️  Strategy Agent     • Waiting for analysis results     │
-│ ⏸️  Content Agent      • Queued for strategy input        │
-├───────────────────────────────────────────────────────────┤
-│ Models: Gemini-2.5-Pro (FREE) → Claude Sonnet 4           │
-│ Progress: ████████░░ 80% • 2 phases remaining             │
-│ Tokens: 18,247 used • $0.12 spent • Est: $0.23            │
-│ Cache Hits: 12 (saving $0.08) • Performance: 94%          │
-│ ETA: 1m 30s remaining • Quality Score: 8.7/10             │
-└───────────────────────────────────────────────────────────┘
-```
-
-### Verbose Output With Forensic Debugging Features
-
-For technical users and debugging, Mao provides comprehensive, verbose execution with developer-tools-style forensics:
-
-#### Network and API Tracing
-```
-🌐 NETWORK:
-┌─ Request #247 ─────────────────────────────────────────┐
-│ 📡 Target: https://api.anthropic.com/v1/messages      │
-│ 📤 Payload: 2,847 bytes (compressed: 1,203 bytes)     │
-│ 🔑 Headers: Bearer anth_*** • Content-Type: app/json  │
-│ ⏱️  Latency: 340ms (DNS: 12ms, Connect: 45ms)        │
-│ ✅ Response: 200 OK (5,891 bytes)                     │
-│ 🚦 Rate Limits: 487/500 remaining • Reset: 47s       │
-│ 💾 Cache: MISS (stored for future requests)           │
-└────────────────────────────────────────────────────────┘
-```
-
-#### Model Performance Analytics
-```
-📊 MODEL EXECUTION:
-┌─ Claude Sonnet 4 Performance ─────────────────────────┐
-│ 🎯 Input Tokens: 8,247 • Output Tokens: 2,156        │
-│ 💸 Cost Breakdown: $0.024741 input + $0.032340 out   │
-│ ⚡ Processing Rate: 3,420 tokens/sec                  │
-│ 📡 Network Overhead: 12% of total time               │
-│ 🧠 Model Think Time: 2.3s (avg: 1.8s)               │
-│ 💾 Context Utilization: 41% (82,000/200,000)        │
-│ 🏁 Stop Reason: natural completion                   │
-│ 🎯 Quality Indicators: ✅ coherent ✅ complete       │
-└───────────────────────────────────────────────────────┘
-```
-
-#### System Performance Metrics
-```
-📊 SYSTEM PERFORMANCE ANALYTICS:
-┌─ Workflow Efficiency Dashboard ───────────────────────┐
-│ Total Execution Time: 4m 12s                         │
-│ Parallel Efficiency: 89% (vs sequential: 7m 23s)    │
-│ Cache Hit Rate: 67% (saved $0.08 and 45s)           │
-│ Model Switching: 2 optimal transitions               │
-│ Error Recovery: 0 retries needed                     │
-│ Cost Efficiency: 847,293 tokens/$ (target: 500k)    │
-│ Quality Score: 8.7/10 (user feedback weighted)      │
-│ Resource Utilization: CPU 23% • Memory 89MB         │
-└───────────────────────────────────────────────────────┘
-```
-
-### Interactive Workflow Control
-
-Users can interact with running workflows through the monitor:
-
-```
-┌─ Workflow Controls ────────────────────────────────────┐
-│ [P] Pause Current Phase    [S] Skip to Next Phase     │
-│ [A] Add Additional Agent   [M] Switch Model           │
-│ [B] Adjust Budget Limit    [Q] Quality Override       │
-│ [D] Download Partial       [C] Cache Current State    │
-│ [Ctrl+C] Graceful Stop     [H] Help & Options         │
-└────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🏗️ Workflow Management Engine (`orchestrator/workflow_engine.py`)
-
-**Advanced Workflow Coordination and Optimization**
-
-### Intelligent Resource Allocation
-
-Mao's workflow engine implements sophisticated resource management:
-
-#### Dynamic Load Balancing
-```python
-class WorkflowLoadBalancer:
-    def allocate_resources(self, active_workflows, available_resources):
-        """
-        Intelligently distribute computational resources across workflows
-        """
-        priority_scores = self.calculate_priority_scores(active_workflows)
-        resource_requirements = self.estimate_resource_needs(active_workflows)
-        
-        allocation_plan = self.optimize_allocation(
-            priorities=priority_scores,
-            requirements=resource_requirements,
-            constraints=available_resources
+        # Log validation results
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Quality validation completed: {validation_results['overall_score']:.2f} ({validation_results['overall_status']})"
         )
         
-        return self.implement_allocation(allocation_plan)
-```
-
-#### Model Selection Optimization
-```python
-class ModelSelectionEngine:
-    def select_optimal_model(self, task, constraints, context):
-        """
-        Choose the best model based on multiple factors
-        """
-        candidates = self.filter_compatible_models(task.requirements)
+        return validation_results
+    
+    def _evaluate_criterion(self, deliverable: dict, criterion_config: dict):
+        """Evaluate single quality criterion"""
+        criterion_type = criterion_config.get("type")
         
-        scores = {}
-        for model in candidates:
-            scores[model] = self.calculate_model_score(
-                capability_match=self.assess_capability_fit(model, task),
-                cost_efficiency=self.calculate_cost_benefit(model, task),
-                availability=self.check_model_availability(model),
-                context_fit=self.evaluate_context_suitability(model, context)
-            )
+        if criterion_type == "completeness":
+            return self._check_completeness(deliverable, criterion_config)
+        elif criterion_type == "accuracy":
+            return self._check_accuracy(deliverable, criterion_config)
+        elif criterion_type == "format":
+            return self._check_format(deliverable, criterion_config)
+        elif criterion_type == "content_quality":
+            return self._check_content_quality(deliverable, criterion_config)
+        else:
+            return {"score": 0.5, "feedback": f"Unknown criterion type: {criterion_type}"}
+    
+    def _check_completeness(self, deliverable: dict, config: dict):
+        """Check if deliverable meets completeness requirements"""
+        required_sections = config.get("required_sections", [])
+        content = deliverable.get("content", "")
         
-        return self.select_best_candidate(scores, constraints)
-```
-
-### Adaptive Workflow Patterns
-
-Mao learns from workflow execution patterns and adapts its orchestration strategies:
-
-#### Pattern Recognition
-```python
-class WorkflowPatternAnalyzer:
-    def analyze_execution_patterns(self, completed_workflows):
-        """
-        Extract insights from successful workflow patterns
-        """
-        patterns = {
-            'optimal_agent_sequences': self.identify_effective_sequences(),
-            'resource_usage_patterns': self.analyze_resource_efficiency(),
-            'failure_recovery_strategies': self.evaluate_recovery_success(),
-            'cost_optimization_opportunities': self.find_cost_savings()
+        found_sections = 0
+        missing_sections = []
+        
+        for section in required_sections:
+            if section.lower() in content.lower():
+                found_sections += 1
+            else:
+                missing_sections.append(section)
+        
+        score = found_sections / len(required_sections) if required_sections else 1.0
+        
+        return {
+            "score": score,
+            "feedback": f"Found {found_sections}/{len(required_sections)} required sections",
+            "suggestions": [f"Add missing section: {section}" for section in missing_sections]
+        }
+    
+    def create_improvement_workflow(self, workflow_id: str, validation_results: dict):
+        """Create improvement workflow based on quality validation"""
+        
+        if validation_results["overall_status"] == "pass":
+            return None
+        
+        improvement_config = {
+            "workflow_id": f"{workflow_id}-improvement",
+            "parent_workflow": workflow_id,
+            "improvement_type": "quality_enhancement",
+            "target_deliverable": validation_results["deliverable_id"],
+            "quality_issues": validation_results["recommendations"],
+            "success_criteria": {
+                "min_score": validation_results["pass_threshold"],
+                "focus_areas": [
+                    criterion for criterion, result in validation_results["criteria_results"].items()
+                    if result["status"] == "fail"
+                ]
+            }
         }
         
-        return self.synthesize_optimization_recommendations(patterns)
+        # Save improvement config for setup script execution
+        improvement_file_id = self.files_api.save_improvement_config(improvement_config)
+        
+        # Log improvement workflow creation
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Quality improvement workflow created: {improvement_config['workflow_id']}"
+        )
+        
+        return improvement_config
+    
+    def track_quality_metrics(self, workflow_id: str, metrics: dict):
+        """Track quality metrics for workflow optimization"""
+        
+        quality_tracking = {
+            "workflow_id": workflow_id,
+            "timestamp": datetime.now().isoformat(),
+            "metrics": {
+                "execution_time": metrics.get("execution_time"),
+                "token_usage": metrics.get("token_usage"),
+                "cost": metrics.get("cost"),
+                "user_satisfaction": metrics.get("user_satisfaction"),
+                "deliverable_quality": metrics.get("deliverable_quality"),
+                "process_efficiency": metrics.get("process_efficiency")
+            },
+            "benchmarks": {
+                "target_quality_score": 0.85,
+                "max_cost_per_workflow": 1.00,
+                "max_execution_time_minutes": 45
+            }
+        }
+        
+        # Calculate performance against benchmarks
+        performance_analysis = self._analyze_performance(quality_tracking)
+        quality_tracking["performance_analysis"] = performance_analysis
+        
+        # Save metrics
+        self.memory_mcp.create_entities([{
+            "name": f"quality-metrics-{workflow_id}",
+            "entityType": "quality-metrics",
+            "observations": [
+                f"Quality score: {metrics.get('deliverable_quality', 'N/A')}",
+                f"Cost: ${metrics.get('cost', 0):.2f}",
+                f"Execution time: {metrics.get('execution_time', 0)} minutes",
+                f"Performance vs benchmarks: {performance_analysis.get('overall_rating', 'unknown')}"
+            ]
+        }])
+        
+        return quality_tracking
 ```
 
-#### Continuous Improvement
+### **Complete Terminal UI Integration**
+
+**Real-Time Progress Monitoring:**
 ```python
-class WorkflowOptimizer:
-    def optimize_workflow_design(self, goal_analysis, historical_patterns):
-        """
-        Apply learned optimizations to new workflow designs
-        """
-        base_workflow = self.generate_base_workflow(goal_analysis)
+# interfaces/terminal/progress_monitor.py
+class ProgressMonitor:
+    """Real-time workflow progress tracking with live updates"""
+    
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.current_workflow = None
+        self.progress_state = {}
         
-        optimizations = [
-            self.apply_proven_agent_combinations(),
-            self.optimize_model_selection_sequence(),
-            self.implement_predictive_caching(),
-            self.configure_intelligent_error_recovery()
+    def start_monitoring(self, workflow_id: str):
+        """Begin real-time monitoring of workflow progress"""
+        self.current_workflow = workflow_id
+        self.progress_state = self._initialize_progress_state(workflow_id)
+        
+        # Start monitoring loop
+        self._display_initial_state()
+        self._start_update_loop()
+    
+    def _initialize_progress_state(self, workflow_id: str):
+        """Initialize progress tracking from workflow context"""
+        context = self.memory_mcp.get_workflow_context(workflow_id)
+        
+        if not context:
+            return self._get_initial_state()
+        
+        # Analyze workflow context to determine progress
+        observations = context.get("observations", [])
+        
+        state = {
+            "goal": "completed" if any("User goal:" in obs for obs in observations) else "pending",
+            "workflow": "completed" if any("Workflow created" in obs for obs in observations) else "pending", 
+            "tools": "completed" if any("Tool requested:" in obs for obs in observations) else "pending",
+            "agents": "completed" if any("Agent handoff" in obs for obs in observations) else "pending",
+            "execution": "in_progress" if any("execution started" in obs for obs in observations) else "pending",
+            "quality": "pending",
+            "completion": "pending"
+        }
+        
+        return state
+    
+    def _display_initial_state(self):
+        """Display initial progress state"""
+        print("\n" + "="*60)
+        print(f"🚀 MAO Workflow Monitor - {self.current_workflow}")
+        print("="*60)
+        self._render_progress_display()
+    
+    def _render_progress_display(self):
+        """Render live progress display without reprinting"""
+        progress_items = [
+            ("🎯 Goal Analysis", self.progress_state.get("goal", "pending")),
+            ("📋 Workflow Planning", self.progress_state.get("workflow", "pending")),
+            ("🔧 Tool Preparation", self.progress_state.get("tools", "pending")),
+            ("🤖 Agent Coordination", self.progress_state.get("agents", "pending")),
+            ("⚡ Execution", self.progress_state.get("execution", "pending")),
+            ("🎯 Quality Validation", self.progress_state.get("quality", "pending")),
+            ("✅ Completion", self.progress_state.get("completion", "pending"))
         ]
         
-        return self.apply_optimizations(base_workflow, optimizations)
-```
-
----
-
-## 🎯 Architectural Strengths
-
-### Modularity Benefits
-
-**Component Independence:**
-- Each component testable and replaceable in isolation
-- Multiple interface possibilities without core changes
-- Easy debugging and maintenance through clear separation
-
-**Infinite Extensibility:**
-- Add unlimited tools without performance degradation
-- Support new models/providers without code changes
-- Scale team usage without architectural modifications
-
-**Future-Proof Design:**
-- AI advances integrate automatically via human buttons
-- New interaction modalities possible via interface layer
-- Business model evolution supported by flexible architecture
-
-### Performance Optimization
-
-**Intelligent Resource Management:**
-- Dynamic model selection based on task requirements
-- Smart caching with 5,108x performance improvements
-- Cost optimization through efficient resource allocation
-
-**Scalability Patterns:**
-- Linear performance scaling with complexity
-- Concurrent workflow support without interference
-- Memory efficiency through modular loading
-
-### Quality Assurance
-
-**Professional Error Handling:**
-- Comprehensive retry logic with exponential backoff
-- Graceful degradation and fallback strategies
-- User-friendly error communication and recovery
-
-**Consistent Results:**
-- Standardized tool interfaces ensure predictable behavior
-- Quality validation and automatic improvement triggers
-- Performance monitoring and optimization feedback loops
-
----
-
-## 🔮 Architectural Evolution
-
-### Current Architecture Status: 95% Complete
-
-**Completed Systems:**
-- ✅ Core orchestration and workflow management
-- ✅ Universal model compatibility via human buttons
-- ✅ Complete tool ecosystem with 6-file standardization
-- ✅ Intelligent caching and performance optimization
-- ✅ Professional error handling and resilience
-- ✅ Clean interface separation and terminal UX
-- ✅ Advanced monitoring and debugging capabilities
-- ✅ Dynamic resource allocation and optimization
-
-**Integration Needs (5% Remaining):**
-- 🔄 Enhanced workflow pattern learning
-- 🔄 Advanced team collaboration features
-- 🔄 Extended community tool marketplace
-- 🔄 Advanced security and compliance frameworks
-
-### Future Architectural Enhancements
-
-**Advanced Intelligence:**
-- Self-improving workflow patterns based on usage analytics
-- Predictive resource allocation and optimization
-- Adaptive behavior learning from user interactions
-
-**Expanded Ecosystem:**
-- Community tool marketplace with quality standards
-- Industry-specific tool packages and templates
-- Third-party integration APIs and developer programs
-
-**Enterprise Features:**
-- Team collaboration and workflow sharing capabilities
-- Advanced security and compliance frameworks
-- Business system integration and automation
-
-**Next-Generation Capabilities:**
-- Multimodal workflow support (text, image, audio, video)
-- Real-time learning and adaptation mechanisms
-- Advanced reasoning and planning capabilities
-
----
-
-*This architecture enables Mao to be more than just another AI tool - it's a platform for the future of intelligent work automation.*
-```json
-{
-  "name": "your_new_tool",
-  "description": "Description of your tool",
-  "cost": 0.001,
-  "model_compatibility": ["all"],
-  "parameters": {
-    "param1": {
-      "type": "string",
-      "required": true,
-      "description": "Parameter purpose and usage"
-    }
-  }
-}
-```
-
----
-
-## 💾 Intelligent Caching System (`cache/cache_system.py`)
-
-**5,108x Performance Improvements Through Smart Caching**
-
-### The Caching Challenge
-
-Traditional AI systems treat every request as if it's the first time they've ever seen it. They reprocess the same information, regenerate the same analyses, and waste enormous amounts of computational resources on redundant work.
-
-Mao takes a radically different approach: **intelligent fingerprinting** that identifies what can be reused, what needs to be updated, and what requires fresh computation.
-
-#### `CacheManager`
-```python
-class CacheManager:
-    def __init__(self, cache_dir: str = "~/.mao_cache"):
-        self.cache_dir = Path(cache_dir).expanduser()
-        self.fingerprint_cache = {}
-        self.session_memory = {}
-```
-
-### Fingerprinting Strategies
-
-#### Content-Based Fingerprinting
-
-Mao creates unique fingerprints for different types of content and operations:
-
-```python
-class ContentFingerprinter:
-    def generate_fingerprint(self, content, context):
-        return {
-            "content_hash": self.hash_content(content),
-            "semantic_signature": self.extract_semantic_features(content),
-            "context_markers": self.identify_context_elements(context),
-            "freshness_requirements": self.assess_staleness_tolerance(content),
-            "dependency_chain": self.map_dependencies(content)
-        }
-```
-
-**Research Fingerprinting**
-```
-Fingerprint: "B2B_SaaS_market_trends_2024_Q4"
-Components:
-- Topic: B2B SaaS market analysis
-- Time sensitivity: Quarterly (3-month freshness)
-- Scope: Market trends and competitive landscape
-- Depth: Comprehensive analysis level
-- Sources: Web + industry reports + expert analysis
-```
-
-#### Temporal Intelligence
-
-Mao understands that different types of information have different **freshness requirements**:
-
-```json
-{
-    "content_types": {
-        "market_trends": {"max_age_days": 30, "confidence_decay": "linear"},
-        "company_financials": {"max_age_days": 90, "confidence_decay": "step"},
-        "product_features": {"max_age_days": 14, "confidence_decay": "exponential"},
-        "industry_analysis": {"max_age_days": 180, "confidence_decay": "logarithmic"},
-        "competitive_pricing": {"max_age_days": 7, "confidence_decay": "exponential"}
-    }
-}
-```
-
-### Advanced Caching Techniques
-
-#### Hierarchical Caching
-
-Mao implements **multi-level caching** that optimizes for different access patterns:
-
-```
-Level 1: Hot Cache (Immediate Access)
-- Recently used content
-- High-frequency patterns
-- Current project context
-
-Level 2: Warm Cache (Fast Retrieval)
-- Domain-specific knowledge
-- Proven workflow patterns
-- Validated research sources
-
-Level 3: Cold Cache (Archived)
-- Historical project data
-- Infrequently accessed content
-- Long-term pattern storage
-```
-
-#### Predictive Caching
-
-Mao anticipates what might be needed next:
-
-```python
-def predict_cache_needs(self, current_workflow, project_context):
-    predictions = []
-    
-    # Analyze workflow progression patterns
-    likely_next_steps = self.predict_workflow_progression(current_workflow)
-    
-    # Pre-cache likely research topics
-    for step in likely_next_steps:
-        if step.requires_research:
-            predictions.append(self.pre_cache_research_topics(step.topics))
-    
-    return predictions
-```
-
-#### Collaborative Caching
-
-When multiple agents work on related tasks, Mao shares cache benefits:
-
-```
-Agent A: Researching "enterprise CRM market"
-Agent B: Analyzing "CRM pricing strategies"
-
-Shared Cache Benefits:
-- Agent B leverages Agent A's company research
-- Agent A uses Agent B's pricing analysis for context
-- Both benefit from shared competitive intelligence
-- Total effort reduction: 40% vs. independent work
-```
-
-### Cache Performance Metrics
-
-**Typical Performance Gains:**
-```
-| Operation Type        | Without Cache | With Cache | Improvement |
-| --------------------- | ------------- | ---------- | ----------- |
-| Content Analysis      | 1.328s        | 0.000s     | 5,108x      |
-| Tool Result Retrieval | 0.850s        | 0.012s     | 71x         |
-| Model Selection       | 0.245s        | 0.003s     | 82x         |
-| Workflow Planning     | 2.100s        | 0.089s     | 24x         |
-```
-
----
-
-## 📁 Configuration System (`configs/`)
-
-**JSON-based modular configuration enabling universal compatibility.**
-
-### Model Configurations (`models/`)
-
-The actual model configuration uses a centralized `models.json` file with individual model definitions:
-
-#### Current Model Ecosystem
-- **claude-sonnet-4-20250514** - Premium reasoning and code generation
-- **claude-opus-4-20250514** - Maximum capability model for complex tasks
-- **claude-3-7-sonnet-20250219** - Balanced performance and efficiency
-- **gemini-2.5-pro** - Free alternative with strong capabilities
-- **openai/gpt-4.1-mini** - Cost-optimized OpenAI model
-- **openai/gpt-4.1-nano** - Ultra-low-cost option for simple tasks
-- **local-llama-3.1-8b** - Local/private deployment option
-
-### Provider Configurations (`providers/`)
-
-The actual provider configuration uses a centralized `providers.json` file:
-
-#### Current Provider Ecosystem
-- **anthropic-direct** - Direct Anthropic API access
-- **openai-direct** - Direct OpenAI API access  
-- **gemini-direct** - Direct Google Gemini access
-- **litellm** - Universal LLM proxy service
-- **lm-studio** - Local model deployment
-- **requesty** - Universal OpenAI-compatible proxy
-
-#### Provider Configuration Structure
-```json
-{
-  "anthropic-direct": {
-    "display_name": "Anthropic Direct API",
-    "api_type": "anthropic",
-    "base_url": "https://api.anthropic.com",
-    "auth_header": "x-api-key",
-    "env_var": "ANTHROPIC_API_KEY",
-    "supports_streaming": true,
-    "supports_caching": true,
-    "rate_limits": {
-      "requests_per_minute": 50,
-      "tokens_per_minute": 100000
-    },
-    "description": "Direct access to Anthropic's Claude models"
-  }
-}
-```
-
-### Connection Mappings (`connections/`)
-
-**Dynamic relationship mapping eliminates hardcoded connections:**
-
-#### `models_x_tools.json`
-```json
-{
-  "tools": {
-    "brave_search": {
-      "models": {
-        "primary": "claude-sonnet-4-20250514",
-        "cost_optimized": "google/gemini-2.5-pro-exp-03-25",
-        "privacy_focused": "vertex/anthropic/claude-3-7-sonnet-latest"
-      }
-    }
-  }
-}
-```
-
-#### `providers_x_models.json`  
-```json
-{
-  "models": {
-    "claude-sonnet-4-20250514": {
-      "providers": ["anthropic-direct"]
-    },
-    "gemini-2.5-pro": {
-      "providers": ["gemini-direct"]
-    },
-    "openai/gpt-4.1-nano": {
-      "providers": ["openai-direct", "requesty"]
-    }
-  }
-}
-```
-
----
-
-## 🔧 Tool Ecosystem (`tools/`)
-
-**Standardized 6-file architecture enabling infinite extensibility.**
-
-### Universal Tool Architecture
-
-**Every tool follows identical structure:**
-
-```
-tools/your_new_tool/
-├── your_new_tool.py          # Core functionality
-├── tool_your_new_tool.json   # Configuration and metadata  
-├── button_your_new_tool.py   # Human button interface
-└── ui_your_new_tool.py       # User interface components
-```
-
-**Plus two shared files across all tools:**
-
-```
-orchestrator/
-├── error_handling.py         # Shared error handling utilities
-└── cache/
-    └── cache_system.py       # Shared caching system
-```
-
-### Current Tool Library (8 Core Tools)
-
-#### Research & Analysis Tools
-
-**`brave_search/`** - Privacy-focused web search
-- **Core Logic**: Brave Search API integration with privacy preservation
-- **Capabilities**: Web search, news research, real-time information
-- **Cost**: ~$0.001 per search operation
-- **Optimal Models**: gemini-2.5-pro (cost), claude-sonnet-4 (quality)
-
-**`perplexity_search/`** - Advanced AI research with citations
-- **Core Logic**: Perplexity API integration for research tasks
-- **Capabilities**: Deep research, citation verification, academic sources
-- **Cost**: ~$0.005 per research query
-- **Optimal Models**: claude-sonnet-4 (analysis), claude-opus-4 (complex research)
-
-**`web_search/`** - General web research capabilities
-- **Core Logic**: Multi-source web search aggregation
-- **Capabilities**: Comprehensive internet research, trend analysis
-- **Cost**: ~$0.002 per search operation
-- **Optimal Models**: gemini-2.5-pro (efficiency), claude-sonnet-4 (synthesis)
-
-#### Content & Design Tools
-
-**`text_editor/`** - Advanced document processing
-- **Core Logic**: Sophisticated text manipulation and formatting
-- **Capabilities**: Document creation, editing, formatting, template generation
-- **Cost**: ~$0.0005 per editing operation
-- **Optimal Models**: claude-sonnet-4 (quality), gemini-2.5-pro (efficiency)
-
-**`graphic_design/`** - Visual content creation and automation
-- **Core Logic**: Image editing, text overlay, design automation with font management
-- **Capabilities**: Visual design, layout optimization, brand consistency
-- **Cost**: ~$0.002 per design operation
-- **Optimal Models**: claude-sonnet-4 (creativity), dalle_generate (image creation)
-
-**`dalle_generate/`** - AI image generation
-- **Core Logic**: DALL-E 3 integration for visual content creation
-- **Capabilities**: Custom image generation, visual concept creation
-- **Cost**: ~$0.04 per image generation
-- **Optimal Models**: claude-sonnet-4 (prompt optimization), dalle-3 (generation)
-
-#### Intelligence & Operations Tools
-
-**`think/`** - Enhanced reasoning and problem-solving
-- **Core Logic**: Advanced thinking frameworks and analysis
-- **Capabilities**: Multi-step reasoning, problem decomposition, decision support
-- **Cost**: ~$0.001 per thinking session
-- **Optimal Models**: claude-opus-4 (complex reasoning), claude-sonnet-4 (balanced)
-
-**`file_operations/`** - File system management
-- **Core Logic**: Comprehensive file and directory operations
-- **Capabilities**: File management, organization, backup, version control
-- **Cost**: ~$0.0001 per operation
-- **Optimal Models**: Any model (simple operations), claude-sonnet-4 (complex organization)
-
-### Tool Integration Architecture
-
-#### 6-File Pattern Details
-
-**1. Core Logic File (`tool_name.py`)**
-```python
-"""
-Tool Name - Core Logic
-Pure functionality with comprehensive error handling
-NO print statements, NO UI dependencies
-"""
-
-def main_function(param1: str, param2: int = 10) -> Dict[str, Any]:
-    """
-    Execute tool functionality with structured return
-    
-    Returns:
-        Dict with 'status', 'results', 'cost', 'metadata'
-    """
-    try:
-        # Validation and processing
-        result = perform_operation(param1, param2)
+        for item_name, status in progress_items:
+            status_icon = self._get_status_icon(status)
+            print(f"{status_icon} {item_name}")
         
-        return {
-            "status": "success",
-            "input_param": param1,
-            "timestamp": datetime.now().isoformat(),
-            "results": result,
-            "metadata": {"processing_time": processing_time},
-            "cost": estimate_cost({"param1": param1, "param2": param2})
+        # Live sub-task tracking
+        if self.progress_state.get("current_phase"):
+            print(f"\n📍 Current: {self.progress_state['current_phase']}")
+            
+        if self.progress_state.get("sub_tasks"):
+            print("   Sub-tasks:")
+            for sub_task, sub_status in self.progress_state["sub_tasks"].items():
+                sub_icon = self._get_status_icon(sub_status)
+                print(f"   {sub_icon} {sub_task}")
+    
+    def _get_status_icon(self, status: str):
+        """Get appropriate icon for status"""
+        icons = {
+            "pending": "⏳",
+            "in_progress": "🔄",
+            "completed": "✅",
+            "failed": "❌",
+            "waiting": "⏸️"
         }
-    except Exception as e:
-        return {
-            "error": f"Tool execution failed: {str(e)}",
-            "timestamp": datetime.now().isoformat(),
-            "cost": 0.0
-        }
-
-def estimate_cost(params: Dict[str, Any]) -> float:
-    """Calculate realistic cost estimate for workflow planning"""
-    return 0.001  # Tool-specific calculation
+        return icons.get(status, "❓")
+    
+    def update_progress(self, component: str, status: str, sub_task: str = None):
+        """Update progress for specific component"""
+        self.progress_state[component] = status
+        
+        if sub_task:
+            if "sub_tasks" not in self.progress_state:
+                self.progress_state["sub_tasks"] = {}
+            self.progress_state["sub_tasks"][sub_task] = status
+        
+        # Update Memory MCP
+        self.memory_mcp.update_workflow_state(
+            self.current_workflow,
+            f"Progress update: {component} -> {status}"
+        )
+        
+        # Re-render display
+        self._clear_and_rerender()
+    
+    def _clear_and_rerender(self):
+        """Clear and re-render progress display"""
+        # Move cursor up and clear lines
+        print("\033[F" * 10, end="")  # Move up
+        print("\033[J", end="")       # Clear to end
+        self._render_progress_display()
+    
+    def show_completion_summary(self, workflow_results: dict):
+        """Display comprehensive completion summary"""
+        print("\n" + "="*60)
+        print("🎉 WORKFLOW COMPLETED")
+        print("="*60)
+        
+        # Results summary
+        print(f"📊 Results Summary:")
+        print(f"   • Duration: {workflow_results.get('duration', 'Unknown')}")
+        print(f"   • Cost: ${workflow_results.get('cost', 0):.2f}")
+        print(f"   • Quality Score: {workflow_results.get('quality_score', 'N/A')}")
+        print(f"   • Deliverables: {len(workflow_results.get('deliverables', []))}")
+        
+        # Quick actions
+        print(f"\n🚀 Quick Actions:")
+        print(f"   • View Results: open {workflow_results.get('workspace_path', '')}")
+        print(f"   • Re-run: {workflow_results.get('custom_command', 'N/A')}")
+        print(f"   • Email Results: [Feature pending]")
+        print(f"   • Copy to Clipboard: [Feature pending]")
+        
+        # Performance insights
+        if workflow_results.get('performance_insights'):
+            print(f"\n💡 Performance Insights:")
+            for insight in workflow_results['performance_insights']:
+                print(f"   • {insight}")
 ```
 
-**2. UI Display File (`ui_tool_name.py`)**
+Perfect! Now the technical documentation has proper code patterns and implementation details from the comprehensive implementation plans. The gaps are clearly marked without implementation plan language, and users can see exactly what the architecture will look like when complete.
+
+<function_calls>
+<invoke name="Chain-of-Thought Tool for Sequential-Thinking:sequentialthinking">
+<parameter name="nextThoughtNeeded">true## 🔧 **Tool Integration Framework**
+
+### **Executable Human Button System**
+
+MAO transforms human buttons from static code snippets into executable workflow components with complete tracking integration.
+
+**Current Button Generation Pattern:**
 ```python
-"""
-Tool Name - UI Display Component
-Beautiful terminal output formatting
-Print statements OK here - this is the UI layer
-"""
-
-from rich.console import Console
-from rich.panel import Panel
-
-def display_tool_results(result: Dict[str, Any], verbose: bool = False):
-    """Transform structured data into beautiful terminal output"""
-    console = Console()
+# tools/*/button_*.py - Standard pattern across all tools
+def create_button_snippet(tool_name: str, params: dict, workflow_id: str = None):
+    """Generate executable code with workflow tracking"""
     
-    if "error" in result:
-        console.print(f"❌ [red]{result['error']}[/red]")
-        return
-    
-    console.print(f"✅ [green]Tool Results[/green]")
-    console.print(Panel(str(result.get("results", "")), title="Output"))
-    
-    if verbose:
-        console.print(f"💰 Cost: ${result.get('cost', 0):.6f}")
-        console.print(f"⏱️ Duration: {result.get('metadata', {}).get('processing_time', 0):.3f}s")
-```
-
-**3. Human Button Generator (`button_tool_name.py`)**
-```python
-"""
-Tool Name - Human Button Generators
-Executable code snippets for universal model compatibility
-Print statements OK for demo and execution feedback
-"""
-
-def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
-    """Generate self-contained executable snippet"""
-    
-    param1 = params.get("param1", "")
-    param2 = params.get("param2", 10)
-    
-    snippet = f'''# Tool Execution - Model: {model}
+    base_snippet = f"""
+# Executable {tool_name} with workflow integration
 import json
 from datetime import datetime
 
-def execute_tool():
-    """Execute tool with comprehensive error handling"""
+# Tool execution with tracking
+def execute_with_tracking():
+    workflow_id = "{workflow_id}"
+    execution_id = generate_execution_id()
     
-    param1 = "{param1}"
-    param2 = {param2}
-    
-    print(f"🔧 Executing Tool...")
-    print(f"📝 Input: {{param1}}")
+    # Log execution start
+    if workflow_id:
+        update_workflow_state(workflow_id, f"Tool execution started: {execution_id}")
     
     try:
-        # Tool implementation here
-        result = perform_operation(param1, param2)
+        # Execute tool logic
+        result = {tool_name}_main({json.dumps(params)})
         
-        return {{
-            "status": "success",
-            "results": result,
-            "cost": 0.001,
-            "timestamp": datetime.now().isoformat()
-        }}
+        # Save results to Files API for agent access
+        save_execution_results(workflow_id, execution_id, result)
+        
+        # Call back to orchestrator
+        if workflow_id:
+            callback_orchestrator(workflow_id, execution_id, result)
+            
+        return result
+        
     except Exception as e:
-        return {{
-            "error": str(e),
-            "cost": 0.0
-        }}
+        log_execution_error(workflow_id, execution_id, str(e))
+        raise
 
-# Execute and return results
-result = execute_tool()
-print(f"✅ Tool completed: {{result}}")
-result
-'''
-    return snippet.strip()
+execute_with_tracking()
+"""
+    return base_snippet
 ```
 
-**4. Tool Registry (`tool_tool_name.json`)**
-```json
-{
-  "id": "tool_name",
-  "name": "Tool Display Name",
-  "description": "Comprehensive tool functionality description",
-  "version": "1.0.0",
-  "capabilities": ["capability1", "capability2"],
-  "tags": ["category1", "category2"],
-  "cost_estimate
+**Agent Callback Integration:**
+```python
+# orchestrator/agent_callback_handler.py
+class AgentCallbackHandler:
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
+        
+    def handle_agent_return(self, workflow_id: str, execution_data: dict):
+        """Process agent return with execution results"""
+        
+        # Retrieve workflow context
+        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
+        
+        # Process execution results and files
+        if execution_data.get('file_ids'):
+            processed_files = []
+            for file_id in execution_data['file_ids']:
+                file_content = self.files_api.retrieve_execution_file(file_id)
+                processed_files.append({
+                    "id": file_id,
+                    "content": file_content
+                })
+            
+            execution_data['processed_files'] = processed_files
+        
+        # Update workflow state
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Agent returned with {len(execution_data.get('file_ids', []))} files"
+        )
+        
+        return {
+            "workflow_context": workflow_context,
+            "execution_results": execution_data,
+            "next_phase": self._determine_next_phase(workflow_context, execution_data)
+        }
+```
+
+### **Dynamic Tool Discovery System**
+
+**Tool Manager Enhancement:**
+```python
+# orchestrator/manager_tools.py (enhanced)
+class ToolManager:
+    def __init__(self):
+        self.discovered_tools = {}
+        self.mcp_connector = None  # Set when MCP integration complete
+        self.memory_mcp = MemoryMCPManager()
+        
+    def discover_all_tools(self):
+        """Discover tools from multiple sources"""
+        tools = {}
+        
+        # Local MAO tools
+        local_tools = self._discover_local_tools()
+        tools.update(local_tools)
+        
+        # MCP server tools (when available)
+        if self.mcp_connector:
+            mcp_tools = self.mcp_connector.get_available_tools()
+            tools.update(mcp_tools)
+        
+        # Cache and log discovery
+        self.discovered_tools = tools
+        self._log_discovery_results(tools)
+        
+        return tools
+    
+    def _discover_local_tools(self):
+        """Analyze local tool directories for standardized structure"""
+        tools = {}
+        tools_dir = Path("tools")
+        
+        for tool_dir in tools_dir.iterdir():
+            if tool_dir.is_dir() and not tool_dir.name.startswith('_'):
+                tool_info = self._analyze_tool_structure(tool_dir)
+                if tool_info:
+                    tools[tool_dir.name] = tool_info
+        
+        return tools
+    
+    def _analyze_tool_structure(self, tool_dir: Path):
+        """Validate tool follows 6-file pattern"""
+        tool_name = tool_dir.name
+        required_files = [
+            f"{tool_name}.py",           # Core logic
+            f"tool_{tool_name}.json",    # Configuration
+            f"button_{tool_name}.py",    # Button generator
+            f"ui_{tool_name}.py"         # UI components
+        ]
+        
+        # Check file structure
+        missing_files = []
+        for req_file in required_files:
+            if not (tool_dir / req_file).exists():
+                missing_files.append(req_file)
+        
+        if missing_files:
+            return None
+        
+        # Load configuration
+        try:
+            with open(tool_dir / f"tool_{tool_name}.json") as f:
+                config = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return None
+        
+        # Verify button function exists
+        button_module_path = tool_dir / f"button_{tool_name}.py"
+        if not self._validate_button_module(button_module_path):
+            return None
+        
+        return {
+            "type": "local",
+            "path": str(tool_dir),
+            "config": config,
+            "validated": True
+        }
+    
+    def _validate_button_module(self, module_path: Path):
+        """Ensure button module has required create_button_snippet function"""
+        try:
+            spec = importlib.util.spec_from_file_location("button_module", module_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            return hasattr(module, 'create_button_snippet')
+        except Exception:
+            return False
+```
+
+### **Workflow Engine Core Integration**
+
+**Setup Script Bridge:**
+```python
+# orchestrator/setup_script_bridge.py
+class SetupScriptBridge:
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
+        
+    def create_workflow_from_conversation(self, user_goal: str, conversation_context: dict):
+        """Transform conversation into executable workflow"""
+        workflow_id = self._generate_workflow_id()
+        
+        # Create workflow entity
+        self.memory_mcp.create_workflow_context(workflow_id, user_goal)
+        
+        # Analyze conversation for workflow requirements
+        workflow_spec = self._analyze_conversation(user_goal, conversation_context)
+        
+        # Generate JSON configuration
+        config = self._generate_workflow_config(workflow_id, workflow_spec)
+        
+        # Create custom command (spaces not hyphens!)
+        custom_command = self._generate_custom_command(workflow_spec)
+        
+        # Generate setup script
+        setup_script = self._create_setup_script(workflow_id, custom_command, config)
+        
+        # Create use-case directory structure
+        use_case_path = self._create_use_case_directory(custom_command, config)
+        
+        return {
+            "workflow_id": workflow_id,
+            "custom_command": custom_command,
+            "config": config,
+            "setup_script": setup_script,
+            "use_case_path": use_case_path
+        }
+    
+    def _generate_custom_command(self, workflow_spec: dict):
+        """Generate natural language command with spaces"""
+        base_name = workflow_spec.get("name", "workflow")
+        # Ensure spaces, not hyphens for natural language
+        return base_name.replace("-", " ").replace("_", " ")
+    
+    def _create_setup_script(self, workflow_id: str, custom_command: str, config: dict):
+        """Generate executable setup script"""
+        command_filename = custom_command.replace(" ", "-")
+        
+        script_content = f"""#!/bin/bash
+# MAO Workflow Setup Script
+# Generated for workflow: {workflow_id}
+# Custom command: {custom_command}
+
+set -e
+
+echo "🚀 Setting up MAO workflow: {custom_command}"
+
+# Create executable command
+cat > "/usr/local/bin/{command_filename}" << 'EOF'
+#!/usr/bin/env python3
+import sys
+import os
+sys.path.insert(0, "{os.path.abspath('.')}")
+
+from orchestrator.core import MaoOrchestrator
+
+orchestrator = MaoOrchestrator()
+orchestrator.execute_workflow("{workflow_id}", sys.argv[1:])
+EOF
+
+chmod +x "/usr/local/bin/{command_filename}"
+
+echo "✅ Custom command installed: {custom_command}"
+echo "🧪 Test: which {command_filename}"
+echo "🚀 Usage: {custom_command} [args...]"
+"""
+        return script_content
+```
+
+### **MCP Connector Integration**
+
+**External MCP Server Connectivity:**
+```python
+# orchestrator/mcp_connector.py
+class MCPConnector:
+    """Anthropic MCP API Connector for external tool integration"""
+    
+    def __init__(self):
+        self.servers = {}
+        self.memory_manager = MemoryMCPManager()
+        self.registered_tools = {}
+        
+    def register_server(self, server_config: dict):
+        """Register external MCP server"""
+        server_name = server_config["name"]
+        self.servers[server_name] = MCPServerConnection(server_config)
+        
+        # Discover available tools
+        tools = self.servers[server_name].list_tools()
+        self.registered_tools[server_name] = tools
+        
+        # Log server registration
+        self.memory_manager.create_entities([{
+            "name": f"mcp-server-{server_name}",
+            "entityType": "mcp-server",
+            "observations": [
+                f"Registered: {server_config}",
+                f"Available tools: {list(tools.keys())}"
+            ]
+        }])
+        
+        return tools
+    
+    def execute_tool(self, server_name: str, tool_name: str, params: dict, workflow_id: str = None):
+        """Execute tool on external MCP server"""
+        if server_name not in self.servers:
+            raise ValueError(f"Server {server_name} not registered")
+            
+        if tool_name not in self.registered_tools[server_name]:
+            raise ValueError(f"Tool {tool_name} not available on {server_name}")
+            
+        result = self.servers[server_name].execute_tool(tool_name, params)
+        
+        # Log tool execution if part of workflow
+        if workflow_id:
+            self.memory_manager.update_workflow_state(
+                workflow_id,
+                f"MCP tool executed: {server_name}.{tool_name} -> Success"
+            )
+            
+        return result
+    
+    def get_available_tools(self):
+        """Get all available tools across all servers"""
+        all_tools = {}
+        for server_name, tools in self.registered_tools.items():
+            for tool_name, tool_info in tools.items():
+                all_tools[f"{server_name}.{tool_name}"] = tool_info
+        return all_tools
+
+class MCPServerConnection:
+    """Individual MCP server connection handler"""
+    
+    def __init__(self, config: dict):
+        self.config = config
+        self.client = self._initialize_client()
+        
+    def _initialize_client(self):
+        """Initialize MCP client with server configuration"""
+        return anthropic.beta.messages.create(
+            model="claude-sonnet-4-20250514",
+            mcp_servers=[{
+                "type": "url",
+                "url": self.config["url"],
+                "name": self.config["name"],
+                "authorization_token": self.config.get("authorization_token")
+            }],
+            betas=["mcp-client-2025-04-04"]
+        )
+    
+    def list_tools(self):
+        """Discover available tools on this server"""
+        response = self.client.messages.create(
+            messages=[{"role": "user", "content": "What tools do you have available?"}]
+        )
+        return self._parse_available_tools(response)
+    
+    def execute_tool(self, tool_name: str, params: dict):
+        """Execute specific tool with parameters"""
+        response = self.client.messages.create(
+            messages=[{
+                "role": "user", 
+                "content": f"Use {tool_name} with parameters: {json.dumps(params)}"
+            }]
+        )
+        return self._parse_tool_response(response)
+```
+
+### **Code Execution Tool Integration**
+
+**Direct Claude 4 Code Execution Integration:**
+```python
+# tools/code_execution/code_execution.py
+class CodeExecutionTool:
+    """Integration with Claude 4 Code Execution for workflow tracking"""
+    
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
+        
+    def execute_human_button(self, button_code: str, workflow_id: str, context: dict = None):
+        """Execute human button code with workflow tracking"""
+        execution_id = f"exec-{uuid4().hex[:8]}"
+        
+        # Log execution start
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Code execution started: {execution_id}"
+        )
+        
+        try:
+            # Prepare execution environment
+            exec_env = self._prepare_environment(workflow_id, context)
+            
+            # Execute code with Claude Code Execution
+            result = self._execute_code(button_code, exec_env)
+            
+            # Save files via Code Execution (only way to make them downloadable)
+            if result.get('generated_files'):
+                file_ids = []
+                for file_info in result['generated_files']:
+                    file_id = self._upload_via_code_execution(file_info)
+                    file_ids.append(file_id)
+                result['file_ids'] = file_ids
+            
+            # Update workflow state
+            self.memory_mcp.update_workflow_state(
+                workflow_id,
+                f"Code execution completed: {execution_id}"
+            )
+            
+            return {
+                "execution_id": execution_id,
+                "result": result,
+                "workflow_id": workflow_id
+            }
+            
+        except Exception as e:
+            self.memory_mcp.update_workflow_state(
+                workflow_id,
+                f"Code execution failed: {execution_id} - {str(e)}"
+            )
+            raise
+    
+    def _prepare_environment(self, workflow_id: str, context: dict):
+        """Prepare execution environment with workflow context"""
+        return {
+            "workflow_id": workflow_id,
+            "context": context,
+            "memory_mcp_available": True,
+            "files_api_available": True
+        }
+    
+    def _upload_via_code_execution(self, file_info: dict):
+        """Upload file via Code Execution tool for later download"""
+        # Only files uploaded via Code Execution are downloadable
+        # This is a critical Anthropic API requirement
+        upload_code = f"""
+import anthropic
+client = anthropic.Anthropic()
+
+with open("{file_info['path']}", "rb") as f:
+    file_response = client.files.create(
+        file=f,
+        purpose="workflow_execution"
+    )
+    
+print(f"File uploaded: {{file_response.id}}")
+"""
+        # Execute upload via Code Execution
+        result = self._execute_code(upload_code, {})
+        return self._extract_file_id(result)
+
+def create_executable_button_snippet(tool_name: str, params: dict, workflow_id: str):
+    """Generate executable human button with workflow tracking"""
+    
+    imports = """
+import json
+import uuid
+from datetime import datetime
+"""
+    
+    tool_code = f"""
+# Import the specific tool
+from tools.{tool_name}.{tool_name} import {tool_name.title()}Tool
+
+# Initialize tool
+tool = {tool_name.title()}Tool()
+"""
+    
+    wrapper = f"""
+def execute_with_tracking():
+    workflow_id = "{workflow_id}"
+    execution_id = f"exec-{{uuid.uuid4().hex[:8]}}"
+    
+    try:
+        # Execute tool with parameters
+        result = tool.execute({json.dumps(params)})
+        
+        # Save results to Files API via Code Execution
+        # (Critical: Only files saved via Code Execution are downloadable)
+        if result.get('files'):
+            file_ids = []
+            for file_path in result['files']:
+                # Upload via Code Execution
+                with open(file_path, 'rb') as f:
+                    import anthropic
+                    client = anthropic.Anthropic()
+                    file_response = client.files.create(file=f, purpose="workflow")
+                    file_ids.append(file_response.id)
+            result['file_ids'] = file_ids
+        
+        # Call back to orchestrator with workflow ID
+        callback_data = {{
+            "workflow_id": workflow_id,
+            "execution_id": execution_id,
+            "result": result,
+            "status": "completed"
+        }}
+        
+        # This triggers agent callback handling
+        print(f"CALLBACK: {{json.dumps(callback_data)}}")
+        
+        return result
+        
+    except Exception as e:
+        error_data = {{
+            "workflow_id": workflow_id,
+            "execution_id": execution_id,
+            "error": str(e),
+            "status": "failed"
+        }}
+        print(f"ERROR: {{json.dumps(error_data)}}")
+        raise
+
+# Execute the tool
+execute_with_tracking()
+"""
+    
+    return imports + tool_code + wrapper
+```
+
+### **Files API Integration**
+
+**Anthropic Files API for Agent Handoffs:**
+```python
+# orchestrator/files_api_manager.py
+class FilesAPIManager:
+    """Complete Files API integration for workflow management"""
+    
+    def __init__(self):
+        self.client = anthropic.Anthropic()
+        self.memory_mcp = MemoryMCPManager()
+        
+    def create_agent_handoff_package(self, workflow_id: str, agent_data: dict):
+        """Create complete agent handoff package"""
+        
+        # Retrieve workflow context from Memory MCP
+        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
+        
+        # Bundle complete handoff package
+        handoff_package = {
+            "workflow_id": workflow_id,
+            "workflow_context": workflow_context,
+            "agent_instructions": agent_data.get("instructions"),
+            "deliverable_requirements": agent_data.get("deliverables"),
+            "tool_access": agent_data.get("tools", []),
+            "token_limit": agent_data.get("token_limit", 150000),
+            "callback_info": {
+                "workflow_id": workflow_id,
+                "orchestrator_callback": True
+            },
+            "created_at": datetime.now().isoformat()
+        }
+        
+        # Upload to Files API
+        package_content = json.dumps(handoff_package, indent=2)
+        file_response = self.client.files.create(
+            file=package_content.encode(),
+            purpose="agent_handoff"
+        )
+        
+        # Track in Memory MCP
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Agent handoff package created: {file_response.id}"
+        )
+        
+        return file_response.id
+    
+    def retrieve_agent_package(self, file_id: str):
+        """Retrieve and parse agent handoff package"""
+        try:
+            file_content = self.client.files.content(file_id)
+            package_data = json.loads(file_content.content.decode())
+            return package_data
+        except Exception as e:
+            raise AgentHandoffError(f"Failed to retrieve package {file_id}: {str(e)}")
+    
+    def save_agent_deliverables(self, workflow_id: str, agent_results: dict):
+        """Save agent deliverables for orchestrator review"""
+        
+        deliverable_package = {
+            "workflow_id": workflow_id,
+            "agent_id": agent_results.get("agent_id"),
+            "deliverables": agent_results.get("deliverables"),
+            "execution_summary": agent_results.get("summary"),
+            "quality_metrics": agent_results.get("metrics"),
+            "next_phase_recommendations": agent_results.get("recommendations"),
+            "completed_at": datetime.now().isoformat()
+        }
+        
+        # Save to Files API
+        content = json.dumps(deliverable_package, indent=2)
+        file_response = self.client.files.create(
+            file=content.encode(),
+            purpose="agent_deliverables"
+        )
+        
+        # Update workflow state
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Agent deliverables saved: {file_response.id}"
+        )
+        
+        return file_response.id
+    
+    def create_workspace_structure(self, workflow_id: str, workspace_config: dict):
+        """Create organized workspace for workflow execution"""
+        
+        workspace_data = {
+            "workflow_id": workflow_id,
+            "base_path": workspace_config.get("base_path"),
+            "directory_structure": {
+                "phases": workspace_config.get("phases", []),
+                "deliverables": "DELIVERABLES/",
+                "metadata": "METADATA/",
+                "drafts": "DRAFTS/"
+            },
+            "file_organization": workspace_config.get("organization", {}),
+            "created_at": datetime.now().isoformat()
+        }
+        
+        # Save workspace configuration
+        content = json.dumps(workspace_data, indent=2)
+        file_response = self.client.files.create(
+            file=content.encode(),
+            purpose="workspace_config"
+        )
+        
+        return {
+            "workspace_file_id": file_response.id,
+            "workspace_path": workspace_data["base_path"],
+            "structure": workspace_data["directory_structure"]
+        }
+    
+    def download_execution_file(self, file_id: str):
+        """Download file from previous execution (only works for Code Execution uploads)"""
+        try:
+            file_content = self.client.files.content(file_id)
+            return file_content.content
+        except Exception as e:
+            raise FileAccessError(f"Cannot access file {file_id}: {str(e)}")
+```Current Limitation:**
+- No automated quality validation
+- Manual quality assessment required
+- No improvement feedback loops
+
+#### **Complete Terminal UI/UX** 🖥️
+**Status**: 🚧 **[Implementation Plan 1.5]**
+
+**Missing Components:**
+- Real-time progress monitoring with sub-task tracking
+- Live workflow status updates without reprinting
+- Enhanced completion summaries with quick actions
+- Professional application experience integration
+
+**Current State:**
+- Basic terminal interface exists
+- Limited progress visualization
+- No live monitoring capabilities
+
+### **Implementation Dependencies**
+
+```
+Phase 1: MCP Integration Hub (Foundation)
+   ↓
+Phase 2: Tool Integration Framework (Building Blocks)  
+   ↓
+Phase 3: Workflow Engine Core (Orchestration)
+   ↓
+Phase 4: Terminal UI/UX System (User Experience)
+   ↓
+Phase 5: Integration Testing (Quality Assurance)
+```
+
+### **Critical Fixes Required Before Implementation**
+
+#### **🚨 Entry Point Crisis (`mao_v4.py`)**
+**Issue**: Only handles 2 of 20+ defined arguments
+**Impact**: Blocks all CLI functionality  
+**Status**: 🔴 **BLOCKING**
+
+#### **🚨 Missing Interface Methods (`ui_terminal.py`)**
+**Issue**: Parser routes to non-existent methods
+**Impact**: Runtime errors for most commands
+**Status**: 🔴 **BLOCKING**
+
+#### **🚨 JSON Configuration Standardization**
+**Issue**: Inconsistent property naming and structure
+**Impact**: Parser generation failures
+**Status**: 🟡 **MEDIUM PRIORITY**
+
+### **Success Criteria for Complete Implementation**
+
+**User Experience:**
+- [ ] New user can create working workflow in <10 minutes
+- [ ] Natural language goal → executable custom command
+- [ ] Session interruption/recovery works seamlessly
+
+**Performance:**
+- [ ] <$0.01 per workflow execution cost
+- [ ] <5 second cache hit response times
+- [ ] 99%+ success rate for standard workflow patterns
+
+**Technical Integration:**
+- [ ] All human buttons generate executable code
+- [ ] Memory MCP provides persistent workflow state
+- [ ] Files API enables seamless agent handoffs
+- [ ] Quality framework validates all deliverables
+
+### **Estimated Implementation Timeline**
+
+**Phase 1 (MCP Integration)**: 2-3 weeks
+- Memory MCP integration and testing
+- Files API workflow handoff implementation
+- MCP Connector for external tool integration
+
+**Phase 2 (Tool Framework)**: 1-2 weeks  
+- Executable human button enhancement
+- Dynamic tool discovery connection
+- Agent callback system implementation
+
+**Phase 3 (Workflow Engine)**: 2-3 weeks
+- Setup script generation system
+- Quality framework integration
+- Custom command creation and installation
+
+**Phase 4 (Terminal UI/UX)**: 1-2 weeks
+- Real-time progress monitoring
+- Professional application experience
+- Live workflow status integration
+
+**Phase 5 (Testing & Polish)**: 1 week
+- End-to-end integration testing
+- Performance validation
+- User experience refinement
+
+**Total Estimated Timeline**: 7-11 weeks for complete implementation
