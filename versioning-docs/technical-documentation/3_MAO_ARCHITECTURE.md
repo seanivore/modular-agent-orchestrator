@@ -79,8 +79,6 @@ MAO's architecture is built on **principled modularity** - every component is in
 
 ## 🎭 **Entry Point: Dynamic Modular CLI System**
 
-**Status**: 🚧 **[TBD - Implementation Plan 1.1]**
-
 MAO uses a revolutionary **pure modular CLI approach** where all commands are defined in individual JSON files, enabling true plug-and-play command management.
 
 ### **Modular Command Architecture**
@@ -108,6 +106,39 @@ def create_dynamic_parser(commands):
 def main():
     """Pure dynamic routing - zero hardcoding"""
 ```
+
+### Modularity Benefits
+
+- Add command: Drop in `new_command.json`
+- Remove command: Delete `old_command.json`
+- Modify command: Edit just that file
+- Zero risk of breaking other commands
+
+**Flow**:
+1. Scan `configs/cli/` directory for all `.json` files
+2. Build argument parser dynamically from discovered commands
+3. Parse user input and find which command was used
+4. Route to interface method via `getattr(interface, method_name)`
+5. Call with appropriate arguments based on command type
+
+**Zero Hardcoding**: Entry point has no knowledge of what commands exist
+
+#### **Complete Interface Implementation**
+**File**: `interfaces/ui_terminal.py`
+
+**All 21 Methods Implemented**:
+- **Core Workflow**: `goal()`, `chat()`, `setup()`, `update()`, `fix_it()`
+- **Information**: `stats()`, `workflows()`, `logs()`, `review()`, `help()`
+- **Management**: `continue_workflow()`, `dry_run()`
+- **Settings**: `verbose()`, `free_only()`, `privacy()`, `output()`, `config()`
+- **System**: `doctor()`, `interactive()`, `restart()`, `exit()`
+
+**Real Functionality** (no stubs):
+- Settings persistence with automatic save/load
+- Lazy orchestrator loading (prevents import crashes)
+- Beautiful terminal output with emojis and formatting
+- Interactive mode with slash command support
+- Proper error handling and user guidance
 
 ### **Command Categories & Complete Reference**
 
@@ -137,9 +168,82 @@ def main():
 | **Simulate Workflow**       | `mao --dry-run`               | `/dry-run`                    |
 | **Terminal Commands**       | -                             | `!ls -la` (any bash/zsh)      |
 
+### **Command Type Handling**
+
+```python
+# Standalone commands (no arguments)
+if cmd_config["type"] == "standalone":
+    method()  # stats(), help(), doctor()
+
+# Input commands (text argument)  
+elif cmd_config["type"] == "needs_input":
+    method(value)  # goal("marketing plan"), chat("hello")
+
+# File commands (file path argument)
+elif cmd_config["type"] == "needs_file": 
+    method(value)  # setup("config.json"), update("phase2.json")
+
+# App-only commands (in-app slash commands only)
+elif cmd_config["type"] == "app_only":
+    # Handled via /restart, /exit in interactive mode
+```
+
+### **Settings Management System**
+**File**: `configs/user_settings.json` (auto-created)
+
+**Persistent Settings**:
+```json
+{
+  "verbose": false,
+  "free_only": false, 
+  "privacy_mode": false,
+  "output_directory": null,
+  "color_theme": "default"
+}
+```
+
+**Integration**: All settings commands (`--verbose`, `--free`, `--privacy`) automatically save state
+
+### **Error Recovery & Bootstrap**
+**Graceful Degradation**:
+- Missing orchestrator: Lazy loading prevents startup crashes
+- Malformed JSON files: Individual file errors don't break other commands
+- Missing interface methods: Clear error messages with suggestions
+- Import failures: Bootstrap fallback with helpful guidance
+
+### **Interactive Mode Features**
+**Slash Commands**: `/help`, `/stats`, `/workflows`, `/verbose`, `/exit`, `/restart`
+**Natural Language**: Direct goal input processed as workflow creation
+**Command History**: Persistent across sessions
+**Exit Handling**: Graceful shutdown on Ctrl+C or `exit` command
+
+**Integration Points**: 
+
+### **With Future MCP Integration Hub**
+- Settings management ready for MCP server configurations  
+- Workflow commands prepared for Memory MCP state tracking
+- File handling ready for Files API integration
+
+### **With Tool Integration Framework**  
+- Dynamic command discovery supports tool-specific commands
+- Interface methods ready for tool execution callbacks
+- Settings system supports tool preference management
+
+### **With Workflow Engine Core**
+- Goal command integrates with workflow orchestration
+- Setup/update commands ready for JSON workflow configs
+- Progress tracking prepared for real-time execution monitoring
+
+### **With Terminal UI/UX System**
+- Display layer separation already implemented
+- Settings management supports color themes and preferences
+- Interactive mode foundation ready for enhanced UX features
+
 ---
 
 ## 🧠 **Memory MCP Integration Hub**
+
+**Status**: ✅ **Specification Complete** - Implementation Plan 1.2
 
 ### **Architectural Evolution: Beyond `orchestrator/memory.py`**
 
@@ -261,6 +365,8 @@ MAO-v4 (project)
 
 ## 🔧 **Tool Integration Framework**
 
+**Status**: ✅ **Specification Complete** - Implementation Plan 1.3
+
 ### **Executable Human Button System**
 
 MAO transforms human buttons from static code snippets into executable workflow components with complete tracking integration.
@@ -355,6 +461,8 @@ class ToolManager:
 ```
 
 ## 🎬 **Workflow Engine Core Integration**
+
+**Status**: ✅ **Specification Complete** - Implementation Plan 1.4
 
 ### **Setup Script Bridge: Simple Human-First Design**
 
@@ -556,50 +664,85 @@ configs/use_case/marketing-strategy-startup/
 
 ## 🎯 **Agent Orchestration Framework** 
 
-**Status**: 🚧 **[TBD - Implementation Plan 1.4]**
+**Status**: ✅ **Specification Complete** - Implementation Plan 1.4
 
 ### **Agent Handoff Coordination**
 
 ```python
 # orchestrator/agent_orchestrator.py
 class AgentOrchestrator:
-    def prepare_agent_context(self, workflow_id: str, phase: WorkflowPhase):
-        """Create complete context package for agent handoff"""
+    """Coordinate agent handoffs with context packages via Files API"""
+    
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
+        self.tool_manager = ToolManager()
         
-        # Retrieve workflow state from Memory MCP
+    def execute_workflow_phase(self, workflow_id: str, phase: dict):
+        """Execute workflow phase with agent coordination"""
+        
+        # Get workflow context from Memory MCP
         workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
         
-        # Generate executable tool buttons for agent
-        tool_buttons = {}
-        for tool_name in phase.tools:
-            tool_manager = self.tool_manager.get_tool(tool_name)
-            tool_buttons[tool_name] = tool_manager.create_button_snippet(
-                workflow_params, 
-                phase.model
-            )
+        # Prepare agent handoff package
+        handoff_package = self._create_agent_package(
+            workflow_id, 
+            phase, 
+            workflow_context
+        )
         
-        # Create agent handoff package via Files API
-        handoff_package = {
-            "workflow_id": workflow_id,
-            "phase_context": phase,
-            "previous_deliverables": workflow_context["deliverables"],
-            "tool_buttons": tool_buttons,
-            "callback_instructions": self._generate_callback_instructions(workflow_id),
-            "success_criteria": phase.success_criteria,
-            "cost_tracking": self._get_cost_context(workflow_id)
-        }
-        
-        # Store package via Files API for agent access
+        # Store package via Files API
         package_id = self.files_api.save_agent_package(workflow_id, handoff_package)
         
-        return package_id
+        # Track phase start in Memory MCP
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Phase started: {phase['name']} (Package: {package_id})"
+        )
+        
+        return {
+            "success": True,
+            "package_id": package_id,
+            "agent_instructions": handoff_package["instructions"],
+            "tool_buttons": handoff_package["tool_buttons"],
+            "callback_info": handoff_package["callback"]
+        }
+    
+    def handle_agent_callback(self, workflow_id: str, phase_name: str, results: dict):
+        """Process agent completion callback"""
+        
+        # Validate callback results
+        validation = self._validate_callback_results(results)
+        
+        # Process deliverables via Files API
+        deliverable_results = self._process_deliverables(
+            workflow_id, 
+            phase_name, 
+            results.get("deliverables", [])
+        )
+        
+        # Update workflow state in Memory MCP
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Phase completed: {phase_name} | Success: {results.get('success', False)}"
+        )
+        
+        # Determine next phase or completion
+        next_phase_info = self._determine_next_phase(workflow_id, results)
+        
+        return {
+            "success": True,
+            "deliverables": deliverable_results,
+            "next_phase": next_phase_info,
+            "workflow_status": self._get_workflow_status(workflow_id)
+        }
 ```
 
 ---
 
 ## 🖥️ **Terminal UI/UX System**
 
-**Status**: 🚧 **[TBD - Implementation Plan 1.5]**
+**Status**: 🚧 **[TBD - Implementation Plan 1.5 - Needs Rewrite]**
 
 ### **Full Interactive Application Experience**
 

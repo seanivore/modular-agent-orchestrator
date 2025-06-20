@@ -1,134 +1,71 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
-For args that are "needs input" I don't want to require having quotes because the terminal can be so frustrating with quotes. 
+## Decisions To Make 
 
-Re: these two especially: 
+1. When and how is the workflow ID created? 
+   - Ideally it would be when running the setup script on the JSON because it could add it to the JSON file 
+   - BUT, Mao needs it earlier because when chatting and planning a workflow they need to make Memory state updates 
+   - And we need to consider that sometimes a workflow may be created without Mao involved 
 
-| **First message to AI**     | `mao --chat message`        | `/chat message`              |
-| **Create entire workflow**  | `mao --goal "project goal"` | `/goal project goal`         |
+2. Give Mao normal tool access when they're chatting. 
+   - Same UX everyone is already used to 
+   - Check the freshness of information for the User 
 
+3. Re: `interfaces/ui_terminal.py`, does that file do thinking / logic? I was under the impression that it just sort of held all of the print statements for any situation. The `2_MAO_SYSTEM_FILES.md` says it has user conversation and in put handling. 
 
---------------------------------
+## Audit & Deleting of Implementation Files 
 
-NOTES: Things I notice as we work that also need to be in the documentation. 
-- Adding a new command: Just drop new_command.json in configs/cli/ - entry point automatically discovers it!
+1. I'd like to make sure that everything in these files has been addressed before deleting them. 
+   - `versioning-docs/v4_MAO/1.1_IMPLEMENTATION_CONSOLIDATION_PLAN.md`
+   - `versioning-docs/v4_MAO/1.2_MCP_INTEGRATION_HUB_PLAN.md`
+   - `versioning-docs/v4_MAO/1.3_TOOL_INTEGRATION_FRAMEWORK_PLAN.md`
+   - `versioning-docs/v4_MAO/1.4_WORKFLOW_ENGINE_CORE_PLAN.md`
 
---------------------------------
+2. Then overview the documentation gaps file to make it clearer as to what is needed in the docs. 
 
-I saw this in the docs while reviewing them and had an idea. We should make sure that the orchestrator can search the web or use any other tools during chat sessions. It should be the same UX that everyone is already used to. Plus, when someone is suspicious about the freshness of information, or knows that there is new information that came out after the training data cutoff date, our Claude needs to be able to deal with that just like users will expect. 
+3. Check in on this "REMAINING INTEGRATION WORK"
 
-```
-### Smart Freshness Assessment
+    - **Orchestrator Integration**
+    - Connect `goal()` method to real `WorkflowOrchestrator`
+    - Implement workflow state management for continue/review
+    - Add real cost tracking and progress monitoring
 
-Mao understands that different types of information have different freshness requirements:
+    - **File System Integration**   
+    - Connect setup/update commands to actual JSON workflow processing
+    - Implement workspace management for deliverable organization
+    - Add file validation and error handling
 
-Mao: "I found cached research on B2B SaaS trends from 45 days ago.
-
-Freshness Analysis:
-✅ Industry analysis: Still valid (180-day freshness window)
-⚠️ Market trends: Partially stale (30-day window, 50% confidence)
-❌ Pricing data: Expired (7-day window, requires refresh)
-
-Optimization Strategy:
-- Reuse: Industry analysis and competitive framework
-- Refresh: Current market trends and pricing data
-- Effort Reduction: 60% vs. full research
-- Quality Maintained: Fresh data where it matters most"
-```
-
---------------------------------
-
-I deleted the pretend case studies from 1_MAO_OVERVIEW.md. It was a bunch in two different sections, one offering examples and the other framed as actual case studies. Instead it just mentions that we're building a database for workflows, tools, and model information. <-- All of which Claude Orchestrator should have direct access to instead of users having to look it up on some website somewhere as if it was 2020. 
-
---------------------------------
-
-On the doc: `2_MAO_SYSTEM_FILES.md`. 
-After this heading / section: 
-
-```
-## 🎭 **Entry Point Layer**
-
-### `mao_v4.py` - The Router
-**What it does:** Pure command-line routing; nothing else
-**Responsibilities:**
-- Load CLI arguments from arguments JSON config
-- Parse command-line arguments  
-- Route requests to appropriate interface
-- Bootstrap interface with minimal error handling
-
-**What it does NOT do:**
-- Business logic
-- Print statements (except critical bootstrap failures)
-- Workflow management
-- Complex error handling
-- User interaction
-
-**Flow:** `Command Line → Argument Parsing → Interface Routing`
-```
-
-How about the fact that it runs the workflow script? Like when you use the setup script with the JSON, and it creates a new script and puts in into the workflow use-case directory, and then makes it executable. So when the user runs the workflow, it runs the script. Isn't that handled by this entry point? is it mentioned somewhere else? Feels like it should be here because I'm left wondering like, how other things happen. Like it feels overly simplistic. Needs a secondary flow. We should be up front from the start that the entry point either leads you to setup a workflow, or it activates and runs a workflow. Right? 
-
---------------------------------
-
-This is for my own clarification. On the doc: `2_MAO_SYSTEM_FILES.md`. This section: 
-
-```
-## 🖥️ **Interface Layer**
-
-### `interfaces/ui_terminal.py` - The UX Brain
-**What it does:** All user interaction and experience
-**Responsibilities:**
-- User conversation and input handling
-- All formatting and display logic
-- Workflow setup conversations
-- Progress monitoring and status updates
-- Error message formatting and user guidance
-- Success/failure presentation
-
-**Contains:** All the print statements and UI formatting logic
-
-**Flow:** `User Interaction ↔ Interface ↔ Orchestrator Calls`
-
-### `interfaces/ui_web.py` - Future Web Interface
-**What it does:** Web-based interface (future implementation)
-**Same responsibilities as terminal interface, different presentation**
-```
-
-That file does thinking / logic? I was under the impression that it just sort of held all of the print statements for any situation. Also I changed it to "the workflow voice" 
-
---------------------------------
-
-On the doc: `2_MAO_SYSTEM_FILES.md`. This section: 
-
-```
-### `orchestrator/memory.py` - Workflow Context
-**What it does:** Workflow state and context management
-**Responsibilities:**
-- Workflow memory and context preservation
-- Agent handoff coordination
-- State persistence across workflow phases
-```
-
-We are using the Memory MCP to store the workflow state and context now. This needs to be updated. 
-
---------------------------------
-
-On the doc: `2_MAO_SYSTEM_FILES.md`. This section: 
-
-```
-### `configs/cli/arguments.json` - Command Interface
-**What it does:** CLI argument definitions for both terminal and in-app use
-**Contains:** All command-line flags and their in-app command equivalents
-```
-
-Re: "arguments.json".... we broke it down so that every single argument/command has its own JSON file. More modular. Needs to be updated. 
+    - **Real-Time Features**
+    - Connect stats to actual system metrics
+    - Implement live workflow monitoring
+    - Add progress bars and execution tracking
 
 
---------------------------------
+## Terminal UI Design 
 
+- **Primary Language: TypeScript/Node.js**
+  - Regarding the language change: 
+  - AI told me that it would be complicated because we'd have to change files 
+  - I asked them to clarify because the python does the work and then the typescript does the UI
+  - I didn't see the conflict 
+  - Then they said I was right and they were over thinking it 
+- **Mentioning this in case it comes up again**
 
+- **TypeScript/Node.js** with npm distribution - that's actually really smart for a developer tool.
+- **Easy distribution** via npm (developers already have Node)
+- **Cross-platform** (works everywhere Node works)
+- **Rich ecosystem** for terminal UIs and APIs
+- **TypeScript** gives them good type safety for a complex tool
 
+- Use libraries like `ink` (React for terminal) or `blessed`
+- Easy to integrate with Claude's APIs
+- Familiar if you know JavaScript
+
+- Primarily developed using TypeScript and Node.js
+- Evident from the installation instructions using Node package manager (npm install -g @anthropic-ai/claude-code)
+
+---------------------------------
 
 | **SESSION 22 TASK** |
 | ------------------- |
