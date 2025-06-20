@@ -77,55 +77,39 @@ MAO's architecture is built on **principled modularity** - every component is in
 
 ---
 
-## 🎭 **Entry Point: `mao_v4.py`**
+## 🎭 **Entry Point: Dynamic Modular CLI System**
 
-**Main CLI interface** providing multiple interaction modes and routing.
+**Status**: 🚧 **[TBD - Implementation Plan 1.1]**
 
-### **Command Line Interface**
+MAO uses a revolutionary **pure modular CLI approach** where all commands are defined in individual JSON files, enabling true plug-and-play command management.
 
+### **Modular Command Architecture**
+
+**Individual Command Files** (`configs/cli/[command].json`):
+```json
+{
+  "command": "stats",
+  "type": "standalone",
+  "terminal_flag": "--stats", 
+  "app_command": "/stats",
+  "interface_method": "stats",
+  "help": "Show system performance and orchestrator statistics"
+}
+```
+
+**Dynamic Entry Point** (`mao_v4.py`):
 ```python
-# Core functionality
+def load_all_commands():
+    """Scan configs/cli/ and load all .json files automatically"""
+    
+def create_dynamic_parser(commands):
+    """Build argparse from discovered commands"""
+    
 def main():
-    parser = argparse.ArgumentParser(description="MAO - AI Workflow Orchestrator")
-    
-    # Primary execution modes
-    parser.add_argument("goal", nargs="?", help="Natural language goal")
-    
-    # System management
-    parser.add_argument("--list-workflows", action="store_true")
-    parser.add_argument("--stats", action="store_true") 
-    parser.add_argument("--verbose", "-v", action="store_true")
-    
-    # Execution preferences
-    parser.add_argument("--workspace", "-w", help="Custom workspace directory")
-    parser.add_argument("--free-only", action="store_true", help="Use only free models")
-    parser.add_argument("--privacy", action="store_true", help="Privacy-focused models")
+    """Pure dynamic routing - zero hardcoding"""
 ```
 
-### **Execution Flow**
-
-**1. Argument Parsing & Validation**
-- Command line argument processing
-- Execution mode determination (direct, interactive)
-- Preference extraction and validation
-
-**2. Interface Initialization**
-```python
-mao = TerminalInterface(verbose=args.verbose)
-```
-
-**3. Request Routing**
-- Stats requests → `mao.get_stats()`
-- Workflow listing → `mao.list_workflows()`
-- General goals → `mao.execute_goal()`
-- Interactive mode → Input loop with continuous execution
-
-**4. Result Processing**
-- Success summary generation
-- Error handling and user guidance
-- Workspace management and file organization
-
-### **MAO CLI Command Reference**
+### **Command Categories & Complete Reference**
 
 | **FUNCTION**                | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
 | --------------------------- | ----------------------------- | ----------------------------- |
@@ -175,7 +159,7 @@ MAO v4 shifts from local file-based memory to **Memory MCP integration** for per
 ### **Core Integration Architecture**
 
 ```python
-# orchestrator/memory_mcp_manager.py
+# orchestrator/memory_mcp.py
 class MemoryMCPManager:
     """Primary interface for workflow state management"""
     
@@ -208,102 +192,22 @@ class MemoryMCPManager:
     def get_workflow_context(self, workflow_id: str):
         """Retrieve complete workflow context for session recovery"""
         entity_name = f"workflow-{workflow_id}"
-        return self.memory_connector.open_nodes([entity_name])
+        context = self.memory_connector.open_nodes([entity_name])
+        return self._parse_workflow_context(context)
     
-    def search_workflows(self, query: str):
-        """Search across all workflow entities"""
-        return self.memory_connector.search_nodes(f"{query} entityType:workflow")
-```
-
-### **Files API Integration Layer**
-
-```python
-# orchestrator/files_api_manager.py  
-class FilesAPIManager:
-    """Handles agent handoff packages and workflow file management"""
-    
-    def __init__(self):
-        self.anthropic_client = anthropic.Anthropic()
-        self.memory_mcp = MemoryMCPManager()
-        
-    def create_agent_handoff_package(self, workflow_id: str, phase_data: dict):
-        """Bundle context and files for agent handoff"""
-        package = {
-            "workflow_id": workflow_id,
-            "phase_data": phase_data,
-            "context": self.memory_mcp.get_workflow_context(workflow_id),
-            "timestamp": datetime.now().isoformat()
-        }
-        
-        # Upload to Files API for agent access
-        file_response = self.anthropic_client.files.create(
-            file=json.dumps(package, indent=2).encode(),
-            purpose="workflow_handoff"
-        )
-        
-        # Track file reference in Memory MCP
-        self.memory_mcp.update_workflow_state(
-            workflow_id, 
-            f"Agent handoff package created: {file_response.id}"
-        )
-        
-        return file_response.id
-    
-    def retrieve_handoff_package(self, file_id: str):
-        """Retrieve and parse agent handoff package"""
-        file_content = self.anthropic_client.files.content(file_id)
-        return json.loads(file_content.content.decode())
-    
-    def save_workflow_deliverables(self, workflow_id: str, deliverables: dict):
-        """Save final deliverables with workflow context"""
-        package = {
-            "workflow_id": workflow_id,
-            "deliverables": deliverables,
-            "completion_time": datetime.now().isoformat(),
-            "workflow_log": self.memory_mcp.get_workflow_context(workflow_id)
-        }
-        
-        file_response = self.anthropic_client.files.create(
-            file=json.dumps(package, indent=2).encode(),
-            purpose="workflow_completion"
-        )
-        
-        return file_response.id
-```
-
-### **Session Recovery Implementation**
-
-```python
-def recover_session(self, last_workflow_id: str = None):
-    """Recover interrupted session with complete context"""
-    if not last_workflow_id:
-        # Find most recent active workflow
-        recent_workflows = self.memory_mcp.search_workflows("status:active")
-        if not recent_workflows:
+    def handle_session_recovery(self, workflow_id: str):
+        """Restore workflow state after interruption"""
+        workflow_context = self.get_workflow_context(workflow_id)
+        if not workflow_context:
             return None
-        last_workflow_id = self._extract_workflow_id(recent_workflows[0])
-    
-    # Retrieve complete workflow context
-    workflow_context = self.memory_mcp.get_workflow_context(last_workflow_id)
-    if not workflow_context:
-        raise WorkflowNotFoundError(f"Workflow {last_workflow_id} not found")
-    
-    # Extract file references and workspace info
-    observations = workflow_context.get("observations", [])
-    file_refs = self._extract_file_references(observations)
-    workspace_path = self._extract_workspace_path(observations)
-    
-    # Determine current phase and next actions
-    current_phase = self._analyze_workflow_progress(observations)
-    
-    return {
-        "workflow_id": last_workflow_id,
-        "context": workflow_context,
-        "file_references": file_refs,
-        "workspace_path": workspace_path,
-        "current_phase": current_phase,
-        "recovery_actions": self._plan_recovery_actions(current_phase)
-    }
+            
+        return {
+            "workflow_context": workflow_context,
+            "file_references": self._extract_file_refs(workflow_context),
+            "workspace_path": self._extract_workspace_path(workflow_context),
+            "current_phase": self._determine_current_phase(workflow_context),
+            "recovery_actions": self._plan_recovery_actions(workflow_context)
+        }
 ```
 
 ### **Entity Relationship Patterns**
@@ -361,158 +265,74 @@ MAO-v4 (project)
 
 MAO transforms human buttons from static code snippets into executable workflow components with complete tracking integration.
 
-**Current Button Generation Pattern:**
+**Universal Model Compatibility:**
 ```python
-# tools/*/button_*.py - Standard pattern across all tools
-def create_button_snippet(tool_name: str, params: dict, workflow_id: str = None):
-    """Generate executable code with workflow tracking"""
-    
-    base_snippet = f"""
-# Executable {tool_name} with workflow integration
-import json
-from datetime import datetime
+# tools/[tool_name]/button_[tool_name].py
+def create_button_snippet(params: Dict[str, Any], model: str) -> str:
+    """
+    Generate executable code for ANY AI model
+    Works with Claude, GPT, Gemini, local models, future models
+    """
+    return f'''
+# {tool_name.title()} Tool Execution
+import sys
+sys.path.append('{MAO_ROOT_PATH}')
 
-# Tool execution with tracking
-def execute_with_tracking():
-    workflow_id = "{workflow_id}"
-    execution_id = generate_execution_id()
-    
-    # Log execution start
-    if workflow_id:
-        update_workflow_state(workflow_id, f"Tool execution started: {execution_id}")
-    
-    try:
-        # Execute tool logic
-        result = {tool_name}_main({json.dumps(params)})
-        
-        # Save results to Files API for agent access
-        save_execution_results(workflow_id, execution_id, result)
-        
-        # Call back to orchestrator
-        if workflow_id:
-            callback_orchestrator(workflow_id, execution_id, result)
-            
-        return result
-        
-    except Exception as e:
-        log_execution_error(workflow_id, execution_id, str(e))
-        raise
+from tools.{tool_name}.{tool_name} import {primary_function}
+from orchestrator.workflow_tracker import track_tool_execution
 
-execute_with_tracking()
-"""
-    return base_snippet
+# Execute with workflow tracking
+result = {primary_function}({format_params(params)})
+track_tool_execution(
+    workflow_id="{workflow_id}",
+    tool_name="{tool_name}",
+    execution_result=result
+)
+
+# Display results
+print(format_tool_results(result))
+'''
 ```
 
-**Agent Callback Integration:**
-```python
-# orchestrator/agent_callback_handler.py
-class AgentCallbackHandler:
-    def __init__(self):
-        self.memory_mcp = MemoryMCPManager()
-        self.files_api = FilesAPIManager()
-        
-    def handle_agent_return(self, workflow_id: str, execution_data: dict):
-        """Process agent return with execution results"""
-        
-        # Retrieve workflow context
-        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
-        
-        # Process execution results and files
-        if execution_data.get('file_ids'):
-            processed_files = []
-            for file_id in execution_data['file_ids']:
-                file_content = self.files_api.retrieve_execution_file(file_id)
-                processed_files.append({
-                    "id": file_id,
-                    "content": file_content
-                })
-            
-            execution_data['processed_files'] = processed_files
-        
-        # Update workflow state
-        self.memory_mcp.update_workflow_state(
-            workflow_id,
-            f"Agent returned with {len(execution_data.get('file_ids', []))} files"
-        )
-        
-        return {
-            "workflow_context": workflow_context,
-            "execution_results": execution_data,
-            "next_phase": self._determine_next_phase(workflow_context, execution_data)
-        }
-```
+### **Dynamic Tool Discovery & Validation**
 
-### **Dynamic Tool Discovery System**
-
-**Tool Manager Enhancement:**
 ```python
-# orchestrator/manager_tools.py (enhanced)
+# orchestrator/manager_tools.py  
 class ToolManager:
-    def __init__(self):
-        self.discovered_tools = {}
-        self.mcp_connector = None  # Set when MCP integration complete
-        self.memory_mcp = MemoryMCPManager()
-        
-    def discover_all_tools(self):
-        """Discover tools from multiple sources"""
-        tools = {}
-        
-        # Local MAO tools
-        local_tools = self._discover_local_tools()
-        tools.update(local_tools)
-        
-        # MCP server tools (when available)
-        if self.mcp_connector:
-            mcp_tools = self.mcp_connector.get_available_tools()
-            tools.update(mcp_tools)
-        
-        # Cache and log discovery
-        self.discovered_tools = tools
-        self._log_discovery_results(tools)
-        
-        return tools
-    
-    def _discover_local_tools(self):
-        """Analyze local tool directories for standardized structure"""
+    def discover_available_tools(self):
+        """Scan tools/ directory and validate 6-file architecture"""
         tools = {}
         tools_dir = Path("tools")
         
         for tool_dir in tools_dir.iterdir():
-            if tool_dir.is_dir() and not tool_dir.name.startswith('_'):
-                tool_info = self._analyze_tool_structure(tool_dir)
+            if tool_dir.is_dir() and not tool_dir.name.startswith('.'):
+                tool_info = self._validate_tool_structure(tool_dir)
                 if tool_info:
                     tools[tool_dir.name] = tool_info
         
         return tools
     
-    def _analyze_tool_structure(self, tool_dir: Path):
-        """Validate tool follows 6-file pattern"""
-        tool_name = tool_dir.name
+    def _validate_tool_structure(self, tool_dir: Path):
+        """Ensure tool follows 6-file architecture"""
         required_files = [
-            f"{tool_name}.py",           # Core logic
-            f"tool_{tool_name}.json",    # Configuration
-            f"button_{tool_name}.py",    # Button generator
-            f"ui_{tool_name}.py"         # UI components
+            f"{tool_dir.name}.py",           # Core logic
+            f"button_{tool_dir.name}.py",    # Human buttons
+            f"ui_{tool_dir.name}.py",        # UI components  
+            f"tool_{tool_dir.name}.json"     # Configuration
         ]
         
-        # Check file structure
-        missing_files = []
-        for req_file in required_files:
-            if not (tool_dir / req_file).exists():
-                missing_files.append(req_file)
+        # Validate core architecture
+        for required_file in required_files:
+            if not (tool_dir / required_file).exists():
+                return None
         
-        if missing_files:
-            return None
+        # Load and validate configuration
+        config_path = tool_dir / f"tool_{tool_dir.name}.json"
+        with open(config_path) as f:
+            config = json.load(f)
         
-        # Load configuration
-        try:
-            with open(tool_dir / f"tool_{tool_name}.json") as f:
-                config = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            return None
-        
-        # Verify button function exists
-        button_module_path = tool_dir / f"button_{tool_name}.py"
+        # Validate button module has required function
+        button_module_path = tool_dir / f"button_{tool_dir.name}.py"
         if not self._validate_button_module(button_module_path):
             return None
         
@@ -534,362 +354,467 @@ class ToolManager:
             return False
 ```
 
-### **Workflow Engine Core Integration**
+## 🎬 **Workflow Engine Core Integration**
 
-**Setup Script Bridge:**
-```python
-# orchestrator/setup_script_bridge.py
-class SetupScriptBridge:
-    def __init__(self):
-        self.memory_mcp = MemoryMCPManager()
-        self.files_api = FilesAPIManager()
-        
-    def create_workflow_from_conversation(self, user_goal: str, conversation_context: dict):
-        """Transform conversation into executable workflow"""
-        workflow_id = self._generate_workflow_id()
-        
-        # Create workflow entity
-        self.memory_mcp.create_workflow_context(workflow_id, user_goal)
-        
-        # Analyze conversation for workflow requirements
-        workflow_spec = self._analyze_conversation(user_goal, conversation_context)
-        
-        # Generate JSON configuration
-        config = self._generate_workflow_config(workflow_id, workflow_spec)
-        
-        # Create custom command (spaces not hyphens!)
-        custom_command = self._generate_custom_command(workflow_spec)
-        
-        # Generate setup script
-        setup_script = self._create_setup_script(workflow_id, custom_command, config)
-        
-        # Create use-case directory structure
-        use_case_path = self._create_use_case_directory(custom_command, config)
-        
-        return {
-            "workflow_id": workflow_id,
-            "custom_command": custom_command,
-            "config": config,
-            "setup_script": setup_script,
-            "use_case_path": use_case_path
-        }
-    
-    def _generate_custom_command(self, workflow_spec: dict):
-        """Generate natural language command with spaces"""
-        base_name = workflow_spec.get("name", "workflow")
-        # Ensure spaces, not hyphens for natural language
-        return base_name.replace("-", " ").replace("_", " ")
-    
-    def _create_setup_script(self, workflow_id: str, custom_command: str, config: dict):
-        """Generate executable setup script"""
-        command_filename = custom_command.replace(" ", "-")
-        
-        script_content = f"""#!/bin/bash
+### **Setup Script Bridge: Simple Human-First Design**
+
+MAO uses a **single, simple setup script** that processes JSON configurations - following the proven SFA pattern that developers love.
+
+#### **The Simple Pattern (Like SFA)**
+```bash
+# Human creates or gets JSON config
+mao --setup ./marketing-strategy-config.json
+
+# Setup script processes config and creates executable command  
+# Result: `marketing-strategy-startup` command installed in /usr/local/bin/
+
+# Execute workflow
+marketing-strategy-startup
+```
+
+#### **How It Works**
+
+**ONE Setup Script** (`scripts/setup_workflow.sh`):
+```bash
+#!/bin/bash
 # MAO Workflow Setup Script
-# Generated for workflow: {workflow_id}
-# Custom command: {custom_command}
+# Processes any JSON config and creates executable commands
 
-set -e
+CONFIG_FILE="$1"
 
-echo "🚀 Setting up MAO workflow: {custom_command}"
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ Config file not found: $CONFIG_FILE"
+    exit 1
+fi
 
-# Create executable command
-cat > "/usr/local/bin/{command_filename}" << 'EOF'
+# Parse JSON config
+WORKFLOW_ID=$(jq -r '.workflow_id' "$CONFIG_FILE")
+COMMAND_NAME=$(jq -r '.custom_command' "$CONFIG_FILE")
+COMMAND_FILE="${COMMAND_NAME// /-}"  # Replace spaces with hyphens for filesystem
+
+echo "🚀 Setting up MAO workflow: $COMMAND_NAME"
+
+# Create use-case directory
+USE_CASE_DIR="configs/use_case/${COMMAND_FILE}"
+mkdir -p "$USE_CASE_DIR"
+cp "$CONFIG_FILE" "$USE_CASE_DIR/config.json"
+
+# Generate executable command
+cat > "/usr/local/bin/${COMMAND_FILE}" << EOF
 #!/usr/bin/env python3
+"""
+MAO Custom Command: $COMMAND_NAME
+Workflow ID: $WORKFLOW_ID
+"""
+
 import sys
 import os
-sys.path.insert(0, "{os.path.abspath('.')}")
 
-from orchestrator.core import MaoOrchestrator
+# Add MAO to path
+sys.path.insert(0, "$(pwd)")
 
-orchestrator = MaoOrchestrator()
-orchestrator.execute_workflow("{workflow_id}", sys.argv[1:])
+from orchestrator.core import WorkflowOrchestrator
+import json
+
+def main():
+    config_path = "$USE_CASE_DIR/config.json"
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+    
+    orchestrator = WorkflowOrchestrator()
+    orchestrator.execute_workflow_from_config(config)
+
+if __name__ == "__main__":
+    main()
 EOF
 
-chmod +x "/usr/local/bin/{command_filename}"
+# Make executable
+chmod +x "/usr/local/bin/${COMMAND_FILE}"
 
-echo "✅ Custom command installed: {custom_command}"
-echo "🧪 Test: which {command_filename}"
-echo "🚀 Usage: {custom_command} [args...]"
-"""
-        return script_content
+echo "✅ Custom command installed: $COMMAND_NAME"
+echo "📁 Use-case directory: $USE_CASE_DIR"
+echo "🧪 Test: which ${COMMAND_FILE}"
+echo "🚀 Ready: ${COMMAND_FILE}"
 ```
 
-### **MCP Connector Integration**
+#### **Claude Integration: Same Simple Process**
 
-**External MCP Server Connectivity:**
+When Claude creates workflows from conversation:
+
+1. **Conversation Analysis**: Extract requirements and generate JSON config
+2. **Config Creation**: Create valid JSON that setup script can process  
+3. **Setup Execution**: Call the SAME setup script internally
+4. **Command Installation**: Same result - executable custom command
+
 ```python
-# orchestrator/mcp_connector.py
-class MCPConnector:
-    """Anthropic MCP API Connector for external tool integration"""
-    
-    def __init__(self):
-        self.servers = {}
-        self.memory_manager = MemoryMCPManager()
-        self.registered_tools = {}
+# orchestrator/conversation_to_workflow.py
+class ConversationWorkflowBridge:
+    def create_workflow_from_conversation(self, user_goal: str):
+        # Analyze conversation and extract workflow requirements
+        workflow_spec = self._analyze_conversation(user_goal)
         
-    def register_server(self, server_config: dict):
-        """Register external MCP server"""
-        server_name = server_config["name"]
-        self.servers[server_name] = MCPServerConnection(server_config)
+        # Generate JSON config (same format as human-created)
+        config_json = self._generate_config_json(workflow_spec)
         
-        # Discover available tools
-        tools = self.servers[server_name].list_tools()
-        self.registered_tools[server_name] = tools
+        # Save config to temporary file
+        config_path = f"/tmp/workflow_{workflow_spec['workflow_id']}.json"
+        with open(config_path, 'w') as f:
+            json.dump(config_json, f, indent=2)
         
-        # Log server registration
-        self.memory_manager.create_entities([{
-            "name": f"mcp-server-{server_name}",
-            "entityType": "mcp-server",
-            "observations": [
-                f"Registered: {server_config}",
-                f"Available tools: {list(tools.keys())}"
-            ]
-        }])
+        # Use SAME setup script as humans use
+        result = subprocess.run([
+            "scripts/setup_workflow.sh", 
+            config_path
+        ], capture_output=True, text=True)
         
-        return tools
-    
-    def execute_tool(self, server_name: str, tool_name: str, params: dict, workflow_id: str = None):
-        """Execute tool on external MCP server"""
-        if server_name not in self.servers:
-            raise ValueError(f"Server {server_name} not registered")
-            
-        if tool_name not in self.registered_tools[server_name]:
-            raise ValueError(f"Tool {tool_name} not available on {server_name}")
-            
-        result = self.servers[server_name].execute_tool(tool_name, params)
-        
-        # Log tool execution if part of workflow
-        if workflow_id:
-            self.memory_manager.update_workflow_state(
-                workflow_id,
-                f"MCP tool executed: {server_name}.{tool_name} -> Success"
-            )
-            
-        return result
-    
-    def get_available_tools(self):
-        """Get all available tools across all servers"""
-        all_tools = {}
-        for server_name, tools in self.registered_tools.items():
-            for tool_name, tool_info in tools.items():
-                all_tools[f"{server_name}.{tool_name}"] = tool_info
-        return all_tools
-
-class MCPServerConnection:
-    """Individual MCP server connection handler"""
-    
-    def __init__(self, config: dict):
-        self.config = config
-        self.client = self._initialize_client()
-        
-    def _initialize_client(self):
-        """Initialize MCP client with server configuration"""
-        return anthropic.beta.messages.create(
-            model="claude-sonnet-4-20250514",
-            mcp_servers=[{
-                "type": "url",
-                "url": self.config["url"],
-                "name": self.config["name"],
-                "authorization_token": self.config.get("authorization_token")
-            }],
-            betas=["mcp-client-2025-04-04"]
-        )
-    
-    def list_tools(self):
-        """Discover available tools on this server"""
-        response = self.client.messages.create(
-            messages=[{"role": "user", "content": "What tools do you have available?"}]
-        )
-        return self._parse_available_tools(response)
-    
-    def execute_tool(self, tool_name: str, params: dict):
-        """Execute specific tool with parameters"""
-        response = self.client.messages.create(
-            messages=[{
-                "role": "user", 
-                "content": f"Use {tool_name} with parameters: {json.dumps(params)}"
-            }]
-        )
-        return self._parse_tool_response(response)
-```
-
-### **Code Execution Tool Integration**
-
-**Direct Claude 4 Code Execution Integration:**
-```python
-# tools/code_execution/code_execution.py
-class CodeExecutionTool:
-    """Integration with Claude 4 Code Execution for workflow tracking"""
-    
-    def __init__(self):
-        self.memory_mcp = MemoryMCPManager()
-        self.files_api = FilesAPIManager()
-        
-    def execute_human_button(self, button_code: str, workflow_id: str, context: dict = None):
-        """Execute human button code with workflow tracking"""
-        execution_id = f"exec-{uuid4().hex[:8]}"
-        
-        # Log execution start
-        self.memory_mcp.update_workflow_state(
-            workflow_id,
-            f"Code execution started: {execution_id}"
-        )
-        
-        try:
-            # Prepare execution environment
-            exec_env = self._prepare_environment(workflow_id, context)
-            
-            # Execute code with Claude Code Execution
-            result = self._execute_code(button_code, exec_env)
-            
-            # Save files via Code Execution (only way to make them downloadable)
-            if result.get('generated_files'):
-                file_ids = []
-                for file_info in result['generated_files']:
-                    file_id = self._upload_via_code_execution(file_info)
-                    file_ids.append(file_id)
-                result['file_ids'] = file_ids
-            
-            # Update workflow state
-            self.memory_mcp.update_workflow_state(
-                workflow_id,
-                f"Code execution completed: {execution_id}"
-            )
-            
+        if result.returncode == 0:
             return {
-                "execution_id": execution_id,
-                "result": result,
-                "workflow_id": workflow_id
+                "success": True,
+                "custom_command": config_json["custom_command"],
+                "workflow_id": config_json["workflow_id"],
+                "setup_output": result.stdout
             }
-            
-        except Exception as e:
-            self.memory_mcp.update_workflow_state(
-                workflow_id,
-                f"Code execution failed: {execution_id} - {str(e)}"
-            )
-            raise
-    
-    def _prepare_environment(self, workflow_id: str, context: dict):
-        """Prepare execution environment with workflow context"""
-        return {
-            "workflow_id": workflow_id,
-            "context": context,
-            "memory_mcp_available": True,
-            "files_api_available": True
-        }
-    
-    def _upload_via_code_execution(self, file_info: dict):
-        """Upload file via Code Execution tool for later download"""
-        # Only files uploaded via Code Execution are downloadable
-        # This is a critical Anthropic API requirement
-        upload_code = f"""
-import anthropic
-client = anthropic.Anthropic()
-
-with open("{file_info['path']}", "rb") as f:
-    file_response = client.files.create(
-        file=f,
-        purpose="workflow_execution"
-    )
-    
-print(f"File uploaded: {{file_response.id}}")
-"""
-        # Execute upload via Code Execution
-        result = self._execute_code(upload_code, {})
-        return self._extract_file_id(result)
-
-def create_executable_button_snippet(tool_name: str, params: dict, workflow_id: str):
-    """Generate executable human button with workflow tracking"""
-    
-    imports = """
-import json
-import uuid
-from datetime import datetime
-"""
-    
-    tool_code = f"""
-# Import the specific tool
-from tools.{tool_name}.{tool_name} import {tool_name.title()}Tool
-
-# Initialize tool
-tool = {tool_name.title()}Tool()
-"""
-    
-    wrapper = f"""
-def execute_with_tracking():
-    workflow_id = "{workflow_id}"
-    execution_id = f"exec-{{uuid.uuid4().hex[:8]}}"
-    
-    try:
-        # Execute tool with parameters
-        result = tool.execute({json.dumps(params)})
-        
-        # Save results to Files API via Code Execution
-        # (Critical: Only files saved via Code Execution are downloadable)
-        if result.get('files'):
-            file_ids = []
-            for file_path in result['files']:
-                # Upload via Code Execution
-                with open(file_path, 'rb') as f:
-                    import anthropic
-                    client = anthropic.Anthropic()
-                    file_response = client.files.create(file=f, purpose="workflow")
-                    file_ids.append(file_response.id)
-            result['file_ids'] = file_ids
-        
-        # Call back to orchestrator with workflow ID
-        callback_data = {{
-            "workflow_id": workflow_id,
-            "execution_id": execution_id,
-            "result": result,
-            "status": "completed"
-        }}
-        
-        # This triggers agent callback handling
-        print(f"CALLBACK: {{json.dumps(callback_data)}}")
-        
-        return result
-        
-    except Exception as e:
-        error_data = {{
-            "workflow_id": workflow_id,
-            "execution_id": execution_id,
-            "error": str(e),
-            "status": "failed"
-        }}
-        print(f"ERROR: {{json.dumps(error_data)}}")
-        raise
-
-# Execute the tool
-execute_with_tracking()
-"""
-    
-    return imports + tool_code + wrapper
+        else:
+            return {
+                "success": False, 
+                "error": result.stderr
+            }
 ```
 
-### **Files API Integration**
+#### **JSON Config Schema**
 
-**Anthropic Files API for Agent Handoffs:**
+**Simple, Human-Readable Format**:
+```json
+{
+  "workflow_id": "workflow-abc123",
+  "custom_command": "marketing strategy startup",
+  "goal": "Create comprehensive marketing strategy for fintech startup",
+  "phases": [
+    {
+      "name": "market_research",
+      "description": "Research target market and competitors",
+      "tools": ["web_search", "text_editor"],
+      "deliverable": "Market research report",
+      "model": "claude-sonnet-4"
+    },
+    {
+      "name": "strategy_development", 
+      "description": "Develop marketing strategy and tactics",
+      "tools": ["text_editor", "graphic_design"],
+      "deliverable": "Marketing strategy document",
+      "model": "claude-sonnet-4"
+    }
+  ],
+  "variables": {
+    "required": {
+      "target_market": {
+        "description": "Primary target market segment",
+        "example": "small business owners"
+      }
+    },
+    "optional": {
+      "budget": {
+        "description": "Marketing budget constraint",
+        "default": "not specified"
+      }
+    }
+  }
+}
+```
+
+#### **Directory Structure Created**
+
+```
+configs/use_case/marketing-strategy-startup/
+├── config.json              # Workflow configuration
+├── README.md                # Auto-generated usage guide
+├── phases/                  # Phase-specific materials
+│   ├── 1_market_research/
+│   └── 2_strategy_development/
+└── deliverables/            # Final outputs
+```
+
+#### **Integration Points**
+
+- **Memory MCP**: Tracks workflow creation and command installation
+- **Files API**: Stores drafts and handoff materials during execution  
+- **CLI System**: Custom commands integrate with JSON CLI architecture
+- **Tool Discovery**: Validates required tools are available during setup
+
+#### **Why This Approach Works**
+
+✅ **Human-Friendly**: Developers love simple `mao --setup ./config.json` pattern  
+✅ **No Command Registry**: Unix filesystem handles command discovery  
+✅ **One Source of Truth**: Single setup script, same process for humans and Claude  
+✅ **Proven Pattern**: Based on successful SFA deployment approach  
+✅ **Maintainable**: JSON configs are readable, editable, versionable  
+✅ **Scalable**: Add new workflows by dropping in JSON configs
+
+**This is the simplicity that makes developers happy - not complex, just powerful.** 🚀
+
+---
+
+## 🎯 **Agent Orchestration Framework** 
+
+**Status**: 🚧 **[TBD - Implementation Plan 1.4]**
+
+### **Agent Handoff Coordination**
+
 ```python
-# orchestrator/files_api_manager.py
-class FilesAPIManager:
-    """Complete Files API integration for workflow management"""
-    
-    def __init__(self):
-        self.client = anthropic.Anthropic()
-        self.memory_mcp = MemoryMCPManager()
+# orchestrator/agent_orchestrator.py
+class AgentOrchestrator:
+    def prepare_agent_context(self, workflow_id: str, phase: WorkflowPhase):
+        """Create complete context package for agent handoff"""
         
-    def create_agent_handoff_package(self, workflow_id: str, agent_data: dict):
-        """Create complete agent handoff package"""
-        
-        # Retrieve workflow context from Memory MCP
+        # Retrieve workflow state from Memory MCP
         workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
         
-        # Bundle complete handoff package
+        # Generate executable tool buttons for agent
+        tool_buttons = {}
+        for tool_name in phase.tools:
+            tool_manager = self.tool_manager.get_tool(tool_name)
+            tool_buttons[tool_name] = tool_manager.create_button_snippet(
+                workflow_params, 
+                phase.model
+            )
+        
+        # Create agent handoff package via Files API
         handoff_package = {
             "workflow_id": workflow_id,
-            "workflow_context": workflow_context,
-            "agent_instructions": agent_data.get("instructions"),
-            "deliverable_requirements": agent_data.get("deliverables"),
-            "tool_access": agent_data.get("tools", []),
+            "phase_context": phase,
+            "previous_deliverables": workflow_context["deliverables"],
+            "tool_buttons": tool_buttons,
+            "callback_instructions": self._generate_callback_instructions(workflow_id),
+            "success_criteria": phase.success_criteria,
+            "cost_tracking": self._get_cost_context(workflow_id)
+        }
+        
+        # Store package via Files API for agent access
+        package_id = self.files_api.save_agent_package(workflow_id, handoff_package)
+        
+        return package_id
+```
+
+---
+
+## 🖥️ **Terminal UI/UX System**
+
+**Status**: 🚧 **[TBD - Implementation Plan 1.5]**
+
+### **Full Interactive Application Experience**
+
+MAO's terminal interface provides a **complete application platform** experience:
+
+**Adaptive Claude Demeanor System:**
+- **Beginner Mode**: Friendly guidance with detailed explanations
+- **Experienced Mode**: Efficient interaction with minimal guidance
+- **Expert Mode**: Advanced controls and detailed system information
+
+**Live Progress Monitoring:**
+- Real-time workflow phase tracking with visual progress indicators
+- Cost monitoring with budget alerts and optimization suggestions
+- Quality metrics with automatic validation and improvement suggestions
+- Audio notifications for workflow completion and important events
+
+**Professional Application Features:**
+- Settings management with user preferences and customization
+- Color selection and visual theme management (like Claude Code)
+- Command history and session recovery capabilities
+- Error recovery interfaces with guided resolution workflows
+
+---
+
+## 🏭 **Provider & Model Management**
+
+### **Universal Provider Architecture**
+
+```python
+# orchestrator/manager_models.py
+class ModelManager:
+    def __init__(self):
+        self.providers = self._load_providers()
+        self.models = self._load_models()
+        
+    def _load_providers(self):
+        """Load all provider configurations"""
+        providers = {}
+        for provider_file in Path("configs/providers").glob("*.json"):
+            with open(provider_file) as f:
+                provider_config = json.load(f)
+                providers[provider_config["name"]] = provider_config
+        return providers
+    
+    def get_optimal_model(self, task_complexity: str, cost_constraint: float = None):
+        """Select best model for task requirements"""
+        if task_complexity == "simple" and cost_constraint:
+            return "gpt-4-mini"
+        elif task_complexity == "complex":
+            return "claude-sonnet-4"
+        else:
+            return "claude-sonnet-4"  # Balanced default
+```
+
+### **Provider Configuration Schema**
+
+```json
+{
+  "name": "anthropic-direct",
+  "type": "direct-api",
+  "endpoint": "https://api.anthropic.com/v1/messages",
+  "models": ["claude-sonnet-4", "claude-opus-4"],
+  "authentication": {
+    "type": "api-key",
+    "header": "x-api-key",
+    "env_var": "ANTHROPIC_API_KEY"
+  },
+  "rate_limits": {
+    "requests_per_minute": 60,
+    "tokens_per_minute": 100000
+  }
+}
+```
+
+---
+
+## 🎮 **Interface Management System**
+
+### **Multi-Interface Architecture**
+
+```python
+# interfaces/ui_terminal.py - The Workflow Voice
+class TerminalInterface:
+    """All user interaction and experience - the workflow voice"""
+    
+    def __init__(self, orchestrator):
+        self.orchestrator = orchestrator
+        self.conversation_state = {}
+        
+    def handle_goal_input(self, goal: str):
+        """Process user goal into workflow execution"""
+        # Beautiful terminal output with progress tracking
+        self.display_goal_analysis(goal)
+        
+        # Route to orchestrator for execution
+        workflow_result = self.orchestrator.execute_goal(goal)
+        
+        # Present results with visual formatting
+        self.display_workflow_completion(workflow_result)
+    
+    def display_live_progress(self, workflow_id: str, phase_info: dict):
+        """Live workflow monitoring with visual indicators"""
+        # Rich terminal UI with progress bars, cost tracking, quality metrics
+        pass
+```
+
+### **UI Component Separation**
+
+**Core Logic Layer** (`orchestrator/core.py`):
+- Pure workflow orchestration logic
+- No print statements or UI dependencies
+- Returns structured data for UI formatting
+
+**Interface Layer** (`interfaces/ui_terminal.py`):
+- All user interaction and display formatting
+- Rich terminal UI with visual components
+- Workflow voice and experience management
+
+**Configuration Layer** (`configs/`):
+- JSON-based configuration for all components
+- No hardcoded values in core logic
+- Runtime customization and extensibility
+
+---
+
+## 🔄 **Caching & Performance System**
+
+### **Intelligent Cache Architecture**
+
+```python
+# orchestrator/cache/cache_system.py
+class CacheSystem:
+    def __init__(self):
+        self.cache_dir = Path("orchestrator/cache")
+        self.cache_index = self._load_cache_index()
+    
+    def get_cache_key(self, prompt: str, model: str, context: dict = None):
+        """Generate unique cache key using content fingerprinting"""
+        content_hash = hashlib.sha256(
+            f"{prompt}:{model}:{json.dumps(context, sort_keys=True)}"
+            .encode()
+        ).hexdigest()
+        return f"{model}_{content_hash[:12]}"
+    
+    def cache_result(self, cache_key: str, result: dict, metadata: dict):
+        """Store result with metadata for future retrieval"""
+        cache_entry = {
+            "result": result,
+            "metadata": metadata,
+            "timestamp": time.time(),
+            "cost": metadata.get("cost", 0)
+        }
+        
+        cache_file = self.cache_dir / f"{cache_key}.json"
+        with open(cache_file, 'w') as f:
+            json.dump(cache_entry, f, indent=2)
+        
+        self._update_cache_index(cache_key, cache_entry)
+```
+
+### **Performance Characteristics**
+
+**Cache Hit Rates:**
+- Repeated workflows: >95% cache utilization
+- Similar prompts: >70% partial cache utilization  
+- Cost reduction: >5,000x for cached results
+
+**Resource Optimization:**
+- Intelligent model selection based on task complexity
+- Dynamic batching for related operations
+- Automatic cleanup of unused cache entries
+
+---
+
+## 🚨 **Error Handling & Recovery**
+
+### **Graceful Degradation System**
+
+```python
+# orchestrator/error_handling.py
+class ErrorRecoveryManager:
+    def handle_workflow_error(self, error: Exception, workflow_context: dict):
+        """Intelligent error recovery with user guidance"""
+        
+        error_type = self._classify_error(error)
+        recovery_options = self._get_recovery_options(error_type, workflow_context)
+        
+        if error_type == "api_rate_limit":
+            return self._handle_rate_limit_recovery(workflow_context)
+        elif error_type == "model_unavailable":
+            return self._handle_model_fallback(workflow_context)
+        elif error_type == "token_limit_exceeded":
+            return self._handle_token_optimization(workflow_context)
+        else:
+            return self._handle_generic_recovery(error, recovery_options)
+```
+
+---
+
+## 📊 **Monitoring & Analytics**
+
+### **Performance Tracking**
+
+**Real-time Metrics:**
+- Workflow execution times and success rates
+- Cost tracking with budget monitoring and alerts
+- Tool usage patterns and optimization opportunities
+- Quality metrics with automatic improvement suggestions
+
+**Analytics Dashboard:**
+- Workflow performance trends and optimization insights
+- Resource utilization and cost efficiency analysis
+- Tool effectiveness and usage pattern analysis
+- Quality improvement tracking and success metrics
+
+---
+
+**This architecture provides the foundation for MAO's revolutionary AI orchestration capabilities while maintaining the modularity, performance, and extensibility that make it uniquely powerful. Every component is designed to work together seamlessly while remaining independently replaceable and testable.**

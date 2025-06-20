@@ -1,18 +1,9 @@
-# MAO User Guide
-**Complete Application Usage Reference**
-
+# Mao Application Usage Guide
 *How to use MAO as an interactive application platform*
 
 ---
 
-## 🎯 **Quick Start**
-
-### **First Launch**
-```bash
-mao mao  # Starts interactive application
-```
-
-**First-time users** see color contrast selection, then main chat interface.
+## 🎯 **Getting Started Quickly**
 
 ### **Basic Usage Patterns**
 
@@ -112,6 +103,241 @@ mao mao
 ```bash
 mao --setup ./my-workflow.json --verbose
 ```
+
+---
+
+## 🚀 **Setup Script Usage: Simple & Developer-Friendly**
+
+### **The Simple Setup Pattern**
+
+Mao follows the proven SFA pattern that developers love - one simple command creates executable workflows:
+
+```bash
+# Create or get a JSON config
+mao --setup ./my-workflow-config.json
+
+# Setup script creates custom command
+# Result: Custom command installed (e.g., `content-strategy-saas`)
+
+# Execute workflow anytime
+content-strategy-saas
+```
+
+### **Creating JSON Configs**
+
+**Option 1: Let Claude Create It**
+```bash
+mao mao
+> "I need a competitor analysis workflow for B2B SaaS"
+> [Claude creates config and runs setup automatically]
+```
+
+**Option 2: Create Your Own (Developer Pattern)**
+```json
+{
+  "workflow_id": "workflow-def456",
+  "custom_command": "competitor analysis saas",
+  "goal": "Comprehensive competitor analysis for B2B SaaS tools",
+  "phases": [
+    {
+      "name": "market_research",
+      "description": "Research competitive landscape",
+      "tools": ["web_search", "text_editor"],
+      "deliverable": "Competitor analysis report",
+      "model": "claude-sonnet-4"
+    }
+  ],
+  "variables": {
+    "required": {
+      "product_category": {
+        "description": "SaaS product category to analyze",
+        "example": "project management"
+      }
+    }
+  }
+}
+```
+
+**Option 3: Copy and Modify Existing Configs**
+```bash
+# Browse existing workflows
+ls configs/use_case/
+
+# Copy and modify
+cp configs/use_case/marketing-strategy-startup/config.json ./my-workflow.json
+# Edit my-workflow.json
+mao --setup ./my-workflow.json
+```
+
+### **Command Execution Patterns**
+
+**Direct Execution (Most Common)**:
+```bash
+# Run the custom command directly  
+competitor-analysis-saas
+
+# With arguments (if config defines them)
+competitor-analysis-saas --product_category "customer support tools"
+```
+
+**Via Mao Orchestrator**:
+```bash
+# Run through mao (same result)
+mao competitor-analysis-saas
+
+# In-app execution
+mao mao
+> /run competitor-analysis-saas
+> ! competitor-analysis-saas
+```
+
+**Workflow Management**:
+```bash
+# List all installed workflows
+mao --workflows
+
+# View workflow details  
+mao --review competitor-analysis-saas
+
+# Update existing workflow
+mao --update ./updated-config.json
+```
+
+### **Workflow Directory Structure**
+
+After setup, each workflow gets organized structure:
+
+```
+configs/use_case/competitor-analysis-saas/
+├── config.json                    # Original configuration
+├── README.md                      # Auto-generated usage guide
+├── phases/                        # Phase working directories
+│   └── 1_market_research/         # Phase 1 materials
+└── deliverables/                  # Final outputs
+    └── competitor_analysis_report.md
+```
+
+**Working Directory (During Execution)**:
+```
+~/mao_workflows/competitor-analysis-saas/
+├── 1_market_research/             # Phase execution
+├── 2_analysis_synthesis/
+├── DELIVERABLES/                  # Final outputs  
+├── METADATA/                      # Workflow tracking
+├── README_competitor_analysis_saas.md
+└── WORKFLOW_REPORT_competitor_analysis_saas.json
+```
+
+### **Configuration Management**
+
+**Updating Workflows**:
+```bash
+# Edit the config
+vim configs/use_case/competitor-analysis-saas/config.json
+
+# Re-run setup to update command
+mao --setup configs/use_case/competitor-analysis-saas/config.json
+```
+
+**Sharing Workflows**:
+```bash
+# Package for sharing
+tar -czf marketing-workflow.tar.gz configs/use_case/marketing-strategy-startup/
+
+# Install shared workflow
+tar -xzf shared-workflow.tar.gz
+mao --setup configs/use_case/shared-workflow/config.json
+```
+
+**Version Control**:
+```bash
+# Configs are git-friendly
+git add configs/use_case/my-workflow/
+git commit -m "Add competitor analysis workflow"
+
+# Share via git
+git push origin main
+```
+
+### **Advanced Setup Patterns**
+
+**Batch Setup**:
+```bash
+# Setup multiple workflows
+for config in ./workflow-configs/*.json; do
+    mao --setup "$config"
+done
+```
+
+**Environment-Specific Configs**:
+```bash
+# Development setup
+mao --setup ./workflows/dev/content-strategy.json
+
+# Production setup  
+mao --setup ./workflows/prod/content-strategy.json
+```
+
+**Custom Workspace Directory**:
+```bash
+# Specify workspace location
+mao --setup ./config.json --output ~/my-projects/workflows
+```
+
+### **Troubleshooting Setup**
+
+**Common Issues**:
+
+1. **Command Not Found**:
+```bash
+# Check if command installed
+which my-custom-command
+
+# Verify /usr/local/bin is in PATH
+echo $PATH | grep /usr/local/bin
+
+# Re-run setup if needed
+mao --setup ./config.json
+```
+
+2. **Permission Issues**:
+```bash
+# Make sure you have sudo access for /usr/local/bin
+sudo chmod +x /usr/local/bin/my-command
+
+# Or use ~/bin instead (update setup script)
+mkdir -p ~/bin
+# Add to ~/.bashrc: export PATH="$HOME/bin:$PATH"
+```
+
+3. **JSON Validation**:
+```bash
+# Validate JSON syntax
+python -m json.tool my-config.json
+
+# Check required fields
+jq '.workflow_id, .custom_command, .phases' my-config.json
+```
+
+**Debug Mode**:
+```bash
+# Verbose setup output
+mao --setup ./config.json --verbose
+
+# Check setup script directly
+bash -x scripts/setup_workflow.sh ./config.json
+```
+
+### **Why This Approach Works**
+
+✅ **Simple**: One command creates executable workflows  
+✅ **Familiar**: Follows proven Unix patterns developers know  
+✅ **Flexible**: JSON configs are human-readable and editable  
+✅ **Portable**: Share configs easily across teams and environments  
+✅ **No Lock-in**: Standard JSON and shell scripts, no proprietary formats  
+✅ **Discoverable**: `which my-command` shows exactly what's installed
+
+**Setup scripts aren't complex - they're the elegant solution that gives you exactly what you need with zero fuss.** 🚀
 
 ---
 
@@ -287,3 +513,7 @@ MAO is a **full interactive application platform**, not a monitoring utility:
 - Live workflow monitoring with real-time progress
 - Settings management and user preferences
 - Professional application experience rivaling Claude Code
+
+---
+
+*MAO provides a complete workflow orchestration experience that adapts to your working style - from casual conversation to professional development workflows. The setup script system gives you the best of both worlds: simple automation when you want it, complete control when you need it.*
