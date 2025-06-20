@@ -7,7 +7,7 @@
 
 ## 🎯 **The Big Picture**
 
-Mao follows a **clean layered architecture** where each file has a specific, limited responsibility. No file tries to do everything - they work together like a professional orchestra.
+Mao follows a **clean layered architecture** where each file has a specific, limited responsibility. No file tries to do everything; they work together like a professional orchestra.
 
 ```
 User Input → Entry Point → Interface Layer → Orchestration Layer → Execution Layer
@@ -18,9 +18,9 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 ## 🎭 **Entry Point Layer**
 
 ### `mao_v4.py` - The Router
-**What it does:** Pure command-line routing - nothing else
+**What it does:** Pure command-line routing; nothing else
 **Responsibilities:**
-- Load CLI arguments from JSON config
+- Load CLI arguments from arguments JSON config
 - Parse command-line arguments  
 - Route requests to appropriate interface
 - Bootstrap interface with minimal error handling
@@ -38,7 +38,7 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 
 ## 🖥️ **Interface Layer**
 
-### `interfaces/ui_terminal.py` - The UX Brain
+### `interfaces/ui_terminal.py` - The UX Voice 
 **What it does:** All user interaction and experience
 **Responsibilities:**
 - User conversation and input handling

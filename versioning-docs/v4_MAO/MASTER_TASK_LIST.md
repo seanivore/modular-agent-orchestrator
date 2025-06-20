@@ -28,6 +28,93 @@ I deleted the pretend case studies from 1_MAO_OVERVIEW.md. It was a bunch in two
 
 --------------------------------
 
+On the doc: `2_MAO_SYSTEM_FILES.md`. 
+After this heading / section: 
+
+```
+## 🎭 **Entry Point Layer**
+
+### `mao_v4.py` - The Router
+**What it does:** Pure command-line routing; nothing else
+**Responsibilities:**
+- Load CLI arguments from arguments JSON config
+- Parse command-line arguments  
+- Route requests to appropriate interface
+- Bootstrap interface with minimal error handling
+
+**What it does NOT do:**
+- Business logic
+- Print statements (except critical bootstrap failures)
+- Workflow management
+- Complex error handling
+- User interaction
+
+**Flow:** `Command Line → Argument Parsing → Interface Routing`
+```
+
+How about the fact that it runs the workflow script? Like when you use the setup script with the JSON, and it creates a new script and puts in into the workflow use-case directory, and then makes it executable. So when the user runs the workflow, it runs the script. Isn't that handled by this entry point? is it mentioned somewhere else? Feels like it should be here because I'm left wondering like, how other things happen. Like it feels overly simplistic. Needs a secondary flow. We should be up front from the start that the entry point either leads you to setup a workflow, or it activates and runs a workflow. Right? 
+
+--------------------------------
+
+This is for my own clarification. On the doc: `2_MAO_SYSTEM_FILES.md`. This section: 
+
+```
+## 🖥️ **Interface Layer**
+
+### `interfaces/ui_terminal.py` - The UX Brain
+**What it does:** All user interaction and experience
+**Responsibilities:**
+- User conversation and input handling
+- All formatting and display logic
+- Workflow setup conversations
+- Progress monitoring and status updates
+- Error message formatting and user guidance
+- Success/failure presentation
+
+**Contains:** All the print statements and UI formatting logic
+
+**Flow:** `User Interaction ↔ Interface ↔ Orchestrator Calls`
+
+### `interfaces/ui_web.py` - Future Web Interface
+**What it does:** Web-based interface (future implementation)
+**Same responsibilities as terminal interface, different presentation**
+```
+
+That file does thinking / logic? I was under the impression that it just sort of held all of the print statements for any situation. Also I changed it to "the workflow voice" 
+
+--------------------------------
+
+On the doc: `2_MAO_SYSTEM_FILES.md`. This section: 
+
+```
+### `orchestrator/memory.py` - Workflow Context
+**What it does:** Workflow state and context management
+**Responsibilities:**
+- Workflow memory and context preservation
+- Agent handoff coordination
+- State persistence across workflow phases
+```
+
+We are using the Memory MCP to store the workflow state and context now. This needs to be updated. 
+
+--------------------------------
+
+On the doc: `2_MAO_SYSTEM_FILES.md`. This section: 
+
+```
+### `configs/cli/arguments.json` - Command Interface
+**What it does:** CLI argument definitions for both terminal and in-app use
+**Contains:** All command-line flags and their in-app command equivalents
+```
+
+Re: "arguments.json".... we broke it down so that every single argument/command has its own JSON file. More modular. Needs to be updated. 
+
+
+--------------------------------
+
+
+
+
 | **SESSION 22 TASK** |
 | ------------------- |
 
