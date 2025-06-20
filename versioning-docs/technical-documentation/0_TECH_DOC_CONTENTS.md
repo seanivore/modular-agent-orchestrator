@@ -30,6 +30,47 @@
   * When backward compatibility becomes needed in the future, it must be:
     - Explicitly discussed with Sean first
     - Properly planned and architected
+- **Rule #7** 
+  * HUMAN-FIRST SETUP SCRIPT AND JSON CONFIG DESIGN
+  * Setup scripts and JSON configs must be designed for human creation and execution first
+  * Humans should be able to create, understand, and modify all configuration without AI assistance
+  * Simple stays simple - no complexity just because Claude can handle it
+  * Tool ensures human agency and understanding of their own workflows
+  * Example: SFA pattern of `sfa workflow-name path/to/config.json` in terminal
+- **Rule #8** 
+  * NO TIMESTAMPS IN FILENAMES
+  * Workspace directories use clean command-based naming: `marketing-strategy-startup/`
+  * Never append timestamps like `marketing-strategy-startup_20250619_1430/`
+  * If users need timestamps, Finder/filesystem provides them 
+  * Keep filenames clean and focused on content, not creation time
+  * Directory grouping by command name, not temporal organization
+- **Rule #9** 
+  * PHASES START AT 1, NEVER 0
+  * All workflow phases numbered starting from 1
+  * No "Phase 0" or "00_" prefixes in directory structure  
+  * Improves UX and eliminates confusion from SFA legacy patterns
+  * Clear, intuitive numbering that matches human expectations
+- **Rule #10** 
+  * NO HARDCODED SUCCESS CRITERIA
+  * Never define specific quality metrics like "covers 5+ competitors" or "includes timeline"
+  * Claude reviews deliverables using sequential thinking and context
+  * Quality assurance through AI reasoning, not predetermined checklists
+  * Maintains variable-input philosophy at quality validation level
+  * Success criteria defined by user goals, not system assumptions
+- **Rule #11** 
+  * COMMAND REGISTRY SYSTEMS ARE UNNECESSARY
+  * No command registry databases or tracking systems needed
+  * Setup scripts create executable commands in `/usr/local/bin/` following Unix patterns
+  * Unix filesystem handles command discovery and execution
+  * Proven SFA pattern: setup script → executable command → direct execution
+  * Avoid unnecessary complexity layers over working solutions
+- **Rule #12** 
+  * SINGLE RESPONSIBILITY FOR STATE MANAGEMENT
+  * Memory MCP handles ALL workflow state persistence
+  * No duplicate state saving mechanisms or parallel tracking systems  
+  * One source of truth for workflow context and progression
+  * Eliminates synchronization issues and redundant operations
+  * Clean integration with single, authoritative state management system
 
 ## Documentation Organization 
 

@@ -88,7 +88,7 @@ Everything is a swappable component: models, providers, tools, workflows. Add un
 
 ### Chat-Driven Workflow Creation
 
-Forget complex setup scripts and JSON configuration files. Mao works the way humans think: **through conversation**.
+Mao works the way humans think: **through conversation**. You can totally skip the setup scripts and JSON setup if you want. 
 
 You describe what you want to accomplish in plain English. Mao asks clarifying questions when needed. Together, you create workflows that actually solve your problems.
 
