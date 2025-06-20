@@ -127,21 +127,31 @@ mao = TerminalInterface(verbose=args.verbose)
 
 ### **MAO CLI Command Reference**
 
-| **FUNCTION**                | **TERMINAL COMMAND**        | **IN-APP COMMAND**           |
-| --------------------------- | --------------------------- | ---------------------------- |
-| **Start Application**       | `mao mao`                   | -                            |
-| Restart application         | -                           | `/restart` or `!mao restart` |
-| Exit application            | -                           | `/exit` or `!mao exit`       |
-| **First message to AI**     | `mao --chat "message"`      | `/chat message`              |
-| **Create entire workflow**  | `mao --goal "project goal"` | `/goal project goal`         |
-| **System Statistics**       | `mao --stats`               | `/stats`                     |
-| **List Workflows**          | `mao --workflows`           | `/workflows`                 |
-| **Setup from JSON**         | `mao --setup ./config.json` | `/setup ./config.json`       |
-| **Update Workflow**         | `mao --update ./phase.json` | `/update ./phase.json`       |
-| **Fix Deliverable**         | `mao --fix-it ./fix.json`   | `/fix-it ./fix.json`         |
-| **Custom Output Directory** | `mao --output ~/downloads`  | `/output ~/downloads`        |
-| **Verbose Debug Mode**      | `mao --verbose`             | `/verbose`                   |
-| **Terminal Commands**       | -                           | `!ls -la` (any bash/zsh)     |
+| **FUNCTION**                | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
+| --------------------------- | ----------------------------- | ----------------------------- |
+| **Start Application**       | `mao mao`                     | -                             |
+| Restart application         | -                             | `/restart` or `! mao restart` |
+| Exit application            | -                             | `/exit` or `! mao exit`       |
+| Open config management UI   | `mao --config`                | `/config`                     |
+| Resume most recent workflow | `mao --continue`              | `/continue`                   |
+| **First message to AI**     | `mao --chat message`          | `/chat message`               |
+| **Create entire workflow**  | `mao --goal project goal`     | `/goal project goal`          |
+| **System Statistics**       | `mao --stats`                 | `/stats`                      |
+| **List Workflows**          | `mao --workflows`             | `/workflows`                  |
+| **Review Workflow**         | `mao --review custom command` | `/review custom command`      |
+| **Setup from JSON**         | `mao --setup ./config.json`   | `/setup ./config.json`        |
+| **Update Workflow**         | `mao --update ./phase.json`   | `/update ./phase.json`        |
+| **Fix Deliverable**         | `mao --fix-it ./fix.json`     | `/fix-it ./fix.json`          |
+| **Custom Output Directory** | `mao --output ~/downloads`    | `/output ~/downloads`         |
+| **Use only free models**    | `mao --free`                  | `/free`                       |
+| **Privacy models only**     | `mao --privacy`               | `/privacy`                    |
+| **Verbose Debug Mode**      | `mao --verbose`               | `/verbose`                    |
+| **View workflow logs**      | `mao --logs`                  | `/logs`                       |
+| **Show workflow stats**     | `mao --stats`                 | `/stats`                      |
+| **Check Health**            | `mao --doctor`                | `/doctor`                     |
+| **View help messages**      | `mao --help`                  | `/help`                       |
+| **Simulate Workflow**       | `mao --dry-run`               | `/dry-run`                    |
+| **Terminal Commands**       | -                             | `!ls -la` (any bash/zsh)      |
 
 ---
 

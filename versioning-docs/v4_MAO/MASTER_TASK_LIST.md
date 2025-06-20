@@ -1,6 +1,13 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
+For args that are "needs input" I don't want to require having quotes because the terminal can be so frustrating with quotes. 
+
+Re: these two especially: 
+
+| **First message to AI**     | `mao --chat message`        | `/chat message`              |
+| **Create entire workflow**  | `mao --goal "project goal"` | `/goal project goal`         |
+
 
 --------------------------------
 
