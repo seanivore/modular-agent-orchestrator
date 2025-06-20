@@ -1,6 +1,14 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
+
+--------------------------------
+
+NOTES: Things I notice as we work that also need to be in the documentation. 
+- Adding a new command: Just drop new_command.json in configs/cli/ - entry point automatically discovers it!
+
+--------------------------------
+
 I saw this in the docs while reviewing them and had an idea. We should make sure that the orchestrator can search the web or use any other tools during chat sessions. It should be the same UX that everyone is already used to. Plus, when someone is suspicious about the freshness of information, or knows that there is new information that came out after the training data cutoff date, our Claude needs to be able to deal with that just like users will expect. 
 
 ```
