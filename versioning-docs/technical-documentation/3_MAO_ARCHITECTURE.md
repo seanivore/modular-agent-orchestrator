@@ -760,6 +760,28 @@ MAO's terminal interface provides a **complete application platform** experience
 
 ---
 
+## Architecture Understanding for AI Context
+
+**CRITICAL**: Mao is a unified terminal application like Claude Code, NOT a dual-mode system.
+
+**User Experience Flow**:
+1. User runs `mao` command
+2. Enters beautiful terminal application (like Claude Code's interface)
+3. Progressive onboarding: theme selection, user identification
+4. Single unified text input for ALL interactions: workflow creation, execution monitoring, chat
+5. Everything happens in one cohesive screen - no mode switching
+
+**Key Architecture Principles**:
+- **Single interface**: One text field handles conversation AND workflow execution
+- **Progressive disclosure**: Setup flows integrated within app experience
+- **Conversation-based**: Users chat with Mao to create workflows and monitor execution
+- **Professional quality**: Rivals Claude Code's elegant terminal interface design
+- **Unified experience**: No --ui flags or dual modes - the UI IS Mao
+
+**Implementation Reference**: Use Claude Code's proven interface patterns as foundation - welcome flow, theme selection, unified input, contextual help integration.
+
+---
+
 ## Provider & Model Management
 
 ### Universal Provider Architecture
