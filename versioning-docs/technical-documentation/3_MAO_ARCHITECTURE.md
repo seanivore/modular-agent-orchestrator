@@ -264,6 +264,56 @@ elif cmd_config["type"] == "app_only":
 
 ---
 
+### Conversational Tool Integration
+
+**Mao Chat Tool Access**: During conversation, Mao has seamless access to all available tools for enhanced responses.
+
+**Architecture**:
+```python
+# interfaces/terminal/conversation_interface.py
+class ConversationInterface:
+    def __init__(self):
+        self.tool_manager = ToolManager()
+        self.available_tools = self.tool_manager.get_all_tools()
+        
+    async def process_user_message(self, message: str):
+        # Analyze if tools needed for better response
+        tool_requirements = self._analyze_tool_needs(message)
+        
+        if tool_requirements:
+            # Execute tools transparently 
+            tool_results = await self._execute_tools(tool_requirements)
+            response = self._generate_enhanced_response(message, tool_results)
+        else:
+            response = self._generate_standard_response(message)
+            
+        return response
+    
+    def _analyze_tool_needs(self, message: str):
+        """Detect when fresh info, file ops, or other tools would improve response"""
+        if self._needs_current_info(message):
+            return ["web_search"]
+        elif self._references_files(message):
+            return ["file_operations"] 
+        # etc.
+```
+
+#### User Experience
+
+- Transparent tool usage: User asks questions, Mao automatically uses tools when helpful
+- Fresh information: Mao detects when current data would improve responses
+- Familiar UX: Same experience users expect from Claude web interface or Claude Code
+- No workflow overhead: Tools used conversationally, not as formal workflow steps
+
+#### Integration Points
+
+- Uses existing Tool Integration Framework
+- Leverages button snippet system for tool execution
+- Integrates with conversation interface for seamless UX
+- Maintains tool tracking via Memory MCP integration
+
+---
+
 ## Memory MCP Integration Hub
 
 **Status**: ✅ Specification Complete - Implementation Plan 1.2
@@ -737,32 +787,11 @@ class AgentOrchestrator:
 
 ## Terminal UI/UX System
 
-**Status**: 🚧 [TBD - Implementation Plan 1.5 - Needs Rewrite]
+**Status**: 🚧 Specification Complete - Ready for Implementation
 
-### Full Interactive Application Experience
+### Unified Terminal Application Architecture
 
-MAO's terminal interface provides a **complete application platform** experience:
-
-**Claude Demeanor**
-- no system, claude knows how to do this. 
-
-**Live Progress Monitoring:**
-- Real-time workflow phase tracking with visual progress indicators
-- Cost monitoring with budget alerts and optimization suggestions
-- Quality metrics with automatic validation and improvement suggestions
-- Audio notifications for workflow completion and important events
-
-**Professional Application Features:**
-- Settings management with user preferences and customization
-- Color selection and visual theme management (like Claude Code)
-- Command history and session recovery capabilities
-- Error recovery interfaces with guided resolution workflows
-
----
-
-## Architecture Understanding for AI Context
-
-**CRITICAL**: Mao is a unified terminal application like Claude Code, NOT a dual-mode system.
+**CRITICAL UNDERSTANDING**: Mao is a unified terminal application like Claude Code, NOT a dual-mode system.
 
 **User Experience Flow**:
 1. User runs `mao` command
@@ -777,6 +806,129 @@ MAO's terminal interface provides a **complete application platform** experience
 - **Conversation-based**: Users chat with Mao to create workflows and monitor execution
 - **Professional quality**: Rivals Claude Code's elegant terminal interface design
 - **Unified experience**: No --ui flags or dual modes - the UI IS Mao
+
+### Terminal Interface Architecture
+
+```
+interfaces/terminal/
+├── app.py                          # Main application entry point
+├── conversation_interface.py       # Unified conversation system
+├── content_translator.py          # ui_terminal.py → beautiful UI
+├── visual_language.py             # Color system and typography
+├── onboarding/
+│   ├── welcome_flow.py            # Initial app setup
+│   ├── theme_selector.py          # User theme preferences
+│   └── user_identification.py     # User ID generation
+├── workflow/
+│   ├── creation_interface.py      # Goal → workflow conversation
+│   ├── execution_monitor.py       # Live execution display
+│   ├── progress_visualization.py  # Tree-based progress tracking
+│   └── completion_summary.py      # Results and deliverables
+├── components/
+│   ├── input_handler.py           # Unified text input system
+│   ├── display_manager.py         # Screen content management
+│   ├── cost_tracker.py           # Real-time cost monitoring
+│   └── help_system.py            # Contextual guidance
+└── integrations/
+    ├── orchestrator_bridge.py     # Direct core.py integration
+    ├── memory_persistence.py      # Session state management
+    └── config_manager.py          # Settings and preferences
+```
+
+### UI Content Translation System
+
+**Translation Principle**: The existing `interfaces/ui_terminal.py` contains print statements that represent **what information to display and when**. These must be systematically converted into beautiful interface components while preserving all functionality.
+
+```python
+# interfaces/terminal/content_translator.py
+class UIContentTranslator:
+    """Converts ui_terminal.py information into visual interface components"""
+    
+    def translate_workflow_creation(self, goal: str) -> ConversationDisplay:
+        """Convert goal input into conversational workflow creation"""
+        
+    def translate_execution_progress(self, phase_data: dict) -> ProgressVisualization:
+        """Convert phase execution into live progress display"""
+        
+    def translate_tool_activities(self, tools: list) -> ToolStatusDisplay:
+        """Convert tool usage into elegant status indicators"""
+        
+    def translate_cost_monitoring(self, cost_info: dict) -> CostTracker:
+        """Convert cost tracking into professional cost display"""
+        
+    def translate_deliverables(self, outputs: list) -> DeliverablesSummary:
+        """Convert file outputs into organized deliverables display"""
+```
+
+### Visual Language Implementation
+
+**Claude Code Foundation Colors**:
+- **Pink** `#ff6b9d` → AI actions requiring attention
+- **Yellow** `#c69500` → AI explanations and analysis
+- **Light Blue** `#54c7ec` → Interactive elements and commands
+- **White** `#ffffff` → Primary content and responses
+- **Gray** `#6e6a86` → Secondary information and metadata
+- **Light Brown** `#7b714a` → Tree structure and organizational elements
+
+**Mao's Workflow Tree Innovation**:
+```
+△   Mao analyzing your goal...              ← Yellow (AI processing)
+├── ●   Creating workflow structure         ← Light brown tree + white content  
+├── ●   Selecting optimal models           ← Status information
+└── ▲   Ready to begin execution           ← Pink (action required)
+```
+
+### Theme and User Preference Management
+
+**User Preference Storage**:
+```python
+# User preferences stored in Memory MCP for session persistence
+user_preferences = {
+    "color_theme": "dark-mode-colorblind-friendly",
+    "user_id": "sean-august-horvath-uid-abc-123",
+    "notification_preferences": {
+        "audio_notifications": True,
+        "completion_sounds": "bell"
+    },
+    "display_preferences": {
+        "verbose_mode": False,
+        "show_cost_tracking": True,
+        "progress_animation": "tree-based"
+    }
+}
+```
+
+**Theme Selection Interface**:
+```
+Choose the text style that looks best with your terminal:
+1. Dark Mode
+2. Light Mode  
+3. Dark Mode (colorblind-friendly)
+4. Light Mode (colorblind-friendly)
+5. Dark Mode (ANSI colors only)
+6. Light Mode (ANSI colors only)
+```
+
+### Professional Application Features
+
+**Live Progress Monitoring**:
+- Real-time workflow phase tracking with visual progress indicators
+- Tree-based visualization showing agent relationships and handoffs
+- Cost monitoring with budget alerts and optimization suggestions
+- Quality metrics with automatic validation and improvement suggestions
+- Audio notifications for workflow completion and important events
+
+**Session Management**:
+- Complete session persistence using Memory MCP integration
+- Workflow context preservation across application restarts
+- User preference persistence and theme management
+- Command history and session recovery capabilities
+
+**Error Recovery Interfaces**:
+- Beautiful error displays with clear recovery actions
+- Contextual help and guidance throughout the interface
+- Graceful degradation when services unavailable
+- Professional error resolution workflows
 
 **Implementation Reference**: Use Claude Code's proven interface patterns as foundation - welcome flow, theme selection, unified input, contextual help integration.
 

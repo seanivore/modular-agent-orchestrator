@@ -481,4 +481,55 @@ MAO is a **full interactive application platform**, not a monitoring utility.
 
 ---
 
+### Conversational Tool Integration
+
+**Mao Chat Tool Access**: During conversation, Mao has seamless access to all available tools for enhanced responses.
+
+**Architecture**:
+```python
+# interfaces/terminal/conversation_interface.py
+class ConversationInterface:
+    def __init__(self):
+        self.tool_manager = ToolManager()
+        self.available_tools = self.tool_manager.get_all_tools()
+        
+    async def process_user_message(self, message: str):
+        # Analyze if tools needed for better response
+        tool_requirements = self._analyze_tool_needs(message)
+        
+        if tool_requirements:
+            # Execute tools transparently 
+            tool_results = await self._execute_tools(tool_requirements)
+            response = self._generate_enhanced_response(message, tool_results)
+        else:
+            response = self._generate_standard_response(message)
+            
+        return response
+    
+    def _analyze_tool_needs(self, message: str):
+        """Detect when fresh info, file ops, or other tools would improve response"""
+        if self._needs_current_info(message):
+            return ["web_search"]
+        elif self._references_files(message):
+            return ["file_operations"] 
+        # etc.
+```
+
+#### User Experience
+
+- Transparent tool usage: User asks questions, Mao automatically uses tools when helpful
+- Fresh information: Mao detects when current data would improve responses
+- Familiar UX: Same experience users expect from Claude web interface or Claude Code
+- No workflow overhead: Tools used conversationally, not as formal workflow steps
+
+#### Integration Points
+
+- Uses existing Tool Integration Framework
+- Leverages button snippet system for tool execution
+- Integrates with conversation interface for seamless UX
+- Maintains tool tracking via Memory MCP integration
+
+
+---
+
 *MAO provides a complete workflow orchestration experience that adapts to your working style - from casual conversation to professional development workflows. The setup script system gives you the best of both worlds: simple automation when you want it, complete control when you need it.*

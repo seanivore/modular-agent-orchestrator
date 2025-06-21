@@ -126,19 +126,25 @@ interfaces/terminal/
 - **Context awareness**: Maintain conversation history and workflow state
 - **Response formatting**: Apply visual language to all responses
 
-#### 3. Welcome Flow (`onboarding/welcome_flow.py`)
+#### 3. Conversational Tool Access (`conversation_interface.py`)
+- **Transparent tool usage**: Mao automatically uses available tools during chat
+- **Freshness detection**: Automatically searches for current information when needed
+- **Familiar UX**: Same experience users expect from Claude web interface
+- **No workflow overhead**: Tools used conversationally, not as formal steps
+
+#### 4. Welcome Flow (`onboarding/welcome_flow.py`)
 - **First-time setup**: Theme selection, user identification
 - **Return user detection**: Load existing preferences
 - **Introduction sequence**: Guide users through Mao capabilities
 - **Theme preview**: Show visual examples like Claude Code
 
-#### 4. Workflow Creation Interface (`workflow/creation_interface.py`)
+#### 5. Workflow Creation Interface (`workflow/creation_interface.py`)
 - **Goal conversation**: Natural language workflow creation
 - **Progressive refinement**: Clarify requirements through dialogue
 - **Configuration options**: Model selection, preferences, constraints
 - **Workflow preview**: Show planned phases and estimated costs
 
-#### 5. Execution Monitor (`workflow/execution_monitor.py`)
+#### 6. Execution Monitor (`workflow/execution_monitor.py`)
 - **Live progress tracking**: Real-time workflow execution display
 - **Agent spawning visualization**: Show orchestrator decisions
 - **Phase transitions**: Clear visual progression through workflow
@@ -188,6 +194,26 @@ class ConversationInterface:
         workflow = await self.orchestrator.create_workflow_from_goal(goal)
         await self.memory.save_workflow_state(workflow.id, workflow)
         return self.display_workflow_preview(workflow)
+```
+
+### Conversational Tool Access
+
+```python
+class ConversationInterface:
+    def __init__(self):
+        self.tool_manager = ToolManager()
+        self.available_tools = self.tool_manager.get_all_tools()
+        
+    async def process_user_message(self, message: str):
+        # Analyze if tools would improve response
+        if self._needs_current_info(message):
+            search_results = await self.web_search_tool.search(message)
+            return self._enhanced_response(message, search_results)
+        elif self._references_files(message):
+            file_data = await self.file_tool.analyze_files(message) 
+            return self._enhanced_response(message, file_data)
+        else:
+            return self._standard_response(message)
 ```
 
 ### Content Translation Integration

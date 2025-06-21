@@ -2,14 +2,6 @@
 
 **Complete roadmap for executing the terminal UI specification and achieving professional interface completion**
 
----
-
-
-
-*Note: Move this explanation to technical documentation (suggested location: `3_MAO_ARCHITECTURE.md` under "Terminal Interface Architecture" section)*
-
----
-
 ## Pre-Execution Preparation
 
 ### 1. Codebase Preparation
@@ -112,7 +104,7 @@ mao --spec path/to/spec.md
 # Enhanced for two-spec workflow
 mao --spec path/to/foundation_spec.md --follow-up path/to/advanced_spec.md
 # OR
-mao --multi-spec foundation_spec.md,advanced_spec.md
+mao --multi-spec foundation_spec.md, advanced_spec.md
 ```
 
 This enables Claude Code to complete foundation, then automatically proceed to advanced features implementation.
