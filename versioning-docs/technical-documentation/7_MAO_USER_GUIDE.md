@@ -61,6 +61,7 @@ mao --setup ./config.json
 | **Start Application**  | `mao mao`                     | -                             |
 | **Run Your Workflow**  | `custom command`              | `/custom command`             |
 | **Create Workflow ID** | `uid`                         | `/uid` or `! uid`             |
+| **Create User ID**     | `meid username`               | `/meid username`              |
 | Restart application    | -                             | `/restart` or `! mao restart` |
 | Exit application       | -                             | `/exit` or `! mao exit`       |
 | Open app config        | `mao --config`                | `/config`                     |
@@ -105,6 +106,13 @@ mao --setup ./config.json
 - `/restart` - Restart MAO application
 - `/exit` - Exit MAO application  
 - `! command` - Execute any terminal command from within MAO
+
+### Important Command Specifics 
+
+1. Reviewing Workflows --> follow flag or slash command with: 
+   - The custom command for your workflow brings up that workflow 
+   - Using the Unique Workflow ID brings up that workflow 
+   - Use your Unique User ID to bring up all of your workflows 
 
 ---
 

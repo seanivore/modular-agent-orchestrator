@@ -165,6 +165,7 @@ def main():
 | **Start Application**  | `mao mao`                     | -                             |
 | **Run Your Workflow**  | `custom command`              | `/custom command`             |
 | **Create Workflow ID** | `uid`                         | `/uid` or `! uid`             |
+| **Create User ID**     | `meid username`               | `/meid username`              |
 | Restart application    | -                             | `/restart` or `! mao restart` |
 | Exit application       | -                             | `/exit` or `! mao exit`       |
 | Open app config        | `mao --config`                | `/config`                     |
@@ -234,13 +235,11 @@ elif cmd_config["type"] == "app_only":
 - Missing interface methods: Clear error messages with suggestions
 - Import failures: Bootstrap fallback with helpful guidance
 
-### Interactive Mode Features
+### Active Application Features
 * **Slash Commands**: `/help`, `/stats`, `/workflows`, `/verbose`, `/exit`, `/restart`
 * **Natural Language**: Direct goal input processed as workflow creation
 * **Command History**: Persistent across sessions
-* **Exit Handling**: Graceful shutdown on Ctrl+C or `exit` command
-
-**Integration Points** 
+* **Exit Handling**: Graceful shutdown on Ctrl+C or `/exit` command
 
 ### With Future MCP Integration Hub
 - Settings management ready for MCP server configurations  
@@ -316,16 +315,9 @@ class ConversationInterface:
 
 ## Memory MCP Integration Hub
 
-**Status**: ✅ Specification Complete - Implementation Plan 1.2
-
 ### **Architectural Evolution: Beyond `orchestrator/memory.py`**
 
 MAO v4 shifts from local file-based memory to **Memory MCP integration** for persistent, entity-based project tracking.
-
-**Legacy Approach (`orchestrator/memory.py`):**
-- Local file-based state storage
-- Session-scoped memory management  
-- Limited cross-session persistence
 
 **MAO v4 Memory MCP Approach:**
 - Entity-based project tracking with persistent knowledge graphs
@@ -506,8 +498,6 @@ class ToolManager:
 
 ## Workflow Engine Core Integration
 
-**Status**: ✅ Specification Complete - Implementation Plan 1.4
-
 ### Setup Script Bridge: Simple Human-First Design
 
 Mao uses a **single, simple setup script** that processes JSON configurations - following the proven SFA pattern that developers love.
@@ -681,10 +671,10 @@ class ConversationWorkflowBridge:
 
 ```
 configs/use_case/marketing-strategy-startup/
-├── marketing_strategy_startup_config.json              # Workflow configuration
-├── marketing_strategy_startup_README.md                # Auto-generated usage guide
+├── marketing_strategy_startup_config.json       # Workflow configuration
+├── marketing_strategy_startup_README.md         # Auto-generated usage guide
 ├── marketing_strategy_startup.sh                # Specific script for command and workflow 
-└── deliverables/            # Final outputs
+└── deliverables/                                # Final outputs
 ```
 
 #### Integration Points

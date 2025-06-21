@@ -1,0 +1,8 @@
+{
+  "command": "name",
+  "type": "put anything after it or not",
+  "terminal_flag": "--name",
+  "app_command": "/name",
+  "interface_method": "name",
+  "help": "What does name do, this will show up when User uses /help"
+}

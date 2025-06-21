@@ -1,0 +1,8 @@
+{
+  "command": "user_id",
+  "type": "needs_input",
+  "terminal_flag": "meid",
+  "app_command": "/meid",
+  "interface_method": "user_id",
+  "help": "Your username after this command will always create the same user ID."
+}

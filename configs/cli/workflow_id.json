@@ -1,0 +1,8 @@
+{
+  "command": "workflow_id",
+  "type": "standalone",
+  "terminal_flag": "uid",
+  "app_command": "/uid",
+  "interface_method": "workflow_id",
+  "help": "Gives you a unique, never repeated, workflow ID every time you run the command."
+}
