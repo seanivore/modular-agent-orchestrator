@@ -8,7 +8,7 @@ Mao's architecture represents **fundamental breakthroughs** in AI orchestration.
 
 ---
 
-## 🚨 THE FIVE SACRED RULES
+## 🚨 THE SACRED RULES
 
 ### Rule #1: Variable-Input Philosophy is IMMUTABLE
 
@@ -246,7 +246,7 @@ result  # Model sees this output
 
 #### Print Statement Rules:
 - **FORBIDDEN**: `orchestrator/*.py` files (except interfaces)
-- **FORBIDDEN**: `tools/*/toolname.py` files (core logic)
+- **FORBIDDEN**: `tools/*/tool_name.py` files (core logic)
 - **ALLOWED**: `tools/*/ui_*.py` files (UI display layer)
 - **ALLOWED**: `tools/*/button_*.py` files (demo and execution feedback)
 - **ALLOWED**: `interfaces/*.py` files (terminal and web interfaces)

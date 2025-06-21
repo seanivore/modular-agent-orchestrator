@@ -1,41 +1,43 @@
-# MAO Architecture
+# Mao Architecture
 **Complete System Architecture & Integration Guide**
 
-*Deep technical understanding of how MAO components work together*
+*Deep technical understanding of how Mao components work together*
 
 ---
 
-## 🎯 **Architectural Philosophy: Full Interactive Application Platform**
+## Architectural Philosophy: Full Interactive Application Platform
 
-### **MAO v4 vs Legacy SFA Approach**
+### Mao v4 vs Legacy SFA Approach
 
-MAO represents a **fundamental paradigm shift** from traditional AI workflow tools:
+MAO represents a **fundamental paradigm shift** from traditional AI workflow tools. 
 
-**Legacy SFA Approach (What We Moved Beyond):**
+**Legacy SFA Approach (What We Moved Beyond)**
+
 - Passive monitoring and ticker-style interfaces
 - Minimal user interaction during execution  
 - Single-purpose, terminal-only utilities
 - Status updates without rich interaction capabilities
 
-**MAO v4 Revolutionary Approach:**
+**Mao v4 Revolutionary Approach**
+
 - **Complete interactive application experience** with rich UI/UX
 - **Multi-platform architecture** designed for seamless UI portability
 - **Professional application quality** rivaling tools like Claude Code
 - **Comprehensive workflow management** with live monitoring, settings, chat interfaces
 - **User-centric design** that adapts to experience levels and preferences
 
-### **UI Portability by Design**
+### UI Portability by Design
 
-MAO's architecture is specifically designed for **cross-platform compatibility**:
+Mao's architecture is specifically designed for **cross-platform compatibility**. 
 
 - **Terminal-first implementation** with full application features
 - **Clean separation** between logic and presentation layers
 - **Modular interface system** enabling web, mobile, desktop expansion
 - **Professional polish** that translates across platforms
 
-### **Interactive Application Features**
+### Interactive Application Features
 
-Unlike monitoring utilities, MAO provides:
+Unlike monitoring utilities, Mao provides. 
 
 - **Rich chat interfaces** for natural workflow creation
 - **Live workflow monitoring** with real-time progress tracking
@@ -49,41 +51,49 @@ This architectural philosophy influences every component design decision and ens
 
 ---
 
-## 🏗️ **System Overview**
+## System Overview
 
-MAO's architecture is built on **principled modularity** - every component is independent, replaceable, and universally compatible. This enables infinite extensibility without performance degradation.
+- Mao's architecture is built on **principled modularity** 
+  - Every component is independent, replaceable, and universally compatible 
+  - This enables infinite extensibility without performance degradation 
 
-### **Core Architectural Principles**
+### Core Architectural Principles
 
-**1. Universal Compatibility** 🌐
+**1. Universal Compatibility** 
+
 - Any AI model works with any tool via human buttons
 - Provider-agnostic design eliminates vendor lock-in
 - Future AI advances integrate automatically
 
-**2. Clean Separation of Concerns** 🧩
+**2. Clean Separation of Concerns** 
+
 - Logic, UI, execution, and configuration are completely separate
 - Each component testable and replaceable in isolation
 - Multiple interfaces possible without code changes
 
-**3. Variable-Input Philosophy** 🎨
+**3. Variable-Input Philosophy** 
+
 - No hardcoded specifics anywhere in the system
 - Tools are blank canvases - prompts define behavior
 - Maximum flexibility for unlimited use cases
 
-**4. Performance Optimization** ⚡
+**4. Performance Optimization** 
+
 - Intelligent caching with fingerprinting
 - Dynamic resource allocation
 - Cost optimization through smart model selection
 
 ---
 
-## 🎭 **Entry Point: Dynamic Modular CLI System**
+## Entry Point: Dynamic Modular CLI System
 
-MAO uses a revolutionary **pure modular CLI approach** where all commands are defined in individual JSON files, enabling true plug-and-play command management.
+Mao uses a revolutionary **pure modular CLI approach** where all commands are defined in individual JSON files as variable-input details of a larger prompt, enabling true plug-and-play command management.
 
-### **Modular Command Architecture**
+### Modular Command Architecture
 
-**Individual Command Files** (`configs/cli/[command].json`):
+**Individual Command Files** 
+- `configs/cli/[command].json`
+
 ```json
 {
   "command": "stats",
@@ -95,7 +105,9 @@ MAO uses a revolutionary **pure modular CLI approach** where all commands are de
 }
 ```
 
-**Dynamic Entry Point** (`mao_v4.py`):
+**Dynamic Entry Point** 
+- `mao_v4.py`
+
 ```python
 def load_all_commands():
     """Scan configs/cli/ and load all .json files automatically"""
@@ -114,61 +126,69 @@ def main():
 - Modify command: Edit just that file
 - Zero risk of breaking other commands
 
-**Flow**:
+**Flow**
+
 1. Scan `configs/cli/` directory for all `.json` files
 2. Build argument parser dynamically from discovered commands
 3. Parse user input and find which command was used
 4. Route to interface method via `getattr(interface, method_name)`
 5. Call with appropriate arguments based on command type
 
-**Zero Hardcoding**: Entry point has no knowledge of what commands exist
+**Zero Hardcoding**
+- Entry point has no knowledge of what commands exist
 
-#### **Complete Interface Implementation**
-**File**: `interfaces/ui_terminal.py`
+#### Complete Interface Implementation
+- `interfaces/ui_terminal.py`
 
-**All 21 Methods Implemented**:
+**All 21 Methods Implemented**
+
 - **Core Workflow**: `goal()`, `chat()`, `setup()`, `update()`, `fix_it()`
 - **Information**: `stats()`, `workflows()`, `logs()`, `review()`, `help()`
 - **Management**: `continue_workflow()`, `dry_run()`
 - **Settings**: `verbose()`, `free_only()`, `privacy()`, `output()`, `config()`
 - **System**: `doctor()`, `interactive()`, `restart()`, `exit()`
 
-**Real Functionality** (no stubs):
+**Real Functionality** (no stubs)
+
 - Settings persistence with automatic save/load
 - Lazy orchestrator loading (prevents import crashes)
 - Beautiful terminal output with emojis and formatting
 - Interactive mode with slash command support
 - Proper error handling and user guidance
 
-### **Command Categories & Complete Reference**
+### Command Categories & Complete Reference
 
-| **FUNCTION**                | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
-| --------------------------- | ----------------------------- | ----------------------------- |
-| **Start Application**       | `mao mao`                     | -                             |
-| Restart application         | -                             | `/restart` or `! mao restart` |
-| Exit application            | -                             | `/exit` or `! mao exit`       |
-| Open config management UI   | `mao --config`                | `/config`                     |
-| Resume most recent workflow | `mao --continue`              | `/continue`                   |
-| **First message to AI**     | `mao --chat message`          | `/chat message`               |
-| **Create entire workflow**  | `mao --goal project goal`     | `/goal project goal`          |
-| **System Statistics**       | `mao --stats`                 | `/stats`                      |
-| **List Workflows**          | `mao --workflows`             | `/workflows`                  |
-| **Review Workflow**         | `mao --review custom command` | `/review custom command`      |
-| **Setup from JSON**         | `mao --setup ./config.json`   | `/setup ./config.json`        |
-| **Update Workflow**         | `mao --update ./phase.json`   | `/update ./phase.json`        |
-| **Fix Deliverable**         | `mao --fix-it ./fix.json`     | `/fix-it ./fix.json`          |
-| **Custom Output Directory** | `mao --output ~/downloads`    | `/output ~/downloads`         |
-| **Use only free models**    | `mao --free`                  | `/free`                       |
-| **Privacy models only**     | `mao --privacy`               | `/privacy`                    |
-| **Verbose Debug Mode**      | `mao --verbose`               | `/verbose`                    |
-| **View workflow logs**      | `mao --logs`                  | `/logs`                       |
-| **Show workflow stats**     | `mao --stats`                 | `/stats`                      |
-| **Check Health**            | `mao --doctor`                | `/doctor`                     |
-| **View help messages**      | `mao --help`                  | `/help`                       |
-| **Simulate Workflow**       | `mao --dry-run`               | `/dry-run`                    |
-| **Terminal Commands**       | -                             | `!ls -la` (any bash/zsh)      |
+### Command Chart
 
-### **Command Type Handling**
+| **FUNCTION**           | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
+| ---------------------- | ----------------------------- | ----------------------------- |
+| **Start Application**  | `mao mao`                     | -                             |
+| **Run Your Workflow**  | `custom command`              | `/custom command`             |
+| **Create Workflow ID** | `uid`                         | `/uid` or `! uid`             |
+| Restart application    | -                             | `/restart` or `! mao restart` |
+| Exit application       | -                             | `/exit` or `! mao exit`       |
+| Open app config        | `mao --config`                | `/config`                     |
+| Resume last workflow   | `mao --continue`              | `/continue`                   |
+| First message to AI    | `mao --chat message`          | `/chat message`               |
+| Create entire workflow | `mao --goal project goal`     | `/goal project goal`          |
+| System Statistics      | `mao --stats`                 | `/stats`                      |
+| List Workflows         | `mao --workflows`             | `/workflows`                  |
+| Review Workflow        | `mao --review custom command` | `/review custom command`      |
+| Setup from JSON        | `mao --setup ./config.json`   | `/setup ./config.json`        |
+| Update Workflow        | `mao --update ./phase.json`   | `/update ./phase.json`        |
+| Fix Deliverable        | `mao --fix-it ./fix.json`     | `/fix-it ./fix.json`          |
+| Set output directory   | `mao --output ~/downloads`    | `/output ~/downloads`         |
+| Use only free models   | `mao --free`                  | `/free`                       |
+| Privacy models only    | `mao --privacy`               | `/privacy`                    |
+| Verbose Debug Mode     | `mao --verbose`               | `/verbose`                    |
+| View workflow logs     | `mao --logs`                  | `/logs`                       |
+| Show workflow stats    | `mao --stats`                 | `/stats`                      |
+| Check Health           | `mao --doctor`                | `/doctor`                     |
+| View help messages     | `mao --help`                  | `/help`                       |
+| Simulate Workflow      | `mao --dry-run`               | `/dry-run`                    |
+| Terminal Commands      | -                             | `! ls -la` (any bash/zsh)     |
+
+### Command Type Handling
 
 ```python
 # Standalone commands (no arguments)
@@ -188,10 +208,11 @@ elif cmd_config["type"] == "app_only":
     # Handled via /restart, /exit in interactive mode
 ```
 
-### **Settings Management System**
-**File**: `configs/user_settings.json` (auto-created)
+### Settings Management System
+- `configs/user_settings.json` 
 
-**Persistent Settings**:
+**Persistent Settings**
+
 ```json
 {
   "verbose": false,
@@ -204,46 +225,48 @@ elif cmd_config["type"] == "app_only":
 
 **Integration**: All settings commands (`--verbose`, `--free`, `--privacy`) automatically save state
 
-### **Error Recovery & Bootstrap**
-**Graceful Degradation**:
+### Error Recovery & Bootstrap
+
+**Graceful Degradation**
+
 - Missing orchestrator: Lazy loading prevents startup crashes
 - Malformed JSON files: Individual file errors don't break other commands
 - Missing interface methods: Clear error messages with suggestions
 - Import failures: Bootstrap fallback with helpful guidance
 
-### **Interactive Mode Features**
-**Slash Commands**: `/help`, `/stats`, `/workflows`, `/verbose`, `/exit`, `/restart`
-**Natural Language**: Direct goal input processed as workflow creation
-**Command History**: Persistent across sessions
-**Exit Handling**: Graceful shutdown on Ctrl+C or `exit` command
+### Interactive Mode Features
+* **Slash Commands**: `/help`, `/stats`, `/workflows`, `/verbose`, `/exit`, `/restart`
+* **Natural Language**: Direct goal input processed as workflow creation
+* **Command History**: Persistent across sessions
+* **Exit Handling**: Graceful shutdown on Ctrl+C or `exit` command
 
-**Integration Points**: 
+**Integration Points** 
 
-### **With Future MCP Integration Hub**
+### With Future MCP Integration Hub
 - Settings management ready for MCP server configurations  
 - Workflow commands prepared for Memory MCP state tracking
 - File handling ready for Files API integration
 
-### **With Tool Integration Framework**  
+### With Tool Integration Framework  
 - Dynamic command discovery supports tool-specific commands
 - Interface methods ready for tool execution callbacks
 - Settings system supports tool preference management
 
-### **With Workflow Engine Core**
+### With Workflow Engine Core
 - Goal command integrates with workflow orchestration
 - Setup/update commands ready for JSON workflow configs
 - Progress tracking prepared for real-time execution monitoring
 
-### **With Terminal UI/UX System**
+### With Terminal UI/UX System
 - Display layer separation already implemented
 - Settings management supports color themes and preferences
 - Interactive mode foundation ready for enhanced UX features
 
 ---
 
-## 🧠 **Memory MCP Integration Hub**
+## Memory MCP Integration Hub
 
-**Status**: ✅ **Specification Complete** - Implementation Plan 1.2
+**Status**: ✅ Specification Complete - Implementation Plan 1.2
 
 ### **Architectural Evolution: Beyond `orchestrator/memory.py`**
 
@@ -260,7 +283,7 @@ MAO v4 shifts from local file-based memory to **Memory MCP integration** for per
 - Multi-agent state coordination via shared memory entities
 - Distributed state management supporting interrupted session recovery
 
-### **Core Integration Architecture**
+### Core Integration Architecture
 
 ```python
 # orchestrator/memory_mcp.py
@@ -319,11 +342,11 @@ class MemoryMCPManager:
 **Project Hierarchy:**
 ```
 MAO-v4 (project)
-├── workflow-abc123 (workflow)
+├── uid-abc-123 (workflow)
 │   ├── observations: [phase_completions, agent_handoffs, quality_metrics]
 │   ├── relations: [uses → brave_search, hands-off-to → analysis_agent]
 │   └── files: [workspace_path, deliverable_refs, handoff_packages]
-├── workflow-def456 (workflow)
+├── uid-def-456 (workflow)
 └── system-state (tracking)
 ```
 
@@ -344,7 +367,7 @@ MAO-v4 (project)
 }
 ```
 
-### **Performance Characteristics**
+### Performance Characteristics
 
 **State Persistence:**
 - Memory MCP updates: <100ms per observation
@@ -363,15 +386,16 @@ MAO-v4 (project)
 
 ---
 
-## 🔧 **Tool Integration Framework**
+## Tool Integration Framework
 
-**Status**: ✅ **Specification Complete** - Implementation Plan 1.3
+**Status**: ✅ Specification Complete - Implementation Plan 1.3
 
-### **Executable Human Button System**
+### Executable Human Button System
 
-MAO transforms human buttons from static code snippets into executable workflow components with complete tracking integration.
+Mao transforms human buttons from static code snippets into executable workflow components with complete tracking integration.
 
-**Universal Model Compatibility:**
+**Universal Model Compatibility**
+
 ```python
 # tools/[tool_name]/button_[tool_name].py
 def create_button_snippet(params: Dict[str, Any], model: str) -> str:
@@ -460,15 +484,15 @@ class ToolManager:
             return False
 ```
 
-## 🎬 **Workflow Engine Core Integration**
+## Workflow Engine Core Integration
 
-**Status**: ✅ **Specification Complete** - Implementation Plan 1.4
+**Status**: ✅ Specification Complete - Implementation Plan 1.4
 
-### **Setup Script Bridge: Simple Human-First Design**
+### Setup Script Bridge: Simple Human-First Design
 
-MAO uses a **single, simple setup script** that processes JSON configurations - following the proven SFA pattern that developers love.
+Mao uses a **single, simple setup script** that processes JSON configurations - following the proven SFA pattern that developers love.
 
-#### **The Simple Pattern (Like SFA)**
+#### The Simple Pattern (Like SFA)
 ```bash
 # Human creates or gets JSON config
 mao --setup ./marketing-strategy-config.json
@@ -477,12 +501,14 @@ mao --setup ./marketing-strategy-config.json
 # Result: `marketing-strategy-startup` command installed in /usr/local/bin/
 
 # Execute workflow
-marketing-strategy-startup
+marketing strategy startup
 ```
 
-#### **How It Works**
+#### How It Works
 
-**ONE Setup Script** (`scripts/setup_workflow.sh`):
+**ONE Setup Script** 
+- `scripts/setup_workflow.sh`
+
 ```bash
 #!/bin/bash
 # MAO Workflow Setup Script
@@ -545,7 +571,7 @@ echo "🧪 Test: which ${COMMAND_FILE}"
 echo "🚀 Ready: ${COMMAND_FILE}"
 ```
 
-#### **Claude Integration: Same Simple Process**
+#### Claude Integration: Same Simple Process
 
 When Claude creates workflows from conversation:
 
@@ -589,9 +615,10 @@ class ConversationWorkflowBridge:
             }
 ```
 
-#### **JSON Config Schema**
+#### JSON Config Schema
 
-**Simple, Human-Readable Format**:
+**Simple, Human-Readable Format**
+
 ```json
 {
   "workflow_id": "workflow-abc123",
@@ -630,43 +657,41 @@ class ConversationWorkflowBridge:
 }
 ```
 
-#### **Directory Structure Created**
+#### Directory Structure Created
 
 ```
 configs/use_case/marketing-strategy-startup/
-├── config.json              # Workflow configuration
-├── README.md                # Auto-generated usage guide
-├── phases/                  # Phase-specific materials
-│   ├── 1_market_research/
-│   └── 2_strategy_development/
+├── marketing_strategy_startup_config.json              # Workflow configuration
+├── marketing_strategy_startup_README.md                # Auto-generated usage guide
+├── marketing_strategy_startup.sh                # Specific script for command and workflow 
 └── deliverables/            # Final outputs
 ```
 
-#### **Integration Points**
+#### Integration Points
 
 - **Memory MCP**: Tracks workflow creation and command installation
 - **Files API**: Stores drafts and handoff materials during execution  
 - **CLI System**: Custom commands integrate with JSON CLI architecture
 - **Tool Discovery**: Validates required tools are available during setup
 
-#### **Why This Approach Works**
+#### Why This Approach Works
 
-✅ **Human-Friendly**: Developers love simple `mao --setup ./config.json` pattern  
-✅ **No Command Registry**: Unix filesystem handles command discovery  
-✅ **One Source of Truth**: Single setup script, same process for humans and Claude  
-✅ **Proven Pattern**: Based on successful SFA deployment approach  
-✅ **Maintainable**: JSON configs are readable, editable, versionable  
-✅ **Scalable**: Add new workflows by dropping in JSON configs
+- ✅ **Human-Friendly**: Developers love simple `mao --setup ./config.json` pattern  
+- ✅ **No Command Registry**: Unix filesystem handles command discovery  
+- ✅ **One Source of Truth**: Single setup script, same process for humans and Claude  
+- ✅ **Proven Pattern**: Based on successful SFA deployment approach  
+- ✅ **Maintainable**: JSON configs are readable, editable, versionable  
+- ✅ **Scalable**: Add new workflows by dropping in JSON configs
 
-**This is the simplicity that makes developers happy - not complex, just powerful.** 🚀
+**This is the simplicity that makes developers happy - not complex, just powerful.** 
 
 ---
 
-## 🎯 **Agent Orchestration Framework** 
+## Agent Orchestration Framework 
 
-**Status**: ✅ **Specification Complete** - Implementation Plan 1.4
+**Status**: ✅ Specification Complete - Implementation Plan 1.4
 
-### **Agent Handoff Coordination**
+### Agent Handoff Coordination
 
 ```python
 # orchestrator/agent_orchestrator.py
@@ -740,18 +765,16 @@ class AgentOrchestrator:
 
 ---
 
-## 🖥️ **Terminal UI/UX System**
+## Terminal UI/UX System
 
-**Status**: 🚧 **[TBD - Implementation Plan 1.5 - Needs Rewrite]**
+**Status**: 🚧 [TBD - Implementation Plan 1.5 - Needs Rewrite]
 
-### **Full Interactive Application Experience**
+### Full Interactive Application Experience
 
 MAO's terminal interface provides a **complete application platform** experience:
 
-**Adaptive Claude Demeanor System:**
-- **Beginner Mode**: Friendly guidance with detailed explanations
-- **Experienced Mode**: Efficient interaction with minimal guidance
-- **Expert Mode**: Advanced controls and detailed system information
+**Claude Demeanor**
+- no system, claude knows how to do this. 
 
 **Live Progress Monitoring:**
 - Real-time workflow phase tracking with visual progress indicators
@@ -767,9 +790,9 @@ MAO's terminal interface provides a **complete application platform** experience
 
 ---
 
-## 🏭 **Provider & Model Management**
+## Provider & Model Management
 
-### **Universal Provider Architecture**
+### Universal Provider Architecture
 
 ```python
 # orchestrator/manager_models.py
@@ -797,7 +820,7 @@ class ModelManager:
             return "claude-sonnet-4"  # Balanced default
 ```
 
-### **Provider Configuration Schema**
+### Provider Configuration Schema
 
 ```json
 {
@@ -819,9 +842,9 @@ class ModelManager:
 
 ---
 
-## 🎮 **Interface Management System**
+## Interface Management System
 
-### **Multi-Interface Architecture**
+### Multi-Interface Architecture
 
 ```python
 # interfaces/ui_terminal.py - The Workflow Voice
@@ -849,28 +872,28 @@ class TerminalInterface:
         pass
 ```
 
-### **UI Component Separation**
+### UI Component Separation
 
-**Core Logic Layer** (`orchestrator/core.py`):
+**Core Logic Layer** (`orchestrator/core.py`)
 - Pure workflow orchestration logic
 - No print statements or UI dependencies
 - Returns structured data for UI formatting
 
-**Interface Layer** (`interfaces/ui_terminal.py`):
+**Interface Layer** (`interfaces/ui_terminal.py`)
 - All user interaction and display formatting
 - Rich terminal UI with visual components
 - Workflow voice and experience management
 
-**Configuration Layer** (`configs/`):
+**Configuration Layer** (`configs/`)
 - JSON-based configuration for all components
 - No hardcoded values in core logic
 - Runtime customization and extensibility
 
 ---
 
-## 🔄 **Caching & Performance System**
+## Caching & Performance System
 
-### **Intelligent Cache Architecture**
+### Intelligent Cache Architecture
 
 ```python
 # orchestrator/cache/cache_system.py
@@ -903,7 +926,7 @@ class CacheSystem:
         self._update_cache_index(cache_key, cache_entry)
 ```
 
-### **Performance Characteristics**
+### Performance Characteristics
 
 **Cache Hit Rates:**
 - Repeated workflows: >95% cache utilization
@@ -917,9 +940,9 @@ class CacheSystem:
 
 ---
 
-## 🚨 **Error Handling & Recovery**
+## Error Handling & Recovery
 
-### **Graceful Degradation System**
+### Graceful Degradation System
 
 ```python
 # orchestrator/error_handling.py
@@ -942,9 +965,9 @@ class ErrorRecoveryManager:
 
 ---
 
-## 📊 **Monitoring & Analytics**
+## Monitoring & Analytics
 
-### **Performance Tracking**
+### Performance Tracking
 
 **Real-time Metrics:**
 - Workflow execution times and success rates
