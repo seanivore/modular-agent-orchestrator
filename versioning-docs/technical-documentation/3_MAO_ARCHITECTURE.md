@@ -337,36 +337,6 @@ class MemoryMCPManager:
         }
 ```
 
-### **Entity Relationship Patterns**
-
-**Project Hierarchy:**
-```
-MAO-v4 (project)
-├── uid-abc-123 (workflow)
-│   ├── observations: [phase_completions, agent_handoffs, quality_metrics]
-│   ├── relations: [uses → brave_search, hands-off-to → analysis_agent]
-│   └── files: [workspace_path, deliverable_refs, handoff_packages]
-├── uid-def-456 (workflow)
-└── system-state (tracking)
-```
-
-**Cross-Workflow Relations:**
-```python
-# Example: Workflow template reuse
-{
-  "from": "workflow-abc123",
-  "to": "workflow-template-content-strategy", 
-  "relationType": "derived-from"
-}
-
-# Example: Tool usage patterns
-{
-  "from": "workflow-abc123",
-  "to": "brave_search",
-  "relationType": "uses-tool"
-}
-```
-
 ### Performance Characteristics
 
 **State Persistence:**

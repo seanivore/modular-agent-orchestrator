@@ -1,11 +1,120 @@
 # Final Implementation Details
 
-## Update Notes 
+## Workflow Unique ID Tool Created 
 
   - Document `7_MAO_USER_GUIDE.md`, line 356, creation of unique workflow ID is placed in user flow 
     - Feels like we need this in other places 
     - Needs to be louder in the docs 
     - We can add it into the actual UI, too 
+
+## Workflow End Phase Creation 
+
+  - Notes say that the `JSON Config` was implemented 
+    - Where is it in the documentation? 
+    - Can we put a template in this directory: `./configs/examples` 
+    - Let's add a template for the JSON of all the other configs, too 
+    - **Sean needs to review** ... same with the setup script but there is another note about that below 
+
+### Variable Input JSON Config **Needs to be reviewed**
+
+- I saw a note about a secondary one .. what is the story there? 
+- Command naming protocol
+  - `./versioning-docs/v1-3_SFA/SPECIFICATIONS.md`
+  - `./versioning-docs/v1-3_SFA/STANDARDIZATION.md`
+- Model choice hierachy with Primary, Fallback, Failsafe 
+
+### Workflow Setup Script **Needs to be reviewed**
+
+#### Directory Files & Naming Structure 
+
+- The directory structure had directories for phases, etc. 
+  - Draft working docs stay in the Files API 
+  - Part of the token saving system is leaving them there 
+  - Only delivering the final output deliverables 
+- **NEED NOTE MADE** 
+  - For drafts or workflow docs 
+  - Any other than finals 
+  - To get them in final output 
+  - List as deliverable in JSON config 
+- Please adhere to the naming structure in the implementation 
+  - As in rules, no adding dates or other things to naming
+  - Connect to setup script and Files API
+
+#### Directory Structure
+
+- What exactly is metadata?
+  - Note that I'm really less concerned about things like "performance metrics" right now 
+  - That can always come later 
+
+- We've fully nixed the quality automations 
+  - We are creating a CRAZY modular agentic system 
+  - Designed so people can do anything 
+  - So the logic of "Automated success criteria checking" is not a good fit 
+  - Plus Claude can have a sequential think and do a QA; that was what I expected 
+
+- Create directory for the JSON output from the Memory MCP 
+  - For the Workflow Log 
+  - For the Memory 
+
+- How do we get these JSONs? 
+  - We agreed that this tool would work because of them
+  - They were identified when AI was reviewing this Github repository 
+  - `https://github.com/modelcontextprotocol/servers/tree/main/src/memory` 
+
+```
+configs/use_case/workflow-command/
+├── workflow_command_config.json    # Workflow configuration
+├── WORKFLOW_COMMAND_README.md      # Auto-generated usage guide
+├── workflow_command.sh             # Specific script for command and workflow 
+├── metadata/                       # Metadata for the workflow 
+└── deliverables/                   # Final outputs
+```
+
+#### JSON Config Schema
+
+```json
+{
+  "workflow_id": "workflow-abc123",
+  "custom_command": "marketing strategy startup",
+  "goal": "Create comprehensive marketing strategy for fintech startup",
+  "phases": [
+    {
+      "name": "market_research",
+      "description": "Research target market and competitors",
+      "tools": ["web_search", "text_editor"],
+      "deliverable": "Market research report",
+      "model": "claude-sonnet-4"
+    },
+    {
+      "name": "strategy_development", 
+      "description": "Develop marketing strategy and tactics",
+      "tools": ["text_editor", "graphic_design"],
+      "deliverable": "Marketing strategy document",
+      "model": "claude-sonnet-4"
+    }
+  ],
+  "variables": {
+    "required": {
+      "target_market": {
+        "description": "Primary target market segment",
+        "example": "small business owners"
+      }
+    },
+    "optional": {
+      "budget": {
+        "description": "Marketing budget constraint",
+        "default": "not specified"
+      }
+    }
+  }
+}
+```
+
+## Error Handling Idea I love 
+- Enhanced Error Recovery
+- Clear error messages with next steps
+- Clear it all when resolved 
+- Connect to all workflow execution components
 
 ## Decisions To Make 
 

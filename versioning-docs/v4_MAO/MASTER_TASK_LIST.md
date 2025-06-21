@@ -1,28 +1,11 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
-## Terminal UI Design 
+---
 
-- **Primary Language: TypeScript/Node.js**
-  - Regarding the language change: 
-  - AI told me that it would be complicated because we'd have to change files 
-  - I asked them to clarify because the python does the work and then the typescript does the UI
-  - I didn't see the conflict 
-  - Then they said I was right and they were over thinking it 
-- **Mentioning this in case it comes up again**
 
-- **TypeScript/Node.js** with npm distribution - that's actually really smart for a developer tool.
-- **Easy distribution** via npm (developers already have Node)
-- **Cross-platform** (works everywhere Node works)
-- **Rich ecosystem** for terminal UIs and APIs
-- **TypeScript** gives them good type safety for a complex tool
 
-- Use libraries like `ink` (React for terminal) or `blessed`
-- Easy to integrate with Claude's APIs
-- Familiar if you know JavaScript
 
-- Primarily developed using TypeScript and Node.js
-- Evident from the installation instructions using Node package manager (npm install -g @anthropic-ai/claude-code)
 
 ---------------------------------
 
