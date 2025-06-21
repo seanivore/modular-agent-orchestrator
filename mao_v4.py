@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Mao - Main CLI Entry Point
-Pure dynamic routing - zero hardcoded arguments
+Main CLI Entry Point
+Pure dynamic routing with zero hardcoded arguments
 """
 
 import sys

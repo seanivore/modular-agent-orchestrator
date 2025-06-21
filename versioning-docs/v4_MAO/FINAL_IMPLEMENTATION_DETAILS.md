@@ -70,46 +70,6 @@ configs/use_case/workflow-command/
 └── deliverables/                   # Final outputs
 ```
 
-#### JSON Config Schema
-
-```json
-{
-  "workflow_id": "workflow-abc123",
-  "custom_command": "marketing strategy startup",
-  "goal": "Create comprehensive marketing strategy for fintech startup",
-  "phases": [
-    {
-      "name": "market_research",
-      "description": "Research target market and competitors",
-      "tools": ["web_search", "text_editor"],
-      "deliverable": "Market research report",
-      "model": "claude-sonnet-4"
-    },
-    {
-      "name": "strategy_development", 
-      "description": "Develop marketing strategy and tactics",
-      "tools": ["text_editor", "graphic_design"],
-      "deliverable": "Marketing strategy document",
-      "model": "claude-sonnet-4"
-    }
-  ],
-  "variables": {
-    "required": {
-      "target_market": {
-        "description": "Primary target market segment",
-        "example": "small business owners"
-      }
-    },
-    "optional": {
-      "budget": {
-        "description": "Marketing budget constraint",
-        "default": "not specified"
-      }
-    }
-  }
-}
-```
-
 ## Error Handling Idea I love 
 - Enhanced Error Recovery
 - Clear error messages with next steps
@@ -118,11 +78,9 @@ configs/use_case/workflow-command/
 
 ## Decisions To Make 
 
-1. Give Mao normal tool access when they're chatting. 
-   - Same UX everyone is already used to 
-   - Check the freshness of information for the User 
 
-2. How can Args be actually plug-and-play modular? 
+
+1. How can Args be actually plug-and-play modular? 
    - Do they have to be written somewhere else after adding them to a JSON 
    - If so, where and why? What options could avoid this? 
 
@@ -188,3 +146,203 @@ configs/use_case/workflow-command/
 
   - For all of `4_MAO_EXTENSION_GUIDE.md` lets clean it up a bunch, move it to last, and then it needs to have the arguments and slash commands added for being modular -- how to add and remove those. 
   - For all of `5_MAO_PROTECTION_RULES.md` I think we need to clean it up as well. Look at the `0_TECH_DOC_CONTENTS.md` for all the new rules. 
+
+## Personal Settings, App Preferences 
+
+
+
+
+
+
+
+
+
+
+| Key                                                                           | Description                                               | Example                                                            |
+| ----------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------ |
+| autoUpdaterStatus                                                             | Enable or disable the auto-updater (default: enabled)     | disabled                                                           |
+| preferredNotifChannel                                                         | Where you want to receive notifications (default: iterm2) | iterm2, iterm2_with_bell, terminal_bell, or notifications_disabled |
+| theme                                                                         | Color theme                                               | dark, light, light-daltonized, or dark-daltonized                  |
+| - verbose	Whether to show full bash and command outputs (default: false)	true |
+
+
+ Claude Code Status v1.0.31
+
+  L Session ID: 099c6fac-a484-413d-83f3-e3a548bc8cc2
+
+ Working Directory 
+  L /Users/seanivore/Development
+
+ Account • /login
+  L Login Method: Claude Pro Account
+  L Organization: sean@august.style's Organization
+  L Email: sean@august.style
+
+ Model • /model
+  L Sonnet Sonnet 4 for daily use
+
+│ Settings                                                                     │
+│ Configure Claude Code preferences                                            │
+│                                                                              │
+│ ❯ Auto-compact                              true                             │
+│                                                                              │
+│   Use todo list                             true                             │
+│                                                                              │
+│   Verbose output                            false                            │
+│                                                                              │
+│   Theme                                     Dark mode (colorblind-friendly)  │
+│                                                                              │
+│   Notifications                             kitty                            │
+│                                                                              │
+│   Editor mode                               normal                           │
+│                                                                              │
+│   Model                                     Default (recommended)            │
+│                                                                              │
+│   Use custom API key: iSY4hKltHyg-_iViKwAA  false                            │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+   ↑/↓ to select · Enter/Tab/Space to change · Esc to close
+
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Under the 
+
+> ~/Development > mao mao                                               09:15:43
+╭───────────────────────────────────────────────────╮
+│  🐱 Mao says hello, let's get agentic!            │ 
+│                                                   │
+│   /help for help, /status for your current setup  │
+│                                                   │
+│   cwd: /Users/seanivore/Development               │
+╰───────────────────────────────────────────────────╯
+
+
+ ※ Tip: Send messages to Claude while it works to steer Claude in real-time
+
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ >                                                                            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ? for shortcuts
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ >                                                                            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ! for bash mode       double tap esc to undo
+  / for commands        shift + tab to auto-accept edits
+  @ for file paths      ctrl + r for verbose output
+  # to memorize         option + ⏎ for newline
+
+
+
+
+
+╭──────────────────────────╮
+│ ✻ Welcome to Claude Code │
+╰──────────────────────────╯
+
+ Let's get started.
+
+ Choose the text style that looks best with your terminal:
+ To change this later, run /theme
+
+ ❯ 1. Dark mode
+   2. Light mode
+   3. Dark mode (colorblind-friendly)✔
+   4. Light mode (colorblind-friendly)
+   5. Dark mode (ANSI colors only)
+   6. Light mode (ANSI colors only)
+
+
+ Preview
+ ╭────────────────────────────────────────────────────────────────────────────╮
+ │   1   function greet() {                                                   │
+ │   2 -    console.log("Hello, World!");                                     │
+ │   2 +    console.log("Hello, Claude!");                                    │
+ │   3   }                                                                    │
+ ╰────────────────────────────────────────────────────────────────────────────╯
+
+
+╭──────────────────────────╮
+│ Mao says hello           │
+╰──────────────────────────╯
+
+  ██████╗██╗      █████╗ ██╗   ██╗██████╗ ███████╗
+ ██╔════╝██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝
+ ██║     ██║     ███████║██║   ██║██║  ██║█████╗  
+ ██║     ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  
+ ╚██████╗███████╗██║  ██║╚██████╔╝██████╔╝███████╗
+  ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝
+  ██████╗ ██████╗ ██████╗ ███████╗                
+ ██╔════╝██╔═══██╗██╔══██╗██╔════╝                
+ ██║     ██║   ██║██║  ██║█████╗                  
+ ██║     ██║   ██║██║  ██║██╔══╝                  
+ ╚██████╗╚██████╔╝██████╔╝███████╗                
+  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝
+
+
+ Claude Code can now be used with your Claude subscription or billed based on 
+ API usage through your Console account.
+
+
+ Select login method:
+
+ ❯ 1. Claude account with subscription
+      Starting at $20/mo for Pro, $100/mo for Max - Best value, predictable 
+   pricing
+
+   1. Anthropic Console account
+      API usage billing
+
+
+╭──────────────────────────╮
+│ ✻ Welcome to Claude Code │
+╰──────────────────────────╯
+
+ Security notes:
+
+ 1. Claude can make mistakes
+    You should always review Claude's responses, especially when
+    running code.
+
+ 2. Due to prompt injection risks, only use it with code you trust
+    For more details see:
+    https://docs.anthropic.com/s/claude-code-security
+
+ Press Enter to continue…
+
+
+╭──────────────────────────╮
+│ ✻ Welcome to Claude Code │
+╰──────────────────────────╯
+
+ Use Claude Code's terminal setup?
+
+ For the optimal coding experience, enable the recommended settings
+ for your terminal: Option+Enter for newlines and visual bell
+
+ ❯ 1. Yes, use recommended settings
+   2. No, maybe later with /terminal-setup
+
+ Enter to confirm · Esc to skip
+
+╭───────────────────────────────────────────────────╮
+│ ✻ Mao says hello!                                 │
+│                                                   │
+│   /help for help, /status for your current setup  │
+│                                                   │
+│   cwd: /Users/seanivore/Development               │
+╰───────────────────────────────────────────────────╯
+
+
+ ※ Tip: Ask Claude to create a todo list when working on complex tasks to track 
+ progress and remain on track
+
+╭──────────────────────────────────────────────────────────────────────────────╮
+│ > Try "write a test for <filepath>"                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+  ? for shortcuts
+
+
+  ⏵⏵ auto-accept edits on (shift+tab to cycle)
+  ⏸ plan mode on (shift+tab to cycle)
