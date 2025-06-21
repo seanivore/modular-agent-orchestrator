@@ -84,7 +84,7 @@
 ### **Spacing Strategy**
 - **Big gap** between bullet and content (minimum 2 spaces)
 - **Generous line spacing** for readability
-- **Bullets always far left** for scannability
+- **Bullets always far left** for scan-ability
 
 ---
 

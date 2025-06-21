@@ -21,7 +21,7 @@
 - Command naming protocol
   - `./versioning-docs/v1-3_SFA/SPECIFICATIONS.md`
   - `./versioning-docs/v1-3_SFA/STANDARDIZATION.md`
-- Model choice hierachy with Primary, Fallback, Failsafe 
+- Model choice hierarchy with Primary, Fallback, Failsafe 
 
 ### Workflow Setup Script **Needs to be reviewed**
 
