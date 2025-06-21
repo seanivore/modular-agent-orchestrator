@@ -63,6 +63,9 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
     - 436 = Memory MCP Integration        <-- this is complete and should have been added 
     - 447 = Files API Workflow Handoffs   <-- this is complete and should have been added
 
+  - In the document `2_MAO_SYSTEM_FILES.md` look to the following lines 
+    - 158 = old `memory.py` details; update to `Memory MCP` strategy; delete `orchestrator/memory.py`
+
 ## Terminal UI Design 
 
 - **Primary Language: TypeScript/Node.js**
