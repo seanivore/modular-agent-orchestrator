@@ -3,7 +3,7 @@
 ## Critical Rules 
 
 - **Rule #1** 
-  * Variable-Input Philosophy is IMMUTABLE.
+  * Variable-Input Philosophy is IMMUTABLE 
   * NEVER add hardcoded categories, templates, enums, or predetermined options
   * When in doubt, ask Sean; his brain is basically modular 
   * We've more than once decided to add a whole new set of JSON variable configurations 
@@ -13,7 +13,7 @@
   * You will need to audit any new files before implementation 
   * We've yet to see a new file that didn't need a heavy audit 
 - **Rule #3** 
-  * Human Button Interface is A MUST UNDERSTAND CONCEPT.
+  * Human Button Interface is A MUST UNDERSTAND CONCEPT 
   * NEVER convert back to SDK-based approaches or provider-specific implementations
 - **Rule #4** 
   * Print Statement Separation is MANDATORY
@@ -22,48 +22,39 @@
   * Only exception is 'demos' and 'button generator' files 
 - **Rule #5** 
   * File Naming Standards are PROTECTED
-  * Current standardized names cannot be changed for "clarity" or "consistency"
+  * Don't put 'mao' in names; all of the code is Mao's 
+  * Current names should not be changed for specificity 
 - **Rule #6** 
-  * No Automatic Backward Compatibility
+  * NO Automatic Backward Compatibility
   * NEVER add legacy aliases, compatibility layers, or "keeping the old name" patterns
-  * This is a completely new tool - there's no legacy to maintain
-  * When backward compatibility becomes needed in the future, it must be:
-    - Explicitly discussed with Sean first
-    - Properly planned and architected
+  * This is a completely new product; there's no legacy to maintain
+  * When backward compatibility is needed in future, discuss with Sean
 - **Rule #7** 
-  * HUMAN-FIRST SETUP SCRIPT AND JSON CONFIG DESIGN
-  * Setup scripts and JSON configs must be designed for human creation and execution first
+  * HUMAN-FIRST DESIGN of SETUP SCRIPT and JSON CONFIG 
+  * Less use by human users should not result in a more complex design 
   * Humans should be able to create, understand, and modify all configuration without AI assistance
-  * Simple stays simple - no complexity just because Claude can handle it
-  * Tool ensures human agency and understanding of their own workflows
+  * Ensures human agency and understanding of their own workflows
   * Example: SFA pattern of `sfa workflow-name path/to/config.json` in terminal
 - **Rule #8** 
   * NO TIMESTAMPS IN FILENAMES
   * Workspace directories use clean command-based naming: `marketing-strategy-startup/`
   * Never append timestamps like `marketing-strategy-startup_20250619_1430/`
   * If users need timestamps, Finder/filesystem provides them 
-  * Keep filenames clean and focused on content, not creation time
   * Directory grouping by command name, not temporal organization
 - **Rule #9** 
-  * PHASES START AT 1, NEVER 0
-  * All workflow phases numbered starting from 1
+  * Phases (tasks) start at 1, NEVER 0
   * No "Phase 0" or "00_" prefixes in directory structure  
-  * Improves UX and eliminates confusion from SFA legacy patterns
-  * Clear, intuitive numbering that matches human expectations
+  * Improves UX, eliminates confusion, clear, intuitive 
 - **Rule #10** 
   * NO HARDCODED SUCCESS CRITERIA
   * Never define specific quality metrics like "covers 5+ competitors" or "includes timeline"
-  * Claude reviews deliverables using sequential thinking and context
+  * Claude reviews deliverables using sequential thinking and context for QA 
   * Quality assurance through AI reasoning, not predetermined checklists
-  * Maintains variable-input philosophy at quality validation level
-  * Success criteria defined by user goals, not system assumptions
 - **Rule #11** 
-  * COMMAND REGISTRY SYSTEMS ARE UNNECESSARY
-  * No command registry databases or tracking systems needed
-  * Setup scripts create executable commands in `/usr/local/bin/` following Unix patterns
+  * No command registry databases, no tracking systems, IT IS UNNECESSARY
+  * Setup scripts create executable commands in `/Users/seanivore/bin` 
   * Unix filesystem handles command discovery and execution
   * Proven SFA pattern: setup script → executable command → direct execution
-  * Avoid unnecessary complexity layers over working solutions
 - **Rule #12** 
   * SINGLE RESPONSIBILITY FOR STATE MANAGEMENT
   * Memory MCP handles ALL workflow state persistence
@@ -71,13 +62,17 @@
   * One source of truth for workflow context and progression
   * Eliminates synchronization issues and redundant operations
   * Clean integration with single, authoritative state management system
+- **Rule #13** 
+  * It is 'Mao' not 'MAO' 
+  * This encourages proper pronunciation 
+  * Don't use m-dashes; use semicolons 
 
 ## Documentation Organization 
 
 ### **📚 User-Facing Documentation**
 
 **7. Application Usage Guide** 
-How to use MAO as an interactive application platform --> [7_MAO_USER_GUIDE.md](./7_MAO_USER_GUIDE.md)
+How to use Mao as an interactive application platform --> [7_MAO_USER_GUIDE.md](./7_MAO_USER_GUIDE.md)
 
 **What This Covers:**
 - Command reference with terminal and in-app variants

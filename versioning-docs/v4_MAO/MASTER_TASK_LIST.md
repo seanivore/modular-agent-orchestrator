@@ -14,6 +14,10 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
 
 3. Re: `interfaces/ui_terminal.py`, does that file do thinking / logic? I was under the impression that it just sort of held all of the print statements for any situation. The `2_MAO_SYSTEM_FILES.md` says it has user conversation and in put handling. 
 
+4. How can Args be actually plug-and-play modular? 
+   - Do they have to be written somewhere else after adding them to a JSON 
+   - If so, where and why? What options could avoid this? 
+
 ## Audit & Deleting of Implementation Files 
 
 1. I'd like to make sure that everything in these files has been addressed before deleting them. 
@@ -40,6 +44,7 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
     - Connect stats to actual system metrics
     - Implement live workflow monitoring
     - Add progress bars and execution tracking
+
 
 
 ## Terminal UI Design 

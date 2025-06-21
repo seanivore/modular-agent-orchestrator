@@ -1,53 +1,85 @@
 # Mao Application Usage Guide
-*How to use MAO as an interactive application platform*
+*Using the Mao application*
 
 ---
 
-## 🎯 **Getting Started Quickly**
+## Get Started 
 
-### **Basic Usage Patterns**
+**Start Application**
 
-**Goal-Driven Workflow Creation:**
+```bash
+mao mao 
+```
+
+- Then just start chatting! No delay, and only one screen. 
+- Try `/chat` or `/goal` to jump in quickly 
+
+**Jump In** 
+
+- App Launches 
+- Workflow Created From Goal
+
 ```bash
 mao --goal "create marketing plan for SaaS startup"
 ```
 
-**Interactive Chat Session:**
+**Don't Leave Terminal** 
+
+- Have your JSON config ready 
+- Run it with the setup script 
+
 ```bash
-mao --chat "let's build a targeted resume maker"
+mao --setup ./config.json
 ```
 
-**Direct Application Start:**
-```bash
-mao mao  # Interactive mode with full UI
-```
+### **Two Interfaces** 
+
+  - The Mao application is our main user interface 
+  - Using terminal is possible; consider it a dev or pro tool secondary experience 
+
+**NOTE:** Running workflows will launch the application where a monitor is displayed. 
 
 ---
 
-## 📋 **Command Reference**
+## Command Reference
 
-### **Dual Interface Philosophy**
-MAO provides **two ways** to execute every command:
-- **Terminal**: `mao --command` (before launching app)
-- **In-App**: `/command` or `!command` (while app is running)
+1. No input required 
+2. Text input required
+   - Follow the flag or slash command
+   - No quotes are needed 
+3. 
 
-### **Complete Command Chart**
 
-| **FUNCTION**                | **TERMINAL COMMAND**        | **IN-APP COMMAND**           |
-| --------------------------- | --------------------------- | ---------------------------- |
-| **Start Application**       | `mao mao`                   | -                            |
-| Restart application         | -                           | `/restart` or `!mao restart` |
-| Exit application            | -                           | `/exit` or `!mao exit`       |
-| **First message to AI**     | `mao --chat "message"`      | `/chat message`              |
-| **Create entire workflow**  | `mao --goal "project goal"` | `/goal project goal`         |
-| **System Statistics**       | `mao --stats`               | `/stats`                     |
-| **List Workflows**          | `mao --workflows`           | `/workflows`                 |
-| **Setup from JSON**         | `mao --setup ./config.json` | `/setup ./config.json`       |
-| **Update Workflow**         | `mao --update ./phase.json` | `/update ./phase.json`       |
-| **Fix Deliverable**         | `mao --fix-it ./fix.json`   | `/fix-it ./fix.json`         |
-| **Custom Output Directory** | `mao --output ~/downloads`  | `/output ~/downloads`        |
-| **Verbose Debug Mode**      | `mao --verbose`             | `/verbose`                   |
-| **Terminal Commands**       | -                           | `!ls -la` (any bash/zsh)     |
+For flags or commands that need text input, quotes are not required. 
+Want to change directories or check the git status while in the app? Put an `!` in front of your command. 
+
+
+| **FUNCTION**           | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
+| ---------------------- | ----------------------------- | ----------------------------- |
+| **Start Application**  | `mao mao`                     | -                             |
+| **Run Your Workflow**  | `custom command`              | `/custom command`             |
+| Restart application    | -                             | `/restart` or `! mao restart` |
+| Exit application       | -                             | `/exit` or `! mao exit`       |
+| Open app config        | `mao --config`                | `/config`                     |
+| Resume last workflow   | `mao --continue`              | `/continue`                   |
+| First message to AI    | `mao --chat message`          | `/chat message`               |
+| Create entire workflow | `mao --goal project goal`     | `/goal project goal`          |
+| System Statistics      | `mao --stats`                 | `/stats`                      |
+| List Workflows         | `mao --workflows`             | `/workflows`                  |
+| Review Workflow        | `mao --review custom command` | `/review custom command`      |
+| Setup from JSON        | `mao --setup ./config.json`   | `/setup ./config.json`        |
+| Update Workflow        | `mao --update ./phase.json`   | `/update ./phase.json`        |
+| Fix Deliverable        | `mao --fix-it ./fix.json`     | `/fix-it ./fix.json`          |
+| Set output directory   | `mao --output ~/downloads`    | `/output ~/downloads`         |
+| Use only free models   | `mao --free`                  | `/free`                       |
+| Privacy models only    | `mao --privacy`               | `/privacy`                    |
+| Verbose Debug Mode     | `mao --verbose`               | `/verbose`                    |
+| View workflow logs     | `mao --logs`                  | `/logs`                       |
+| Show workflow stats    | `mao --stats`                 | `/stats`                      |
+| Check Health           | `mao --doctor`                | `/doctor`                     |
+| View help messages     | `mao --help`                  | `/help`                       |
+| Simulate Workflow      | `mao --dry-run`               | `/dry-run`                    |
+| Terminal Commands      | -                             | `! ls -la` (any bash/zsh)     |
 
 ### **Command Categories**
 
@@ -69,7 +101,7 @@ MAO provides **two ways** to execute every command:
 **💻 In-App Special**
 - `/restart` - Restart MAO application
 - `/exit` - Exit MAO application  
-- `!command` - Execute any terminal command from within MAO
+- `! command` - Execute any terminal command from within MAO
 
 ---
 
@@ -91,18 +123,20 @@ MAO provides **two ways** to execute every command:
 mao --goal "competitor analysis for fintech startup" --output ~/projects
 ```
 
-**Interactive Building:**
-```bash
-mao mao
-> /chat I need help with content strategy
-> [conversation builds workflow]
-> [automatic setup script generation]
-```
-
 **Command-Line Efficiency:**
 ```bash
 mao --setup ./my-workflow.json --verbose
 ```
+
+### **Application Page Design** 
+
+- **Actual Pages**
+  - New user greeting and color selection 
+  - Main chat interface (this is the all-purpose page)
+
+- **All Others** 
+  - Open as a modal that disappears when complete 
+  - Example is the application configuration page 
 
 ---
 
@@ -135,7 +169,7 @@ mao mao
 **Option 2: Create Your Own (Developer Pattern)**
 ```json
 {
-  "workflow_id": "workflow-def456",
+  "workflow_id": "uid-def-456",
   "custom_command": "competitor analysis saas",
   "goal": "Comprehensive competitor analysis for B2B SaaS tools",
   "phases": [
