@@ -55,6 +55,7 @@
   * Setup scripts create executable commands in `/Users/seanivore/bin` 
   * Unix filesystem handles command discovery and execution
   * Proven SFA pattern: setup script → executable command → direct execution
+  * SETUP SCRIPT DOES NOT PUT HYPHENS IN COMMAND LINE, only spaces 
 - **Rule #12** 
   * SINGLE RESPONSIBILITY FOR STATE MANAGEMENT
   * Memory MCP handles ALL workflow state persistence
@@ -66,120 +67,114 @@
   * It is 'Mao' not 'MAO' 
   * This encourages proper pronunciation 
   * Don't use m-dashes; use semicolons 
+  * We don't use emojis in UI; not a huge fan of them in docs but eh 
+  * Don't put a header in bold in the docs; save that for non-header text that needs to be seen 
 
 ## Documentation Organization 
 
-### **📚 User-Facing Documentation**
+### User-Facing Documentation
 
-**7. Application Usage Guide** 
+**Application Usage Guide** 
 How to use Mao as an interactive application platform --> [7_MAO_USER_GUIDE.md](./7_MAO_USER_GUIDE.md)
 
-**What This Covers:**
+**What This Covers**
+
 - Command reference with terminal and in-app variants
 - User experience flows and workflow creation patterns  
 - Setup scripts and custom command usage
 - Quality framework integration and troubleshooting
 - Advanced configuration and Memory MCP integration
 
-**Perfect For:**
+**Perfect For**
+
 - Users learning MAO application features
 - Command reference and troubleshooting
 - Understanding workflow creation and execution
 - Setup script and custom command usage
 
-### **🔧 Technical Documentation**
+### Technical Documentation
 
-**1. MAO Overview**
+**MAO Overview**
 Clean, focused overview --> [1_MAO_OVERVIEW.md](./1_MAO_OVERVIEW.md)
 
-**What This Covers:**
+**What This Covers**
+
 - Clear value proposition and problem/solution
 - How it actually works with real examples
 - User journeys for different audiences
 - Performance metrics and success stories
 - Getting started guide
 
-**What This Doesn't Try To Be:**
+**What This Doesn't Try To Be**
+
 - Technical architecture reference
 - Extension development guide
 - Protection rules documentation
 
-**2. MAO System File Roles**
+**MAO System File Roles**
 How all these files fit together --> [2_MAO_SYSTEM_FILES.md](./2_MAO_SYSTEM_FILES.md)
 
-**What This Covers:**
+**What This Covers**
+
 - Overview of system files and their roles
 - How they interact with each other
 - How they are used to create tools/models/providers
 - How they are used to create the orchestrator
 - Aka. how everything fits together 
 
-**Perfect For:**
+**Perfect For**
+
 - Quick reference to understand the system 
 - Understanding the system files and their roles 
 
-**3. MAO Architecture**
+**MAO Architecture**
 Complete technical deep-dive --> [3_MAO_ARCHITECTURE.md](./3_MAO_ARCHITECTURE.md)
 
-**What This Covers:**
+**What This Covers**
+
 - Complete system architecture and integration patterns
 - Memory MCP integration and workflow state management
 - Tool integration framework and human button system
 - Implementation status and roadmap with clear gaps
 - Performance characteristics and optimization strategies
 
-**Perfect For:**
+**Perfect For**
+
 - Architects and senior developers
 - Understanding complex integration patterns
 - Implementation planning and dependency analysis
 - Performance optimization and troubleshooting
 
-**4. MAO Extension Guide**
+**MAO Extension Guide**
 How to add tools/models/providers --> [4_MAO_EXTENSION_GUIDE.md](./4_MAO_EXTENSION_GUIDE.md)
 
-**What This Covers:**
+**What This Covers**
+
 - Adding new tools following 6-file pattern
 - Model and provider integration
 - Variable-input philosophy implementation
 - Testing and validation requirements
 
-**Perfect For:**
+**Perfect For**
+
 - Developers extending MAO capabilities
 - Tool creators and integration partners
 - Understanding modular architecture patterns
 
-**5. MAO Protection Rules**
+**MAO Protection Rules**
 What never to change and why --> [5_MAO_PROTECTION_RULES.md](./5_MAO_PROTECTION_RULES.md)
 
-**What This Covers:**
+**What This Covers**
+
 - Architectural integrity insurance
 - Variable-input philosophy protection
 - Human button interface requirements
 - Performance regression prevention
 - File naming and structure standards
 
-**Perfect For:**
+**Perfect For**
+
 - All developers working on MAO
 - Architectural decision validation
 - Code review and quality assurance
-- Preventing regression and maintaining innovation
-
-### **🧪 Post-Implementation Documentation**
-
-**8. Tests & Validations Guide**
-Comprehensive testing, benchmarking & operational validation --> [8_MAO_TESTS_VALIDATIONS.md](./8_MAO_TESTS_VALIDATIONS.md)
-
-**What This Will Cover** *(Post-Implementation)*:
-- Real-world performance benchmarking with actual data
-- End-to-end integration examples from completed workflows
-- Operational error patterns discovered during testing
-- Quality validation methodologies and success criteria
-- User experience testing results and optimization strategies
-- Continuous improvement framework with monitoring metrics
-
-**Perfect For** *(After Implementation)*:
-- QA teams validating system performance
-- Operations teams troubleshooting and optimizing
-- Developers understanding real integration patterns
-- Users learning from actual operational experiences
-- Stakeholders evaluating system effectiveness and ROI
+- Preventing regression and maintaining innovation 

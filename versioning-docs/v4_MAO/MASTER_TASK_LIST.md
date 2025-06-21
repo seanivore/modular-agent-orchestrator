@@ -1,20 +1,20 @@
 # Master Task List
 Mao v4.0.0.0 (Modular Agent Orchestrator)
 
+## Update Notes 
+
+  - Document `7_MAO_USER_GUIDE.md`, line 356, creation of unique workflow ID is placed in user flow 
+
+
 ## Decisions To Make 
 
-1. When and how is the workflow ID created? 
-   - Ideally it would be when running the setup script on the JSON because it could add it to the JSON file 
-   - BUT, Mao needs it earlier because when chatting and planning a workflow they need to make Memory state updates 
-   - And we need to consider that sometimes a workflow may be created without Mao involved 
-
-2. Give Mao normal tool access when they're chatting. 
+1. Give Mao normal tool access when they're chatting. 
    - Same UX everyone is already used to 
    - Check the freshness of information for the User 
 
-3. Re: `interfaces/ui_terminal.py`, does that file do thinking / logic? I was under the impression that it just sort of held all of the print statements for any situation. The `2_MAO_SYSTEM_FILES.md` says it has user conversation and in put handling. 
+2. Re: `interfaces/ui_terminal.py`, does that file do thinking / logic? I was under the impression that it just sort of held all of the print statements for any situation. The `2_MAO_SYSTEM_FILES.md` says it has user conversation and in put handling. 
 
-4. How can Args be actually plug-and-play modular? 
+3. How can Args be actually plug-and-play modular? 
    - Do they have to be written somewhere else after adding them to a JSON 
    - If so, where and why? What options could avoid this? 
 
@@ -45,7 +45,23 @@ Mao v4.0.0.0 (Modular Agent Orchestrator)
     - Implement live workflow monitoring
     - Add progress bars and execution tracking
 
+4. Check in on this "REMAINING INTEGRATION WORK"
 
+  - In the document `7_MAO_USER_GUIDE.md` look to the following lines 
+  - Please confirm if they are addressed in the codebase 
+  - If they are, please add more details to the technical documentation to make that clear 
+  - If they are not, please accomplish this, put on task list, etc. 
+    - 147 = Place setup script here 
+    - 188 = Why does this say "developer pattern" and is it our JSON ?? 
+    - 230 = Note that in app they can run their custom command with just the slash and their command
+    - 258 = confirm that this directory structure is what will be created 
+    - 404 = Live token counter during work
+    - 405 = Button snippets for each tool
+    - 406 = Direct Claude callback for help
+    - 407 = Auto-save document tools
+    - 408 = Parallel execution support
+    - 436 = Memory MCP Integration        <-- this is complete and should have been added 
+    - 447 = Files API Workflow Handoffs   <-- this is complete and should have been added
 
 ## Terminal UI Design 
 

@@ -3,9 +3,7 @@
 
 ---
 
-## Get Started 
-
-**Start Application**
+## Start Application
 
 ```bash
 mao mao 
@@ -14,25 +12,26 @@ mao mao
 - Then just start chatting! No delay, and only one screen. 
 - Try `/chat` or `/goal` to jump in quickly 
 
-**Jump In** 
-
-- App Launches 
-- Workflow Created From Goal
+### Create Workflow From Goal
 
 ```bash
 mao --goal "create marketing plan for SaaS startup"
 ```
 
-**Don't Leave Terminal** 
+- App Launches 
+- Workflow Created From Goal
 
-- Have your JSON config ready 
-- Run it with the setup script 
+### Don't Leave Terminal
 
 ```bash
 mao --setup ./config.json
 ```
 
-### **Two Interfaces** 
+- Have your JSON config ready 
+- Run it with the setup script 
+
+
+## Two Interfaces
 
   - The Mao application is our main user interface 
   - Using terminal is possible; consider it a dev or pro tool secondary experience 
@@ -41,23 +40,27 @@ mao --setup ./config.json
 
 ---
 
-## Command Reference
+## Terminal Arguments & Command Reference
 
-1. No input required 
-2. Text input required
+1. "Standalone" = Nothing needs to follow the flag or slash command 
+2. "Text input required"
    - Follow the flag or slash command
    - No quotes are needed 
-3. 
+3. "File input required"
+   - Put file path after the flag or slash command
+   - Be in that directory or use full path 
+4. "App Only" 
+   - Use the slash command 
+   - Or use the `!` prefix in app 
+   - Won't work and isn't needed in terminal 
 
-
-For flags or commands that need text input, quotes are not required. 
-Want to change directories or check the git status while in the app? Put an `!` in front of your command. 
-
+### Command Chart
 
 | **FUNCTION**           | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
 | ---------------------- | ----------------------------- | ----------------------------- |
 | **Start Application**  | `mao mao`                     | -                             |
 | **Run Your Workflow**  | `custom command`              | `/custom command`             |
+| **Create Workflow ID** | `uid`                         | `/uid` or `! uid`             |
 | Restart application    | -                             | `/restart` or `! mao restart` |
 | Exit application       | -                             | `/exit` or `! mao exit`       |
 | Open app config        | `mao --config`                | `/config`                     |
@@ -81,7 +84,7 @@ Want to change directories or check the git status while in the app? Put an `!` 
 | Simulate Workflow      | `mao --dry-run`               | `/dry-run`                    |
 | Terminal Commands      | -                             | `! ls -la` (any bash/zsh)     |
 
-### **Command Categories**
+### Command Categories
 
 **🚀 Workflow Creation**
 - `--goal` / `/goal` - Complete workflow from natural language
@@ -105,30 +108,30 @@ Want to change directories or check the git status while in the app? Put an `!` 
 
 ---
 
-## 🎬 **User Experience Flows**
+## User Experience Flows
 
-### **New User Journey**
+### New User Journey
 ```
 1. First Launch → Color Selection → Main Chat Interface
 2. Goal Input → Workflow Analysis → JSON Config Generation  
-3. Setup Script Creation → Custom Command Installation
+3. Setup JSON Workflow → Execute with Setup Script for Custom Command
 4. Workflow Execution → Live Progress Monitoring
 5. Results Delivery → Quality Validation → Next Steps
 ```
 
-### **Experienced User Patterns**
+### Experienced User Patterns
 
-**Quick Workflow:**
+**Quick Workflow Creation**
 ```bash
 mao --goal "competitor analysis for fintech startup" --output ~/projects
 ```
 
-**Command-Line Efficiency:**
+**Setting Up Workflow Using Setup Scrip with JSON:**
 ```bash
 mao --setup ./my-workflow.json --verbose
 ```
 
-### **Application Page Design** 
+### Application Page Design
 
 - **Actual Pages**
   - New user greeting and color selection 
@@ -140,26 +143,43 @@ mao --setup ./my-workflow.json --verbose
 
 ---
 
-## 🚀 **Setup Script Usage: Simple & Developer-Friendly**
+## Setup Script Utility 
 
-### **The Simple Setup Pattern**
+**WE NEED THE SETUP SCRIPT CREATED AND THEN THE PATTERN HERE**
 
-Mao follows the proven SFA pattern that developers love - one simple command creates executable workflows:
+1. Creates the entire workflow use-case directory named after your custom command 
+2. Also writes a README_my_workflow.md and a use-case specific script 
+3. Uses your custom command in the JSON to make the new workflow executable
+4. Result: Custom command installed (e.g., `content strategy saas`)
+
+**NOTE:** The setup script does not put hyphens in the command line, only spaces. 
+- Use the naming convention of the custom command for your JSON config, too 
+
+---
+
+## Setup Script Usage: Simple & Developer-Friendly
+
+### The Simple Setup Pattern
+
+Mao follows the proven SFA pattern that developers love; one simple command creates executable workflows:
 
 ```bash
 # Create or get a JSON config
 mao --setup ./my-workflow-config.json
 
-# Setup script creates custom command
-# Result: Custom command installed (e.g., `content-strategy-saas`)
+# Setup script builds the entire workflow use-case directory 
+# Also writes a README_my_workflow.md and a use-case specific script 
+# Uses your custom command in the JSON to make the new workflow executable
+# Result: Custom command installed (e.g., `content strategy saas`)
 
 # Execute workflow anytime
-content-strategy-saas
+content strategy saas
 ```
 
-### **Creating JSON Configs**
+### Creating JSON Configs
 
 **Option 1: Let Claude Create It**
+
 ```bash
 mao mao
 > "I need a competitor analysis workflow for B2B SaaS"
@@ -167,6 +187,7 @@ mao mao
 ```
 
 **Option 2: Create Your Own (Developer Pattern)**
+
 ```json
 {
   "workflow_id": "uid-def-456",
@@ -192,110 +213,63 @@ mao mao
 }
 ```
 
-**Option 3: Copy and Modify Existing Configs**
-```bash
-# Browse existing workflows
-ls configs/use_case/
+### Command Execution Patterns
 
-# Copy and modify
-cp configs/use_case/marketing-strategy-startup/config.json ./my-workflow.json
-# Edit my-workflow.json
-mao --setup ./my-workflow.json
+**Direct Execution**
+
+```bash
+competitor analysis saas
 ```
+1. Run the command directly in terminal 
+2. App will open and show the monitor and workflow 
+3. Workflow will run and complete 
+4. App will close and return to terminal 
 
-### **Command Execution Patterns**
+**In-app execution**
 
-**Direct Execution (Most Common)**:
 ```bash
-# Run the custom command directly  
-competitor-analysis-saas
-
-# With arguments (if config defines them)
-competitor-analysis-saas --product_category "customer support tools"
-```
-
-**Via Mao Orchestrator**:
-```bash
-# Run through mao (same result)
-mao competitor-analysis-saas
-
-# In-app execution
 mao mao
-> /run competitor-analysis-saas
-> ! competitor-analysis-saas
+/competitor analysis saas
 ```
 
-**Workflow Management**:
+1. Start the app 
+2. Use a slash command placing your command after it 
+3. Workflow will run and complete 
+4. App will close and return to terminal 
+
+**Workflow Management**
+
 ```bash
-# List all installed workflows
+# List all installed workflows in order of creation 
 mao --workflows
 
-# View workflow details  
-mao --review competitor-analysis-saas
+# View workflow details using custom command as ID 
+mao --review competitor analysis saas
 
-# Update existing workflow
+# Update existing workflow; typically for Mao to add new phases 
 mao --update ./updated-config.json
 ```
 
-### **Workflow Directory Structure**
+### Workflow Directory Structure
 
-After setup, each workflow gets organized structure:
+The setup script creates the following directory structure for your workflow use-case. Note that the same naming structure of the custom command is also the name of the directory, appended to your README.md, added to the config.json file, and used in the setup script. 
+
+It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you need them, you need to indicate them as one of the deliverables. 
 
 ```
 configs/use_case/competitor-analysis-saas/
-├── config.json                    # Original configuration
-├── README.md                      # Auto-generated usage guide
-├── phases/                        # Phase working directories
-│   └── 1_market_research/         # Phase 1 materials
-└── deliverables/                  # Final outputs
-    └── competitor_analysis_report.md
+├── competitor_analysis_saas_config.json     # Original configuration; this is the JSON config file 
+├── README_competitor_analysis_saas.md       # Auto-generated usage guide
+├── competitor_analysis_saas.sh              # Auto-generated use-case specific script that your command activates 
+├── metadata/                                # Workflow tracking details  
+└── deliverables/                            # Final outputs; this is where the deliverables are stored 
+    └── competitor_analysis_report.md        # This is the final deliverable; it is the report 
 ```
 
-**Working Directory (During Execution)**:
-```
-~/mao_workflows/competitor-analysis-saas/
-├── 1_market_research/             # Phase execution
-├── 2_analysis_synthesis/
-├── DELIVERABLES/                  # Final outputs  
-├── METADATA/                      # Workflow tracking
-├── README_competitor_analysis_saas.md
-└── WORKFLOW_REPORT_competitor_analysis_saas.json
-```
+### Advanced Setup Patterns
 
-### **Configuration Management**
+**Batch Setup**
 
-**Updating Workflows**:
-```bash
-# Edit the config
-vim configs/use_case/competitor-analysis-saas/config.json
-
-# Re-run setup to update command
-mao --setup configs/use_case/competitor-analysis-saas/config.json
-```
-
-**Sharing Workflows**:
-```bash
-# Package for sharing
-tar -czf marketing-workflow.tar.gz configs/use_case/marketing-strategy-startup/
-
-# Install shared workflow
-tar -xzf shared-workflow.tar.gz
-mao --setup configs/use_case/shared-workflow/config.json
-```
-
-**Version Control**:
-```bash
-# Configs are git-friendly
-git add configs/use_case/my-workflow/
-git commit -m "Add competitor analysis workflow"
-
-# Share via git
-git push origin main
-```
-
-### **Advanced Setup Patterns**
-
-**Batch Setup**:
 ```bash
 # Setup multiple workflows
 for config in ./workflow-configs/*.json; do
@@ -303,7 +277,8 @@ for config in ./workflow-configs/*.json; do
 done
 ```
 
-**Environment-Specific Configs**:
+**Environment-Specific Configs**
+
 ```bash
 # Development setup
 mao --setup ./workflows/dev/content-strategy.json
@@ -312,48 +287,53 @@ mao --setup ./workflows/dev/content-strategy.json
 mao --setup ./workflows/prod/content-strategy.json
 ```
 
-**Custom Workspace Directory**:
+**Custom Workspace Directory**
+
 ```bash
 # Specify workspace location
 mao --setup ./config.json --output ~/my-projects/workflows
 ```
 
-### **Troubleshooting Setup**
+### Troubleshooting Setup
 
-**Common Issues**:
+**Common Issues**
 
-1. **Command Not Found**:
-```bash
-# Check if command installed
-which my-custom-command
+1. **Command Not Found**
 
-# Verify /usr/local/bin is in PATH
-echo $PATH | grep /usr/local/bin
+   ```bash
+   # Check if command installed
+   which my-custom-command
 
-# Re-run setup if needed
-mao --setup ./config.json
-```
+   # Verify /usr/local/bin is in PATH
+   echo $PATH | grep /usr/local/bin
 
-2. **Permission Issues**:
-```bash
-# Make sure you have sudo access for /usr/local/bin
-sudo chmod +x /usr/local/bin/my-command
+   # Re-run setup if needed
+   mao --setup ./config.json
+   ```
 
-# Or use ~/bin instead (update setup script)
-mkdir -p ~/bin
-# Add to ~/.bashrc: export PATH="$HOME/bin:$PATH"
-```
+2. **Permission Issues**
 
-3. **JSON Validation**:
-```bash
-# Validate JSON syntax
-python -m json.tool my-config.json
+   ```bash
+   # Make sure you have sudo access for /usr/local/bin
+   sudo chmod +x /usr/local/bin/my-command
 
-# Check required fields
-jq '.workflow_id, .custom_command, .phases' my-config.json
-```
+   # Or use ~/bin instead (update setup script)
+   mkdir -p ~/bin
+   # Add to ~/.bashrc: export PATH="$HOME/bin:$PATH"
+   ```
 
-**Debug Mode**:
+3. **JSON Validation**
+
+   ```bash
+   # Validate JSON syntax
+   python -m json.tool my-config.json
+
+   # Check required fields
+   jq '.workflow_id, .custom_command, .phases' my-config.json
+   ```
+
+### Debug Mode
+
 ```bash
 # Verbose setup output
 mao --setup ./config.json --verbose
@@ -362,7 +342,7 @@ mao --setup ./config.json --verbose
 bash -x scripts/setup_workflow.sh ./config.json
 ```
 
-### **Why This Approach Works**
+### Why This Approach Works
 
 ✅ **Simple**: One command creates executable workflows  
 ✅ **Familiar**: Follows proven Unix patterns developers know  
@@ -371,44 +351,57 @@ bash -x scripts/setup_workflow.sh ./config.json
 ✅ **No Lock-in**: Standard JSON and shell scripts, no proprietary formats  
 ✅ **Discoverable**: `which my-command` shows exactly what's installed
 
-**Setup scripts aren't complex - they're the elegant solution that gives you exactly what you need with zero fuss.** 🚀
-
 ---
 
-## 🎬 **Complete Workflow Experience**
+## Complete Workflow Experience
 
-### **Setting Up A New Project's Workflow**
+### Unique Workflow ID Generation 
+
+1. If you're creating the JSON yourself, you'll need to generate the UID for one of the variables 
+2. If you're working with Mao to create the workflow, Mao will generate the UID for you 
+
+**To Generate An Always Unique ID** 
+
+```bash 
+uid     # That's literally it. Just run that tiny command. 
+``` 
+
+### Setting Up A New Project's Workflow
 
 1. **Application Launch**: User runs `mao mao` and MAO application launches
-2. **First-Time Setup**: New users choose text color and highlight color (like Claude Code)
+2. **First-Time Setup**: New users choose text color and highlight color for their terminal or colorblind mode 
 3. **Main Interface**: Chat interface with simple directions: "Describe your project or ask Claude to guide you"
 4. **Visual Progress**: Icons below title indicate necessary variables, changing color when provided
-5. **Natural Conversation**: Claude adapts to user experience level - users can provide just a goal or full JSON config
-6. **Workflow Planning**: Claude steps away to plan workflow solutions, considering multiple draft options
-7. **User Confirmation**: Claude presents workflow with cost/time estimates for user review and refinement
-8. **Setup Script Execution**: Claude creates custom command, USE_CASE_README.md, and unique workflow ID
-9. **Memory System**: Workflow context saved with unique ID for later activation
-10. **Handoff Complete**: User receives custom command and workflow directory path
+5. **Natural Conversation**: Claude adapts to user experience level; users can provide just a goal or full JSON config
+6. **Workflow Unique ID**: Claude generates a unique ID for the workflow, their memory, etc.  
+7. **Workflow Planning**: Claude steps away to plan workflow solutions, considering multiple draft options
+8. **User Confirmation**: Claude presents workflow with cost/time estimates for user review and refinement
+9. **Setup Script Execution**: Claude creates custom command, USE_CASE_README.md, and unique workflow ID
+10. **Memory System**: Workflow context saved with unique ID for later activation
+11. **Handoff Complete**: User receives custom command and workflow directory path
 
-### **Activating A Project's Workflow**
+### Activating A Project's Workflow
 
 **Activation Options:**
+
 - Run custom command directly in terminal
 - Start application with `mao mao` and use chat
-- Use `!custom-command` within application
+- Use `! custom command` within application
 - Run `/workflows` to select from all workflows
 - Start with `mao --workflows` for workflow selection screen
 
 **Activation Process:**
+
 1. **Context Retrieval**: Claude pulls workflow memory and logs using unique ID
 2. **Agent Preparation**: Creates button snippets for tools and callbacks
 3. **Material Handoff**: Provides agents with deliverables, token limits, auto-save reminders
 4. **Live Monitoring**: Real-time UI tracking with audio notifications
 5. **Agent Coordination**: Direct communication between agents and orchestrator Claude
 
-### **Agent Task Execution**
+### Agent Task Execution
 
-**Agent Environment:**
+**Agent Environment**
+
 - Live token counter during work
 - Button snippets for each tool
 - Direct Claude callback for help
@@ -416,6 +409,7 @@ bash -x scripts/setup_workflow.sh ./config.json
 - Parallel execution support
 
 **Orchestrator Coordination:**
+
 - Claude reviews deliverables for completeness
 - Plans next tasks based on results
 - Creates addendum configs for workflow updates
@@ -425,7 +419,7 @@ bash -x scripts/setup_workflow.sh ./config.json
   - **Quality Issues**: Re-run phases with `mao --fix-it`
   - **Workflow Completion**: Final deliverable organization
 
-### **Custom Command Patterns**
+### Custom Command Patterns
 
 **Command Structure**: Always spaces, never hyphens
 ```bash
@@ -434,51 +428,13 @@ blog content strategy startup
 market research fintech
 competitor analysis saas tool
 
-# Generated as executables in /usr/local/bin/
+# Generated as executables in /Users/seanivore/bin/
 ```
-
-**Directory Organization**:
-```
-configs/use_case/blog-content-strategy-startup/
-├── config.json
-├── USE_CASE_README.md
-├── setup_script.sh
-├── WORKFLOW_PT_2_README.md (if updated)
-└── deliverables/
-```
-
-### **Memory & State Management**
-
-**Workflow Memory Files**:
-- `memory_[unique_id].py` - Complete workflow context
-- `Workflow Log` - Phase progression and decisions
-- Files API integration for agent handoffs
-- Session recovery using unique workflow IDs
-
-**Quality Assurance Process**:
-- Deliverable completeness review
-- Human-in-the-loop checkpoints
-- Auto-improvement feedback loops
-- Performance metrics tracking
-
 ---
 
-## 🎯 **Quality Framework Integration**  
-**Status**: 🚧 **[TBD - Implementation Plan 1.4]**
+## Advanced Configuration
 
-**Specification**: Automated quality validation with success criteria and improvement loops.
-
-**Future Documentation**:
-- Success criteria validation
-- Quality scoring system
-- Auto-improvement workflow triggers
-- Performance metrics tracking
-
----
-
-## 🔧 **Advanced Configuration**
-
-### **Memory MCP Integration**
+### Memory MCP Integration
 **Status**: 🚧 **[TBD - Implementation Plan 1.2]**
 
 **Specification**: Persistent workflow state across sessions using Memory MCP for entity-based project tracking.
@@ -489,7 +445,7 @@ configs/use_case/blog-content-strategy-startup/
 - Project entity management
 - Cross-session context retrieval
 
-### **Files API Workflow Handoffs**
+### Files API Workflow Handoffs
 **Status**: 🚧 **[TBD - Implementation Plan 1.2]**
 
 **Specification**: Agent-to-agent communication via Anthropic Files API for seamless workflow progression.
@@ -502,47 +458,22 @@ configs/use_case/blog-content-strategy-startup/
 
 ---
 
-## 🚨 **Troubleshooting**
+## Usage Notes 
 
-### **Common Issues**
+### Goal vs Chat Distinction
 
-**Error: "Logs not found before workflow completion"**
-- **Cause**: Attempting to access logs during workflow intermission
-- **Solution**: Wait for workflow completion or check Files API for intermediate results
-
-**Custom command not found**
-- **Cause**: Setup script execution failed or PATH not updated
-- **Solution**: Re-run setup script or manually check `/usr/local/bin/`
-
-**Verbose mode overwhelming**
-- **Note**: Verbose provides developer-console-level debugging (replaces old debug flag)
-- **Solution**: Use standard mode for normal operation
-
-### **Terminal Integration**
-
-**Bash/Zsh Commands**: Use `!` prefix within MAO to execute terminal commands:
-```
-> !ls -la
-> !git status  
-> !npm install
-```
-
-**Session Tracking**: MAO tracks most recent session for `--continue` functionality after interruptions.
-
----
-
-## 📝 **Usage Philosophy**
-
-### **Goal vs Chat Distinction**
 - **Goal**: "Here's my entire project, create a workflow"
 - **Chat**: "First message to AI for interactive building"
 
-### **Workflow Identification**
+### Workflow Identification
+
 - **Primary ID**: Custom command name (more foolproof than workflow names)
 - **Lookup**: Use custom command for workflow details and status
 
-### **Application vs Monitoring**
-MAO is a **full interactive application platform**, not a monitoring utility:
+### Application vs Monitoring
+
+MAO is a **full interactive application platform**, not a monitoring utility. 
+
 - Rich chat interfaces for natural workflow creation
 - Live workflow monitoring with real-time progress
 - Settings management and user preferences
