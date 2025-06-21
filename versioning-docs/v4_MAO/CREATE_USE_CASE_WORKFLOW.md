@@ -3,9 +3,29 @@
 Creating this as one flow document because it feels like this is all missing from the technical documentation in any clear way. 
 
 ## Updates And Where To Put Them 
-1. User ID 
-   - Created a new cli JSON 
+1. User ID and Workflow ID
+   - Created a new cli JSONs 
    - Created a template JSON in the examples directory here `./configs/examples/cli_command.json` 
+   - Both need to be added to tech docs where appropriate
+   - Add to UI doc if needed; cache, error handling, etc.? 
+2. Update JSON on `7_MAO_USER_GUIDE.md` after it is finalized below 
+   - Anywhere else it needs to go 
+   - Should be cached? 
+   - Error handling probably right? 
+   - UI doc? 
+3. Setup Script produced workflow use-case directory structure 
+   - I've updated it below 
+   - Already updated on `7_MAO_USER_GUIDE.md` 
+   - Update anywhere else it needs to go 
+   - Add to any of the other important files 
+   - Document that if they want drafts or other docs it needs to say so in deliverables 
+4. Setup Script found on `3_MAO_ARCHITECTURE.md` 
+   - Not sure at all if it is accurate
+   - Pull from working SFA scripts 
+   - the first is to setup the setup script itself 
+   - the second creates a new script for a workflow in the directory and makes it executable 
+   - `versioning-docs/v1-3_SFA/setup-scripts/install-sfa-commands.sh`
+   - `versioning-docs/v1-3_SFA/setup-scripts/sfa_workflow.sh`
 
 
 ## User ID and Workflow ID 
@@ -41,8 +61,7 @@ mao --workflow uid-abc-000
 > /workflow uid-abc-000 
 ```
 
-
-## New Needs, Old Needs 
+## New, Old JSON Config File Needs 
 
 1. User ID 
 2. Workflow ID 
@@ -53,32 +72,146 @@ mao --workflow uid-abc-000
 7. custom command 
 8. goal 
 9. phase_name
-10. description 
+10. description (is usually pretty long)
 11. tools 
-12. model 
-13. provider 
-
-## Found Example 
 
 ### JSON Config Schema
 
+
 ```json
 {
+  "user_id": "user-0663",
   "workflow_id": "uid-qmt-465",
   "custom_command": "marketing strategy startup",
+  "workflow_directory": "./configs/workflows/marketing-strategy-startup/",
   "goal": "Create comprehensive marketing strategy for fintech startup",
   "phases": [
     {
       "phase_name": "market_research",
-      "description": "Research target market and competitors",
+      "description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
+      "resources":[
+        "./directory/folder/file.md",
+        "https://file.com/folder"
+      ],
       "tools": ["web_search", "text_editor"],
       "deliverable": "Market research report",
       "model_1": "claude-sonnet-4",
-      "model_1": "claude-sonnet-3.7",
-      "model_1": "claude-sonnet-3.5",
-      "provider": "anthropic direct"
+      "model_2": "claude-sonnet-3.7",
+      "model_3": "claude-sonnet-3.5",
+      "provider_1": "requesty",
+      "provider_2": "anthropic direct",
+      "provider_3": "anthropic direct"
+    },
+    {
+      "phase_name": "TBD",
+      "description": "",
+      "resources":[],
+      "tools": [],
+      "deliverable": "",
+      "model_1": "",
+      "model_2": "",
+      "model_3": "",
+      "provider_1": "",
+      "provider_2": "",
+      "provider_3": ""
     }
   ]
   }
 }
+```
+### Questions About JSON Object 
+
+1. What does it look like when Mao leaves the workflows next phase open-ended? 
+2. Do we need to create JSON objects for the two workflow adjustment situations? 
+   - Update Workflow to fill in a TBD 
+   - Update workflow to cancel a TBD
+   - Fix-it Workflow to have deliverables recreated 
+3. Where does the output directory go if it is manipulated by a command? 
+4. What about verbose, stats, dry-run? 
+
+## Setup Script 
+
+### Generated Workflow Use-Case Directory Structure 
+
+### Workflow Directory Structure
+
+The setup script creates the following directory structure for your workflow use-case. Note that the same naming structure of the custom command is also the name of the directory, appended to your README.md, added to the config.json file, and used in the setup script. 
+
+It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you need them, you need to indicate them as one of the deliverables. 
+
+```
+configs/use_case/competitor-analysis-saas/
+├── competitor_analysis_saas_config.json     # Original configuration; this is the JSON config file 
+├── README_competitor_analysis_saas.md       # Auto-generated usage guide
+├── competitor_analysis_saas.sh              # Auto-generated use-case specific script that your command activates 
+├── metadata/                                # Workflow tracking details  
+└── deliverables/                            # Final outputs; this is where the deliverables are stored 
+    └── competitor_analysis_report.md        # This is the final deliverable; it is the report 
+```
+
+### Script Draft or Real? Why does it say "ONE" -- change path to `./scripts/setup_workflow/setup_workflow.sh`
+
+**ONE Setup Script** 
+- `scripts/setup_workflow.sh`
+
+```bash
+#!/bin/bash
+# MAO Workflow Setup Script
+# Processes any JSON config and creates executable commands
+
+CONFIG_FILE="$1"
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ Config file not found: $CONFIG_FILE"
+    exit 1
+fi
+
+# Parse JSON config
+WORKFLOW_ID=$(jq -r '.workflow_id' "$CONFIG_FILE")
+COMMAND_NAME=$(jq -r '.custom_command' "$CONFIG_FILE")
+COMMAND_FILE="${COMMAND_NAME// /-}"  # Replace spaces with hyphens for filesystem
+
+echo "🚀 Setting up MAO workflow: $COMMAND_NAME"
+
+# Create use-case directory
+USE_CASE_DIR="configs/use_case/${COMMAND_FILE}"
+mkdir -p "$USE_CASE_DIR"
+cp "$CONFIG_FILE" "$USE_CASE_DIR/config.json"
+
+# Generate executable command
+cat > "/usr/local/bin/${COMMAND_FILE}" << EOF
+#!/usr/bin/env python3
+"""
+MAO Custom Command: $COMMAND_NAME
+Workflow ID: $WORKFLOW_ID
+"""
+
+import sys
+import os
+
+# Add MAO to path
+sys.path.insert(0, "$(pwd)")
+
+from orchestrator.core import WorkflowOrchestrator
+import json
+
+def main():
+    config_path = "$USE_CASE_DIR/config.json"
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+    
+    orchestrator = WorkflowOrchestrator()
+    orchestrator.execute_workflow_from_config(config)
+
+if __name__ == "__main__":
+    main()
+EOF
+
+# Make executable
+chmod +x "/usr/local/bin/${COMMAND_FILE}"
+
+echo "✅ Custom command installed: $COMMAND_NAME"
+echo "📁 Use-case directory: $USE_CASE_DIR"
+echo "🧪 Test: which ${COMMAND_FILE}"
+echo "🚀 Ready: ${COMMAND_FILE}"
 ```

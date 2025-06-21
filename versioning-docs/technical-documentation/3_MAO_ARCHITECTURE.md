@@ -516,7 +516,7 @@ marketing strategy startup
 
 #### How It Works
 
-**ONE Setup Script** 
+**Setup Script** 
 - `scripts/setup_workflow.sh`
 
 ```bash
