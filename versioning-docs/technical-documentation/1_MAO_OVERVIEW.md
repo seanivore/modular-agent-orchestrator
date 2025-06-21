@@ -12,7 +12,7 @@
 
 ### The Problems Mao Solves
 
-#### Problems With The Rapidly Changing AI Industry 
+#### Rapidly Changing AI Industry 
 
 1. Accept: **AI Is Changing Every Constantly** 
 - The product must not ever have a shelf life 
@@ -32,7 +32,7 @@
 - Modularity solved many points 
 - The part of the system it plugged into were all modular 
 
-#### Problems With AI Agents  
+#### AI Agents  
 
 **1. Cost Explosion** 
 - Traditional AI workflows: $0.07+ per execution
