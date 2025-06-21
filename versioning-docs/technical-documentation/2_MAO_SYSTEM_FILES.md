@@ -176,7 +176,7 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 **What it does** Flexible mapping between models, providers, and tools
 **Contains** JSON files defining optimal combinations and compatibility
 
-### Command Interface in `configs/cli/arguments.json` 
+### Command Interface in `configs/cli/arguments.json` **this is not accurate**
 
 **What it does** CLI argument definitions for both terminal and in-app use
 **Contains** All command-line flags and their in-app command equivalents

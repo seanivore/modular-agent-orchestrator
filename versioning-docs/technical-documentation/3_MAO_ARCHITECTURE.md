@@ -508,7 +508,7 @@ Mao uses a **single, simple setup script** that processes JSON configurations - 
 mao --setup ./marketing-strategy-config.json
 
 # Setup script processes config and creates executable command  
-# Result: `marketing-strategy-startup` command installed in /usr/local/bin/
+# Result: `marketing-strategy-startup` command installed in /usr/local/bin/ aka. Users/seanivore/bin/ aka. ~/bin/
 
 # Execute workflow
 marketing strategy startup
