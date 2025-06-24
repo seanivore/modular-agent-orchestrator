@@ -1,0 +1,92 @@
+{
+  "name": "files_api",
+  "version": "1.0.0",
+  "description": "Agent handoff file management and workspace organization using Anthropic Files API",
+  "capabilities": [
+    "file_management",
+    "workflow_organization", 
+    "agent_handoffs",
+    "draft_storage",
+    "deliverables_management"
+  ],
+  "cost_estimate": 0.0,
+  "models_supported": ["all"],
+  "tags": [
+    "files",
+    "storage", 
+    "workflow",
+    "handoffs",
+    "drafts",
+    "deliverables",
+    "organization"
+  ],
+  "file_paths": {
+    "main_module": "tools/files_api/files_api.py",
+    "button_generator": "tools/files_api/button_files_api.py", 
+    "ui_display": "tools/files_api/ui_files_api.py",
+    "tool_config": "tools/files_api/tool_files_api.json"
+  },
+  "parameters": {
+    "operation": {
+      "type": "string",
+      "required": true,
+      "description": "Files API operation to perform",
+      "options": [
+        "create_workspace",
+        "save_draft",
+        "prepare_handoff", 
+        "save_deliverables",
+        "get_workflow_files"
+      ]
+    },
+    "workflow_id": {
+      "type": "string", 
+      "required": true,
+      "description": "Workflow identifier for file organization"
+    },
+    "content": {
+      "type": "string",
+      "required": false,
+      "description": "Content to save (for draft operations)"
+    },
+    "draft_type": {
+      "type": "string",
+      "default": "general",
+      "description": "Type of draft being saved"
+    },
+    "phase": {
+      "type": "string",
+      "required": false, 
+      "description": "Workflow phase identifier"
+    },
+    "deliverables": {
+      "type": "object",
+      "required": false,
+      "description": "Dictionary of deliverable name to content mappings"
+    },
+    "agent_materials": {
+      "type": "object", 
+      "required": false,
+      "description": "Materials package for agent handoff"
+    }
+  },
+  "workflow_integration": {
+    "handoff_support": true,
+    "draft_versioning": true,
+    "workspace_management": true,
+    "cost_tracking": true
+  },
+  "api_dependencies": {
+    "anthropic_files_api": {
+      "required": false,
+      "fallback": "local_file_system",
+      "description": "Primary storage via Anthropic Files API with local fallback"
+    }
+  },
+  "cache_strategy": "none",
+  "error_handling": {
+    "retry_attempts": 3,
+    "fallback_storage": "local_filesystem",
+    "graceful_degradation": true
+  }
+}
