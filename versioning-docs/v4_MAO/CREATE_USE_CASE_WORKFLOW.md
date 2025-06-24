@@ -1,6 +1,7 @@
 # Setting Up A New Workflow Use-Case 
 
-Creating this as one flow document because it feels like this is all missing from the technical documentation in any clear way. 
+## Intention 
+Let's make the `7_MAO_USER_GUIDE.md` document more complete and clear by setting it up as an example use-case creating a workflow from start to finish. 
 
 ## Updates And Where To Put Them 
 1. User ID and Workflow ID
@@ -75,53 +76,71 @@ mao --workflow uid-abc-000
 10. description (is usually pretty long)
 11. tools 
 
-### JSON Config Schema
+### JSON Config Schemas
 
 
 ```json
 {
-  "user_id": "user-0663",
-  "workflow_id": "uid-qmt-465",
-  "custom_command": "marketing strategy startup",
-  "workflow_directory": "./configs/workflows/marketing-strategy-startup/",
-  "goal": "Create comprehensive marketing strategy for fintech startup",
-  "phases": [
+  "workflow": [
     {
+      "user_id": "user-0663",
+      "workflow_id": "uid-qmt-465",
+      "custom_command": "marketing strategy startup",
+      "workflow_directory": "./configs/workflows/marketing-strategy-startup/",
+      "workflow_goal": "Create comprehensive marketing strategy for fintech startup",
+      "workflow_deliverable": "Marketing strategy report",
+    }
+  ]
+}
+```
+
+```json
+{
+  "phase": [
+    {
+      "workflow_id": "uid-qmt-465",
+      "phase_number": "01",
       "phase_name": "market_research",
+      "phase_goal": "Do research, create report",
+      "phase_deliverable": "Market research report",
       "description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
       "resources":[
         "./directory/folder/file.md",
         "https://file.com/folder"
       ],
       "tools": ["web_search", "text_editor"],
-      "deliverable": "Market research report",
       "model_1": "claude-sonnet-4",
       "model_2": "claude-sonnet-3.7",
       "model_3": "claude-sonnet-3.5",
       "provider_1": "requesty",
       "provider_2": "anthropic direct",
       "provider_3": "anthropic direct"
-    },
-    {
-      "phase_name": "TBD",
-      "description": "",
-      "resources":[],
-      "tools": [],
-      "deliverable": "",
-      "model_1": "",
-      "model_2": "",
-      "model_3": "",
-      "provider_1": "",
-      "provider_2": "",
-      "provider_3": ""
     }
   ]
-  }
+}
+```
+
+```json
+{
+  "handoff": [
+    {
+      "workflow_id": "uid-qmt-465",
+      "handoff_number": "01",
+      "assessment_questions": [
+        "How can I assess if this deliverable is complete?",
+        "What is needed to complete that assessment?",
+        "Do I have what I need to complete the assessment?"
+      ],
+      "human_in_loop": "no"
+    }
+  ]
 }
 ```
 ### Questions About JSON Object 
 
-1. What does it look like when Mao leaves the workflows next phase open-ended? 
+1. What does it look like when... 
+   - Mao leaves the workflows next phase open-ended? 
+
 2. Do we need to create JSON objects for the two workflow adjustment situations? 
    - Update Workflow to fill in a TBD 
    - Update workflow to cancel a TBD

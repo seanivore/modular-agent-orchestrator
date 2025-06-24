@@ -176,7 +176,7 @@ Mao follows the proven SFA pattern that developers love; one simple command crea
 mao --setup ./my-workflow-config.json
 
 # Setup script builds the entire workflow use-case directory 
-# Also writes a README_my_workflow.md and a use-case specific script 
+# Also writes a WORKFLOW_NAME_README.md and a use-case specific script 
 # Uses your custom command in the JSON to make the new workflow executable
 # Result: Custom command installed (e.g., `content strategy saas`)
 
@@ -265,9 +265,9 @@ The setup script creates the following directory structure for your workflow use
 It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you need them, you need to indicate them as one of the deliverables. 
 
 ```
-configs/use_case/competitor-analysis-saas/
+configs/use_case/analysis-saas-competition/
 ├── competitor_analysis_saas_config.json     # Original configuration; this is the JSON config file 
-├── README_competitor_analysis_saas.md       # Auto-generated usage guide
+├── COMPETITOR_ANALYSIS_SASS_README.md       # Auto-generated usage guide
 ├── competitor_analysis_saas.sh              # Auto-generated use-case specific script that your command activates 
 ├── metadata/                                # Workflow tracking details  
 └── deliverables/                            # Final outputs; this is where the deliverables are stored 
