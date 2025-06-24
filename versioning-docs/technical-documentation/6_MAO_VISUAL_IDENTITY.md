@@ -441,9 +441,9 @@ STATE: All agents reporting progress
 ```
 
 #### **Collapse Interaction Rules**
-- **[▼]** = Collapsed (click/key to expand)
-- **[▲]** = Expanded (click/key to collapse)  
-- **[●]** = Cannot collapse (actively cycling)
+- **▼** = Collapsed (click/key to expand)
+- **▲** = Expanded (click/key to collapse)  
+- **●** = Cannot collapse (actively cycling)
 - **Auto-collapse** after 30s of completion + no user focus
 
 #### **Smart Collapse Logic**

@@ -12,7 +12,7 @@ mao mao # Launches the Mao application
 mao --login # Launches the login screen 
 ``` 
 
-## Usernames versus User ID 
+### Usernames versus User ID 
 
 - A username is for UX; it is what they type into the login screen 
 - A user ID is what is created from the username 
@@ -20,7 +20,7 @@ mao --login # Launches the login screen
 - The user ID connects all the workflows, use-cases, and other data for that user 
 - The custom User ID is created by a simple script that can also be run manually as a cli-command 
 
-### User ID Creation 
+#### User ID Creation 
 
 ```bash
 meid seanivore # Run command with the Username  
@@ -181,6 +181,10 @@ Which text style looks best on your screen?
   ? /help for help, /config to change settings
 ```
 
+## Workflow Creation 
+
+### Chatting with Mao 
+
 *App UI/UX* 
   - This is the same screen as the image above 
   - When the User starts typing the prompt text disappears 
@@ -218,6 +222,45 @@ Which text style looks best on your screen?
   ? /variables to see what is needed 
 ```
 
+### Gathering Variables 
+
+- The user and Mao can chat as casually or intentionally as they like 
+- The user can ask for variables to be gathered 
+- The user could provide the variables prepared in advance 
+
+```bash
+/variables # Shows the variables that are needed 
+/variables -e # Shows the variables that are needed with an explanation 
+```
+
+In the end, the only thing Mao **MUST** have is the workflow goal. The rest of the variables are 'option' in that, Mao is fully capable of assessing the workflow goal and determining the best way to complete it. 
+
+### JSON Config File
+
+| **VARIABLE**         | **DESCRIPTION**                                               |
+| -------------------- | ------------------------------------------------------------- |
+| user_id              | User ID of Username creating the workflow                     |
+| workflow_id          | Workflow ID created at start of planning                      |
+| custom_command       | Custom command to execute workflow                            |
+| workflow_goal        | Goal statement of entire workflow project                     |
+| workflow_deliverable | Final deliverables of entire workflow project                 |
+| workflow_description | Description of workflow to complete project                   |
+| phase_number         | Count of phases as they're added to workflow                  |
+| phase_goal           | Goal statement of the phase's assigned task                   |
+| phase_deliverable    | Deliverable of the phase's assigned task                      |
+| phase_description    | Description of the phase's assigned task                      |
+| resources            | Resources the agent can use to complete the phase's tasks     |
+| tools                | Tools the agent can use to complete the phase's tasks         |
+| model_1              | Choice model to be the agent of this phase                    |
+| model_2              | Backup model agent should choice agent be unavailable         |
+| model_3              | Fail-safe model agent should choice and backup be unavailable |
+| provider_1           | Provides for the choice model                                 |
+| provider_2           | Provider for the backup model                                 |
+| provider_3           | Provider for the fail-safe model                              |
+| handoff_number       | Count of the handoffs as they're added to the workflow        |
+| assessment_questions | Questions to assess if the deliverable is complete            |
+| human_in_loop        | Whether the orchestrator should get human feedback            |
+
 ### Workflow ID 
 
 - When you create a workflow alone or with Mao's help, the JSON object will need a workflow ID 
@@ -225,12 +268,11 @@ Which text style looks best on your screen?
 - Later, you can follow the `--workflow` command with this ID for that workflow's details, though the custom command might be easier to remember 
 
 ```bash 
-uid 
-mao --workflow uid-abc-000
-/uid 
-/workflow uid-abc-000
+uid # Creates a new unique Workflow ID 
+mao --workflow uid-abc-000 # Shows workflow details 
+/uid # Creates a new unique Workflow ID 
+/workflow uid-abc-000 # Shows workflow details 
 ```
-
 - Math is used to create the ID; if you are curious or need to create a handful of UIDs, the -h flag for "HELP" will show you more information you can find. 
 
 ```bash 
@@ -256,145 +298,18 @@ Mathematical Operations:
   s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
-## Application Configuration Settings 
-
-*App UI/UX* 
-  - Users are quietly prompted to adjust configuration settings 
-    - Via the `?` message mentioning they try /config
-    - This /help and /config are persistent 
-    - Always the first `?` messages on the primary workspace page each time it is loaded  
-  - Settings below are those same settings saved to the `user_username.json` 
-  - The 'Description' is only displayed when the user's selector `❯` is on the setting 
-  - 'Description' shows the meaning of the selected setting
-  - Place selector on the other options for hover display to show their meanings 
-  - Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
-
-| **SETTING**      | **DEFAULT**        | **DESCRIPTION**                                 |
-| ---------------- | ------------------ | ----------------------------------------------- |
-| Quick launch     | `always`           | Launch app with last user logged in             |
-| Favorite model   | `claude-sonnet-4`  | Use for workflows unless discussed              |
-| Default provider | `anthropic direct` | I prefer this provider; discuss to change       |
-| Theme            | `dark mode CVD`    | Dark computer theme; use high legibility colors |
-| Cat vibes        | `I love it`        | We'll meow it up for you                        |
-| Double-texting   | `always`           | Interrupt Mao like any messenger experience     |
-
-### Quick Launch Options 
-
-1. `always` - Launch app with user from last session, unless logged out
-2. `off` - Load Username login on every startup 
-3. `continue only` - Launch `mao --continue` to skip login, otherwise load Username login 
-
-### Favorite Model 
-
-- Any model can be added using nickname or full name 
-- Startup `mao --model` or `/model` to set favorite model 
-- Startup `mao --model-list` or `/model-list` to see all available models 
-
-### Default Provider 
-
-- Any provider can be added using nickname or full name 
-- This is helpful for Users who have a bunch of cash in a specific API provider 
-- Startup `mao --provider` or `/provider` to set default provider 
-- Startup `mao --provider-list` or `/provider-list` to see all available providers 
-
-### Cat Vibes 
-
-- We don't want to be too annoying with our cat branding 
-
-  1. `I love it` - We'll meow it up for you 
-  2. `mao and then` - Adequate but not too much meowing 
-  3. `be serious pls` - No meowing at all 
-
-### Double-texting 
-
-1. `always` - Interrupt Mao like any messenger experience 
-2. `never` - One reply at a time for each party  
-
---------------------------------
-
-### The Setup Script
-
-1. Create a new directory in the `configs/use_case` directory 
-2. Create a new JSON config file in the new directory 
-3. Create a new setup script in the new directory 
-4. Create a new README.md file in the new directory 
-5. Create a new deliverables directory in the new directory 
-
-## Updates And Where To Put Them 
-
-1. Update JSON on `7_MAO_USER_GUIDE.md` after it is finalized below 
-   - Anywhere else it needs to go 
-   - Should be cached? 
-   - Error handling probably right? 
-   - UI doc? 
-2. Setup Script produced workflow use-case directory structure 
-   - I've updated it below 
-   - Already updated on `7_MAO_USER_GUIDE.md` 
-   - Update anywhere else it needs to go 
-   - Add to any of the other important files 
-   - Document that if they want drafts or other docs it needs to say so in deliverables 
-3. Setup Script found on `3_MAO_ARCHITECTURE.md` 
-   - Not sure at all if it is accurate
-   - Pull from working SFA scripts 
-   - the first is to setup the setup script itself 
-   - the second creates a new script for a workflow in the directory and makes it executable 
-   - `versioning-docs/v1-3_SFA/setup-scripts/install-sfa-commands.sh`
-   - `versioning-docs/v1-3_SFA/setup-scripts/sfa_workflow.sh`
-
-
-## User ID and Workflow ID 
-
-**User ID**
-  - Using Mao app, ; it will always generate the same User ID 
-  - Every JSON object you create will need this same generated number 
-  - Run the `meid` command with your Username to get your User ID
-  - Keeps all of the use-cases you've created and each workflow you've ran together and easy to look up 
-  - Always results in the same 'user-0000' --> the examples below is `user-0663` 
-  - Run the --workflow command followed by your User ID to see all of your workflows 
-
-```bash 
-meid whoami 
-mao --workflow whoami 
-```
-```zsh
-> /meid whoami
-> /workflow whoami 
-```
-
-**Workflow ID**
-  - When you create a workflow alone or with Mao's help, the JSON object will need a workflow ID 
-  - Run the `uid` command to get a collision-free (never repeated) unique ID --> `uid-abc-000` 
-  - Follow --workflow command with this ID for that workflow's details; custom command might be easier to remember 
-
-```bash 
-uid 
-mao --workflow uid-abc-000
-```
-```zsh
-> /uid 
-> /workflow uid-abc-000 
-```
-
-## New, Old JSON Config File Needs 
-
-1. User ID 
-2. Workflow ID 
-3. Model, fallback model, fail-safe model 
-4. Provider, fallback provider, fail-safe provider 
-5. Deliverable 
-6. Resources (paths, URLs, etc.)
-7. custom command 
-8. goal 
-9. phase_name
-10. description (is usually pretty long)
-11. tools
-
-### JSON Questions Remaining 
-
-1. What about when a phase has agents working in parallel? 
-
 ### JSON Config Schemas
 
+The config schemas have been broken into three JSON objects. This is to simplify the fact that Mao is a multi-agent system. They might run agents in parallel, or in series, or in a mix of both. They also might leave phases open-ended, or they might decide the deliverable is inadequate and needs to be edited and improved, resulting in the creation of a new phase JSON object. 
+
+#### Workflow JSON Object 
+
+- This is the first JSON object that is created when a workflow is created 
+- It contains the workflow's goal, deliverable, description, and other details 
+- Each project's workflow has only one workflow JSON object 
+- The 'goal', 'deliverable', and 'description' are all items that will be broken down into the phases 
+- The objects are tied together by the workflow_id 
+- While building the workflow, the temp_directory is used to store the JSON objects 
 
 ```json
 {
@@ -403,14 +318,23 @@ mao --workflow uid-abc-000
       "user_id": "user-0663",
       "workflow_id": "uid-qmt-465",
       "custom_command": "marketing strategy startup",
-      "workflow_directory": "./configs/workflows/marketing-strategy-startup/",
       "workflow_goal": "Create comprehensive marketing strategy for my fintech startup",
       "workflow_deliverable": "Marketing strategy report",
-      "workflow_description": "Identify what is needed to complete the goal. Build a workflow that delegates the work to the appropriate agents, having them work in parallel if needed. Leave the last phase opened-ended. Detail that handoff before the last phase with a list of questions Orchestrator will use to assess if the deliverable is complete, and if not, what is needed to complete it."
+      "workflow_description": "Identify what is needed to complete the goal. Build a workflow that delegates the work to the appropriate agents, having them work in parallel if needed. Leave the last phase opened-ended. Detail that handoff before the last phase with a list of questions Orchestrator will use to assess if the deliverable is complete, and if not, what is needed to complete it.",
+      "temp_directory": "configs/workflows/.temp/marketing-strategy-startup/"
     }
   ]
 }
 ```
+
+#### Phase JSON Object 
+
+- This is the second JSON object that is created when a workflow is created 
+- It contains a task needed to be completed to achieve the workflow's goal 
+- Just like the workflow, each phase has a goal, deliverable, description, and specific details for the agent 
+- The objects are tied together by the workflow_id 
+- Phases are numbered sequentially, starting with 01, 02, 03, etc. 
+- If there are agents running in parallel, they will share the same phase_number, appended with an underscore and a letter, a, b, c, etc. 
 
 ```json
 {
@@ -418,8 +342,7 @@ mao --workflow uid-abc-000
     {
       "workflow_id": "uid-qmt-465",
       "phase_number": "01",
-      "phase_name": "market_research",
-      "phase_goal": "Do research, create report",
+      "phase_goal": "Market research",
       "phase_deliverable": "Market research report",
       "phase_description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
       "resources":[
@@ -438,6 +361,15 @@ mao --workflow uid-abc-000
 }
 ```
 
+#### Handoff JSON Object 
+
+- This is the third type of JSON object that is created when a workflow is created 
+- This is created while building the workflow as part of the creative process; when the assessment is being discussed, it is important to get it written down in real time 
+- This object also helps provide important indicators to the orchestrator or the User watching the workflow 
+- For example, if there is a human in the loop, the orchestrator will need to know when to get human feedback 
+- Additionally, the handoff object is important when the subsequent phases have been left open-ended, where the handoff object is used as a placeholder and indicator that the Orchestrator needs to make a decision and then build the rest of the workflow accordingly 
+- Note that there might be more than one phase created after a handoff, there is no hard rule 
+
 ```json
 {
   "handoff": [
@@ -454,47 +386,175 @@ mao --workflow uid-abc-000
   ]
 }
 ```
-### Questions About JSON Object 
+### Workflow Updates 
 
-1. What does it look like when... 
-   - Mao leaves the workflows next phase open-ended? 
+In cases where the workflow is left open-ended, the Orchestrator will create additional phases as needed, included potential handoffs in between each of the phases. The separated, modularity of the JSON objects makes this easy to do on the fly. All of the JSON objects are properly labeled so that they do not need to be created in a single file. In fact, each type of JSON object may best be created as separate files from the start. 
 
-2. Do we need to create JSON objects for the two workflow adjustment situations? 
-   - Update Workflow to fill in a TBD 
-   - Update workflow to cancel a TBD
-   - Fix-it Workflow to have deliverables recreated 
-3. Where does the output directory go if it is manipulated by a command? 
-4. What about verbose, stats, dry-run? 
+## The Setup Script
 
-## Setup Script 
+### Temporary JSON Object Directory 
 
-### Generated Workflow Use-Case Directory Structure 
+- During workflow creation, the JSON objects are saved in a temporary directory 
+- A sub-directory is created in the temporary directory named for the use-case 
+- See: `./configs/workflows/.temp/use_case_name/`
+- The Setup Script will create final JSON objects in the final location and delete the temp files 
 
-### Workflow Directory Structure
+### Command Naming Conventions 
 
-The setup script creates the following directory structure for your workflow use-case. Note that the same naming structure of the custom command is also the name of the directory, appended to your README.md, added to the config.json file, and used in the setup script. 
+The custom command created for the workflow, named for it's use-case, has a carefully structured name which is used across the entire collection of workflow assets. This include the following, which will be illustrated in a structured example below the command writing protocol. 
 
-It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you need them, you need to indicate them as one of the deliverables. 
+  - Temporary JSON object sub-directory name 
+  - Permanent workflow directory name 
+  - Workflow JSON object sub-directory file name 
+  - Execution script file name 
+  - README.md file name 
+
+#### Command Writing Protocol 
+
+  - A custom command should be 2 to 3 words long 
+  - It is important to keep the command short and concise 
+  - Write it in reverse drill-down order, starting with the broadest category term 
+  - It often feels like you are writing the intent of your project workflow in reverse
+  - Mimic the structure of commands that we're used to already, like `git commit` or `git push`
+
+- **EXAMPLE** I'm creating a workflow for a project in which I need to research, analyze, and create a marketing strategy report for my fintech startup, 'Dog-Tech' 
+
+  1. The command is technically just the first, broadest category term: `marketing`
+     - Other workflows in marketing can be created with the same first command word
+     - This will make working on various related marketing projects easier 
+     - It will make remembering commands easier
+  2. For the second word, use a subcategory of marketing: `strategy`
+     - This is the argument to the marketing command 
+     - It is also likely that there will be other marketing strategy workflows
+     - This will make it easier to find the right command 
+  3. For the third word, I'm just going to drill down more: `report`
+     - This makes it extrememly memorable 
+     - It also makes it clear for future workflow creation that this might be a workflow that can easily be repurposed for marketing strategy reports on other startup ideas 
+
+The idea here is that, if in the future I need to create another marketing strategy report, I can use the same command, and just adjust the workflow to include an $ARGUMENT. Not necessary for the first workflow, where it would be dog-tech, but a good habit to get into. 
+
+It isn't a perfect science. The conceptual reasoning is more important to understand rather than the exact rules as defined above. For example, for something as common as *creating a marketing strategy report* and for a popular command like *marketing* I would probably abbreviate, with the goal of making something easier to type, easier to be longer, but still easy to make simple for each specific use-case. 
+
+- **TWO FINAL STEPS** 
+
+  1. Type the command a few times to make sure it is easy to type 
+     - I like abbreviating mkt because it is well known and easy to type  
+     - I like keeping strategy it keeps thing clear and easy to understand  
+
+```bash
+mkt strategy report --dogtech # This is the command 
+``` 
+
+  2. Take the first word, the actual command, and run it in the terminal 
+     - It will be colored (mine is green) if it is already being used 
+     - Use `which` before the command to confirm if it is/isn't being used 
+
+```bash 
+mkt # This is the command 
+zsh: command not found: mkt # This is the output telling me nothing is using the command 
+```
+```bash
+which mkt # This is the command 
+mkt not found # This is the output telling me nothing is using the command 
+```
+
+- **THE FORMULA** 
+
+```bash
+command category variant --flag
+```
+
+| **COMMAND** | **CATEGORY** | **VARIANT** | **FLAG**       | **DESCRIPTION**                                |
+| ----------- | ------------ | ----------- | -------------- | ---------------------------------------------- |
+| mkt         | strategy     | report      | --dogtech      | Research strategy for Dog-Tech startup         |
+| mkt         | content      | plan        | --dogtech      | Social content plan for Dog-Tech startup       |
+| job         | app          | N/A         | --resume       | Create targeted resume for job applications    |
+| job         | app          | N/A         | --cover-letter | Create cover-letter for job applications       |
+| tag         | keyword      | N/A         | --t-shirts     | Come up with SEO keywords for my t-shirt store |
+| social      | caption      | N/A         | --insta        | Write Instagram captions                       |
+
+#### Command Writing Rules 
+
+**Always avoid** these in a command:
+
+  1. No plural (so you never have to wonder if it is singular or plural)
+  2. No present participle verbs (gerunds with helping verbs)
+  3. No punctuation like hyphens (standard UX expectation)
+  4. No past tense verbs (e.g. `wrote`, `finished`, just stick to one tense)
+
+**Always use** these in a command: 
+
+   1. Use the simplest grammatical form of the word 
+   2. Use present tense 
+   3. Abbreviate when it is sensible 
+   4. Be short and concise 
+
+**Always remember** these should be helpful for humans to remember and use. 
+
+### Setup Script Automations 
+
+When the workflow is created, you need to run the JSON config file(s) through the setup script. This will create the following: 
+
+1. Create a new directory in the `configs/workflows/command_use_case/` directory 
+2. Place a new JSON config file in the new directory 
+   - Built from the .temp directory 
+   - Then deletes the .temp directory 
+3. Produces a README.md file in the new directory 
+   - Describes the workflow
+   - Reminds the user how to activate the workflow 
+4. Creates executable script with all the details of the workflow 
+   - This is the script that will be used to run the workflow 
+   - Finally, we have a script that is specific and not generic 
+5. Make the script executable using the custom command 
+   - Creates it using the tool `chmod +x` 
+   - Script runs `chmod +x ./configs/workflows/command_use_case/command_use_case.sh` 
+   - Saves the command to your ~/bin directory 
+6. Creates new sub-directories for 
+   - Deliverables 
+   - Metadata 
+
+**NOTE:** It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you need them, you need to indicate them as one of the deliverables. 
+
+#### Workflow Directory Structure
+
+  - Automatically created by the setup script 
+  - Command naming structure across files 
 
 ```
-configs/use_case/competitor-analysis-saas/
-├── competitor_analysis_saas_config.json     # Original configuration; this is the JSON config file 
-├── README_competitor_analysis_saas.md       # Auto-generated usage guide
-├── competitor_analysis_saas.sh              # Auto-generated use-case specific script that your command activates 
-├── metadata/                                # Workflow tracking details  
-└── deliverables/                            # Final outputs; this is where the deliverables are stored 
-    └── competitor_analysis_report.md        # This is the final deliverable; it is the report 
+configs/workflows/command_use_case/
+├── command_use_case_config.json      # Original configuration; this is the JSON config file 
+├── README_command_use_case.md        # Auto-generated usage guide
+├── command_use_case.sh               # Auto-generated use-case specific script that your command activates 
+├── metadata/                         # Workflow tracking details  
+└── deliverables/                     # Final outputs; this is where the deliverables are stored 
+    └── command_use_case_report.md    # This is the final deliverable; it is the report 
 ```
 
-### Script Draft or Real? Why does it say "ONE" -- change path to `./scripts/setup_workflow/setup_workflow.sh`
+### Using The Setup Script 
 
-**ONE Setup Script** 
-- `scripts/setup_workflow.sh`
+1. This needs to be finalized and then saved as: `./scripts/setup_workflow/build_use_case.sh` 
+2. The initial JSON objects will be in a temp directory 
+   - The script should use them and create the final JSON objects in the new directory 
+   - Then delete the temp directory 
+   - The temp directory name will be the same as the command use-case directory name 
+   - E.g. `./configs/workflows/.temp/command_use_case/`
+   - I.e. it should be able to run with a directory as the argument instead of specifically a JSON config file only
+   - It also needs to be able to run with a JSON config file as the argument 
+   - Most importantly, the JSON objects may be in separate files in the directory 
+   - **NOTE** let's set it up so that the executable setup script can be run from anywhere (i.e. not just from the root directory, not in the .temp directory; remember it will also be run from the application as a slash command) -- As such, let's make it so that it understands the path to the temp directory and all we need to add is `./command_use_case/` for example. 
+3. The script itself should be made executable using a custom command defined in the CLI configs 
+
+```bash 
+mao --setup ./command_use_case/ # This is the command 
+/setup ./command_use_case/ # This is the slash command 
+```
+
+### The Actual Setup Script **DRAFT** 
 
 ```bash
 #!/bin/bash
-# MAO Workflow Setup Script
-# Processes any JSON config and creates executable commands
+# Workflow Setup Script
+# Processes JSON config .temp directory and creates executable commands
 
 CONFIG_FILE="$1"
 
@@ -552,3 +612,57 @@ echo "📁 Use-case directory: $USE_CASE_DIR"
 echo "🧪 Test: which ${COMMAND_FILE}"
 echo "🚀 Ready: ${COMMAND_FILE}"
 ```
+
+## Application Configuration Settings 
+
+*App UI/UX* 
+  - Users are quietly prompted to adjust configuration settings 
+    - Via the `?` message mentioning they try /config
+    - This /help and /config are persistent 
+    - Always the first `?` messages on the primary workspace page each time it is loaded  
+  - Settings below are those same settings saved to the `user_username.json` 
+  - The 'Description' is only displayed when the user's selector `❯` is on the setting 
+  - 'Description' shows the meaning of the selected setting
+  - Place selector on the other options for hover display to show their meanings 
+  - Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
+
+| **SETTING**      | **DEFAULT**        | **DESCRIPTION**                                 |
+| ---------------- | ------------------ | ----------------------------------------------- |
+| Quick launch     | `always`           | Launch app with last user logged in             |
+| Favorite model   | `claude-sonnet-4`  | Use for workflows unless discussed              |
+| Default provider | `anthropic direct` | I prefer this provider; discuss to change       |
+| Theme            | `dark mode CVD`    | Dark computer theme; use high legibility colors |
+| Cat vibes        | `I love it`        | We'll meow it up for you                        |
+| Double-texting   | `always`           | Interrupt Mao like any messenger experience     |
+
+### Quick Launch Options 
+
+1. `always` - Launch app with user from last session, unless logged out
+2. `off` - Load Username login on every startup 
+3. `continue only` - Launch `mao --continue` to skip login, otherwise load Username login 
+
+### Favorite Model 
+
+- Any model can be added using nickname or full name 
+- Startup `mao --model` or `/model` to set favorite model 
+- Startup `mao --model-list` or `/model-list` to see all available models 
+
+### Default Provider 
+
+- Any provider can be added using nickname or full name 
+- This is helpful for Users who have a bunch of cash in a specific API provider 
+- Startup `mao --provider` or `/provider` to set default provider 
+- Startup `mao --provider-list` or `/provider-list` to see all available providers 
+
+### Cat Vibes 
+
+- We don't want to be too annoying with our cat branding 
+
+  1. `I love it` - We'll meow it up for you 
+  2. `mao and then` - Adequate but not too much meowing 
+  3. `be serious pls` - No meowing at all 
+
+### Double-texting 
+
+1. `always` - Interrupt Mao like any messenger experience 
+2. `never` - One reply at a time for each party  
