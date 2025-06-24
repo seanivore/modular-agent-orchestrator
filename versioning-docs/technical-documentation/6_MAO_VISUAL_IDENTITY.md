@@ -82,7 +82,7 @@
 - **Bold = urgent attention required**
 
 ### **Spacing Strategy**
-- **Big gap** between bullet and content (minimum 2 spaces)
+- **Big gap** between bullet and content (minimum 3 spaces)
 - **Generous line spacing** for readability
 - **Bullets always far left** for scan-ability
 

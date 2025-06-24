@@ -188,11 +188,12 @@ Which text style looks best on your screen?
   - The `?` help message has rotated to a new message that is context relevant 
   - As they continue, the `?` would rotate more, showing `/tool-menu` and other tips
   - The test left in the input field is intended to show they were in the middle of typing 
+  - As mentioned before, the `>` bullet is a canned app message; same bullet as User messages, same color text; below it shows an action that Mao took while working 
 
 ```
 ╭───────────────────────────────────────────────────╮
 │ ~(=^‥^)  Mao is ready to help!                    │
-│   user: seanivore                                 │
+│   user:  seanivore                                │
 ╰───────────────────────────────────────────────────╯
 
 
@@ -207,11 +208,52 @@ Which text style looks best on your screen?
     ├ Rattle off the details and I'll wait to reply
     └ Or say 'lead me' and I'll take the lead 
 
+>   Mao created a Workflow ID: uid-scw-965
+    Workflow added to memory; workflow log created 
+
 
 ╭───────────────────────────────────────────────────╮
 │ > but what should we                              │
 ╰───────────────────────────────────────────────────╯
   ? /variables to see what is needed 
+```
+
+### Workflow ID 
+
+- When you create a workflow alone or with Mao's help, the JSON object will need a workflow ID 
+- Run the `uid` command to get a collision-free (never repeated) unique ID --> `uid-abc-000` 
+- Later, you can follow the `--workflow` command with this ID for that workflow's details, though the custom command might be easier to remember 
+
+```bash 
+uid 
+mao --workflow uid-abc-000
+/uid 
+/workflow uid-abc-000
+```
+
+- Math is used to create the ID; if you are curious or need to create a handful of UIDs, the -h flag for "HELP" will show you more information you can find. 
+
+```bash 
+> uid -h # Help message 
+uid - Generate unique workflow IDs
+
+Usage:
+  uid              Generate a single UID
+  uid -e           Generate UID with mathematical explanation
+  uid -b N         Generate N UIDs in batch
+  uid -h           Show this help
+
+Examples:
+  uid              # uid-abc-123
+  uid -e           # uid-abc-123 | Math: a(456)=473 → b(473)=419 → c(419)=396
+  uid -b 5         # Generate 5 UIDs
+
+Mathematical Operations:
+  Each letter represents a mathematical operation:
+  a=add, b=multiply, c=subtract, d=divide, e=power, f=fibonacci
+  g=golden_ratio, h=hash, i=invert, j=jump, k=karmic, l=logarithmic
+  m=mirror, n=nine_mult, o=orbit, p=prime_like, q=quadratic, r=reverse_add
+  s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
 ## Application Configuration Settings 
@@ -279,23 +321,19 @@ Which text style looks best on your screen?
 5. Create a new deliverables directory in the new directory 
 
 ## Updates And Where To Put Them 
-1. User ID and Workflow ID
-   - Created a new cli JSONs 
-   - Created a template JSON in the examples directory here `./configs/examples/cli_command.json` 
-   - Both need to be added to tech docs where appropriate
-   - Add to UI doc if needed; cache, error handling, etc.? 
-2. Update JSON on `7_MAO_USER_GUIDE.md` after it is finalized below 
+
+1. Update JSON on `7_MAO_USER_GUIDE.md` after it is finalized below 
    - Anywhere else it needs to go 
    - Should be cached? 
    - Error handling probably right? 
    - UI doc? 
-3. Setup Script produced workflow use-case directory structure 
+2. Setup Script produced workflow use-case directory structure 
    - I've updated it below 
    - Already updated on `7_MAO_USER_GUIDE.md` 
    - Update anywhere else it needs to go 
    - Add to any of the other important files 
    - Document that if they want drafts or other docs it needs to say so in deliverables 
-4. Setup Script found on `3_MAO_ARCHITECTURE.md` 
+3. Setup Script found on `3_MAO_ARCHITECTURE.md` 
    - Not sure at all if it is accurate
    - Pull from working SFA scripts 
    - the first is to setup the setup script itself 

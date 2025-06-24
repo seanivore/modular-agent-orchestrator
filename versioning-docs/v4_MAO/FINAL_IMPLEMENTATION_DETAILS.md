@@ -10,20 +10,21 @@
 6. Create a cli JSON for `--provider-list` 
 7. Create a cli JSON for `--list-tools` 
 8. Create a cli JSON for `--variables` 
-9. Currently creating `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
+9. Add to UI doc if needed; cache, error handling, etc.?
+10. Currently creating `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
    - Once complete, let's go through and add notation regarding default settings for returning user flow 
    - Throughout the document we'll add "*App UI/UX*" notation to help build the visual expectations for the application and make it easier the construct 
    - Once complete, it should serve as a basis to create a better `7_MAO_USER_GUIDE.md` document 
-10. User ID and Workflow ID 
+11. User ID and Workflow ID 
    - This has been added to the cli-config JSON directory 
    - It needs to be better documented in the tech docs 
-11. Saving User ID application configuration settings 
+12. Saving User ID application configuration settings 
    - When a new User ID logs in, the application will prompt them to adjust their configuration settings 
    - The application will create a new `user_username.json` file in the `configs/user` directory, and save the adjusted settings to it 
    - The application will load these settings on subsequent launches 
    - The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
    - Default behavior is to launch with settings from the last session user; this and other defaults are items able to be adjusted on the application setting configuration screen 
-12. Error with `meid` command 
+13. Error with `meid` command 
    - When you run just `meid` it shows the help message 
    - When you run `meid -h` it has an error response 
 
