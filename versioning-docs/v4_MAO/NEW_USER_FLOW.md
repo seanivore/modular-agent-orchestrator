@@ -230,7 +230,7 @@ Which text style looks best on your screen?
 
 ```bash
 /variables # Shows the variables that are needed 
-/variables -e # Shows the variables that are needed with an explanation 
+/variables-explain # Shows the variables that are needed with an explanation 
 ```
 
 In the end, the only thing Mao **MUST** have is the workflow goal. The rest of the variables are 'option' in that, Mao is fully capable of assessing the workflow goal and determining the best way to complete it. 
@@ -463,17 +463,20 @@ mkt not found # This is the output telling me nothing is using the command
 - **THE FORMULA** 
 
 ```bash
-command category variant --flag
+command category variant # This is the command 
+command category variant --flag # This is the command with a flag 
 ```
 
-| **COMMAND** | **CATEGORY** | **VARIANT** | **FLAG**       | **DESCRIPTION**                                |
-| ----------- | ------------ | ----------- | -------------- | ---------------------------------------------- |
-| mkt         | strategy     | report      | --dogtech      | Research strategy for Dog-Tech startup         |
-| mkt         | content      | plan        | --dogtech      | Social content plan for Dog-Tech startup       |
-| job         | app          | N/A         | --resume       | Create targeted resume for job applications    |
-| job         | app          | N/A         | --cover-letter | Create cover-letter for job applications       |
-| tag         | keyword      | N/A         | --t-shirts     | Come up with SEO keywords for my t-shirt store |
-| social      | caption      | N/A         | --insta        | Write Instagram captions                       |
+| **COMMAND** | **CATEGORY** | **VARIANT** | **FLAG**         | **DESCRIPTION**                                |
+| ----------- | ------------ | ----------- | ---------------- | ---------------------------------------------- |
+| mkt         | strategy     | dogtech     | N/A              | Research strategy for Dog-Tech startup         |
+| mkt         | strategy     | report      | `--dogtech`      | Research strategy for Dog-Tech startup         |
+| mkt         | content      | plan        | `--dogtech`      | Social content plan for Dog-Tech startup       |
+| job         | app          | N/A         | `--resume`       | Create targeted resume for job applications    |
+| job         | app          | N/A         | `--cover-letter` | Create cover-letter for job applications       |
+| job         | app          | doc         | N/A              | Create cover-letter and resume for job app     |
+| tag         | keyword      | N/A         | `--t-shirts`     | Come up with SEO keywords for my t-shirt store |
+| social      | caption      | N/A         | `--insta`        | Write Instagram captions                       |
 
 #### Command Writing Rules 
 
@@ -524,12 +527,47 @@ When the workflow is created, you need to run the JSON config file(s) through th
 
 ```
 configs/workflows/command_use_case/
-├── command_use_case_config.json      # Original configuration; this is the JSON config file 
-├── README_command_use_case.md        # Auto-generated usage guide
-├── command_use_case.sh               # Auto-generated use-case specific script that your command activates 
-├── metadata/                         # Workflow tracking details  
-└── deliverables/                     # Final outputs; this is where the deliverables are stored 
-    └── command_use_case_report.md    # This is the final deliverable; it is the report 
+├── config-files/                                 # Directory for JSON config files 
+│   ├── command_use_case_workflow_config.json     # Workflow JSON config file 
+│   ├── command_use_case_phase_config.json        # Phase JSON config file 
+│   └── command_use_case_handoff_config.json      # Handoff JSON config file 
+├── README_command_use_case.md                    # Auto-generated usage guide
+├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
+├── metadata/                                     # Workflow tracking details  
+│   ├── command_use_case_memory.json              # Workflow Memory MCP File  
+│   └── command_use_case_log.md                   # Workflow log file 
+└── deliverables/                                 # Final outputs; this is where the deliverables are stored 
+    └── command_use_case_report.md                # This is the final deliverable; it is the report 
+```
+
+**IMPORTANT:** Should we decide to implement use-case flags to use arguments in the same workflow to achieve different results, this is the directory structure that would be used; this would require making a definite decision one way or the other and then updating the paths used in the setup script for the workflow directory and executable script command, possibly more. 
+
+```
+configs/workflows/command_use_case/
+├── specific-flag-1/                                  # `command use case --specific-flag-1`  
+│   ├── config-files/                                 # Directory for JSON config files 
+│   │   ├── command_use_case_workflow_config.json     # Workflow JSON config file 
+│   │   ├── command_use_case_phase_config.json        # Phase JSON config file 
+│   │   └── command_use_case_handoff_config.json      # Handoff JSON config file 
+│   ├── README_command_use_case.md                    # Auto-generated usage guide
+│   ├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
+│   ├── metadata/                                     # Workflow tracking details  
+│   │   ├── command_use_case_memory.json              # Workflow Memory MCP File  
+│   │   └── command_use_case_log.md                   # Workflow log file 
+│   └── deliverables/                                 # Final outputs; this is where the deliverables are stored 
+│       └── command_use_case_report.md                # This is the final deliverable; it is the report 
+└── specific-flag-2/                                  # `command use case --specific-flag-2`  
+    ├── config-files/                                 # Directory for JSON config files 
+    │   ├── command_use_case_workflow_config.json     # Workflow JSON config file 
+    │   ├── command_use_case_phase_config.json        # Phase JSON config file 
+    │   └── command_use_case_handoff_config.json      # Handoff JSON config file 
+    ├── README_command_use_case.md                    # Auto-generated usage guide
+    ├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
+    ├── metadata/                                     # Workflow tracking details  
+    │   ├── command_use_case_memory.json              # Workflow Memory MCP File  
+    │   └── command_use_case_log.md                   # Workflow log file 
+    └── deliverables/                                 # Final outputs; this is where the deliverables are stored 
+        └── command_use_case_report.md                # This is the final deliverable; it is the report 
 ```
 
 ### Using The Setup Script 

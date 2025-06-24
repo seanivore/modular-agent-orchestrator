@@ -1,51 +1,5 @@
 # Final Implementation Details
 
-## Tasks Remaining 
-
-1. Create a cli JSON for `--login` 
-2. Create a cli JSON for `--logout` 
-3. Create a cli JSON for `--model` 
-4. Create a cli JSON for `--provider` 
-5. Create a cli JSON for `--model-list` 
-6. Create a cli JSON for `--provider-list` 
-7. Create a cli JSON for `--list-tools` 
-8. Create a cli JSON for `--variables` 
-9. Add to UI doc if needed; cache, error handling, etc.?
-10. Currently creating `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
-   - Once complete, let's go through and add notation regarding default settings for returning user flow 
-   - Throughout the document we'll add "*App UI/UX*" notation to help build the visual expectations for the application and make it easier the construct 
-   - Once complete, it should serve as a basis to create a better `7_MAO_USER_GUIDE.md` document 
-11. User ID and Workflow ID 
-   - This has been added to the cli-config JSON directory 
-   - It needs to be better documented in the tech docs 
-12. Saving User ID application configuration settings 
-   - When a new User ID logs in, the application will prompt them to adjust their configuration settings 
-   - The application will create a new `user_username.json` file in the `configs/user` directory, and save the adjusted settings to it 
-   - The application will load these settings on subsequent launches 
-   - The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
-   - Default behavior is to launch with settings from the last session user; this and other defaults are items able to be adjusted on the application setting configuration screen 
-13. Error with `meid` command 
-   - When you run just `meid` it shows the help message 
-   - When you run `meid -h` it has an error response 
-
-## Documentation Audit  
-
-## Config Update Command 
-
-  - Updating our config collections is our 'plug-and-play' feature. 
-  - We need a way to make sure that every place a config collection is displayed is up-to-date. 
-  - This needs to be automated; a user could run the command to see all the tools at any time. 
-
-**One Command To Rule Them All** 
-
-  - The more we show these collections in application, the more it will make us neglect the docs 
-  - If not for the docs, I would say that the command could be auto-triggered by the application any time someone goes to look at any of the config collections 
-  - If we did that, what would be the process for making sure the docs get updated as well? 
-    - Claude Code works on PRs through the GitHub app 
-    - Maybe this is where we start to take advantage of that
-    - It would be good to have an introduction to this tool now
-※ Tip: Run /install-github-app to tag @claude right from your Github issues and
-  PRs
 ## Audit & Deleting of Implementation Files 
 
 1. I'd like to make sure that everything in these files has been addressed before deleting them. You can see below in #4 there are a bunch of spots identified by line that are still waiting for the implementation information which often can be directly found in these implementation documents, otherwise go straight to the files that the implementation documents directed to create. 
@@ -109,3 +63,65 @@
   - For all of `4_MAO_EXTENSION_GUIDE.md` lets clean it up a bunch, move it to last, and then it needs to have the arguments and slash commands added for being modular -- how to add and remove those. 
   - For all of `5_MAO_PROTECTION_RULES.md` I think we need to clean it up as well. Look at the `0_TECH_DOC_CONTENTS.md` for all the new rules. 
 
+## Tasks, Re: `NEW_USER_FLOW.md` 
+
+1. Error with `meid` command 
+   - When you run just `meid` it shows the help message 
+   - When you run `meid -h` it has an error response 
+2. Alter the CLI-configs `"type": "needs_file"` to `"type": "needs_file_or_directory"` (or something shorter)
+3. CLI-config JSONs 
+   - Template is here: `./configs/examples/cli_command.json`
+   - Create a new JSON for each command 
+     - `--login` 
+     - `--logout` 
+     - `--model` 
+     - `--provider` 
+     - `--model-list` 
+     - `--provider-list` 
+     - `--list-tools` 
+     - `--variables` 
+     - `--variables-explain` 
+   - Add to UI doc if needed; cache, error handling, etc.?
+4. Created `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
+   - **Review entire document** 
+     - Look for gaps, inaccuracies, areas for clarifications, opportunities for extrapolating, etc.  
+   - **Review the new JSON objects and their new workflow** 
+     - Re: temp files, directory in setup script, and multiple objects 
+   - Throughout the document I added "*App UI/UX*" notation 
+     - **See if we can add more**
+     - Help build the visual expectations for the application 
+     - Make it easier to construct the application we want 
+5. As defined in the `NEW_USER_FLOW.md` document, saving User ID application configuration settings
+   - **Identify** and then **implement** all details needed 
+   - When a new User ID logs in, the application will prompt them to adjust their configuration settings 
+   - The application will create a new `user_username.json` file in the `configs/user` directory, and save the adjusted settings to it 
+   - The application will load these settings on subsequent launches 
+   - The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
+   - Default behavior is to launch with settings from the last session user; this and other defaults are items able to be adjusted on the application setting configuration screen 
+6. Once NEW_USER_FLOW.md is complete 
+   - Use it to create a better `7_MAO_USER_GUIDE.md` document 
+   - Use it as a basis, but add more details like code patterns, etc. 
+7.  User ID and Workflow ID 
+   - This has been added to the cli-config JSON directory 
+   - It needs to be better documented in the tech docs 
+
+## Updating our config collections to be a true 'plug-and-play' feature
+
+1. Mao will be our updater 
+   - We won't set this up yet, but we need to build in preparation for it 
+   - At this stage, we'll just be handing over all the necessary details to Mao
+   - Mao will create the appropriate JSON config file and place it in the proper directory 
+   - This is the case for models, providers, tools, CLI-commands, etc. 
+   - Same goes for having them deleted when we need
+2. Current problem, if they're so easily updated, is instant, universal updating 
+   - We need to make sure that in-app displays are updated as well 
+   - We need a way to make sure that every place a config collection is displayed in documentation is up-to-date 
+3. This needs to be automated; a user could run the command to see all the tools at any time 
+   - In app it could technically pull what is in the file live 
+   - For written documents, we'll need to have a way to update them 
+4. Claude Code TIP from today was `※ Tip: Run /install-github-app to tag @claude right from your Github issues and PRs`
+   - I think this will work but I need confirmation 
+   - Then we need to detail the steps for how to use it, e.g. the command to post a PR, what it should say, how specific, etc. 
+   - For updating these plug-and-play config collections, we should have a template for a PR post that can be executed with a custom command 
+   - Unless there is a way to trigger the PR post just from it noticing that a specific directory was changed 
+   - Good introduction to this tool

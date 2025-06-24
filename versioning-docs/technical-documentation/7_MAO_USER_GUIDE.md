@@ -91,7 +91,7 @@ mao --setup ./config.json
 | List providers         | `mao --provider-list`          | `/provider-list`              |
 | List tools             | `mao --list-tools`             | `/list-tools`                 |
 | List variables         | `mao --variables`              | `/variables`                  |
-| Explain variables      | `mao --variables -e`           | `/variables -e`               |
+| Explain variables      | `mao --variables-explain`      | `/variables-explain`          |
 | Terminal Commands      | -                              | `! ls -la` (any bash/zsh)     |
 
 ### Command Categories
