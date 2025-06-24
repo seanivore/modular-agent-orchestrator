@@ -2,15 +2,9 @@
 
 ## Audit & Deleting of Implementation Files 
 
-1. I'd like to make sure that everything in these files has been addressed before deleting them. You can see below in #4 there are a bunch of spots identified by line that are still waiting for the implementation information which often can be directly found in these implementation documents, otherwise go straight to the files that the implementation documents directed to create. 
-   - `.archive/1.1_IMPLEMENTATION_CONSOLIDATION_PLAN.md`
-   - `.archive/1.2_MCP_INTEGRATION_HUB_PLAN.md`
-   - `.archive/1.3_TOOL_INTEGRATION_FRAMEWORK_PLAN.md`
-   - `.archive/1.4_WORKFLOW_ENGINE_CORE_PLAN.md`
+1. Then overview the documentation gaps file to make it clearer as to what is needed in the docs. 
 
-2. Then overview the documentation gaps file to make it clearer as to what is needed in the docs. 
-
-3. Check in on this "REMAINING INTEGRATION WORK"
+2. Check in on this "REMAINING INTEGRATION WORK"
 
     - **Orchestrator Integration**
     - Connect `goal()` method to real `WorkflowOrchestrator`
@@ -27,7 +21,7 @@
     - Implement live workflow monitoring
     - Add progress bars and execution tracking
 
-4. Check in on this "REMAINING INTEGRATION WORK"
+3. Check in on this "REMAINING INTEGRATION WORK"
 
   - In the document `7_MAO_USER_GUIDE.md` look to the following lines 
   - Please confirm if they are addressed in the codebase 
@@ -64,6 +58,20 @@
   - For all of `5_MAO_PROTECTION_RULES.md` I think we need to clean it up as well. Look at the `0_TECH_DOC_CONTENTS.md` for all the new rules. 
 
 ## Tasks, Re: `NEW_USER_FLOW.md` 
+
+## HELD OVER FROM ABOVE 'AUDIT & DELETING OF IMPLEMENTATION FILES' SECTION: 
+
+- Workflow state management for continue/review - PARTIALLY DONE (workflow_state.py exists)
+- Missing Setup Script System
+  - No evidence of the setup script system from Plan 1.4 (conversation → JSON → executable command)
+  - Setup script location unclear (should be in proper directory per line 147 in user guide)
+- File System Integration:
+  - Setup/update commands to actual JSON workflow processing - MISSING
+  - Workspace management for deliverable organization - NEEDS VERIFICATION
+  - File validation and error handling - NEEDS VERIFICATION
+- Real-Time Features
+  - Progress bars and execution tracking - MISSING
+
 
 1. Error with `meid` command 
    - When you run just `meid` it shows the help message 

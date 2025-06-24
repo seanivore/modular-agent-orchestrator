@@ -6,7 +6,6 @@ Simple structured thinking and reasoning capabilities
 import json
 from typing import Dict, Any, List, Optional
 from datetime import datetime
-
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, ValidationError
 

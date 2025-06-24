@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Code Execution Tool - Workflow-Integrated Execution System
+Code Execution Tool Workflow-Integrated Execution System
 Transforms human buttons from static snippets into executable code with tracking
 """
 

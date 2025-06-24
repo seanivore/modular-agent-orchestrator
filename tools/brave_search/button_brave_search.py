@@ -1,6 +1,6 @@
 """
 BRAVE SEARCH TOOL
-Human Button Generators
+Button Snippet Generators
 """
 
 from typing import Dict, Any

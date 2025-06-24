@@ -36,7 +36,7 @@ def search_web(query: str, count: int = 10, country: str = "US", search_type: st
     # Clamp count to valid range
     count = min(20, max(1, count))
     
-    # 🔍 FINGERPRINT CACHING - Check cache first
+    # FINGERPRINT CACHING - Check cache first
     cache = CacheManager()
     cache_key = f"{query}|{count}|{country}|{search_type}"
     
@@ -151,7 +151,7 @@ def search_web(query: str, count: int = 10, country: str = "US", search_type: st
         }
     }
     
-    # 💾 FINGERPRINT CACHING - Cache successful results
+    # FINGERPRINT CACHING - Cache successful results
     cache.cache_content_analysis(cache_key, json.dumps(search_results), "brave_search")
     
     return search_results
