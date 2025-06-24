@@ -61,7 +61,7 @@ In figuring out what was going on with the MCP connector, the Code Execution too
    - `cache = CacheManager()`
    - `cache = CacheManager()`
    - `cache.cache_content_analysis`
-   - `def _calculate_dalle_cost` <-- not usin gthe same 
+   - `def _calculate_dalle_cost` <-- not using the same 
 3. `file_operations.py`
    - `cache = CacheManager()`
    - `cache.get_cached_analysis`

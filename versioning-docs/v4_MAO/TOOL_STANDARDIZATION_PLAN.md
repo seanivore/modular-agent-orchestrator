@@ -17,9 +17,9 @@ Sean discovered systematic quality issues in Mao tool files despite previous aud
 - **`./orchestrator/` directory**: Internal system components used by orchestrator
 
 ### Tool Placement Resolution
-- **Code Execution**: Stay in `./tools/` - agents use this for executing code snippets
-- **Files API**: Move to `./tools/` - agents use this for file operations during workflows
-- **MCP Connector**: Move to `./tools/` - agents use this to access MCP servers
+- **Code Execution**: Staying in `./tools/` because agents use this for executing code snippets
+- **Files API**: Move to `./tools/` because agents use this for file operations during workflows
+- **MCP Connector**: Move to `./tools/` because agents use this to access any MCP servers
 
 ## Standardization Requirements
 
@@ -104,11 +104,11 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 ### Phase 1: Architecture Fixes (Session 1)
 **Priority**: Critical architectural issues first
 
-1. **Move Files API to tools/**
-   - Create `tools/files_api/` directory
-   - Move `orchestrator/files_api.py` to `tools/files_api/files_api.py`
-   - Add missing components: button, UI, JSON files
-   - Update all imports throughout codebase
+1. **Move Files API to tools/** 
+   - Create `tools/files_api/` directory ✅
+   - Move `orchestrator/files_api.py` to `tools/files_api/files_api.py` ✅
+   - Add missing components: button, UI, JSON files ✅
+   - Update all imports throughout codebase ✅
 
 2. **Move MCP Connector to tools/**
    - Create `tools/mcp_connector/` directory  
@@ -121,9 +121,9 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
    - Implement proper Code Execution tool integration
    - Add missing components: button, UI, JSON files
 
-4. **Delete orchestrator/memory.py**
-   - Confirmed old file that violates Memory MCP strategy
-   - Update any remaining references
+4. **Delete orchestrator/memory.py** ✅
+   - Confirmed old file that violates Memory MCP strategy ✅
+   - Update any remaining references ✅
 
 ### Phase 2: Tool Logic Standardization (Session 2)
 **Focus**: One tool at a time, complete audit and fix
@@ -146,6 +146,9 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 6. text_editor.py (Implement missing cache usage and cost estimation)
 7. think.py (Clean up metadata, implement proper cost estimation)
 8. web_search.py (Fix duplicate cache calls, standardize cost function)
+9. files_api.py (Add missing cost estimation)
+10. mcp_connector.py (Add missing cost estimation)
+11. code_execution.py (Add missing cost estimation)
 
 ### Phase 3: Button File Standardization (Session 3)
 **Focus**: Single entry point pattern for all button files
