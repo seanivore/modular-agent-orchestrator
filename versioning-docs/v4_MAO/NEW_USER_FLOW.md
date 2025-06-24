@@ -124,30 +124,30 @@ Mathematical Operations:
 
 >   seanivore
 
-●   Mao, seanivore! This is your first time here.
-    └ Just a couple setup steps? 
+●   Mao, seanivore!
+    └ This is your first time here 
 
 ●   We won't ask you again, mao. 
-    └ We'll save your settings to your User ID. 
-      Change this later with /config 
+    └ We'll save your settings to your User ID 
+      Change this and other settings with /config 
 
 Which text style looks best on your screen?
 
    1. Dark mode
    2. Light mode
- ❯ 3. Dark mode (colorblind-friendly)✔
-   1. Light mode (colorblind-friendly)
+ ❯ 3. Dark mode (CVD)✔
+   1. Light mode (CVD)
    2. Dark mode (ANSI colors only)
    3. Light mode (ANSI colors only)
 
 
  Preview
- ╭───────────────────────────────────────────────────╮
- │   1   standard ~(=^‥^) {                          │
- │   2 -    removed text ("Bye, mao.");              │
- │   2 +    updated text ("Mao!");                   │
- │   3   }                                           │
- ╰───────────────────────────────────────────────────╯
+ ╭───────────────────────────────────────────────╮
+ │   1   standard ~(=^‥^) {                      │
+ │   2 -    removed ("Bye, mao.");               │
+ │   2 +    addition ("Mao!");                   │
+ │   3   }                                       │
+ ╰───────────────────────────────────────────────╯
 ```
 
 ### Primary Workspace Page 
@@ -173,30 +173,102 @@ Which text style looks best on your screen?
     ├ Describe your workflow 
     ├ Ask a question 
     └ Share your goal 
- 
+
 
 ╭───────────────────────────────────────────────────╮
 │ > Try "how do we start building?"                 │
 ╰───────────────────────────────────────────────────╯
-  ? /help for help, /config for your current setup
+  ? /help for help, /config to change settings
 ```
 
+*App UI/UX* 
+  - This is the same screen as the image above 
+  - When the User starts typing the prompt text disappears 
+  - The app has no wait UX; you can double text and interrupt Mao 
+  - The `?` help message has rotated to a new message that is context relevant 
+  - As they continue, the `?` would rotate more, showing `/tool-menu` and other tips
+  - The test left in the input field is intended to show they were in the middle of typing 
 
-### Application Configuration Settings 
+```
+╭───────────────────────────────────────────────────╮
+│ ~(=^‥^)  Mao is ready to help!                    │
+│   user: seanivore                                 │
+╰───────────────────────────────────────────────────╯
+
+
+>   I need to put together a detailed research 
+    report that breaks down the best practices
+    for hiring new creative talent. 
+
+>   I have a bunch of details in my notes 
+    already 
+
+●   Great idea, seanivore. 
+    ├ Rattle off the details and I'll wait to reply
+    └ Or say 'lead me' and I'll take the lead 
+
+
+╭───────────────────────────────────────────────────╮
+│ > but what should we                              │
+╰───────────────────────────────────────────────────╯
+  ? /variables to see what is needed 
+```
+
+## Application Configuration Settings 
 
 *App UI/UX* 
-  - Users are prompted to adjust configuration settings on their first launch 
-  - Settings are saved to the `user_username.json` file in the `configs/user` directory 
-  - Users can adjust these settings at any time using `/config` or launching with `mao --config` 
+  - Users are quietly prompted to adjust configuration settings 
+    - Via the `?` message mentioning they try /config
+    - This /help and /config are persistent 
+    - Always the first `?` messages on the primary workspace page each time it is loaded  
+  - Settings below are those same settings saved to the `user_username.json` 
+  - The 'Description' is only displayed when the user's selector `❯` is on the setting 
+  - 'Description' shows the meaning of the selected setting
+  - Place selector on the other options for hover display to show their meanings 
+  - Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
 
-| **SETTING Name**         | **HOVER DISPLAYED DESCRIPTION**                    | **DEFAULT**        |
-| ------------------------ | -------------------------------------------------- | ------------------ |
-| Quick launch             | Launch the application with the last used settings | `true`             |
-| Default model            | The default model to use for the workflow          | `claude-sonnet-4`  |
-| Default provider         | The default provider to use for the workflow       | `anthropic direct` |
-| Default output directory | The default output directory for the workflow      |
-| Default tools            | The default tools to use for the workflow          |
+| **SETTING**      | **DEFAULT**        | **DESCRIPTION**                                 |
+| ---------------- | ------------------ | ----------------------------------------------- |
+| Quick launch     | `always`           | Launch app with last user logged in             |
+| Favorite model   | `claude-sonnet-4`  | Use for workflows unless discussed              |
+| Default provider | `anthropic direct` | I prefer this provider; discuss to change       |
+| Theme            | `dark mode CVD`    | Dark computer theme; use high legibility colors |
+| Cat vibes        | `I love it`        | We'll meow it up for you                        |
+| Double-texting   | `always`           | Interrupt Mao like any messenger experience     |
 
+### Quick Launch Options 
+
+1. `always` - Launch app with user from last session, unless logged out
+2. `off` - Load Username login on every startup 
+3. `continue only` - Launch `mao --continue` to skip login, otherwise load Username login 
+
+### Favorite Model 
+
+- Any model can be added using nickname or full name 
+- Startup `mao --model` or `/model` to set favorite model 
+- Startup `mao --model-list` or `/model-list` to see all available models 
+
+### Default Provider 
+
+- Any provider can be added using nickname or full name 
+- This is helpful for Users who have a bunch of cash in a specific API provider 
+- Startup `mao --provider` or `/provider` to set default provider 
+- Startup `mao --provider-list` or `/provider-list` to see all available providers 
+
+### Cat Vibes 
+
+- We don't want to be too annoying with our cat branding 
+
+  1. `I love it` - We'll meow it up for you 
+  2. `mao and then` - Adequate but not too much meowing 
+  3. `be serious pls` - No meowing at all 
+
+### Double-texting 
+
+1. `always` - Interrupt Mao like any messenger experience 
+2. `never` - One reply at a time for each party  
+
+--------------------------------
 
 ### The Setup Script
 

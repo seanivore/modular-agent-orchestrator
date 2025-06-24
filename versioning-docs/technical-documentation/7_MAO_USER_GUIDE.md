@@ -56,36 +56,42 @@ mao --setup ./config.json
 
 ### Command Chart
 
-| **FUNCTION**           | **TERMINAL COMMAND**          | **IN-APP COMMAND**            |
-| ---------------------- | ----------------------------- | ----------------------------- |
-| **Start Application**  | `mao mao`                     | -                             |
-| **Run Your Workflow**  | `custom command`              | `/custom command`             |
-| **Create Workflow ID** | `uid`                         | `/uid` or `! uid`             |
-| **Create User ID**     | `meid username`               | `/meid username`              |
-| Restart application    | -                             | `/restart` or `! mao restart` |
-| Exit application       | -                             | `/exit` or `! mao exit`       |
-| Login User ID          | `mao --login`                 | `/login`                      |
-| Logout User ID         | `mao --logout`                | `/logout`                     |
-| Open app config        | `mao --config`                | `/config`                     |
-| Resume last workflow   | `mao --continue`              | `/continue`                   |
-| First message to AI    | `mao --chat message`          | `/chat message`               |
-| Create entire workflow | `mao --goal project goal`     | `/goal project goal`          |
-| System Statistics      | `mao --stats`                 | `/stats`                      |
-| List Workflows         | `mao --workflows`             | `/workflows`                  |
-| Review Workflow        | `mao --review custom command` | `/review custom command`      |
-| Setup from JSON        | `mao --setup ./config.json`   | `/setup ./config.json`        |
-| Update Workflow        | `mao --update ./phase.json`   | `/update ./phase.json`        |
-| Fix Deliverable        | `mao --fix-it ./fix.json`     | `/fix-it ./fix.json`          |
-| Set output directory   | `mao --output ~/downloads`    | `/output ~/downloads`         |
-| Use only free models   | `mao --free`                  | `/free`                       |
-| Privacy models only    | `mao --privacy`               | `/privacy`                    |
-| Verbose Debug Mode     | `mao --verbose`               | `/verbose`                    |
-| View workflow logs     | `mao --logs`                  | `/logs`                       |
-| Show workflow stats    | `mao --stats`                 | `/stats`                      |
-| Check Health           | `mao --doctor`                | `/doctor`                     |
-| View help messages     | `mao --help`                  | `/help`                       |
-| Simulate Workflow      | `mao --dry-run`               | `/dry-run`                    |
-| Terminal Commands      | -                             | `! ls -la` (any bash/zsh)     |
+| **FUNCTION**           | **TERMINAL COMMAND**           | **IN-APP COMMAND**            |
+| ---------------------- | ------------------------------ | ----------------------------- |
+| **Start Application**  | `mao mao`                      | -                             |
+| **Run Your Workflow**  | `custom command`               | `/custom command`             |
+| **Create Workflow ID** | `uid`                          | `/uid` or `! uid`             |
+| **Create User ID**     | `meid username`                | `/meid username`              |
+| Restart application    | -                              | `/restart` or `! mao restart` |
+| Exit application       | -                              | `/exit` or `! mao exit`       |
+| Login User ID          | `mao --login`                  | `/login`                      |
+| Logout User ID         | `mao --logout`                 | `/logout`                     |
+| Open app config        | `mao --config`                 | `/config`                     |
+| Resume last workflow   | `mao --continue`               | `/continue`                   |
+| First message to AI    | `mao --chat message`           | `/chat message`               |
+| Create entire workflow | `mao --goal project goal`      | `/goal project goal`          |
+| System Statistics      | `mao --stats`                  | `/stats`                      |
+| List Workflows         | `mao --workflows`              | `/workflows`                  |
+| Review Workflow        | `mao --review custom command`  | `/review custom command`      |
+| Setup from JSON        | `mao --setup ./config.json`    | `/setup ./config.json`        |
+| Update Workflow        | `mao --update ./phase.json`    | `/update ./phase.json`        |
+| Fix Deliverable        | `mao --fix-it ./fix.json`      | `/fix-it ./fix.json`          |
+| Set output directory   | `mao --output ~/downloads`     | `/output ~/downloads`         |
+| Use only free models   | `mao --free`                   | `/free`                       |
+| Privacy models only    | `mao --privacy`                | `/privacy`                    |
+| Verbose Debug Mode     | `mao --verbose`                | `/verbose`                    |
+| View workflow logs     | `mao --logs`                   | `/logs`                       |
+| Show workflow stats    | `mao --stats`                  | `/stats`                      |
+| Check Health           | `mao --doctor`                 | `/doctor`                     |
+| View help messages     | `mao --help`                   | `/help`                       |
+| Simulate Workflow      | `mao --dry-run`                | `/dry-run`                    |
+| Set favorite model     | `mao --model model-name`       | `/model model-name`           |
+| Set default provider   | `mao --provider provider-name` | `/provider provider-name`     |
+| List models            | `mao --model-list`             | `/model-list`                 |
+| List providers         | `mao --provider-list`          | `/provider-list`              |
+| List tools             | `mao --list-tools`             | `/list-tools`                 |
+| List variables         | `mao --variables`              | `/variables`                  |
+| Terminal Commands      | -                              | `! ls -la` (any bash/zsh)     |
 
 ### Command Categories
 
