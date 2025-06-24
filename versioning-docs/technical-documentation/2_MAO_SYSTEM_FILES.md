@@ -18,7 +18,7 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 
 ---
 
-### ENTRY POINT:The "Agent" `mao_v4.py` 
+### ENTRY POINT: `mao_v4.py` 
 
 **What it does** Pure command-line routing; nothing else
 
@@ -41,7 +41,7 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 
 ---
 
-### INTERFACE:The Visual Voice `interfaces/ui_terminal.py` of Mao
+### INTERFACE: The Visual Voice `interfaces/ui_terminal.py` of Mao
 
 **What it does** All user interaction and experience
 
@@ -81,6 +81,7 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 - Results collection and synthesis
 
 **Key Classes** 
+
   - `WorkflowOrchestrator`
   - `WorkflowPlan`
   - `WorkflowPhase`
@@ -159,14 +160,14 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 
 ---
 
-## Configuration Layer
+## CONFIGURATIONS 
 
 ### Model Definitions in `configs/models/` 
 
 **What it does** AI model specifications and capabilities
 **Contains** JSON files defining model parameters, costs, capabilities
 
-### Provider Configurations in `configs/providers/`  
+### Provider Configurations in `configs/providers/` 
 
 **What it does** API provider settings and authentication
 **Contains** JSON files with provider endpoints, auth methods, features
@@ -183,7 +184,7 @@ User Input → Entry Point → Interface Layer → Orchestration Layer → Execu
 
 ---
 
-## Execution Layer
+## TOOL EXECUTION 
 
 ### Core Tool Logic in `./tools/*/[tool_name].py` 
 

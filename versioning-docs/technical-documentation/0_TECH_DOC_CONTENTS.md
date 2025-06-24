@@ -3,72 +3,46 @@
 ## Critical Rules 
 
 - **Rule #1** 
-  * Variable-Input Philosophy is IMMUTABLE 
+  * Variable-input philosophy is IMMUTABLE 
   * NEVER add hardcoded categories, templates, enums, or predetermined options
-  * When in doubt, ask Sean; his brain is basically modular 
-  * We've more than once decided to add a whole new set of JSON variable configurations 
+  * But we're not against adding new sets of variables! 
 - **Rule #2** 
   * 6-File Tool Architecture is IMMUTABLE. 
   * NEVER merge, combine, or reorganize the 6-file tool pattern 
-  * You will need to audit any new files before implementation 
-  * We've yet to see a new file that didn't need a heavy audit 
 - **Rule #3** 
   * Human Button Interface is A MUST UNDERSTAND CONCEPT 
   * NEVER convert back to SDK-based approaches or provider-specific implementations
 - **Rule #4** 
-  * Print Statement Separation is MANDATORY
-  * Print statements are ONLY allowed in UI layer files 
-  * Core logic must remain print-free 
-  * Only exception is 'demos' and 'button generator' files 
+  * Print statement separation is MANDATORY; only allowed in UI layer files 
+  * Core logic must remain print-free; exceptions are 'demos' and 'button' generator files 
 - **Rule #5** 
-  * File Naming Standards are PROTECTED
-  * Don't put 'mao' in names; all of the code is Mao's 
-  * Current names should not be changed for specificity 
+  * File naming standards are PROTECTED; keep them general, not more specific than needed 
+  * E.g., why put 'mao' in a file name when all the files in the codebase are 'mao'
+  * NO timestamps in file names; this is unnecessary UX
 - **Rule #6** 
-  * NO Automatic Backward Compatibility
-  * NEVER add legacy aliases, compatibility layers, or "keeping the old name" patterns
-  * This is a completely new product; there's no legacy to maintain
-  * When backward compatibility is needed in future, discuss with Sean
+  * NO automatic backward compatibility; NO legacy aliases, compatibility layers, or "keeping the old name" patterns
+  * Product is brand new, no legacy; in the future when it is needed it will be a discussion
 - **Rule #7** 
-  * HUMAN-FIRST DESIGN of SETUP SCRIPT and JSON CONFIG 
-  * Less use by human users should not result in a more complex design 
-  * Humans should be able to create, understand, and modify all configuration without AI assistance
-  * Ensures human agency and understanding of their own workflows
-  * Example: SFA pattern of `sfa workflow-name path/to/config.json` in terminal
+  * HUMAN-FIRST DESIGN of SETUP SCRIPT and JSON CONFIG; they should be able to create and execute without AI assistance 
+  * Less use by human users should not result in a more complex design, that is contrary to our mission 
 - **Rule #8** 
-  * NO TIMESTAMPS IN FILENAMES
-  * Workspace directories use clean command-based naming: `marketing-strategy-startup/`
-  * Never append timestamps like `marketing-strategy-startup_20250619_1430/`
-  * If users need timestamps, Finder/filesystem provides them 
-  * Directory grouping by command name, not temporal organization
+  * Phases (tasks) start at 1, NEVER 0; NO "Phase 0" or "00_" prefixes in directory structure 
+  * Improves UX, eliminates confusion, clear, intuitive; this is a rule of thumb 
 - **Rule #9** 
-  * Phases (tasks) start at 1, NEVER 0
-  * No "Phase 0" or "00_" prefixes in directory structure  
-  * Improves UX, eliminates confusion, clear, intuitive 
+  * NO HARDCODED SUCCESS CRITERIA; we don't pre-define metrics like "covers 5+ competitors" or "includes timeline"
+  * Claude is QA, sequential thinking, reviewing deliverables 
 - **Rule #10** 
-  * NO HARDCODED SUCCESS CRITERIA
-  * Never define specific quality metrics like "covers 5+ competitors" or "includes timeline"
-  * Claude reviews deliverables using sequential thinking and context for QA 
-  * Quality assurance through AI reasoning, not predetermined checklists
-- **Rule #11** 
-  * No command registry databases, no tracking systems, IT IS UNNECESSARY
-  * Setup scripts create executable commands in `/Users/seanivore/bin` 
-  * Unix filesystem handles command discovery and execution
-  * Proven SFA pattern: setup script → executable command → direct execution
+  * Our SETUP SCRIPT means COMMAND REGISTRY is UNNECESSARY; unix filesystem handles command discovery and execution 
+  * Setup scripts create executable commands in `/Users/seanivore/bin`; proven pattern 
   * SETUP SCRIPT DOES NOT PUT HYPHENS IN COMMAND LINE, only spaces 
+- **Rule #11** 
+  * SINGLE RESPONSIBILITY FOR STATE MANAGEMENT; Memory MCP handles ALL workflow state persistence 
+  * No duplicate state saving mechanisms or parallel tracking systems; one source of truth for workflow context and progression 
+  * Eliminates synchronization issues and redundant operations; clean integration with single, authoritative state management system 
 - **Rule #12** 
-  * SINGLE RESPONSIBILITY FOR STATE MANAGEMENT
-  * Memory MCP handles ALL workflow state persistence
-  * No duplicate state saving mechanisms or parallel tracking systems  
-  * One source of truth for workflow context and progression
-  * Eliminates synchronization issues and redundant operations
-  * Clean integration with single, authoritative state management system
-- **Rule #13** 
-  * It is 'Mao' not 'MAO' 
-  * This encourages proper pronunciation 
-  * Don't use m-dashes; use semicolons 
+  * It is 'Mao' not 'MAO'; this encourages proper pronunciation 
+  * Don't use m-dashes, use semicolons; if it is a header, it doesn't need to be bold 
   * We don't use emojis in UI; not a huge fan of them in docs but eh 
-  * Don't put a header in bold in the docs; save that for non-header text that needs to be seen 
 
 ## Documentation Organization 
 

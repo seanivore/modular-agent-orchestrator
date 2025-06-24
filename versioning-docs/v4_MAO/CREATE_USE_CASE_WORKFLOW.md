@@ -74,7 +74,11 @@ mao --workflow uid-abc-000
 8. goal 
 9. phase_name
 10. description (is usually pretty long)
-11. tools 
+11. tools
+
+### JSON Questions Remaining 
+
+1. What about when a phase has agents working in parallel? 
 
 ### JSON Config Schemas
 
@@ -87,8 +91,9 @@ mao --workflow uid-abc-000
       "workflow_id": "uid-qmt-465",
       "custom_command": "marketing strategy startup",
       "workflow_directory": "./configs/workflows/marketing-strategy-startup/",
-      "workflow_goal": "Create comprehensive marketing strategy for fintech startup",
+      "workflow_goal": "Create comprehensive marketing strategy for my fintech startup",
       "workflow_deliverable": "Marketing strategy report",
+      "workflow_description": "Identify what is needed to complete the goal. Build a workflow that delegates the work to the appropriate agents, having them work in parallel if needed. Leave the last phase opened-ended. Detail that handoff before the last phase with a list of questions Orchestrator will use to assess if the deliverable is complete, and if not, what is needed to complete it."
     }
   ]
 }
@@ -103,7 +108,7 @@ mao --workflow uid-abc-000
       "phase_name": "market_research",
       "phase_goal": "Do research, create report",
       "phase_deliverable": "Market research report",
-      "description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
+      "phase_description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
       "resources":[
         "./directory/folder/file.md",
         "https://file.com/folder"

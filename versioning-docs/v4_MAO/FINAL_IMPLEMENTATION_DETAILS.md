@@ -4,7 +4,7 @@
 
 ## Documentation Audit  
 
-## Config Update Command  
+## Config Update Command 
 
   - Updating our config collections is our 'plug-and-play' feature. 
   - We need a way to make sure that every place a config collection is displayed is up-to-date. 
@@ -22,10 +22,10 @@
 ## Audit & Deleting of Implementation Files 
 
 1. I'd like to make sure that everything in these files has been addressed before deleting them. You can see below in #4 there are a bunch of spots identified by line that are still waiting for the implementation information which often can be directly found in these implementation documents, otherwise go straight to the files that the implementation documents directed to create. 
-   - `versioning-docs/v4_MAO/1.1_IMPLEMENTATION_CONSOLIDATION_PLAN.md`
-   - `versioning-docs/v4_MAO/1.2_MCP_INTEGRATION_HUB_PLAN.md`
-   - `versioning-docs/v4_MAO/1.3_TOOL_INTEGRATION_FRAMEWORK_PLAN.md`
-   - `versioning-docs/v4_MAO/1.4_WORKFLOW_ENGINE_CORE_PLAN.md`
+   - `.archive/1.1_IMPLEMENTATION_CONSOLIDATION_PLAN.md`
+   - `.archive/1.2_MCP_INTEGRATION_HUB_PLAN.md`
+   - `.archive/1.3_TOOL_INTEGRATION_FRAMEWORK_PLAN.md`
+   - `.archive/1.4_WORKFLOW_ENGINE_CORE_PLAN.md`
 
 2. Then overview the documentation gaps file to make it clearer as to what is needed in the docs. 
 

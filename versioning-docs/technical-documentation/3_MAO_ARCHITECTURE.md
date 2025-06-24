@@ -7,18 +7,16 @@
 
 ## Architectural Philosophy: Full Interactive Application Platform
 
-### Mao v4 vs Legacy SFA Approach
-
 MAO represents a **fundamental paradigm shift** from traditional AI workflow tools. 
 
-**Legacy SFA Approach (What We Moved Beyond)**
+**Legacy Approach**
 
 - Passive monitoring and ticker-style interfaces
 - Minimal user interaction during execution  
 - Single-purpose, terminal-only utilities
 - Status updates without rich interaction capabilities
 
-**Mao v4 Revolutionary Approach**
+**Mao's Approach**
 
 - **Complete interactive application experience** with rich UI/UX
 - **Multi-platform architecture** designed for seamless UI portability

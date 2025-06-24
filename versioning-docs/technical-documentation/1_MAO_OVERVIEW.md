@@ -6,9 +6,9 @@
 
 ---
 
-## What is Mao?
+## What is Mao? Who is Mao? 
 
-**Mao (Modular Agent Orchestrator)** revolutionizes AI workflows by eliminating the three core problems that make AI tools impractical for real work. 
+**Mao** is a **Modular Agent Orchestrator** revolutionizing AI workflows. 
 
 ### The Problems Mao Solves
 
@@ -187,16 +187,16 @@ Mao features a sophisticated real-time monitoring interface that updates without
 
 ```conceptual_sketch
 ┌─—————— Workflow Monitor ─────────────────────────┐
-│ Marketing Strategy • Running 3m 24s               │
-├───────────────────────────────────────────────────┤
-│ ✅ Research Agent    • Analyzed market trends     │
-│ 🔄 Strategy Agent    • Creating frameworks...     │
-│ ⏸️  Writing Agent     • Waiting for strategy      │
-├───────────────────────────────────────────────────┤
-│ Models: Gemini (FREE) → Claude Sonnet 4           │
-│ Tokens: 2,847 used • $0.02 spent • Est: $0.08     │
-│ ETA: 2 minutes remaining                          │
-└───────────────────────────────────────────────────┘
+│ Marketing Strategy • Running 3m 24s              │
+├──────────────────────────────────────────────────┤
+│ ✓ Research Agent    • Analyzed market trends     │
+│ ✴︎ Strategy Agent    • Creating frameworks...     │
+│ ✴︎ Writing Agent     • Waiting for strategy       │
+├──────────────────────────────────────────────────┤
+│ Models: Gemini (FREE) → Claude Sonnet 4          │
+│ Tokens: 2,847 used • $0.02 spent • Est: $0.08    │
+│ ETA: 2 minutes remaining                         │
+└──────────────────────────────────────────────────┘
 ```
 
 ### Verbose Output With Forensic Debugging Features
@@ -355,7 +355,7 @@ Know who you want to use? We have been building a directory of all the models an
 
 ## The Tool Ecosystem
 
-### Current Arsenal (8 Core Tools)
+### Current Tools
 
 **Research & Analysis**
 - `brave_search` - Privacy-focused web search and research
@@ -400,32 +400,15 @@ Know who you want to use? We have been building a directory of all the models an
 
 ### From Waste to Efficiency
 
-Traditional AI systems treat every request as if it's the first time they've ever seen it. They reprocess the same information, regenerate the same analyses, and waste enormous amounts of computational resources on redundant work.
+- Traditional AI systems 
+  - Treat every request as if it's the first time they've ever seen it 
+  - They reprocess the same information, regenerate the same analyses 
+  - Waste enormous amounts of computational resources on redundant work 
 
-Mao takes a radically different approach: **intelligent fingerprinting** that creates a learning system that gets smarter and more efficient with every use.
-
-Additionally, the orchestrator takes advantage of systems offered for free. All working files are kept in the Anthropic Files API; free to use. Not until there is a final version do they push your deliverables to the directory of your choice, charging you for tokens just that one time. 
-
-Context continuity and workflow logs are also completely free thanks to using a Persistent Memory Vector Graph Directory. Innovation saves money. 
-
-### Smart Freshness Assessment
-
-Mao understands that different types of information have different freshness requirements:
-
-```
-Mao: "I found cached research on B2B SaaS trends from 45 days ago.
-
-Freshness Analysis:
-✅ Industry analysis: Still valid (180-day freshness window)
-⚠️ Market trends: Partially stale (30-day window, 50% confidence)
-❌ Pricing data: Expired (7-day window, requires refresh)
-
-Optimization Strategy:
-- Reuse: Industry analysis and competitive framework
-- Refresh: Current market trends and pricing data
-- Effort Reduction: 60% vs. full research
-- Quality Maintained: Fresh data where it matters most"
-```
+- Mao takes a radically different approach 
+  - **Intelligent fingerprinting** 
+  - Means the system is learning with every use 
+  - Getting smarter and more efficient 
 
 ### Compound Benefits
 
@@ -479,40 +462,6 @@ Value Calculation:
 ROI: 4,048% ($1,700 value / $0.42 cost)
 Cost per hour of equivalent work: $0.035
 ```
-
----
-
-## Getting Started
-
-### Installation & Setup
-
-```bash
-# Clone Mao repository
-git clone https://github.com/your-org/modular-agent-orchestrator
-cd modular-agent-orchestrator
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up API keys (choose your preferred providers)
-export ANTHROPIC_API_KEY="your-key"
-export OPENAI_API_KEY="your-key"  
-export GEMINI_API_KEY="your-key"
-
-# Run your first workflow
-python mao_v4.py --goal "Create a marketing plan for my startup"
-python mao_v4.py --goal "Create a blog post about AI productivity tools"
-python mao_v4.py --goal "Research the competitive landscape for project management software"
-python mao_v4.py --goal "Develop a go-to-market strategy for my B2B SaaS product"
-```
-
-### Next Steps
-
-1. **Try Basic Workflows** - Start with simple goals to understand Mao's capabilities
-2. **Explore Tool Ecosystem** - See how different tools coordinate for complex tasks  
-3. **Create Custom Workflows** - Build repeatable processes for your specific needs
-4. **Develop Custom Tools** - Add organization-specific capabilities to your Mao instance
-5. **Scale Team Usage** - Implement shared workflows and collaboration patterns
 
 ---
 
