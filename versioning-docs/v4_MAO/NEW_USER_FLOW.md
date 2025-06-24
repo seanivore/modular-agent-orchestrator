@@ -302,6 +302,8 @@ Mathematical Operations:
 
 The config schemas have been broken into three JSON objects. This is to simplify the fact that Mao is a multi-agent system. They might run agents in parallel, or in series, or in a mix of both. They also might leave phases open-ended, or they might decide the deliverable is inadequate and needs to be edited and improved, resulting in the creation of a new phase JSON object. 
 
+- **TEMPLATES:** `./configs/workflows/json_object_templates/`
+
 #### Workflow JSON Object 
 
 - This is the first JSON object that is created when a workflow is created 
