@@ -64,6 +64,8 @@ mao --setup ./config.json
 | **Create User ID**     | `meid username`               | `/meid username`              |
 | Restart application    | -                             | `/restart` or `! mao restart` |
 | Exit application       | -                             | `/exit` or `! mao exit`       |
+| Login User ID          | `mao --login`                 | `/login`                      |
+| Logout User ID         | `mao --logout`                | `/logout`                     |
 | Open app config        | `mao --config`                | `/config`                     |
 | Resume last workflow   | `mao --continue`              | `/continue`                   |
 | First message to AI    | `mao --chat message`          | `/chat message`               |

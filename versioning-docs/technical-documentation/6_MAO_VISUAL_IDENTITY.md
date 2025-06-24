@@ -65,9 +65,9 @@
 
 ### **Indentation Hierarchy**
 ```
-● Primary message                    ← No indent
-  └ Secondary context               ← 2 spaces + tree character
-    Additional context              ← 4 spaces for deeper nesting
+●   Primary message  ← Bullets have large 3 space indent
+    └ Secondary context       ← 4 spaces + tree character
+      3rd level context       ← 6 spaces, no tree, faded, gray text 
 ```
 
 ### **Tree Characters** `#7b714a`

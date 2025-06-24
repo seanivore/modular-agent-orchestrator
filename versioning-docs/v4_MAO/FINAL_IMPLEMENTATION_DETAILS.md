@@ -2,6 +2,25 @@
 
 ## Tasks Remaining 
 
+1. Create a cli JSON for `--login` 
+2. Create a cli JSON for `--logout` 
+3. Currently creating `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
+   - Once complete, let's go through and add notation regarding default settings for returning user flow 
+   - Throughout the document we'll add "*App UI/UX*" notation to help build the visual expectations for the application and make it easier the construct 
+   - Once complete, it should serve as a basis to create a better `7_MAO_USER_GUIDE.md` document 
+4. User ID and Workflow ID 
+   - This has been added to the cli-config JSON directory 
+   - It needs to be better documented in the tech docs 
+5. Saving User ID application configuration settings 
+   - When a new User ID logs in, the application will prompt them to adjust their configuration settings 
+   - The application will create a new `user_username.json` file in the `configs/user` directory, and save the adjusted settings to it 
+   - The application will load these settings on subsequent launches 
+   - The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
+   - Default behavior is to launch with settings from the last session user; this and other defaults are items able to be adjusted on the application setting configuration screen 
+6. Error with `meid` command 
+   - When you run just `meid` it shows the help message 
+   - When you run `meid -h` it has an error response 
+
 ## Documentation Audit  
 
 ## Config Update Command 
@@ -18,7 +37,8 @@
     - Claude Code works on PRs through the GitHub app 
     - Maybe this is where we start to take advantage of that
     - It would be good to have an introduction to this tool now
-
+※ Tip: Run /install-github-app to tag @claude right from your Github issues and
+  PRs
 ## Audit & Deleting of Implementation Files 
 
 1. I'd like to make sure that everything in these files has been addressed before deleting them. You can see below in #4 there are a bunch of spots identified by line that are still waiting for the implementation information which often can be directly found in these implementation documents, otherwise go straight to the files that the implementation documents directed to create. 
