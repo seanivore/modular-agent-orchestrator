@@ -1,0 +1,49 @@
+{
+  "name": "mcp_connector",
+  "version": "1.0.0",
+  "description": "External MCP Server Integration - Connect to Model Context Protocol servers for extended tool capabilities",
+  "capabilities": [
+    "mcp_server_registration",
+    "external_tool_discovery", 
+    "mcp_tool_execution",
+    "server_health_monitoring",
+    "cross_server_communication"
+  ],
+  "cost_estimate": 0.001,
+  "models_supported": ["all"],
+  "file_path": "tools/mcp_connector/mcp_connector.py",
+  "button_path": "tools/mcp_connector/button_mcp_connector.py", 
+  "ui_path": "tools/mcp_connector/ui_mcp_connector.py",
+  "operations": {
+    "list_servers": {
+      "description": "List all registered MCP servers and available tools",
+      "required_params": [],
+      "optional_params": ["workflow_id"]
+    },
+    "execute_tool": {
+      "description": "Execute a specific tool on an MCP server",
+      "required_params": ["server_name", "tool_name"],
+      "optional_params": ["tool_params", "workflow_id"]
+    },
+    "register_server": {
+      "description": "Register a new MCP server",
+      "required_params": ["server_config"],
+      "optional_params": ["workflow_id"]
+    },
+    "get_server_status": {
+      "description": "Check health and status of all servers",
+      "required_params": [],
+      "optional_params": ["workflow_id"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "workflow_tracking": true
+  },
+  "external_dependencies": [
+    "Model Context Protocol servers",
+    "Server-specific tools and capabilities"
+  ]
+}

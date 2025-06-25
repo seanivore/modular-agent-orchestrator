@@ -9,6 +9,13 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Standard cache instance
+cache = CacheManager()
+
 class MCPConnector:
     """Anthropic MCP API Connector for external tool integration"""
     
@@ -22,16 +29,23 @@ class MCPConnector:
         """Set Memory MCP manager for integration"""
         self.memory_manager = memory_manager
     
+    @handle_errors(operation_name="mcp_connector_load_configs", return_dict=True)
     def load_server_configs(self) -> Dict[str, Dict]:
         """Load MCP server configurations from configs/connections/"""
         config_file = self.config_dir / "mcp_servers.json"
         
+        # Check cache first
+        cache_key = f"mcp_server_configs|{config_file.stat().st_mtime if config_file.exists() else 'new'}"
+        cached_result = cache.get_cached_analysis(cache_key, "mcp_connector")
+        if cached_result:
+            return json.loads(cached_result)
+        
         try:
             with open(config_file) as f:
-                return json.load(f)
+                config_data = json.load(f)
         except FileNotFoundError:
             # Create default config if not exists
-            default_config = {
+            config_data = {
                 "servers": {
                     "aider": {
                         "name": "aider",
@@ -51,10 +65,14 @@ class MCPConnector:
             # Create config directory and file
             self.config_dir.mkdir(parents=True, exist_ok=True)
             with open(config_file, 'w') as f:
-                json.dump(default_config, f, indent=2)
-            
-            return default_config
+                json.dump(config_data, f, indent=2)
+        
+        # Cache the result
+        cache.cache_content_analysis(cache_key, json.dumps(config_data), "mcp_connector")
+        return config_data
     
+    @handle_errors(operation_name="mcp_connector_register", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(ConnectionError, APIError))
     def register_server(self, server_config: Dict[str, Any]) -> Dict[str, Any]:
         """Register external MCP server"""
         server_name = server_config["name"]
@@ -105,6 +123,7 @@ class MCPConnector:
                 "error": str(e)
             }
     
+    @handle_errors(operation_name="mcp_connector_execute", return_dict=True)
     def execute_tool(self, server_name: str, tool_name: str, params: Dict[str, Any], workflow_id: str = None) -> Dict[str, Any]:
         """Execute tool on external MCP server"""
         
@@ -196,6 +215,7 @@ class MCPConnector:
         
         return status
     
+    @handle_errors(operation_name="mcp_connector_initialize", return_dict=True)
     def initialize_default_servers(self) -> Dict[str, Any]:
         """Initialize servers from configuration"""
         server_configs = self.load_server_configs()
@@ -231,6 +251,20 @@ class MCPConnector:
                 return False
         
         return False
+
+
+# REQUIRED: Standard cost estimation function
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate operation cost for budget planning"""
+    # MCP operations are typically free but may have setup overhead
+    server_count = len(params.get("servers", []))
+    tool_executions = params.get("tool_executions", 1)
+    
+    # Small cost for server setup and tool execution overhead
+    setup_cost = server_count * 0.001  # $0.001 per server
+    execution_cost = tool_executions * 0.0005  # $0.0005 per tool execution
+    
+    return setup_cost + execution_cost
 
 
 class MCPServerConnection:
