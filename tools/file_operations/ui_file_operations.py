@@ -232,7 +232,7 @@ def display_search_results(result: Dict[str, Any], verbose: bool = False):
     """Display file search results"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        display_error(result.get("error", "Unknown error"))
         return
     
     search_dir = result.get("search_directory", "unknown")
@@ -310,7 +310,7 @@ def display_multiple_files_result(result: Dict[str, Any], verbose: bool = False)
     """Display multiple file reading results with progress summary"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        display_error(result.get("error", "Unknown error"))
         return
     
     summary = result.get("summary", {})
@@ -394,7 +394,7 @@ def display_operation_result(result: Dict[str, Any], operation_name: str, verbos
     """Display file operation results (move, delete, etc.)"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        display_error(result.get("error", "Unknown error"))
         return
     
     if result.get("status") == "success":
@@ -422,7 +422,7 @@ def display_validation_results(result: Dict[str, Any], verbose: bool = False):
     """Display path validation results"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        display_error(result.get("error", "Unknown error"))
         return
     
     summary = result.get("summary", {})
