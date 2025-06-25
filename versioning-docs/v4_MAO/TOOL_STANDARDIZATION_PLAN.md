@@ -214,10 +214,16 @@ button_perplexity_search.py: 🚨 MAJOR ISSUES
 ```
 6. text_editor.py 
 ```
-text_editor.py 
-ui_text_editor.py
-tool_text_editor.json
-button_text_editor.py
+text_editor.py: ⚠️ NEEDS FIXES
+  - Cache imported but NOT used anywhere in the file
+  - NO estimate_cost() function at all! This is completely missing
+ui_text_editor.py: ✅ EXCELLENT
+tool_text_editor.json: ✅ EXCELLENT
+button_text_editor.py: 🚨 MAJOR ISSUES
+  - Hardcoded paths like /Users/seanivore/Development/single-file-agents/Mao
+  - References to old module names like text_editor_modular instead of current structure
+  - Has get_model_compatibility_info() with hardcoded metadata (belongs in JSON)
+  - No imports from logic file - generates all code instead of using MAO functions
 ```
 7. think.py 
 ```

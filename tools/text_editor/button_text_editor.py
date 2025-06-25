@@ -1,22 +1,26 @@
 """
 TEXT EDITOR
-Human Button Generators
+Human Button Generator - Standardized Single Entry Point
 """
 
 from typing import Dict, Any, List
 import json
+from tools.text_editor.text_editor import (
+    create_document, edit_content, append_content, format_document,
+    get_document_info, validate_document_path, create_document_from_template, estimate_cost
+)
+
 
 def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
     Generate executable code snippet for text editor operations
-    Universal model compatibility via code generation
     
     Args:
         params: Text editor parameters
         model: Target model for code generation
         
     Returns:
-        Executable code snippet for Claude 4 Code Execution Tool
+        Executable code snippet using MAO logic functions
     """
     operation = params.get("operation", "create_document")
     
@@ -35,491 +39,375 @@ def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4"
     elif operation == "create_from_template":
         return _create_from_template_snippet(params, model)
     else:
-        return _generic_operation_snippet(params, model)
+        return _create_document_snippet(params, model)  # Default
+
 
 def _create_document_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for document creation"""
+    """Generate document creation snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     content = params.get("content", "")
     document_type = params.get("document_type", "general")
     
-    # Escape content for safe inclusion in code
     escaped_content = json.dumps(content)
     
-    snippet = f'''
-# Text Editor - Create Document
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Create Document Using MAO Logic Functions
+import json
+from tools.text_editor.text_editor import create_document, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status
 
-from tools.text_editor_modular import create_document
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Execute document creation
-result = create_document(
-    file_path="{file_path}",
-    content={escaped_content},
-    document_type="{document_type}"
-)
-
-# Display results
-display_text_editor_result(result, verbose=True)
-
-# Auto-save status (seamless)
-if result.get("status") == "success":
-    from interfaces.ui_tools.ui_text_editor import display_autosave_status
-    display_autosave_status(result.get("file_path", ""), "created")
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
+def execute_document_creation():
+    """Execute document creation using MAO logic functions"""
     
-    return snippet.strip()
+    params = {{
+        "file_path": "{file_path}",
+        "content": {escaped_content},
+        "document_type": "{document_type}"
+    }}
+    
+    print("📝 Text Editor - Create Document")
+    print(f"📁 File: {{params['file_path']}}")
+    print(f"📊 Content: {{len(params['content']):,}} characters")
+    print(f"📋 Type: {{params['document_type']}}")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = create_document(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "success":
+            # Seamless autosave indicator
+            display_autosave_status(result.get("file_path", ""), "created")
+            print(f"\\n✅ Document created successfully")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Document creation failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Ensure file path is valid and MAO modules are installed")
+
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
+
+execute_document_creation()
+'''
+
 
 def _edit_content_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for content editing"""
+    """Generate content editing snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     old_text = params.get("old_text", "")
     new_text = params.get("new_text", "")
     create_backup = params.get("create_backup", True)
     
-    # Escape text for safe inclusion in code
     escaped_old_text = json.dumps(old_text)
     escaped_new_text = json.dumps(new_text)
     
-    snippet = f'''
-# Text Editor - Edit Content
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Edit Content Using MAO Logic Functions
+import json
+from tools.text_editor.text_editor import edit_content, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status
 
-from tools.text_editor_modular import edit_content
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Execute content editing
-result = edit_content(
-    file_path="{file_path}",
-    old_text={escaped_old_text},
-    new_text={escaped_new_text},
-    create_backup={create_backup}
-)
-
-# Display results
-display_text_editor_result(result, verbose=True)
-
-# Auto-save status (seamless)
-if result.get("status") == "success":
-    from interfaces.ui_tools.ui_text_editor import display_autosave_status
-    display_autosave_status(result.get("file_path", ""), "updated")
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
+def execute_content_editing():
+    """Execute content editing using MAO logic functions"""
     
-    return snippet.strip()
+    params = {{
+        "file_path": "{file_path}",
+        "old_text": {escaped_old_text},
+        "new_text": {escaped_new_text},
+        "create_backup": {create_backup}
+    }}
+    
+    print("📝 Text Editor - Edit Content")
+    print(f"📁 File: {{params['file_path']}}")
+    print(f"🔄 Replacing: {{params['old_text'][:50]}}...")
+    print(f"✨ With: {{params['new_text'][:50]}}...")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = edit_content(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "success":
+            # Seamless autosave indicator
+            display_autosave_status(result.get("file_path", ""), "updated")
+            print(f"\\n✅ Content edited successfully")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Content editing failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Ensure file exists and text to replace is found")
+
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
+
+execute_content_editing()
+'''
+
 
 def _append_content_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for content appending"""
+    """Generate content appending snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     content = params.get("content", "")
     separator = params.get("separator", "\\n")
     
-    # Escape content for safe inclusion in code
     escaped_content = json.dumps(content)
     escaped_separator = json.dumps(separator)
     
-    snippet = f'''
-# Text Editor - Append Content
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Append Content Using MAO Logic Functions
+import json
+from tools.text_editor.text_editor import append_content, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status
 
-from tools.text_editor_modular import append_content
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Execute content appending
-result = append_content(
-    file_path="{file_path}",
-    content={escaped_content},
-    separator={escaped_separator}
-)
-
-# Display results
-display_text_editor_result(result, verbose=True)
-
-# Auto-save status (seamless)
-if result.get("status") == "success":
-    from interfaces.ui_tools.ui_text_editor import display_autosave_status
-    display_autosave_status(result.get("file_path", ""), "appended")
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
+def execute_content_appending():
+    """Execute content appending using MAO logic functions"""
     
-    return snippet.strip()
+    params = {{
+        "file_path": "{file_path}",
+        "content": {escaped_content},
+        "separator": {escaped_separator}
+    }}
+    
+    print("📝 Text Editor - Append Content")
+    print(f"📁 File: {{params['file_path']}}")
+    print(f"📊 Adding: {{len(params['content']):,}} characters")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = append_content(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "success":
+            # Seamless autosave indicator
+            display_autosave_status(result.get("file_path", ""), "appended")
+            print(f"\\n✅ Content appended successfully")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Content appending failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Ensure file exists and is writable")
+
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
+
+execute_content_appending()
+'''
+
 
 def _format_document_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for document formatting"""
+    """Generate document formatting snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     format_type = params.get("format_type", "markdown")
     preserve_backup = params.get("preserve_backup", True)
     
-    snippet = f'''
-# Text Editor - Format Document
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Format Document Using MAO Logic Functions
+import json
+from tools.text_editor.text_editor import format_document, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result
 
-from tools.text_editor_modular import format_document
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Execute document formatting preparation
-result = format_document(
-    file_path="{file_path}",
-    format_type="{format_type}",
-    preserve_backup={preserve_backup}
-)
-
-# Display results
-display_text_editor_result(result, verbose=True)
-
-# Note: This prepares the document for AI formatting
-# The actual formatting would be done by an AI model
-if result.get("status") == "ready_for_ai_formatting":
-    print("\\n📝 Document is ready for AI-powered formatting")
-    print(f"Format type: {format_type}")
-    print(f"Content length: {{result.get('content_length', 0):,}} characters")
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
+def execute_document_formatting():
+    """Execute document formatting using MAO logic functions"""
     
-    return snippet.strip()
+    params = {{
+        "file_path": "{file_path}",
+        "format_type": "{format_type}",
+        "preserve_backup": {preserve_backup}
+    }}
+    
+    print("📝 Text Editor - Format Document")
+    print(f"📁 File: {{params['file_path']}}")
+    print(f"🎨 Format: {{params['format_type']}}")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = format_document(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "ready_for_ai_formatting":
+            print(f"\\n✅ Document prepared for AI formatting")
+            print(f"🎨 Format type: {{params['format_type']}}")
+            print(f"📊 Content length: {{result.get('content_length', 0):,}} characters")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Document formatting preparation failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Ensure file exists and is readable")
+
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
+
+execute_document_formatting()
+'''
+
 
 def _get_document_info_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for document information"""
+    """Generate document info snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     
-    snippet = f'''
-# Text Editor - Get Document Info
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Get Document Info Using MAO Logic Functions
+from tools.text_editor.text_editor import get_document_info, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result
 
-from tools.text_editor_modular import get_document_info
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Execute document info retrieval
-result = get_document_info(file_path="{file_path}")
-
-# Display results
-display_text_editor_result(result, verbose=True)
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
+def execute_document_info():
+    """Execute document info retrieval using MAO logic functions"""
     
-    return snippet.strip()
+    params = {{
+        "file_path": "{file_path}"
+    }}
+    
+    print("📝 Text Editor - Document Analysis")
+    print(f"📁 File: {{params['file_path']}}")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = get_document_info(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "success":
+            print(f"\\n✅ Document analysis complete")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Document analysis failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Ensure file exists and is readable")
+
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
+
+execute_document_info()
+'''
+
 
 def _validate_path_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for path validation"""
+    """Generate path validation snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     
-    snippet = f'''
-# Text Editor - Validate Path
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Validate Path Using MAO Logic Functions
+from tools.text_editor.text_editor import validate_document_path, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result
 
-from tools.text_editor_modular import validate_document_path
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Execute path validation
-result = validate_document_path(file_path="{file_path}")
-
-# Display results
-display_text_editor_result(result, verbose=True)
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
+def execute_path_validation():
+    """Execute path validation using MAO logic functions"""
     
-    return snippet.strip()
+    params = {{
+        "file_path": "{file_path}"
+    }}
+    
+    print("📝 Text Editor - Path Validation")
+    print(f"📁 Path: {{params['file_path']}}")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = validate_document_path(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "success":
+            print(f"\\n✅ Path validation complete")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Path validation failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Check path format and permissions")
+
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
+
+execute_path_validation()
+'''
+
 
 def _create_from_template_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate code snippet for template-based document creation"""
+    """Generate template creation snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     template_type = params.get("template_type", "markdown")
     title = params.get("title", "")
     author = params.get("author", "")
     
-    snippet = f'''
-# Text Editor - Create from Template
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
+    return f'''
+# Text Editor - Create from Template Using MAO Logic Functions
+import json
+from tools.text_editor.text_editor import create_document_from_template, estimate_cost
+from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status
 
-from tools.text_editor_modular import create_document_from_template
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
+def execute_template_creation():
+    """Execute template-based document creation using MAO logic functions"""
+    
+    params = {{
+        "file_path": "{file_path}",
+        "template_type": "{template_type}",
+        "title": "{title}",
+        "author": "{author}"
+    }}
+    
+    print("📝 Text Editor - Create from Template")
+    print(f"📁 File: {{params['file_path']}}")
+    print(f"📋 Template: {{params['template_type']}}")
+    print(f"📄 Title: {{params['title'] or 'Auto-generated'}}")
+    print("="*50)
+    
+    try:
+        # Use MAO logic function
+        result = create_document_from_template(**params)
+        
+        # Display results using MAO UI function
+        display_text_editor_result(result, verbose=True)
+        
+        if result.get("status") == "success":
+            # Seamless autosave indicator
+            display_autosave_status(result.get("file_path", ""), "created")
+            print(f"\\n✅ Document created from template")
+            print(f"📋 Template: {{params['template_type']}}")
+            print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
+        else:
+            print("❌ Template document creation failed")
+    
+    except Exception as e:
+        print(f"❌ Error: {{str(e)}}")
+        print("💡 Ensure template type is valid and path is writable")
 
-# Execute template-based document creation
-result = create_document_from_template(
-    file_path="{file_path}",
-    template_type="{template_type}",
-    title="{title}",
-    author="{author}"
-)
+    print("\\n" + "="*50)
+    print("TEXT EDITOR OPERATION COMPLETE")
+    print("="*50)
 
-# Display results
-display_text_editor_result(result, verbose=True)
-
-# Auto-save status (seamless)
-if result.get("status") == "success":
-    from interfaces.ui_tools.ui_text_editor import display_autosave_status
-    display_autosave_status(result.get("file_path", ""), "created")
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
+execute_template_creation()
 '''
-    
-    return snippet.strip()
-
-def _generic_operation_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate generic operation snippet"""
-    operation = params.get("operation", "unknown")
-    
-    snippet = f'''
-# Text Editor - Generic Operation
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
-
-from tools.text_editor_modular import *
-from interfaces.ui_tools.ui_text_editor import display_text_editor_result
-
-# Note: Operation '{operation}' not specifically implemented
-# Available operations:
-# - create_document
-# - edit_content  
-# - append_content
-# - format_document
-# - get_document_info
-# - validate_document_path
-# - create_document_from_template
-
-print("❌ Operation '{operation}' not recognized")
-print("\\nAvailable text editor operations:")
-print("• create_document - Create new document")
-print("• edit_content - Edit existing content")
-print("• append_content - Add content to document")
-print("• format_document - Prepare for AI formatting")
-print("• get_document_info - Analyze document")
-print("• validate_document_path - Check path validity")
-print("• create_document_from_template - Create from template")
-
-print("\\n" + "="*50)
-print("TEXT EDITOR OPERATION COMPLETE")
-print("="*50)
-'''
-    
-    return snippet.strip()
-
-def create_editing_session_snippet(operations: List[Dict[str, Any]], model: str = "claude-sonnet-4") -> str:
-    """
-    Generate code snippet for a complete editing session with multiple operations
-    
-    Args:
-        operations: List of text editor operations to perform
-        model: Target model for code generation
-        
-    Returns:
-        Executable code snippet for editing session
-    """
-    snippet_parts = ['''
-# Text Editor - Complete Editing Session
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
-
-from tools.text_editor_modular import *
-from interfaces.ui_tools.ui_text_editor import *
-import time
-
-# Start editing session
-start_time = time.time()
-results = []
-
-print("🚀 Starting Text Editor Session")
-print("="*50)
-''']
-    
-    for i, operation in enumerate(operations):
-        op_type = operation.get("operation", "unknown")
-        
-        snippet_parts.append(f'''
-# Operation {i+1}: {op_type}
-print(f"\\n📝 Operation {i+1}: {op_type.replace('_', ' ').title()}")
-''')
-        
-        if op_type == "create_document":
-            file_path = operation.get("file_path", "")
-            content = operation.get("content", "")
-            document_type = operation.get("document_type", "general")
-            escaped_content = json.dumps(content)
-            
-            snippet_parts.append(f'''
-result_{i} = create_document(
-    file_path="{file_path}",
-    content={escaped_content},
-    document_type="{document_type}"
-)
-display_text_editor_result(result_{i})
-results.append(result_{i})
-''')
-        
-        elif op_type == "edit_content":
-            file_path = operation.get("file_path", "")
-            old_text = operation.get("old_text", "")
-            new_text = operation.get("new_text", "")
-            escaped_old_text = json.dumps(old_text)
-            escaped_new_text = json.dumps(new_text)
-            
-            snippet_parts.append(f'''
-result_{i} = edit_content(
-    file_path="{file_path}",
-    old_text={escaped_old_text},
-    new_text={escaped_new_text}
-)
-display_text_editor_result(result_{i})
-results.append(result_{i})
-''')
-        
-        elif op_type == "append_content":
-            file_path = operation.get("file_path", "")
-            content = operation.get("content", "")
-            escaped_content = json.dumps(content)
-            
-            snippet_parts.append(f'''
-result_{i} = append_content(
-    file_path="{file_path}",
-    content={escaped_content}
-)
-display_text_editor_result(result_{i})
-results.append(result_{i})
-''')
-    
-    snippet_parts.append('''
-# Session summary
-end_time = time.time()
-session_duration = end_time - start_time
-
-print("\\n" + "="*50)
-display_editing_session_summary(results, session_duration)
-print("="*50)
-''')
-    
-    return '\\n'.join(snippet_parts).strip()
-
-def create_autosave_workflow_snippet(file_path: str, content_updates: List[str], model: str = "claude-sonnet-4") -> str:
-    """
-    Generate code snippet for seamless autosave workflow
-    
-    Args:
-        file_path: Path to the document being edited
-        content_updates: List of content updates to apply
-        model: Target model for code generation
-        
-    Returns:
-        Executable code snippet for autosave workflow
-    """
-    snippet = f'''
-# Text Editor - Seamless Autosave Workflow
-import sys
-sys.path.append('/Users/seanivore/Development/single-file-agents/Mao')
-
-from tools.text_editor_modular import *
-from interfaces.ui_tools.ui_text_editor import *
-import time
-
-# Initialize document
-file_path = "{file_path}"
-print(f"📝 Starting seamless editing session: {{file_path.split('/')[-1]}}")
-
-# Validate path first
-path_result = validate_document_path(file_path)
-if "error" in path_result:
-    print(f"❌ Path validation failed: {{path_result['error']}}")
-    exit(1)
-
-# Content updates (simulating real-time editing)
-content_updates = {json.dumps(content_updates)}
-
-current_content = ""
-for i, update in enumerate(content_updates):
-    print(f"\\n✏️ Update {{i+1}}/{{len(content_updates)}}")
-    
-    if i == 0:
-        # Create initial document
-        result = create_document(file_path, update, "general")
-        current_content = update
-    else:
-        # Append new content
-        result = append_content(file_path, update, "\\n\\n")
-        current_content += "\\n\\n" + update
-    
-    # Seamless autosave indicator (very subtle)
-    if result.get("status") == "success":
-        display_autosave_status(file_path, "saved")
-        print()  # New line after autosave indicator
-    
-    # Small delay to simulate real editing
-    time.sleep(0.5)
-
-# Final document info
-print("\\n📊 Final Document Analysis:")
-final_info = get_document_info(file_path)
-display_text_editor_result(final_info, verbose=True)
-
-print("\\n" + "="*50)
-print("SEAMLESS EDITING SESSION COMPLETE")
-print("="*50)
-'''
-    
-    return snippet.strip()
-
-def get_model_compatibility_info() -> Dict[str, Any]:
-    """
-    Get information about model compatibility for text editor operations
-    
-    Returns:
-        Dict with compatibility information
-    """
-    return {
-        "supported_models": [
-            "claude-sonnet-4",
-            "claude-haiku-4", 
-            "gpt-4",
-            "gpt-4-turbo",
-            "gemini-pro"
-        ],
-        "operation_costs": {
-            "create_document": 0.001,
-            "edit_content": 0.002,
-            "append_content": 0.001,
-            "format_document": 0.003,
-            "get_document_info": 0.001,
-            "validate_path": 0.0005,
-            "create_from_template": 0.002
-        },
-        "features": {
-            "seamless_autosave": True,
-            "backup_creation": True,
-            "ai_formatting_prep": True,
-            "template_support": True,
-            "content_analysis": True,
-            "path_validation": True
-        },
-        "limitations": {
-            "max_file_size_mb": 10,
-            "supported_encodings": ["utf-8"],
-            "backup_retention": "session_only"
-        }
-    } 

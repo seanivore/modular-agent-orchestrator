@@ -464,4 +464,38 @@ Conclusion:
     
     template_content = templates.get(template_type, templates["plain"])
     
-    return create_document(file_path, template_content, template_type) 
+    return create_document(file_path, template_content, template_type)
+
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Calculate estimated cost for text editor operations
+    
+    Args:
+        params: Dictionary containing operation parameters
+        
+    Returns:
+        Estimated cost in USD
+    """
+    operation = params.get("operation", "create_document")
+    
+    # Base costs by operation type
+    operation_costs = {
+        "create_document": 0.001,
+        "edit_content": 0.002,
+        "append_content": 0.001,
+        "format_document": 0.003,
+        "get_document_info": 0.001,
+        "validate_document_path": 0.0005,
+        "create_document_from_template": 0.002
+    }
+    
+    base_cost = operation_costs.get(operation, 0.002)
+    
+    # Additional cost factors
+    content_length = len(params.get("content", ""))
+    if content_length > 5000:  # Large content
+        base_cost *= 1.2
+    
+    return base_cost 
