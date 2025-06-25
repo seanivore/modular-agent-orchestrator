@@ -9,22 +9,21 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
 
+console = Console()
 
-def display_search_results(result: Dict[str, Any], verbose: bool = False) -> None:
+
+def display_brave_search_result(result: Dict[str, Any], verbose: bool = False) -> None:
     """
-    Take structured search data → beautiful terminal output
+    Display Brave Search operation results with beautiful formatting
     
     Args:
         result: Search result data from brave_search tool
         verbose: Show detailed technical information
     """
-    console = Console()
     
     # Handle error cases
     if "error" in result:
-        console.print(f"❌ Search Error: {result['error']}", style="red")
-        if verbose and "status_code" in result:
-            console.print(f"   Status Code: {result['status_code']}", style="dim")
+        display_error(result.get("error", "Unknown error"))
         return
     
     # Handle empty results
@@ -86,23 +85,32 @@ def display_search_results(result: Dict[str, Any], verbose: bool = False) -> Non
             console.print(f"   Timestamp: {result.get('timestamp', 'Unknown')}")
 
 
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="Brave Search Error",
+        border_style="red"
+    )
+    console.print(panel)
+
+
 def display_api_validation(result: Dict[str, Any], verbose: bool = False) -> None:
     """Display API key validation results"""
-    console = Console()
     
     if result.get("valid", False):
         console.print("✅ Brave API key is valid and ready", style="green")
         if verbose:
             console.print(f"   Key length: {result.get('key_length', 'unknown')} characters", style="dim")
     else:
-        console.print("❌ Brave API key validation failed", style="red")
+        error_msg = "Brave API key validation failed"
         if "error" in result:
-            console.print(f"   Error: {result['error']}", style="red dim")
+            error_msg += f": {result['error']}"
+        display_error(error_msg)
 
 
 def display_cost_estimate(cost: float, verbose: bool = False) -> None:
     """Display cost estimation for search operation"""
-    console = Console()
     
     if cost == 0:
         console.print("💰 Cost: FREE", style="green bold")
@@ -115,10 +123,9 @@ def display_cost_estimate(cost: float, verbose: bool = False) -> None:
 
 def display_search_summary(results: Dict[str, Any], verbose: bool = False) -> None:
     """Display a summary of search operation"""
-    console = Console()
     
     if "error" in results:
-        console.print("❌ Search failed", style="red bold")
+        display_error("Search operation failed")
         return
     
     query = results.get("query", "Unknown")

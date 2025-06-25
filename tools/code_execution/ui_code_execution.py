@@ -14,10 +14,14 @@ from rich import box
 
 console = Console()
 
-def display_execution_result(result: Dict[str, Any], verbose: bool = False) -> None:
-    """Display code execution result with formatted output"""
+def display_code_execution_result(result: Dict[str, Any], verbose: bool = False) -> None:
+    """Display code execution operation results with beautiful formatting"""
     
-    if result["success"]:
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
+        return
+    
+    if result.get("success", False):
         panel_style = "green"
         title = "✅ Code Execution Successful"
     else:
@@ -140,7 +144,11 @@ def display_execution_files(files: List[Dict[str, Any]], verbose: bool = False) 
 def display_container_info(container_info: Dict[str, Any]) -> None:
     """Display container information"""
     
-    if container_info["success"]:
+    if container_info.get("error"):
+        display_error(container_info.get("error", "Unknown error"))
+        return
+        
+    if container_info.get("success", False):
         panel_style = "green"
         title = "🔗 Container Created Successfully"
         content = [
@@ -219,18 +227,14 @@ def display_download_results(results: List[Dict[str, Any]], verbose: bool = Fals
     console.print()
 
 
-def display_error(operation: str, error: str) -> None:
-    """Display error message with consistent formatting"""
-    
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
     panel = Panel(
-        f"⚠️ Operation: {operation}\n🚨 Error: {error}",
-        title="❌ Code Execution Error",
-        border_style="red",
-        box=box.ROUNDED
+        f"❌ Error: {error_msg}",
+        title="Code Execution Error",
+        border_style="red"
     )
-    
     console.print(panel)
-    console.print()
 
 
 def display_execution_summary(executions: List[Dict[str, Any]]) -> None:

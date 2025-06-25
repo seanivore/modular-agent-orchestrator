@@ -138,7 +138,7 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 - [x] Remove hardcoded metadata/capabilities from logic files
 
 **Tools to Standardize:**
-1: brave_search.py 
+1. brave_search.py 
 ```
 brave_search.py (Logic file): ✅ GOOD
 ui_brave_search.py (UI file): ✅ GOOD
@@ -150,7 +150,7 @@ button_brave_search.py (Button file): ❌ NEEDS FIXES
   - Button snippets don't use the logic file functions
 --> The button file should import and use the logic file functions instead of duplicating everything. 
 ```
-2: dalle_generate.py 
+2. dalle_generate.py 
 ```
 dalle_generate.py: ⚠️ NEEDS MINOR FIXES
   - Has _calculate_dalle_cost() instead of standard estimate_cost()
@@ -165,7 +165,7 @@ button_dalle_generate.py: 🚨 MAJOR ISSUES
   - No standardized estimate_cost() function
   - Uses estimated_cost variable inconsistently
 ```
-3: file_operations.py 
+3. file_operations.py 
 ```
 file_operations.py: ⚠️ MISSING COST FUNCTION
   - NO estimate_cost() function at all! This is completely missing
@@ -177,7 +177,7 @@ button_file_operations.py: 🚨 MAJOR DUPLICATION
   - Multiple standalone snippet functions instead of single entry point
   - No cost estimation functions anywhere
 ```
-4: graphic_design.py 
+4. graphic_design.py 
 ```
 graphic_design.py: ✅ EXCELLENT
 ui_graphic_design.py: ✅ EXCELLENT
@@ -190,7 +190,7 @@ button_graphic_design.py: 🚨 MAJOR ISSUES
   - No imports from logic file - generates all code instead of using logic functions
   - Inconsistent operation pattern
 ```
-5: perplexity_search.py 
+5. perplexity_search.py 
 ```
 perplexity_search.py: ✅ FIXED
 ui_perplexity_search.py: ✅ EXCELLENT
@@ -203,7 +203,7 @@ button_perplexity_search.py: 🚨 MAJOR ISSUES
   - References to old module names perplexity_search_modular instead of current structure
   - Complex snippets that duplicate API logic instead of using MAO functions
 ```
-6: text_editor.py 
+6. text_editor.py 
 ```
 text_editor.py: ⚠️ NEEDS FIXES
   - Cache imported but NOT used anywhere in the file
@@ -216,7 +216,7 @@ button_text_editor.py: 🚨 MAJOR ISSUES
   - Has get_model_compatibility_info() with hardcoded metadata (belongs in JSON)
   - No imports from logic file - generates all code instead of using MAO functions
 ```
-7: think.py 
+7. think.py 
 ```
 think.py: ⚠️ NEEDS FIXES
   - Cache imported but NOT used anywhere in the file
@@ -232,7 +232,7 @@ button_think.py: 🚨 MAJOR ISSUES
   - Hardcoded API implementations instead of using logic functions
   - Multiple entry points violate our standardization pattern
 ```
-8: web_search.py 
+8. web_search.py 
 ```
 web_search.py: ⚠️ MISSING COST FUNCTION
   - NO public estimate_cost() function! Has private _calculate_search_cost() but missing required public interface
@@ -245,7 +245,7 @@ button_web_search.py: 🚨 BROKEN
   - HARDCODED API CALLS - generates Anthropic client code instead of using MAO logic functions
   - NO cost estimation - button doesn't use logic file's cost functions
 ```
-9: files_api.py 
+9. files_api.py 
 ```
 files_api.py: 🚨 MAJOR STANDARDIZATION GAPS
   - NO CacheManager import or usage - completely missing
@@ -260,7 +260,7 @@ button_files_api.py: 🚨 DISCONNECTED FROM LOGIC
   - Standalone cost function - has estimate_execution_cost() but not using logic file
   - No integration - generates code that creates workspace locally instead of using MAO FilesAPIManager
 ```
-10: mcp_connector.py 
+10. mcp_connector.py 
 ```
 mcp_connector.py: ⚠️ MISSING STANDALONE FUNCTIONS
   - MISSING standalone function wrappers - has MCPConnector class but no standalone functions for button imports
@@ -272,7 +272,7 @@ button_mcp_connector.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
   - No cost integration - doesn't use estimate_cost() from logic file
   - Creates MCPConnector directly - instantiates class instead of using standardized functions
 ```
-11: code_execution.py 
+11. code_execution.py 
 ```
 code_execution.py: ⚠️ MISSING STANDALONE FUNCTIONS
   - MISSING standalone function wrappers - has CodeExecutionTool class but no standalone functions for button imports
@@ -327,6 +327,15 @@ button_code_execution.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
 - Color scheme consistency
 
 1. `/Users/seanivore/Development/modular-agent-orchestrator/tools/brave_search/ui_brave_search.py`
+Issue #1: Console Instantiation Pattern
+  - Creates console = Console() in every function instead of module-level
+  - Should follow consistent pattern of module-level console instance
+Issue #2: Error Display Pattern
+  - Uses inline error display: console.print(f"❌ Search Error: {result['error']}", style="red")
+  - Should use Panel-based error display for consistency
+Issue #3: Function Naming
+  - Main function properly named: display_search_results
+  - Helper functions well organized
 2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/code_execution/ui_code_execution.py`
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/ui_dalle_generate.py`
 4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/ui_file_operations.py`
@@ -334,7 +343,7 @@ button_code_execution.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
 6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/ui_graphic_design.py`
 7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/ui_mcp_connector.py`
 8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/ui_perplexity_search.py`
-9. `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/ui_text_editor.py`
+9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/ui_text_editor.py`
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/ui_think.py`
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/ui_web_search.py` 
 

@@ -17,16 +17,16 @@ from datetime import datetime
 
 console = Console()
 
-def display_dalle_result(result: Dict[str, Any], verbose: bool = False):
+def display_dalle_generate_result(result: Dict[str, Any], verbose: bool = False):
     """
-    Display DALL-E image generation results with beautiful formatting
+    Display DALL-E image generation operation results with beautiful formatting
     
     Args:
         result: Result from DALL-E operations
         verbose: Whether to show detailed information
     """
     if result.get("error"):
-        _display_error(result, verbose)
+        display_error(result.get("error", "Unknown error"))
         return
     
     operation = result.get("operation", "dalle_operation")
@@ -254,28 +254,14 @@ def _display_image_info_result(result: Dict[str, Any], verbose: bool):
         console.print("[bold cyan]📁 Full Path:[/bold cyan]")
         console.print(Panel(result.get("filepath", ""), border_style="blue"))
 
-def _display_error(result: Dict[str, Any], verbose: bool):
-    """Display error information"""
-    error_msg = result.get("error", "Unknown error")
-    
-    console.print(Panel.fit(
-        f"❌ [bold red]DALL-E Error[/bold red]",
-        style="red"
-    ))
-    
-    console.print(f"[red]Error:[/red] {error_msg}")
-    
-    # Additional error details
-    if result.get("status_code"):
-        console.print(f"[red]Status Code:[/red] {result['status_code']}")
-    
-    if result.get("setup_required"):
-        console.print(f"[yellow]Setup Required:[/yellow] {result['setup_required']}")
-    
-    if result.get("estimated_cost"):
-        console.print(f"[cyan]Estimated Cost:[/cyan] ${result['estimated_cost']:.3f}")
-    
-    console.print()
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="DALL-E Generate Error",
+        border_style="red"
+    )
+    console.print(panel)
 
 def _display_generic_result(result: Dict[str, Any], verbose: bool):
     """Display generic result information"""
