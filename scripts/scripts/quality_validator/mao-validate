@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# MAO Quality Validator Command
+# Usage: mao-validate [options]
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VALIDATOR_SCRIPT="$SCRIPT_DIR/mao_validator.py"
+
+if [ ! -f "$VALIDATOR_SCRIPT" ]; then
+    echo "❌ Error: Validator script not found at $VALIDATOR_SCRIPT"
+    echo "Please ensure the MAO Quality Validator is properly installed."
+    exit 1
+fi
+
+# Run the validator with all arguments passed through
+python3 "$VALIDATOR_SCRIPT" "$@"
