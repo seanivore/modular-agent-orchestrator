@@ -10,6 +10,48 @@ from rich.panel import Panel
 from rich.text import Text
 from rich.columns import Columns
 
+console = Console()
+
+
+def display_graphic_design_result(result: Dict[str, Any], verbose: bool = False) -> None:
+    """
+    Display Graphic Design operation results with beautiful formatting
+    
+    Args:
+        result: Result from graphic design operations
+        verbose: Whether to show detailed information
+    """
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
+        return
+    
+    # Determine operation type based on result content
+    if "technical_specs" in result and "operations" not in result:
+        display_analysis_results(result, verbose)
+    elif "operations" in result:
+        display_editing_results(result, verbose)
+    elif "optimization_results" in result:
+        display_optimization_results(result, verbose)
+    elif "curated_fonts" in result:
+        display_font_collection(result, verbose)
+    else:
+        # Generic display for other operations
+        console.print("🎨 Graphic Design Operation Completed", style="bold green")
+        if verbose:
+            for key, value in result.items():
+                if key != "error":
+                    console.print(f"  {key}: {value}")
+
+
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="Graphic Design Error",
+        border_style="red"
+    )
+    console.print(panel)
+
 
 def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> None:
     """
@@ -19,13 +61,9 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
         result: Analysis result data from graphic_design tool
         verbose: Show detailed technical information
     """
-    console = Console()
-    
     # Handle error cases
     if "error" in result:
-        console.print(f"❌ Analysis Error: {result['error']}", style="red")
-        if verbose and "timestamp" in result:
-            console.print(f"   Timestamp: {result['timestamp']}", style="dim")
+        display_error(result.get("error", "Unknown error"))
         return
     
     # Main analysis display
@@ -87,13 +125,9 @@ def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> No
         result: Editing result data from graphic_design tool
         verbose: Show detailed technical information
     """
-    console = Console()
-    
     # Handle error cases
     if "error" in result:
-        console.print(f"❌ Editing Error: {result['error']}", style="red")
-        if verbose and "timestamp" in result:
-            console.print(f"   Timestamp: {result['timestamp']}", style="dim")
+        display_error(result.get("error", "Unknown error"))
         return
     
     # Success header
@@ -161,13 +195,9 @@ def display_optimization_results(result: Dict[str, Any], verbose: bool = False) 
         result: Optimization result data from graphic_design tool
         verbose: Show detailed technical information
     """
-    console = Console()
-    
     # Handle error cases
     if "error" in result:
-        console.print(f"❌ Optimization Error: {result['error']}", style="red")
-        if verbose and "timestamp" in result:
-            console.print(f"   Timestamp: {result['timestamp']}", style="dim")
+        display_error(result.get("error", "Unknown error"))
         return
     
     # Success header
@@ -213,11 +243,9 @@ def display_font_collection(result: Dict[str, Any], verbose: bool = False) -> No
         result: Font collection data from graphic_design tool
         verbose: Show detailed font information
     """
-    console = Console()
-    
     # Handle error cases
     if "error" in result:
-        console.print(f"❌ Font Collection Error: {result['error']}", style="red")
+        display_error(result.get("error", "Unknown error"))
         return
     
     console.print("🎨 Curated Font Collection", style="blue bold")
@@ -257,7 +285,6 @@ def display_font_collection(result: Dict[str, Any], verbose: bool = False) -> No
 
 def display_cost_estimate(cost: float, verbose: bool = False) -> None:
     """Display cost estimation for graphic design operations"""
-    console = Console()
     
     if cost == 0:
         console.print("💰 Cost: FREE", style="green bold")
@@ -343,7 +370,6 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
 
 def display_workflow_guide(verbose: bool = False) -> None:
     """Display the professional 5-step workflow guide"""
-    console = Console()
     
     console.print("🎨 Professional Image Editing Workflow", style="blue bold")
     
