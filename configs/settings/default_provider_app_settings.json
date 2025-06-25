@@ -1,0 +1,19 @@
+{
+  "default_provider": {
+    "default": "anthropic direct",
+    "description": "I prefer this provider; discuss to change",
+    "type": "provider_select", 
+    "source": "dynamic_provider_list",
+    "fallback_options": [
+      "anthropic direct",
+      "openai direct",
+      "gemini direct",
+      "litellm"
+    ],
+    "ui_metadata": {
+      "section": "Startup & Navigation",
+      "preview_enabled": true,
+      "help_text": "Default provider for API connections - affects cost and availability"
+    }
+  }
+}

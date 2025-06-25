@@ -1,0 +1,19 @@
+{
+  "favorite_model": {
+    "default": "claude-sonnet-4",
+    "description": "Use for workflows unless discussed",
+    "type": "model_select",
+    "source": "dynamic_model_list",
+    "fallback_options": [
+      "claude-sonnet-4",
+      "claude-opus-4", 
+      "gemini-2.5-pro",
+      "gpt-4.1-mini"
+    ],
+    "ui_metadata": {
+      "section": "Startup & Navigation",
+      "preview_enabled": true,
+      "help_text": "Default AI model for new workflows - can be changed per workflow"
+    }
+  }
+}

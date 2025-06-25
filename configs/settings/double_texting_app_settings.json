@@ -1,0 +1,24 @@
+{
+  "double_texting": {
+    "default": "always",
+    "description": "Interrupt Mao like any messenger experience",
+    "type": "select",
+    "options": [
+      {
+        "value": "always",
+        "label": "Always",
+        "description": "Interrupt workflows and conversations anytime - feels like texting"
+      },
+      {
+        "value": "never",
+        "label": "Never",
+        "description": "Wait for complete responses - one message at a time"
+      }
+    ],
+    "ui_metadata": {
+      "section": "Interface & Experience",
+      "preview_enabled": false,
+      "help_text": "Controls whether you can interrupt ongoing conversations and workflows"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "theme": {
+    "default": "dark_mode_cvd",
+    "description": "Dark computer theme; use high legibility colors",
+    "type": "select",
+    "options": [
+      {
+        "value": "dark_mode",
+        "label": "Dark mode",
+        "description": "Standard dark theme for most users"
+      },
+      {
+        "value": "light_mode", 
+        "label": "Light mode",
+        "description": "Light theme for bright environments"
+      },
+      {
+        "value": "dark_mode_cvd",
+        "label": "Dark mode (CVD)",
+        "description": "Dark mode with colorblind-friendly high contrast colors"
+      },
+      {
+        "value": "light_mode_cvd",
+        "label": "Light mode (CVD)", 
+        "description": "Light mode with colorblind-friendly high contrast colors"
+      },
+      {
+        "value": "dark_mode_ansi",
+        "label": "Dark mode (ANSI colors only)",
+        "description": "Dark mode using only basic terminal colors"
+      },
+      {
+        "value": "light_mode_ansi",
+        "label": "Light mode (ANSI colors only)",
+        "description": "Light mode using only basic terminal colors"
+      }
+    ],
+    "ui_metadata": {
+      "section": "Interface & Experience",
+      "preview_enabled": true,
+      "help_text": "Visual theme affects all interface colors and contrast"
+    }
+  }
+}
