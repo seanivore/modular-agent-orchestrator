@@ -68,6 +68,12 @@ class AgentOrchestrator:
     def execute_workflow_phase(self, workflow_id: str, phase: dict) -> Dict[str, Any]:
         """Execute a workflow phase with agent coordination"""
         
+        # Check cache for similar phase executions
+        cache_key = f"{workflow_id}|{phase.get('name', 'unknown')}|phase_execution"
+        cached_result = self.cache.get_cached_analysis(cache_key, "workflow_phase")
+        if cached_result:
+            return json.loads(cached_result)
+        
         # Get workflow context from Memory MCP
         workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
         if not workflow_context:
@@ -92,7 +98,7 @@ class AgentOrchestrator:
             f"Phase started: {phase['name']} (Package: {package_id})"
         )
         
-        return {
+        result = {
             "success": True,
             "package_id": package_id,
             "agent_instructions": handoff_package["instructions"],
@@ -100,6 +106,11 @@ class AgentOrchestrator:
             "callback_info": handoff_package["callback"],
             "phase_context": handoff_package["phase_info"]
         }
+        
+        # Cache the result for future use
+        self.cache.cache_content_analysis(cache_key, json.dumps(result), "workflow_phase")
+        
+        return result
     
     def _create_agent_package(self, workflow_id: str, phase: dict, context: dict) -> dict:
         """Create complete agent handoff package"""
@@ -225,6 +236,7 @@ class AgentOrchestrator:
         
         return " | ".join(summary_parts) if summary_parts else "No context summary available"
     
+    @handle_errors(operation_name="handle_agent_callback", return_dict=True)
     def handle_agent_callback(self, workflow_id: str, phase_name: str, results: dict) -> dict:
         """Process agent completion callback"""
         
@@ -404,6 +416,7 @@ class AgentOrchestrator:
             "workflow_health": "healthy"
         }
     
+    @handle_errors(operation_name="recover_interrupted_workflow", return_dict=True)
     def recover_interrupted_workflow(self, workflow_id: str) -> dict:
         """Recover workflow from interruption using Memory MCP"""
         

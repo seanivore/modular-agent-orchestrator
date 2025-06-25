@@ -11,8 +11,10 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
 
 # Import MCP components built in previous phases
-from orchestrator.memory_mcp import MemoryMCPManager
-from orchestrator.files_api import FilesAPIManager
+from .memory_mcp import MemoryMCPManager
+from tools.files_api.files_api import FilesAPIManager
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, retry_with_backoff, APIError
 
 
 @dataclass
@@ -49,8 +51,34 @@ class WorkflowStateManager:
     """
     
     def __init__(self):
+        # Standard cache instance
+        self.cache = CacheManager()
+        
         self.memory_mcp = MemoryMCPManager()
         self.files_api = FilesAPIManager()
+    
+    def estimate_cost(self, params: Dict[str, Any]) -> float:
+        """Estimate operation cost for budget planning"""
+        # Workflow state operations are generally low cost
+        base_cost = 0.0
+        
+        # Add cost for status checks
+        status_checks = params.get("status_checks", 3)
+        base_cost += status_checks * 0.0005  # $0.0005 per status check
+        
+        # Add cost for progress tracking
+        progress_updates = params.get("progress_updates", 5)
+        base_cost += progress_updates * 0.0001  # $0.0001 per update
+        
+        # Add cost for recovery operations
+        recovery_operations = params.get("recovery_operations", 1)
+        base_cost += recovery_operations * 0.002  # $0.002 per recovery (more complex)
+        
+        # Add cost for state analysis
+        analysis_operations = params.get("analysis_operations", 1)
+        base_cost += analysis_operations * 0.001  # $0.001 per analysis
+        
+        return base_cost
     
     def track_workflow_progress(self, workflow_id: str, update: str) -> bool:
         """Simple progress tracking with timestamps for logging (not filenames)"""
@@ -72,8 +100,16 @@ class WorkflowStateManager:
             print(f"Warning: State tracking failed for {workflow_id}: {str(e)}")
             return False
     
+    @handle_errors(operation_name="get_workflow_status", return_dict=False)
     def get_workflow_status(self, workflow_id: str) -> Optional[WorkflowStatus]:
         """Get current workflow status with comprehensive analysis"""
+        
+        # Check cache for recent status
+        cache_key = f"workflow_status|{workflow_id}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "workflow_status")
+        if cached_result:
+            status_data = json.loads(cached_result)
+            return WorkflowStatus(**status_data)
         
         try:
             # Get complete context from Memory MCP
@@ -99,7 +135,7 @@ class WorkflowStateManager:
             # Analyze workflow state from observations
             analysis = self._analyze_workflow_observations(observations)
             
-            return WorkflowStatus(
+            status = WorkflowStatus(
                 workflow_id=workflow_id,
                 status=analysis["status"],
                 phases_total=analysis["phases_total"],
@@ -110,6 +146,11 @@ class WorkflowStateManager:
                 updated_at=datetime.now().isoformat(),
                 health=analysis["health"]
             )
+            
+            # Cache the result for future use
+            self.cache.cache_content_analysis(cache_key, json.dumps(asdict(status)), "workflow_status")
+            
+            return status
             
         except Exception as e:
             print(f"Error getting workflow status: {str(e)}")
@@ -167,6 +208,7 @@ class WorkflowStateManager:
             "health": health
         }
     
+    @handle_errors(operation_name="recover_interrupted_workflow", return_dict=False)
     def recover_interrupted_workflow(self, workflow_id: str) -> Optional[RecoveryPlan]:
         """Handle session recovery with comprehensive analysis"""
         
@@ -360,6 +402,7 @@ class WorkflowStateManager:
             estimated_recovery_time=estimated_time
         )
     
+    @handle_errors(operation_name="export_workflow_summary", return_dict=False)
     def export_workflow_summary(self, workflow_id: str) -> Optional[Dict[str, Any]]:
         """Export complete workflow summary for archival or reporting"""
         

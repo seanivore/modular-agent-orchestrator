@@ -4,15 +4,21 @@ MCP Integration Hub - Complete Foundation System
 Integrates Memory MCP, Files API, and MCP Connector into unified system
 """
 
+import json
 from typing import Dict, List, Optional, Any
 from .memory_mcp import MemoryMCPManager
-from .files_api import FilesAPIManager  
-from .mcp_connector import MCPConnector
+from tools.files_api.files_api import FilesAPIManager  
+from tools.mcp_connector.mcp_connector import MCPConnector
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, retry_with_backoff, APIError
 
 class MCPIntegrationHub:
     """Unified MCP system providing state persistence, file management, and tool connectivity"""
     
     def __init__(self):
+        # Standard cache instance
+        self.cache = CacheManager()
+        
         # Initialize core components
         self.memory = MemoryMCPManager()
         self.files = FilesAPIManager()
@@ -24,6 +30,29 @@ class MCPIntegrationHub:
         
         # Initialize external servers
         self._initialize_servers()
+    
+    def estimate_cost(self, params: Dict[str, Any]) -> float:
+        """Estimate operation cost for budget planning"""
+        # MCP Hub operations include memory, files, and connector operations
+        base_cost = 0.0
+        
+        # Add cost for workflow operations
+        num_workflows = params.get("num_workflows", 1)
+        base_cost += num_workflows * 0.003  # $0.003 per workflow coordination
+        
+        # Add cost for file operations
+        file_operations = params.get("file_operations", 2)
+        base_cost += file_operations * 0.002  # $0.002 per file operation
+        
+        # Add cost for MCP tool executions
+        tool_executions = params.get("tool_executions", 1)
+        base_cost += tool_executions * 0.005  # $0.005 per tool execution
+        
+        # Add cost for memory operations
+        memory_operations = params.get("memory_operations", 3)
+        base_cost += memory_operations * 0.001  # $0.001 per memory operation
+        
+        return base_cost
     
     def _initialize_servers(self):
         """Initialize default MCP servers"""
@@ -41,6 +70,7 @@ class MCPIntegrationHub:
     # WORKFLOW LIFECYCLE MANAGEMENT
     # =================================================================
     
+    @handle_errors(operation_name="create_workflow", return_dict=True)
     def create_workflow(self, workflow_id: str, user_goal: str) -> str:
         """Initialize complete workflow with all MCP components"""
         
@@ -141,9 +171,24 @@ class MCPIntegrationHub:
     # TOOL INTEGRATION
     # =================================================================
     
+    @handle_errors(operation_name="execute_mcp_tool", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, ConnectionError))
     def execute_mcp_tool(self, server_name: str, tool_name: str, params: Dict[str, Any], workflow_id: str = None) -> Dict[str, Any]:
         """Execute MCP tool with workflow tracking"""
-        return self.connector.execute_tool(server_name, tool_name, params, workflow_id)
+        # Check cache for similar tool executions
+        cache_key = f"{server_name}|{tool_name}|{json.dumps(params, sort_keys=True)[:50]}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "mcp_tool_execution")
+        if cached_result:
+            return json.loads(cached_result)
+        
+        # Execute tool
+        result = self.connector.execute_tool(server_name, tool_name, params, workflow_id)
+        
+        # Cache successful results
+        if result.get("success"):
+            self.cache.cache_content_analysis(cache_key, json.dumps(result), "mcp_tool_execution")
+        
+        return result
     
     def get_available_tools(self) -> Dict[str, Dict[str, Any]]:
         """Get all available MCP tools"""
@@ -173,6 +218,7 @@ class MCPIntegrationHub:
     # SYSTEM STATUS
     # =================================================================
     
+    @handle_errors(operation_name="get_system_status", return_dict=True)
     def get_system_status(self) -> Dict[str, Any]:
         """Get complete MCP Integration Hub status"""
         
@@ -209,6 +255,7 @@ class MCPIntegrationHub:
             }
         }
     
+    @handle_errors(operation_name="health_check", return_dict=True)
     def health_check(self) -> Dict[str, Any]:
         """Comprehensive health check"""
         health = {

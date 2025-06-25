@@ -12,12 +12,18 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any
 
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, retry_with_backoff, APIError
+
 
 class ConversationToWorkflowBridge:
     """Convert conversations to executable workflows using proven SFA patterns"""
     
     def __init__(self):
-        from orchestrator.memory_mcp import MemoryMCPManager
+        from .memory_mcp import MemoryMCPManager
+        
+        # Standard cache instance
+        self.cache = CacheManager()
         
         self.memory_mcp = MemoryMCPManager()
         self.setup_script_path = "scripts/setup_workflow.sh"  # ONE setup script
@@ -26,16 +32,51 @@ class ConversationToWorkflowBridge:
         # Ensure use-case directory exists
         os.makedirs(self.use_case_base, exist_ok=True)
     
+    def estimate_cost(self, params: Dict[str, Any]) -> float:
+        """Estimate operation cost for budget planning"""
+        # Conversation bridge operations include analysis and setup
+        base_cost = 0.0
+        
+        # Add cost for goal analysis
+        goal_complexity = params.get("goal_complexity", "medium")
+        if goal_complexity == "low":
+            base_cost += 0.001
+        elif goal_complexity == "medium":
+            base_cost += 0.002
+        else:  # high
+            base_cost += 0.005
+        
+        # Add cost for config generation and setup
+        num_phases = params.get("num_phases", 2)
+        base_cost += num_phases * 0.001  # $0.001 per phase configuration
+        
+        # Add cost for script execution
+        base_cost += 0.001  # Setup script execution
+        
+        return base_cost
+    
+    @handle_errors(operation_name="create_workflow_from_conversation", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, subprocess.CalledProcessError))
     def create_workflow_from_conversation(self, user_goal: str) -> Dict[str, Any]:
         """Convert conversation to executable workflow following SFA pattern"""
         workflow_id = f"workflow-{uuid4().hex[:8]}"
         
+        # Check cache for similar goal analysis
+        cache_key = f"goal_analysis|{user_goal[:50]}"  # First 50 chars for caching
+        cached_result = self.cache.get_cached_analysis(cache_key, "goal_analysis")
+        if cached_result:
+            cached_data = json.loads(cached_result)
+            # Use cached analysis but generate new workflow ID
+            workflow_spec = cached_data["workflow_spec"]
+        else:
+            # Analyze goal and extract requirements (no hardcoded categories)
+            workflow_spec = self._analyze_goal(user_goal)
+            # Cache the analysis
+            self.cache.cache_content_analysis(cache_key, json.dumps({"workflow_spec": workflow_spec}), "goal_analysis")
+        
         try:
             # Create workflow entity in Memory MCP
             self.memory_mcp.create_workflow_context(workflow_id, user_goal)
-            
-            # Analyze goal and extract requirements (no hardcoded categories)
-            workflow_spec = self._analyze_goal(user_goal)
             
             # Generate JSON config (same format humans create)
             config = {
@@ -101,6 +142,7 @@ class ConversationToWorkflowBridge:
                 "workflow_id": workflow_id
             }
     
+    @handle_errors(operation_name="analyze_goal", return_dict=True)
     def _analyze_goal(self, user_goal: str) -> Dict[str, Any]:
         """Extract workflow requirements from goal (no hardcoded categories)"""
         goal_lower = user_goal.lower()

@@ -9,12 +9,41 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 from uuid import uuid4
 
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, retry_with_backoff, APIError
+
 class MemoryMCPManager:
     """Manages workflow state persistence using Memory MCP"""
     
     def __init__(self):
+        # Standard cache instance
+        self.cache = CacheManager()
+        
         # Initialize MCP client when available
         self._client = None
+    
+    def estimate_cost(self, params: Dict[str, Any]) -> float:
+        """Estimate operation cost for budget planning"""
+        # Memory MCP operations are generally very low cost
+        base_cost = 0.0
+        
+        # Add cost for workflow creation
+        num_workflows = params.get("num_workflows", 1)
+        base_cost += num_workflows * 0.001  # $0.001 per workflow
+        
+        # Add cost for state updates
+        state_updates = params.get("state_updates", 5)
+        base_cost += state_updates * 0.0001  # $0.0001 per update
+        
+        # Add cost for search operations
+        search_operations = params.get("search_operations", 1)
+        base_cost += search_operations * 0.0005  # $0.0005 per search
+        
+        # Add cost for recovery operations
+        recovery_operations = params.get("recovery_operations", 0)
+        base_cost += recovery_operations * 0.001  # $0.001 per recovery
+        
+        return base_cost
         
     @property
     def client(self):
@@ -29,6 +58,7 @@ class MemoryMCPManager:
                 self._client = LocalMemoryFallback()
         return self._client
     
+    @handle_errors(operation_name="create_workflow_context", return_dict=False)
     def create_workflow_context(self, workflow_id: str, user_goal: str) -> str:
         """Create workflow entity with unique ID"""
         entity_data = {
@@ -59,17 +89,28 @@ class MemoryMCPManager:
             print(f"Warning: Failed to update workflow state: {e}")
             return False
     
+    @handle_errors(operation_name="get_workflow_context", return_dict=False)
     def get_workflow_context(self, workflow_id: str) -> Optional[Dict]:
         """Retrieve full workflow context"""
+        # Check cache first for recent workflow contexts
+        cache_key = f"workflow_context|{workflow_id}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "workflow_context")
+        if cached_result:
+            return json.loads(cached_result)
+        
         try:
             context = self.client.open_nodes([f"workflow-{workflow_id}"])
             if context and len(context) > 0:
-                return context[0]
+                result = context[0]
+                # Cache the result for future use
+                self.cache.cache_content_analysis(cache_key, json.dumps(result), "workflow_context")
+                return result
             return None
         except Exception as e:
             print(f"Warning: Failed to retrieve workflow context: {e}")
             return None
     
+    @handle_errors(operation_name="search_workflow_patterns", return_dict=False)
     def search_workflow_patterns(self, query: str) -> List[Dict]:
         """Find similar workflows for pattern matching"""
         try:
@@ -81,6 +122,7 @@ class MemoryMCPManager:
             print(f"Warning: Failed to search workflow patterns: {e}")
             return []
         
+    @handle_errors(operation_name="handle_session_recovery", return_dict=False)
     def handle_session_recovery(self, workflow_id: str) -> Optional[Dict]:
         """Restore workflow state after interruption"""
         context = self.get_workflow_context(workflow_id)
