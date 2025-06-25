@@ -12,9 +12,11 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 
 # Import MCP components built in previous phases
-from orchestrator.memory_mcp import MemoryMCPManager
-from orchestrator.files_api import FilesAPIManager
-from orchestrator.manager_tools import ToolManager
+from .memory_mcp import MemoryMCPManager
+from tools.files_api.files_api import FilesAPIManager
+from .manager_tools import ToolManager
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, retry_with_backoff, APIError
 
 
 @dataclass
@@ -35,10 +37,34 @@ class AgentOrchestrator:
     """
     
     def __init__(self):
+        # Standard cache instance
+        self.cache = CacheManager()
+        
         self.memory_mcp = MemoryMCPManager()
         self.files_api = FilesAPIManager()
         self.tool_manager = ToolManager()
     
+    def estimate_cost(self, params: Dict[str, Any]) -> float:
+        """Estimate operation cost for budget planning"""
+        # Agent orchestration involves phase coordination and file operations
+        base_cost = 0.0
+        
+        # Add cost for workflow phases
+        num_phases = params.get("num_phases", 1)
+        base_cost += num_phases * 0.005  # $0.005 per phase coordination
+        
+        # Add cost for agent handoffs
+        num_handoffs = params.get("num_handoffs", 1)
+        base_cost += num_handoffs * 0.003  # $0.003 per agent handoff
+        
+        # Add cost for file operations
+        file_operations = params.get("file_operations", 2)
+        base_cost += file_operations * 0.002  # $0.002 per file operation
+        
+        return base_cost
+    
+    @handle_errors(operation_name="execute_workflow_phase", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, ConnectionError))
     def execute_workflow_phase(self, workflow_id: str, phase: dict) -> Dict[str, Any]:
         """Execute a workflow phase with agent coordination"""
         

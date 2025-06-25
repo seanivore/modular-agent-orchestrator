@@ -9,10 +9,16 @@ from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, retry_with_backoff, APIError
+
 class AgentCallbackHandler:
     """Manages agent returns and workflow progression"""
     
     def __init__(self):
+        # Standard cache instance
+        self.cache = CacheManager()
+        
         # Lazy load to avoid circular imports
         self._memory_mcp = None
         self._files_api = None
@@ -30,7 +36,7 @@ class AgentCallbackHandler:
     def files_api(self):
         """Lazy load Files API manager"""
         if self._files_api is None:
-            from orchestrator.files_api import FilesAPIManager
+            from tools.files_api.files_api import FilesAPIManager
             self._files_api = FilesAPIManager()
         return self._files_api
     
@@ -42,11 +48,35 @@ class AgentCallbackHandler:
             self._code_execution = CodeExecutionTool()
         return self._code_execution
     
+    def estimate_cost(self, params: Dict[str, Any]) -> float:
+        """Estimate operation cost for budget planning"""
+        # Agent callback operations are typically free (memory/file operations)
+        # Cost comes from tool executions which are estimated separately
+        base_cost = 0.0
+        
+        # Add small cost for memory operations
+        memory_operations = params.get("memory_operations", 1)
+        base_cost += memory_operations * 0.001  # $0.001 per memory operation
+        
+        # Add cost for file operations  
+        file_operations = params.get("file_operations", 0)
+        base_cost += file_operations * 0.002  # $0.002 per file operation
+        
+        return base_cost
+    
+    @handle_errors(operation_name="agent_callback", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, ConnectionError))
     def handle_agent_return(self, workflow_id: str, execution_data: Dict[str, Any]) -> Dict[str, Any]:
         """Process agent return with execution results"""
         
         execution_id = execution_data.get('execution_id', 'unknown')
         tool_name = execution_data.get('tool_name', 'unknown')
+        
+        # Check cache for similar workflow executions
+        cache_key = f"{workflow_id}|{tool_name}|{execution_id}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "agent_callback")
+        if cached_result:
+            return json.loads(cached_result)
         
         # Retrieve workflow context from Memory MCP
         workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
@@ -63,14 +93,20 @@ class AgentCallbackHandler:
             f"Agent returned: {tool_name} execution {execution_id} - {processed_results['summary']}"
         )
         
-        return {
+        result = {
             "workflow_context": workflow_context,
             "execution_results": processed_results,
             "next_phase": next_phase_info,
             "workflow_status": self._get_workflow_status(workflow_context, processed_results),
             "timestamp": datetime.now().isoformat()
         }
+        
+        # Cache the result for future use
+        self.cache.cache_content_analysis(cache_key, json.dumps(result), "agent_callback")
+        
+        return result
     
+    @handle_errors(operation_name="process_execution_results", return_dict=True)
     def _process_execution_results(self, workflow_id: str, execution_data: Dict[str, Any]) -> Dict[str, Any]:
         """Process and validate execution results"""
         
@@ -259,6 +295,7 @@ class AgentCallbackHandler:
             "workflow_health": "healthy" if errors == 0 else "degraded"
         }
     
+    @handle_errors(operation_name="prepare_agent_materials", return_dict=True)
     def prepare_agent_materials(self, workflow_id: str, phase_config: Dict[str, Any], 
                               available_tools: List[str]) -> Dict[str, Any]:
         """Prepare materials for agent with executable tools"""

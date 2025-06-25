@@ -326,7 +326,7 @@ class ToolManager:
         """Lazy load MCP connector"""
         if self._mcp_connector is None:
             try:
-                from .mcp_connector import MCPConnector
+                from tools.mcp_connector.mcp_connector import MCPConnector
                 self._mcp_connector = MCPConnector()
             except ImportError:
                 pass
