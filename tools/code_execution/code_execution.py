@@ -330,6 +330,38 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     
     return execution_cost + file_processing_cost
 
+# REQUIRED: Standalone function wrappers for button file imports
+@handle_errors(operation_name="execute_python_code", return_dict=True)
+def execute_python_code(code: str, workflow_id: str = None, container_id: str = None, model: str = "claude-sonnet-4") -> Dict[str, Any]:
+    """Execute Python code using Claude's Code Execution API"""
+    tool = CodeExecutionTool()
+    result = tool.execute_code(code, workflow_id, container_id, model)
+    result["operation"] = "execute_code"
+    return result
+
+@handle_errors(operation_name="execute_code_with_files", return_dict=True)
+def execute_code_with_files(code: str, file_ids: List[str], workflow_id: str = None, model: str = "claude-sonnet-4") -> Dict[str, Any]:
+    """Execute code with Files API uploads"""
+    tool = CodeExecutionTool()
+    result = tool.execute_code_with_files(code, file_ids, workflow_id, model)
+    result["operation"] = "execute_with_files"
+    return result
+
+@handle_errors(operation_name="create_persistent_container", return_dict=True)
+def create_persistent_container(workflow_id: str = None) -> Dict[str, Any]:
+    """Create a persistent container for multi-step execution"""
+    tool = CodeExecutionTool()
+    result = tool.create_persistent_container(workflow_id)
+    result["operation"] = "create_container"
+    return result
+
+@handle_errors(operation_name="download_execution_files", return_list=True)
+def download_execution_files(file_ids: List[str], workflow_id: str = None) -> List[Dict[str, Any]]:
+    """Download files created during code execution"""
+    tool = CodeExecutionTool()
+    results = tool.download_execution_files(file_ids, workflow_id)
+    return results
+
 
 # Factory function
 def create_code_execution_tool() -> CodeExecutionTool:

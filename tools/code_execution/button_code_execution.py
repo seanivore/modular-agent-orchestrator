@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 """
-Code Execution Button Snippet Generator
+Code Execution Button Snippet Generator - Fixed Version
 Creates executable snippets for Claude Code Execution API
 """
 
 from typing import Dict, Any
 import json
+from tools.code_execution.code_execution import (
+    execute_python_code,
+    execute_code_with_files,
+    create_persistent_container,
+    download_execution_files,
+    estimate_cost
+)
 
 def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
@@ -25,235 +32,235 @@ def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4"
     else:
         return _create_default_snippet(params, model)
 
-
 def _create_execute_code_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for executing Python code"""
+    """Generate snippet for executing Python code using MAO logic"""
     code = params.get("code", "print('Hello from Code Execution!')")
     workflow_id = params.get("workflow_id", "code-execution")
     container_id = params.get("container_id", None)
     
-    container_param = f'container_id="{container_id}"' if container_id else 'container_id=None'
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"execution_time_minutes": 5})
     
-    return f'''
+    # Escape code for safe inclusion
+    escaped_code = json.dumps(code)
+    
+    snippet = f'''
 # Code Execution Tool - Execute Python Code
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.code_execution.code_execution import CodeExecutionTool
+from tools.code_execution.code_execution import execute_python_code
+from tools.code_execution.ui_code_execution import display_execution_result, display_code_with_syntax
 
-def main():
-    # Initialize Code Execution Tool
-    tool = CodeExecutionTool()
-    
-    # Python code to execute
-    code = """{code}"""
-    
-    print("🐍 Executing Python code via Claude Code Execution API...")
-    
-    result = tool.execute_code(
-        code=code,
-        workflow_id="{workflow_id}",
-        {container_param},
-        model="{model}"
-    )
-    
-    if result["success"]:
-        print("✅ Code execution successful!")
-        print(f"📊 Output:\\n{{result['stdout']}}")
-        
-        if result.get("files"):
-            print(f"📁 Files created: {{len(result['files'])}}")
-            for file_info in result["files"]:
-                print(f"  - {{file_info['filename']}} (ID: {{file_info['file_id']}})")
-        
-        if result.get("container_id"):
-            print(f"🔗 Container ID: {{result['container_id']}}")
-    else:
-        print("❌ Code execution failed!")
-        if result.get("stderr"):
-            print(f"⚠️ Error: {{result['stderr']}}")
-        if result.get("error"):
-            print(f"🚨 Exception: {{result['error']}}")
-    
-    return result
+# Python code to execute
+code = {escaped_code}
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n🎯 Execution {{\"completed\" if result[\"success\"] else \"failed\"}}")
+# Display the code with syntax highlighting
+display_code_with_syntax(code)
+
+print("🐍 Executing Python code via Claude Code Execution API...")
+
+# Execute code using MAO logic
+result = execute_python_code(
+    code=code,
+    workflow_id="{workflow_id}",
+    container_id="{container_id}" if "{container_id}" != "None" else None,
+    model="{model}"
+)
+
+# Display results using MAO UI
+display_execution_result(result, verbose=True)
+
+if result["success"]:
+    print("✅ Code execution completed successfully")
+    if result.get("files"):
+        print(f"📁 Generated {{len(result['files'])}} files")
+else:
+    print("❌ Code execution failed")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_execute_with_files_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for executing code with file inputs"""
+    """Generate snippet for executing code with file inputs using MAO logic"""
     code = params.get("code", "# Code to process uploaded files")
     file_ids = params.get("file_ids", [])
     workflow_id = params.get("workflow_id", "code-execution-files")
     
-    file_ids_str = json.dumps(file_ids)
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"execution_time_minutes": 5, "file_ids": file_ids})
     
-    return f'''
+    # Escape code and file_ids for safe inclusion
+    escaped_code = json.dumps(code)
+    file_ids_json = json.dumps(file_ids)
+    
+    snippet = f'''
 # Code Execution Tool - Execute with Files
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.code_execution.code_execution import CodeExecutionTool
+from tools.code_execution.code_execution import execute_code_with_files
+from tools.code_execution.ui_code_execution import display_execution_result, display_code_with_syntax
 
-def main():
-    # Initialize Code Execution Tool
-    tool = CodeExecutionTool()
-    
-    # Python code to execute
-    code = """{code}"""
-    
-    # File IDs to include
-    file_ids = {file_ids_str}
-    
-    print(f"🐍 Executing Python code with {{len(file_ids)}} uploaded files...")
-    
-    result = tool.execute_code_with_files(
-        code=code,
-        file_ids=file_ids,
-        workflow_id="{workflow_id}",
-        model="{model}"
-    )
-    
-    if result["success"]:
-        print("✅ Code execution with files successful!")
-        print(f"📊 Output:\\n{{result['stdout']}}")
-        
-        if result.get("files"):
-            print(f"📁 Generated files: {{len(result['files'])}}")
-            for file_info in result["files"]:
-                print(f"  - {{file_info['filename']}} (ID: {{file_info['file_id']}})")
-    else:
-        print("❌ Code execution failed!")
-        if result.get("stderr"):
-            print(f"⚠️ Error: {{result['stderr']}}")
-        if result.get("error"):
-            print(f"🚨 Exception: {{result['error']}}")
-    
-    return result
+# Python code to execute
+code = {escaped_code}
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n🎯 Execution {{\"completed\" if result[\"success\"] else \"failed\"}}")
+# File IDs to include
+file_ids = {file_ids_json}
+
+# Display the code with syntax highlighting
+display_code_with_syntax(code)
+
+print(f"🐍 Executing Python code with {{len(file_ids)}} uploaded files...")
+
+# Execute code with files using MAO logic
+result = execute_code_with_files(
+    code=code,
+    file_ids=file_ids,
+    workflow_id="{workflow_id}",
+    model="{model}"
+)
+
+# Display results using MAO UI
+display_execution_result(result, verbose=True)
+
+if result["success"]:
+    print("✅ Code execution with files completed successfully")
+    if result.get("files"):
+        print(f"📁 Generated {{len(result['files'])}} additional files")
+else:
+    print("❌ Code execution with files failed")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_container_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for creating persistent container"""
+    """Generate snippet for creating persistent container using MAO logic"""
     workflow_id = params.get("workflow_id", "persistent-container")
     
-    return f'''
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"execution_time_minutes": 60})  # 1 hour container
+    
+    snippet = f'''
 # Code Execution Tool - Create Persistent Container
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.code_execution.code_execution import CodeExecutionTool
+from tools.code_execution.code_execution import create_persistent_container
+from tools.code_execution.ui_code_execution import display_container_info
 
-def main():
-    # Initialize Code Execution Tool
-    tool = CodeExecutionTool()
-    
-    print("🔗 Creating persistent container for multi-step execution...")
-    
-    result = tool.create_persistent_container(workflow_id="{workflow_id}")
-    
-    if result["success"]:
-        print("✅ Persistent container created!")
-        print(f"🆔 Container ID: {{result['container_id']}}")
-        print(f"⏰ Expires at: {{result['expires_at']}}")
-        print("\\n💡 Use this container ID for subsequent executions to maintain state")
-    else:
-        print("❌ Container creation failed!")
-        print(f"🚨 Error: {{result.get('error', 'Unknown error')}}")
-    
-    return result
+print("🔗 Creating persistent container for multi-step execution...")
 
-if __name__ == "__main__":
-    result = main()
-    if result["success"]:
-        print(f"\\n🎯 Container ready: {{result['container_id']}}")
-    else:
-        print("\\n🚫 Container creation failed")
+# Create container using MAO logic
+result = create_persistent_container(workflow_id="{workflow_id}")
+
+# Display results using MAO UI
+display_container_info(result)
+
+if result["success"]:
+    print("✅ Persistent container created successfully")
+    print("💡 Use this container ID for subsequent executions to maintain state")
+else:
+    print("❌ Container creation failed")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_download_files_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for downloading execution files"""
+    """Generate snippet for downloading execution files using MAO logic"""
     file_ids = params.get("file_ids", [])
     workflow_id = params.get("workflow_id", "download-files")
     
-    file_ids_str = json.dumps(file_ids)
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"file_ids": file_ids})
     
-    return f'''
+    file_ids_json = json.dumps(file_ids)
+    
+    snippet = f'''
 # Code Execution Tool - Download Generated Files
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.code_execution.code_execution import CodeExecutionTool
+from tools.code_execution.code_execution import download_execution_files
+from tools.code_execution.ui_code_execution import display_download_results
 
-def main():
-    # Initialize Code Execution Tool
-    tool = CodeExecutionTool()
-    
-    # File IDs to download
-    file_ids = {file_ids_str}
-    
-    print(f"📥 Downloading {{len(file_ids)}} files from code execution...")
-    
-    results = tool.download_execution_files(
-        file_ids=file_ids,
-        workflow_id="{workflow_id}"
-    )
-    
-    success_count = sum(1 for r in results if r["success"])
-    
-    print(f"📊 Download Results: {{success_count}}/{{len(results)}} successful")
-    
-    for result in results:
-        if result["success"]:
-            print(f"✅ {{result['filename']}} - {{result['size']}} bytes")
-        else:
-            print(f"❌ {{result['file_id']}} - Error: {{result['error']}}")
-    
-    return results
+# File IDs to download
+file_ids = {file_ids_json}
 
-if __name__ == "__main__":
-    results = main()
-    successful = [r for r in results if r["success"]]
-    print(f"\\n🎯 Downloaded {{len(successful)}} files successfully")
+print(f"📥 Downloading {{len(file_ids)}} files from code execution...")
+
+# Download files using MAO logic
+results = download_execution_files(
+    file_ids=file_ids,
+    workflow_id="{workflow_id}"
+)
+
+# Display results using MAO UI
+display_download_results(results, verbose=True)
+
+success_count = sum(1 for r in results if r.get("success", False))
+print(f"📊 Download Results: {{success_count}}/{{len(results)}} successful")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return results for workflow integration
+results
 '''
-
+    
+    return snippet.strip()
 
 def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     """Generate default Code Execution snippet"""
+    operation = params.get("operation", "unknown")
     workflow_id = params.get("workflow_id", "code-execution-default")
     
-    return f'''
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"execution_time_minutes": 5})
+    
+    snippet = f'''
 # Code Execution Tool - General Usage
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.code_execution.code_execution import CodeExecutionTool
+from tools.code_execution.code_execution import execute_python_code, estimate_cost
+from tools.code_execution.ui_code_execution import display_help, display_execution_result
 
-def main():
-    # Initialize Code Execution Tool
-    tool = CodeExecutionTool()
+print("🐍 Code Execution Tool Ready!")
+
+# Display help information
+display_help()
+
+print("\\n📋 Available Operations:")
+available_operations = [
+    "execute_code",
+    "execute_with_files",
+    "create_container", 
+    "download_files"
+]
+
+for op in available_operations:
+    print(f"  • {{op}}")
+
+# Run example if operation is unknown
+if "{operation}" not in available_operations:
+    print(f"\\n⚠️ Unknown operation: {operation}")
+    print("\\n🧪 Running example code...")
     
-    print("🐍 Code Execution Tool Ready!")
-    print("📋 Available operations:")
-    print("  - execute_code: Run Python code in Claude's sandbox")
-    print("  - execute_with_files: Run code with uploaded files")
-    print("  - create_container: Create persistent execution environment")
-    print("  - download_files: Download files created during execution")
-    
-    # Example execution
     example_code = """
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -277,23 +284,31 @@ plt.close()
 print("Plot saved as sample_plot.png")
 """
     
-    print("\\n🧪 Running example code...")
-    result = tool.execute_code(
+    # Execute example using MAO logic
+    result = execute_python_code(
         code=example_code,
         workflow_id="{workflow_id}",
         model="{model}"
     )
     
+    # Display results using MAO UI
+    display_execution_result(result)
+    
     if result["success"]:
         print("✅ Example execution successful!")
-        if result.get("files"):
-            print(f"📁 Generated {{len(result['files'])}} files")
     else:
         print("❌ Example execution failed")
-    
-    return result
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n🚀 Code Execution Tool ready for use")
+print(f"\\n💰 Estimated cost: ${cost_estimate:.4f}")
+
+result = {{
+    "tool_ready": True,
+    "available_operations": available_operations,
+    "cost": cost_estimate
+}}
+
+# Return result
+result
 '''
+    
+    return snippet.strip()
