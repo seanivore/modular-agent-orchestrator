@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
-    Generate executable code snippet for Claude 4 execution
+    Generate executable code snippet for Claude execution
     Universal model compatibility via code generation
     
     Args:
@@ -25,19 +25,16 @@ def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4"
     country = params.get("country", "US")
     search_type = params.get("search_type", "web")
     
-    # Generate self-contained executable snippet
+    # Generate snippet that imports and uses the logic file
     snippet = f'''# Brave Search Tool Execution
-# Model: {model}
-# Query: {query}
-
-import json
-import requests
+import sys
 import os
-import time
-from datetime import datetime
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def execute_brave_search():
-    """Execute Brave web search with comprehensive error handling"""
+from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key
+
+def main():
+    """Execute Brave search using standardized logic"""
     
     # Search parameters
     query = "{query}"
@@ -45,185 +42,47 @@ def execute_brave_search():
     country = "{country}"
     search_type = "{search_type}"
     
-    try:
-        # Validation
-        if not query.strip():
-            return {{"error": "Search query cannot be empty", "cost": 0.0}}
+    print(f"🔍 Brave {{search_type.title()}} Search: {{query}}")
+    
+    # Validate API key first
+    validation = validate_api_key()
+    if not validation["valid"]:
+        print(f"❌ API Error: {{validation['error']}}")
+        return validation
+    
+    # Execute search using logic file function
+    if search_type == "news":
+        result = search_news(query, count, country)
+    elif search_type == "local":
+        result = search_local(query, count, country)
+    else:
+        result = search_web(query, count, country, search_type)
+    
+    # Display results
+    if result.get("error"):
+        print(f"❌ Search Error: {{result['error']}}")
+    else:
+        result_key = "articles" if search_type == "news" else "results"
+        results_count = result.get("count", 0)
+        print(f"✅ Found {{results_count}} results")
         
-        # Clamp count to valid range
-        count = min(20, max(1, count))
-        
-        # API Configuration
-        api_key = os.getenv("BRAVE_API_KEY") or os.getenv("X_SUBSCRIPTION_TOKEN")
-        if not api_key:
-            return {{
-                "error": "Brave API key not found. Set BRAVE_API_KEY or X_SUBSCRIPTION_TOKEN environment variable",
-                "cost": 0.0
-            }}
-        
-        # Endpoint selection
-        endpoints = {{
-            "web": "https://api.search.brave.com/res/v1/web/search",
-            "news": "https://api.search.brave.com/res/v1/news/search", 
-            "local": "https://api.search.brave.com/res/v1/web/search"
-        }}
-        
-        url = endpoints.get(search_type, endpoints["web"])
-        
-        # Headers configuration
-        headers = {{
-            "Accept": "application/json",
-            "Accept-Encoding": "gzip",
-            "X-Subscription-Token": api_key
-        }}
-        
-        # Search parameters
-        base_params = {{
-            "q": query,
-            "count": count,
-            "country": country,
-            "search_lang": "en",
-            "ui_lang": "en-US",
-            "spellcheck": 1
-        }}
-        
-        # Type-specific parameters
-        if search_type == "news":
-            base_params["freshness"] = "pd"  # Past day for news
-        elif search_type == "local":
-            base_params["result_filter"] = "web"
-            base_params["q"] = f"{{query}} near {{country}}"
-        
-        # Perform search with retry logic
-        max_retries = 3
-        last_error = None
-        response = None
-        
-        for attempt in range(max_retries):
-            try:
-                response = requests.get(
-                    url, 
-                    headers=headers, 
-                    params=base_params,
-                    timeout=30
-                )
-                
-                if response.status_code == 200:
-                    break
-                elif response.status_code == 429:  # Rate limited
-                    if attempt < max_retries - 1:
-                        wait_time = (attempt + 1) * 2
-                        time.sleep(wait_time)
-                        continue
-                else:
-                    last_error = f"HTTP {{response.status_code}}: {{response.text[:200]}}"
-                    if attempt < max_retries - 1:
-                        time.sleep(1)
-                        continue
-                        
-            except requests.exceptions.Timeout:
-                last_error = f"Request timeout (attempt {{attempt + 1}}/{{max_retries}})"
-                if attempt < max_retries - 1:
-                    continue
-            except requests.exceptions.RequestException as e:
-                last_error = f"Network error: {{str(e)}}"
-                if attempt < max_retries - 1:
-                    time.sleep(2)
-                    continue
-        
-        # Check final response
-        if response is None or response.status_code != 200:
-            return {{
-                "error": f"Search failed after {{max_retries}} attempts. Last error: {{last_error}}",
-                "status_code": response.status_code if response else None,
-                "cost": 0.001  # Minimal cost for failed attempt
-            }}
-        
-        # Parse results
-        data = response.json()
-        
-        # Extract results based on search type
-        if search_type == "news":
-            results = data.get("results", [])
-            result_key = "articles"
-        else:
-            results = data.get("web", {{}}).get("results", [])
-            result_key = "results"
-        
-        if not results:
-            return {{
-                "query": query,
-                "search_type": search_type,
-                "count": 0,
-                result_key: [],
-                "message": f"No results found for: {{query}}",
-                "cost": 0.001
-            }}
-        
-        # Process results
-        processed_results = []
-        for i, result in enumerate(results, 1):
-            title = result.get("title", "No title")
-            url = result.get("url", "No URL")
-            description = result.get("description", "No description")
-            
-            processed_result = {{
-                "rank": i,
-                "title": title,
-                "url": url, 
-                "description": description
-            }}
-            
-            # Additional fields for news
-            if search_type == "news":
-                processed_result["age"] = result.get("age", "Unknown age")
-            
-            processed_results.append(processed_result)
-        
-        # Create comprehensive result data
-        search_results = {{
-            "status": "success",
-            "query": query,
-            "search_type": search_type,
-            "timestamp": datetime.now().isoformat(),
-            "count": len(processed_results),
-            "country": country,
-            result_key: processed_results,
-            "metadata": {{
-                "api_response_time": getattr(response, "elapsed", None).total_seconds() if hasattr(response, "elapsed") else None,
-                "total_available": data.get("web", {{}}).get("total", len(results)) if search_type != "news" else len(results),
-                "request_params": base_params
-            }},
-            "cost": 0.001  # Brave API is typically free
-        }}
-        
-        return search_results
-        
-    except Exception as e:
-        return {{
-            "error": f"Brave search failed: {{str(e)}}",
-            "timestamp": datetime.now().isoformat(),
-            "query": query,
-            "cost": 0.001
-        }}
+        # Show top 3 results
+        for i, item in enumerate(result.get(result_key, [])[:3], 1):
+            print(f"\\n{{i}}. {{item.get('title', 'No title')}}")
+            print(f"   {{item.get('description', 'No description')[:100]}}...")
+            print(f"   {{item.get('url', 'No URL')}}")
+    
+    # Calculate cost
+    cost_params = {{"query": query, "count": count, "search_type": search_type}}
+    cost = estimate_cost(cost_params)
+    print(f"\\n💰 Cost: ${{cost:.4f}}")
+    
+    return result
 
-# Execute the search
-result = execute_brave_search()
-
-# Display results
-print("🔍 Brave Search Results:")
-print(f"Query: {query}")
-print(f"Type: {search_type}")
-print(f"Results: {{result.get('count', 0)}}")
-print(f"Cost: ${{result.get('cost', 0.001):.4f}}")
-
-if result.get('error'):
-    print(f"❌ Error: {{result['error']}}")
-else:
-    print("✅ Search completed successfully")
-
-# Return structured result for orchestrator
-result'''
+if __name__ == "__main__":
+    result = main()
+    print(f"\\n🎯 Search {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
+'''
     
     return snippet
 
@@ -245,63 +104,41 @@ def create_local_search_snippet(params: Dict[str, Any], model: str = "claude-son
 def create_api_validation_snippet(model: str = "claude-sonnet-4") -> str:
     """Generate API key validation snippet"""
     snippet = f'''# Brave API Key Validation
-# Model: {model}
-
+import sys
 import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def validate_brave_api():
-    """Validate Brave API key availability"""
-    api_key = os.getenv("BRAVE_API_KEY") or os.getenv("X_SUBSCRIPTION_TOKEN")
+from tools.brave_search.brave_search import validate_api_key, estimate_cost
+
+def main():
+    """Validate Brave API key using standardized logic"""
     
-    if not api_key:
-        return {{
-            "valid": False,
-            "error": "Brave API key not found. Set BRAVE_API_KEY or X_SUBSCRIPTION_TOKEN environment variable",
-            "cost": 0.0
-        }}
+    print("🔑 Brave API Validation...")
     
-    return {{
-        "valid": True,
-        "key_length": len(api_key),
-        "message": "API key found and ready",
-        "cost": 0.0
-    }}
+    result = validate_api_key()
+    
+    if result["valid"]:
+        print("✅ API key is valid and ready")
+        print(f"   Key length: {{result['key_length']}} characters")
+    else:
+        print(f"❌ Validation failed: {{result['error']}}")
+    
+    # Calculate cost (validation is free)
+    cost = estimate_cost({{"operation": "validation"}})
+    print(f"💰 Cost: ${{cost:.4f}}")
+    
+    return result
 
-# Execute validation
-result = validate_brave_api()
-
-print("🔑 Brave API Validation:")
-if result["valid"]:
-    print("✅ API key is valid and ready")
-else:
-    print(f"❌ Validation failed: {{result['error']}}")
-
-print(f"💰 Cost: ${{result['cost']:.4f}}")
-
-# Return result
-result'''
+if __name__ == "__main__":
+    result = main()
+    print(f"\\n🎯 Validation {{\"passed\" if result['valid'] else \"failed\"}}")
+'''
     
     return snippet
 
 
-def estimate_execution_cost(params: Dict[str, Any]) -> float:
-    """Estimate cost for executing this tool"""
-    # Brave API is typically free for reasonable usage
-    return 0.001
-
-
-def get_tool_capabilities() -> Dict[str, Any]:
-    """Return tool capabilities for orchestrator discovery"""
-    return {
-        "name": "brave_search",
-        "capabilities": ["web_search", "news_search", "local_search", "real_time_data"],
-        "cost_estimate": 0.001,
-        "models_supported": ["all"],
-        "tags": ["search", "web", "research", "privacy", "independent"],
-        "parameters": {
-            "query": {"type": "string", "required": True, "description": "Search query"},
-            "count": {"type": "integer", "default": 10, "description": "Number of results (1-20)"},
-            "country": {"type": "string", "default": "US", "description": "Country code for localized results"},
-            "search_type": {"type": "string", "default": "web", "description": "Type of search (web, news, local)"}
-        }
-    }
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate cost for executing this tool - standardized naming"""
+    # Import from logic file for consistency
+    from tools.brave_search.brave_search import estimate_cost as logic_estimate_cost
+    return logic_estimate_cost(params)

@@ -101,7 +101,7 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 
 ## Execution Phases
 
-### Phase 1: Architecture Fixes (Session 1)
+### Phase 1: Architecture Fixes (Session 1) ✅
 **Priority**: Critical architectural issues first
 
 1. **Move Files API to tools/** 
@@ -111,15 +111,15 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
    - Update all imports throughout codebase ✅
 
 2. **Move MCP Connector to tools/**
-   - Create `tools/mcp_connector/` directory  
-   - Move `orchestrator/mcp_connector.py` to `tools/mcp_connector/mcp_connector.py`
-   - Add missing components: button, UI, JSON files
-   - Update all imports throughout codebase
+   - Create `tools/mcp_connector/` directory ✅
+   - Move `orchestrator/mcp_connector.py` to `tools/mcp_connector/mcp_connector.py` ✅
+   - Add missing components: button, UI, JSON files ✅
+   - Update all imports throughout codebase ✅
 
 3. **Complete Code Execution Tool**
-   - Fix TODO comments and placeholder code
-   - Implement proper Code Execution tool integration
-   - Add missing components: button, UI, JSON files
+   - Fix TODO comments and placeholder code ✅
+   - Implement proper Code Execution tool integration ✅
+   - Add missing components: button, UI, JSON files ✅
 
 4. **Delete orchestrator/memory.py** ✅
    - Confirmed old file that violates Memory MCP strategy ✅
@@ -137,18 +137,98 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 - [ ] No TODO comments or placeholder code
 - [ ] Remove hardcoded metadata/capabilities from logic files
 
+--> QUESTION: What about `def estimate_execution_cost` which is in `button_brave_search.py`? 
+    - Should the cost function be only in the logic file? 
+    - Or should the button file get the function naming standardized? 
+--> And on the `ui_brave_search.py` file, there is a `def display_cost_estimate` function 
+    - I'm seeing that all of the various file types have cost estimate functions 
+    - Which is making me think that they should be standarized on all files 
+--> The `button_dalle_generate.py` as `estimated_cost` but it is in there like 10 times 
+    - Same with `dalle_generate.py` it seems 
+
 **Tools to Standardize:**
-1. brave_search.py ✅ (Already good)
-2. dalle_generate.py (Fix cost function naming)
-3. file_operations.py (Add missing cost estimation)
-4. graphic_design.py ✅ (Already good)
-5. perplexity_search.py (Fix duplicate cache calls, cost function naming)
-6. text_editor.py (Implement missing cache usage and cost estimation)
-7. think.py (Clean up metadata, implement proper cost estimation)
-8. web_search.py (Fix duplicate cache calls, standardize cost function)
-9. files_api.py (Add missing cost estimation)
-10. mcp_connector.py (Add missing cost estimation)
-11. code_execution.py (Add missing cost estimation)
+1. brave_search.py 
+```
+brave_search.py (Logic file): ✅ GOOD
+ui_brave_search.py (UI file): ✅ GOOD
+tool_brave_search.json (Config file): ✅ GOOD
+button_brave_search.py (Button file): ❌ NEEDS FIXES
+  - Has estimate_execution_cost() instead of estimate_cost()
+  - Has get_tool_capabilities() with hardcoded metadata (belongs in JSON)
+  - Duplicates ALL logic instead of importing from logic file
+  - Button snippets don't use the logic file functions
+--> The button file should import and use the logic file functions instead of duplicating everything. 
+```
+2. dalle_generate.py 
+```
+dalle_generate.py 
+ui_dalle_generate.py
+tool_dalle_generate.json
+button_dalle_generate.py
+```
+3. file_operations.py 
+```
+file_operations.py 
+ui_file_operations.py
+tool_file_operations.json
+button_file_operations.py
+```
+4. graphic_design.py 
+```
+graphic_design.py 
+ui_graphic_design.py
+tool_graphic_design.json
+button_graphic_design.py
+```
+1. perplexity_search.py 
+```
+perplexity_search.py 
+ui_perplexity_search.py
+tool_perplexity_search.json
+button_perplexity_search.py
+```
+1. text_editor.py 
+```
+text_editor.py 
+ui_text_editor.py
+tool_text_editor.json
+button_text_editor.py
+```
+1. think.py 
+```
+think.py 
+ui_think.py
+tool_think.json
+button_think.py
+```
+1. web_search.py 
+```
+web_search.py 
+ui_web_search.py
+tool_web_search.json
+button_web_search.py
+```
+1.  files_api.py 
+```
+files_api.py 
+ui_files_api.py
+tool_files_api.json
+button_files_api.py
+```
+1.   mcp_connector.py 
+```
+mcp_connector.py 
+ui_mcp_connector.py
+tool_mcp_connector.json
+button_mcp_connector.py
+```
+1.  code_execution.py 
+```
+code_execution.py 
+ui_code_execution.py
+tool_code_execution.json
+button_code_execution.py
+```
 
 ### Phase 3: Button File Standardization (Session 3)
 **Focus**: Single entry point pattern for all button files
