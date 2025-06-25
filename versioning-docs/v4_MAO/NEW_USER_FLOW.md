@@ -464,19 +464,17 @@ mkt not found # This is the output telling me nothing is using the command
 
 ```bash
 command category variant # This is the command 
-command category variant --flag # This is the command with a flag 
 ```
 
-| **COMMAND** | **CATEGORY** | **VARIANT** | **FLAG**         | **DESCRIPTION**                                |
-| ----------- | ------------ | ----------- | ---------------- | ---------------------------------------------- |
-| mkt         | strategy     | dogtech     | N/A              | Research strategy for Dog-Tech startup         |
-| mkt         | strategy     | report      | `--dogtech`      | Research strategy for Dog-Tech startup         |
-| mkt         | content      | plan        | `--dogtech`      | Social content plan for Dog-Tech startup       |
-| job         | app          | N/A         | `--resume`       | Create targeted resume for job applications    |
-| job         | app          | N/A         | `--cover-letter` | Create cover-letter for job applications       |
-| job         | app          | doc         | N/A              | Create cover-letter and resume for job app     |
-| tag         | keyword      | N/A         | `--t-shirts`     | Come up with SEO keywords for my t-shirt store |
-| social      | caption      | N/A         | `--insta`        | Write Instagram captions                       |
+| **COMMAND** | **CATEGORY** | **VARIANT**  | **DESCRIPTION**                                |
+| ----------- | ------------ | ------------ | ---------------------------------------------- |
+| mkt         | strategy     | dogtech      | Research strategy for Dog-Tech startup         |
+| mkt         | content      | plan         | Social content plan for Dog-Tech startup       |
+| job         | app          | resume       | Create targeted resume for job applications    |
+| job         | app          | cover-letter | Create cover-letter for job applications       |
+| job         | app          | doc          | Create cover-letter and resume for job app     |
+| tag         | keyword      | t-shirts     | Come up with SEO keywords for my t-shirt store |
+| social      | caption      | ig           | Write Instagram captions                       |
 
 #### Command Writing Rules 
 
@@ -538,36 +536,6 @@ configs/workflows/command_use_case/
 │   └── command_use_case_log.md                   # Workflow log file 
 └── deliverables/                                 # Final outputs; this is where the deliverables are stored 
     └── command_use_case_report.md                # This is the final deliverable; it is the report 
-```
-
-**IMPORTANT:** Should we decide to implement use-case flags to use arguments in the same workflow to achieve different results, this is the directory structure that would be used; this would require making a definite decision one way or the other and then updating the paths used in the setup script for the workflow directory and executable script command, possibly more. 
-
-```
-configs/workflows/command_use_case/
-├── specific-flag-1/                                  # `command use case --specific-flag-1`  
-│   ├── config-files/                                 # Directory for JSON config files 
-│   │   ├── command_use_case_workflow_config.json     # Workflow JSON config file 
-│   │   ├── command_use_case_phase_config.json        # Phase JSON config file 
-│   │   └── command_use_case_handoff_config.json      # Handoff JSON config file 
-│   ├── README_command_use_case.md                    # Auto-generated usage guide
-│   ├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
-│   ├── metadata/                                     # Workflow tracking details  
-│   │   ├── command_use_case_memory.json              # Workflow Memory MCP File  
-│   │   └── command_use_case_log.md                   # Workflow log file 
-│   └── deliverables/                                 # Final outputs; this is where the deliverables are stored 
-│       └── command_use_case_report.md                # This is the final deliverable; it is the report 
-└── specific-flag-2/                                  # `command use case --specific-flag-2`  
-    ├── config-files/                                 # Directory for JSON config files 
-    │   ├── command_use_case_workflow_config.json     # Workflow JSON config file 
-    │   ├── command_use_case_phase_config.json        # Phase JSON config file 
-    │   └── command_use_case_handoff_config.json      # Handoff JSON config file 
-    ├── README_command_use_case.md                    # Auto-generated usage guide
-    ├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
-    ├── metadata/                                     # Workflow tracking details  
-    │   ├── command_use_case_memory.json              # Workflow Memory MCP File  
-    │   └── command_use_case_log.md                   # Workflow log file 
-    └── deliverables/                                 # Final outputs; this is where the deliverables are stored 
-        └── command_use_case_report.md                # This is the final deliverable; it is the report 
 ```
 
 ### Using The Setup Script 
@@ -666,14 +634,15 @@ echo "🚀 Ready: ${COMMAND_FILE}"
   - Place selector on the other options for hover display to show their meanings 
   - Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
 
-| **SETTING**      | **DEFAULT**        | **DESCRIPTION**                                 |
-| ---------------- | ------------------ | ----------------------------------------------- |
-| Quick launch     | `always`           | Launch app with last user logged in             |
-| Favorite model   | `claude-sonnet-4`  | Use for workflows unless discussed              |
-| Default provider | `anthropic direct` | I prefer this provider; discuss to change       |
-| Theme            | `dark mode CVD`    | Dark computer theme; use high legibility colors |
-| Cat vibes        | `I love it`        | We'll meow it up for you                        |
-| Double-texting   | `always`           | Interrupt Mao like any messenger experience     |
+| **SETTING**       | **DEFAULT**         | **DESCRIPTION**                                      |
+| ----------------- | ------------------- | ---------------------------------------------------- |
+| Quick launch      | `always`            | Launch app with last user logged in                  |
+| Favorite model    | `claude-sonnet-4`   | Use for workflows unless discussed                   |
+| Default provider  | `anthropic direct`  | I prefer this provider; discuss to change            |
+| Theme             | `dark mode CVD`     | Dark computer theme; use high legibility colors      |
+| Tone notification | `one time, no push` | When a workflow is complete, a simple tone is played |
+| Cat vibes         | `I love it`         | We'll meow it up for you                             |
+| Double-texting    | `always`            | Interrupt Mao like any messenger experience          |
 
 ### Quick Launch Options 
 
@@ -706,3 +675,9 @@ echo "🚀 Ready: ${COMMAND_FILE}"
 
 1. `always` - Interrupt Mao like any messenger experience 
 2. `never` - One reply at a time for each party  
+
+### Tone Notification 
+
+1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
+2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
+3. `no notifications` - No tone is played, no push notification 
