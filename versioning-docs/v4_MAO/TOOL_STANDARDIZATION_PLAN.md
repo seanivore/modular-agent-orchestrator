@@ -467,6 +467,12 @@ Issue #3: Non-Standard Field Names
   - "model_compatibility" → should be "models_supported"
   - "functions" → should be "operations"
 1. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/tool_files_api.json`
+Issue #1: Non-Standard Path Fields
+  - Uses "file_paths" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #2: Non-Standard Operations Structure
+  - Uses "parameters" object instead of "operations" object
+  - Should restructure to operations with required/optional params
 2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
 4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`

@@ -1,10 +1,7 @@
 {
-  "id": "graphic_design",
-  "name": "Graphic Design Tool",
-  "description": "Professional image editing with sophisticated 5-step workflow",
+  "name": "graphic_design",
   "version": "4.0.0",
-  "category": "media_processing",
-  
+  "description": "Professional image editing with sophisticated 5-step workflow",
   "capabilities": [
     "image_analysis",
     "professional_editing", 
@@ -13,7 +10,15 @@
     "format_optimization",
     "curated_typography"
   ],
-  
+  "cost_estimate": 0.01,
+  "models_supported": [
+    "claude-sonnet-4",
+    "claude-3-5-sonnet",
+    "claude-3-haiku", 
+    "gpt-4-vision-preview",
+    "gpt-4o",
+    "gemini-pro-vision"
+  ],
   "tags": [
     "image",
     "editing", 
@@ -23,307 +28,34 @@
     "professional",
     "workflow"
   ],
-  
-  "cost_estimate": 0.01,
-  "processing_time": "1-5 seconds",
-  
-  "model_compatibility": {
-    "supported_models": [
-      "claude-sonnet-4",
-      "claude-3-5-sonnet",
-      "claude-3-haiku", 
-      "gpt-4-vision-preview",
-      "gpt-4o",
-      "gemini-pro-vision"
-    ],
-    "ai_required_for": ["analyze_image"],
-    "local_processing": ["edit_image", "optimize_image", "get_curated_fonts"],
-    "universal_compatibility": true
-  },
-  
-  "functions": [
-    {
-      "name": "analyze_image",
+  "file_path": "tools/graphic_design/graphic_design.py",
+  "button_path": "tools/graphic_design/button_graphic_design.py",
+  "ui_path": "tools/graphic_design/ui_graphic_design.py",
+  "operations": {
+    "analyze_image": {
       "description": "AI-powered image analysis for composition and quality assessment",
-      "parameters": {
-        "image_path": {
-          "type": "string",
-          "required": true,
-          "description": "Path to image file for analysis"
-        },
-        "analysis_approach": {
-          "type": "string", 
-          "required": false,
-          "default": "comprehensive",
-          "description": "Analysis methodology to apply (variable-input)"
-        }
-      },
-      "returns": "Structured analysis with technical specs and recommendations",
-      "cost_estimate": 0.02,
-      "requires_ai": true
+      "required_params": ["image_path"],
+      "optional_params": ["analysis_approach"]
     },
-    
-    {
-      "name": "edit_image",
+    "edit_image": {
       "description": "Professional 5-step image editing workflow",
-      "parameters": {
-        "image_path": {
-          "type": "string",
-          "required": true,
-          "description": "Source image file path"
-        },
-        "output_path": {
-          "type": "string",
-          "required": false,
-          "description": "Output path (auto-generated if not provided)"
-        },
-        "output_format": {
-          "type": "string",
-          "required": false,
-          "default": "webp",
-          "description": "Target format (webp, jpg, png)"
-        },
-        "resize": {
-          "type": "boolean",
-          "required": false,
-          "default": false,
-          "description": "Whether to resize image"
-        },
-        "width": {
-          "type": "integer",
-          "required": false,
-          "default": 1200,
-          "description": "Target width for resize"
-        },
-        "maintain_aspect_ratio": {
-          "type": "boolean",
-          "required": false,
-          "default": true,
-          "description": "Preserve aspect ratio during resize"
-        },
-        "crop": {
-          "type": "boolean",
-          "required": false,
-          "default": false,
-          "description": "Whether to crop image"
-        },
-        "crop_method": {
-          "type": "string",
-          "required": false,
-          "default": "coordinates",
-          "description": "Cropping method (coordinates or aspect_ratio)"
-        },
-        "x": {
-          "type": "integer",
-          "required": false,
-          "description": "X coordinate for coordinate cropping"
-        },
-        "y": {
-          "type": "integer", 
-          "required": false,
-          "description": "Y coordinate for coordinate cropping"
-        },
-        "crop_width": {
-          "type": "integer",
-          "required": false,
-          "description": "Width for coordinate cropping"
-        },
-        "crop_height": {
-          "type": "integer",
-          "required": false,
-          "description": "Height for coordinate cropping"
-        },
-        "aspect_ratio": {
-          "type": "string",
-          "required": false,
-          "description": "Target aspect ratio (e.g., '16:9') for aspect ratio cropping"
-        },
-        "focus": {
-          "type": "string",
-          "required": false,
-          "default": "center",
-          "description": "Crop focus point (center, top, bottom, left, right)"
-        },
-        "add_text": {
-          "type": "boolean",
-          "required": false,
-          "default": false,
-          "description": "Whether to add text overlay"
-        },
-        "text": {
-          "type": "string",
-          "required": false,
-          "description": "Text content for overlay"
-        },
-        "font": {
-          "type": "string",
-          "required": false,
-          "default": "Open Sans",
-          "description": "Font name from curated collection"
-        },
-        "font_size": {
-          "type": "integer",
-          "required": false,
-          "description": "Text size (auto-calculated if not provided)"
-        },
-        "text_position": {
-          "type": "string",
-          "required": false,
-          "default": "center",
-          "description": "Text placement (center, top, bottom)"
-        },
-        "shade_opacity": {
-          "type": "integer",
-          "required": false,
-          "default": 30,
-          "description": "Background shade opacity (0-100)"
-        }
-      },
-      "returns": "Structured editing results with operation details",
-      "cost_estimate": 0.01,
-      "requires_ai": false
+      "required_params": ["image_path"],
+      "optional_params": ["output_path", "output_format", "resize", "width", "maintain_aspect_ratio", "crop", "crop_method", "x", "y", "crop_width", "crop_height", "aspect_ratio", "focus", "add_text", "text", "font", "font_size", "text_position", "shade_opacity"]
     },
-    
-    {
-      "name": "optimize_image", 
+    "optimize_image": {
       "description": "Professional image optimization for web/storage",
-      "parameters": {
-        "image_path": {
-          "type": "string",
-          "required": true,
-          "description": "Source image file path"
-        },
-        "quality": {
-          "type": "integer",
-          "required": false,
-          "default": 85,
-          "description": "Compression quality (1-100)"
-        },
-        "target_format": {
-          "type": "string",
-          "required": false,
-          "default": "webp",
-          "description": "Target format (webp, jpg, png)"
-        }
-      },
-      "returns": "Optimization results with size reduction metrics",
-      "cost_estimate": 0.005,
-      "requires_ai": false
+      "required_params": ["image_path"],
+      "optional_params": ["quality", "target_format"]
     },
-    
-    {
-      "name": "get_curated_fonts",
+    "get_curated_fonts": {
       "description": "Get information about curated font collection",
-      "parameters": {},
-      "returns": "Font collection details and availability status",
-      "cost_estimate": 0.0,
-      "requires_ai": false
+      "required_params": [],
+      "optional_params": []
     }
-  ],
-  
-  "workflow": {
-    "name": "Professional 5-Step Editing",
-    "description": "Sophisticated workflow for perfect image results",
-    "steps": [
-      {
-        "step": 1,
-        "name": "Assess",
-        "description": "Analyze image composition, quality, and optimization potential"
-      },
-      {
-        "step": 2, 
-        "name": "Resize",
-        "description": "Scale to appropriate dimensions (typically 900-1200px width)"
-      },
-      {
-        "step": 3,
-        "name": "Crop", 
-        "description": "Apply smart cropping with composition focus"
-      },
-      {
-        "step": 4,
-        "name": "Text",
-        "description": "Add professional text overlay with shade layer"
-      },
-      {
-        "step": 5,
-        "name": "Save",
-        "description": "Export in optimized format (WebP recommended)"
-      }
-    ],
-    "philosophy": "Only perfect pictures created",
-    "recommendation": "Always analyze before and after editing to assess composition and readability"
   },
-  
-  "curated_fonts": {
-    "collection": [
-      {
-        "name": "Bebas Neue",
-        "style": "Bold, modern impact",
-        "best_for": "Headlines, bold statements",
-        "file": "BebasNeue-Regular.ttf"
-      },
-      {
-        "name": "Georgia", 
-        "style": "Classic serif elegance",
-        "best_for": "Traditional, readable text",
-        "file": "Georgia-Regular.ttf"
-      },
-      {
-        "name": "Open Sans",
-        "style": "Clean, readable sans-serif", 
-        "best_for": "General purpose, web-friendly",
-        "file": "OpenSans-Regular.ttf"
-      },
-      {
-        "name": "Montserrat",
-        "style": "Modern geometric sans-serif",
-        "best_for": "Contemporary, professional",
-        "file": "Montserrat-Regular.ttf"
-      },
-      {
-        "name": "Playfair Display",
-        "style": "Elegant display serif",
-        "best_for": "Luxury, sophisticated designs", 
-        "file": "PlayfairDisplay-Regular.ttf"
-      }
-    ],
-    "directory": "tools/fonts",
-    "fallback_available": true,
-    "auto_sizing": "5% of image width"
-  },
-  
-  "technical_features": {
-    "resize_algorithm": "LANCZOS resampling",
-    "color_modes": ["RGB", "RGBA"],
-    "supported_formats": ["JPEG", "PNG", "WebP"],
-    "text_readability": "Automatic shade layer",
-    "smart_positioning": "Rule of thirds aware",
-    "professional_quality": true
-  },
-  
   "integration": {
-    "orchestrator_compatible": true,
-    "button_support": true,
-    "ui_display_available": true,
-    "error_handling": "comprehensive",
-    "cost_tracking": true
-  },
-  
-  "file_structure": {
-    "core_logic": "tools/graphic_design/graphic_design.py",
-          "ui_display": "tools/graphic_design/ui_graphic_design.py", 
-      "buttons": "tools/graphic_design/button_graphic_design.py",
-    "tool_registry": "configs/tool_registry/tool_graphic_design.json",
-    "shared_error_handling": "utilities/error_handling.py"
-  },
-  
-  "metadata": {
-    "created": "2024-12-19",
-    "architecture": "5-file modular pattern",
-    "philosophy": "variable-input, no hardcoded specifics",
-    "quality_level": "professional",
-    "token_efficiency": "optimized for cost",
-    "universal_compatibility": true
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true
   }
-} 
+}
