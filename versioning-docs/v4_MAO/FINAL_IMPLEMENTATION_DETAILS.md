@@ -2,7 +2,7 @@
 
 ---
 
-## Application Configuration Settings Config 
+## 1. Application Configuration Settings Config 
 
 1. Our current list of settings has already been created in a single JSON file 
 2. File to breakdown: `./configs/settings/application_settings_schema.json` 
@@ -18,7 +18,7 @@
 
 ---
 
-## Setup User ID Config 
+## 2. Setup User ID Config 
 
 1. Create `./configs/user/` directory 
 2. Create `./configs/user/user_username.json` template file and place it in the `./configs/examples/` directory 
@@ -65,7 +65,7 @@
 
 ---
 
-## Workflow Unique ID 
+## 3. Workflow Unique ID 
 
 1. Similar to the User ID except these will give you a different unique ID every single time you run the `uid` command 
 2. You can see in the `NEW_USER_FLOW.md` that the workflow ID is one of the first things Mao does in the chat 
@@ -81,7 +81,7 @@
 
 ---
 
-## Workflow Creation 
+## 4. Workflow Creation 
 
 1. The workflow creation is the best way to illustrate building a workflow 
 2. Show the Use-Case JSON being built 
@@ -113,7 +113,7 @@
 
 ---
 
-## Leftover From Integration Plan Notes 
+## 5. Leftover From Integration Plan Notes 
 
 These were held over because of their relevance to the remaining implementation items that were detailed on the `NEW_USER_FLOW.md` document. 
 
@@ -135,7 +135,7 @@ These were held over because of their relevance to the remaining implementation 
 
 ---
 
-## Updating Any / All Config Collections 
+## 6. Updating Any / All Config Collections 
 
   1. Making our system truely 'plug-and-play' is a big deal 
   2. All config collections should be well documented 
@@ -165,7 +165,7 @@ These were held over because of their relevance to the remaining implementation 
 
 ---
 
-## Technical Documentation 
+## 7. Technical Documentation 
 
 ### Notable Gaps 
 
@@ -181,7 +181,7 @@ After all items are implemented, I'd like to do a full documentation audit. All 
 
 ---
 
-## Revamp the Claude Code Foundation UI Specs  
+## 8. Revamp the Claude Code Foundation UI Specs  
 
 1. Given the detailed, thorough, and visual `NEW_USER_FLOW.md` document 
 2. Because we also have everything else implemented now 
