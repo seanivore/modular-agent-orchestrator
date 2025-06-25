@@ -1,5 +1,7 @@
 # Implementation Items 
 
+---
+
 ## Application Configuration Settings Config 
 
 1. Our current list of settings has already been created in a single JSON file 
@@ -14,6 +16,7 @@
 7. Implement the plan 
 8. Document all  of the above 
 
+---
 
 ## Setup User ID Config 
 
@@ -60,6 +63,8 @@
 3. Implement the plan 
 4. Document all of the above 
 
+---
+
 ## Workflow Unique ID 
 
 1. Similar to the User ID except these will give you a different unique ID every single time you run the `uid` command 
@@ -73,6 +78,8 @@
 7. Please create this implementation plan 
 8. Implement the plan 
 9. Document all of the above 
+
+---
 
 ## Workflow Creation 
 
@@ -104,6 +111,8 @@
 8. Implement the plan 
 9. Document all of the above, including the JSON objects use and the setup script 
 
+---
+
 ## Leftover From Integration Plan Notes 
 
 These were held over because of their relevance to the remaining implementation items that were detailed on the `NEW_USER_FLOW.md` document. 
@@ -124,13 +133,13 @@ These were held over because of their relevance to the remaining implementation 
   - Add progress bars and execution tracking 
     --> Probably do not need progress bars for execution tracking specifically, as we should leave these UI items to actual development of the UI, however we definitely still need the live stats and system metrics coming through for whatever the UI that is developed. 
 
+---
+
 ## Updating Any / All Config Collections 
 
   1. Making our system truely 'plug-and-play' is a big deal 
   2. All config collections should be well documented 
   3. All config JSON objects should have templates easily avaialable 
-
-## Mao Updates Config Collection 
 
 ### PROBLEM 
 
@@ -154,6 +163,8 @@ These were held over because of their relevance to the remaining implementation 
 2. Implement the plan 
 3. Document all of the above 
 
+---
+
 ## Technical Documentation 
 
 ### Notable Gaps 
@@ -167,6 +178,8 @@ These were held over because of their relevance to the remaining implementation 
 ### Full Documentation Audit 
 
 After all items are implemented, I'd like to do a full documentation audit. All documents should be reviewed carefully, first one at a time, then all together. There are currently many overlaps and, reading them straight through is a bit of a challenge. This should be our end goal: that they can be read straight through without confusion. 
+
+---
 
 ## Revamp the Claude Code Foundation UI Specs  
 
