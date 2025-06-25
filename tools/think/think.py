@@ -134,61 +134,40 @@ def validate_thinking_setup() -> Dict[str, Any]:
             "message": "Think tool validation failed"
         }
 
-@handle_errors(operation_name="get_thinking_capabilities", return_dict=True)
-def get_thinking_capabilities() -> Dict[str, Any]:
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
     """
-    Get information about thinking tool capabilities
+    Calculate estimated cost for thinking operations
     
+    Args:
+        params: Dictionary containing operation parameters
+        
     Returns:
-        Dict with capability information
+        Estimated cost in USD
     """
-    capabilities = {
-        "core_operations": [
-            "perform_thinking",
-            "enhance_thinking_prompt", 
-            "validate_thinking_setup",
-            "get_thinking_capabilities"
-        ],
-        "thinking_features": [
-            "Structured reasoning and analysis",
-            "Flexible thinking approaches (user-defined)",
-            "Context-aware thinking sessions",
-            "Result saving and documentation",
-            "Cost estimation and tracking"
-        ],
-        "flexibility": [
-            "No hardcoded frameworks or templates",
-            "User-defined thinking approaches",
-            "Adaptable to any domain or use case",
-            "Natural language thinking instructions"
-        ],
-        "model_compatibility": [
-            "claude-3-5-sonnet",
-            "claude-sonnet-4", 
-            "gpt-4",
-            "gpt-4-turbo",
-            "gemini-pro"
-        ],
-        "cost_structure": {
-            "base_cost": "~$0.01 per thinking session",
-            "factors": ["topic complexity", "context length", "model choice"]
-        }
+    operation = params.get("operation", "perform_thinking")
+    topic = params.get("topic", "")
+    context = params.get("context", "")
+    
+    # Base costs by operation type
+    operation_costs = {
+        "perform_thinking": 0.01,
+        "enhance_thinking_prompt": 0.005,
+        "validate_thinking_setup": 0.001,
+        "get_thinking_capabilities": 0.0
     }
     
-    return {
-        "status": "success",
-        "capabilities": capabilities,
-        "timestamp": datetime.now().isoformat(),
-        "message": "Think tool capabilities retrieved successfully"
-    }
+    base_cost = operation_costs.get(operation, 0.01)
+    
+    # Factor in complexity
+    estimated_tokens = len(topic) + len(context)
+    if estimated_tokens > 1000:
+        base_cost *= 1.3
+    elif estimated_tokens > 500:
+        base_cost *= 1.1
+    
+    return base_cost
 
-# Tool metadata for orchestrator discovery
-TOOL_METADATA = {
-    "name": "think",
-    "description": "Structured thinking and reasoning capabilities",
-    "version": "4.0.0",
-    "capabilities": ["reasoning", "analysis", "structured_thinking"],
-    "tags": ["core", "reasoning", "analysis", "thinking"],
-    "cost_estimate": 0.01,
-    "model_compatibility": ["claude-3-5-sonnet", "claude-sonnet-4", "gpt-4", "gpt-4-turbo", "gemini-pro"]
-} 
+
+# Removed get_thinking_capabilities() - metadata now belongs in tool_think.json
+# Removed TOOL_METADATA - capabilities now in JSON configuration 
