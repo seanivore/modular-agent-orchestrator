@@ -348,6 +348,15 @@ Issue #3: Result Error Checking
   - Uses result["success"] direct access (could cause KeyError)
   - Should use result.get("error") pattern for consistency
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/ui_dalle_generate.py`
+Issue #1: Function Naming Pattern
+  - Main function: display_dalle_result()
+  - Should be: display_dalle_generate_result() (to match tool naming pattern)
+Issue #2: Error Function Pattern
+  - Private error function: _display_error(result: Dict[str, Any], verbose: bool)
+  - Should be: display_error(error_msg: str) (to match standardized pattern)
+Issue #3: Error Handling in Main Function
+  - Uses result.get("error") but calls complex private function
+  - Should use standardized error display pattern
 4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/ui_file_operations.py`
 5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/ui_files_api.py`
 6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/ui_graphic_design.py`
