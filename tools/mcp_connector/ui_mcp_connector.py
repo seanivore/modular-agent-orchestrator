@@ -13,6 +13,53 @@ from rich import box
 
 console = Console()
 
+
+def display_mcp_connector_result(result: Dict[str, Any], verbose: bool = False) -> None:
+    """
+    Display MCP Connector operation results with beautiful formatting
+    
+    Args:
+        result: Result from MCP operations
+        verbose: Whether to show detailed information
+    """
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
+        return
+    
+    operation = result.get("operation", "unknown")
+    
+    if operation == "list_servers":
+        servers = result.get("servers", {})
+        tools = result.get("tools", {})
+        display_server_status(servers, verbose)
+        if tools:
+            display_available_tools(tools, verbose)
+    elif operation == "execute_tool":
+        display_execution_result(result, verbose)
+    elif operation == "register_server":
+        display_registration_result(result)
+    elif operation == "get_server_status":
+        servers = result.get("servers", {})
+        tools = result.get("tools", {})
+        display_mcp_summary(servers, tools)
+    else:
+        # Generic display for other operations
+        console.print("🔌 MCP Connector Operation Completed", style="bold green")
+        if verbose:
+            for key, value in result.items():
+                if key not in ["error", "operation"]:
+                    console.print(f"  {key}: {value}")
+
+
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="MCP Connector Error",
+        border_style="red"
+    )
+    console.print(panel)
+
 def display_server_status(servers: Dict[str, Dict[str, Any]], verbose: bool = False) -> None:
     """Display MCP server status in formatted table"""
     
@@ -101,7 +148,11 @@ def display_available_tools(tools: Dict[str, Dict[str, Any]], verbose: bool = Fa
 def display_execution_result(result: Dict[str, Any], verbose: bool = False) -> None:
     """Display MCP tool execution result"""
     
-    if result["success"]:
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
+        return
+        
+    if result.get("success", False):
         panel_style = "green"
         title = "✅ MCP Tool Execution Successful"
     else:
@@ -109,11 +160,11 @@ def display_execution_result(result: Dict[str, Any], verbose: bool = False) -> N
         title = "❌ MCP Tool Execution Failed"
     
     content = []
-    content.append(f"🖥️ Server: {result['server']}")
-    content.append(f"🛠️ Tool: {result['tool']}")
-    content.append(f"⏰ Time: {result['timestamp'].split('T')[1][:8] if 'T' in result['timestamp'] else result['timestamp']}")
+    content.append(f"🖥️ Server: {result.get('server', 'Unknown')}")
+    content.append(f"🛠️ Tool: {result.get('tool', 'Unknown')}")
+    content.append(f"⏰ Time: {result.get('timestamp', 'Unknown').split('T')[1][:8] if 'T' in result.get('timestamp', '') else result.get('timestamp', 'Unknown')}")
     
-    if result["success"]:
+    if result.get("success", False):
         if verbose and "result" in result:
             content.append("📊 Result:")
             if isinstance(result["result"], dict):
@@ -140,19 +191,23 @@ def display_execution_result(result: Dict[str, Any], verbose: bool = False) -> N
 def display_registration_result(result: Dict[str, Any]) -> None:
     """Display MCP server registration result"""
     
-    if result["status"] == "registered":
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
+        return
+        
+    if result.get("status") == "registered":
         panel_style = "green"
         title = "✅ MCP Server Registration Successful"
         content = [
-            f"🖥️ Server: {result['server_name']}",
-            f"🛠️ Tools Available: {result['tools_count']}",
+            f"🖥️ Server: {result.get('server_name', 'Unknown')}",
+            f"🛠️ Tools Available: {result.get('tools_count', 0)}",
             f"📋 Tools: {', '.join(result.get('tools', []))}"
         ]
     else:
         panel_style = "red"
         title = "❌ MCP Server Registration Failed"
         content = [
-            f"🖥️ Server: {result['server_name']}",
+            f"🖥️ Server: {result.get('server_name', 'Unknown')}",
             f"⚠️ Error: {result.get('error', 'Unknown error')}"
         ]
     
@@ -167,18 +222,7 @@ def display_registration_result(result: Dict[str, Any]) -> None:
     console.print()
 
 
-def display_error(operation: str, error: str) -> None:
-    """Display error message with consistent formatting"""
-    
-    panel = Panel(
-        f"⚠️ Operation: {operation}\n🚨 Error: {error}",
-        title="❌ MCP Connector Error",
-        border_style="red",
-        box=box.ROUNDED
-    )
-    
-    console.print(panel)
-    console.print()
+
 
 
 def display_mcp_summary(servers: Dict[str, Any], tools: Dict[str, Any]) -> None:

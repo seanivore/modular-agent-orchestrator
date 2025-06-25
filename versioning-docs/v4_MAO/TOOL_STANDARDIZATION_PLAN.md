@@ -391,6 +391,15 @@ Issue #3: Error Display Pattern
   - Uses inline error display: console.print(f"❌ Analysis Error: {result['error']}", style="red")
   - Should use Panel-based error display for consistency
 7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/ui_mcp_connector.py`
+Issue #1: Missing Primary Function
+  - No main display_mcp_connector_result() function
+  - Has individual operation functions but no primary dispatcher
+Issue #2: Error Function Pattern
+  - Error function: display_error(operation: str, error: str)
+  - Should be: display_error(error_msg: str) (to match standardized pattern)
+Issue #3: Direct Result Access
+  - Uses direct access result["success"] (could cause KeyError)
+  - Should use safer result.get() patterns
 8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/ui_perplexity_search.py`
 9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/ui_text_editor.py`
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/ui_think.py`
