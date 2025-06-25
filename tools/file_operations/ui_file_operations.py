@@ -11,26 +11,69 @@ from rich.text import Text
 from rich.tree import Tree
 from typing import Dict, Any, List
 from datetime import datetime
+from pathlib import Path
 
 console = Console()
 
+
+def display_file_operations_result(result: Dict[str, Any], verbose: bool = False) -> None:
+    """
+    Display File Operations operation results with beautiful formatting
+    
+    Args:
+        result: Result from file operations
+        verbose: Whether to show detailed information
+    """
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
+        return
+    
+    operation = result.get("operation", "unknown")
+    
+    if operation == "read_file":
+        display_file_read_result(result, verbose)
+    elif operation == "list_directory":
+        display_directory_listing(result, verbose)
+    elif operation == "get_file_info":
+        display_file_info(result, verbose)
+    elif operation == "search_files":
+        display_search_results(result, verbose)
+    elif operation == "read_multiple_files":
+        display_multiple_files_result(result, verbose)
+    elif operation in ["move_file", "delete_file", "delete_directory"]:
+        display_operation_result(result, operation, verbose)
+    elif operation == "validate_paths":
+        display_validation_results(result, verbose)
+    else:
+        display_operation_result(result, operation, verbose)
+
+
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="File Operations Error",
+        border_style="red"
+    )
+    console.print(panel)
+
 def display_file_operations_header(operation: str, file_path: str = "", verbose: bool = False):
     """Display file operations execution header"""
-    print(f"📄 File Operation: {operation.replace('_', ' ').title()}")
+    console.print(f"📄 File Operation: {operation.replace('_', ' ').title()}")
     if file_path:
-        print(f"📁 Target: {Path(file_path).name}")
-    print("="*60)
+        console.print(f"📁 Target: {Path(file_path).name}")
+    console.print("="*60)
     
     if verbose:
-        print(f"🕐 Started: {datetime.now().strftime('%H:%M:%S')}")
+        console.print(f"🕐 Started: {datetime.now().strftime('%H:%M:%S')}")
         if file_path:
-            print(f"🔗 Full Path: {file_path}")
+            console.print(f"🔗 Full Path: {file_path}")
 
 def display_file_read_result(result: Dict[str, Any], verbose: bool = False):
     """Display file reading results with beautiful formatting"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        display_error(result.get("error", "Unknown error"))
         return
     
     if result.get("status") == "success":
@@ -322,30 +365,30 @@ def display_file_operations_progress(message: str, step: int = None, total: int 
     else:
         progress = ""
     
-    print(f"⏳ {progress}{message}")
+    console.print(f"⏳ {progress}{message}")
 
 def display_file_tool_info(verbose: bool = False):
     """Display file operations tool information"""
-    print("🔧 Enhanced File Operations")
-    print("📝 Safe, efficient file and directory operations with comprehensive error handling")
-    print("💰 Cost: Free")
+    console.print("🔧 Enhanced File Operations")
+    console.print("📝 Safe, efficient file and directory operations with comprehensive error handling")
+    console.print("💰 Cost: Free")
     
-    print("\n🎯 Capabilities:")
-    print("   • File Management")
-    print("   • Data Access")
-    print("   • Directory Navigation")
-    print("   • File Safety")
+    console.print("\n🎯 Capabilities:")
+    console.print("   • File Management")
+    console.print("   • Data Access")
+    console.print("   • Directory Navigation")
+    console.print("   • File Safety")
     
-    print("\n📋 Use Cases:")
-    print("   • Reading Resources")
-    print("   • Organizing Work")
-    print("   • File Discovery")
-    print("   • Safe File Operations")
+    console.print("\n📋 Use Cases:")
+    console.print("   • Reading Resources")
+    console.print("   • Organizing Work")
+    console.print("   • File Discovery")
+    console.print("   • Safe File Operations")
     
     if verbose:
-        print("\n🏷️ Tags: core, files, essential, enhanced")
-        print("🤖 Model compatibility: all")
-        print("🔧 Functions: read_file, read_multiple_files, list_directory, get_file_info, move_file, search_files")
+        console.print("\n🏷️ Tags: core, files, essential, enhanced")
+        console.print("🤖 Model compatibility: all")
+        console.print("🔧 Functions: read_file, read_multiple_files, list_directory, get_file_info, move_file, search_files")
 
 def display_operation_result(result: Dict[str, Any], operation_name: str, verbose: bool = False):
     """Display file operation results (move, delete, etc.)"""
