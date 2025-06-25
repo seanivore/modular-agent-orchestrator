@@ -20,73 +20,39 @@
     "deliverables",
     "organization"
   ],
-  "file_paths": {
-    "main_module": "tools/files_api/files_api.py",
-    "button_generator": "tools/files_api/button_files_api.py", 
-    "ui_display": "tools/files_api/ui_files_api.py",
-    "tool_config": "tools/files_api/tool_files_api.json"
-  },
-  "parameters": {
-    "operation": {
-      "type": "string",
-      "required": true,
-      "description": "Files API operation to perform",
-      "options": [
-        "create_workspace",
-        "save_draft",
-        "prepare_handoff", 
-        "save_deliverables",
-        "get_workflow_files"
-      ]
+  "file_path": "tools/files_api/files_api.py",
+  "button_path": "tools/files_api/button_files_api.py",
+  "ui_path": "tools/files_api/ui_files_api.py",
+  "operations": {
+    "create_workspace": {
+      "description": "Create organized workspace for workflow file management",
+      "required_params": ["workflow_id"],
+      "optional_params": []
     },
-    "workflow_id": {
-      "type": "string", 
-      "required": true,
-      "description": "Workflow identifier for file organization"
+    "save_draft": {
+      "description": "Save draft content with versioning and organization",
+      "required_params": ["workflow_id", "content"],
+      "optional_params": ["draft_type", "phase"]
     },
-    "content": {
-      "type": "string",
-      "required": false,
-      "description": "Content to save (for draft operations)"
+    "prepare_handoff": {
+      "description": "Prepare materials package for agent-to-agent handoff",
+      "required_params": ["workflow_id", "agent_materials"],
+      "optional_params": ["phase"]
     },
-    "draft_type": {
-      "type": "string",
-      "default": "general",
-      "description": "Type of draft being saved"
+    "save_deliverables": {
+      "description": "Save final deliverables with organized naming",
+      "required_params": ["workflow_id", "deliverables"],
+      "optional_params": []
     },
-    "phase": {
-      "type": "string",
-      "required": false, 
-      "description": "Workflow phase identifier"
-    },
-    "deliverables": {
-      "type": "object",
-      "required": false,
-      "description": "Dictionary of deliverable name to content mappings"
-    },
-    "agent_materials": {
-      "type": "object", 
-      "required": false,
-      "description": "Materials package for agent handoff"
+    "get_workflow_files": {
+      "description": "Retrieve all files associated with a workflow",
+      "required_params": ["workflow_id"],
+      "optional_params": []
     }
   },
-  "workflow_integration": {
-    "handoff_support": true,
-    "draft_versioning": true,
-    "workspace_management": true,
-    "cost_tracking": true
-  },
-  "api_dependencies": {
-    "anthropic_files_api": {
-      "required": false,
-      "fallback": "local_file_system",
-      "description": "Primary storage via Anthropic Files API with local fallback"
-    }
-  },
-  "cache_strategy": "none",
-  "error_handling": {
-    "retry_attempts": 3,
-    "fallback_storage": "local_filesystem",
-    "graceful_degradation": true
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": false,
+    "error_handling": true
   }
 }

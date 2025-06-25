@@ -440,7 +440,20 @@ Issue #3: Non-Standard Operations Structure
   - Uses "functions" array → should be "operations" object
   - Uses "parameters" object → should be integrated into operations
 2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/code_execution/tool_code_execution.json`
+This file is ALREADY PERFECTLY STANDARDIZED! 🌟
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/tool_dalle_generate.json`
+Issue #1: Mixed ID Field Pattern
+  - Uses "tool_id": "dalle_generate" (should be "name" for consistency)
+  - Also has "name": "DALL-E Image Generation" (display name)
+  - Should use "name": "dalle_generate" as primary identifier
+Issue #2: Non-Standard Path Fields
+  - Uses "file_structure" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #3: Non-Standard Field Names
+  - "model_compatibility" → should be "models_supported"
+Issue #4: Operations Structure
+  - Uses extremely complex nested parameter objects with detailed type definitions
+  - Should use simplified operations structure (description, required_params, optional_params)
 4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/tool_file_operations.json`
 Issue #1: Mixed ID Field Pattern
   - Uses "id": "file_operations" (should be "name" for consistency)

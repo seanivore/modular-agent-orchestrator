@@ -1,9 +1,7 @@
 {
-  "tool_id": "dalle_generate",
-  "name": "DALL-E Image Generation",
-  "description": "AI-powered image generation using OpenAI's DALL-E with professional workflow and error recovery",
+  "name": "dalle_generate",
   "version": "4.0.0",
-  "category": "creative_tools",
+  "description": "AI-powered image generation using OpenAI's DALL-E with professional workflow and error recovery",
   "capabilities": [
     "image_generation",
     "creative_content", 
@@ -12,6 +10,8 @@
     "prompt_enhancement",
     "batch_processing"
   ],
+  "cost_estimate": 0.040,
+  "models_supported": ["all"],
   "tags": [
     "creative",
     "visual", 
@@ -22,402 +22,44 @@
     "images",
     "art"
   ],
-  "cost_estimate": 0.040,
-  "cost_currency": "USD",
-  "model_compatibility": ["all"],
-  "requires_api_key": true,
-  "api_provider": "openai",
-  
+  "file_path": "tools/dalle_generate/dalle_generate.py",
+  "button_path": "tools/dalle_generate/button_dalle_generate.py",
+  "ui_path": "tools/dalle_generate/ui_dalle_generate.py",
   "operations": {
     "generate_dalle_image": {
       "description": "Generate images using DALL-E API with comprehensive error handling",
-      "parameters": {
-        "prompt": {
-          "type": "string",
-          "required": true,
-          "description": "Image generation prompt",
-          "max_length": 4000
-        },
-        "size": {
-          "type": "string", 
-          "default": "1024x1024",
-          "description": "Image dimensions",
-          "options": ["256x256", "512x512", "1024x1024", "1792x1024", "1024x1792"]
-        },
-        "quality": {
-          "type": "string",
-          "default": "standard", 
-          "description": "Image quality level",
-          "options": ["standard", "hd"]
-        },
-        "style": {
-          "type": "string",
-          "default": "vivid",
-          "description": "Image style approach", 
-          "options": ["vivid", "natural"]
-        },
-        "n": {
-          "type": "integer",
-          "default": 1,
-          "min": 1,
-          "max": 4,
-          "description": "Number of images to generate"
-        },
-        "output_dir": {
-          "type": "string",
-          "default": "generated_images",
-          "description": "Output directory for images"
-        }
-      },
-      "returns": {
-        "type": "object",
-        "properties": {
-          "status": "success/error status",
-          "operation": "operation identifier",
-          "generated_images": "list of generated image details",
-          "download_errors": "list of any download errors",
-          "metadata": "generation metadata including cost and timing"
-        }
-      }
+      "required_params": ["prompt"],
+      "optional_params": ["size", "quality", "style", "n", "output_dir"]
     },
-    
     "enhance_dalle_prompt": {
       "description": "Enhance a basic prompt with flexible enhancement approach and focus",
-      "parameters": {
-        "basic_prompt": {
-          "type": "string",
-          "required": true,
-          "description": "Original prompt to enhance"
-        },
-        "enhancement_approach": {
-          "type": "string",
-          "default": "professional",
-          "description": "Approach to enhancement (flexible, user-defined)"
-        },
-        "enhancement_focus": {
-          "type": "string", 
-          "default": "quality",
-          "description": "Focus area for enhancement (flexible, user-defined)"
-        }
-      },
-      "returns": {
-        "type": "object",
-        "properties": {
-          "status": "success/error status",
-          "operation": "operation identifier", 
-          "original_prompt": "original prompt text",
-          "enhanced_prompt": "enhanced prompt text",
-          "enhancement_approach": "approach used",
-          "enhancement_focus": "focus area used",
-          "enhancements_applied": "details of applied enhancements"
-        }
-      }
+      "required_params": ["basic_prompt"],
+      "optional_params": ["enhancement_approach", "enhancement_focus"]
     },
-    
     "validate_dalle_setup": {
       "description": "Validate DALL-E API setup and configuration",
-      "parameters": {},
-      "returns": {
-        "type": "object",
-        "properties": {
-          "status": "success/error status",
-          "operation": "operation identifier",
-          "api_key_present": "boolean indicating if API key is present",
-          "api_key_valid_format": "boolean indicating if API key format is valid",
-          "setup_complete": "boolean indicating if setup is complete",
-          "issues": "list of setup issues found",
-          "suggestions": "list of setup suggestions"
-        }
-      }
+      "required_params": [],
+      "optional_params": []
     },
-    
     "batch_generate_images": {
       "description": "Generate multiple images with different prompts using shared parameters",
-      "parameters": {
-        "prompts": {
-          "type": "array",
-          "required": true,
-          "description": "List of prompts to generate images for",
-          "max_items": 10
-        },
-        "shared_params": {
-          "type": "object",
-          "description": "Shared parameters for all generations",
-          "properties": {
-            "size": "image dimensions",
-            "quality": "image quality level", 
-            "style": "image style approach",
-            "n": "number of images per prompt",
-            "output_dir": "output directory"
-          }
-        }
-      },
-      "returns": {
-        "type": "object",
-        "properties": {
-          "status": "completion status",
-          "operation": "operation identifier",
-          "summary": "batch generation summary with counts and costs",
-          "results": "individual results for each prompt"
-        }
-      }
+      "required_params": ["prompts"],
+      "optional_params": ["shared_params"]
     },
-    
     "get_dalle_image_info": {
       "description": "Get information about a generated image file",
-      "parameters": {
-        "image_path": {
-          "type": "string",
-          "required": true,
-          "description": "Path to the image file"
-        }
-      },
-      "returns": {
-        "type": "object",
-        "properties": {
-          "status": "success/error status",
-          "operation": "operation identifier",
-          "filepath": "absolute file path",
-          "filename": "file name",
-          "size_bytes": "file size in bytes",
-          "size_mb": "file size in MB",
-          "created": "creation timestamp",
-          "modified": "modification timestamp",
-          "dimensions": "image dimensions if available"
-        }
-      }
+      "required_params": ["image_path"],
+      "optional_params": []
     },
-    
     "get_dalle_capabilities": {
       "description": "Get information about DALL-E capabilities and limitations",
-      "parameters": {},
-      "returns": {
-        "type": "object",
-        "properties": {
-          "operations": "list of available operations",
-          "supported_models": "list of supported DALL-E models",
-          "supported_sizes": "list of supported image sizes",
-          "supported_qualities": "list of supported quality levels",
-          "supported_styles": "list of supported style options",
-          "features": "list of tool features",
-          "limitations": "tool limitations and constraints",
-          "cost_structure": "detailed cost information"
-        }
-      }
+      "required_params": [],
+      "optional_params": []
     }
   },
-  
-  "features": {
-    "image_generation": {
-      "description": "Generate high-quality images from text prompts",
-      "models_supported": ["dall-e-2", "dall-e-3"],
-      "max_images_per_request": 4,
-      "max_prompt_length": 4000
-    },
-    "prompt_enhancement": {
-      "description": "Enhance prompts for better image generation results",
-      "flexible_approaches": true,
-      "user_defined_focus": true
-    },
-    "batch_processing": {
-      "description": "Generate multiple images with different prompts",
-      "max_batch_size": 10,
-      "rate_limiting": "automatic delays between requests"
-    },
-    "cost_estimation": {
-      "description": "Accurate cost calculation and tracking",
-      "real_time_estimates": true,
-      "detailed_breakdown": true
-    },
-    "error_recovery": {
-      "description": "Comprehensive error handling and retry logic",
-      "max_retries": 3,
-      "exponential_backoff": true,
-      "rate_limit_handling": true
-    },
-    "metadata_tracking": {
-      "description": "Detailed metadata for all operations",
-      "auto_save": true,
-      "json_format": true
-    },
-    "file_management": {
-      "description": "Automatic file organization and naming",
-      "timestamp_naming": true,
-      "directory_creation": true
-    }
-  },
-  
-  "limitations": {
-    "requires_api_key": {
-      "description": "OpenAI API key required",
-      "setup_instructions": "Set OPENAI_API_KEY environment variable"
-    },
-    "max_prompt_length": {
-      "value": 4000,
-      "description": "Maximum characters in prompt"
-    },
-    "max_images_per_request": {
-      "value": 4,
-      "description": "Maximum images per single request"
-    },
-    "max_batch_size": {
-      "value": 10,
-      "description": "Maximum prompts per batch operation"
-    },
-    "dalle3_single_image_only": {
-      "description": "DALL-E 3 only supports generating 1 image at a time"
-    },
-    "rate_limits": {
-      "description": "Subject to OpenAI API rate limits",
-      "mitigation": "Automatic retry logic with exponential backoff"
-    },
-    "content_policy": {
-      "description": "Subject to OpenAI content policy restrictions",
-      "guidance": "Avoid prompts that violate OpenAI usage policies"
-    }
-  },
-  
-  "cost_structure": {
-    "currency": "USD",
-    "billing_model": "per_image",
-    "size_quality_costs": {
-      "256x256_standard": 0.016,
-      "256x256_hd": 0.018,
-      "512x512_standard": 0.018,
-      "512x512_hd": 0.020,
-      "1024x1024_standard": 0.040,
-      "1024x1024_hd": 0.080,
-      "1792x1024_standard": 0.080,
-      "1792x1024_hd": 0.120,
-      "1024x1792_standard": 0.080,
-      "1024x1792_hd": 0.120
-    },
-    "cost_factors": [
-      "image_size",
-      "quality_level", 
-      "number_of_images"
-    ]
-  },
-  
-  "setup_requirements": {
-    "api_key": {
-      "provider": "openai",
-      "environment_variable": "OPENAI_API_KEY",
-      "format": "sk-...",
-      "obtain_url": "https://platform.openai.com/api-keys"
-    },
-    "dependencies": {
-      "required": ["requests", "pathlib", "json", "datetime"],
-      "optional": ["PIL (for image dimension detection)"]
-    },
-    "permissions": {
-      "file_system": "write access to output directory",
-      "network": "HTTPS access to api.openai.com"
-    }
-  },
-  
-  "troubleshooting": {
-    "common_issues": {
-      "api_key_not_found": {
-        "symptoms": ["OpenAI API key not found error"],
-        "solutions": ["Set OPENAI_API_KEY environment variable", "Verify API key from OpenAI dashboard"]
-      },
-      "invalid_api_key_format": {
-        "symptoms": ["Invalid API key format error"],
-        "solutions": ["Ensure API key starts with 'sk-'", "Copy complete API key without truncation"]
-      },
-      "prompt_too_long": {
-        "symptoms": ["Prompt too long error"],
-        "solutions": ["Shorten prompt to under 4000 characters", "Use prompt enhancement to optimize length"]
-      },
-      "content_policy_violation": {
-        "symptoms": ["Bad request error", "Content policy violation"],
-        "solutions": ["Rephrase prompt to comply with OpenAI policies", "Avoid restricted content types"]
-      },
-      "rate_limit_exceeded": {
-        "symptoms": ["HTTP 429 error", "Rate limit messages"],
-        "solutions": ["Tool automatically handles with retry logic", "Reduce batch size if needed"]
-      },
-      "download_failures": {
-        "symptoms": ["Image download errors"],
-        "solutions": ["Check network connectivity", "Verify output directory permissions"]
-      }
-    }
-  },
-  
-  "buttons": {
-    "available_buttons": [
-      "create_dalle_generation_button",
-      "create_dalle_enhancement_button",
-      "create_dalle_validation_button", 
-      "create_dalle_batch_button",
-      "create_dalle_capabilities_button"
-    ],
-    "universal_compatibility": true,
-    "supported_models": [
-      "claude-sonnet-4",
-      "claude-haiku",
-      "gpt-4",
-      "gpt-3.5-turbo",
-      "gemini-pro"
-    ],
-    "features": [
-      "self_contained_execution",
-      "comprehensive_error_handling",
-      "cost_tracking",
-      "progress_indicators",
-      "retry_logic",
-      "metadata_generation"
-    ]
-  },
-  
-  "file_structure": {
-    "core_logic": "tools/dalle_generate/dalle_generate.py",
-          "ui_display": "tools/dalle_generate/ui_dalle_generate.py", 
-      "buttons": "tools/dalle_generate/button_dalle_generate.py",
-    "tool_registry": "configs/tool_registry/tool_dalle_generate.json",
-    "error_handling": "utilities/error_handling.py"
-  },
-  
-  "workflow_phase": {
-    "phase_name": "image_generation_phase",
-    "agent_role": "AI visual artist specialist with DALL-E expertise",
-    "task_instructions": "Generate high-quality images based on the creative requirements. Create detailed prompts and generate multiple variations.",
-    "input_sources": ["creative_output.md"],
-    "output_files": ["generated_images.md", "image_prompts.json", "visual_assets.md"],
-    "preferred_model": "dalle-3",
-    "task_type": "image_generation"
-  },
-  
   "integration": {
-    "orchestrator_compatible": true,
-    "discovery_method": "capability_based",
-    "handoff_support": true,
-    "agent_to_agent": true
-  },
-  
-  "examples": {
-    "basic_generation": {
-      "prompt": "A serene mountain landscape at sunset",
-      "size": "1024x1024",
-      "quality": "standard"
-    },
-    "enhanced_generation": {
-      "prompt": "A futuristic city skyline",
-      "size": "1792x1024", 
-      "quality": "hd",
-      "style": "vivid"
-    },
-    "batch_generation": {
-      "prompts": [
-        "A peaceful forest scene",
-        "An abstract geometric pattern",
-        "A vintage car on a country road"
-      ],
-      "shared_params": {
-        "size": "1024x1024",
-        "quality": "standard"
-      }
-    }
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true
   }
-} 
+}
