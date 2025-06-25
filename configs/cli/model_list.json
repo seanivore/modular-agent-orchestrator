@@ -1,0 +1,8 @@
+{
+  "command": "model_list",
+  "type": "standalone",
+  "terminal_flag": "--model-list",
+  "app_command": "/model-list",
+  "interface_method": "list_models",
+  "help": "List all available models"
+}

@@ -131,29 +131,33 @@ class UserIDGenerator:
         
         return user_id, explanation
 
+def show_help():
+    """Display help information"""
+    print("meid - Generate user IDs from usernames")
+    print("")
+    print("Usage:")
+    print("  meid username       Generate user ID for username")
+    print("  meid -e username    Generate user ID with explanation")
+    print("  meid -h             Show this help")
+    print("")
+    print("Examples:")
+    print("  meid seanivore      # user-1642")
+    print("  meid -e alice       # user-1161 | Steps: 5 chars -> ...")
+    print("")
+    print("Mathematical Operations:")
+    print("  Uses character count, doubled count, and ASCII values")
+    print("  Applies fibonacci, golden ratio, spiral, mirror, karmic operations")
+    print("  Same username always produces the same user ID")
+
 def main():
     if len(sys.argv) < 2:
-        print("meid - Generate user IDs from usernames")
-        print("")
-        print("Usage:")
-        print("  meid username       Generate user ID for username")
-        print("  meid -e username    Generate user ID with explanation")
-        print("  meid -h             Show this help")
-        print("")
-        print("Examples:")
-        print("  meid seanivore      # user-1642")
-        print("  meid -e alice       # user-1161 | Steps: 5 chars -> ...")
-        print("")
-        print("Mathematical Operations:")
-        print("  Uses character count, doubled count, and ASCII values")
-        print("  Applies fibonacci, golden ratio, spiral, mirror, karmic operations")
-        print("  Same username always produces the same user ID")
+        show_help()
         return
     
     arg = sys.argv[1].lower()
     
     if arg in ['-h', '--help', 'help']:
-        main()  # Show help
+        show_help()
         return
     
     elif arg in ['-e', '--explain', 'explain']:

@@ -1,6 +1,6 @@
 {
   "command": "setup",
-  "type": "needs_file",
+  "type": "needs_file_or_directory",
   "terminal_flag": "--setup",
   "app_command": "/setup",
   "interface_method": "setup",

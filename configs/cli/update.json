@@ -1,6 +1,6 @@
 {
   "command": "update",
-  "type": "needs_file",
+  "type": "needs_file_or_directory",
   "terminal_flag": "--update",
   "app_command": "/update",
   "interface_method": "update_workflow",

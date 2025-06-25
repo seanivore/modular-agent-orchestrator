@@ -1,0 +1,8 @@
+{
+  "command": "variables",
+  "type": "standalone",
+  "terminal_flag": "--variables",
+  "app_command": "/variables",
+  "interface_method": "list_variables",
+  "help": "List all workflow variables"
+}

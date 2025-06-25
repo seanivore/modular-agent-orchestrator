@@ -1,6 +1,6 @@
 {
   "command": "fix_it",
-  "type": "needs_file",
+  "type": "needs_file_or_directory",
   "terminal_flag": "--fix-it",
   "app_command": "/fix-it",
   "interface_method": "fix_workflow",

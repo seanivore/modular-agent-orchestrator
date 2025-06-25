@@ -7,46 +7,52 @@ set -e
 
 echo "🎯 Installing MAO v4 Quality Validator..."
 
+# Change to project root to avoid nested directories
+cd "$(dirname "$0")/../.."
+
 # Create scripts directory if it doesn't exist
 mkdir -p scripts/quality_validator
 
 # Copy the validator script
-echo "📄 Creating validator script..."
-cat > scripts/quality_validator/mao_validator.py << 'EOF'
-# The Python script would be copied here
-# For now, this is a placeholder that points to the artifact
-echo "Please copy the MAO Quality Validator Python code to this file"
-EOF
+echo "📄 Validator script already exists..."
+if [ ! -f "scripts/quality_validator/mao_validator.py" ]; then
+    echo "❌ Error: mao_validator.py not found!"
+    echo "Please ensure the Python validator script exists before running install."
+    exit 1
+fi
 
 # Make it executable
 chmod +x scripts/quality_validator/mao_validator.py
 
-# Create a convenient command script
-echo "🔧 Creating mao-validate command..."
-cat > scripts/quality_validator/mao-validate << 'EOF'
-#!/bin/bash
-
-# MAO Quality Validator Command
-# Usage: mao-validate [options]
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VALIDATOR_SCRIPT="$SCRIPT_DIR/mao_validator.py"
-
-if [ ! -f "$VALIDATOR_SCRIPT" ]; then
-    echo "❌ Error: Validator script not found at $VALIDATOR_SCRIPT"
-    echo "Please ensure the MAO Quality Validator is properly installed."
-    exit 1
-fi
-
-# Run the validator with all arguments passed through
-python3 "$VALIDATOR_SCRIPT" "$@"
-EOF
-
-# Make the command executable
-chmod +x scripts/quality_validator/mao-validate
-
-# Add to PATH (optional - create symlink in project root)
-ln -sf scripts/quality_validator/mao-validate ./mao-validate
+# Create command using Sean's standard pattern
+echo "🔧 Creating mao-validate command instructions..."
+echo ""
+echo "To create the mao-validate command, run these commands:"
+echo ""
+echo "# Create the command file:"
+echo "cat > ~/bin/mao-validate << 'EOF'"
+echo "#!/bin/bash"
+echo ""
+echo "# MAO Quality Validator Command"
+echo "# Usage: mao-validate [options]"
+echo ""
+echo "# Direct path to the validator script"
+echo "VALIDATOR_SCRIPT=\"$(pwd)/scripts/quality_validator/mao_validator.py\""
+echo ""
+echo "if [ ! -f \"\$VALIDATOR_SCRIPT\" ]; then"
+echo "    echo \"❌ Error: Validator script not found at \$VALIDATOR_SCRIPT\""
+echo "    echo \"Please ensure the MAO Quality Validator is properly installed.\""
+echo "    exit 1"
+echo "fi"
+echo ""
+echo "# Run the validator with all arguments passed through"
+echo "python3 \"\$VALIDATOR_SCRIPT\" \"\$@\""
+echo "EOF"
+echo ""
+echo "# Make the command executable:"
+echo "chmod +x ~/bin/mao-validate"
+echo ""
+echo "Then you can run: mao-validate from anywhere!"
 
 echo "✅ Installation complete!"
 echo ""

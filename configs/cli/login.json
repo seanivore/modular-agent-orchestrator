@@ -1,0 +1,8 @@
+{
+  "command": "login",
+  "type": "standalone",
+  "terminal_flag": "--login",
+  "app_command": "/login",
+  "interface_method": "login",
+  "help": "Login with a different User ID"
+}

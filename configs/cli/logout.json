@@ -1,0 +1,8 @@
+{
+  "command": "logout",
+  "type": "standalone",
+  "terminal_flag": "--logout",
+  "app_command": "/logout",
+  "interface_method": "logout",
+  "help": "Logout current User ID"
+}

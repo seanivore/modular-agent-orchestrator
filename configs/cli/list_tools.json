@@ -1,0 +1,8 @@
+{
+  "command": "list_tools",
+  "type": "standalone",
+  "terminal_flag": "--list-tools",
+  "app_command": "/list-tools",
+  "interface_method": "list_tools",
+  "help": "List all available tools"
+}

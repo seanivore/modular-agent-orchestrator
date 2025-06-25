@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# MAO Quality Validator Command
+# Usage: mao-validate [options]
+
+# Get the real path to this script (resolve symlinks - macOS compatible)
+if [ -L "${BASH_SOURCE[0]}" ]; then
+    # It's a symlink, resolve it
+    REAL_SCRIPT="$(readlink "${BASH_SOURCE[0]}")"
+    # If relative path, make it absolute
+    if [[ "$REAL_SCRIPT" != /* ]]; then
+        REAL_SCRIPT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$REAL_SCRIPT"
+    fi
+else
+    REAL_SCRIPT="${BASH_SOURCE[0]}"
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$REAL_SCRIPT")" && pwd)"
+VALIDATOR_SCRIPT="$SCRIPT_DIR/mao_validator.py"
+
+if [ ! -f "$VALIDATOR_SCRIPT" ]; then
+    echo "❌ Error: Validator script not found at $VALIDATOR_SCRIPT"
+    echo "Please ensure the MAO Quality Validator is properly installed."
+    exit 1
+fi
+
+# Run the validator with all arguments passed through
+python3 "$VALIDATOR_SCRIPT" "$@"
