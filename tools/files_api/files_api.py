@@ -9,6 +9,213 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from uuid import uuid4
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Standard cache instance
+cache = CacheManager()
+
+@handle_errors(operation_name="files_api", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate operation cost for budget planning
+    Standard cost estimation interface for MAO tools
+    
+    Args:
+        params: Operation parameters
+        
+    Returns:
+        Estimated cost in USD (Files API operations are typically free)
+    """
+    # Files API operations are typically low/no cost
+    operation = params.get("operation", "unknown")
+    
+    # Cost structure for different operations
+    operation_costs = {
+        "create_workspace": 0.0,
+        "save_draft": 0.0,
+        "prepare_handoff": 0.0,
+        "save_deliverables": 0.0,
+        "get_workflow_files": 0.0
+    }
+    
+    return operation_costs.get(operation, 0.0)
+
+@handle_errors(operation_name="create_workspace", return_dict=True)
+def create_workflow_workspace(workflow_id: str) -> Dict[str, Any]:
+    """
+    Create file structure for workflow
+    
+    Args:
+        workflow_id: Unique workflow identifier
+        
+    Returns:
+        Dict with workspace creation results
+    """
+    if not workflow_id:
+        return {"error": "Workflow ID is required"}
+    
+    # Check cache first
+    cache_key = f"workspace_{workflow_id}"
+    cached_result = cache.get_cached_analysis(cache_key, "files_api_workspace")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    try:
+        manager = FilesAPIManager()
+        workspace_structure = manager.create_workflow_workspace(workflow_id)
+        
+        result = {
+            "status": "success",
+            "workspace_structure": workspace_structure,
+            "workflow_id": workflow_id,
+            "operation": "create_workspace",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        # Cache the result
+        cache.cache_content_analysis(cache_key, json.dumps(result), "files_api_workspace")
+        
+        return result
+        
+    except Exception as e:
+        return {"error": f"Workspace creation failed: {str(e)}"}
+
+@handle_errors(operation_name="save_draft", return_dict=True)
+def save_workflow_draft(workflow_id: str, content: str, draft_type: str = "general", phase: str = None) -> Dict[str, Any]:
+    """
+    Save draft with automatic versioning
+    
+    Args:
+        workflow_id: Workflow identifier
+        content: Draft content
+        draft_type: Type of draft
+        phase: Optional workflow phase
+        
+    Returns:
+        Dict with draft save results
+    """
+    if not workflow_id or not content:
+        return {"error": "Workflow ID and content are required"}
+    
+    try:
+        manager = FilesAPIManager()
+        file_id = manager.save_draft(workflow_id, content, draft_type, phase)
+        
+        return {
+            "status": "success",
+            "file_id": file_id,
+            "draft_type": draft_type,
+            "phase": phase,
+            "content_length": len(content),
+            "operation": "save_draft",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        return {"error": f"Draft save failed: {str(e)}"}
+
+@handle_errors(operation_name="prepare_handoff", return_dict=True)
+def prepare_agent_handoff(workflow_id: str, agent_materials: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Package materials for agent handoff
+    
+    Args:
+        workflow_id: Workflow identifier
+        agent_materials: Materials to package for agent
+        
+    Returns:
+        Dict with handoff preparation results
+    """
+    if not workflow_id:
+        return {"error": "Workflow ID is required"}
+    
+    try:
+        manager = FilesAPIManager()
+        file_id = manager.prepare_agent_handoff(workflow_id, agent_materials)
+        
+        return {
+            "status": "success",
+            "file_id": file_id,
+            "materials_count": len(agent_materials),
+            "operation": "prepare_handoff",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        return {"error": f"Handoff preparation failed: {str(e)}"}
+
+@handle_errors(operation_name="save_deliverables", return_dict=True)
+def save_agent_deliverables(workflow_id: str, phase: str, deliverables: Dict[str, str]) -> Dict[str, Any]:
+    """
+    Save agent deliverables with organized structure
+    
+    Args:
+        workflow_id: Workflow identifier
+        phase: Workflow phase
+        deliverables: Dictionary of deliverable name to content mappings
+        
+    Returns:
+        Dict with deliverables save results
+    """
+    if not workflow_id or not deliverables:
+        return {"error": "Workflow ID and deliverables are required"}
+    
+    try:
+        manager = FilesAPIManager()
+        saved_files = manager.save_agent_deliverables(workflow_id, phase, deliverables)
+        
+        return {
+            "status": "success",
+            "saved_files": saved_files,
+            "deliverables_count": len(saved_files),
+            "phase": phase,
+            "operation": "save_deliverables",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        return {"error": f"Deliverables save failed: {str(e)}"}
+
+@handle_errors(operation_name="get_workflow_files", return_dict=True)
+def get_workflow_files(workflow_id: str) -> Dict[str, Any]:
+    """
+    Get all files associated with a workflow
+    
+    Args:
+        workflow_id: Workflow identifier
+        
+    Returns:
+        Dict with workflow files listing
+    """
+    if not workflow_id:
+        return {"error": "Workflow ID is required"}
+    
+    # Check cache first
+    cache_key = f"workflow_files_{workflow_id}"
+    cached_result = cache.get_cached_analysis(cache_key, "files_api_files")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    try:
+        manager = FilesAPIManager()
+        workflow_files = manager.get_workflow_files(workflow_id)
+        
+        result = {
+            "status": "success",
+            "workflow_files": workflow_files,
+            "total_files": sum(len(files) for files in workflow_files.values()),
+            "operation": "get_workflow_files",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        # Cache the result (short-term since files change)
+        cache.cache_content_analysis(cache_key, json.dumps(result), "files_api_files")
+        
+        return result
+        
+    except Exception as e:
+        return {"error": f"File listing failed: {str(e)}"}
 
 class FilesAPIManager:
     """Manages workflow files and agent handoffs using Anthropic Files API"""
