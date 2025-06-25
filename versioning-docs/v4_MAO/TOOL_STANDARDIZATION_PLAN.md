@@ -125,17 +125,17 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
    - Confirmed old file that violates Memory MCP strategy ✅
    - Update any remaining references ✅
 
-### Phase 2: Tool Standardization (Session 2)
+### Phase 2: Tool Standardization (Session 2) ✅
 **Focus**: One tool at a time, each file, complete audit and fix
 
 **Standardization Checklist per Tool, per File:**
-- [ ] CacheManager properly imported and used
-- [ ] Single cache instance (no duplicates)
-- [ ] Standard `estimate_cost()` function (remove non-standard names)
-- [ ] Proper error handling decorators
-- [ ] Consistent caching pattern (get → process → cache)
-- [ ] No TODO comments or placeholder code
-- [ ] Remove hardcoded metadata/capabilities from logic files
+- [x] CacheManager properly imported and used
+- [x] Single cache instance (no duplicates)
+- [x] Standard `estimate_cost()` function (remove non-standard names)
+- [x] Proper error handling decorators
+- [x] Consistent caching pattern (get → process → cache)
+- [x] No TODO comments or placeholder code
+- [x] Remove hardcoded metadata/capabilities from logic files
 
 **Tools to Standardize:**
 1: brave_search.py 
@@ -297,25 +297,28 @@ button_code_execution.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
 - [ ] Updated paths to actual MAO directory structure
 
 **Files to Standardize:**
-1. button_brave_search.py ✅ (Already good)
+1. button_brave_search.py 
 2. button_dalle_generate.py
 3. button_file_operations.py (Complex - needs restructure)
 4. button_graphic_design.py  
-5. button_perplexity_search.py ✅ (Already good)
+5. button_perplexity_search.py 
 6. button_text_editor.py (Fix import paths)
 7. button_think.py
 8. button_web_search.py
+9. button_mcp_connector.py
+10. button_code_execution.py
+11. button_files_api.py
 
 ### Phase 4: UI and JSON File Audit (Session 4)
 **Focus**: Complete missing files and audit existing
 
-**Create Missing Files:**
-- tools/code_execution/ui_code_execution.py
-- tools/code_execution/tool_code_execution.json
-- tools/files_api/ui_files_api.py  
-- tools/files_api/tool_files_api.json
-- tools/mcp_connector/ui_mcp_connector.py
-- tools/mcp_connector/tool_mcp_connector.json
+**Create Missing Files:** ✅
+- tools/code_execution/ui_code_execution.py ✅
+- tools/code_execution/tool_code_execution.json ✅
+- tools/files_api/ui_files_api.py  ✅
+- tools/files_api/tool_files_api.json ✅
+- tools/mcp_connector/ui_mcp_connector.py ✅
+- tools/mcp_connector/tool_mcp_connector.json ✅
 
 **Audit Existing UI Files:**
 - Consistent Rich console formatting
