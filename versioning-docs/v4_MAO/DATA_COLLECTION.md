@@ -48,4 +48,32 @@
   - Most accurate models 
   - Most cost efficient models 
   - Average tokens per workflow 
-  - Difference in token usage between models  
+  - Difference in token usage between models 
+
+- **User-AI Interaction Behavior Metrics** 
+  - Messaging demeanor 
+  - Off topic conversation 
+  - Conversation length 
+  - Conversation style 
+  - Conversation tone 
+  - Conversation topic 
+  - Conversation topic diversity 
+  - Conversation topic depth 
+  - Conversation topic breadth 
+  - Conversation topic complexity 
+  - Conversation topic novelty 
+  - Conversation frequency 
+
+- **User Agentic Automation Need Metrics** 
+  - How often does the user ask for help 
+  - How often does the user ask for help with a specific task 
+  - Categories of types of tasks the user is asking for help with 
+  - Open or closed-ended workflow
+  - How much freedom does the User give the AI 
+  - How much freedome does User give AI to complete the task by adjusting the workflow 
+
+*TRANSLATE INTO APPLICATION FUNCTIONALITY* 
+
+- Number of /goal workflows created 
+- Number of time user created JSON themselves 
+- Percent User writes for their workflow JSON 
