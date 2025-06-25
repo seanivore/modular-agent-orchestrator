@@ -409,9 +409,9 @@ uid     # That's literally it. Just run that tiny command.
 
 **Activation Process:**
 
-1. **Context Retrieval**: Claude pulls workflow memory and logs using unique ID
+1. **Context Retrieval**: Claude pulls workflow memory and logs using unique workflow ID
 2. **Agent Preparation**: Creates button snippets for tools and callbacks
-3. **Material Handoff**: Provides agents with deliverables, token limits, auto-save reminders
+3. **Material Handoff**: Provides agents with deliverables, token limits, auto-save reminders, and live token counter document tool 
 4. **Live Monitoring**: Real-time UI tracking with audio notifications
 5. **Agent Coordination**: Direct communication between agents and orchestrator Claude
 

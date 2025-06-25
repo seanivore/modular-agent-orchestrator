@@ -1,77 +1,34 @@
-# Final Implementation Details
+# Final Implementation Items 
 
-## Audit & Deleting of Implementation Files 
+## Leftover From Integration Plan Notes 
 
-1. Then overview the documentation gaps file to make it clearer as to what is needed in the docs. 
+### Confirm 'Orchestrator Integration' Re:
+  - Connect `goal()` method to real `WorkflowOrchestrator` --> cannot find this term in codebase so must not be done 
+  - Implement workflow state management for continue/review
+  - Add real cost tracking and progress monitoring 
 
-2. Check in on this "REMAINING INTEGRATION WORK"
+### Confirm 'File System Integration' Re:
+  - Connect setup/update commands to actual JSON workflow processing
+  - Implement workspace management for deliverable organization --> explain? 
+  - Add file validation and error handling --> for? the CLI arguments and slach commands? 
 
-    - **Orchestrator Integration**
-    - Connect `goal()` method to real `WorkflowOrchestrator`
-    - Implement workflow state management for continue/review
-    - Add real cost tracking and progress monitoring
+### Confirm 'Real-Time Features' Re:
+  - Connect stats to actual system metrics
+  - Implement live workflow monitoring
+  - Add progress bars and execution tracking 
+    --> Probably do not need progress bars for execution tracking specifically, as we should leave these UI items to actual development of the UI, however we definitely still need the live stats and system metrics coming through for whatever the UI that is developed. 
 
-    - **File System Integration**   
-    - Connect setup/update commands to actual JSON workflow processing
-    - Implement workspace management for deliverable organization
-    - Add file validation and error handling
+## Technical Documentation 
 
-    - **Real-Time Features**
-    - Connect stats to actual system metrics
-    - Implement live workflow monitoring
-    - Add progress bars and execution tracking
+### Notable Gaps 
 
-3. Check in on this "REMAINING INTEGRATION WORK"
+1. On `2_MAO_SYSTEM_FILES.md` at LINE 159 "### ORCHESTRATION: Epic Memory `orchestrator/memory_mcp.py` Recall" needs details from implementation 
 
-  - In the document `7_MAO_USER_GUIDE.md` look to the following lines 
-  - Please confirm if they are addressed in the codebase 
-  - If they are, please add more details to the technical documentation to make that clear 
-  - If they are not, please accomplish this, put on task list, etc. 
-    - 147 = Place setup script here 
-    - 188 = Why does this say "developer pattern" and is it our JSON ?? 
-    - 230 = Note that in app they can run their custom command with just the slash and their command
-    - 258 = confirm that this directory structure is what will be created 
-    - 404 = Live token counter during work
-    - 405 = Button snippets for each tool
-    - 406 = Direct Claude callback for help
-    - 407 = Auto-save document tools
-    - 408 = Parallel execution support
-    - 436 = Memory MCP Integration        <-- this is complete and should have been added 
-    - 447 = Files API Workflow Handoffs   <-- this is complete and should have been added
+2. On `3_MAO_ARCHITECTURE.md` at LINE 270 "# interfaces/terminal/conversation_interface.py" is not a file that exists 
 
-  - In the document `2_MAO_SYSTEM_FILES.md` look to the following lines 
-    - 158 = old `memory.py` details; update to `Memory MCP` strategy; delete `orchestrator/memory.py`
-
-  - For all of `3_MAO_ARCHITECTURE.md` I think we need to get into the hard details faster because the written word stuff is duplicated across the documents. 
-  - In the document `3_MAO_ARCHITECTURE.md` look to the following lines 
-    - 145 to 149 = are these hard coded?? How can they not be? Because it isn't plug-and-play if this is hard coded. Particularly confused because just above it does say "Entry point has no knowledge of what commands exist" 
-    - 151 to 156 = seems like this might be about old `memory.py` and needs update to `Memory MCP` 
-    - 243 to 263 = looks like it needs details from our implementation 
-    - 267 to 484 = new but needs to be spread out and fill in other gaps, AND REMOVE ALL "IMPLEMENTATION" AND "STATUS" emojis 
-    - 509 = if this is th setup script it needs to be posted more broadly and put in the proper directory 
-    - 618 = if this is the JSON then it needs to be shared broadly, saved appropriately, and altered based on the other version 
-    - 660 = all of this is also in `7_MAO_USER_GUIDE.md`; can't have drafts, forgot the script 
-    - 690 = should have this from implementation 
-    - 769 = waiting for terminal implementation  
-
-  - For all of `4_MAO_EXTENSION_GUIDE.md` lets clean it up a bunch, move it to last, and then it needs to have the arguments and slash commands added for being modular -- how to add and remove those. 
-  - For all of `5_MAO_PROTECTION_RULES.md` I think we need to clean it up as well. Look at the `0_TECH_DOC_CONTENTS.md` for all the new rules. 
+3. On `3_MAO_ARCHITECTURE.md` at LINE 509 "Setup script processes config and creates executable command" needs to be updated with the real setup script (see `NEW_USER_FLOW.md` to finalize this an JSON), 618 the JSON can be placed 
 
 ## Tasks, Re: `NEW_USER_FLOW.md` 
-
-## HELD OVER FROM ABOVE 'AUDIT & DELETING OF IMPLEMENTATION FILES' SECTION: 
-
-- Workflow state management for continue/review - PARTIALLY DONE (workflow_state.py exists)
-- Missing Setup Script System
-  - No evidence of the setup script system from Plan 1.4 (conversation → JSON → executable command)
-  - Setup script location unclear (should be in proper directory per line 147 in user guide)
-- File System Integration:
-  - Setup/update commands to actual JSON workflow processing - MISSING
-  - Workspace management for deliverable organization - NEEDS VERIFICATION
-  - File validation and error handling - NEEDS VERIFICATION
-- Real-Time Features
-  - Progress bars and execution tracking - MISSING
-
 
 1. Error with `meid` command 
    - When you run just `meid` it shows the help message 
@@ -95,8 +52,8 @@
      - Look for gaps, inaccuracies, areas for clarifications, opportunities for extrapolating, etc.  
    - **Review the new JSON objects and their new workflow** 
      - Re: temp files, directory in setup script, and multiple objects 
-   - Throughout the document I added "*App UI/UX*" notation 
-     - **See if we can add more**
+     - Throughout the document I added "*App UI/UX*" notation 
+   - **See if we can add more**
      - Help build the visual expectations for the application 
      - Make it easier to construct the application we want 
 5. As defined in the `NEW_USER_FLOW.md` document, saving User ID application configuration settings
@@ -106,12 +63,6 @@
    - The application will load these settings on subsequent launches 
    - The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
    - Default behavior is to launch with settings from the last session user; this and other defaults are items able to be adjusted on the application setting configuration screen 
-6. Once NEW_USER_FLOW.md is complete 
-   - Use it to create a better `7_MAO_USER_GUIDE.md` document 
-   - Use it as a basis, but add more details like code patterns, etc. 
-7.  User ID and Workflow ID 
-   - This has been added to the cli-config JSON directory 
-   - It needs to be better documented in the tech docs 
 
 ## Updating our config collections to be a true 'plug-and-play' feature
 
