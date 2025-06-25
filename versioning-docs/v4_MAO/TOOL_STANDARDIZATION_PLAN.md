@@ -476,6 +476,12 @@ Issue #3: Non-Standard Field Names
 Issue #4: Operations Structure
   - Uses complex nested parameter objects → ✅ Should use simplified operations structure
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
+Issue #1: Non-Standard Path Fields
+  - Uses "file_structure" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #2: Operations Structure
+  - Uses complex nested parameter objects with detailed type definitions
+  - Should use simplified operations structure (description, required_params, optional_params)
 
 ### Phase 5: Orchestrator Integration Audit (Session 5)
 **Focus**: Ensure all orchestrator touchpoints are updated
