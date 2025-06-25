@@ -56,7 +56,7 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
             "model": model,
             "search_context": search_context,
             "timestamp": datetime.now().isoformat(),
-            "estimated_cost": _calculate_perplexity_cost(model),
+            "estimated_cost": estimate_cost({"model": model}),
             "execution_method": "perplexity_api",
             "api_endpoint": "https://api.perplexity.ai/chat/completions"
         }
@@ -105,7 +105,7 @@ def perform_enhanced_research(query: str, research_approach: str = "comprehensiv
             "analysis_focus": analysis_focus,
             "model": model,
             "timestamp": datetime.now().isoformat(),
-            "estimated_cost": _calculate_perplexity_cost(model, enhanced=True),
+            "estimated_cost": estimate_cost({"model": model, "enhanced": True}),
             "execution_method": "perplexity_api_enhanced",
             "api_endpoint": "https://api.perplexity.ai/chat/completions"
         }
@@ -302,17 +302,20 @@ def check_api_configuration() -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"API configuration check failed: {str(e)}"}
 
-def _calculate_perplexity_cost(model: str, enhanced: bool = False) -> float:
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
     """
     Calculate estimated cost for Perplexity search operation
     
     Args:
-        model: Perplexity model being used
-        enhanced: Whether this is an enhanced research operation
+        params: Dictionary containing operation parameters
         
     Returns:
         Estimated cost in USD
     """
+    model = params.get("model", "llama-3.1-sonar-large-128k-online")
+    enhanced = params.get("enhanced", False)
+    
     # Base costs by model (estimated)
     model_costs = {
         "llama-3.1-sonar-small-128k-online": 0.015,
@@ -328,49 +331,4 @@ def _calculate_perplexity_cost(model: str, enhanced: bool = False) -> float:
     
     return base_cost
 
-@handle_errors(operation_name="get_perplexity_capabilities", return_dict=True)
-def get_perplexity_capabilities() -> Dict[str, Any]:
-    """
-    Get information about Perplexity search capabilities and limitations
-    
-    Returns:
-        Dict with capability information
-    """
-    return {
-        "operations": [
-            "perform_perplexity_search",
-            "perform_enhanced_research",
-            "validate_perplexity_query",
-            "get_research_suggestions",
-            "check_api_configuration"
-        ],
-        "search_approach": "variable_input_philosophy",
-        "research_types": "user_defined_no_restrictions",
-        "supported_models": [
-            "llama-3.1-sonar-small-128k-online",
-            "llama-3.1-sonar-large-128k-online", 
-            "llama-3.1-sonar-huge-128k-online"
-        ],
-        "features": [
-            "ai_reasoning",
-            "source_citations",
-            "real_time_information",
-            "comprehensive_analysis",
-            "related_questions",
-            "multi_perspective_analysis"
-        ],
-        "limitations": {
-            "requires_api_key": True,
-            "rate_limits": "subject_to_perplexity_api_limits",
-            "max_query_length": 500,
-            "min_query_length": 1,
-            "timeout_seconds": 120
-        },
-        "cost_structure": {
-            "small_model": 0.015,
-            "large_model": 0.025,
-            "huge_model": 0.040,
-            "enhanced_multiplier": 1.5,
-            "currency": "USD"
-        }
-    } 
+# Removed get_perplexity_capabilities() - metadata now belongs in tool_perplexity_search.json 
