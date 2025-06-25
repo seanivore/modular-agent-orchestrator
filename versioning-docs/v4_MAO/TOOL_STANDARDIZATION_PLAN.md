@@ -289,25 +289,25 @@ button_code_execution.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
 **Focus**: Single entry point pattern for all button files
 
 **Standardization Checklist:**
-- [ ] Single `create_button_snippet()` function as entry point
-- [ ] Operation-based dispatch pattern
-- [ ] Fix broken import paths (no _modular references)
-- [ ] Remove standalone snippet functions from public interface
-- [ ] Consistent parameter handling
-- [ ] Updated paths to actual MAO directory structure
+- [x] Single `create_button_snippet()` function as entry point
+- [x] Operation-based dispatch pattern
+- [x] Fix broken import paths (no _modular references)
+- [x] Remove standalone snippet functions from public interface
+- [x] Consistent parameter handling
+- [x] Updated paths to actual MAO directory structure
 
 **Files to Standardize:**
-1. button_brave_search.py 
-2. button_dalle_generate.py
-3. button_file_operations.py (Complex - needs restructure)
-4. button_graphic_design.py  
-5. button_perplexity_search.py 
-6. button_text_editor.py (Fix import paths)
-7. button_think.py
-8. button_web_search.py
-9. button_mcp_connector.py
-10. button_code_execution.py
-11. button_files_api.py
+1. button_brave_search.py ✅ (Already good)
+2. button_dalle_generate.py ✅ (Standardized cost + imports)
+3. button_file_operations.py ✅ (Complete rewrite - removed 600+ line duplication)
+4. button_graphic_design.py ✅ (Fixed multiple entry points)
+5. button_perplexity_search.py ✅ (Fixed hardcoded paths)
+6. button_text_editor.py ✅ (Fixed import paths)
+7. button_think.py ✅ (Fixed multiple entry points)
+8. button_web_search.py ✅ (Complete rewrite - fixed broken imports)
+9. button_mcp_connector.py ✅ (Complete rewrite - removed hardcoded paths)
+10. button_code_execution.py ✅ (Complete rewrite - proper MAO integration)
+11. button_files_api.py ✅ (Complete rewrite - was completely disconnected)
 
 ### Phase 4: UI and JSON File Audit (Session 4)
 **Focus**: Complete missing files and audit existing
@@ -326,10 +326,34 @@ button_code_execution.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
 - Verbose/concise modes
 - Color scheme consistency
 
+1. `/Users/seanivore/Development/modular-agent-orchestrator/tools/brave_search/ui_brave_search.py`
+2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/code_execution/ui_code_execution.py`
+3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/ui_dalle_generate.py`
+4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/ui_file_operations.py`
+5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/ui_files_api.py`
+6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/ui_graphic_design.py`
+7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/ui_mcp_connector.py`
+8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/ui_perplexity_search.py`
+9. `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/ui_text_editor.py`
+10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/ui_think.py`
+11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/ui_web_search.py` 
+
 **Audit Existing JSON Files:**
 - Correct file paths after architectural moves
 - Consistent schema structure
 - Complete capability descriptions
+
+1. `/Users/seanivore/Development/modular-agent-orchestrator/tools/brave_search/tool_brave_search.json`
+2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/code_execution/tool_code_execution.json`
+3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/tool_dalle_generate.json`
+4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/tool_file_operations.json`
+5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/tool_files_api.json`
+6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
+7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
+8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
+9. `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
+10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
+11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
 
 ### Phase 5: Orchestrator Integration Audit (Session 5)
 **Focus**: Ensure all orchestrator touchpoints are updated
