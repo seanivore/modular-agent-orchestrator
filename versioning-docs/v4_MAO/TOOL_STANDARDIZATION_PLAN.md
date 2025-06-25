@@ -464,6 +464,17 @@ Issue #2: Operations Structure
   - Uses complex nested parameter objects with detailed type definitions
   - Should use simplified operations structure (description, required_params, optional_params)
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
+Issue #1: Mixed ID Field Pattern
+  - Uses "tool_id": "think" (should be "name" for consistency)
+  - Also has "name": "Think Tool" (display name)
+  - Should use "name": "think" as primary identifier
+Issue #2: Non-Standard Path Fields
+  - Uses "file_structure" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #3: Non-Standard Field Names
+  - "model_compatibility" → should be "models_supported"
+Issue #4: Operations Structure
+  - Uses complex nested parameter objects → ✅ Should use simplified operations structure
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
 
 ### Phase 5: Orchestrator Integration Audit (Session 5)
