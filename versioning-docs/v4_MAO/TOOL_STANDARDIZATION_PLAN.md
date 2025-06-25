@@ -432,11 +432,22 @@ Issue #1: Error Display Pattern
 2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/code_execution/tool_code_execution.json`
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/tool_dalle_generate.json`
 4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/tool_file_operations.json`
+Issue #1: Mixed ID Field Pattern
+  - Uses "id": "file_operations" (should be "name" for consistency)
+  - Also has "name": "File Operations" (display name)
+  - Should use "name": "file_operations" as primary identifier
+Issue #2: Missing Standard Fields
+  - Missing file_path, button_path, ui_path fields
+  - Missing operations object structure
+  - Missing integration object
+Issue #3: Non-Standard Field Names
+  - "model_compatibility" → should be "models_supported"
+  - "functions" → should be "operations"
 5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/tool_files_api.json`
 6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
 7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
 8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
-9. `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
+9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
 

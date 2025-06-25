@@ -1,8 +1,7 @@
 {
-  "id": "file_operations",
-  "name": "File Operations",
-  "description": "Comprehensive file and directory operations with safety checks and error handling",
+  "name": "file_operations",
   "version": "4.0.0",
+  "description": "Comprehensive file and directory operations with safety checks and error handling",
   "capabilities": [
     "file_reading",
     "directory_listing", 
@@ -11,6 +10,8 @@
     "file_management",
     "path_validation"
   ],
+  "cost_estimate": 0.001,
+  "models_supported": ["all"],
   "tags": [
     "core",
     "files",
@@ -18,186 +19,54 @@
     "essential",
     "safe_operations"
   ],
-  "cost_estimate": 0.0,
-  "model_compatibility": ["all"],
-  "functions": [
-    {
-      "name": "read_file",
+  "file_path": "tools/file_operations/file_operations.py",
+  "button_path": "tools/file_operations/button_file_operations.py",
+  "ui_path": "tools/file_operations/ui_file_operations.py",
+  "operations": {
+    "read_file": {
       "description": "Read a single file with comprehensive safety checks and encoding fallback",
-      "parameters": {
-        "file_path": {
-          "type": "string",
-          "description": "Path to the file to read",
-          "required": true
-        },
-        "encoding": {
-          "type": "string", 
-          "description": "Primary encoding to try (defaults to utf-8)",
-          "default": "utf-8"
-        },
-        "max_size_mb": {
-          "type": "number",
-          "description": "Maximum file size in MB (defaults to 10.0)",
-          "default": 10.0
-        }
-      },
-      "returns": "Dict with file content, metadata, or error details"
+      "required_params": ["file_path"],
+      "optional_params": ["encoding", "max_size_mb"]
     },
-    {
-      "name": "read_multiple_files",
+    "read_multiple_files": {
       "description": "Read multiple files with progress tracking and error handling",
-      "parameters": {
-        "file_paths": {
-          "type": "array",
-          "description": "List of file paths to read",
-          "required": true
-        },
-        "fail_fast": {
-          "type": "boolean",
-          "description": "Stop on first error if True",
-          "default": false
-        }
-      },
-      "returns": "Dict with batch read results and summary"
+      "required_params": ["file_paths"],
+      "optional_params": ["fail_fast"]
     },
-    {
-      "name": "list_directory",
+    "list_directory": {
       "description": "List directory contents with metadata and sorting",
-      "parameters": {
-        "directory_path": {
-          "type": "string",
-          "description": "Path to directory to list",
-          "required": true
-        },
-        "pattern": {
-          "type": "string",
-          "description": "Glob pattern to match (defaults to '*')",
-          "default": "*"
-        },
-        "include_hidden": {
-          "type": "boolean",
-          "description": "Include hidden files/directories",
-          "default": false
-        }
-      },
-      "returns": "Dict with directory listing and metadata"
+      "required_params": ["directory_path"],
+      "optional_params": ["pattern", "include_hidden"]
     },
-    {
-      "name": "search_files",
+    "search_files": {
       "description": "Search for files and directories matching pattern",
-      "parameters": {
-        "directory": {
-          "type": "string",
-          "description": "Directory to search in",
-          "required": true
-        },
-        "pattern": {
-          "type": "string",
-          "description": "Search pattern to match against names",
-          "required": true
-        },
-        "recursive": {
-          "type": "boolean",
-          "description": "Search subdirectories if True",
-          "default": true
-        },
-        "case_sensitive": {
-          "type": "boolean",
-          "description": "Case sensitive matching if True",
-          "default": false
-        }
-      },
-      "returns": "Dict with search results and metadata"
+      "required_params": ["directory", "pattern"],
+      "optional_params": ["recursive", "case_sensitive"]
     },
-    {
-      "name": "get_file_info",
+    "get_file_info": {
       "description": "Get comprehensive file information and metadata",
-      "parameters": {
-        "file_path": {
-          "type": "string",
-          "description": "Path to file or directory to analyze",
-          "required": true
-        }
-      },
-      "returns": "Dict with comprehensive file information"
+      "required_params": ["file_path"],
+      "optional_params": []
     },
-    {
-      "name": "move_file",
+    "move_file": {
       "description": "Move or rename files and directories safely",
-      "parameters": {
-        "source": {
-          "type": "string",
-          "description": "Source file or directory path",
-          "required": true
-        },
-        "destination": {
-          "type": "string",
-          "description": "Destination path",
-          "required": true
-        },
-        "overwrite": {
-          "type": "boolean",
-          "description": "Allow overwriting existing files if True",
-          "default": false
-        }
-      },
-      "returns": "Dict with operation results or error details"
+      "required_params": ["source", "destination"],
+      "optional_params": ["overwrite"]
     },
-    {
-      "name": "delete_file",
+    "delete_file": {
       "description": "Delete files or directories safely",
-      "parameters": {
-        "file_path": {
-          "type": "string",
-          "description": "Path to file or directory to delete",
-          "required": true
-        },
-        "force": {
-          "type": "boolean",
-          "description": "Force deletion of directories and their contents",
-          "default": false
-        }
-      },
-      "returns": "Dict with operation results or error details"
+      "required_params": ["file_path"],
+      "optional_params": ["force"]
     },
-    {
-      "name": "validate_paths",
+    "validate_paths": {
       "description": "Validate multiple file paths and return status information",
-      "parameters": {
-        "paths": {
-          "type": "array",
-          "description": "List of file paths to validate",
-          "required": true
-        }
-      },
-      "returns": "Dict with validation results for each path"
+      "required_params": ["paths"],
+      "optional_params": []
     }
-  ],
-  "button_operations": [
-    "read_file",
-    "read_multiple_files", 
-    "list_directory",
-    "search_files",
-    "get_file_info",
-    "move_file",
-    "delete_file",
-    "validate_paths"
-  ],
-  "ui_display_modes": [
-    "clean",
-    "verbose",
-    "agent_handoff"
-  ],
-  "error_handling": {
-    "safety_checks": true,
-    "encoding_fallback": true,
-    "permission_handling": true,
-    "size_limits": true,
-    "graceful_degradation": true
   },
-  "performance": {
-    "supports_batch_operations": true,
-    "memory_efficient": true,
-    "progress_tracking": true
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true
   }
-} 
+}
