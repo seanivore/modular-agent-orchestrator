@@ -79,7 +79,7 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
             }
         
         # Calculate cost estimate
-        estimated_cost = _calculate_dalle_cost(size, quality, n)
+        estimated_cost = estimate_cost({"size": size, "quality": quality, "n": n})
         
         # Create output directory
         try:
@@ -520,18 +520,19 @@ def get_dalle_image_info(image_path: str) -> Dict[str, Any]:
     except Exception as e:
         return {"error": f"Image info retrieval failed: {str(e)}"}
 
-def _calculate_dalle_cost(size: str, quality: str, n: int) -> float:
+def estimate_cost(params: Dict[str, Any]) -> float:
     """
-    Calculate estimated cost for DALL-E image generation
+    Estimate cost for DALL-E image generation
     
     Args:
-        size: Image size
-        quality: Image quality
-        n: Number of images
+        params: Dict with size, quality, n parameters
         
     Returns:
         Estimated cost in USD
     """
+    size = params.get("size", "1024x1024")
+    quality = params.get("quality", "standard") 
+    n = params.get("n", 1)
     # Cost per image based on size and quality
     cost_per_image = {
         "256x256": {"standard": 0.016, "hd": 0.018},
@@ -544,71 +545,4 @@ def _calculate_dalle_cost(size: str, quality: str, n: int) -> float:
     base_cost = cost_per_image.get(size, {}).get(quality, 0.040)
     return base_cost * n
 
-@handle_errors(operation_name="get_dalle_capabilities", return_dict=True)
-def get_dalle_capabilities() -> Dict[str, Any]:
-    """
-    Get information about DALL-E capabilities and limitations
-    
-    Returns:
-        Dict with capability information
-    """
-    return {
-        "operations": [
-            "generate_dalle_image",
-            "enhance_dalle_prompt",
-            "validate_dalle_setup",
-            "batch_generate_images",
-            "get_dalle_image_info"
-        ],
-        "supported_models": [
-            "dall-e-2",
-            "dall-e-3"
-        ],
-        "supported_sizes": [
-            "256x256",
-            "512x512", 
-            "1024x1024",
-            "1792x1024",
-            "1024x1792"
-        ],
-        "supported_qualities": [
-            "standard",
-            "hd"
-        ],
-        "supported_styles": [
-            "vivid",
-            "natural"
-        ],
-        "features": [
-            "image_generation",
-            "prompt_enhancement",
-            "batch_processing",
-            "cost_estimation",
-            "error_recovery",
-            "metadata_tracking",
-            "file_management"
-        ],
-        "limitations": {
-            "requires_api_key": True,
-            "max_prompt_length": 4000,
-            "max_images_per_request": 4,
-            "max_batch_size": 10,
-            "dalle3_single_image_only": True,
-            "rate_limits": "subject_to_openai_api_limits"
-        },
-        "cost_structure": {
-            "currency": "USD",
-            "size_quality_costs": {
-                "256x256_standard": 0.016,
-                "256x256_hd": 0.018,
-                "512x512_standard": 0.018,
-                "512x512_hd": 0.020,
-                "1024x1024_standard": 0.040,
-                "1024x1024_hd": 0.080,
-                "1792x1024_standard": 0.080,
-                "1792x1024_hd": 0.120,
-                "1024x1792_standard": 0.080,
-                "1024x1792_hd": 0.120
-            }
-        }
-    } 
+# Capabilities moved to tool_dalle_generate.json 

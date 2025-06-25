@@ -161,10 +161,18 @@ button_brave_search.py (Button file): ❌ NEEDS FIXES
 ```
 2. dalle_generate.py 
 ```
-dalle_generate.py 
-ui_dalle_generate.py
-tool_dalle_generate.json
-button_dalle_generate.py
+dalle_generate.py: ⚠️ NEEDS MINOR FIXES
+  - Has _calculate_dalle_cost() instead of standard estimate_cost()
+  - Has get_dalle_capabilities() with hardcoded metadata (belongs in JSON)
+ui_dalle_generate.py: ✅ GOOD
+tool_dalle_generate.json: ✅ EXCELLENT
+button_dalle_generate.py: 🚨 MAJOR ISSUES
+  - MASSIVE file that duplicates ALL logic instead of importing
+  - Inconsistent function naming (create_button_snippet vs others)
+  - Has get_dalle_button_metadata() with hardcoded metadata
+  - Cost calculation duplicated multiple times throughout
+  - No standardized estimate_cost() function
+  - Uses estimated_cost variable inconsistently
 ```
 3. file_operations.py 
 ```
