@@ -371,6 +371,15 @@ Issue #4: Inconsistent Function Naming
   - Individual functions are well-named
   - Missing standardized primary function
 5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/ui_files_api.py`
+Issue #1: Function Naming Pattern
+  - Main function: display_files_api_result()
+  - Should be: display_files_api_result() (actually this one is correct!)
+Issue #2: Error Function Pattern
+  - Error function: display_error(result: Dict[str, Any], interface: str = "terminal")
+  - Should be: display_error(error_msg: str) (to match standardized pattern)
+Issue #3: Web Interface Inconsistency
+  - Uses print() instead of console.print() for web interface
+  - Should be consistent with Rich console usage
 6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/ui_graphic_design.py`
 7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/ui_mcp_connector.py`
 8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/ui_perplexity_search.py`

@@ -21,8 +21,8 @@ def display_files_api_result(result: Dict[str, Any], interface: str = "terminal"
         interface: "terminal" or "web"
     """
     
-    if result.get("status") == "error":
-        display_error(result, interface)
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
         return
     
     if interface == "terminal":
@@ -218,20 +218,14 @@ def display_generic_result(result: Dict[str, Any]) -> None:
         console.print(details_table)
 
 
-def display_error(result: Dict[str, Any], interface: str = "terminal") -> None:
-    """Display error information"""
-    error_msg = result.get("error", "Unknown error occurred")
-    
-    if interface == "terminal":
-        error_panel = Panel(
-            f"❌ Error: {error_msg}",
-            title="Files API Error",
-            style="bold red"
-        )
-        console.print(error_panel)
-    else:
-        # Web interface error display
-        print(f"Error: {error_msg}")
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="Files API Error",
+        border_style="red"
+    )
+    console.print(panel)
 
 
 def display_web_results(result: Dict[str, Any]) -> None:
@@ -239,19 +233,19 @@ def display_web_results(result: Dict[str, Any]) -> None:
     # Simple text output for web interface
     operation = result.get("operation", "files_api")
     
-    if result.get("status") == "error":
-        print(f"❌ Files API Error: {result.get('error', 'Unknown error')}")
+    if result.get("error"):
+        console.print(f"❌ Files API Error: {result.get('error', 'Unknown error')}")
         return
     
-    print(f"✅ Files API {operation} completed successfully")
+    console.print(f"✅ Files API {operation} completed successfully")
     
     # Display key result information
     for key, value in result.items():
         if key not in ["status", "cost"]:
-            print(f"  {key}: {value}")
+            console.print(f"  {key}: {value}")
     
     cost = result.get("cost", 0.0)
-    print(f"💰 Cost: ${cost:.4f}")
+    console.print(f"💰 Cost: ${cost:.4f}")
 
 
 def display_cost_estimate(cost: float, verbose: bool = False) -> None:
@@ -267,8 +261,8 @@ def display_cost_estimate(cost: float, verbose: bool = False) -> None:
 
 def display_operation_summary(results: Dict[str, Any], verbose: bool = False) -> None:
     """Display a summary of Files API operations"""
-    if "error" in results:
-        console.print("❌ Operation failed", style="red bold")
+    if results.get("error"):
+        display_error(results.get("error", "Unknown error"))
         return
     
     operation = results.get("operation", "Unknown")
