@@ -1,22 +1,39 @@
 #!/usr/bin/env python3
 """
-Code Execution Tool Workflow-Integrated Execution System
-Transforms human buttons from static snippets into executable code with tracking
+Code Execution Tool - Claude API Integration
+Execute Python code using Claude's secure sandboxed environment
 """
 
 import json
 import uuid
 from datetime import datetime
 from typing import Dict, List, Optional, Any
-from pathlib import Path
+import anthropic
+
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Standard cache instance
+cache = CacheManager()
 
 class CodeExecutionTool:
-    """Enhanced code execution with workflow tracking and MCP integration"""
+    """Claude Code Execution API integration with workflow tracking"""
     
     def __init__(self):
-        # Lazy load to avoid circular imports
+        self.anthropic_client = None
         self._memory_mcp = None
         self._files_api = None
+        
+    def _get_anthropic_client(self):
+        """Get Anthropic client with code execution beta header"""
+        if self.anthropic_client is None:
+            self.anthropic_client = anthropic.Anthropic(
+                default_headers={
+                    "anthropic-beta": "code-execution-2025-05-22"
+                }
+            )
+        return self.anthropic_client
         
     @property
     def memory_mcp(self):
@@ -30,324 +47,291 @@ class CodeExecutionTool:
     def files_api(self):
         """Lazy load Files API manager"""
         if self._files_api is None:
-            from orchestrator.files_api import FilesAPIManager
+            from tools.files_api.files_api import FilesAPIManager
             self._files_api = FilesAPIManager()
         return self._files_api
     
-    def execute_human_button(self, button_code: str, workflow_id: str, context: Dict = None) -> Dict[str, Any]:
-        """Execute human button code with comprehensive workflow tracking"""
+    @handle_errors(operation_name="code_execution", return_dict=True)
+    @retry_with_backoff(max_retries=2, base_delay=1.0, exceptions=(APIError,))
+    def execute_code(self, code: str, workflow_id: str = None, container_id: str = None, 
+                    model: str = "claude-sonnet-4") -> Dict[str, Any]:
+        """Execute Python code using Claude's Code Execution API"""
         
         execution_id = f"exec-{uuid.uuid4().hex[:8]}"
-        context = context or {}
         
-        # Log execution start in Memory MCP
-        self.memory_mcp.update_workflow_state(
-            workflow_id,
-            f"Code execution started: {execution_id} - {context.get('tool_name', 'unknown_tool')}"
-        )
+        # Check cache first
+        cache_key = f"code_execution|{hash(code)}|{container_id or 'new'}"
+        cached_result = cache.get_cached_analysis(cache_key, "code_execution")
+        if cached_result:
+            return json.loads(cached_result)
         
         try:
-            # Prepare execution environment with workflow context
-            exec_env = self._prepare_environment(workflow_id, context, execution_id)
+            client = self._get_anthropic_client()
             
-            # Execute code with Claude Code Execution tool
-            # In real implementation, this would use the actual Claude Code execution
-            result = self._execute_code(button_code, exec_env)
+            # Prepare request parameters
+            request_params = {
+                "model": f"claude-{model.replace('claude-', '')}" if not model.startswith('claude-') else model,
+                "max_tokens": 4096,
+                "messages": [{
+                    "role": "user", 
+                    "content": f"Execute this Python code:\n\n```python\n{code}\n```"
+                }],
+                "tools": [{
+                    "type": "code_execution_20250522",
+                    "name": "code_execution"
+                }]
+            }
             
-            # Save any generated files via Files API
-            file_ids = []
-            if result.get('files'):
-                for filename, content in result['files'].items():
-                    file_id = self.files_api.save_draft(
-                        workflow_id, 
-                        content, 
-                        f"execution-{execution_id}",
-                        filename
-                    )
-                    file_ids.append(file_id)
+            # Reuse container if provided
+            if container_id:
+                request_params["container"] = container_id
             
-            # Update workflow state with success
-            self.memory_mcp.update_workflow_state(
-                workflow_id,
-                f"Code execution completed: {execution_id} - {len(file_ids)} files generated"
-            )
+            # Log execution start
+            if workflow_id and self.memory_mcp:
+                self.memory_mcp.update_workflow_state(
+                    workflow_id,
+                    f"Code execution started: {execution_id}"
+                )
             
-            return {
-                "success": True,
+            # Execute via Claude API
+            response = client.messages.create(**request_params)
+            
+            # Parse execution results
+            result = self._parse_execution_response(response, execution_id)
+            
+            # Log execution completion
+            if workflow_id and self.memory_mcp:
+                status = "success" if result["success"] else "failed"
+                self.memory_mcp.update_workflow_state(
+                    workflow_id,
+                    f"Code execution {status}: {execution_id}"
+                )
+            
+            # Cache successful results
+            if result["success"]:
+                cache.cache_content_analysis(cache_key, json.dumps(result), "code_execution")
+            
+            return result
+            
+        except Exception as e:
+            error_result = {
+                "success": False,
                 "execution_id": execution_id,
-                "workflow_id": workflow_id,
-                "files_created": file_ids,
-                "result": result,
+                "error": str(e),
                 "timestamp": datetime.now().isoformat()
             }
             
-        except Exception as e:
-            # Log execution failure
-            self.memory_mcp.update_workflow_state(
-                workflow_id,
-                f"Code execution failed: {execution_id} - {str(e)}"
+            if workflow_id and self.memory_mcp:
+                self.memory_mcp.update_workflow_state(
+                    workflow_id,
+                    f"Code execution error: {execution_id} - {str(e)}"
+                )
+            
+            return error_result
+    
+    def _parse_execution_response(self, response, execution_id: str) -> Dict[str, Any]:
+        """Parse Claude API response for code execution results"""
+        
+        result = {
+            "success": False,
+            "execution_id": execution_id,
+            "container_id": getattr(response, 'container', {}).get('id'),
+            "stdout": "",
+            "stderr": "",
+            "return_code": None,
+            "files": [],
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        # Extract execution results from response content
+        for content_block in response.content:
+            if content_block.type == "code_execution_tool_result":
+                tool_result = content_block.content
+                
+                if hasattr(tool_result, 'type') and tool_result.type == "code_execution_result":
+                    result["stdout"] = getattr(tool_result, 'stdout', '')
+                    result["stderr"] = getattr(tool_result, 'stderr', '')
+                    result["return_code"] = getattr(tool_result, 'return_code', 0)
+                    result["success"] = result["return_code"] == 0
+                    
+                    # Extract any generated files
+                    if hasattr(tool_result, 'content'):
+                        for file_item in tool_result.content:
+                            if hasattr(file_item, 'file_id'):
+                                result["files"].append({
+                                    "file_id": file_item.file_id,
+                                    "filename": getattr(file_item, 'filename', 'output'),
+                                    "type": getattr(file_item, 'type', 'unknown')
+                                })
+                
+                elif hasattr(tool_result, 'type') and tool_result.type == "code_execution_tool_result_error":
+                    result["error"] = getattr(tool_result, 'error_code', 'unknown_error')
+                    result["success"] = False
+        
+        return result
+    
+    @handle_errors(operation_name="code_execution_with_files", return_dict=True)
+    def execute_code_with_files(self, code: str, file_ids: List[str], workflow_id: str = None,
+                               model: str = "claude-sonnet-4") -> Dict[str, Any]:
+        """Execute code with Files API uploads"""
+        
+        try:
+            client = anthropic.Anthropic(
+                default_headers={
+                    "anthropic-beta": "code-execution-2025-05-22,files-api-2025-04-14"
+                }
             )
             
+            # Prepare message content with file references
+            content = [{"type": "text", "text": f"Execute this Python code:\n\n```python\n{code}\n```"}]
+            
+            # Add file uploads to content
+            for file_id in file_ids:
+                content.append({
+                    "type": "container_upload",
+                    "file_id": file_id
+                })
+            
+            response = client.messages.create(
+                model=f"claude-{model.replace('claude-', '')}" if not model.startswith('claude-') else model,
+                max_tokens=4096,
+                messages=[{
+                    "role": "user",
+                    "content": content
+                }],
+                tools=[{
+                    "type": "code_execution_20250522",
+                    "name": "code_execution"
+                }]
+            )
+            
+            execution_id = f"exec-{uuid.uuid4().hex[:8]}"
+            result = self._parse_execution_response(response, execution_id)
+            
+            # Log file-based execution
+            if workflow_id and self.memory_mcp:
+                self.memory_mcp.update_workflow_state(
+                    workflow_id,
+                    f"Code execution with {len(file_ids)} files: {execution_id}"
+                )
+            
+            return result
+            
+        except Exception as e:
             return {
                 "success": False,
-                "execution_id": execution_id,
-                "workflow_id": workflow_id,
                 "error": str(e),
                 "timestamp": datetime.now().isoformat()
             }
     
-    def _prepare_environment(self, workflow_id: str, context: Dict, execution_id: str) -> Dict[str, Any]:
-        """Prepare execution environment with workflow context"""
+    @handle_errors(operation_name="download_execution_files", return_list=True)
+    def download_execution_files(self, file_ids: List[str], workflow_id: str = None) -> List[Dict[str, Any]]:
+        """Download files created during code execution"""
         
-        # Get workflow context from Memory MCP
-        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
-        
-        # Prepare environment variables
-        env = {
-            "WORKFLOW_ID": workflow_id,
-            "EXECUTION_ID": execution_id,
-            "WORKFLOW_CONTEXT": workflow_context,
-            "EXECUTION_CONTEXT": context,
-            "FILES_API_AVAILABLE": True,
-            "MEMORY_MCP_AVAILABLE": True
-        }
-        
-        return env
-    
-    def _execute_code(self, code: str, env: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute code with environment (mock implementation)"""
-        
-        # In real implementation, this would:
-        # 1. Use Claude Code Execution tool
-        # 2. Inject environment variables
-        # 3. Capture output and files
-        # 4. Return structured results
-        
-        # Mock execution for development
-        mock_result = {
-            "output": f"Mock execution of code with workflow {env['WORKFLOW_ID']}",
-            "files": {
-                "result.txt": f"Execution result for {env['EXECUTION_ID']}",
-                "log.json": json.dumps({
-                    "execution_id": env['EXECUTION_ID'],
-                    "workflow_id": env['WORKFLOW_ID'],
-                    "timestamp": datetime.now().isoformat(),
-                    "status": "completed"
-                }, indent=2)
-            },
-            "execution_time": 1.2,
-            "success": True
-        }
-        
-        return mock_result
-    
-    def create_executable_button_snippet(self, tool_name: str, workflow_id: str, 
-                                       agent_context: Dict = None, tool_config: Dict = None) -> str:
-        """Generate executable button snippet for specific tool"""
-        
-        agent_context = agent_context or {}
-        tool_config = tool_config or {}
-        
-        # Track button creation
-        self.memory_mcp.update_workflow_state(
-            workflow_id,
-            f"Executable button created: {tool_name}"
+        client = anthropic.Anthropic(
+            default_headers={
+                "anthropic-beta": "files-api-2025-04-14"
+            }
         )
         
-        # Generate self-contained executable snippet
-        executable_snippet = f'''
-"""
-Executable MAO Tool: {tool_name}
-Workflow ID: {workflow_id}
-Auto-generated executable snippet with workflow tracking
-"""
-
-import json
-import uuid
-from datetime import datetime
-from pathlib import Path
-
-# === WORKFLOW CONTEXT ===
-WORKFLOW_ID = "{workflow_id}"
-TOOL_NAME = "{tool_name}"
-EXECUTION_ID = str(uuid.uuid4())[:8]
-
-AGENT_CONTEXT = {json.dumps(agent_context, indent=2)}
-TOOL_CONFIG = {json.dumps(tool_config, indent=2)}
-
-print(f"🛠️  Starting {{TOOL_NAME}} execution: {{EXECUTION_ID}}")
-print(f"🔗 Workflow: {{WORKFLOW_ID}}")
-
-try:
-    # === TOOL IMPLEMENTATION ===
-    {self._get_tool_implementation(tool_name, tool_config)}
-    
-    # === EXECUTION WRAPPER ===
-    def execute_with_tracking():
-        """Execute tool with comprehensive tracking"""
+        downloaded_files = []
         
-        print(f"▶️  Executing {{TOOL_NAME}}...")
-        
-        # Run tool-specific logic
-        result = main_tool_function(AGENT_CONTEXT, TOOL_CONFIG)
-        
-        # Save results (files automatically uploaded via Code Execution)
-        created_files = []
-        if result.get('files'):
-            for file_name, content in result['files'].items():
-                output_file = f"workflow-{{WORKFLOW_ID}}-{{EXECUTION_ID}}-{{file_name}}"
+        for file_id in file_ids:
+            try:
+                # Get file metadata
+                file_metadata = client.beta.files.retrieve_metadata(file_id)
                 
-                # Write file (Code Execution tool handles upload)
-                with open(output_file, 'w') as f:
-                    f.write(content)
-                created_files.append(output_file)
+                # Download file content
+                file_content = client.beta.files.download(file_id)
                 
-                print(f"💾 Created: {{output_file}}")
+                downloaded_files.append({
+                    "file_id": file_id,
+                    "filename": file_metadata.filename,
+                    "size": file_metadata.size_bytes,
+                    "content": file_content.content,
+                    "success": True
+                })
+                
+                # Save to Files API if workflow provided
+                if workflow_id and self.files_api:
+                    self.files_api.save_draft(
+                        workflow_id,
+                        file_content.content.decode('utf-8') if isinstance(file_content.content, bytes) else file_content.content,
+                        f"execution-output",
+                        file_metadata.filename
+                    )
+                
+            except Exception as e:
+                downloaded_files.append({
+                    "file_id": file_id,
+                    "error": str(e),
+                    "success": False
+                })
         
-        # Display results
-        print(f"✅ {{TOOL_NAME}} execution complete!")
-        print(f"📁 Files created: {{len(created_files)}}")
-        print(f"📊 Result summary: {{result.get('summary', 'No summary available')}}")
-        
-        # Return structured data for agent callback
-        return {{
-            "workflow_id": WORKFLOW_ID,
-            "execution_id": EXECUTION_ID,
-            "tool_name": TOOL_NAME,
-            "success": True,
-            "files": created_files,
-            "result": result,
-            "timestamp": datetime.now().isoformat()
-        }}
+        return downloaded_files
     
-    # Execute the tool
-    final_result = execute_with_tracking()
-    
-    print("\\n" + "="*50)
-    print(f"🎯 AGENT CALLBACK INSTRUCTIONS:")
-    print(f"1. Execution complete for workflow: {{WORKFLOW_ID}}")
-    print(f"2. Files saved and accessible via Code Execution")
-    print(f"3. Return with execution results to continue workflow")
-    print("="*50)
-    
-except Exception as e:
-    print(f"❌ {{TOOL_NAME}} execution failed: {{str(e)}}")
-    print(f"🔗 Workflow: {{WORKFLOW_ID}} - Execution: {{EXECUTION_ID}}")
-    raise
-'''
+    def create_persistent_container(self, workflow_id: str = None) -> Dict[str, Any]:
+        """Create a persistent container for multi-step execution"""
         
-        return executable_snippet
-    
-    def _get_tool_implementation(self, tool_name: str, tool_config: Dict) -> str:
-        """Get tool-specific implementation code"""
-        
-        # This would be dynamically loaded from each tool's button file
-        # For now, providing a generic implementation template
-        
-        generic_implementation = '''
-    def main_tool_function(context, config):
-        """Tool-specific implementation - dynamically loaded"""
-        
-        # Generic tool execution template
-        result = {
-            "summary": f"Executed {TOOL_NAME} with context",
-            "files": {
-                "output.md": f"# {TOOL_NAME} Results\\n\\nExecution completed successfully.",
-                "metadata.json": json.dumps({
-                    "tool": TOOL_NAME,
-                    "execution_id": EXECUTION_ID,
-                    "workflow_id": WORKFLOW_ID,
-                    "context": context,
-                    "config": config
-                }, indent=2)
-            },
-            "metrics": {
-                "execution_time": 1.0,
-                "success": True
+        try:
+            client = self._get_anthropic_client()
+            
+            # Create container with initial code
+            response = client.messages.create(
+                model="claude-sonnet-4",
+                max_tokens=1024,
+                messages=[{
+                    "role": "user",
+                    "content": "Initialize workspace for code execution. Print 'Container ready.'"
+                }],
+                tools=[{
+                    "type": "code_execution_20250522",
+                    "name": "code_execution"
+                }]
+            )
+            
+            container_id = getattr(response, 'container', {}).get('id')
+            expires_at = getattr(response, 'container', {}).get('expires_at')
+            
+            if workflow_id and self.memory_mcp:
+                self.memory_mcp.update_workflow_state(
+                    workflow_id,
+                    f"Created persistent container: {container_id}"
+                )
+            
+            return {
+                "success": True,
+                "container_id": container_id,
+                "expires_at": expires_at,
+                "timestamp": datetime.now().isoformat()
             }
-        }
-        
-        return result
-'''
-        
-        # TODO: Load actual tool implementation
-        # tool_module = importlib.import_module(f"tools.{tool_name}.button_{tool_name}")
-        # return tool_module.get_implementation_code()
-        
-        return generic_implementation
-    
-    def handle_agent_return(self, workflow_id: str, execution_results: Dict[str, Any]) -> Dict[str, Any]:
-        """Process agent return with execution results"""
-        
-        execution_id = execution_results.get('execution_id', 'unknown')
-        
-        # Retrieve workflow context from Memory MCP
-        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
-        
-        # Process any files created during execution
-        processed_files = []
-        if execution_results.get('files'):
-            for file_path in execution_results['files']:
-                # Files are accessible because they were uploaded via Code Execution
-                try:
-                    # In real implementation, would read from Files API
-                    file_content = f"Mock content for {file_path}"
-                    processed_files.append({
-                        "path": file_path,
-                        "content": file_content,
-                        "accessible": True
-                    })
-                except Exception as e:
-                    processed_files.append({
-                        "path": file_path,
-                        "error": str(e),
-                        "accessible": False
-                    })
-        
-        # Update workflow state with agent return
-        self.memory_mcp.update_workflow_state(
-            workflow_id,
-            f"Agent returned with execution results: {execution_id} - {len(processed_files)} files"
-        )
-        
-        return {
-            "workflow_context": workflow_context,
-            "execution_results": execution_results,
-            "processed_files": processed_files,
-            "next_phase_ready": True,
-            "timestamp": datetime.now().isoformat()
-        }
-    
-    def get_execution_status(self, workflow_id: str) -> List[Dict[str, Any]]:
-        """Get all executions for a workflow"""
-        
-        # In real implementation, would query Memory MCP for execution history
-        # For now, return mock data
-        return [
-            {
-                "execution_id": "exec-abc123",
-                "tool_name": "web_search",
-                "status": "completed",
-                "files_created": 2,
-                "timestamp": "2025-06-20T14:30:00"
-            },
-            {
-                "execution_id": "exec-def456", 
-                "tool_name": "text_editor",
-                "status": "in_progress",
-                "files_created": 0,
-                "timestamp": "2025-06-20T14:35:00"
+            
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e),
+                "timestamp": datetime.now().isoformat()
             }
-        ]
 
 
-# === CONVENIENCE FUNCTIONS ===
+# REQUIRED: Standard cost estimation function
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate operation cost for budget planning"""
+    
+    # Code execution pricing: $0.05 per session-hour (minimum 5 minutes)
+    execution_time_minutes = params.get("execution_time_minutes", 5)  # Minimum 5 minutes
+    session_hours = max(execution_time_minutes / 60, 5/60)  # At least 5 minutes
+    
+    execution_cost = session_hours * 0.05
+    
+    # Additional costs for file processing
+    file_count = len(params.get("file_ids", []))
+    file_processing_cost = file_count * 0.001  # Small cost per file
+    
+    return execution_cost + file_processing_cost
 
+
+# Factory function
 def create_code_execution_tool() -> CodeExecutionTool:
-    """Factory function for Code Execution Tool"""
+    """Create Code Execution Tool instance"""
     return CodeExecutionTool()
-
-def execute_tool_button(tool_name: str, workflow_id: str, context: Dict = None) -> str:
-    """Quick function to generate executable button"""
-    tool = create_code_execution_tool()
-    return tool.create_executable_button_snippet(tool_name, workflow_id, context)

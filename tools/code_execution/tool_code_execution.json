@@ -1,0 +1,70 @@
+{
+  "name": "code_execution",
+  "version": "1.0.0",
+  "description": "Claude Code Execution API Integration - Execute Python code in secure sandboxed environment",
+  "capabilities": [
+    "python_code_execution",
+    "file_processing",
+    "data_analysis",
+    "visualization_generation",
+    "persistent_containers",
+    "multi_step_workflows"
+  ],
+  "cost_estimate": 0.05,
+  "models_supported": [
+    "claude-opus-4",
+    "claude-sonnet-4", 
+    "claude-sonnet-3.7",
+    "claude-haiku-3.5"
+  ],
+  "file_path": "tools/code_execution/code_execution.py",
+  "button_path": "tools/code_execution/button_code_execution.py",
+  "ui_path": "tools/code_execution/ui_code_execution.py",
+  "operations": {
+    "execute_code": {
+      "description": "Execute Python code in secure sandbox",
+      "required_params": ["code"],
+      "optional_params": ["workflow_id", "container_id", "model"]
+    },
+    "execute_with_files": {
+      "description": "Execute code with uploaded file inputs",
+      "required_params": ["code", "file_ids"],
+      "optional_params": ["workflow_id", "model"]
+    },
+    "create_container": {
+      "description": "Create persistent execution environment",
+      "required_params": [],
+      "optional_params": ["workflow_id"]
+    },
+    "download_files": {
+      "description": "Download files generated during execution",
+      "required_params": ["file_ids"],
+      "optional_params": ["workflow_id"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "files_api": true,
+    "workflow_tracking": true
+  },
+  "api_requirements": {
+    "anthropic_beta_header": "code-execution-2025-05-22",
+    "files_beta_header": "files-api-2025-04-14",
+    "pricing": "$0.05 per session-hour (minimum 5 minutes)"
+  },
+  "sandbox_environment": {
+    "python_version": "3.11.12",
+    "memory_limit": "1GB",
+    "storage_limit": "5GB", 
+    "cpu_cores": 1,
+    "internet_access": false,
+    "container_expiry": "1 hour",
+    "pre_installed_libraries": [
+      "pandas", "numpy", "scipy", "scikit-learn", "statsmodels",
+      "matplotlib", "seaborn", "pyarrow", "openpyxl", "xlrd", 
+      "pillow", "sympy", "mpmath", "tqdm", "python-dateutil", "pytz"
+    ]
+  }
+}
