@@ -1,8 +1,7 @@
 {
-  "id": "brave_search",
-  "name": "Brave Web Search",
-  "description": "Independent web search using Brave Search API with enhanced error handling and privacy focus",
+  "name": "brave_search",
   "version": "1.0.0",
+  "description": "Independent web search using Brave Search API with enhanced error handling and privacy focus",
   "capabilities": [
     "web_search",
     "news_search", 
@@ -10,6 +9,8 @@
     "real_time_data",
     "privacy_focused_search"
   ],
+  "cost_estimate": 0.001,
+  "models_supported": ["all"],
   "tags": [
     "search",
     "web", 
@@ -18,82 +19,34 @@
     "independent",
     "real_time"
   ],
-  "cost_estimate": 0.001,
-  "models_supported": ["all"],
-  "dependencies": ["requests", "BRAVE_API_KEY"],
-  "parameters": {
-    "query": {
-      "type": "string",
-      "required": true,
-      "description": "Search query string"
-    },
-    "count": {
-      "type": "integer",
-      "default": 10,
-      "minimum": 1,
-      "maximum": 20,
-      "description": "Number of results to return"
-    },
-    "country": {
-      "type": "string", 
-      "default": "US",
-      "description": "Country code for localized results"
-    },
-    "search_type": {
-      "type": "string",
-      "default": "web",
-      "enum": ["web", "news", "local"],
-      "description": "Type of search to perform"
-    }
-  },
-  "functions": [
-    {
-      "name": "search_web",
+  "file_path": "tools/brave_search/brave_search.py",
+  "button_path": "tools/brave_search/button_brave_search.py",
+  "ui_path": "tools/brave_search/ui_brave_search.py",
+  "operations": {
+    "search_web": {
       "description": "Execute web search with comprehensive error handling",
-      "parameters": ["query", "count", "country", "search_type"]
+      "required_params": ["query"],
+      "optional_params": ["count", "country", "search_type"]
     },
-    {
-      "name": "search_news", 
+    "search_news": {
       "description": "Search for news articles",
-      "parameters": ["query", "count", "country"]
+      "required_params": ["query"],
+      "optional_params": ["count", "country"]
     },
-    {
-      "name": "search_local",
+    "search_local": {
       "description": "Search for local results",
-      "parameters": ["query", "count", "country"]
+      "required_params": ["query"],
+      "optional_params": ["count", "country"]
     },
-    {
-      "name": "validate_api_key",
+    "validate_api_key": {
       "description": "Validate API key configuration",
-      "parameters": []
+      "required_params": [],
+      "optional_params": []
     }
-  ],
-  "files": {
-    "core_logic": "tools/brave_search/brave_search.py",
-    "ui_display": "tools/brave_search/ui_brave_search.py", 
-    "buttons": "tools/brave_search/button_brave_search.py"
   },
-  "error_handling": {
-    "retry_logic": true,
-    "timeout_handling": true,
-    "rate_limit_handling": true,
-    "graceful_degradation": true
-  },
-  "output_format": {
-    "success": {
-      "status": "success",
-      "query": "string",
-      "search_type": "string", 
-      "count": "integer",
-      "results": "array",
-      "metadata": "object",
-      "cost": "float"
-    },
-    "error": {
-      "error": "string",
-      "timestamp": "string",
-      "query": "string",
-      "cost": "float"
-    }
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true
   }
-} 
+}

@@ -429,6 +429,16 @@ Issue #1: Error Display Pattern
 - Complete capability descriptions
 
 1. `/Users/seanivore/Development/modular-agent-orchestrator/tools/brave_search/tool_brave_search.json`
+Issue #1: Mixed ID Field Pattern
+  - Uses "id": "brave_search" (should be "name" for consistency)
+  - Also has "name": "Brave Web Search" (display name)
+  - Should use "name": "brave_search" as primary identifier
+Issue #2: Non-Standard Path Fields
+  - Uses "files" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #3: Non-Standard Operations Structure
+  - Uses "functions" array → should be "operations" object
+  - Uses "parameters" object → should be integrated into operations
 2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/code_execution/tool_code_execution.json`
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/dalle_generate/tool_dalle_generate.json`
 4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/file_operations/tool_file_operations.json`
@@ -443,10 +453,10 @@ Issue #2: Missing Standard Fields
 Issue #3: Non-Standard Field Names
   - "model_compatibility" → should be "models_supported"
   - "functions" → should be "operations"
-5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/tool_files_api.json`
-6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
-7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
-8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
+1. `/Users/seanivore/Development/modular-agent-orchestrator/tools/files_api/tool_files_api.json`
+2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
+3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
+4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
 Issue #1: Mixed ID Field Pattern
   - Uses "id": "perplexity_search" (should be "name" for consistency)
   - Also has "name": "Perplexity AI Search" (display name)
@@ -456,14 +466,14 @@ Issue #2: Non-Standard Path Fields
   - Should use flat file_path, button_path, ui_path structure
 Issue #3: Non-Standard Field Names
   - "model_compatibility" → should be "models_supported"
-9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
+1.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
 Issue #1: Non-Standard Path Fields
   - Uses "file_structure" with nested structure instead of flat path fields
   - Should use flat file_path, button_path, ui_path structure
 Issue #2: Operations Structure
   - Uses complex nested parameter objects with detailed type definitions
   - Should use simplified operations structure (description, required_params, optional_params)
-10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
+1.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
 Issue #1: Mixed ID Field Pattern
   - Uses "tool_id": "think" (should be "name" for consistency)
   - Also has "name": "Think Tool" (display name)
@@ -475,7 +485,7 @@ Issue #3: Non-Standard Field Names
   - "model_compatibility" → should be "models_supported"
 Issue #4: Operations Structure
   - Uses complex nested parameter objects → ✅ Should use simplified operations structure
-11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
+1.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
 Issue #1: Non-Standard Path Fields
   - Uses "file_structure" with nested structure instead of flat path fields
   - Should use flat file_path, button_path, ui_path structure
