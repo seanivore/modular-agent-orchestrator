@@ -201,10 +201,16 @@ button_graphic_design.py: 🚨 MAJOR ISSUES
 ```
 5. perplexity_search.py 
 ```
-perplexity_search.py 
-ui_perplexity_search.py
-tool_perplexity_search.json
-button_perplexity_search.py
+perplexity_search.py: ✅ FIXED
+ui_perplexity_search.py: ✅ EXCELLENT
+tool_perplexity_search.json: ✅ EXCELLENT
+button_perplexity_search.py: 🚨 MAJOR ISSUES
+  - Has correct single create_button_snippet() entry point with operation dispatch
+  - Hardcoded import paths like /Users/seanivore/Development/single-file-agents/Mao
+  - Has get_model_compatibility_info() with hardcoded metadata (belongs in JSON)
+  - No imports from logic file - generates all code instead of using logic functions
+  - References to old module names perplexity_search_modular instead of current structure
+  - Complex snippets that duplicate API logic instead of using MAO functions
 ```
 6. text_editor.py 
 ```
