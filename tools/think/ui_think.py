@@ -14,11 +14,38 @@ import time
 
 console = Console()
 
+def display_error(error_message: str):
+    """Display standardized error message with Panel formatting"""
+    console.print(Panel(
+        f"[red]❌ {error_message}[/red]",
+        title="[bold red]Error[/bold red]",
+        border_style="red"
+    ))
+
+def display_think_result(result: Dict[str, Any], verbose: bool = False):
+    """Main dispatcher for think tool results"""
+    if "error" in result:
+        display_error(result.get("error", "Unknown error"))
+        return
+    
+    operation = result.get("operation", "thinking_session")
+    
+    if operation == "thinking_session":
+        display_thinking_session(result, verbose)
+    elif operation == "prompt_enhancement":
+        display_prompt_enhancement(result, verbose)
+    elif operation == "thinking_validation":
+        display_thinking_validation(result, verbose)
+    elif operation == "thinking_capabilities":
+        display_thinking_capabilities(result, verbose)
+    else:
+        display_thinking_session(result, verbose)  # Default to session display
+
 def display_thinking_session(result: Dict[str, Any], verbose: bool = False):
     """Display thinking session results"""
     
     if result.get("status") == "error":
-        console.print(f"❌ [red]Thinking Error:[/red] {result.get('error', 'Unknown error')}")
+        display_error(result.get('error', 'Unknown error'))
         return
     
     session_data = result.get("session_data", {})
@@ -111,7 +138,7 @@ def display_prompt_enhancement(result: Dict[str, Any], verbose: bool = False):
     """Display prompt enhancement results"""
     
     if result.get("status") == "error":
-        console.print(f"❌ [red]Enhancement Error:[/red] {result.get('error', 'Unknown error')}")
+        display_error(result.get('error', 'Unknown error'))
         return
     
     enhancement_data = result.get("enhancement_data", {})
@@ -137,7 +164,7 @@ def display_thinking_validation(result: Dict[str, Any], verbose: bool = False):
     """Display thinking tool validation results"""
     
     if result.get("status") == "error":
-        console.print(f"❌ [red]Validation Error:[/red] {result.get('error', 'Unknown error')}")
+        display_error(result.get('error', 'Unknown error'))
         return
     
     validation = result.get("validation", {})
@@ -173,7 +200,7 @@ def display_thinking_capabilities(result: Dict[str, Any], verbose: bool = False)
     """Display thinking tool capabilities"""
     
     if result.get("status") == "error":
-        console.print(f"❌ [red]Capabilities Error:[/red] {result.get('error', 'Unknown error')}")
+        display_error(result.get('error', 'Unknown error'))
         return
     
     capabilities = result.get("capabilities", {})

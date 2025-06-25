@@ -15,6 +15,14 @@ from typing import Dict, Any
 
 console = Console()
 
+def display_error(error_message: str):
+    """Display standardized error message with Panel formatting"""
+    console.print(Panel(
+        f"[red]❌ {error_message}[/red]",
+        title="[bold red]Error[/bold red]",
+        border_style="red"
+    ))
+
 def display_text_editor_result(result: Dict[str, Any], verbose: bool = False):
     """
     Display text editor operation results with beautiful formatting
@@ -24,7 +32,7 @@ def display_text_editor_result(result: Dict[str, Any], verbose: bool = False):
         verbose: Whether to show detailed information
     """
     if "error" in result:
-        console.print(f"[red]❌ Error: {result['error']}[/red]")
+        display_error(result.get("error", "Unknown error"))
         return
     
     operation = result.get("operation", "unknown")
