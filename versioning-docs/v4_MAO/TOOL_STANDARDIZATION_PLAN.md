@@ -401,6 +401,12 @@ Issue #3: Direct Result Access
   - Uses direct access result["success"] (could cause KeyError)
   - Should use safer result.get() patterns
 8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/ui_perplexity_search.py`
+Issue #1: Function Naming Pattern
+  - Main function: display_perplexity_result()
+  - Should be: display_perplexity_search_result() (to match tool naming pattern)
+Issue #2: Error Display Pattern
+  - Uses inline error display: console.print(f"[red]❌ Error: {result['error']}[/red]")
+  - Should use Panel-based error display for consistency
 9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/ui_text_editor.py`
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/ui_think.py`
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/ui_web_search.py` 

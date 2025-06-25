@@ -15,16 +15,16 @@ from typing import Dict, Any, List
 
 console = Console()
 
-def display_perplexity_result(result: Dict[str, Any], verbose: bool = False):
+def display_perplexity_search_result(result: Dict[str, Any], verbose: bool = False):
     """
-    Display Perplexity search operation results with beautiful formatting
+    Display Perplexity Search operation results with beautiful formatting
     
     Args:
         result: Result dictionary from Perplexity operations
         verbose: Whether to show detailed information
     """
-    if "error" in result:
-        console.print(f"[red]❌ Error: {result['error']}[/red]")
+    if result.get("error"):
+        display_error(result.get("error", "Unknown error"))
         return
     
     operation = result.get("operation", "unknown")
@@ -41,6 +41,16 @@ def display_perplexity_result(result: Dict[str, Any], verbose: bool = False):
         _display_api_configuration(result, verbose)
     else:
         _display_generic_result(result, verbose)
+
+def display_error(error_msg: str) -> None:
+    """Display error with consistent formatting"""
+    panel = Panel(
+        f"❌ Error: {error_msg}",
+        title="Perplexity Search Error",
+        border_style="red"
+    )
+    console.print(panel)
+
 
 def _display_basic_search(result: Dict[str, Any], verbose: bool):
     """Display basic Perplexity search results"""
