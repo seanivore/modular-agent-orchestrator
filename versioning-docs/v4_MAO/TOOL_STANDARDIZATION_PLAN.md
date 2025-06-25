@@ -176,10 +176,15 @@ button_dalle_generate.py: 🚨 MAJOR ISSUES
 ```
 3. file_operations.py 
 ```
-file_operations.py 
-ui_file_operations.py
-tool_file_operations.json
-button_file_operations.py
+file_operations.py: ⚠️ MISSING COST FUNCTION
+  - NO estimate_cost() function at all! This is completely missing
+ui_file_operations.py: ✅ GOOD
+tool_file_operations.json: ✅ EXCELLENT
+button_file_operations.py: 🚨 MAJOR DUPLICATION
+  - MASSIVE duplication - ALL logic copy/pasted instead of importing
+  - Has create_read_file_snippet() instead of just create_button_snippet() entry
+  - Multiple standalone snippet functions instead of single entry point
+  - No cost estimation functions anywhere
 ```
 4. graphic_design.py 
 ```

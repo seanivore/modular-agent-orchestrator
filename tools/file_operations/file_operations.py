@@ -531,4 +531,18 @@ def validate_paths(paths: List[str]) -> Dict[str, Any]:
             "existing_paths": sum(1 for r in results if r["exists"]),
             "missing_paths": sum(1 for r in results if not r["exists"])
         }
-    } 
+    }
+
+
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate cost for file operations
+    
+    Args:
+        params: Dict with operation parameters
+        
+    Returns:
+        Estimated cost in USD (file operations are free)
+    """
+    # File operations are free - no API costs
+    return 0.0 
