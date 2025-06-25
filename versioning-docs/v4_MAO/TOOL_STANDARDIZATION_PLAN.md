@@ -262,10 +262,15 @@ button_files_api.py: 🚨 DISCONNECTED FROM LOGIC
 ```
 10: mcp_connector.py 
 ```
-mcp_connector.py 
-ui_mcp_connector.py
-tool_mcp_connector.json
-button_mcp_connector.py
+mcp_connector.py: ⚠️ MISSING STANDALONE FUNCTIONS
+  - MISSING standalone function wrappers - has MCPConnector class but no standalone functions for button imports
+ui_mcp_connector.py: ✅ EXCELLENT
+tool_mcp_connector.json: ✅ EXCELLENT
+button_mcp_connector.py: 🚨 HARDCODED PATHS & NO LOGIC INTEGRATION
+  - NO imports from logic file - doesn't import any MAO logic functions
+  - Hardcoded sys.path manipulation - uses complex path manipulation instead of proper imports
+  - No cost integration - doesn't use estimate_cost() from logic file
+  - Creates MCPConnector directly - instantiates class instead of using standardized functions
 ```
 11: code_execution.py 
 ```

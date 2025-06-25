@@ -266,6 +266,80 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     
     return setup_cost + execution_cost
 
+# REQUIRED: Standalone function wrappers for button file imports
+@handle_errors(operation_name="list_mcp_servers", return_dict=True)
+def list_mcp_servers(workflow_id: str = None) -> Dict[str, Any]:
+    """List all registered MCP servers and available tools"""
+    connector = MCPConnector()
+    
+    # Initialize default servers
+    init_results = connector.initialize_default_servers()
+    
+    # Get server status and available tools
+    server_status = connector.get_server_status()
+    available_tools = connector.get_available_tools()
+    
+    result = {
+        "status": "success",
+        "operation": "list_servers",
+        "servers": server_status,
+        "tools": available_tools,
+        "initialization_results": init_results,
+        "timestamp": datetime.now().isoformat()
+    }
+    
+    return result
+
+@handle_errors(operation_name="execute_mcp_tool", return_dict=True)
+def execute_mcp_tool(server_name: str, tool_name: str, tool_params: Dict[str, Any] = None, workflow_id: str = None) -> Dict[str, Any]:
+    """Execute tool on external MCP server"""
+    connector = MCPConnector()
+    
+    # Initialize servers
+    connector.initialize_default_servers()
+    
+    # Execute the tool
+    result = connector.execute_tool(
+        server_name=server_name,
+        tool_name=tool_name,
+        params=tool_params or {},
+        workflow_id=workflow_id
+    )
+    
+    result["operation"] = "execute_tool"
+    return result
+
+@handle_errors(operation_name="register_mcp_server", return_dict=True)
+def register_mcp_server(server_config: Dict[str, Any], workflow_id: str = None) -> Dict[str, Any]:
+    """Register a new MCP server"""
+    connector = MCPConnector()
+    
+    result = connector.register_server(server_config)
+    result["operation"] = "register_server"
+    result["timestamp"] = datetime.now().isoformat()
+    
+    return result
+
+@handle_errors(operation_name="get_mcp_server_status", return_dict=True)
+def get_mcp_server_status(workflow_id: str = None) -> Dict[str, Any]:
+    """Check health and status of all MCP servers"""
+    connector = MCPConnector()
+    
+    # Initialize servers
+    connector.initialize_default_servers()
+    
+    # Get status
+    status = connector.get_server_status()
+    
+    result = {
+        "status": "success",
+        "operation": "get_server_status", 
+        "servers": status,
+        "timestamp": datetime.now().isoformat()
+    }
+    
+    return result
+
 
 class MCPServerConnection:
     """Manages connection to individual MCP server"""

@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 """
-MCP Connector Button Snippet Generator
+MCP Connector Button Snippet Generator - Fixed Version
 Creates executable button snippets for MCP server integration
 """
 
 from typing import Dict, Any
+import json
+from tools.mcp_connector.mcp_connector import (
+    list_mcp_servers,
+    execute_mcp_tool,
+    register_mcp_server,
+    get_mcp_server_status,
+    estimate_cost
+)
 
 def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
     """
@@ -24,121 +32,99 @@ def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4"
     else:
         return _create_default_snippet(params, model)
 
-
 def _create_list_servers_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for listing available MCP servers"""
+    """Generate snippet for listing available MCP servers using MAO logic"""
     workflow_id = params.get("workflow_id", "mcp-exploration")
     
-    return f'''
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"servers": ["aider", "filesystem"], "tool_executions": 1})
+    
+    snippet = f'''
 # MCP Connector - List Available Servers
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.mcp_connector.mcp_connector import MCPConnector
-from orchestrator.memory_mcp import MemoryMCPManager
-import json
+from tools.mcp_connector.mcp_connector import list_mcp_servers
+from tools.mcp_connector.ui_mcp_connector import display_server_status, display_available_tools, display_mcp_summary
 
-def main():
-    # Initialize MCP Connector
-    connector = MCPConnector()
-    memory_mcp = MemoryMCPManager()
-    connector.set_memory_manager(memory_mcp)
-    
-    # Initialize default servers
-    print("🔌 Initializing MCP servers...")
-    results = connector.initialize_default_servers()
-    
-    # Get available tools across all servers
-    available_tools = connector.get_available_tools()
-    
-    # Get server status
-    server_status = connector.get_server_status()
-    
-    print("\\n📊 MCP Server Status:")
-    for server_name, status in server_status.items():
-        status_icon = "🟢" if status["status"] == "online" else "🔴"
-        print(f"  {status_icon} {{server_name}}: {{status['status']}} ({{status['tools_count']}} tools)")
-    
-    print("\\n🛠️ Available Tools:")
-    for tool_name, tool_info in available_tools.items():
-        available_icon = "✅" if tool_info["available"] else "❌"
-        print(f"  {available_icon} {{tool_name}}: {{tool_info['description']}}")
-    
-    # Log to Memory MCP for workflow tracking
-    memory_mcp.update_workflow_state(
-        "{workflow_id}",
-        f"MCP servers initialized: {{len(server_status)}} servers, {{len(available_tools)}} tools"
-    )
-    
-    return {{
-        "servers": server_status,
-        "tools": available_tools,
-        "initialization_results": results
-    }}
+# Execute server listing using MAO logic
+result = list_mcp_servers(workflow_id="{workflow_id}")
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n✅ MCP Connector ready with {{len(result['servers'])}} servers")
+if result.get("status") == "success":
+    print("🔌 MCP Server Discovery Complete")
+    
+    servers = result.get("servers", {{}})
+    tools = result.get("tools", {{}})
+    
+    # Display results using MAO UI components
+    display_server_status(servers, verbose=True)
+    display_available_tools(tools, verbose=True)
+    display_mcp_summary(servers, tools)
+    
+    print(f"📊 Summary: {{len(servers)}} servers, {{len(tools)}} tools")
+else:
+    print(f"❌ Error: {{result.get('error', 'Unknown error')}}")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_execute_tool_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for executing MCP tool"""
+    """Generate snippet for executing MCP tool using MAO logic"""
     server_name = params.get("server_name", "filesystem")
     tool_name = params.get("tool_name", "read_file")
     tool_params = params.get("tool_params", {})
     workflow_id = params.get("workflow_id", "mcp-execution")
     
-    params_json = json.dumps(tool_params, indent=2) if tool_params else "{}"
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"tool_executions": 1})
     
-    return f'''
+    # Escape tool_params for safe inclusion in code
+    params_json = json.dumps(tool_params) if tool_params else "{}"
+    
+    snippet = f'''
 # MCP Connector - Execute Tool
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.mcp_connector.mcp_connector import MCPConnector
-from orchestrator.memory_mcp import MemoryMCPManager
-import json
+from tools.mcp_connector.mcp_connector import execute_mcp_tool
+from tools.mcp_connector.ui_mcp_connector import display_execution_result
 
-def main():
-    # Initialize MCP Connector
-    connector = MCPConnector()
-    memory_mcp = MemoryMCPManager()
-    connector.set_memory_manager(memory_mcp)
-    
-    # Initialize servers first
-    connector.initialize_default_servers()
-    
-    # Execute the specified tool
-    tool_params = {params_json}
-    
-    print(f"🛠️ Executing {{'{tool_name}'}} on {{'{server_name}'}} server...")
-    
-    result = connector.execute_tool(
-        server_name="{server_name}",
-        tool_name="{tool_name}",
-        params=tool_params,
-        workflow_id="{workflow_id}"
-    )
-    
-    if result["success"]:
-        print(f"✅ Tool execution successful!")
-        print(f"📊 Result: {{json.dumps(result['result'], indent=2)}}")
-    else:
-        print(f"❌ Tool execution failed: {{result['error']}}")
-    
-    return result
+# Tool parameters
+tool_params = {params_json}
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n🔄 Tool execution {{\"completed\" if result[\"success\"] else \"failed\"}}")
+print(f"🛠️ Executing '{tool_name}' on '{server_name}' server...")
+
+# Execute tool using MAO logic
+result = execute_mcp_tool(
+    server_name="{server_name}",
+    tool_name="{tool_name}",
+    tool_params=tool_params,
+    workflow_id="{workflow_id}"
+)
+
+# Display results using MAO UI
+display_execution_result(result, verbose=True)
+
+if result.get("success"):
+    print("✅ Tool execution completed successfully")
+else:
+    print(f"❌ Tool execution failed: {{result.get('error', 'Unknown error')}}")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_register_server_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for registering new MCP server"""
+    """Generate snippet for registering new MCP server using MAO logic"""
     server_config = params.get("server_config", {
         "name": "new_server",
         "command": ["python", "-m", "server"],
@@ -146,144 +132,129 @@ def _create_register_server_snippet(params: Dict[str, Any], model: str) -> str:
     })
     workflow_id = params.get("workflow_id", "mcp-registration")
     
-    config_json = json.dumps(server_config, indent=2)
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"servers": [server_config.get("name", "new_server")]})
     
-    return f'''
+    snippet = f'''
 # MCP Connector - Register New Server
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.mcp_connector.mcp_connector import MCPConnector
-from orchestrator.memory_mcp import MemoryMCPManager
-import json
+from tools.mcp_connector.mcp_connector import register_mcp_server
+from tools.mcp_connector.ui_mcp_connector import display_registration_result
 
-def main():
-    # Initialize MCP Connector
-    connector = MCPConnector()
-    memory_mcp = MemoryMCPManager()
-    connector.set_memory_manager(memory_mcp)
-    
-    # Server configuration
-    server_config = {config_json}
-    
-    print(f"📡 Registering MCP server: {{server_config['name']}}...")
-    
-    result = connector.register_server(server_config)
-    
-    if result["status"] == "registered":
-        print(f"✅ Server registered successfully!")
-        print(f"🛠️ Available tools: {{result['tools']}}")
-    else:
-        print(f"❌ Server registration failed: {{result.get('error', 'Unknown error')}}")
-    
-    # Log to Memory MCP
-    memory_mcp.update_workflow_state(
-        "{workflow_id}",
-        f"MCP server registration: {{server_config['name']}} -> {{result['status']}}"
-    )
-    
-    return result
+# Server configuration
+server_config = {json.dumps(server_config, indent=2)}
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n🔌 Server registration {{result['status']}}")
+print(f"📡 Registering MCP server: {{server_config['name']}}...")
+
+# Register server using MAO logic
+result = register_mcp_server(
+    server_config=server_config,
+    workflow_id="{workflow_id}"
+)
+
+# Display results using MAO UI
+display_registration_result(result)
+
+if result.get("status") == "registered":
+    print(f"✅ Server '{{server_config['name']}}' registered successfully")
+    print(f"🛠️ Available tools: {{result.get('tools_count', 0)}}")
+else:
+    print(f"❌ Registration failed: {{result.get('error', 'Unknown error')}}")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_server_status_snippet(params: Dict[str, Any], model: str) -> str:
-    """Generate snippet for checking server status"""
+    """Generate snippet for checking server status using MAO logic"""
     workflow_id = params.get("workflow_id", "mcp-status")
     
-    return f'''
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"servers": ["aider", "filesystem"]})
+    
+    snippet = f'''
 # MCP Connector - Server Status Check
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.mcp_connector.mcp_connector import MCPConnector
-from orchestrator.memory_mcp import MemoryMCPManager
+from tools.mcp_connector.mcp_connector import get_mcp_server_status
+from tools.mcp_connector.ui_mcp_connector import display_server_status
 
-def main():
-    # Initialize MCP Connector
-    connector = MCPConnector()
-    memory_mcp = MemoryMCPManager()
-    connector.set_memory_manager(memory_mcp)
-    
-    # Initialize servers
-    connector.initialize_default_servers()
-    
-    # Get server status
-    print("🔍 Checking MCP server status...")
-    status = connector.get_server_status()
-    
-    print("\\n📊 Server Status Report:")
-    for server_name, server_status in status.items():
-        status_icon = "🟢" if server_status["status"] == "online" else "🔴"
-        print(f"  {status_icon} {{server_name}}:")
-        print(f"    Status: {{server_status['status']}}")
-        print(f"    Tools: {{server_status.get('tools_count', 0)}}")
-        print(f"    Last Check: {{server_status['last_check']}}")
-        if "error" in server_status:
-            print(f"    Error: {{server_status['error']}}")
-    
-    # Log to Memory MCP
-    online_count = sum(1 for s in status.values() if s["status"] == "online")
-    memory_mcp.update_workflow_state(
-        "{workflow_id}",
-        f"MCP status check: {{online_count}}/{{len(status)}} servers online"
-    )
-    
-    return status
+print("🔍 Checking MCP server status...")
 
-if __name__ == "__main__":
-    result = main()
-    online_servers = [name for name, info in result.items() if info["status"] == "online"]
-    print(f"\\n✅ {{len(online_servers)}} servers online: {{', '.join(online_servers)}}")
+# Get server status using MAO logic
+result = get_mcp_server_status(workflow_id="{workflow_id}")
+
+if result.get("status") == "success":
+    servers = result.get("servers", {{}})
+    
+    # Display results using MAO UI
+    display_server_status(servers, verbose=True)
+    
+    online_count = sum(1 for s in servers.values() if s.get("status") == "online")
+    total_count = len(servers)
+    
+    print(f"📊 Status Summary: {{online_count}}/{{total_count}} servers online")
+else:
+    print(f"❌ Error: {{result.get('error', 'Unknown error')}}")
+
+print(f"💰 Estimated cost: ${cost_estimate:.4f}")
+
+# Return result for workflow integration
+result
 '''
-
+    
+    return snippet.strip()
 
 def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     """Generate default MCP Connector snippet"""
+    operation = params.get("operation", "unknown")
     workflow_id = params.get("workflow_id", "mcp-default")
     
-    return f'''
+    # Get cost estimate from MAO logic
+    cost_estimate = estimate_cost({"servers": []})
+    
+    snippet = f'''
 # MCP Connector - General Integration
 import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
 
-from tools.mcp_connector.mcp_connector import MCPConnector
-from orchestrator.memory_mcp import MemoryMCPManager
+from tools.mcp_connector.mcp_connector import estimate_cost
+from tools.mcp_connector.ui_mcp_connector import display_help
 
-def main():
-    # Initialize MCP Connector
-    connector = MCPConnector()
-    memory_mcp = MemoryMCPManager()
-    connector.set_memory_manager(memory_mcp)
-    
-    print("🔌 MCP Connector initialized")
-    print("📋 Available operations:")
-    print("  - list_servers: Show all MCP servers and tools")
-    print("  - execute_tool: Run specific MCP tool")
-    print("  - register_server: Add new MCP server")
-    print("  - get_server_status: Check server health")
-    
-    # Basic initialization
-    results = connector.initialize_default_servers()
-    
-    # Log initialization
-    memory_mcp.update_workflow_state(
-        "{workflow_id}",
-        "MCP Connector initialized with default servers"
-    )
-    
-    return {{
-        "connector": "ready",
-        "initialization": results
-    }}
+print("🔌 MCP Connector - Unknown Operation: {operation}")
 
-if __name__ == "__main__":
-    result = main()
-    print(f"\\n🚀 MCP Connector ready for integration")
+# Display help information
+display_help()
+
+# Show available operations
+available_operations = [
+    "list_servers",
+    "execute_tool", 
+    "register_server",
+    "get_server_status"
+]
+
+print("\\n📋 Available Operations:")
+for op in available_operations:
+    print(f"  • {{op}}")
+
+print(f"\\n💰 Estimated cost: ${cost_estimate:.4f}")
+
+result = {{
+    "error": f"Unknown operation: {operation}",
+    "available_operations": available_operations,
+    "cost": cost_estimate
+}}
+
+# Return result
+result
 '''
+    
+    return snippet.strip()
