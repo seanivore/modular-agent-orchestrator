@@ -457,6 +457,12 @@ Issue #2: Non-Standard Path Fields
 Issue #3: Non-Standard Field Names
   - "model_compatibility" → should be "models_supported"
 9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
+Issue #1: Non-Standard Path Fields
+  - Uses "file_structure" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #2: Operations Structure
+  - Uses complex nested parameter objects with detailed type definitions
+  - Should use simplified operations structure (description, required_params, optional_params)
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`
 
