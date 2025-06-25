@@ -447,6 +447,15 @@ Issue #3: Non-Standard Field Names
 6. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
 7. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
 8. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
+Issue #1: Mixed ID Field Pattern
+  - Uses "id": "perplexity_search" (should be "name" for consistency)
+  - Also has "name": "Perplexity AI Search" (display name)
+  - Should use "name": "perplexity_search" as primary identifier
+Issue #2: Non-Standard Path Fields
+  - Uses "file_locations" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #3: Non-Standard Field Names
+  - "model_compatibility" → should be "models_supported"
 9.  `/Users/seanivore/Development/modular-agent-orchestrator/tools/text_editor/tool_text_editor.json`
 10. `/Users/seanivore/Development/modular-agent-orchestrator/tools/think/tool_think.json`
 11. `/Users/seanivore/Development/modular-agent-orchestrator/tools/web_search/tool_web_search.json`

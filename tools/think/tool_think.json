@@ -1,14 +1,20 @@
 {
-  "tool_id": "think",
-  "name": "Think Tool",
-  "description": "Simple structured thinking and reasoning capabilities for AI agents",
+  "name": "think",
   "version": "4.0.0",
-  "category": "core",
+  "description": "Simple structured thinking and reasoning capabilities for AI agents",
   "capabilities": [
     "reasoning",
     "analysis", 
     "structured_thinking",
     "prompt_enhancement"
+  ],
+  "cost_estimate": 0.01,
+  "models_supported": [
+    "claude-3-5-sonnet",
+    "claude-sonnet-4",
+    "gpt-4",
+    "gpt-4-turbo", 
+    "gemini-pro"
   ],
   "tags": [
     "core",
@@ -17,176 +23,34 @@
     "thinking",
     "flexible"
   ],
+  "file_path": "tools/think/think.py",
+  "button_path": "tools/think/button_think.py",
+  "ui_path": "tools/think/ui_think.py",
   "operations": {
     "perform_thinking": {
       "description": "Perform structured AI thinking about a topic",
-      "parameters": {
-        "topic": {
-          "type": "string",
-          "required": true,
-          "description": "What to think about"
-        },
-        "thinking_approach": {
-          "type": "string", 
-          "required": false,
-          "default": "systematic analysis",
-          "description": "How to approach the thinking (user-defined, flexible)"
-        },
-        "thinking_focus": {
-          "type": "string",
-          "required": false, 
-          "default": "comprehensive insights",
-          "description": "What to focus on during thinking (user-defined, flexible)"
-        },
-        "context": {
-          "type": "string",
-          "required": false,
-          "description": "Additional context for thinking"
-        },
-        "save_results": {
-          "type": "boolean",
-          "required": false,
-          "default": true,
-          "description": "Whether to save thinking results to files"
-        }
-      },
-      "returns": "Structured thinking session metadata for UI display"
+      "required_params": ["topic"],
+      "optional_params": ["thinking_approach", "thinking_focus", "context", "save_results"]
     },
     "enhance_thinking_prompt": {
       "description": "Enhance a thinking prompt for better results",
-      "parameters": {
-        "base_topic": {
-          "type": "string",
-          "required": true,
-          "description": "Original topic to enhance"
-        },
-        "enhancement_approach": {
-          "type": "string",
-          "required": false,
-          "default": "add depth and structure", 
-          "description": "How to enhance the prompt (user-defined)"
-        },
-        "enhancement_focus": {
-          "type": "string",
-          "required": false,
-          "default": "actionable insights",
-          "description": "What to focus enhancement on (user-defined)"
-        }
-      },
-      "returns": "Enhanced prompt data for UI display"
+      "required_params": ["base_topic"],
+      "optional_params": ["enhancement_approach", "enhancement_focus"]
     },
     "validate_thinking_setup": {
       "description": "Validate that thinking operations can be performed",
-      "parameters": {},
-      "returns": "Validation results for thinking tool readiness"
+      "required_params": [],
+      "optional_params": []
     },
     "get_thinking_capabilities": {
       "description": "Get information about thinking tool capabilities",
-      "parameters": {},
-      "returns": "Comprehensive capability information"
-    }
-  },
-  "model_compatibility": [
-    "claude-3-5-sonnet",
-    "claude-sonnet-4",
-    "gpt-4",
-    "gpt-4-turbo", 
-    "gemini-pro"
-  ],
-  "cost_structure": {
-    "base_cost": 0.01,
-    "currency": "USD",
-    "unit": "per thinking session",
-    "factors": [
-      "topic complexity",
-      "context length", 
-      "model choice"
-    ]
-  },
-  "features": [
-    "Flexible thinking approaches (user-defined)",
-    "Context-aware thinking sessions",
-    "Automatic result saving and documentation", 
-    "Cost estimation and tracking",
-    "Universal model compatibility",
-    "No hardcoded frameworks or templates",
-    "Natural language thinking instructions"
-  ],
-  "flexibility": {
-    "approach_definition": "User defines thinking approach via natural language",
-    "focus_definition": "User defines thinking focus via natural language", 
-    "framework_support": "AI naturally applies appropriate frameworks based on user request",
-    "domain_agnostic": "Works across all domains and use cases"
-  },
-  "button_operations": [
-    "create_thinking_button",
-    "create_prompt_enhancement_button",
-    "create_thinking_validation_button", 
-    "create_thinking_capabilities_button"
-  ],
-  "ui_display_functions": [
-    "display_thinking_session",
-    "display_thinking_progress",
-    "display_thinking_results",
-    "display_prompt_enhancement",
-    "display_thinking_validation", 
-    "display_thinking_capabilities",
-    "display_agent_handoff"
-  ],
-  "file_structure": {
-    "core_logic": "tools/think/think.py",
-          "ui_display": "tools/think/ui_think.py", 
-      "buttons": "tools/think/button_think.py",
-    "tool_registry": "configs/tool_registry/tool_think.json",
-    "error_handling": "utilities/error_handling.py"
-  },
-  "setup_requirements": {
-    "api_keys": [
-      "ANTHROPIC_API_KEY (for human button execution)"
-    ],
-    "dependencies": [
-      "anthropic",
-      "rich (for UI display)",
-      "json",
-      "datetime"
-    ],
-    "file_permissions": [
-      "Write access for saving thinking results"
-    ]
-  },
-  "limitations": [
-    "Requires API key for actual AI thinking execution",
-    "Thinking quality depends on prompt clarity and model capabilities",
-    "File saving requires write permissions"
-  ],
-  "troubleshooting": {
-    "common_issues": {
-      "api_connection_failed": "Check ANTHROPIC_API_KEY environment variable",
-      "file_save_failed": "Check write permissions in current directory",
-      "poor_thinking_results": "Try enhancing the prompt or providing more context"
-    }
-  },
-  "examples": {
-    "basic_thinking": {
-      "topic": "How to improve team productivity",
-      "thinking_approach": "systematic analysis",
-      "thinking_focus": "actionable recommendations"
-    },
-    "enhanced_thinking": {
-      "topic": "Market analysis for new product launch",
-      "thinking_approach": "strategic analysis with competitive research",
-      "thinking_focus": "risk assessment and opportunity identification",
-      "context": "B2B SaaS product targeting mid-market companies"
-    },
-    "creative_thinking": {
-      "topic": "Innovative solutions for remote team collaboration",
-      "thinking_approach": "creative brainstorming with feasibility analysis", 
-      "thinking_focus": "practical implementation strategies"
+      "required_params": [],
+      "optional_params": []
     }
   },
   "integration": {
-    "orchestrator_discovery": "Registered via TOOL_METADATA in core logic file",
-    "agent_handoff": "Supports formatted handoff display for agent-to-agent communication",
-    "cost_tracking": "Built-in cost estimation for budget management"
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true
   }
-} 
+}
