@@ -1,4 +1,4 @@
-# MAO v4 Context Jump - User Configuration & Setup Script Implementation
+# Mao v4 Context Jump - User Configuration & Setup Script Implementation
 
 ## PROJECT STATE SUMMARY
 
@@ -31,15 +31,15 @@
 
 #### Setting Options & Descriptions
 
-| **SETTING**         | **DEFAULT**           | **DESCRIPTION**                                   |
-| ------------------- | --------------------- | ------------------------------------------------- |
-| Quick launch        | `always`              | Launch app with last user logged in              |
-| Favorite model      | `claude-sonnet-4`     | Use for workflows unless discussed               |
-| Default provider    | `anthropic direct`    | I prefer this provider; discuss to change        |
-| Theme               | `dark mode CVD`       | Dark computer theme; use high legibility colors  |
-| Cat vibes           | `I love it`           | We'll meow it up for you                         |
-| Double-texting      | `always`              | Interrupt Mao like any messenger experience      |
-| Tone notification   | `once, no push`       | When a workflow is complete, a simple tone is played |
+| **SETTING**       | **DEFAULT**        | **DESCRIPTION**                                      |
+| ----------------- | ------------------ | ---------------------------------------------------- |
+| Quick launch      | `always`           | Launch app with last user logged in                  |
+| Favorite model    | `claude-sonnet-4`  | Use for workflows unless discussed                   |
+| Default provider  | `anthropic direct` | I prefer this provider; discuss to change            |
+| Theme             | `dark mode CVD`    | Dark computer theme; use high legibility colors      |
+| Cat vibes         | `I love it`        | We'll meow it up for you                             |
+| Double-texting    | `always`           | Interrupt Mao like any messenger experience          |
+| Tone notification | `once, no push`    | When a workflow is complete, a simple tone is played |
 
 **Quick Launch Options:**
 1. `always` - Launch app with user from last session, unless logged out

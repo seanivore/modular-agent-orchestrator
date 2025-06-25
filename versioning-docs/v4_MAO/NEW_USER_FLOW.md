@@ -4,20 +4,23 @@
 
 You have a use-case to create a workflow for. Start the Mao application. 
   - By default Mao launches with the last session user's settings 
-  - If that isn't you, you can launch with `--login` to choose a new User ID 
+  - If that isn't you, you can launch with `--login` to enter your Username  
+  - Or once the app is running, you in you can use `/login` to enter your Username 
   - If you've never used Mao before, you'll need to login and choose a couple settings 
 
 ```bash
-mao mao # Launches the Mao application 
+mao mao # Proper startup command; launches the Mao application 
 mao --login # Launches the login screen 
+mao # Launches the app as if you're a new user 
+mao --continue # Launches the app in the state of the last session 
 ``` 
 
 ### Usernames versus User ID 
 
-- A username is for UX; it is what they type into the login screen 
-- A user ID is what is created from the username 
-- Every time a specific username is used the same user ID populates  
-- The user ID connects all the workflows, use-cases, and other data for that user 
+- A username is for UX; it is what Users type into the login screen 
+- A user ID is created from the username and used on the backend 
+- Specific usernames always populate the same user ID 
+- User ID connects all workflows, use-cases, and other *data for that user*
 - The custom User ID is created by a simple script that can also be run manually as a cli-command 
 
 #### User ID Creation 
