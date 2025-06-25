@@ -474,8 +474,21 @@ Issue #2: Non-Standard Operations Structure
   - Uses "parameters" object instead of "operations" object
   - Should restructure to operations with required/optional params
 2. `/Users/seanivore/Development/modular-agent-orchestrator/tools/graphic_design/tool_graphic_design.json`
+Issue #1: Mixed ID Field Pattern
+  - Uses "id": "graphic_design" (should be "name" for consistency)
+  - Also has "name": "Graphic Design Tool" (display name)
+  - Should use "name": "graphic_design" as primary identifier
+Issue #2: Non-Standard Path Fields
+  - Uses "file_structure" with nested structure instead of flat path fields
+  - Should use flat file_path, button_path, ui_path structure
+Issue #3: Non-Standard Field Names
+  - "model_compatibility" → should be "models_supported"
+Issue #4: Operations Structure
+  - Uses "functions" array instead of "operations" object
+  - Uses complex nested parameter objects
 3. `/Users/seanivore/Development/modular-agent-orchestrator/tools/mcp_connector/tool_mcp_connector.json`
-4. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
+4. 
+5. `/Users/seanivore/Development/modular-agent-orchestrator/tools/perplexity_search/tool_perplexity_search.json`
 Issue #1: Mixed ID Field Pattern
   - Uses "id": "perplexity_search" (should be "name" for consistency)
   - Also has "name": "Perplexity AI Search" (display name)
