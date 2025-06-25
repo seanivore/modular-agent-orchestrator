@@ -63,7 +63,7 @@ class TerminalInterface:
     # CORE WORKFLOW COMMANDS
     # =================================================================
     
-    def goal(self, goal_text: str):
+    async def goal(self, goal_text: str):
         """Execute a goal - main workflow creation and execution"""
         print(f"🎯 MAO - Executing Goal")
         print("=" * 50)
@@ -71,19 +71,50 @@ class TerminalInterface:
         print()
         
         try:
-            # This would integrate with the real orchestrator
             print("🧠 Analyzing goal and creating workflow...")
-            print("🔍 Selecting optimal models and tools...")
-            print("📋 Workflow created successfully!")
-            print(f"💰 Estimated cost: $0.12")
-            print(f"⏱️  Estimated time: 5 minutes")
+            
+            # Get user preferences from settings
+            preferences = {
+                "free_only": self.settings.get("free_only", False),
+                "privacy_focused": self.settings.get("privacy_mode", False)
+            }
+            
+            # Create real workflow using orchestrator
+            workflow_plan = await self.orchestrator.create_workflow_from_goal(goal_text, preferences)
+            
+            print("✅ Workflow created successfully!")
+            print(f"📋 Name: {workflow_plan.name}")
+            print(f"🔄 Phases: {len(workflow_plan.phases)}")
+            print(f"💰 Estimated cost: ${workflow_plan.total_estimated_cost:.4f}")
+            print(f"⏱️  Estimated time: {workflow_plan.estimated_duration_minutes} minutes")
+            print(f"📁 Workspace: {workflow_plan.workspace_dir}")
             print()
+            
+            # Show phase breakdown if verbose
+            if self.verbose:
+                print("📋 PHASE BREAKDOWN:")
+                for i, phase in enumerate(workflow_plan.phases, 1):
+                    print(f"  {i}. {phase.name} ({phase.model}) - ${phase.estimated_cost:.4f}")
+                print()
             
             confirm = input("Execute workflow? [Y/n]: ").strip().lower()
             if confirm in ['', 'y', 'yes']:
                 print("🚀 Executing workflow...")
-                print("✅ Goal completed successfully!")
-                print(f"📁 Results saved to: ./workflows/{datetime.now().strftime('%Y%m%d_%H%M')}")
+                
+                # Execute real workflow
+                execution_result = await self.orchestrator.execute_workflow(workflow_plan.id)
+                
+                if execution_result.get("success", False):
+                    print("✅ Goal completed successfully!")
+                    print(f"💰 Total cost: ${execution_result['total_cost']:.4f}")
+                    print(f"📁 Results saved to: ./{workflow_plan.workspace_dir}")
+                else:
+                    print("❌ Workflow execution failed")
+                    if self.verbose and execution_result.get("results"):
+                        print("Failed phases:")
+                        for result in execution_result["results"]:
+                            if not result.get("success", True):
+                                print(f"  • {result['phase_name']}: {result.get('error', 'Unknown error')}")
             else:
                 print("❌ Execution cancelled")
                 
@@ -177,21 +208,42 @@ class TerminalInterface:
         
         try:
             # Get real stats from orchestrator
-            print("🤖 Models available: 12")
-            print("🏢 Providers configured: 4") 
-            print("💰 Free models: 3")
-            print("🔧 Tools available: 8")
-            print("📈 Success rate: 94%")
-            print("💸 Average cost: $0.08")
+            model_stats = self.orchestrator.model_manager.get_stats()
+            tool_stats = self.orchestrator.tool_discovery.get_stats()
+            
+            print(f"🤖 Models available: {model_stats['total_models']}")
+            print(f"🏢 Providers configured: {model_stats['total_providers']}") 
+            print(f"💰 Free models: {model_stats.get('free_models', 0)}")
+            print(f"🔧 Tools available: {tool_stats.get('total_tools', 0)}")
+            
+            # Get workflow statistics
+            workflows = self.orchestrator.list_workflows()
+            completed_workflows = [w for w in workflows if w['status'] == 'completed']
+            
+            if completed_workflows:
+                total_cost = sum(w.get('estimated_cost', 0) for w in completed_workflows)
+                avg_cost = total_cost / len(completed_workflows)
+                print(f"📈 Completed workflows: {len(completed_workflows)}")
+                print(f"💸 Average cost: ${avg_cost:.4f}")
+            else:
+                print("📈 No completed workflows yet")
+            
             print()
             
             if self.verbose:
                 print("📋 DETAILED STATISTICS:")
-                print("  • Claude Sonnet 4: 45 executions, $2.34 total")
-                print("  • Gemini 2.5 Pro: 23 executions, $0.00 total") 
-                print("  • Claude Opus 4: 8 executions, $5.67 total")
-                print("  • Cache hits: 67%")
-                print("  • Average execution time: 3.2 minutes")
+                
+                # Model breakdown
+                if hasattr(self.orchestrator.model_manager, 'get_model_usage'):
+                    usage_stats = self.orchestrator.model_manager.get_model_usage()
+                    for model, stats in usage_stats.items():
+                        print(f"  • {model}: {stats.get('executions', 0)} executions, ${stats.get('total_cost', 0):.4f} total")
+                
+                # Cache statistics
+                if hasattr(self.orchestrator.cache_manager, 'get_cache_stats'):
+                    cache_stats = self.orchestrator.cache_manager.get_cache_stats()
+                    print(f"  • Cache hits: {cache_stats.get('hit_rate', 0):.1%}")
+                    print(f"  • Cache size: {cache_stats.get('size_mb', 0):.1f} MB")
                 
         except Exception as e:
             self.error(f"Failed to load statistics: {str(e)}")
@@ -201,24 +253,37 @@ class TerminalInterface:
         print("📋 MAO Workflows")
         print("=" * 50)
         
-        # This would load real workflow history
-        workflows = [
-            {"name": "Marketing Strategy", "status": "completed", "cost": "$0.15", "date": "2025-06-19"},
-            {"name": "Product Analysis", "status": "in_progress", "cost": "$0.08", "date": "2025-06-20"},
-            {"name": "Content Calendar", "status": "draft", "cost": "$0.12", "date": "2025-06-20"}
-        ]
-        
-        if not workflows:
-            print("No workflows found. Create your first workflow with:")
-            print("  mao --goal \"describe what you want to accomplish\"")
-            return
-        
-        for i, wf in enumerate(workflows, 1):
-            status_emoji = {"completed": "✅", "in_progress": "⏳", "draft": "📝"}.get(wf['status'], "❓")
-            print(f"{i}. {status_emoji} {wf['name']}")
-            print(f"   Status: {wf['status']} | Cost: {wf['cost']} | Date: {wf['date']}")
-        
-        print(f"\nTotal workflows: {len(workflows)}")
+        try:
+            # Get real workflow history from orchestrator
+            workflows = self.orchestrator.list_workflows()
+            
+            if not workflows:
+                print("No workflows found. Create your first workflow with:")
+                print("  mao --goal \"describe what you want to accomplish\"")
+                return
+            
+            for i, wf in enumerate(workflows, 1):
+                status_emoji = {
+                    "completed": "✅", 
+                    "in_progress": "⏳", 
+                    "planned": "📝",
+                    "failed": "❌"
+                }.get(wf['status'], "❓")
+                
+                print(f"{i}. {status_emoji} {wf['name']}")
+                print(f"   Status: {wf['status']} | Phases: {wf['phases']} | Cost: ${wf['estimated_cost']:.4f}")
+                
+                if self.verbose:
+                    workflow_status = self.orchestrator.get_workflow_status(wf['id'])
+                    if workflow_status and not workflow_status.get('error'):
+                        print(f"   Completed phases: {workflow_status.get('completed_phases', 0)}/{workflow_status.get('total_phases', 0)}")
+                        if workflow_status.get('actual_cost', 0) > 0:
+                            print(f"   Actual cost: ${workflow_status['actual_cost']:.4f}")
+            
+            print(f"\nTotal workflows: {len(workflows)}")
+            
+        except Exception as e:
+            self.error(f"Failed to load workflows: {str(e)}")
     
     def logs(self):
         """View orchestrator workflow logs"""
@@ -308,18 +373,54 @@ class TerminalInterface:
         print("🔄 MAO Continue")
         print("=" * 50)
         
-        print("🔍 Looking for resumable workflows...")
-        print("📋 Found: Product Analysis (paused at phase 2)")
-        print("⏱️  Elapsed: 2.3 minutes | Remaining: ~1.2 minutes")
-        print("💰 Spent: $0.08 | Estimated remaining: $0.04")
-        print()
-        
-        confirm = input("Resume this workflow? [Y/n]: ").strip().lower()
-        if confirm in ['', 'y', 'yes']:
-            print("🚀 Resuming workflow execution...")
-            print("✅ Workflow completed successfully!")
-        else:
-            print("❌ Resume cancelled")
+        try:
+            print("🔍 Looking for resumable workflows...")
+            
+            # Get workflows that can be resumed
+            workflows = self.orchestrator.list_workflows()
+            resumable = [w for w in workflows if w['status'] == 'in_progress']
+            
+            if not resumable:
+                print("❌ No resumable workflows found")
+                print("💡 Start a new workflow with: mao --goal \"your objective\"")
+                return
+            
+            # Get the most recent resumable workflow
+            latest_workflow = resumable[0]  # Assuming list is sorted by recency
+            workflow_status = self.orchestrator.get_workflow_status(latest_workflow['id'])
+            
+            if workflow_status.get('error'):
+                print(f"❌ Error accessing workflow: {workflow_status['error']}")
+                return
+            
+            print(f"📋 Found: {latest_workflow['name']}")
+            print(f"⏱️  Progress: {workflow_status.get('completed_phases', 0)}/{workflow_status.get('total_phases', 0)} phases")
+            
+            if workflow_status.get('actual_cost', 0) > 0:
+                remaining_cost = workflow_status.get('estimated_cost', 0) - workflow_status.get('actual_cost', 0)
+                print(f"💰 Spent: ${workflow_status['actual_cost']:.4f} | Estimated remaining: ${remaining_cost:.4f}")
+            else:
+                print(f"💰 Estimated cost: ${workflow_status.get('estimated_cost', 0):.4f}")
+            
+            print()
+            
+            confirm = input("Resume this workflow? [Y/n]: ").strip().lower()
+            if confirm in ['', 'y', 'yes']:
+                print("🚀 Resuming workflow execution...")
+                
+                # Resume execution
+                execution_result = await self.orchestrator.execute_workflow(latest_workflow['id'])
+                
+                if execution_result.get("success", False):
+                    print("✅ Workflow completed successfully!")
+                    print(f"💰 Total cost: ${execution_result['total_cost']:.4f}")
+                else:
+                    print("❌ Workflow execution failed")
+            else:
+                print("❌ Resume cancelled")
+                
+        except Exception as e:
+            self.error(f"Failed to resume workflow: {str(e)}")
     
     def dry_run(self):
         """Simulate workflow execution without running"""
