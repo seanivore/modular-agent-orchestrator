@@ -263,6 +263,20 @@ def get_search_suggestions(query: str, suggestion_type: str = "enhancement") -> 
     except Exception as e:
         return {"error": f"Suggestion generation failed: {str(e)}"}
 
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate operation cost for budget planning
+    Standard cost estimation interface for MAO tools
+    
+    Args:
+        params: Operation parameters containing max_results
+        
+    Returns:
+        Estimated cost in USD
+    """
+    max_results = params.get("max_results", 5)
+    return _calculate_search_cost(max_results)
+
 def _calculate_search_cost(max_results: int) -> float:
     """
     Calculate estimated cost for web search operation

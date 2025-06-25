@@ -121,14 +121,14 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
    - Implement proper Code Execution tool integration ✅
    - Add missing components: button, UI, JSON files ✅
 
-4. **Delete orchestrator/memory.py** ✅
+4. **Delete orchestrator/memory.py** 
    - Confirmed old file that violates Memory MCP strategy ✅
    - Update any remaining references ✅
 
-### Phase 2: Tool Logic Standardization (Session 2)
-**Focus**: One tool at a time, complete audit and fix
+### Phase 2: Tool Standardization (Session 2)
+**Focus**: One tool at a time, each file, complete audit and fix
 
-**Standardization Checklist per Tool:**
+**Standardization Checklist per Tool, per File:**
 - [ ] CacheManager properly imported and used
 - [ ] Single cache instance (no duplicates)
 - [ ] Standard `estimate_cost()` function (remove non-standard names)
@@ -137,17 +137,8 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 - [ ] No TODO comments or placeholder code
 - [ ] Remove hardcoded metadata/capabilities from logic files
 
---> QUESTION: What about `def estimate_execution_cost` which is in `button_brave_search.py`? 
-    - Should the cost function be only in the logic file? 
-    - Or should the button file get the function naming standardized? 
---> And on the `ui_brave_search.py` file, there is a `def display_cost_estimate` function 
-    - I'm seeing that all of the various file types have cost estimate functions 
-    - Which is making me think that they should be standarized on all files 
---> The `button_dalle_generate.py` as `estimated_cost` but it is in there like 10 times 
-    - Same with `dalle_generate.py` it seems 
-
 **Tools to Standardize:**
-1. brave_search.py 
+1: brave_search.py 
 ```
 brave_search.py (Logic file): ✅ GOOD
 ui_brave_search.py (UI file): ✅ GOOD
@@ -159,7 +150,7 @@ button_brave_search.py (Button file): ❌ NEEDS FIXES
   - Button snippets don't use the logic file functions
 --> The button file should import and use the logic file functions instead of duplicating everything. 
 ```
-2. dalle_generate.py 
+2: dalle_generate.py 
 ```
 dalle_generate.py: ⚠️ NEEDS MINOR FIXES
   - Has _calculate_dalle_cost() instead of standard estimate_cost()
@@ -174,7 +165,7 @@ button_dalle_generate.py: 🚨 MAJOR ISSUES
   - No standardized estimate_cost() function
   - Uses estimated_cost variable inconsistently
 ```
-3. file_operations.py 
+3: file_operations.py 
 ```
 file_operations.py: ⚠️ MISSING COST FUNCTION
   - NO estimate_cost() function at all! This is completely missing
@@ -186,7 +177,7 @@ button_file_operations.py: 🚨 MAJOR DUPLICATION
   - Multiple standalone snippet functions instead of single entry point
   - No cost estimation functions anywhere
 ```
-4. graphic_design.py 
+4: graphic_design.py 
 ```
 graphic_design.py: ✅ EXCELLENT
 ui_graphic_design.py: ✅ EXCELLENT
@@ -199,7 +190,7 @@ button_graphic_design.py: 🚨 MAJOR ISSUES
   - No imports from logic file - generates all code instead of using logic functions
   - Inconsistent operation pattern
 ```
-5. perplexity_search.py 
+5: perplexity_search.py 
 ```
 perplexity_search.py: ✅ FIXED
 ui_perplexity_search.py: ✅ EXCELLENT
@@ -212,7 +203,7 @@ button_perplexity_search.py: 🚨 MAJOR ISSUES
   - References to old module names perplexity_search_modular instead of current structure
   - Complex snippets that duplicate API logic instead of using MAO functions
 ```
-6. text_editor.py 
+6: text_editor.py 
 ```
 text_editor.py: ⚠️ NEEDS FIXES
   - Cache imported but NOT used anywhere in the file
@@ -225,7 +216,7 @@ button_text_editor.py: 🚨 MAJOR ISSUES
   - Has get_model_compatibility_info() with hardcoded metadata (belongs in JSON)
   - No imports from logic file - generates all code instead of using MAO functions
 ```
-7. think.py 
+7: think.py 
 ```
 think.py: ⚠️ NEEDS FIXES
   - Cache imported but NOT used anywhere in the file
@@ -241,28 +232,34 @@ button_think.py: 🚨 MAJOR ISSUES
   - Hardcoded API implementations instead of using logic functions
   - Multiple entry points violate our standardization pattern
 ```
-8. web_search.py 
+8: web_search.py 
 ```
-web_search.py 
-ui_web_search.py
-tool_web_search.json
-button_web_search.py
+web_search.py: ⚠️ MISSING COST FUNCTION
+  - NO public estimate_cost() function! Has private _calculate_search_cost() but missing required public interface
+ui_web_search.py: ✅ EXCELLENT
+tool_web_search.json: ✅ EXCELLENT
+button_web_search.py: 🚨 BROKEN 
+  - BROKEN IMPORT PATHS - imports from non-existent modules
+  - tools.web_search_modular (doesn't exist)
+  - interfaces.ui_tools.ui_web_search (doesn't exist)
+  - HARDCODED API CALLS - generates Anthropic client code instead of using MAO logic functions
+  - NO cost estimation - button doesn't use logic file's cost functions
 ```
-9.  files_api.py 
+9: files_api.py 
 ```
 files_api.py 
 ui_files_api.py
 tool_files_api.json
 button_files_api.py
 ```
-10.   mcp_connector.py 
+10: mcp_connector.py 
 ```
 mcp_connector.py 
 ui_mcp_connector.py
 tool_mcp_connector.json
 button_mcp_connector.py
 ```
-11.  code_execution.py f
+11: code_execution.py 
 ```
 code_execution.py 
 ui_code_execution.py
