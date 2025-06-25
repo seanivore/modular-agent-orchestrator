@@ -14,20 +14,7 @@
 **Priority**: Foundation requirement
 **Files Needed**: Create configs/user/ directory and user config management
 
-#### User Settings Schema (7 settings total)
-```json
-{
-  "username": "seanivore",
-  "user_id": "user-1642", 
-  "quick_launch": "always",
-  "favorite_model": "claude-sonnet-4",
-  "default_provider": "anthropic direct",
-  "theme": "dark mode CVD",
-  "cat_vibes": "I love it",
-  "double_texting": "always",
-  "tone_notification": "once, no push"
-}
-```
+
 
 #### Setting Options & Descriptions
 

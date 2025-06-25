@@ -447,7 +447,7 @@ It isn't a perfect science. The conceptual reasoning is more important to unders
      - I like keeping strategy it keeps thing clear and easy to understand  
 
 ```bash
-mkt strategy report --dogtech # This is the command 
+mkt strategy report # This is the command 
 ``` 
 
   2. Take the first word, the actual command, and run it in the terminal 

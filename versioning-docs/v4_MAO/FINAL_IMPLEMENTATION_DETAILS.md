@@ -1,46 +1,112 @@
-# Final Implementation Items 
+# Implementation Items 
 
-## Tasks, Re: `NEW_USER_FLOW.md` 
+## Application Configuration Settings Config 
 
-1. Created `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
-   - **Review entire document** 
-     - Look for gaps, inaccuracies, areas for clarifications, opportunities for extrapolating, etc.  
-   - **Review the new JSON objects and their new workflow** 
-     - Re: temp files, directory in setup script, and multiple objects 
-     - Throughout the document I added "*App UI/UX*" notation 
-   - **See if we can add more**
-     - Help build the visual expectations for the application 
-     - Make it easier to construct the application we want 
-2. As defined in the `NEW_USER_FLOW.md` document, saving User ID application configuration settings
-   - **Identify** and then **implement** all details needed 
-   - When a new User ID logs in, the application will prompt them to adjust their configuration settings 
-   - The application will create a new `user_username.json` file in the `configs/user` directory, and save the adjusted settings to it 
-   - The application will load these settings on subsequent launches 
-   - The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
-   - Default behavior is to launch with settings from the last session user; this and other defaults are items able to be adjusted on the application setting configuration screen 
+1. Our current list of settings has already been created in a single JSON file 
+2. File to breakdown: `./configs/settings/application_settings_schema.json` 
+3. Please add this as a rule to the tech documentation 
+   - All JSON config files should always be stand-alone files
+   - This is what makes them truely modular, easy to add a new one, remove an old one, or update an existing one 
+   - System files can pull the contents of the entire directory and dispaly it as a single list 
+4. Please breakdown the `application_settings_schema.json` file into individual `setting_name_app_settings.json` files 
+5. Place a template copy of the `setting_name_app_settings.json` file in the `./configs/examples/` directory 
+6. Create implementation plan for the use, creation, and updating of the application settings pulling from the `./configs/settings/` directory 
+7. Implement the plan 
+8. Document all  of the above 
 
-## Updating our config collections to be a true 'plug-and-play' feature
 
-1. Mao will be our updater 
-   - We won't set this up yet, but we need to build in preparation for it 
-   - At this stage, we'll just be handing over all the necessary details to Mao
-   - Mao will create the appropriate JSON config file and place it in the proper directory 
-   - This is the case for models, providers, tools, CLI-commands, etc. 
-   - Same goes for having them deleted when we need
-2. Current problem, if they're so easily updated, is instant, universal updating 
-   - We need to make sure that in-app displays are updated as well 
-   - We need a way to make sure that every place a config collection is displayed in documentation is up-to-date 
-3. This needs to be automated; a user could run the command to see all the tools at any time 
-   - In app it could technically pull what is in the file live 
-   - For written documents, we'll need to have a way to update them 
-4. Claude Code TIP from today was `※ Tip: Run /install-github-app to tag @claude right from your Github issues and PRs`
-   - I think this will work but I need confirmation 
-   - Then we need to detail the steps for how to use it, e.g. the command to post a PR, what it should say, how specific, etc. 
-   - For updating these plug-and-play config collections, we should have a template for a PR post that can be executed with a custom command 
-   - Unless there is a way to trigger the PR post just from it noticing that a specific directory was changed 
-   - Good introduction to this tool
+## Setup User ID Config 
+
+1. Create `./configs/user/` directory 
+2. Create `./configs/user/user_username.json` template file and place it in the `./configs/examples/` directory 
+
+**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
+
+#### User Settings Schema (because of additions of new settings, the schema should be updates from this version so that it *ONLY* includes the settings that the user changed away from the default settings) 
+
+```json
+{
+  "username": "seanivore",
+  "user_id": "user-1642", 
+  "quick_launch": "always",
+  "favorite_model": "claude-sonnet-4",
+  "default_provider": "anthropic direct",
+  "theme": "dark mode CVD",
+  "cat_vibes": "I love it",
+  "double_texting": "always",
+  "tone_notification": "once, no push"
+}
+```
+
+### User ID Config Lifespan 
+
+  1. When a new user logs in, they are prompted to choose a Username to always use in the application 
+  2. Our `meid` command is a user ID generator that will always create the same user ID for a specific Username
+     - It can be found here, python file: `./scripts/user_id_generator/user_id_generator.py`
+     - And the install command script: `./scripts/user_id_generator/install_meid_command.sh` 
+     - This will need to be integrated into the application 
+     - However we also want Users to be aware they can run it as a CLI command if they happen to be creating a JSON without AI help 
+  3. The `user_username.json` file is created in the `./configs/user/` directory 
+  4. As a new user they are prompted to adjust their configuration settings from defaults 
+  5. All the user's settings are saved to the `user_username.json` file 
+  6. The application should load these setting in sequential launches unless they logout 
+  7. If logged out, entering their username will pull up their `user_username.json` file and load the settings from it (not asking them to adjust settings again)
+  8. Help notes around the app or in the /help command screen show using `/config` or launching with `mao --config` let's them adjust settings directly which updates their `user_username.json` file 
+
+### Implementation 
+
+1. Create implementation plan for the use, creation, and updating of the `user_username.json` files 
+2. Include logic that the user settings only record changes from the default settings; this will make it easy when we add new settings to the application because all of the User's settings JSON files won't have to be updated until they decide to change a setting 
+3. Implement the plan 
+4. Document all of the above 
+
+## Workflow Unique ID 
+
+1. Similar to the User ID except these will give you a different unique ID every single time you run the `uid` command 
+2. You can see in the `NEW_USER_FLOW.md` that the workflow ID is one of the first things Mao does in the chat 
+3. The workflow ID is on the JSON config workflow objects 
+4. Mao uses the same workflow ID to tie together the workflow log, and is the entity used in the Memory MCP that ties everything they do together 
+5. Users making a JSON objects on their own should be aware that they can run the command `uid` to get a unique ID to put on the objects  
+6. This script will need to be implemented into the application 
+   - It can be found here, python file: `./scripts/unique_id_generator/unique_id_generator.py` 
+   - And the install command script: `./scripts/unique_id_generator/install_uid_command.sh`
+7. Please create this implementation plan 
+8. Implement the plan 
+9. Document all of the above 
+
+## Workflow Creation 
+
+1. The workflow creation is the best way to illustrate building a workflow 
+2. Show the Use-Case JSON being built 
+3. The logic for the different types of JSON objects to use depending on the use-case and chosen workflow 
+4. The fact that the workflow JSON objects are all named using the same custom command naming convention, including the .temp directory 
+5. The storage of the workflow JSON objects in the .temp sub-directory until the workflow planning is complete and ready to be setup 
+6. The setup script and all of its automations, creating the new directory, making new JSON object copies, deleting the .temp directory, creating the use-case-specific executable script, making the command executable, creating the use-case README 
+
+### Use-Case JSON Object 
+
+1. Collect the three types of JSON objects from the `NEW_USER_FLOW.md` document 
+2. Create implementation plan for the use, creation, and updating of the workflow JSON objects 
+3. Reference the workflow described in the `NEW_USER_FLOW.md` document 
+4. Template copies of each JSON object are alreaday in the `./configs/workflows/json_object_templates/` directory 
+
+### The Setup Script 
+
+1. Collect the details from the `NEW_USER_FLOW.md` document 
+2. Create implementation plan for the use, creation, and updating of the workflow JSON objects 
+3. Remember the pre-planned commands for setup, update, and fix-up scripts 
+4. Use the SFA scripts as a reference for creating the scripts 
+   - One script to setup the ability to run the setup script from anywhere simple commands like `/setup use_case_config.json` or `mao --setup use_case_config.json`
+   - The second script is what the first script activates; it runs and creates all the automations mentioned above 
+5. Pay special attention to the protocol for create custom commands 
+6. The biggest change to the setup script is that there are 3 types of JSON objects, and that the User/Orchestrator may need to change the workflow mid-workflow; all of this is outlined in the `NEW_USER_FLOW.md` document 
+7. Please create this implementation plan 
+8. Implement the plan 
+9. Document all of the above, including the JSON objects use and the setup script 
 
 ## Leftover From Integration Plan Notes 
+
+These were held over because of their relevance to the remaining implementation items that were detailed on the `NEW_USER_FLOW.md` document. 
 
 ### Confirm 'Orchestrator Integration' Re:
   - Connect `goal()` method to real `WorkflowOrchestrator` --> cannot find this term in codebase so must not be done 
@@ -58,6 +124,36 @@
   - Add progress bars and execution tracking 
     --> Probably do not need progress bars for execution tracking specifically, as we should leave these UI items to actual development of the UI, however we definitely still need the live stats and system metrics coming through for whatever the UI that is developed. 
 
+## Updating Any / All Config Collections 
+
+  1. Making our system truely 'plug-and-play' is a big deal 
+  2. All config collections should be well documented 
+  3. All config JSON objects should have templates easily avaialable 
+
+## Mao Updates Config Collection 
+
+### PROBLEM 
+
+  - Configs can be updated in real-time 
+  - We need the application to always display accurate config lists if a User pulls up the tools or help to see the arguments, etc. 
+  - We need our documentation to be updated as well.
+  - This must be done automatically, agentically 
+
+### SOLUTION 
+
+  - Claude Code TIP from today
+  - Run /install-github-app to tag @claude right from your Github issues and PRs
+  - We need to learn how to use this 
+  - It will inevitably be beneficial FAR beyond this one use case 
+  - But it will perfectly solve our needs for documentation 
+  - Digitally, the application will need to populate the list of config collection objects live, ever time it is called 
+
+### Implementation 
+
+1. Create implementation plan for the use, creation, and updating of the config collection objects 
+2. Implement the plan 
+3. Document all of the above 
+
 ## Technical Documentation 
 
 ### Notable Gaps 
@@ -67,6 +163,10 @@
 2. On `3_MAO_ARCHITECTURE.md` at LINE 270 "# interfaces/terminal/conversation_interface.py" is not a file that exists 
 
 3. On `3_MAO_ARCHITECTURE.md` at LINE 509 "Setup script processes config and creates executable command" needs to be updated with the real setup script (see `NEW_USER_FLOW.md` to finalize this an JSON), 618 the JSON can be placed 
+
+### Full Documentation Audit 
+
+After all items are implemented, I'd like to do a full documentation audit. All documents should be reviewed carefully, first one at a time, then all together. There are currently many overlaps and, reading them straight through is a bit of a challenge. This should be our end goal: that they can be read straight through without confusion. 
 
 ## Revamp the Claude Code Foundation UI Specs  
 
@@ -84,62 +184,3 @@
     - ADVANCED: `./versioning-docs/v4_MAO/advanced_spec.md`
   - Created a new executable commmand for the workflow: `./.claude/commands/dual_spec.md`
   - Full plan details: `./versioning-docs/v4_MAO/MAO_APP_UI_IMPLEMENTATION.md` 
-
-
-
-------
-
-
-Phase 2: NEW_USER_FLOW.md Enhancement (The exciting part!)
-
-Comprehensive document review
-
-Gap analysis, accuracy checks, clarity improvements
-Expansion opportunities for visual expectations
-JSON workflow validation and enhancement
-
-
-UI/UX visual language expansion
-
-Build on the excellent *App UI/UX* notations throughout the document
-Enhance visual descriptions to make app development easier
-Document interaction patterns and visual hierarchies
-
-
-
-⚙️ Phase 3: User Configuration System (Core functionality)
-
-Implement user settings management
-
-Create configs/user/ directory and user JSON file system
-User ID application background setup
-Settings persistence and loading
-
-
-Configuration interface integration
-
-/config and mao --config functionality
-Default behavior and session management
-
-
-
-🎨 Phase 4: Claude Code Foundation UI Specs Enhancement (The crown jewel!)
-
-Integrate NEW_USER_FLOW.md with foundation specs
-
-The visual language and UI descriptions in NEW_USER_FLOW.md are perfect for Claude Code
-Use the document to enhance both foundation_spec.md and advanced_spec.md
-
-
-Dual-spec approach optimization
-
-Leverage the detailed UI/UX descriptions for professional-grade interface specification
-Ensure the visual personality and interaction patterns transfer beautifully
-
-
-
-🚀 Why This Is Perfect Timing
-The NEW_USER_FLOW.md document is genuinely comprehensive and detailed. The visual descriptions, interaction patterns, and UI/UX notations provide an excellent foundation for creating Claude Code specs that will result in a beautiful, professional application.
-Combined with the completed Tool Standardization Phase, we have all the technical infrastructure ready - now we can focus on the exciting work of perfecting the user experience and making the Claude Code specs shine.
-Would you like me to start with any particular phase, or would you prefer I tackle them in order? The technical fixes in Phase 1 are quick wins that would clear the path for the more substantial work in the later phases.
-Looking forward to diving into this! 💎✨RetrySA
