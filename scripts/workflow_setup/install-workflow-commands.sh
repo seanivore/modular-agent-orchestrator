@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install Mao workflow command-line tools
+# Install workflow command-line tools
 
 # Get the base directory
 BASE_DIR="$(dirname "$(readlink -f "$0")")"
@@ -67,14 +67,51 @@ EOF
 
 chmod +x "$SETUP_CMD"
 
+# Create update command for workflow modifications
+UPDATE_CMD="$BIN_DIR/update"
+echo "Installing update command..."
+cat > "$UPDATE_CMD" << EOF
+#!/bin/bash
+# Mao Workflow Update Command
+
+echo "🚧 Workflow update functionality coming soon!"
+echo "This will allow dynamic workflow modification during execution"
+echo ""
+echo "Planned usage: update ./phase.json"
+echo "Planned usage: mao --update ./phase.json"
+echo "Planned usage: /update ./phase.json"
+EOF
+
+chmod +x "$UPDATE_CMD"
+
+# Create fix-it command for deliverable improvements
+FIXIT_CMD="$BIN_DIR/fix-it"
+echo "Installing fix-it command..."
+cat > "$FIXIT_CMD" << EOF
+#!/bin/bash
+# Mao Workflow Fix-It Command
+
+echo "🚧 Workflow fix-it functionality coming soon!"
+echo "This will allow fixing subpar deliverables during workflow execution"
+echo ""
+echo "Planned usage: fix-it ./fix.json"
+echo "Planned usage: mao --fix-it ./fix.json"
+echo "Planned usage: /fix-it ./fix.json"
+EOF
+
+chmod +x "$FIXIT_CMD"
+
 echo "Mao workflow commands installed successfully!"
 echo ""
-echo "Usage:"
-echo "  setup <temp_directory_path>"
+echo "Available commands:"
+echo "  setup <temp_directory_path>    - Create workflow from temp JSON files"
+echo "  update <phase.json>           - Update workflow during execution (coming soon)"
+echo "  fix-it <fix.json>             - Fix deliverables during workflow (coming soon)"
 echo ""
 echo "Examples:"
 echo "  setup ./configs/workflows/.temp/market-research/"
-echo "  setup /absolute/path/to/.temp/workflow-name/"
+echo "  update ./new-phase.json"
+echo "  fix-it ./fix-deliverable.json"
 echo ""
 echo "Make sure your shell's PATH includes $BIN_DIR"
 echo "You may need to restart your terminal or run 'source ~/.bashrc' (or ~/.zshrc)"

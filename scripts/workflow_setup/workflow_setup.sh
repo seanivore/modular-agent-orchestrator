@@ -1,5 +1,5 @@
 #!/bin/bash
-# Mao Workflow Setup - Process 3-type JSON workflow system
+# Workflow Setup - Process 3-type JSON workflow system
 # Usage: workflow_setup.sh <temp_directory_path>
 
 # Function to show usage
@@ -145,11 +145,17 @@ fi
 
 mkdir -p "$WORKFLOW_DIR"
 
-# Copy JSON files to workflow directory
-echo "Copying JSON files to workflow directory..."
-cp "$WORKFLOW_JSON" "$WORKFLOW_DIR/"
-cp "$PHASE_JSON" "$WORKFLOW_DIR/"
-cp "$HANDOFF_JSON" "$WORKFLOW_DIR/"
+# Create proper directory structure for workflow manager
+echo "Creating workflow directory structure..."
+mkdir -p "$WORKFLOW_DIR/config-files"
+mkdir -p "$WORKFLOW_DIR/deliverables"
+mkdir -p "$WORKFLOW_DIR/metadata"
+
+# Copy JSON files to config-files subdirectory (expected by workflow manager)
+echo "Copying JSON files to config-files directory..."
+cp "$WORKFLOW_JSON" "$WORKFLOW_DIR/config-files/"
+cp "$PHASE_JSON" "$WORKFLOW_DIR/config-files/"
+cp "$HANDOFF_JSON" "$WORKFLOW_DIR/config-files/"
 
 # Create the custom executable command
 USER_BIN="$(cd ~ && pwd)/bin"
@@ -199,19 +205,36 @@ cd "\$MAO_ROOT"
 python3 -c "
 import sys
 sys.path.append('.')
+from orchestrator.mcp_hub import create_mcp_hub
 from orchestrator.workflow_manager import WorkflowManager
 
-# Initialize workflow manager
+# Initialize MCP integration hub and workflow manager
+print('Initializing MAO orchestrator...')
+hub = create_mcp_hub()
 workflow_manager = WorkflowManager()
 
-# Execute workflow
+# Get workflow information
+workflow_info = workflow_manager.get_workflow_by_id('\$WORKFLOW_ID')
+if not workflow_info:
+    print('Error: Workflow not found')
+    sys.exit(1)
+
+print(f'Found workflow: {workflow_info.get(\"custom_command\", \"unknown\")}')
+print(f'Goal: {workflow_info.get(\"workflow_goal\", \"unknown\")}')
+
+# Create workflow context in MCP Hub
 try:
-    result = workflow_manager.execute_workflow('\$WORKFLOW_ID', '\$USER_ID')
-    print('Workflow completed successfully!')
-    if result:
-        print('Result:', result)
+    print('Creating workflow context...')
+    context_id = hub.create_workflow('\$WORKFLOW_ID', workflow_info.get('workflow_goal', 'Execute workflow'))
+    print(f'Workflow context created: {context_id}')
+    
+    # For now, just confirm workflow is ready for execution
+    # TODO: Implement actual workflow execution logic
+    print('✅ Workflow ready for execution!')
+    print('🚧 Full workflow execution implementation coming soon')
+    
 except Exception as e:
-    print(f'Error executing workflow: {e}')
+    print(f'Error initializing workflow: {e}')
     sys.exit(1)
 "
 EOF
@@ -249,9 +272,19 @@ $CUSTOM_COMMAND
 
 ## Files
 
-- **Workflow Config**: $(basename "$WORKFLOW_JSON")
-- **Phase Config**: $(basename "$PHASE_JSON")  
-- **Handoff Config**: $(basename "$HANDOFF_JSON")
+- **Workflow Config**: config-files/$(basename "$WORKFLOW_JSON")
+- **Phase Config**: config-files/$(basename "$PHASE_JSON")  
+- **Handoff Config**: config-files/$(basename "$HANDOFF_JSON")
+
+## Directory Structure
+
+\`\`\`
+$CUSTOM_COMMAND/
+├── config-files/       # JSON workflow configuration
+├── deliverables/       # Final workflow outputs
+├── metadata/          # Execution logs and state
+└── README.md          # This file
+\`\`\`
 
 ## Integration
 
