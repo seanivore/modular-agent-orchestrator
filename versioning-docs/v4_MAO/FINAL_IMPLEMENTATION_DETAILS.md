@@ -2,11 +2,6 @@
 
 ---
 
-NOTE: ✅ Dependency Issue = Just Missing anthropic Package
-Not a code problem - just need pip install anthropic for full orchestrator (not critical for our workflow ID functionality)
-
----
-
 ## Task #4: Workflow Creation 
 
 1. The workflow creation is the best way to illustrate building a workflow 
@@ -206,3 +201,29 @@ Detailed our implementation plan for running the SPEC.md files.
 
    - Detailed overview of how to make simple edits and enhancements to UI foundation 
    - Explain what needs integration and include the code snippets 
+
+---
+
+NOTE: ✅ Dependency Issue = Just missing Anthropic Package
+Not a code problem, just need pip install Anthropic for full orchestrator (not critical for our workflow ID functionality)
+
+UPDATE: I tried and it says it is already installed. Does "...for full orchestrator" mean something other than just in the terminal? Like it needs the Anthropic imports? Do all files? Which? 
+
+```bash
+> ~/Dev/modular-agent-orchestrator > pip install anthropic             07:07:45
+Requirement already satisfied: anthropic in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (0.49.0)
+Requirement already satisfied: anyio<5,>=3.5.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (4.9.0)
+Requirement already satisfied: distro<2,>=1.7.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (1.9.0)
+Requirement already satisfied: httpx<1,>=0.23.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (0.28.1)
+Requirement already satisfied: jiter<1,>=0.4.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (0.9.0)
+Requirement already satisfied: pydantic<3,>=1.9.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (2.11.3)
+Requirement already satisfied: sniffio in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (1.3.1)
+Requirement already satisfied: typing-extensions<5,>=4.10 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anthropic) (4.13.2)
+Requirement already satisfied: idna>=2.8 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from anyio<5,>=3.5.0->anthropic) (3.10)
+Requirement already satisfied: certifi in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from httpx<1,>=0.23.0->anthropic) (2025.1.31)
+Requirement already satisfied: httpcore==1.* in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from httpx<1,>=0.23.0->anthropic) (1.0.7)
+Requirement already satisfied: h11<0.15,>=0.13 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from httpcore==1.*->httpx<1,>=0.23.0->anthropic) (0.14.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from pydantic<3,>=1.9.0->anthropic) (0.7.0)
+Requirement already satisfied: pydantic-core==2.33.1 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from pydantic<3,>=1.9.0->anthropic) (2.33.1)
+Requirement already satisfied: typing-inspection>=0.4.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from pydantic<3,>=1.9.0->anthropic) (0.4.0)
+```
