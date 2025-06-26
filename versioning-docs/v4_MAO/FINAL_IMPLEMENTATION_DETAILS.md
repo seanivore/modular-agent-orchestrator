@@ -3,91 +3,7 @@
 
 ---
 
-```text
-**CONTEXT PRIMING**
-
-1. Use the `sequential thinkink` MCP tool 
-2. Lookup exact search term in `memory` MCP: Mao_v4_Tool_Standardization_Phase
-   - Since we've moved past the tool standardization phase, create new entitys
-     1. Mao_v4_Build 
-     2. Mao_v4_Final_Implementation_Tasks
-   - Post Project State when: 
-     1. Next steps for a session's task batch are planned 
-     2. Mid-tasks if something changes or something notable
-     3. After tasks batch is complete 
-3. Review the following document: `./versioning-docs/technical-documentation/MAO_FILE_STANDARDIZATION_RULES.md` 
-4. Review any mentioned context files 
-```
-
----
-
-## 1. Username > User ID Config Setup 
-
-### Overview 
-
-   - No password required, but users login using a Username 
-   - Script creates a unique ID for that username that is always the same 
-   - When a new user creates a username, we need it to automatically create the JSON object 
-   - User ID ties together all the users actions and settings 
-   - Existing users, system pulls JSON from the config collection
-   - Need to create a username manager python file 
-   - JSON stores delta changes in app configuration settings 
-   - JSON updates when User changes their settings, or when they run the `/config` command 
-   - User state is maintained across sessions unless logged out 
-
-### JSON Object Template Setup 
-
-1. Create `./configs/user/` directory 
-2. Create `./configs/user/user_username.json` template file and place it in the `./configs/examples/` directory 
-
-#### User Settings Schema 
-
-  - Because app settings are also modular, we only record delta changes, changes form the default 
-  - This way we don't need a FULL schema; doing so would mean every new setting all username JSON files would need to be updated 
-  - So it should start with only the essentials 
-  - Keep is so super simple to avoid updating complications (though it should all be automated)
-
-```json
-{
-  "username": "seanivore",
-  "user_id": "user-1642", 
-  "first_name": "Sean", 
-  "last_name": "Horvath", 
-  "email": "sean@august.style",
-  "dob": "1987-07-21"
-}
-```
-
-### User ID Config Lifespan 
-
-**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
-
-  1. When a new user logs in, they are prompted to choose a Username to always use in the application 
-  2. Our `meid` command is a user ID generator that will always create the same user ID for a specific Username
-     - It can be found here, python file: `./scripts/user_id_generator/user_id_generator.py`
-     - And the install command script: `./scripts/user_id_generator/install_meid_command.sh` 
-     - This will need to be integrated into the application 
-     - However we also want Users to be aware they can run it as a CLI command if they happen to be creating a JSON without AI help 
-  3. The `user_username.json` file is created in the `./configs/user/` directory 
-  4. As a new user they are prompted to adjust their configuration settings from defaults 
-  5. All the user's settings are saved to the `user_username.json` file 
-  6. The application should load these setting in sequential launches unless they logout 
-  7. If logged out, entering their username will pull up their `user_username.json` file and load the settings from it (not asking them to adjust settings again)
-  8. Help notes around the app or in the /help command screen show using `/config` or launching with `mao --config` let's them adjust settings directly which updates their `user_username.json` file 
-
-### Implementation 
-
-1. Create implementation plan for the use, creation, and updating of the `user_username.json` files 
-2. Include logic that the user settings only record changes from the default settings; this will make it easy when we add new settings to the application because all of the User's settings JSON files won't have to be updated until they decide to change a setting 
-3. Implement the plan 
-4. Discovery system for the user settings 
-5. Create a section for the tech documentation that can be inserted later that details all of the above 
-6. Create a new python file for the username manager 
-7. Audit the python file using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
-
----
-
-## 2. Workflow Unique ID 
+## Task #3: Workflow Unique ID 
 
 1. Similar to the User ID except these will give you a different unique ID every single time you run the `uid` command 
 2. You can see in the `NEW_USER_FLOW.md` that the workflow ID is one of the first things Mao does in the chat 
@@ -108,7 +24,7 @@
 
 ---
 
-## 3. Workflow Creation 
+## Task #4: Workflow Creation 
 
 1. The workflow creation is the best way to illustrate building a workflow 
 2. Show the Use-Case JSON being built 
@@ -145,7 +61,7 @@
 
 ---
 
-## 4. Leftover From Integration Plan Notes 
+## Task #5: Leftover From Integration Plan Notes 
 
 These were held over because of their relevance to the remaining implementation items that were detailed on the `NEW_USER_FLOW.md` document. 
 
@@ -169,7 +85,7 @@ These were held over because of their relevance to the remaining implementation 
 
 ---
 
-## 5. Updating Any / All Config Collections 
+## Task #6: Updating Any / All Config Collections 
 
   1. Making our system truely 'plug-and-play' is a big deal 
   2. All config collections should be well documented 
@@ -201,7 +117,7 @@ These were held over because of their relevance to the remaining implementation 
 
 ---
 
-## 6. Technical Documentation 
+## Task #7: Technical Documentation 
 
 ### Notable Gaps 
 
@@ -217,7 +133,7 @@ After all items are implemented, I'd like to do a full documentation audit. All 
 
 ---
 
-## 7. Revamp the Claude Code Dual SPEC.md Files 
+## Task #8: Revamp the Claude Code Dual SPEC.md Files 
 
 Update and enhance them with all that we have completed. 
 
