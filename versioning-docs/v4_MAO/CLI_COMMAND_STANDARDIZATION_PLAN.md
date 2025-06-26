@@ -1,19 +1,37 @@
-# CLI Command Standardization & Implementation Plan
-**Context Jump Document for Task #5 Implementation**
+# Task #5 CLI Commands Integration, Standardization, & Implementation Plan
 
----
+## Process for Standardization 
 
-## Project Status & Context
+**DO ONE FILE AT A TIME, THEN AUDIT THAT FILE**
 
-**Current State:** Task #5 "Leftover From Integration Plan Notes" - CLI Commands Integration
-- ✅ **CLI Commands Manager created** (`orchestrator/cli_manager.py`) 
-- ✅ **Basic caching implemented** for frequently-called commands
-- ✅ **Dynamic cost reading** from JSON files (no hardcoded costs)
-- 🚧 **Full standardization needed** for all CLI commands and utility scripts
+### Do Audit On Files That Exist 
+  - Detail to Sean what is good and what is needed 
+  - Layout plan to address fixes 
+  - Implement the fixes  
+  - Report on results of the fix  
 
-**Problem Identified:** CLI commands need "proper fingerprinting for ALL CLI commands and their responses" like tools have
+### Create Files That Don't Exist 
+  - Detail to Sean what is needed 
+  - Create the file based on those details 
+  - Report on the results 
+  - Use Audit document to review the file again 
+  - If anything needs fixing, detail it, do it, then report on results 
 
-**Architecture Discovery:** Two distinct types of CLI commands require different standardization approaches
+
+
+- Update the created CLI commands manager `orchestrator/cli_manager.py`, then audit 
+- Caching of all CLI commands and responses 
+  - Basic caching implemented for the most part 
+  - Need to add proper fingerprinting for all CLI commands and their responses 
+- Standard cost estimate with proper naming 
+  - Add to JSON to avoid hardcoding 
+  - Note that Sonnet 4 will be Mao reading these messages and replies, use their costs 
+  - Search text in quotes in terminal with `token` to see token count when estimating
+- After completing one file, do a sequential thinking and full audit 
+  - Use the `./versioning-docs/technical-documentation/MAO_FILE_STANDARDIZATION_RULES.md` document 
+  - Don't rush, find detail oriented perfection 
+
+
 
 ---
 
