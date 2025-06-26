@@ -4,5 +4,6 @@
   "terminal_flag": "--goal",
   "app_command": "/goal",
   "interface_method": "goal",
-  "help": "Create entire workflow from goal"
+  "help": "Create entire workflow from goal",
+  "cost_estimate": 0.05
 }

@@ -43,7 +43,7 @@ Seems like the most important part of this task is the CLI commands and slash co
   - username_manager.py and settings_manager.py are examples of what we needed for other config collections 
   - There is also a real_time_metrics.py file already 
 
---> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document g
+--> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document. 
 
 ---
 

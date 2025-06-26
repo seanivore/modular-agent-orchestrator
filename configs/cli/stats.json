@@ -4,5 +4,6 @@
   "terminal_flag": "--stats",
   "app_command": "/stats",
   "interface_method": "stats",
-  "help": "Show system performance and orchestrator statistics"
+  "help": "Show system performance and orchestrator statistics",
+  "cost_estimate": 0.001
 }
