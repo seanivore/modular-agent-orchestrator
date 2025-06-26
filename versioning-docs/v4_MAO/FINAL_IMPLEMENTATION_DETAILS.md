@@ -50,7 +50,11 @@
 ```json
 {
   "username": "seanivore",
-  "user_id": "user-1642" 
+  "user_id": "user-1642", 
+  "first_name": "Sean", 
+  "last_name": "Horvath", 
+  "email": "sean@august.style",
+  "dob": "1987-07-21"
 }
 ```
 

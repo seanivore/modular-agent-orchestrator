@@ -396,6 +396,29 @@ def format_error_for_ui(error_info: Dict[str, Any], verbose: bool = False) -> st
     return message
 
 
+def retry_with_backoff(max_retries: int = 3,
+                      delay: float = 1.0,
+                      base_delay: float = None,  # Backward compatibility
+                      backoff_factor: float = 2.0,
+                      exceptions: tuple = (Exception,)) -> Callable:
+    """
+    Alias for retry_on_failure for backward compatibility
+    
+    Args:
+        max_retries: Maximum number of retry attempts
+        delay: Initial delay between retries (seconds)
+        base_delay: Alternative name for delay (backward compatibility)
+        backoff_factor: Multiplier for delay after each failure
+        exceptions: Tuple of exceptions to retry on
+        
+    Returns:
+        Decorated function with retry logic
+    """
+    # Use base_delay if provided for backward compatibility
+    actual_delay = base_delay if base_delay is not None else delay
+    return retry_on_failure(max_retries, actual_delay, backoff_factor, exceptions)
+
+
 def estimate_operation_cost(operation_type: str, 
                           complexity_factor: float = 1.0,
                           base_costs: Dict[str, float] = None) -> float:
