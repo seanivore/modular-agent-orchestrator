@@ -1,29 +1,24 @@
-# Implementation Items 
+# Remaining Implementation Items Before Product UI Development 
+   * COMPLETE: App config settings with full integration and management file that was audited and updated 
 
 ---
 
-## 1. Application Configuration Settings Config 
+## 1. Username User ID Config Setup 
 
-1. Our current list of settings has already been created in a single JSON file 
-2. File to breakdown: `./configs/settings/application_settings_schema.json` 
-3. Please add this as a rule to the tech documentation 
-   - All JSON config files should always be stand-alone files
-   - This is what makes them truely modular, easy to add a new one, remove an old one, or update an existing one 
-   - System files can pull the contents of the entire directory and dispaly it as a single list 
-4. Please breakdown the `application_settings_schema.json` file into individual `setting_name_app_settings.json` files 
-5. Place a template copy of the `setting_name_app_settings.json` file in the `./configs/examples/` directory 
-6. Create implementation plan for the use, creation, and updating of the application settings pulling from the `./configs/settings/` directory 
-7. Implement the plan 
-8. Document all  of the above 
+**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
 
----
+### Overview 
 
-## 2. Setup User ID Config 
+   - Requires automated JSON creation for new users 
+   - Existing users, system pulls JSON from the config collection 
+   - JSON stores delta changes in app configuration settings 
+   - JSON updates when User changes their settings 
+   - User state is maintained across sessions unless logged out 
+
+### JSON Object Template Setup 
 
 1. Create `./configs/user/` directory 
 2. Create `./configs/user/user_username.json` template file and place it in the `./configs/examples/` directory 
-
-**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
 
 #### User Settings Schema (because of additions of new settings, the schema should be updates from this version so that it *ONLY* includes the settings that the user changed away from the default settings) 
 
@@ -182,87 +177,99 @@ After all items are implemented, I'd like to do a full documentation audit. All 
 
 ---
 
-## 8. Revamp the Claude Code Foundation UI Specs  
+## 8. Revamp the Claude Code Dual SPEC.md Files 
 
-1. Given the detailed, thorough, and visual `NEW_USER_FLOW.md` document 
-2. Because we also have everything else implemented now 
+Update and enhance them with all that we have completed. 
 
-**I'm hoping that the vibe of the visuals and even the copywriting will speak through the `NEW_USER_FLOW.md` document** 
-  - Do we include this file itself in the Claude Code SPEC.md files? 
-  - Do we try to integrate it into the SPEC.md files? 
+  1. Detailed, thorough, visual UX/UI in `NEW_USER_FLOW.md` document 
+  2. `NEW_USER_FLOW.md` evokes vibe of visuals and even copywriting should speak through the document
+  3. Very carefully detailed typography visuals in `6_MAO_VISUAL_IDENTITY.md` document 
 
-**FOR REFERENCE** 
+### Previous SPEC.md File Implementation 
 
-  - We're using a double SPEC.md approach for Claude Code; each is an $ARGUMENT 
-    - FOUNDATION: `./versioning-docs/v4_MAO/foundation_spec.md`
-    - ADVANCED: `./versioning-docs/v4_MAO/advanced_spec.md`
-  - Created a new executable commmand for the workflow: `./.claude/commands/dual_spec.md`
-  - Full plan details: `./versioning-docs/v4_MAO/MAO_APP_UI_IMPLEMENTATION.md`
+This was a double SPEC.md approach for Claude Code, using one at a time, sequentially, and provided as $ARGUMENTS. 
 
-**ENHANCED IMPLEMENTATION DETAILS FOR CONTEXT JUMPING**
+   - FOUNDATION: `./versioning-docs/v4_MAO/foundation_spec.md`  <-- Update based on new details 
+   - ADVANCED: `./versioning-docs/v4_MAO/advanced_spec.md`  <-- Update based on new details 
 
-### NEW_USER_FLOW.md Integration Strategy
-**Sean's Vision**: "I'm hoping that the vibe of the visuals and even the copywriting will speak through the NEW_USER_FLOW.md document"
+We can entertain the idea of using a third SPEC.md file since we have a lot of polish now. 
 
-#### Visual Design Elements from NEW_USER_FLOW.md
-- **Cat Mascot Integration**: "~(=^‥^) Mao welcomes you!" branding throughout
-- **Terminal UI Patterns**: Tree structures, progress indicators, conversation flows
-- **Color Schemes**: Theme selection examples (Dark mode, Light mode, CVD variants)
-- **Interactive Elements**: Arrow navigation, selection confirmations, preview displays
-- **Typography Hierarchy**: Bullet patterns, indentation, contextual help text
+We created a new executable command workflow. 
 
-#### Copywriting Style Elements
-- **Conversational Tone**: "Mao, seanivore!", "We won't ask you again, mao"
-- **Helpful Guidance**: Context-sensitive tips and explanations
-- **Progressive Disclosure**: Information revealed as needed, not overwhelming
-- **Personal Touch**: Username integration, welcoming language
-- **Technical Clarity**: Complex concepts explained simply
+   - `./versioning-docs/v4_MAO/dual_spec.md`
 
-### Integration Decision Points
+Detailed our implementation plan for running the SPEC.md files. 
 
-#### Option A: Include NEW_USER_FLOW.md Directly
-- **Pros**: Complete visual and UX context preserved
-- **Cons**: Large file inclusion, potential redundancy
-- **Use Case**: Reference document for UI developers
+   - `./versioning-docs/v4_MAO/MAO_APP_UI_IMPLEMENTATION.md`  <-- Needs update based on details below 
 
-#### Option B: Extract and Integrate Elements
-- **Pros**: Streamlined specs with essential elements
-- **Cons**: Risk of losing visual context and nuance
-- **Use Case**: Focused development specifications
+### Implementation Plan 
 
-#### Option C: Hybrid Approach (RECOMMENDED)
-- **Implementation**: Core elements integrated, full document referenced
-- **Structure**: Visual patterns in Foundation spec, complete flow in Advanced spec
-- **Benefit**: Best of both approaches - focused and comprehensive
+1. Create implementation plan for the use, creation, and updating of the Claude Code SPEC.md files 
+2. Implement the plan 
+3. Document all of the above 
 
-### Claude Code Spec Enhancement Strategy
 
-#### Foundation Spec Enhancement
-- **UI Patterns**: Extract core interface patterns from NEW_USER_FLOW.md
-- **Visual Identity**: Integrate Mao cat branding and terminal aesthetics
-- **Interaction Models**: Progressive onboarding, theme selection, settings management
-- **Component Library**: Reusable UI elements identified in NEW_USER_FLOW.md
+### Claude Code SPEC.md Enhancement 
 
-#### Advanced Spec Enhancement  
-- **Complete Workflows**: Full user journey from NEW_USER_FLOW.md
-- **Complex Interactions**: Multi-step processes, workflow creation, agent coordination
-- **Advanced Features**: Real-time monitoring, progress tracking, system integration
-- **Professional Polish**: Deployment-ready specifications with comprehensive detail
+1. Pull from the `NEW_USER_FLOW.md` document 
+   - Extract core interface UI patterns 
+   - Interaction models progressive onboarding, theme selection, settings management
+   - Idenitfy reusable UI elements for component library
+   - Stay true to the simple, clean visual brand identity; Mao cat branding, terminal aesthetics 
+2. Review full user journey from NEW_USER_FLOW.md
+   - See complex interactions, multi-step processes, workflow creation, agent coordination
+   - System integration of real-time monitoring and progress tracking, user stats over time
+   - Ensure deployment ready professional polish and comprehensive detail 
+3. Implementation dependencies 
+   - All systems are implemented; SPEC.md reflect working functionality 
+   - Stay true to validated UI/UX tested and refined NEW_USER_FLOW.md patterns 
+   - Stay true to finalized visual identity design language 
+   - Validate interface patterns with real usage 
 
-### Implementation Dependencies
-- **All Systems Implemented**: Specs reflect actual working functionality
-- **UI/UX Patterns Validated**: NEW_USER_FLOW.md patterns tested and refined
-- **Visual Identity Finalized**: Consistent branding and design language
-- **User Testing**: Interface patterns validated with real usage
+### Copywritign Style Guide Tips 
 
-### Implementation Plan
-1. **Pattern Extraction**: Identify reusable UI/UX patterns from NEW_USER_FLOW.md
-2. **Visual Integration**: Incorporate cat branding and terminal aesthetics
-3. **Copywriting Style**: Extract and systematize writing patterns and tone
-4. **Foundation Enhancement**: Update foundation spec with core patterns
-5. **Advanced Enhancement**: Integrate complete workflows and advanced features
-6. **Validation**: Ensure enhanced specs enable superior UI development
-7. **Documentation**: Update MAO_APP_UI_IMPLEMENTATION.md with final approach
+   - Tip and explaination UI is context-sensitive and has abundant examples 
+   - 'Conversational' but technically simplier than conversational 
+   - Claude Code was our inspiration for the UI/UX; let it be yours 
+   - Progressive disclosure information is revealed as needed and only for as long as needed 
+   - Information removal as well, it goes both ways, maintaining avoidance of overwhelm
+   - Name, username integration; use in conversation for personalization 
+   - No complex concepts at all, only clarity, especially if remotely techincal 
+
+### Visual Brand Identity Guide Tips 
+
+   - Mao cat is only shown on initial headers in corner and no where else 
+   - See `6_MAO_VISUAL_IDENTITY.md` for more full details on UI patterns 
+   - Handful of methods of showing informational hierachy 
+   - Tree structures, very select colors, generous indentation with unique bullets 
+   - Conversational flow has decent line spacing because the messages are so concise 
+   - Interactive elements include arrow naviation when eneded, selection confirmation, preview displays, modals 
+   - Typographical hierachy *IS* the visual design 
+   - Incredibly carefully planned bullet patterns, indentation, contextual help text 
+
+### Implementation Plan 
+
+   - Identify reusable UI/UX patterns from NEW_USER_FLOW.md
+   - Incorporate terminal aesthetics with minimal cat branding 
+   - Recreate copy style by extracting and systematizing writing patterns and tone 
+   - Update foundation SPEC.md with core patterns 
+   - Update advanced SPEC.md with complete workflows and features 
+   - Validate that enhanced SPEC.md files enable superior UI development 
+   - Document final approach by updating MAO_APP_UI_IMPLEMENTATION.md 
+
+### Handoff 
+
+   - Include the `NEW_USER_FLOW.md` document in the handoff 
+   - Simplify the `NEW_USER_FLOW.md` document to be more concise and focused on the UI/UX aspects 
+   - Elaborate on design language and visual identity 
+   - Include `6_MAO_VISUAL_IDENTITY.md` document; simplified 
+
+### Deliverables 
+
+   - Detailed overview of how to make simple edits and enhancements to UI foundation 
+   - Explain what needs integration and include the code snippets 
+
+
 
 ---
 
@@ -280,17 +287,12 @@ After all items are implemented, I'd like to do a full documentation audit. All 
 - ✅ **Memory MCP Ready**: Context tracking with Mao_v4_Tool_Standardization_Phase entity
 
 ### Development Approach Standards
-- **Systematic**: Work H2-by-H2 through numbered implementation tasks
+- **Systematic**: Work through numbered implementation tasks in order 
 - **Communicative**: Frequent Memory MCP updates and progress reporting
 - **Quality-Focused**: Filesystem tools over artifacts for accuracy
 - **Dependency-Aware**: Maintain task prerequisites and integration points
 - **Context-Jump Ready**: Enhanced documentation for seamless session transitions
 
-### Success Metrics
-- **Task Completion**: Each H2 fully implemented with documentation
-- **Integration Verification**: Systems work together seamlessly
-- **Quality Assurance**: Professional-grade code and configuration
-- **Context Continuity**: Future Claude sessions can immediately continue work
-- **User Experience**: All interfaces functional and intuitive
+
 
 **READY TO BEGIN WITH #1 APPLICATION CONFIGURATION SETTINGS CONFIG** 🚀 
