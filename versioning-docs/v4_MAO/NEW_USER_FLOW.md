@@ -536,7 +536,7 @@ configs/workflows/command_use_case/
 ├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
 ├── metadata/                                     # Workflow tracking details  
 │   ├── command_use_case_memory.json              # Workflow Memory MCP File  
-│   └── command_use_case_log.md                   # Workflow log file 
+│   └── command_use_case_log.json                 # Workflow log file 
 └── deliverables/                                 # Final outputs; this is where the deliverables are stored 
     └── command_use_case_report.md                # This is the final deliverable; it is the report 
 ```
