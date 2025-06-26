@@ -1,6 +1,6 @@
 """
-Conversation to Workflow Bridge - Component A
-Converts natural language goals into executable custom commands following SFA patterns
+Conversation to Workflow Bridge -
+Converts natural language goals into executable custom commands 
 """
 
 import os

@@ -12,7 +12,7 @@ import json
 
 from .styles import MAO_COLORS, get_panel_style
 from .components.workflow_list import WorkflowList
-from workflows.manager import WorkflowManager as WFManager
+from orchestrator.workflow_manager import WorkflowManager as WFManager
 
 
 class WorkflowManager(Static):

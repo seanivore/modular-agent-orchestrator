@@ -119,8 +119,18 @@ class CommandRunner(Static):
     
     async def start_demo_execution(self) -> None:
         """Start a demo workflow execution."""
+        # Generate real workflow ID
+        from orchestrator.workflow_manager import generate_workflow_id
+        workflow_result = generate_workflow_id()
+        
+        if not workflow_result.get("success"):
+            self.app.notify("Failed to generate workflow ID", severity="error")
+            return
+            
+        workflow_id = workflow_result["workflow_id"]
+        
         self.execution_state = "running"
-        self.current_workflow = "demo_workflow"
+        self.current_workflow = workflow_id
         
         # Update UI state
         self.query_one("#stop-button", Button).disabled = False
@@ -128,10 +138,10 @@ class CommandRunner(Static):
         self.query_one("#quick-button", Button).disabled = True
         
         # Update header status
-        self.update_execution_status("Initializing workflow...")
+        self.update_execution_status(f"Initializing workflow {workflow_id}...")
         
         # Post execution started message
-        self.post_message(self.ExecutionStarted("demo_workflow"))
+        self.post_message(self.ExecutionStarted(workflow_id))
         
         try:
             # Simulate workflow execution steps
@@ -162,13 +172,13 @@ class CommandRunner(Static):
                 self.execution_state = "completed"
                 self.update_execution_status("Workflow completed successfully")
                 self.add_output_line(f"[{datetime.now().strftime('%H:%M:%S')}] Workflow execution completed!")
-                self.post_message(self.ExecutionCompleted("demo_workflow", True))
+                self.post_message(self.ExecutionCompleted(workflow_id, True))
             
         except Exception as e:
             self.execution_state = "failed"
             self.update_execution_status(f"Execution failed: {str(e)}")
             self.add_output_line(f"[{datetime.now().strftime('%H:%M:%S')}] ERROR: {str(e)}")
-            self.post_message(self.ExecutionCompleted("demo_workflow", False))
+            self.post_message(self.ExecutionCompleted(workflow_id, False))
         
         finally:
             # Re-enable buttons

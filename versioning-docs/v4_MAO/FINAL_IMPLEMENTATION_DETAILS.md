@@ -1,5 +1,9 @@
 # Remaining Implementation Items Before Product UI Development 
-   * COMPLETE: App config settings with full integration and management file that was audited and updated 
+
+---
+
+NOTE: ✅ Dependency Issue = Just Missing anthropic Package
+Not a code problem - just need pip install anthropic for full orchestrator (not critical for our workflow ID functionality)
 
 ---
 
