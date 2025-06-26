@@ -9,19 +9,35 @@ These were held over because of their relevance to the remaining implementation 
 
 ### Confirm 'Orchestrator Integration' Re:
   - Connect `goal()` method to real `WorkflowOrchestrator` --> cannot find this term in codebase so must not be done 
-  - Implement workflow state management for continue/review
-  - Add real cost tracking and progress monitoring 
+  - Implement workflow state management for continue/review (?)
+  - Add real cost tracking and progress monitoring --> I think we might have finished this while doing an audit 
 
 ### Confirm 'File System Integration' Re:
-  - Connect setup/update commands to actual JSON workflow processing
+  - Connect setup/update commands to actual JSON workflow processing 
+    - Only the setup script commands are conneccted and functional 
+    - We have all of the currently planned commands as JSONs here: `./configs/cli/` 
+    - See the most up-to-date chart here: `./versioning-docs/technical-documentation/7_MAO_USER_GUIDE.md` 
   - Implement workspace management for deliverable organization --> explain? 
-  - Add file validation and error handling --> for? the CLI arguments and slach commands? 
+    - If this means how to organize the files in Files API during workflows, then how about: 
+      - We create a new directory at the root labeled by the Workflow ID 
+      - Create a new sub-directory for each phase of the deliverables (drafts, reviews, etc.) but not this won't be the case for all workflows 
+      - Considered a sub-directory for each phase, but separating the JSON objects seems unhelpful 
+      - I'd perhaps just keep it standard and simple with "DRAFTS" meaning including revisions and reviews -- just label the files as such and keep them all together. If there are multiple document deliverables that have drafts, then I'd separate those into different sub-directories. Fianlly, Mao might want to keep their notes from building the workflow in there at the root so that they can easily glance at them when needed. 
+  - Add file validation and error handling --> for? the CLI arguments and slash commands? Or for the Files API? 
 
 ### Confirm 'Real-Time Features' Re:
-  - Connect stats to actual system metrics
-  - Implement live workflow monitoring
+  - Connect stats to actual system metrics 
+    - We actually want to prepare this in a specific open-ended way for UI design 
+    - We should make it clear where the endpoints are for stats and metrics 
+    - Describe what the stats and metrics are 
+    - Provide ideas for what they could help display, as well as visual data visualization recommendations 
+  - Implement live workflow monitoring 
+    - I'm assuming this is something we want for the Foundation UI Claude Code creation 
+    - We should make sure anything that can be prepared is prepared for that 
   - Add progress bars and execution tracking 
-    --> Probably do not need progress bars for execution tracking specifically, as we should leave these UI items to actual development of the UI, however we definitely still need the live stats and system metrics coming through for whatever the UI that is developed. 
+    - This is unnecessary 
+    - This is a UI design decision and it doesn't make sense to decide it is what we want now 
+    - Again, we should make it clear what stats are available, what they are for, and ideas like the bars 
 
 --> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
 
