@@ -1,41 +1,5 @@
 # Remaining Implementation Items Before Product UI Development 
-
----
-
-## Task #4: Workflow Creation 
-
-1. The workflow creation is the best way to illustrate building a workflow 
-2. Show the Use-Case JSON being built 
-
-**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
-
-3. The logic for the different types of JSON objects to use depending on the use-case and chosen workflow 
-4. The fact that the workflow JSON objects are all named using the same custom command naming convention, including the .temp directory 
-5. The storage of the workflow JSON objects in the .temp sub-directory until the workflow planning is complete and ready to be setup 
-6. The setup script and all of its automations, creating the new directory, making new JSON object copies, deleting the .temp directory, creating the use-case-specific executable script, making the command executable, creating the use-case README 
-
-### Use-Case JSON Object 
-
-1. Collect the three types of JSON objects from the `NEW_USER_FLOW.md` document 
-2. Create implementation plan for the use, creation, and updating of the workflow JSON objects 
-3. Reference the workflow described in the `NEW_USER_FLOW.md` document 
-4. Template copies of each JSON object are alreaday in the `./configs/workflows/json_object_templates/` directory 
-
-### The Setup Script 
-
-1. Collect the details from the `NEW_USER_FLOW.md` document 
-2. Create implementation plan for the use, creation, and updating of the workflow JSON objects 
-3. Remember the pre-planned commands for setup, update, and fix-up scripts 
-4. Use the SFA scripts as a reference for creating the scripts 
-   - One script to setup the ability to run the setup script from anywhere simple commands like `/setup use_case_config.json` or `mao --setup use_case_config.json`
-   - The second script is what the first script activates; it runs and creates all the automations mentioned above 
-5. Pay special attention to the protocol for create custom commands 
-6. The biggest change to the setup script is that there are 3 types of JSON objects, and that the User/Orchestrator may need to change the workflow mid-workflow; all of this is outlined in the `NEW_USER_FLOW.md` document 
-7. Please create this implementation plan 
-8. Create any necessary additional files, scripts, or automations 
-9. Audit the new files using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
-10. Implement the plan 
-11. Document all of the above, including the JSON objects use and the setup script; okay to do it in a small file to be added to the docs later 
+v4 update started on 3 June 2025 --> Today is 26 June 2025 --> Finish in just 4 weeks ??? 
 
 ---
 
