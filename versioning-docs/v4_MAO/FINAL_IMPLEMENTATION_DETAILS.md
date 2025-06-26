@@ -135,8 +135,9 @@
 6. The biggest change to the setup script is that there are 3 types of JSON objects, and that the User/Orchestrator may need to change the workflow mid-workflow; all of this is outlined in the `NEW_USER_FLOW.md` document 
 7. Please create this implementation plan 
 8. Create any necessary additional files, scripts, or automations 
-9. Implement the plan 
-10. Document all of the above, including the JSON objects use and the setup script; okay to do it in a small file to be added to the docs later 
+9. Audit the new files using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
+10. Implement the plan 
+11. Document all of the above, including the JSON objects use and the setup script; okay to do it in a small file to be added to the docs later 
 
 ---
 
@@ -159,6 +160,8 @@ These were held over because of their relevance to the remaining implementation 
   - Implement live workflow monitoring
   - Add progress bars and execution tracking 
     --> Probably do not need progress bars for execution tracking specifically, as we should leave these UI items to actual development of the UI, however we definitely still need the live stats and system metrics coming through for whatever the UI that is developed. 
+
+--> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
 
 ---
 
@@ -189,7 +192,8 @@ These were held over because of their relevance to the remaining implementation 
 1. Create implementation plan for the use, creation, and updating of the config collection objects 
 2. Implement the plan 
 3. create any necessary files 
-4. Document all of the above; okay to do it in a small file to be added to the docs later 
+4. Audit the new files using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
+5. Document all of the above; okay to do it in a small file to be added to the docs later 
 
 ---
 
