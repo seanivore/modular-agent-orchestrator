@@ -39,7 +39,11 @@ These were held over because of their relevance to the remaining implementation 
     - This is a UI design decision and it doesn't make sense to decide it is what we want now 
     - Again, we should make it clear what stats are available, what they are for, and ideas like the bars 
 
---> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
+Seems like the most important part of this task is the CLI commands and slash commands for in app. They'll need documents so that a user can pull up the list on screen. 
+  - username_manager.py and settings_manager.py are examples of what we needed for other config collections 
+  - There is also a real_time_metrics.py file already 
+
+--> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document g
 
 ---
 
