@@ -7,27 +7,6 @@ Not a code problem - just need pip install anthropic for full orchestrator (not 
 
 ---
 
-## Task #3: Workflow Unique ID 
-
-1. Similar to the User ID except these will give you a different unique ID every single time you run the `uid` command 
-2. You can see in the `NEW_USER_FLOW.md` that the workflow ID is one of the first things Mao does in the chat 
-
-**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
-
-3. The workflow ID is on the JSON config workflow objects 
-4. Mao uses the same workflow ID to tie together the workflow log, and is the entity used in the Memory MCP that ties everything they do together 
-5. Users making a JSON objects on their own should be aware that they can run the command `uid` to get a unique ID to put on the objects  
-6. This script will need to be implemented into the application 
-   - It can be found here, python file: `./scripts/unique_id_generator/unique_id_generator.py` 
-   - And the install command script: `./scripts/unique_id_generator/install_uid_command.sh`
-7. Please create this implementation plan 
-8. workflow user id manager file or discorver file, whatever it is is we need, please create 
-9. Implement the plan
-10. Audit the python file using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
-11. Create a section for the tech documentation that can be inserted later that details all of the above 
-
----
-
 ## Task #4: Workflow Creation 
 
 1. The workflow creation is the best way to illustrate building a workflow 
