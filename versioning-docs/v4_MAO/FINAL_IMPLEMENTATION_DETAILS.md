@@ -3,16 +3,36 @@
 
 ---
 
-## 1. Username User ID Config Setup 
+```text
+**CONTEXT PRIMING**
 
-**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
+1. Use the `sequential thinkink` MCP tool 
+2. Lookup exact search term in `memory` MCP: Mao_v4_Tool_Standardization_Phase
+   - Since we've moved past the tool standardization phase, create new entitys
+     1. Mao_v4_Build 
+     2. Mao_v4_Final_Implementation_Tasks
+   - Post Project State when: 
+     1. Next steps for a session's task batch are planned 
+     2. Mid-tasks if something changes or something notable
+     3. After tasks batch is complete 
+3. Review the following document: `./versioning-docs/technical-documentation/MAO_FILE_STANDARDIZATION_RULES.md` 
+4. Review any mentioned context files 
+```
+
+---
+
+## 1. Username > User ID Config Setup 
 
 ### Overview 
 
-   - Requires automated JSON creation for new users 
-   - Existing users, system pulls JSON from the config collection 
+   - No password required, but users login using a Username 
+   - Script creates a unique ID for that username that is always the same 
+   - When a new user creates a username, we need it to automatically create the JSON object 
+   - User ID ties together all the users actions and settings 
+   - Existing users, system pulls JSON from the config collection
+   - Need to create a username manager python file 
    - JSON stores delta changes in app configuration settings 
-   - JSON updates when User changes their settings 
+   - JSON updates when User changes their settings, or when they run the `/config` command 
    - User state is maintained across sessions unless logged out 
 
 ### JSON Object Template Setup 
@@ -20,23 +40,23 @@
 1. Create `./configs/user/` directory 
 2. Create `./configs/user/user_username.json` template file and place it in the `./configs/examples/` directory 
 
-#### User Settings Schema (because of additions of new settings, the schema should be updates from this version so that it *ONLY* includes the settings that the user changed away from the default settings) 
+#### User Settings Schema 
+
+  - Because app settings are also modular, we only record delta changes, changes form the default 
+  - This way we don't need a FULL schema; doing so would mean every new setting all username JSON files would need to be updated 
+  - So it should start with only the essentials 
+  - Keep is so super simple to avoid updating complications (though it should all be automated)
 
 ```json
 {
   "username": "seanivore",
-  "user_id": "user-1642", 
-  "quick_launch": "always",
-  "favorite_model": "claude-sonnet-4",
-  "default_provider": "anthropic direct",
-  "theme": "dark mode CVD",
-  "cat_vibes": "I love it",
-  "double_texting": "always",
-  "tone_notification": "once, no push"
+  "user_id": "user-1642" 
 }
 ```
 
 ### User ID Config Lifespan 
+
+**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
 
   1. When a new user logs in, they are prompted to choose a Username to always use in the application 
   2. Our `meid` command is a user ID generator that will always create the same user ID for a specific Username
@@ -57,14 +77,19 @@
 2. Include logic that the user settings only record changes from the default settings; this will make it easy when we add new settings to the application because all of the User's settings JSON files won't have to be updated until they decide to change a setting 
 3. Implement the plan 
 4. Discovery system for the user settings 
-5. Document all of the above 
+5. Create a section for the tech documentation that can be inserted later that details all of the above 
+6. Create a new python file for the username manager 
+7. Audit the python file using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
 
 ---
 
-## 3. Workflow Unique ID 
+## 2. Workflow Unique ID 
 
 1. Similar to the User ID except these will give you a different unique ID every single time you run the `uid` command 
 2. You can see in the `NEW_USER_FLOW.md` that the workflow ID is one of the first things Mao does in the chat 
+
+**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
+
 3. The workflow ID is on the JSON config workflow objects 
 4. Mao uses the same workflow ID to tie together the workflow log, and is the entity used in the Memory MCP that ties everything they do together 
 5. Users making a JSON objects on their own should be aware that they can run the command `uid` to get a unique ID to put on the objects  
@@ -72,15 +97,20 @@
    - It can be found here, python file: `./scripts/unique_id_generator/unique_id_generator.py` 
    - And the install command script: `./scripts/unique_id_generator/install_uid_command.sh`
 7. Please create this implementation plan 
-8. Implement the plan 
-9. Document all of the above 
+8. workflow user id manager file or discorver file, whatever it is is we need, please create 
+9. Implement the plan
+10. Audit the python file using the `MAO_FILE_STANDARDIZATION_RULES.md` document 
+11. Create a section for the tech documentation that can be inserted later that details all of the above 
 
 ---
 
-## 4. Workflow Creation 
+## 3. Workflow Creation 
 
 1. The workflow creation is the best way to illustrate building a workflow 
 2. Show the Use-Case JSON being built 
+
+**For truely comprehensive workflow, see the `NEW_USER_FLOW.md` document section on User IDs**
+
 3. The logic for the different types of JSON objects to use depending on the use-case and chosen workflow 
 4. The fact that the workflow JSON objects are all named using the same custom command naming convention, including the .temp directory 
 5. The storage of the workflow JSON objects in the .temp sub-directory until the workflow planning is complete and ready to be setup 
@@ -104,12 +134,13 @@
 5. Pay special attention to the protocol for create custom commands 
 6. The biggest change to the setup script is that there are 3 types of JSON objects, and that the User/Orchestrator may need to change the workflow mid-workflow; all of this is outlined in the `NEW_USER_FLOW.md` document 
 7. Please create this implementation plan 
-8. Implement the plan 
-9. Document all of the above, including the JSON objects use and the setup script 
+8. Create any necessary additional files, scripts, or automations 
+9. Implement the plan 
+10. Document all of the above, including the JSON objects use and the setup script; okay to do it in a small file to be added to the docs later 
 
 ---
 
-## 5. Leftover From Integration Plan Notes 
+## 4. Leftover From Integration Plan Notes 
 
 These were held over because of their relevance to the remaining implementation items that were detailed on the `NEW_USER_FLOW.md` document. 
 
@@ -131,7 +162,7 @@ These were held over because of their relevance to the remaining implementation 
 
 ---
 
-## 6. Updating Any / All Config Collections 
+## 5. Updating Any / All Config Collections 
 
   1. Making our system truely 'plug-and-play' is a big deal 
   2. All config collections should be well documented 
@@ -157,11 +188,12 @@ These were held over because of their relevance to the remaining implementation 
 
 1. Create implementation plan for the use, creation, and updating of the config collection objects 
 2. Implement the plan 
-3. Document all of the above 
+3. create any necessary files 
+4. Document all of the above; okay to do it in a small file to be added to the docs later 
 
 ---
 
-## 7. Technical Documentation 
+## 6. Technical Documentation 
 
 ### Notable Gaps 
 
@@ -177,7 +209,7 @@ After all items are implemented, I'd like to do a full documentation audit. All 
 
 ---
 
-## 8. Revamp the Claude Code Dual SPEC.md Files 
+## 7. Revamp the Claude Code Dual SPEC.md Files 
 
 Update and enhance them with all that we have completed. 
 
@@ -206,8 +238,7 @@ Detailed our implementation plan for running the SPEC.md files.
 
 1. Create implementation plan for the use, creation, and updating of the Claude Code SPEC.md files 
 2. Implement the plan 
-3. Document all of the above 
-
+3. Document all of the above; okay to do it in a small file to be added to the docs later 
 
 ### Claude Code SPEC.md Enhancement 
 
@@ -268,31 +299,3 @@ Detailed our implementation plan for running the SPEC.md files.
 
    - Detailed overview of how to make simple edits and enhancements to UI foundation 
    - Explain what needs integration and include the code snippets 
-
-
-
----
-
-## CONTEXT JUMP SUCCESS CRITERIA
-
-**For Future Claude Sessions**: This enhanced document provides comprehensive technical details for seamless implementation continuation across context windows.
-
-### Implementation Readiness Checklist
-- ✅ **Tool Standardization Complete**: 51 files standardized, professional quality
-- ✅ **Real Data Integration**: No mock data, live metrics providers available
-- ✅ **Architecture Established**: 4-file tool structure, modular JSON configs
-- ✅ **Dependencies Mapped**: Clear task ordering with technical requirements
-- ✅ **Templates Available**: JSON templates in ./configs/workflows/json_object_templates/
-- ✅ **Reference Documents**: NEW_USER_FLOW.md comprehensive UI/UX guidance
-- ✅ **Memory MCP Ready**: Context tracking with Mao_v4_Tool_Standardization_Phase entity
-
-### Development Approach Standards
-- **Systematic**: Work through numbered implementation tasks in order 
-- **Communicative**: Frequent Memory MCP updates and progress reporting
-- **Quality-Focused**: Filesystem tools over artifacts for accuracy
-- **Dependency-Aware**: Maintain task prerequisites and integration points
-- **Context-Jump Ready**: Enhanced documentation for seamless session transitions
-
-
-
-**READY TO BEGIN WITH #1 APPLICATION CONFIGURATION SETTINGS CONFIG** 🚀 
