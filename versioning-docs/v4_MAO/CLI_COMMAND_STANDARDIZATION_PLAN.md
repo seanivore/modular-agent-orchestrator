@@ -35,34 +35,42 @@
 
 ---
 
-## Two Types of CLI Commands Identified
+## Unified CLI Command Architecture
 
-### Type A: Utility Scripts (Standalone + App Integration)
-**Examples:** `workflow_setup.sh`, `unique_id_generator.py`, `user_id_generator.py`
+**Discovery:** ALL CLI commands should be treated the same way (except `restart` and `exit` which are app-only by nature)
 
-**Current Structure:**
-- `.py` files with business logic
-- `.sh` install scripts for terminal commands  
-- Work both as standalone terminal commands AND called from within app
-- **Currently: NO MAO standardization, NO caching** ❌
+### Command Characteristics
+**Dual Interface Support:** Every command works both ways
+- **Terminal:** `mao --command` 
+- **In-App:** `/command`
+- **Exceptions:** `restart` and `exit` (app-only, can't restart/exit from outside app)
 
-**Current Issues:**
-- `workflow_setup.sh` - Expensive JSON parsing, file operations, no caching
-- `unique_id_generator.py` - Complex math operations, no MAO imports
-- `user_id_generator.py` - Similar issues to unique_id_generator
+**Examples from Command Chart:**
+- `mao --setup ./config.json` AND `/setup ./config.json`
+- `mao --workflows` AND `/workflows`  
+- `mao --login` AND `/login`
+- `uid` (standalone) AND `/uid` (in-app)
 
-### Type B: App Interface Commands (App-Only)
-**Examples:** `stats`, `workflows`, `help`, `login`, `logout`, `list_tools`
+### Unified File Structure
+**Every CLI command follows the same 2-file pattern:**
+```
+configs/cli/[command]/
+├── [command].py          ← Logic file with full MAO standardization
+└── [command].json        ← Enhanced config
+```
 
-**Current Structure:**
-- JSON config files only (`configs/cli/[command].json`)
-- Hardcoded methods in CLI manager
-- **Currently: Basic caching added, but no logic files** ⚠️
+**No distinctions needed** - Whether it's:
+- Workflow operations (`setup`, `update`, `fix-it`)
+- System information (`stats`, `workflows`, `list-tools`)
+- User management (`login`, `logout`, `user-id`)
+- Utility functions (`uid`, `help`, `doctor`)
 
-**Current Issues:**
-- No dedicated logic files with proper standardization
-- Limited caching capabilities  
-- Mixed responsibilities in CLI manager
+**All get identical treatment:**
+- CacheManager + fingerprinting
+- @handle_errors decorators
+- estimate_cost() functions  
+- Dynamic routing in CLI manager
+- Work both terminal and in-app
 
 ---
 
