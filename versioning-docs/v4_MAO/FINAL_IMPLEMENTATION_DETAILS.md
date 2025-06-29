@@ -3,7 +3,25 @@ v4 update started on 3 June 2025 --> Today is 29 June 2025
 
 ---
 
-Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document
+## Review For Context And Standards 
+
+- UX/UI Guide `./versioning-docs/v4_MAO/NEW_USER_FLOW.md`
+- "MAO File Standardization Rules" `./versioning-docs/v4_MAO/MAO_FILE_STANDARDIZATION_RULES.md` 
+
+---
+
+## After Implementation Requested **Tech Doc Blurbs**
+I asked that AI then write up "a blurb of text that can be used to insert what is new into the technical documentation" and this is what was provided. No judgement, just a note. 
+
+- "Task #2 Username > User ID Config Setup" `./versioning-docs/v4_MAO/TASK_2_USERNAME_CONFIG_COMPLETE.md` 
+- "Task #3 Workflow Unique ID - COMPLETE WITH FULL INTEGRATION ✅" `./versioning-docs/v4_MAO/TASK_3_WORKFLOW_ID_COMPLETE.md` 
+- "Files That Needed Workflow ID Integration" `./versioning-docs/v4_MAO/TASK_3_INTEGRATION_POINTS.md` 
+- "Task #4 Workflow Creation - Implementation Complete" `./versioning-docs/v4_MAO/TASK_4_WORKFLOW_CREATION_COMPLETE.md` 
+
+--
+
+## During Implementation Requested **Context Jump Helper Docs**
+- "User Configuration & Setup Script Implementation" `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
 
 ---
 
