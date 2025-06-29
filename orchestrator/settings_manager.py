@@ -366,7 +366,7 @@ class ApplicationSettingsManager:
         
         return None
 
-# Standalone functions for button file imports (MAO standardization pattern)
+# Standalone functions for button file imports (Mao standardization pattern)
 def get_default_settings() -> Dict[str, Any]:
     """Standalone function for getting default settings"""
     manager = ApplicationSettingsManager()

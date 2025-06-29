@@ -1,49 +1,91 @@
 # Remaining Implementation Items Before Product UI Development 
-v4 update started on 3 June 2025 --> Today is 26 June 2025 --> Finish in just 4 weeks ??? 
+v4 update started on 3 June 2025 --> Today is 29 June 2025
 
 ---
 
-## Task #5: Leftover From Integration Plan Notes 
+Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document
 
-These were held over because of their relevance to the remaining implementation items that were detailed on the `NEW_USER_FLOW.md` document. 
+---
 
-### Confirm 'Orchestrator Integration' Re:
-  - Connect `goal()` method to real `WorkflowOrchestrator` --> cannot find this term in codebase so must not be done 
-  - Implement workflow state management for continue/review (?)
-  - Add real cost tracking and progress monitoring --> I think we might have finished this while doing an audit 
+## Task #5 PHASE 1: **CLI Commands** Integration, Standardization, & Implementation
 
-### Confirm 'File System Integration' Re:
-  - Connect setup/update commands to actual JSON workflow processing 
-    - Only the setup script commands are conneccted and functional 
-    - We have all of the currently planned commands as JSONs here: `./configs/cli/` 
-    - See the most up-to-date chart here: `./versioning-docs/technical-documentation/7_MAO_USER_GUIDE.md` 
-  - Implement workspace management for deliverable organization --> explain? 
-    - If this means how to organize the files in Files API during workflows, then how about: 
-      - We create a new directory at the root labeled by the Workflow ID 
-      - Create a new sub-directory for each phase of the deliverables (drafts, reviews, etc.) but not this won't be the case for all workflows 
-      - Considered a sub-directory for each phase, but separating the JSON objects seems unhelpful 
-      - I'd perhaps just keep it standard and simple with "DRAFTS" meaning including revisions and reviews -- just label the files as such and keep them all together. If there are multiple document deliverables that have drafts, then I'd separate those into different sub-directories. Fianlly, Mao might want to keep their notes from building the workflow in there at the root so that they can easily glance at them when needed. 
-  - Add file validation and error handling --> for? the CLI arguments and slash commands? Or for the Files API? 
+  1. There is only one type of CLI command
+  2. Last session, the separation between the "setup scripts" living in the `./scripts/` directory and the 'commands and arguments' living in the `./configs/cli/` directory confused our planning for this task. 
+  3. The benefit of this confusion is that we now realize that we have no reason to continue treating the 'setup scripts' as a separate type of CLI command. This happened because in the previous build of SFA, we didn't have any other CLI commands, and we were not building an in-app experience. 
 
-### Confirm 'Real-Time Features' Re:
-  - Connect stats to actual system metrics 
-    - We actually want to prepare this in a specific open-ended way for UI design 
-    - We should make it clear where the endpoints are for stats and metrics 
-    - Describe what the stats and metrics are 
-    - Provide ideas for what they could help display, as well as visual data visualization recommendations 
+### Regarding The Separation Between `./scripts/` and `./configs/cli/` Commands/Arguments
+
+#### Learn About The 'SCRIPTS' Directory 
+
+  1. We need to identify the touch points used in the codebase for the setup scripts. 
+  2. Items that can be ignored in the `./scripts/` directory: 
+     - The `./scripts/project_tree/` is a CLI command used manually by me; it was created and is living here simply because I wanted to update the old `tree` command I was using. *E.G. THIS IS NOT A CLI COMMAND THAT WILL BE USED IN THE APP AND DOES NOT NEED TO BE MOVED*
+     - The `./scripts/quality_validator/` is a CLI command created specifically for testing the quality of the codebase. There is a `quality_validator_README.md` that should give further details. *E.G. THIS IS NOT A CLI COMMAND THAT WILL BE USED IN THE APP AND DOES NOT NEED TO BE MOVED*
+     - The `./scripts/token_counter/` is a CLI command used manually by me; it was created and is living here simply because we moved it from the old directory to easy maintanence access. *E.G. THIS IS NOT A CLI COMMAND THAT WILL BE USED IN THE APP AND DOES NOT NEED TO BE MOVED* 
+  3. Items that technically should be in the `./configs/cli/` directory **BUT**... 
+     - The `./scripts/unique_id_generator/` is a CLI command that was created to help with the creation of the Workflow ID. The `./scripts/user_id_generator/` is a CLI command that was created to help with the creation of the User ID and use in the workflow. 
+       - *Both should have been created in the `./configs/cli/` directory* 
+       - They were created in the `./scripts/` directory because it was before we were thinking about the CLI commands and arguments. 
+       - While we should move it, it is **IMPORTANT TO NOTE** that implementation of both of them is complete already in the workflow. 
+       - If/when we move it, we need to do so in a wholistic way by finding all of its touch points and references and updating them, and then also making sure it works both in the system files, in the app, and as a CLI command generally. 
+     - The `./scripts/workflow_setup/` are two CLI commands that are used heavily as entry points for the workflow. 
+       - *They should have been created in the `./configs/cli/` directory* 
+       - They were created in the `./scripts/` directory because it was before we were thinking about the CLI commands and arguments. 
+       - **BUT** then when we created the CLI commands and arguments, we did create `--setup` and `/setup` as well as `--update` and `/update` and `--fix-it` and `/fix-it` as CLI commands and arguments. 
+       - Consider that **THESE ARE ALL FUNCTIONAL** and implemented already. 
+
+#### Sean's Current Opinion 
+
+**FIRST:** I think we should first address the 'Integration, Standardization, & Implementation' document, along with all of the other commands that need to be created and properly implemented. 
+
+  1. Make sure we have a clear standardized process that includes how to handle creating all the other CLI flag arguments and their slash commands. 
+  2. Make sure we create an implementation plan for that process; then use it for each command, one at a time. 
+  3. Make sure we have an AUDIT document that we can use to review the CLI commands and arguments after they are created; then do that separate from implementing them, but directly after each is created. 
+
+**REASONING:** This will leave us with a clear-cut understanding of setting up CLI commands. We can then decide if we want to update the `./scripts/` directory or not. While in retrospect it seems like they should all be together, clearly they hold some kind of mental separation from the CLI commands and arguments. Let's give that, whatever it might be, time to consider it. 
+
+#### Actual Task (Understanding All The Above)
+
+  - Understanding the misunderstanding with which the first attempt at this task was made, we should now review that plan, and edit it to handle the standard CLI commands and arguments. 
+  - Afterwards, we should also create a new plan for the 'SCRIPTS' directory. 
+
+**DOCUMENT TO REVISE ACCORDINGLY:** `./versioning-docs/v4_MAO/CLI_COMMAND_STANDARDIZATION_PLAN.md` 
+
+---
+
+## Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features 
+
+The first two notes are regarding the CLI commands and arguments for commands that are potentially a bit more complicated than the standard CLI commands and arguments. However, I write this before starting the standard CLI commands and arguments. It is completely possible that every single CLI command/argument will be its own unique thing. 
+
+### **Workflow state management for `continue/review**`
+  - 'Continue' as in, if a User or their workflow was inturrupted and they use the `--continue` flag or `/continue` slash command, then the workflow should resume from the last phase that was completed. 
+  - Originally the "continue" feature was intended for workflow setup, and had a limitation that it could only be used if you were trying to continue a workflow that happens to also be the most recent operation. 
+  - However, since we have User IDs and Workflow IDs, we can now continue any workflow that was interrupted, regardless of how long ago it was, and regardless if it was just during workflow setup or during a phase of the workflow. 
+  - That is the reason that `--review` flag or `/review` slash command was added to this implementation note; because "review" is a command that allows the User to pull up any workflow, inturrupted or not, by the Workflow ID, by the workflow's custom command if it had been created yet, or by the User ID/Username and then scrolling through their workflows. 
+  - It makes sense to lump these together because they both could push the usability of the other's features. 'Review' could be used as a way to continue a workflow, and continue could be a way to jump into a workflow and look over it. 
+  - The `workflow_state.py` file is the file that will need to be updated to support this feature. 
+  - It is important that the 'continue' feature still work in the minimalistic way that was originally intended as well; remember that when exiting the app, the User ID and state is saved unless the User logs out and unless the next user starts using the `--login` flag. Knowing this, it seems like perhaps there is a "continue" screen that shows the most recent workflow(s) at the top and shows if they were/weren't inturrupted. 
+  - I'm feeling a little like, well, 'continue' has to be more robust, as described above, but that the quick and easy jump back into the inturrupted workflow is a bit missing; we should counter this feeling my making sure that when 'continue' is used, the the most recent inturrupted workflow is prominent at the top so that it is only one additional click to get back to that simple UX. 
+
+### **Connect `goal()` method to real `WorkflowOrchestrator`**
+  - The `goal()` method is refering to the `--goal` flag or `/goal` slash command, which User can use to have Mao instantly create a new workflow, from that first message with the goal, and nothing more. 
+  - It's very much a "quick start" feature, and ideally, will work no matter the complexity of the goal's resulting workflow. That is to say that, just because the UX of using 'goal' is simple, it doesn't mean the workflow will be simple. 
+
+## Task #5 PHASE 3: Confirm 'Orchestrator Integration' for 'Real-Time Features'
+
+### Re: **Add real cost tracking and progress monitoring** 
+  - In a recent audit I remember that we wanted to make sure that every file had the properly estimated cost naming in the codebase. I do not know how much further it went than that. 
+  - However, we need to make sure that the real cost tracking is being calculated using a variable that allows for the proper LLM model to be implemented. 
+  - Note that Sonnet 4 will be Mao reading the messages and replies whenver working with Mao; equally NOTE that this is a clear area of concern to watch out for. It might end up being hardcoded, which is should not be. Who knows, we might decide we want to use Opus instead in the future, OR we might decide we want to have the option of either as Mao's default, perhaps a setting that can be changed in the app. 
+  - But for every other task that an agent is doing, we need to be able to make sure that the chosen LLM model is being used to calculate the cost by pulling it in from the JSON object that created the workflow, and then its other details from the actual model JSON object. 
+
+### Re: **Confirm stats ready to connect to actual system metrics** 
+  - We actually want to prepare this in a specific open-ended way for UI design 
+    - Make it clear where the endpoints are for stats and metrics, describe what the stats and metrics are, provide ideas for what they could help display, as well as visual data visualization recommendations 
   - Implement live workflow monitoring 
-    - I'm assuming this is something we want for the Foundation UI Claude Code creation 
-    - We should make sure anything that can be prepared is prepared for that 
-  - Add progress bars and execution tracking 
-    - This is unnecessary 
-    - This is a UI design decision and it doesn't make sense to decide it is what we want now 
-    - Again, we should make it clear what stats are available, what they are for, and ideas like the bars 
-
-Seems like the most important part of this task is the CLI commands and slash commands for in app. They'll need documents so that a user can pull up the list on screen. 
-  - username_manager.py and settings_manager.py are examples of what we needed for other config collections 
-  - There is also a real_time_metrics.py file already 
-
---> Audit files using the `MAO_FILE_STANDARDIZATION_RULES.md` document. 
+    - Again, this should be prepared in a way that is easily provided to the UI build team, giving creative design freedom to them; we just need to ensure the functionality is prepared 
+  - Re: notes about "Add progress bars and execution tracking" 
+    - This is unnecessary because we're describing UI that is not yet decided on; we need only make sure that these kinds of functionality is possible and everything needed has been prepared and clearly provided to the UI build team 
 
 ---
 
