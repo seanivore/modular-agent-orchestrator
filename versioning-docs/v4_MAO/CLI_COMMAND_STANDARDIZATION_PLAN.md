@@ -11,6 +11,16 @@
 **Missing**: Individual .py logic files + UI files for each command  
 **Goal**: Complete 3-file structure for all 23 commands with full MAO standardization
 
+**CRITICAL UI IMPLEMENTATION PHILOSOPHY:**
+
+UI files should provide only essential information for future UI development, NOT detailed interface implementation. The goal is to minimize design constraints and maximize creative freedom for the actual UI development phase.
+
+**Why This Matters:**
+- Original UI files contained excessive emoji and overly detailed interface specifications
+- When Claude Code builds the actual UI, it needs to "translate" from these files to professional application design
+- Less purging = better creative accuracy in final UI implementation
+- UI files should focus on data structure and essential display requirements only
+
 ---
 
 ## 3-File Structure Per Command
@@ -52,10 +62,10 @@ configs/cli/[command]/
 - Application settings via `settings_manager.py` should be primarily implemented; settings changes auto-update the user config JSON file via their User ID/Username. 
 
 ### 8. `mao login` and `/login`
-- User authentication via `username_manager.py`; see `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` for more details. 
+- User authentication via `username_manager.py`; see `NEW_USER_FLOW.md` for more details. 
 
 ### 9. `mao logout` and `/logout`
-- User session management via `username_manager.py`; see `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` for more details. 
+- User session management via `username_manager.py`; see `NEW_USER_FLOW.md` for more details. 
 
 ### 10. `mao user_id` and `/user_id`
 - Display/generate user ID via `username_manager.py` as part of `NEW_USER_FLOW.md`. Workflow state management via `workflow_state.py` and `memory_mcp.py`. 
@@ -77,34 +87,34 @@ configs/cli/[command]/
 - Create workflow from single message; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Connect `goal()` method to real `WorkflowOrchestrator`". 
 
 ### 15. `mao setup` and `/setup`
-- Already implemented, needs standardization audit and make sure it has multi-path support; via `workflow_manager.py` and/or `workflow_state.py` and/or `memory_mcp.py` and/or `username_manager.py` and/or `settings_manager.py`
+- Already implemented, needs standardization audit and make sure it has multi-path support; via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py` 
 
 ### 16. `mao update` and `/update`
-- Already implemented but needs updating to accomodate with multi-path support + secondary flags (-add, -remove, -replace, -rename, -chat), plus update of the workflow JSON object in the appropriate directory if the path provided wasn't the workflow's directory; so that it can be run from any directory; via `workflow_manager.py` and/or `workflow_state.py` and/or `memory_mcp.py` and/or `username_manager.py` and/or `settings_manager.py`
+- Already implemented but needs updating to accomodate with multi-path support + secondary flags (-add, -remove, -replace, -rename, -chat), plus update of the workflow JSON object in the appropriate directory if the path provided wasn't the workflow's directory; so that it can be run from any directory; via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 17. `mao fix_it` and `/fix_it`
-- Already implemented but needs additional logic for workflow correction with automatic JSON copying logic if the JSON object wasn't executed from the workflow's directory; via `workflow_manager.py` and/or `workflow_state.py` and/or `memory_mcp.py` and/or `username_manager.py` and/or `settings_manager.py` 
+- Already implemented but needs additional logic for workflow correction with automatic JSON copying logic if the JSON object wasn't executed from the workflow's directory; via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 18. `mao continue` and `/continue`
-- Workflow state management to jump back into an interrupted workflow; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Workflow state management for `continue/review`" via `workflow_state.py`
+- Workflow state management to jump back into an interrupted workflow; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Workflow state management for `continue/review`" via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 19. `mao review` and `/review`
-- Workflow state management to review and search workflows; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Workflow state management for `continue/review`" via `workflow_state.py`
+- Workflow state management to review and search workflows; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Workflow state management for `continue/review`" via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 20. `mao chat` and `/chat`
-- Jump to main app with message passthrough (`conversation_bridge.py`)
+- Jump to main app with message passthrough via `conversation_bridge.py`
 
 ### 21. `mao doctor` and `/doctor`
-- System health checks and workflow diagnostics (possibly via `workflow_state.py`)
+- System health checks and workflow diagnostics; via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 22. `mao dry_run` and `/dry_run`
-- Workflow simulation mode; possibly via `workflow_state.py`
+- Workflow simulation mode; via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 23. `mao verbose` and `/verbose`
-- Verbose mode is already written, just needs a debug mode toggle added to, probably `workflow_state.py`
+- Verbose mode is already written, just needs a debug mode toggle added to, via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ### 24. `mao logs` and `/logs`
-- Workflow log viewing; relates to stats/review/workflows; via probably `workflow_state.py`
+- Workflow log viewing; relates to stats/review/workflows; via `workflow_manager.py`, `workflow_state.py`, `memory_mcp.py`
 
 ---
 
@@ -248,8 +258,9 @@ def display_[command]_result(result: Dict[str, Any]) -> None:
         display_error(result.get("error", "Unknown error occurred"))
         return
     
-    # Command-specific display logic with Rich formatting
-    # Follow git-style grouping patterns for help-like commands
+    # Essential data display requirements only
+    # Provide data structure and display priorities
+    # Avoid detailed interface specifications - leave creative freedom for UI development
     
     pass
 
@@ -306,19 +317,27 @@ Settings: config, model, provider, output → settings_manager.py
 Workflows: goal, workflows, workflow_id → workflow_manager.py
 System Info: stats, list_tools → real_time_metrics.py, manager_tools.py
 Models/Providers: model_list, provider_list → manager_models.py
+Workflow Operations: setup, update, fix_it → workflow_manager.py, workflow_state.py, memory_mcp.py
 ```
 
 ### Full Orchestrator File List
 ```
-orchestrator/agent_callback.py          orchestrator/mcp_hub.py
-orchestrator/agent_orchestrator.py      orchestrator/memory_mcp.py  
-orchestrator/cli_manager.py             orchestrator/real_time_metrics.py
-orchestrator/conversation_bridge.py     orchestrator/settings_manager.py
-orchestrator/core.py                    orchestrator/username_manager.py
-orchestrator/error_handling.py          orchestrator/workflow_manager.py
-orchestrator/manager_buttons.py         orchestrator/workflow_state.py
-orchestrator/manager_models.py
-orchestrator/manager_tools.py
+orchestrator/agent_callback.py - "Handles agent returns, execution results, and workflow progression"
+orchestrator/agent_orchestrator.py - "Coordinates agent handoffs with context packages via Files API"
+orchestrator/cli_manager.py - "Dynamic CLI command discovery and interface integration"
+orchestrator/conversation_bridge.py - "Converts natural language goals into executable custom commands"
+orchestrator/core.py - "The main brain that turns natural language into intelligent workflows"
+orchestrator/error_handling.py - "Professional error handling patterns for all tools"
+orchestrator/manager_buttons.py - "Creates executable code snippets for any model/provider combo"
+orchestrator/manager_models.py - "Loads JSON configs and provides intelligent model selection"
+orchestrator/manager_tools.py - "Dynamic tool suggestion based on goals, not hardcoded categories"
+orchestrator/mcp_hub.py - "Integrates Memory MCP, Files API, and MCP Connector into unified system"
+orchestrator/memory_mcp.py - "Provides workflow context tracking, state management, and session recovery"
+orchestrator/real_time_metrics.py - "Provides live data for UI components; no mock data allowed"
+orchestrator/settings_manager.py - "Dynamic settings discovery and management using directory-based scanning"
+orchestrator/username_manager.py - "Handles user creation, session persistence, and settings integration"
+orchestrator/workflow_manager.py - "Handles workflow ID generation, discovery, and tracking"
+orchestrator/workflow_state.py - "Simple state tracking with Memory MCP integration"
 ```
 
 ---
