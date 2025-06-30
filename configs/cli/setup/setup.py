@@ -34,7 +34,11 @@ def execute_setup(params: Dict[str, Any] = None) -> Dict[str, Any]:
         Standardized result dictionary with setup details
     """
     if not params or not params.get("path"):
-        raise ValidationError("Setup command requires a file or directory path")
+        return {
+            "success": False,
+            "error": "Setup command requires a file or directory path",
+            "error_type": "missing_path_parameter"
+        }
     
     setup_path = params["path"]
     

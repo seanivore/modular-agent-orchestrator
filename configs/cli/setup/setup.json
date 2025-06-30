@@ -4,5 +4,33 @@
   "terminal_flag": "--setup",
   "app_command": "/setup",
   "interface_method": "setup",
-  "help": "Setup workflow from JSON configuration file or directory"
+  "help": "Setup workflow from JSON configuration file or directory",
+  "cost_estimate": 0.002,
+  "logic_file": "configs/cli/setup/setup.py",
+  "ui_file": "configs/cli/setup/ui_setup.py",
+  "operations": {
+    "execute": {
+      "description": "Setup workflow from configuration file or directory",
+      "required_params": ["path"],
+      "optional_params": ["validate_only", "force_overwrite"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 300,
+    "cache_key_includes": ["file_modification_time", "directory_contents", "config_validation"]
+  },
+  "multi_path_support": {
+    "single_file": "Setup from individual JSON configuration file",
+    "directory": "Setup from directory containing workflow configurations",
+    "relative_paths": "Support both absolute and relative path resolution",
+    "validation": "Comprehensive JSON structure validation before setup",
+    "recovery": "Graceful handling of partial setups and rollback capabilities"
+  }
 }

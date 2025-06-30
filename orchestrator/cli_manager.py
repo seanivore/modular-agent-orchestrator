@@ -80,8 +80,8 @@ class CLICommandsManager:
         
         commands = {}
         
-        # Scan all .json files in CLI directory
-        for cli_file in self.cli_dir.glob("*.json"):
+        # Scan all .json files in CLI directory and subdirectories
+        for cli_file in self.cli_dir.glob("**/*.json"):
             if cli_file.name.startswith('.'):
                 continue
                 
@@ -348,8 +348,36 @@ class CLICommandsManager:
     
     # Placeholder methods for commands that need implementation
     def _workflow_setup(self, data: Any) -> Dict[str, Any]:
-        """Workflow setup operation"""
-        return {"message": "Workflow setup", "input": data, "note": "Implementation pending"}
+        """Workflow setup operation using dedicated setup CLI logic"""
+        try:
+            # Import and execute the setup command logic directly
+            from configs.cli.setup.setup import execute_setup
+            
+            # Handle different input formats
+            if isinstance(data, str):
+                # Direct path string
+                params = {"path": data}
+            elif isinstance(data, dict):
+                # Already structured params
+                params = data
+            elif isinstance(data, list) and len(data) > 0:
+                # List with path as first element
+                params = {"path": data[0]}
+            else:
+                return {
+                    "success": False,
+                    "error": "Setup command requires a file or directory path",
+                    "error_type": "missing_path_parameter"
+                }
+            
+            return execute_setup(params)
+            
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Setup command failed: {str(e)}",
+                "error_type": "setup_execution_error"
+            }
     
     def _workflow_update(self, data: Any) -> Dict[str, Any]:
         """Workflow update operation"""
