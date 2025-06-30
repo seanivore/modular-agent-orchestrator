@@ -34,6 +34,53 @@ configs/cli/[command]/
 
 ---
 
+## CLI Reference Chart With Grouping and Ordering 
+
+| **FUNCTION**             | **TERMINAL COMMAND**           | **IN-APP COMMAND**            |
+| ------------------------ | ------------------------------ | ----------------------------- |
+| *~BASICS~*               | -                              | -                             |
+| **Start Application**    | `mao mao`                      | -                             |
+| **Run Your Workflow**    | `custom command`               | `/custom command`             |
+| View these help messages | `mao --help`                   | `/help`                       |
+| *~CREATION~*             | -                              | -                             |
+| Resume last workflow     | `mao --continue`               | `/continue`                   |
+| Build workflow from JSON | `mao --setup ./config.json`    | `/setup ./config.json`        |
+| Update workflow via JSON | `mao --update ./phase.json`    | `/update ./phase.json`        |
+| Fix deliverable via JSON | `mao --fix-it ./fix.json`      | `/fix-it ./fix.json`          |
+| Create entire workflow   | `mao --goal project goal`      | `/goal project goal`          |
+| First message to AI      | `mao --chat message`           | `/chat message`               |
+| *~PERSONALIZATION~*      | -                              | -                             |
+| Application setup        | `mao --config`                 | `/config`                     |
+| Set output directory     | `mao --output ~/downloads`     | `/output ~/downloads`         |
+| Set favorite model       | `mao --model model-name`       | `/model model-name`           |
+| Set default provider     | `mao --provider provider-name` | `/provider provider-name`     |
+| *~RESOURCES~*            | -                              | -                             |
+| List workflow variables  | `mao --variables`              | `/variables`                  |
+| Explain variables        | `mao --variables-explain`      | `/variables-explain`          |
+| List tools               | `mao --tools`                  | `/tools`                      |
+| List models              | `mao --models`                 | `/models`                     |
+| List providers           | `mao --providers`              | `/providers`                  |
+| *~WORKFLOWS~*            | -                              | -                             |
+| List Workflows           | `mao --workflows`              | `/workflows`                  |
+| Review a workflow        | `mao --review custom command`  | `/review custom command`      |
+| System Statistics        | `mao --stats`                  | `/stats`                      |
+| View workflow logs       | `mao --logs`                   | `/logs`                       |
+| *~APPLICATION~*          | -                              | -                             |
+| Start as new user        | `mao`                          | -                             |
+| Login Username           | `mao --login`                  | `/login`                      |
+| Logout Username          | `mao --logout`                 | `/logout`                     |
+| Restart application      | -                              | `/restart` or `! mao restart` |
+| Exit application         | -                              | `/exit` or `! mao exit`       |
+| Create Workflow ID       | `uid`                          | `/uid` or `! uid`             |
+| Create User ID           | `meid username`                | `/meid username`              |
+| *~TROUBLESHOOTING~*      | -                              | -                             |
+| Start verbose debug mode | `mao --verbose`                | `/verbose`                    |
+| Check system health      | `mao --doctor`                 | `/doctor`                     |
+| Simulate a workflow      | `mao --dry-run`                | `/dry-run`                    |
+| Run any terminal command | -                              | `! ls -la` (any bash/zsh)     |
+
+---
+
 ## Data Display, No Complex Logic Commands (6) 
 
 ### 1. `mao --help` and `/help` 
