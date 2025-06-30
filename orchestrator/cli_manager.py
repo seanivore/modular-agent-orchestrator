@@ -195,7 +195,8 @@ class CLICommandsManager:
             
             # System information
             "stats": lambda data: self._get_system_stats(),
-            "list_tools": lambda data: self._list_available_tools(),
+            "models": lambda data: self._execute_models_command(data),
+            "list_tools": lambda data: self._execute_tools_command(data),
             "help": lambda data: self.get_command_help(data),
             
             # Workflow operations
@@ -212,8 +213,7 @@ class CLICommandsManager:
             # Model and provider management
             "model": lambda data: self._model_management(data),
             "provider": lambda data: self._provider_management(data),
-            "model_list": lambda data: self._list_models(),
-            "provider_list": lambda data: self._list_providers(),
+            "providers": lambda data: self._list_providers(),
             
             # Environment and diagnostics
             "variables": lambda data: self._get_variables(data),
@@ -306,29 +306,39 @@ class CLICommandsManager:
         }
     
     def _list_available_tools(self) -> Dict[str, Any]:
-        """List available tools using orchestrator or directory scan"""
-        if self.orchestrator and hasattr(self.orchestrator, 'tool_discovery'):
-            try:
-                tools_info = self.orchestrator.tool_discovery.get_available_tools()
-                return {
-                    "tools": tools_info,
-                    "total_tools": len(tools_info)
-                }
-            except Exception as e:
-                return {"error": f"Tool discovery failed: {str(e)}"}
-        
-        # Fallback - scan tools directory
+        """List available tools using manager_tools.py integration"""
         try:
-            tools_dir = Path(__file__).parent.parent / "tools"
-            tool_dirs = [d.name for d in tools_dir.iterdir() if d.is_dir() and not d.name.startswith('.')]
+            # Primary: Use ToolManager from manager_tools.py
+            from orchestrator.manager_tools import ToolManager
+            tool_manager = ToolManager()
+            
+            # Discover all tools using proper MAO tool discovery
+            discovered_tools = tool_manager.discover_all_tools()
+            
+            # Get detailed list for CLI display
+            tools_list = tool_manager.list_all_tools()
             
             return {
-                "tools": tool_dirs,
-                "total_tools": len(tool_dirs),
-                "note": "Basic tool list - orchestrator not connected"
+                "tools": tools_list,
+                "discovered_tools": discovered_tools,
+                "total_tools": len(tools_list),
+                "source": "ToolManager integration"
             }
+            
         except Exception as e:
-            return {"error": f"Failed to scan tools directory: {str(e)}"}
+            # Fallback - scan tools directory only if ToolManager fails
+            try:
+                tools_dir = Path(__file__).parent.parent / "tools"
+                tool_dirs = [d.name for d in tools_dir.iterdir() if d.is_dir() and not d.name.startswith('.')]
+                
+                return {
+                    "tools": tool_dirs,
+                    "total_tools": len(tool_dirs),
+                    "note": "Fallback mode - ToolManager integration failed",
+                    "error": str(e)
+                }
+            except Exception as fallback_error:
+                return {"error": f"Tool discovery completely failed: {str(fallback_error)}"}
     
     # Placeholder methods for commands that need implementation
     def _workflow_setup(self, data: Any) -> Dict[str, Any]:
@@ -390,6 +400,28 @@ class CLICommandsManager:
     def _run_diagnostics(self) -> Dict[str, Any]:
         """Run system diagnostics"""
         return {"message": "Run diagnostics", "note": "Implementation pending"}
+    
+    def _execute_models_command(self, data: Any) -> Dict[str, Any]:
+        """Execute models command using dedicated models CLI logic"""
+        try:
+            # Import and execute the models command logic directly
+            from configs.cli.models.models import execute_models
+            return execute_models(data)
+            
+        except Exception as e:
+            # Fallback to manager integration if models CLI fails
+            return {"error": f"Models command failed: {str(e)}"}
+    
+    def _execute_tools_command(self, data: Any) -> Dict[str, Any]:
+        """Execute tools command using dedicated tools CLI logic"""
+        try:
+            # Import and execute the tools command logic directly
+            from configs.cli.tools.tools import execute_tools
+            return execute_tools(data)
+            
+        except Exception as e:
+            # Fallback to manager integration if tools CLI fails
+            return self._list_available_tools()
     
     @handle_errors(operation_name="get_command_help", return_dict=True)
     def get_command_help(self, command: str = None) -> Dict[str, Any]:
@@ -472,10 +504,10 @@ class CLICommandsManager:
         cacheable_commands = {
             "workflows": 300,  # Cache for 5 minutes
             "stats": 60,       # Cache for 1 minute
+            "models": 600,     # Cache for 10 minutes
             "list_tools": 600, # Cache for 10 minutes
             "help": 3600,      # Cache for 1 hour
-            "model_list": 600, # Cache for 10 minutes
-            "provider_list": 600 # Cache for 10 minutes
+            "providers": 600   # Cache for 10 minutes
         }
         
         if command not in cacheable_commands:
@@ -509,8 +541,8 @@ class CLICommandsManager:
         """
         # Only cache expensive or frequently called commands
         cacheable_commands = {
-            "workflows", "stats", "list_tools", "help", 
-            "model_list", "provider_list"
+            "workflows", "stats", "models", "list_tools", "help", 
+            "providers"
         }
         
         if command not in cacheable_commands:
@@ -554,13 +586,19 @@ class CLICommandsManager:
                 tool_dirs = sorted([d.name for d in tools_dir.iterdir() if d.is_dir()])
                 base_key += f"|tools:{hashlib.md5(str(tool_dirs).encode()).hexdigest()[:8]}"
                 
-        elif command in ["model_list", "provider_list"]:
-            # Include config file modification times
-            config_type = "models" if command == "model_list" else "providers"
-            config_dir = Path(__file__).parent.parent / "configs" / config_type
-            if config_dir.exists():
-                mod_times = [f.stat().st_mtime for f in config_dir.glob("*.json")]
-                base_key += f"|{config_type}:{hashlib.md5(str(sorted(mod_times)).encode()).hexdigest()[:8]}"
+        elif command == "models":
+            # Include models directory state
+            models_dir = Path(__file__).parent.parent / "configs" / "models"
+            if models_dir.exists():
+                model_files = sorted([f.name for f in models_dir.glob("*.json")])
+                base_key += f"|models:{hashlib.md5(str(model_files).encode()).hexdigest()[:8]}"
+                
+        elif command == "providers":
+            # Include providers directory state
+            providers_dir = Path(__file__).parent.parent / "configs" / "providers"
+            if providers_dir.exists():
+                provider_files = sorted([f.name for f in providers_dir.glob("*.json")])
+                base_key += f"|providers:{hashlib.md5(str(provider_files).encode()).hexdigest()[:8]}"
         
         # Generate final cache key
         return hashlib.md5(base_key.encode()).hexdigest()[:16]

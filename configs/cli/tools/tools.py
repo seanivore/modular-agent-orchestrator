@@ -100,31 +100,53 @@ def _execute_command_logic(params: Dict[str, Any] = None) -> Dict[str, Any]:
         }
 
 def _discover_tools() -> Dict[str, Dict[str, Any]]:
-    """Discover all tools from directory structure"""
-    tools = {}
-    tools_dir = Path(__file__).parent.parent.parent / "tools"
-    
-    for tool_dir in tools_dir.iterdir():
-        if not tool_dir.is_dir() or tool_dir.name.startswith('.'):
-            continue
-            
-        json_file = tool_dir / f"tool_{tool_dir.name}.json"
-        if json_file.exists():
-            try:
-                with open(json_file, 'r') as f:
-                    tool_config = json.load(f)
-                    
-                    # Ensure display_name exists, create from name if missing
-                    if "display_name" not in tool_config:
-                        tool_config["display_name"] = _create_display_name(tool_config.get("name", tool_dir.name))
-                    
-                    tools[tool_config.get("name", tool_dir.name)] = tool_config
-                    
-            except (json.JSONDecodeError, KeyError) as e:
-                # Skip malformed files but don't break entire tools listing
+    """Discover all tools using ToolManager integration"""
+    try:
+        # Primary: Use ToolManager for proper tool discovery
+        from orchestrator.manager_tools import ToolManager
+        tool_manager = ToolManager()
+        
+        # Get all discovered tools
+        discovered_tools = tool_manager.discover_all_tools()
+        
+        # Convert to format expected by tools command
+        tools = {}
+        for tool_name, tool_info in discovered_tools.items():
+            if tool_info["type"] == "local":
+                config = tool_info["config"]
+                # Ensure display_name exists
+                if "display_name" not in config:
+                    config["display_name"] = _create_display_name(config.get("name", tool_name))
+                tools[tool_name] = config
+        
+        return tools
+        
+    except Exception as e:
+        # Fallback: Direct directory scanning if ToolManager fails
+        tools = {}
+        tools_dir = Path(__file__).parent.parent.parent / "tools"
+        
+        for tool_dir in tools_dir.iterdir():
+            if not tool_dir.is_dir() or tool_dir.name.startswith('.'):
                 continue
-    
-    return tools
+                
+            json_file = tool_dir / f"tool_{tool_dir.name}.json"
+            if json_file.exists():
+                try:
+                    with open(json_file, 'r') as f:
+                        tool_config = json.load(f)
+                        
+                        # Ensure display_name exists, create from name if missing
+                        if "display_name" not in tool_config:
+                            tool_config["display_name"] = _create_display_name(tool_config.get("name", tool_dir.name))
+                        
+                        tools[tool_config.get("name", tool_dir.name)] = tool_config
+                        
+                except (json.JSONDecodeError, KeyError) as e:
+                    # Skip malformed files but don't break entire tools listing
+                    continue
+        
+        return tools
 
 def _create_display_name(name: str) -> str:
     """Create display-friendly name from tool name"""

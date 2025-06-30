@@ -1,8 +1,8 @@
 {
-  "command": "provider",
+  "command": "default_provider",
   "type": "needs_input",
-  "terminal_flag": "--provider",
-  "app_command": "/provider",
-  "interface_method": "set_provider",
+  "terminal_flag": "--default-provider",
+  "app_command": "/default-provider",
+  "interface_method": "default_provider",
   "help": "Set default provider for workflows"
 }

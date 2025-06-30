@@ -329,6 +329,25 @@ class ModelManager:
             }
         }
     
+    def get_available_models(self) -> Dict[str, Dict[str, Any]]:
+        """Get all available models in a format suitable for CLI display"""
+        models_data = {}
+        for name, model_config in self.models.items():
+            models_data[name] = {
+                "name": model_config.name,
+                "display_name": model_config.display_name,
+                "provider": model_config.provider,
+                "description": f"{model_config.display_name} - {model_config.provider} model",
+                "capabilities": [
+                    cap for cap, enabled in model_config.capabilities.__dict__.items() 
+                    if enabled
+                ],
+                "cost_estimate": model_config.input_price,
+                "context_window": model_config.context_window,
+                "max_tokens": model_config.max_output
+            }
+        return models_data
+    
     def health_check(self) -> Dict[str, bool]:
         """Check if all configured providers are accessible"""
         # TODO: Implement actual API health checks

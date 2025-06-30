@@ -1,8 +1,8 @@
 {
-  "command": "model",
+  "command": "set_model",
   "type": "needs_input",
-  "terminal_flag": "--model",
-  "app_command": "/model",
+  "terminal_flag": "--set-model",
+  "app_command": "/set-model",
   "interface_method": "set_model",
   "help": "Set favorite model for workflows"
 }

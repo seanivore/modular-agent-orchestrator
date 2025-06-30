@@ -43,48 +43,48 @@ configs/cli/[command]/
 
 ## CLI Reference Chart With Grouping and Ordering 
 
-| **FUNCTION**             | **TERMINAL COMMAND**           | **IN-APP COMMAND**            |
-| ------------------------ | ------------------------------ | ----------------------------- |
-| *~BASICS~*               | -                              | -                             |
-| **Start Application**    | `mao mao`                      | -                             |
-| **Run Your Workflow**    | `custom command`               | `/custom command`             |
-| View these help messages | `mao --help`                   | `/help`                       |
-| *~CREATION~*             | -                              | -                             |
-| Resume last workflow     | `mao --continue`               | `/continue`                   |
-| Build workflow from JSON | `mao --setup ./config.json`    | `/setup ./config.json`        |
-| Update workflow via JSON | `mao --update ./phase.json`    | `/update ./phase.json`        |
-| Fix deliverable via JSON | `mao --fix-it ./fix.json`      | `/fix-it ./fix.json`          |
-| Create entire workflow   | `mao --goal project goal`      | `/goal project goal`          |
-| First message to AI      | `mao --chat message`           | `/chat message`               |
-| *~PERSONALIZATION~*      | -                              | -                             |
-| Application setup        | `mao --config`                 | `/config`                     |
-| Set output directory     | `mao --output ~/downloads`     | `/output ~/downloads`         |
-| Set favorite model       | `mao --model model-name`       | `/model model-name`           |
-| Set default provider     | `mao --provider provider-name` | `/provider provider-name`     |
-| *~RESOURCES~*            | -                              | -                             |
-| List workflow variables  | `mao --variables`              | `/variables`                  |
-| Explain variables        | `mao --variables-explain`      | `/variables-explain`          |
-| List tools               | `mao --tools`                  | `/tools`                      |
-| List models              | `mao --models`                 | `/models`                     |
-| List providers           | `mao --providers`              | `/providers`                  |
-| *~WORKFLOWS~*            | -                              | -                             |
-| List Workflows           | `mao --workflows`              | `/workflows`                  |
-| Review a workflow        | `mao --review custom command`  | `/review custom command`      |
-| System Statistics        | `mao --stats`                  | `/stats`                      |
-| View workflow logs       | `mao --logs`                   | `/logs`                       |
-| *~APPLICATION~*          | -                              | -                             |
-| Start as new user        | `mao`                          | -                             |
-| Login Username           | `mao --login`                  | `/login`                      |
-| Logout Username          | `mao --logout`                 | `/logout`                     |
-| Restart application      | -                              | `/restart` or `! mao restart` |
-| Exit application         | -                              | `/exit` or `! mao exit`       |
-| Create Workflow ID       | `uid`                          | `/uid` or `! uid`             |
-| Create User ID           | `meid username`                | `/meid username`              |
-| *~TROUBLESHOOTING~*      | -                              | -                             |
-| Start verbose debug mode | `mao --verbose`                | `/verbose`                    |
-| Check system health      | `mao --doctor`                 | `/doctor`                     |
-| Simulate a workflow      | `mao --dry-run`                | `/dry-run`                    |
-| Run any terminal command | -                              | `! ls -la` (any bash/zsh)     |
+| **FUNCTION**             | **TERMINAL COMMAND**                   | **IN-APP COMMAND**                |
+| ------------------------ | -------------------------------------- | --------------------------------- |
+| *~BASICS~*               | -                                      | -                                 |
+| **Start Application**    | `mao mao`                              | -                                 |
+| **Run Your Workflow**    | `custom command`                       | `/custom command`                 |
+| View these help messages | `mao --help`                           | `/help`                           |
+| *~CREATION~*             | -                                      | -                                 |
+| Resume last workflow     | `mao --continue`                       | `/continue`                       |
+| Build workflow from JSON | `mao --setup ./config.json`            | `/setup ./config.json`            |
+| Update workflow via JSON | `mao --update ./phase.json`            | `/update ./phase.json`            |
+| Fix deliverable via JSON | `mao --fix-it ./fix.json`              | `/fix-it ./fix.json`              |
+| Create entire workflow   | `mao --goal project goal`              | `/goal project goal`              |
+| First message to AI      | `mao --chat message`                   | `/chat message`                   |
+| *~PERSONALIZATION~*      | -                                      | -                                 |
+| Application setup        | `mao --config`                         | `/config`                         |
+| Set output directory     | `mao --output ~/downloads`             | `/output ~/downloads`             |
+| Set favorite model       | `mao --set-model model-name`           | `/set-model model-name`           |
+| Set default provider     | `mao --default-provider provider-name` | `/default-provider provider-name` |
+| *~RESOURCES~*            | -                                      | -                                 |
+| List workflow variables  | `mao --variables`                      | `/variables`                      |
+| Explain variables        | `mao --variables-explain`              | `/variables-explain`              |
+| List tools               | `mao --tools`                          | `/tools`                          |
+| List models              | `mao --models`                         | `/models`                         |
+| List providers           | `mao --providers`                      | `/providers`                      |
+| *~WORKFLOWS~*            | -                                      | -                                 |
+| List Workflows           | `mao --workflows`                      | `/workflows`                      |
+| Review a workflow        | `mao --review custom command`          | `/review custom command`          |
+| System Statistics        | `mao --stats`                          | `/stats`                          |
+| View workflow logs       | `mao --logs`                           | `/logs`                           |
+| *~APPLICATION~*          | -                                      | -                                 |
+| Start as new user        | `mao`                                  | -                                 |
+| Login Username           | `mao --login`                          | `/login`                          |
+| Logout Username          | `mao --logout`                         | `/logout`                         |
+| Restart application      | -                                      | `/restart` or `! mao restart`     |
+| Exit application         | -                                      | `/exit` or `! mao exit`           |
+| Create Workflow ID       | `uid`                                  | `/uid` or `! uid`                 |
+| Create User ID           | `meid username`                        | `/meid username`                  |
+| *~TROUBLESHOOTING~*      | -                                      | -                                 |
+| Start verbose debug mode | `mao --verbose`                        | `/verbose`                        |
+| Check system health      | `mao --doctor`                         | `/doctor`                         |
+| Simulate a workflow      | `mao --dry-run`                        | `/dry-run`                        |
+| Run any terminal command | -                                      | `! ls -la` (any bash/zsh)         |
 
 ---
 
@@ -93,7 +93,7 @@ configs/cli/[command]/
 ### 1. `mao --help` and `/help` --> ✅
 - Pull simple, one-line command details from the `./configs/cli/` directory, and then display them in the UI with helpful git-style grouping. 
 
-### 2. `mao tools` and `/tools`
+### 2. `mao tools` and `/tools` --> ✅
 - Pull description and new 'display-name' from tool's JSON file to display in the UI; consider display order and grouping for UX. 
 
 ### 3. `mao models` and `/models`
@@ -130,7 +130,7 @@ configs/cli/[command]/
 ### 12. `mao variables` and `/variables`
 - Simple UI list of variables needed to setup a workflow, filling out the workflow use-case JSON object. Workflow template `./configs/examples/workflow_templates/README.md`. Includes a `variables-explain` flag.
 
-### 13. User settings set favorite `mao model-name` and `/model-name`, default `mao provider-name` and `/provider-name`, or output directory `mao output-name` and `/output-name`
+### 13. User settings set favorite `mao set-model model-name` and `/set-model model-name`, default `mao default-provider provider-name` and `/default-provider provider-name`, or output directory `mao output path/to/location/` and `/output path/to/location/`
 - User config JSON updates via `settings_manager.py`, similar to `/config` but to set specific user config values quickly. 
 
 ---
@@ -459,3 +459,22 @@ Add to each `tool_*.json`:
 
 ---
 
+## Orchestrator File Roles 
+
+- `__init__.py` = "Modular AI workflow orchestration system"
+- `agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
+- `agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
+- `cli_manager.py` = "Dynamic CLI command discovery and interface integration connecting CLI/slash commands to orchestrator functionality"
+- `conversation_bridge.py` = "Converts natural language goals into executable custom commands"
+- `core.py` = "The main brain that turns natural language into intelligent workflows"
+- `error_handling.py` = "Professional error handling patterns for all tools"
+- `manager_buttons.py` = "Creates executable code snippets for any model/provider combo to avoid SDK hell"
+- `manager_models.py` = "Loads JSON configs and provides intelligent model selection"
+- `manager_tools.py` = "Dynamic tool suggestion based on goals, not hardcoded categories"
+- `mcp_hub.py` = "Integrates Memory MCP, Files API, and MCP Connector into unified system"
+- `memory_mcp.py` = "Provides workflow context tracking, state management, and session recovery"
+- `real_time_metrics.py` = "Provides live data for UI components; no mock data allowed"
+- `settings_manager.py` = "Dynamic settings discovery and management using directory-based scanning of individual setting files"
+- `username_manager.py` = "Handles user creation, session persistence, and settings integration"
+- `workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
+- `workflow_state.py` = "Simple state tracking with Memory MCP integration"

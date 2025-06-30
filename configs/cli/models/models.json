@@ -1,0 +1,30 @@
+{
+  "command": "models",
+  "type": "standalone",
+  "terminal_flag": "--models",
+  "app_command": "/models",
+  "interface_method": "models",
+  "help": "List all available models with display names and metadata",
+  "cost_estimate": 0.002,
+  "logic_file": "configs/cli/models/models.py",
+  "ui_file": "configs/cli/models/ui_models.py",
+  "operations": {
+    "execute": {
+      "description": "Display list of all available models with provider and capability information",
+      "required_params": [],
+      "optional_params": []
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "universal_touchpoints": ["cli_manager", "ui_terminal"],
+    "specific_touchpoints": ["manager_models"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 600,
+    "cache_key_includes": ["models_directory_state", "model_files_modification_times"]
+  }
+}
