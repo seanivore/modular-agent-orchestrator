@@ -90,7 +90,7 @@ configs/cli/[command]/
 
 ## Data Display, No Complex Logic Commands (6) 
 
-### 1. `mao --help` and `/help` 
+### 1. `mao --help` and `/help` --> ✅
 - Pull simple, one-line command details from the `./configs/cli/` directory, and then display them in the UI with helpful git-style grouping. 
 
 ### 2. `mao tools` and `/tools`
