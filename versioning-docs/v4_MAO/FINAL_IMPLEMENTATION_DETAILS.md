@@ -27,6 +27,8 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 
 ## Task #5 PHASE 1: **CLI Commands** Integration, Standardization, & Implementation
 
+SEE IMPLEMENTATION PLAN: `./versioning-docs/v4_MAO/CLI_IMPLEMENTATION_PLAN_NOTES.md`
+
 ### Understanding the Scope of This Task 
 
   1. GOAL: Clear up our convoluted language usage (we've been callin everything, just, "a command")
@@ -130,8 +132,6 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 | List Workflows         | `mao --workflows`              | `/workflows`                  |
 | Review Workflow        | `mao --review custom command`  | `/review custom command`      |
 | Set output directory   | `mao --output ~/downloads`     | `/output ~/downloads`         |
-| Use only free models   | `mao --free`                   | `/free`                       |
-| Privacy models only    | `mao --privacy`                | `/privacy`                    |
 | Verbose Debug Mode     | `mao --verbose`                | `/verbose`                    |
 | View workflow logs     | `mao --logs`                   | `/logs`                       |
 | Show workflow stats    | `mao --stats`                  | `/stats`                      |
@@ -349,3 +349,12 @@ Requirement already satisfied: annotated-types>=0.6.0 in /Users/seanivore/.pyenv
 Requirement already satisfied: pydantic-core==2.33.1 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from pydantic<3,>=1.9.0->anthropic) (2.33.1)
 Requirement already satisfied: typing-inspection>=0.4.0 in /Users/seanivore/.pyenv/versions/3.13.3/lib/python3.13/site-packages (from pydantic<3,>=1.9.0->anthropic) (0.4.0)
 ```
+
+---
+
+## CREATING A PRIVACY SETTING FOR THE USER  
+| Privacy models only    | `mao --privacy`                | `/privacy`                    |
+The "Providers" such as Requesty and LiteLM that have multiple providers to choose from within themselves need to be broken down into separate JSON files for each sub-provider. 
+
+configs/providers/requesty.json
+etc. 
