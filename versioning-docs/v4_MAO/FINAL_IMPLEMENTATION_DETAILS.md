@@ -37,7 +37,7 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 
 ### Understanding the Types of Commands, Flag Arguments, and Slash Commands 
 
---> **FUNCTIONAL** -- Commands that don't use `mao` as a prefix, and do not have a slash command. Are currently not used in the app. 
+--> **FUNCTIONAL: GROUP A** -- Commands that don't use `mao` as a prefix, and do not have a slash command. Are currently not used in the app. 
     - `./scripts/project_tree/` 
     - `./scripts/token_counter/` 
 
@@ -47,7 +47,7 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 
     The `token_counter` command is a .py python script, and then a .sh shell script to install it as a custom command. 
 
---> **FUNCTIONAL** -- Commands that don't use `mao` as a prefix, but have a slash command, are currently used in the app, and are in the `./scripts/` directory. However, the commands have JSON files that are stored in the `./configs/cli/` directory. 
+--> **FUNCTIONAL: GROUP B** -- Commands that don't use `mao` as a prefix, but have a slash command, are currently used in the app, and are in the `./scripts/` directory. However, the commands have JSON files that are stored in the `./configs/cli/` directory. 
     - `./scripts/unique_id_generator/` 
     - `./configs/cli/workflow_id/`
     - `./scripts/user_id_generator/` 
@@ -61,11 +61,11 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 
     The `unique_id_generator` and the `user_id_generator` are both .py python scripts that have a .sh shell script to install them as custom commands. 
 
---> **FUNCTIONAL** -- Command that does not use `mao` as a prefix, can be run as a slash command in the app, but is stored with the use-case's files in `./configs/workflows/USE-CASE/` created for that specific use-case. 
+--> **FUNCTIONAL: GROUP C** -- Command that does not use `mao` as a prefix, can be run as a slash command in the app, but is stored with the use-case's files in `./configs/workflows/USE-CASE/` created for that specific use-case. 
 
     These are created using the .sh shell script for the workflow which is the next command directly below this one. 
 
---> **FUNCTIONAL** -- Commands that do use `mao` as a prefix, have a slash command, but are currently in the `./scripts/` directory. However the three commands have JSON files that are stored in the `./configs/cli/` directory. 
+--> **FUNCTIONAL: GROUP D** -- Commands that do use `mao` as a prefix, have a slash command, but are currently in the `./scripts/` directory. However the three commands have JSON files that are stored in the `./configs/cli/` directory. 
     - `./scripts/workflow_setup/`
     - `./configs/cli/setup/`
     - `./configs/cli/update/`
@@ -77,7 +77,7 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 
     The `install-workflow-commands.sh` script is a .sh shell script that installs the custom command for the use-case. It is run by the `workflow_setup` script. 
 
---> Commands that do use `mao` as a prefix, have a slash command, and are currently in the `./configs/cli/` directory. We will need to chat about each, one at a time as we go, to understand the full functionality of each. 
+--> **TO SET UP: GROUP E** --Commands that do use `mao` as a prefix, have a slash command, and are currently in the `./configs/cli/` directory. We will need to chat about each, one at a time as we go, to understand the full functionality of each. 
     - `./configs/cli/chat/`
     - `./configs/cli/config/`
     - `./configs/cli/continue/`
@@ -103,7 +103,7 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
     - `./configs/cli/verbose/`
     - `./configs/cli/workflows/`
 
---> Commands that are in-app slash commands only, are currently in the `./configs/cli/` directory. 
+--> **TO SET UP: GROUP F** -- Commands that are in-app slash commands only, are currently in the `./configs/cli/` directory. 
     - `./configs/cli/exit/`
     - `./configs/cli/restart/`
 
