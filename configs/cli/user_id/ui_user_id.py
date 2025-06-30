@@ -1,11 +1,116 @@
 """
 User ID CLI Command - UI Display Patterns
-Provides structured display for user ID operations with workflow state context
+Essential data structure for user_id display with workflow context
 """
 
-from typing import Dict, Any
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+from rich.text import Text
+from typing import Dict, Any, List
 
-def display_user_id_result(result: Dict[str, Any]) -> Dict[str, Any]:
+# Module-level console for consistency
+console = Console()
+
+def display_user_id_result(result: Dict[str, Any]) -> None:
+    """
+    Display user_id results with consistent CLI UI patterns.
+    
+    Args:
+        result: Command execution result from user_id.py
+    """
+    if not result.get("success", True):
+        display_error(result.get("error", "Unknown error occurred"))
+        return
+    
+    # Essential data structure for UI designers
+    # Focus on data organization, not detailed formatting
+    # Preserve creative freedom for actual interface design
+    
+    _display_user_id_info(result)
+
+def _display_user_id_info(result: Dict[str, Any]) -> None:
+    """Display user ID information with workflow context"""
+    user_id = result.get("user_id")
+    username = result.get("username", "")
+    status = result.get("status", "current_user")
+    
+    # Main user ID display
+    console.print(f"\n[bold]User ID:[/bold] {user_id}")
+    if username:
+        console.print(f"[bold]Username:[/bold] {username}")
+    
+    # Status-specific display
+    if status == "existing_user":
+        _display_existing_user_info(result)
+    elif status == "new_user_id_generated":
+        _display_new_user_id_info(result)
+    else:
+        _display_current_user_info(result)
+
+def _display_existing_user_info(result: Dict[str, Any]) -> None:
+    """Display existing user information"""
+    console.print("\n[green]Status:[/green] Existing User")
+    
+    user_info = result.get("user_info", {})
+    if user_info.get("created_at"):
+        console.print(f"Created: {user_info['created_at']}")
+    
+    _display_workflow_context_info(result.get("workflow_context", {}))
+    
+    explanation = result.get("generation_explanation", "")
+    if explanation:
+        console.print(f"\n[dim]Generation Method:[/dim] {explanation}")
+
+def _display_new_user_id_info(result: Dict[str, Any]) -> None:
+    """Display new user ID generation information"""
+    console.print("\n[yellow]Status:[/yellow] New User ID Generated")
+    
+    explanation = result.get("generation_explanation", "")
+    if explanation:
+        console.print(f"[dim]Generation Method:[/dim] {explanation}")
+    
+    next_steps = result.get("next_steps", [])
+    if next_steps:
+        console.print("\n[bold]Next Steps:[/bold]")
+        for step in next_steps:
+            console.print(f"  - {step}")
+
+def _display_current_user_info(result: Dict[str, Any]) -> None:
+    """Display current session user information"""
+    console.print("\n[blue]Status:[/blue] Current Session User")
+    
+    user_info = result.get("user_info", {})
+    if user_info.get("last_login"):
+        console.print(f"Last Login: {user_info['last_login']}")
+    
+    _display_workflow_context_info(result.get("workflow_context", {}))
+
+def _display_workflow_context_info(workflow_context: Dict[str, Any]) -> None:
+    """Display workflow context information"""
+    if not workflow_context.get("context_available", False):
+        console.print("[dim]No active workflows[/dim]")
+        return
+    
+    active_count = workflow_context.get("active_workflows", 0)
+    console.print(f"\n[bold]Active Workflows:[/bold] {active_count}")
+    
+    recent_workflows = workflow_context.get("recent_workflows", [])
+    if recent_workflows:
+        console.print("Recent:")
+        for workflow in recent_workflows[:3]:
+            console.print(f"  - {workflow}")
+
+def display_error(error_message: str) -> None:
+    """Display error with consistent Panel formatting"""
+    console.print(Panel(
+        f"[red]Error:[/red] {error_message}",
+        style="red",
+        title="User ID Error"
+    ))
+
+# Legacy function for backward compatibility
+def display_user_id_result_legacy(result: Dict[str, Any]) -> Dict[str, Any]:
     """
     Organize user_id command results for UI display.
     

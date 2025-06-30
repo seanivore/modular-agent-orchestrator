@@ -115,6 +115,27 @@ Please check the chart below for the CLI commands and their corresponding termin
 
 ---
 
+
+Re: 
+```
+orchestrator/agent_callback.py - "Handles agent returns, execution results, and workflow progression"
+orchestrator/agent_orchestrator.py - "Coordinates agent handoffs with context packages via Files API"
+orchestrator/cli_manager.py - "Dynamic CLI command discovery and interface integration"
+orchestrator/conversation_bridge.py - "Converts natural language goals into executable custom commands"
+orchestrator/core.py - "The main brain that turns natural language into intelligent workflows"
+orchestrator/error_handling.py - "Professional error handling patterns for all tools"
+orchestrator/manager_buttons.py - "Creates executable code snippets for any model/provider combo"
+orchestrator/manager_models.py - "Loads JSON configs and provides intelligent model selection"
+orchestrator/manager_tools.py - "Dynamic tool suggestion based on goals, not hardcoded categories"
+orchestrator/mcp_hub.py - "Integrates Memory MCP, Files API, and MCP Connector into unified system"
+orchestrator/memory_mcp.py - "Provides workflow context tracking, state management, and session recovery"
+orchestrator/real_time_metrics.py - "Provides live data for UI components; no mock data allowed"
+orchestrator/settings_manager.py - "Dynamic settings discovery and management using directory-based scanning"
+orchestrator/username_manager.py - "Handles user creation, session persistence, and settings integration"
+orchestrator/workflow_manager.py - "Handles workflow ID generation, discovery, and tracking"
+orchestrator/workflow_state.py - "Simple state tracking with Memory MCP integration"
+```
+
 ## Basic Operations, Manager Integration Commands (7)
 
 ### 7. `mao config` and `/config`

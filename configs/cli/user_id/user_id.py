@@ -54,21 +54,25 @@ def estimate_cost(params: Dict[str, Any] = None) -> float:
     """
     Estimate operation cost for budget planning.
     Medium complexity due to multi-manager operations.
+    Uses Claude Sonnet 4 cost structure.
     """
-    # Base cost for user ID operations
-    base_cost = 0.001
+    # Base cost for user ID operations (aligns with JSON config)
+    base_cost = 0.003
     
     # Add cost for username manager operations
     username_operations = params.get("username_operations", 1) if params else 1
-    base_cost += username_operations * 0.001
+    if username_operations > 1:
+        base_cost += (username_operations - 1) * 0.001
     
-    # Add cost for workflow state management
+    # Add cost for workflow state management (heavy operations)
     workflow_state_ops = params.get("workflow_state_operations", 1) if params else 1
-    base_cost += workflow_state_ops * 0.0005
+    if workflow_state_ops > 1:
+        base_cost += (workflow_state_ops - 1) * 0.0005
     
-    # Add cost for memory MCP integration
+    # Add cost for memory MCP integration (heavy operations)
     memory_mcp_ops = params.get("memory_mcp_operations", 1) if params else 1
-    base_cost += memory_mcp_ops * 0.0005
+    if memory_mcp_ops > 1:
+        base_cost += (memory_mcp_ops - 1) * 0.0005
     
     # Add cost for user ID generation (if needed)
     if params and params.get("generate_new_id", False):

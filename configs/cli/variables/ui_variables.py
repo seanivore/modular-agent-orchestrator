@@ -45,14 +45,14 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     analysis_scope = result.get("analysis_scope", "all_templates")
     scope_display = f"Template: {analysis_scope}" if analysis_scope != "all_templates" else "All Templates"
     
-    output_lines.append("📋 WORKFLOW VARIABLES DISCOVERY")
+    output_lines.append("WORKFLOW VARIABLES DISCOVERY")
     output_lines.append("=" * 50)
     output_lines.append(f"Analysis Scope: {scope_display}")
     output_lines.append(f"Total Variables: {result.get('total_variables', 0)}")
     
     with_explanations = result.get("with_explanations", False)
     if with_explanations:
-        output_lines.append("📖 Detailed explanations included")
+        output_lines.append("Detailed explanations included")
     
     output_lines.append("")
     
@@ -60,7 +60,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     variables = result.get("variables", {}).get("common_variables", {})
     
     if not variables:
-        output_lines.append("❌ No variables found")
+        output_lines.append("ERROR: No variables found")
         return "\n".join(output_lines)
     
     # Required vs Optional sections
@@ -70,7 +70,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     # Required Variables Section
     required_vars = categorized.get("required", [])
     if required_vars:
-        output_lines.append("🔴 REQUIRED VARIABLES")
+        output_lines.append("REQUIRED VARIABLES")
         output_lines.append("-" * 25)
         
         for var_name in required_vars:
@@ -90,7 +90,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
             
             # Add explanation for --explain flag
             if with_explanations and var_info.get("explanation"):
-                output_lines.append(f"  📝 {var_info.get('explanation')}")
+                output_lines.append(f"  Note: {var_info.get('explanation')}")
                 
                 if var_info.get("usage_pattern"):
                     output_lines.append(f"  Pattern: {var_info.get('usage_pattern')}")
@@ -103,7 +103,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     # Optional Variables Section
     optional_vars = categorized.get("optional", [])
     if optional_vars:
-        output_lines.append("🟡 OPTIONAL VARIABLES")
+        output_lines.append("OPTIONAL VARIABLES")
         output_lines.append("-" * 25)
         
         for var_name in optional_vars:
@@ -119,7 +119,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
             
             # Add explanation for --explain flag
             if with_explanations and var_info.get("explanation"):
-                output_lines.append(f"  📝 {var_info.get('explanation')}")
+                output_lines.append(f"  Note: {var_info.get('explanation')}")
                 
                 if var_info.get("usage_pattern"):
                     output_lines.append(f"  Pattern: {var_info.get('usage_pattern')}")
@@ -128,7 +128,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     
     # Workflow JSON Structure
     if setup_guidance.get("workflow_json_structure"):
-        output_lines.append("📄 WORKFLOW JSON STRUCTURE")
+        output_lines.append("WORKFLOW JSON STRUCTURE")
         output_lines.append("-" * 30)
         
         structure = setup_guidance["workflow_json_structure"]["structure"]
@@ -138,7 +138,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
         # Add structure notes
         notes = setup_guidance["workflow_json_structure"].get("notes", [])
         if notes:
-            output_lines.append("📝 STRUCTURE NOTES:")
+            output_lines.append("STRUCTURE NOTES:")
             for note in notes:
                 output_lines.append(f"• {note}")
             output_lines.append("")
@@ -146,7 +146,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     # Placeholder Patterns
     placeholder_patterns = setup_guidance.get("placeholder_patterns", {})
     if placeholder_patterns:
-        output_lines.append("🔄 PLACEHOLDER PATTERNS")
+        output_lines.append("PLACEHOLDER PATTERNS")
         output_lines.append("-" * 25)
         for var_name, pattern in placeholder_patterns.items():
             output_lines.append(f"• {var_name}: {pattern}")
@@ -155,20 +155,20 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     # Template Analysis Summary
     template_analysis = result.get("template_analysis")
     if template_analysis:
-        output_lines.append("🔍 TEMPLATE ANALYSIS")
+        output_lines.append("TEMPLATE ANALYSIS")
         output_lines.append("-" * 20)
         
         for template_name, analysis in template_analysis.items():
             if "error" in analysis:
-                output_lines.append(f"❌ {template_name}: {analysis['error']}")
+                output_lines.append(f"ERROR {template_name}: {analysis['error']}")
             else:
                 vars_found = analysis.get("variables_found", 0)
-                output_lines.append(f"✅ {template_name}: {vars_found} variables found")
+                output_lines.append(f"SUCCESS {template_name}: {vars_found} variables found")
         
         output_lines.append("")
     
     # Usage Examples
-    output_lines.append("💡 USAGE EXAMPLES")
+    output_lines.append("USAGE EXAMPLES")
     output_lines.append("-" * 20)
     output_lines.append("1. Generate required IDs:")
     output_lines.append("   mao user_id")
@@ -291,7 +291,7 @@ def format_variables_summary_table(result: Dict[str, Any]) -> str:
         row = [
             var_name,
             var_info.get("type", "unknown"),
-            "✅" if var_info.get("required", False) else "⚪",
+            "YES" if var_info.get("required", False) else "NO",
             var_info.get("description", "No description")[:50] + ("..." if len(var_info.get("description", "")) > 50 else "")
         ]
         
@@ -320,7 +320,7 @@ def _format_error_result(result: Dict[str, Any]) -> str:
     """Format error result for variables discovery"""
     output_lines = []
     
-    output_lines.append("❌ WORKFLOW VARIABLES DISCOVERY FAILED")
+    output_lines.append("WORKFLOW VARIABLES DISCOVERY FAILED")
     output_lines.append("=" * 45)
     
     error_msg = result.get("error", "Unknown error occurred")
@@ -330,7 +330,7 @@ def _format_error_result(result: Dict[str, Any]) -> str:
     # Troubleshooting guidance
     troubleshooting = result.get("troubleshooting", [])
     if troubleshooting:
-        output_lines.append("🔧 TROUBLESHOOTING")
+        output_lines.append("TROUBLESHOOTING")
         output_lines.append("-" * 20)
         for i, step in enumerate(troubleshooting, 1):
             output_lines.append(f"{i}. {step}")
@@ -338,7 +338,7 @@ def _format_error_result(result: Dict[str, Any]) -> str:
     
     # Default troubleshooting if none provided
     if not troubleshooting:
-        output_lines.append("🔧 TROUBLESHOOTING")
+        output_lines.append("TROUBLESHOOTING")
         output_lines.append("-" * 20)
         output_lines.append("1. Verify workflow templates directory exists")
         output_lines.append("2. Check that template JSON files are valid")

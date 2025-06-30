@@ -45,8 +45,8 @@ def execute_variables(params: Dict[str, Any] = None) -> Dict[str, Any]:
     # Execute command logic
     result = _execute_command_logic(params, with_explanation, template_name, output_format)
     
-    # Cache result for 5 minutes (template variables change less frequently)
-    cache.cache_content_analysis(cache_key, json.dumps(result), "variables", ttl_minutes=5)
+    # Cache result (template variables change less frequently)
+    cache.cache_content_analysis(cache_key, json.dumps(result), "variables")
     
     return result
 
@@ -82,7 +82,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"variables|{str(params) if params else 'none'}"
     
     # Add templates directory state fingerprint for cache invalidation
-    templates_dir = Path(__file__).parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
     if templates_dir.exists():
         # Include directory modification time and template count
         dir_stat = templates_dir.stat()
@@ -156,7 +156,7 @@ def _execute_command_logic(params: Dict[str, Any] = None, with_explanation: bool
 
 def _analyze_all_templates(with_explanation: bool = False) -> Dict[str, Any]:
     """Analyze all workflow templates for variables"""
-    templates_dir = Path(__file__).parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
     
     if not templates_dir.exists():
         return {}
@@ -209,7 +209,7 @@ def _analyze_all_templates(with_explanation: bool = False) -> Dict[str, Any]:
 
 def _analyze_specific_template(template_name: str, with_explanation: bool = False) -> Dict[str, Any]:
     """Analyze a specific workflow template for variables"""
-    templates_dir = Path(__file__).parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
     template_dir = templates_dir / template_name
     
     if not template_dir.exists():
@@ -290,13 +290,13 @@ def _extract_variables_from_config(config_data: Dict[str, Any], with_explanation
         },
         "temp_directory": {
             "type": "string",
-            "required": false,
+            "required": False,
             "description": "Temporary directory path for workflow processing",
             "pattern": "configs/workflows/.temp/[workflow-name]/"
         },
         "created_at": {
             "type": "string",
-            "required": false,
+            "required": False,
             "description": "Timestamp when the workflow was created",
             "pattern": "ISO 8601 format",
             "placeholder_pattern": "REPLACE_WITH_CURRENT_TIMESTAMP"

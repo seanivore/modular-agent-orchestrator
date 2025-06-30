@@ -11,9 +11,9 @@ from pathlib import Path
 
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
-from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
 from orchestrator.workflow_manager import WorkflowManager
-from orchestrator.workflow_state import WorkflowState
+from orchestrator.workflow_state import WorkflowStateManager
 from orchestrator.memory_mcp import MemoryMCPManager
 
 # Standard cache instance
@@ -44,26 +44,20 @@ def execute_workflow_id(params: Dict[str, Any] = None) -> Dict[str, Any]:
     result = _execute_command_logic(params, with_explanation)
     
     # Cache result for 1 minute (workflow IDs should be fresh)
-    cache.cache_content_analysis(cache_key, json.dumps(result), "workflow_id", ttl_minutes=1)
+    cache.cache_content_analysis(cache_key, json.dumps(result), "workflow_id")
     
     return result
 
 def estimate_cost(params: Dict[str, Any] = None) -> float:
     """
     Estimate operation cost for budget planning.
-    Medium complexity workflow operation with manager integration.
+    Uses Claude Sonnet 4 cost structure.
     """
-    base_cost = 0.001  # Base workflow ID generation cost
+    base_cost = 0.002  # Medium complexity manager integration command
     
     # Add cost for explanation if requested
     if params and params.get("explain", False):
         base_cost += 0.0005  # Additional cost for mathematical explanation
-    
-    # Add cost for workflow manager integration
-    base_cost += 0.0005  # WorkflowManager interaction cost
-    
-    # Add cost for potential memory MCP integration
-    base_cost += 0.0002  # Memory context tracking cost
     
     return base_cost
 
@@ -141,7 +135,7 @@ def _execute_command_logic(params: Dict[str, Any] = None, with_explanation: bool
 def _initialize_workflow_state(workflow_id: str) -> bool:
     """Initialize workflow state tracking for new workflow ID"""
     try:
-        workflow_state = WorkflowState()
+        workflow_state = WorkflowStateManager()
         
         # Create initial state entry
         state_data = {

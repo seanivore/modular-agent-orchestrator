@@ -1,10 +1,14 @@
 {
+  "name": "variables",
   "command": "variables",
   "type": "standalone",
   "terminal_flag": "--variables",
   "app_command": "/variables",
   "interface_method": "list_variables",
   "help": "Discover and list all workflow template variables needed for workflow setup. Shows required fields for workflow JSON configuration.",
+  "cost_estimate": 0.002,
+  "file_path": "configs/cli/variables/variables.py",
+  "ui_path": "configs/cli/variables/ui_variables.py",
   "flags": {
     "explain": {
       "flag": "--explain",
@@ -44,6 +48,24 @@
       "description": "List variables (app command)"
     }
   ],
+  "operations": {
+    "execute": {
+      "description": "Main variables discovery operation",
+      "required_params": [],
+      "optional_params": ["explain", "template", "format"]
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["workflow_manager", "workflow_templates"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 300,
+    "cache_key_includes": ["template_directory_state", "template_files_mod_time"]
+  },
   "category": "workflow",
   "complexity": "medium",
   "integration_points": [

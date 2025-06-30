@@ -1,226 +1,144 @@
 """
-Workflow ID UI Display Patterns
-Provides consistent display formatting for workflow ID generation results
+Workflow ID CLI Command - UI Display Patterns
+Essential data structure for workflow ID display
 """
 
-import json
+from rich.console import Console
+from rich.table import Table
+from rich.panel import Panel
+from rich.text import Text
 from typing import Dict, Any, List
-from datetime import datetime
 
-def format_workflow_id_result(result: Dict[str, Any]) -> str:
+# Module-level console for consistency
+console = Console()
+
+def display_workflow_id_result(result: Dict[str, Any]) -> None:
     """
-    Format workflow ID generation result for display
+    Display workflow ID results with consistent CLI UI patterns.
     
     Args:
-        result: Result dictionary from workflow_id command
-        
-    Returns:
-        Formatted string for terminal/UI display
+        result: Command execution result from workflow_id.py
     """
-    if not result.get("success"):
-        return _format_error_result(result)
+    if not result.get("success", True):
+        display_error(result.get("error", "Unknown error occurred"))
+        return
+    
+    # Essential data structure for UI designers
+    # Focus on data organization, not detailed formatting
     
     # Main workflow ID display
-    output_lines = []
-    
-    # Header
-    output_lines.append("🆔 WORKFLOW ID GENERATED")
-    output_lines.append("=" * 50)
-    
-    # Primary workflow ID
     workflow_id = result.get("workflow_id", "N/A")
-    output_lines.append(f"Workflow ID: {workflow_id}")
-    output_lines.append("")
+    
+    console.print(Panel(
+        f"[bold green]Workflow ID Generated[/bold green]\n\n"
+        f"[white]ID:[/white] [cyan]{workflow_id}[/cyan]\n"
+        f"[white]Generated:[/white] {result.get('timestamp', 'unknown')}\n"
+        f"[white]Method:[/white] {result.get('generation_method', 'workflow_manager')}",
+        title="Workflow ID Generation",
+        title_align="left"
+    ))
     
     # Mathematical explanation if provided
     if result.get("mathematical_details") and "explanation" in result:
-        output_lines.append("📊 MATHEMATICAL EXPLANATION")
-        output_lines.append("-" * 30)
         explanation = result.get("explanation", "")
-        if isinstance(explanation, str):
-            output_lines.append(explanation)
-        else:
-            output_lines.append(json.dumps(explanation, indent=2))
-        output_lines.append("")
+        console.print(Panel(
+            f"[white]{explanation}[/white]",
+            title="Mathematical Explanation",
+            title_align="left",
+            style="dim"
+        ))
     
-    # Workflow setup status
-    output_lines.append("⚙️ WORKFLOW SETUP STATUS")
-    output_lines.append("-" * 25)
-    output_lines.append(f"Ready for Setup: {'✅ Yes' if result.get('ready_for_workflow_setup') else '❌ No'}")
-    output_lines.append(f"Generation Method: {result.get('generation_method', 'unknown')}")
+    # Status information
+    status_table = Table(show_header=False, box=None, padding=(0, 1))
+    status_table.add_column("Field", style="dim")
+    status_table.add_column("Status")
     
-    # Memory context status
+    setup_status = "Ready" if result.get("ready_for_workflow_setup") else "Not Ready"
+    status_table.add_row("Setup Status:", f"[green]{setup_status}[/green]" if setup_status == "Ready" else f"[red]{setup_status}[/red]")
+    
     if "memory_context_created" in result:
-        memory_status = "✅ Created" if result.get("memory_context_created") else "❌ Failed"
-        output_lines.append(f"Memory Context: {memory_status}")
-        
-        if result.get("memory_warning"):
-            output_lines.append(f"  Warning: {result.get('memory_warning')}")
+        memory_status = "Created" if result.get("memory_context_created") else "Failed"
+        status_table.add_row("Memory Context:", f"[green]{memory_status}[/green]" if memory_status == "Created" else f"[red]{memory_status}[/red]")
     
-    output_lines.append("")
+    console.print(status_table)
     
     # Next steps guidance
     if "next_steps" in result:
-        output_lines.append("📋 NEXT STEPS")
-        output_lines.append("-" * 15)
+        console.print("\n[bold]Next Steps:[/bold]")
         for i, step in enumerate(result.get("next_steps", []), 1):
-            output_lines.append(f"{i}. {step}")
-        output_lines.append("")
+            console.print(f"  {i}. {step}")
     
     # Usage examples
-    output_lines.append("💡 USAGE EXAMPLES")
-    output_lines.append("-" * 20)
-    output_lines.append(f"In workflow JSON: \"workflow_id\": \"{workflow_id}\"")
-    output_lines.append(f"Template replacement: uid-REPLACE_WITH_GENERATED_ID → {workflow_id}")
-    output_lines.append("")
+    console.print(f"\n[bold]Usage Examples:[/bold]")
+    console.print(f"  JSON: \"workflow_id\": \"{workflow_id}\"")
+    console.print(f"  Template: uid-REPLACE -> {workflow_id}")
     
-    # Metadata
-    output_lines.append("ℹ️ METADATA")
-    output_lines.append("-" * 12)
-    output_lines.append(f"Generated: {result.get('timestamp', 'unknown')}")
-    if result.get("context_id"):
-        output_lines.append(f"Context ID: {result.get('context_id')}")
-    
-    return "\n".join(output_lines)
+    # Warnings if any
+    if result.get("memory_warning"):
+        console.print(f"\n[yellow]Warning:[/yellow] {result.get('memory_warning')}")
 
-def format_workflow_id_compact(result: Dict[str, Any]) -> str:
+def display_workflow_id_compact(result: Dict[str, Any]) -> None:
     """
-    Format workflow ID result in compact form for logs/automation
+    Display workflow ID result in compact form for logs/automation
     
     Args:
         result: Result dictionary from workflow_id command
-        
-    Returns:
-        Compact formatted string
     """
     if not result.get("success"):
-        return f"ERROR: {result.get('error', 'Workflow ID generation failed')}"
+        console.print(f"[red]ERROR:[/red] {result.get('error', 'Workflow ID generation failed')}")
+        return
     
     workflow_id = result.get("workflow_id", "N/A")
     timestamp = result.get("timestamp", "unknown")
+    setup_ready = "Ready" if result.get("ready_for_workflow_setup") else "Not Ready"
     
-    compact_info = [
-        f"ID: {workflow_id}",
-        f"Time: {timestamp}",
-        f"Setup: {'Ready' if result.get('ready_for_workflow_setup') else 'Not Ready'}"
-    ]
-    
-    return " | ".join(compact_info)
+    console.print(f"[cyan]{workflow_id}[/cyan] | {timestamp} | Setup: {setup_ready}")
 
-def format_workflow_id_json(result: Dict[str, Any]) -> str:
+def display_workflow_id_table(results: List[Dict[str, Any]]) -> None:
     """
-    Format workflow ID result as JSON for API/integration use
-    
-    Args:
-        result: Result dictionary from workflow_id command
-        
-    Returns:
-        JSON formatted string
-    """
-    # Create clean JSON output
-    json_output = {
-        "success": result.get("success", False),
-        "workflow_id": result.get("workflow_id"),
-        "timestamp": result.get("timestamp"),
-        "ready_for_setup": result.get("ready_for_workflow_setup", False)
-    }
-    
-    # Add optional fields if present
-    if result.get("explanation"):
-        json_output["explanation"] = result.get("explanation")
-    
-    if result.get("context_id"):
-        json_output["context_id"] = result.get("context_id")
-    
-    if result.get("error"):
-        json_output["error"] = result.get("error")
-    
-    return json.dumps(json_output, indent=2)
-
-def _format_error_result(result: Dict[str, Any]) -> str:
-    """Format error result for workflow ID generation"""
-    output_lines = []
-    
-    output_lines.append("❌ WORKFLOW ID GENERATION FAILED")
-    output_lines.append("=" * 40)
-    
-    error_msg = result.get("error", "Unknown error occurred")
-    output_lines.append(f"Error: {error_msg}")
-    output_lines.append("")
-    
-    # Troubleshooting guidance
-    output_lines.append("🔧 TROUBLESHOOTING")
-    output_lines.append("-" * 20)
-    output_lines.append("1. Verify workflow manager is properly configured")
-    output_lines.append("2. Check that unique ID generator scripts are accessible")
-    output_lines.append("3. Ensure proper permissions for workflow directory")
-    output_lines.append("4. Try running the command again")
-    
-    if result.get("fallback_available"):
-        output_lines.append("")
-        output_lines.append(f"💡 Fallback: {result.get('fallback_available')}")
-    
-    return "\n".join(output_lines)
-
-def format_workflow_id_table(results: List[Dict[str, Any]]) -> str:
-    """
-    Format multiple workflow ID results in table format
+    Display multiple workflow ID results in table format
     
     Args:
         results: List of workflow ID result dictionaries
-        
-    Returns:
-        Table formatted string
     """
     if not results:
-        return "No workflow IDs to display"
+        console.print("No workflow IDs to display")
+        return
     
-    # Table headers
-    headers = ["Workflow ID", "Status", "Generated", "Setup Ready"]
+    table = Table(title="Workflow ID Generation Results")
+    table.add_column("Workflow ID", style="cyan")
+    table.add_column("Status", justify="center")
+    table.add_column("Generated", style="dim")
+    table.add_column("Setup Ready", justify="center")
     
-    # Calculate column widths
-    col_widths = [len(h) for h in headers]
-    
-    # Process results and calculate widths
-    table_rows = []
     for result in results:
         if result.get("success"):
-            row = [
-                result.get("workflow_id", "N/A"),
-                "✅ Success",
-                result.get("timestamp", "unknown")[:16],  # Truncate timestamp
-                "✅" if result.get("ready_for_workflow_setup") else "❌"
-            ]
+            status = "[green]Success[/green]"
+            setup_ready = "[green]Yes[/green]" if result.get("ready_for_workflow_setup") else "[red]No[/red]"
+            workflow_id = result.get("workflow_id", "N/A")
         else:
-            row = [
-                "N/A",
-                "❌ Failed",
-                result.get("timestamp", "unknown")[:16],
-                "❌"
-            ]
+            status = "[red]Failed[/red]"
+            setup_ready = "[red]No[/red]"
+            workflow_id = "N/A"
         
-        table_rows.append(row)
-        
-        # Update column widths
-        for i, cell in enumerate(row):
-            col_widths[i] = max(col_widths[i], len(str(cell)))
+        timestamp = result.get("timestamp", "unknown")[:16]  # Truncate timestamp
+        table.add_row(workflow_id, status, timestamp, setup_ready)
     
-    # Format table
-    output_lines = []
-    
-    # Header row
-    header_row = " | ".join(h.ljust(col_widths[i]) for i, h in enumerate(headers))
-    output_lines.append(header_row)
-    output_lines.append("-" * len(header_row))
-    
-    # Data rows
-    for row in table_rows:
-        data_row = " | ".join(str(cell).ljust(col_widths[i]) for i, cell in enumerate(row))
-        output_lines.append(data_row)
-    
-    return "\n".join(output_lines)
+    console.print(table)
 
-# Helper functions for UI integration
+def display_error(error_message: str) -> None:
+    """Display error with consistent Panel formatting"""
+    console.print(Panel(
+        f"[red]Error:[/red] {error_message}\n\n"
+        f"[dim]Troubleshooting:[/dim]\n"
+        f"1. Verify workflow manager is properly configured\n"
+        f"2. Check unique ID generator scripts are accessible\n"
+        f"3. Ensure proper permissions for workflow directory\n"
+        f"4. Try running the command again",
+        style="red",
+        title="Workflow ID Error"
+    ))
+
 def get_workflow_id_summary(result: Dict[str, Any]) -> Dict[str, Any]:
     """Get summary data for UI widgets/components"""
     return {
