@@ -14,8 +14,6 @@
 **Priority**: Foundation requirement
 **Files Needed**: Create configs/user/ directory and user config management
 
-
-
 #### Setting Options & Descriptions
 
 | **SETTING**       | **DEFAULT**        | **DESCRIPTION**                                      |

@@ -27,48 +27,125 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
 
 ## Task #5 PHASE 1: **CLI Commands** Integration, Standardization, & Implementation
 
-  1. There is only one type of CLI command
-  2. Last session, the separation between the "setup scripts" living in the `./scripts/` directory and the 'commands and arguments' living in the `./configs/cli/` directory confused our planning for this task. 
-  3. The benefit of this confusion is that we now realize that we have no reason to continue treating the 'setup scripts' as a separate type of CLI command. This happened because in the previous build of SFA, we didn't have any other CLI commands, and we were not building an in-app experience. 
+### Understanding the Scope of This Task 
 
-### Regarding The Separation Between `./scripts/` and `./configs/cli/` Commands/Arguments
+  1. GOAL: Clear up our convoluted language usage (we've been callin everything, just, "a command")
+  2. INTENTION: Make clear the unintended separation of the `./scripts/` and `./configs/cli/` directories 
+  3. INTENTION: Show the different use-cases and functionality of commands and arguments so that we can create a proper update to the `CLI_COMMAND_STANDARDIZATION_PLAN.md` document (revisions have been started but only a partial simplification)
+  4. INTENTION: Then use that plan to create each command, one at a time 
+  5. INTENTION: Make sure we have an AUDIT document that we can use to review the CLI commands and arguments after they are created; then do that separate from implementing them, but directly after each is created -- notably, I'm not sure that every command will have the same touch points, or maybe there are a few touch points that are in all cases, but then, depeneding on the command function, each might have other files to should be audited as well after implementation. 
 
-#### Learn About The 'SCRIPTS' Directory 
+### Understanding the Types of Commands, Flag Arguments, and Slash Commands 
 
-  1. We need to identify the touch points used in the codebase for the setup scripts. 
-  2. Items that can be ignored in the `./scripts/` directory: 
-     - The `./scripts/project_tree/` is a CLI command used manually by me; it was created and is living here simply because I wanted to update the old `tree` command I was using. *E.G. THIS IS NOT A CLI COMMAND THAT WILL BE USED IN THE APP AND DOES NOT NEED TO BE MOVED*
-     - The `./scripts/quality_validator/` is a CLI command created specifically for testing the quality of the codebase. There is a `quality_validator_README.md` that should give further details. *E.G. THIS IS NOT A CLI COMMAND THAT WILL BE USED IN THE APP AND DOES NOT NEED TO BE MOVED*
-     - The `./scripts/token_counter/` is a CLI command used manually by me; it was created and is living here simply because we moved it from the old directory to easy maintanence access. *E.G. THIS IS NOT A CLI COMMAND THAT WILL BE USED IN THE APP AND DOES NOT NEED TO BE MOVED* 
-  3. Items that technically should be in the `./configs/cli/` directory **BUT**... 
-     - The `./scripts/unique_id_generator/` is a CLI command that was created to help with the creation of the Workflow ID. The `./scripts/user_id_generator/` is a CLI command that was created to help with the creation of the User ID and use in the workflow. 
-       - *Both should have been created in the `./configs/cli/` directory* 
-       - They were created in the `./scripts/` directory because it was before we were thinking about the CLI commands and arguments. 
-       - While we should move it, it is **IMPORTANT TO NOTE** that implementation of both of them is complete already in the workflow. 
-       - If/when we move it, we need to do so in a wholistic way by finding all of its touch points and references and updating them, and then also making sure it works both in the system files, in the app, and as a CLI command generally. 
-     - The `./scripts/workflow_setup/` are two CLI commands that are used heavily as entry points for the workflow. 
-       - *They should have been created in the `./configs/cli/` directory* 
-       - They were created in the `./scripts/` directory because it was before we were thinking about the CLI commands and arguments. 
-       - **BUT** then when we created the CLI commands and arguments, we did create `--setup` and `/setup` as well as `--update` and `/update` and `--fix-it` and `/fix-it` as CLI commands and arguments. 
-       - Consider that **THESE ARE ALL FUNCTIONAL** and implemented already. 
+--> **FUNCTIONAL** -- Commands that don't use `mao` as a prefix, and do not have a slash command. Are currently not used in the app. 
+    - `./scripts/project_tree/` 
+    - `./scripts/token_counter/` 
 
-#### Sean's Current Opinion 
+    These are in the project directory because I happened to ask for them to be created while working on this project. Perhaps we should move them to a completely new directory that isn't tied to any project; ~/Development/custom-cli-tools/ if that makes the most sense. Up to now, they have helped being in here because I was able to use them as an example of what was working created previously (specifically regarding the way in which custom commands are created particuarly). 
 
-**FIRST:** I think we should first address the 'Integration, Standardization, & Implementation' document, along with all of the other commands that need to be created and properly implemented. 
+    The `ptree` command is a .sh shell script and then another .sh shell script to install it as a custom command. 
 
-  1. Make sure we have a clear standardized process that includes how to handle creating all the other CLI flag arguments and their slash commands. 
-  2. Make sure we create an implementation plan for that process; then use it for each command, one at a time. 
-  3. Make sure we have an AUDIT document that we can use to review the CLI commands and arguments after they are created; then do that separate from implementing them, but directly after each is created. 
+    The `token_counter` command is a .py python script, and then a .sh shell script to install it as a custom command. 
 
-**REASONING:** This will leave us with a clear-cut understanding of setting up CLI commands. We can then decide if we want to update the `./scripts/` directory or not. While in retrospect it seems like they should all be together, clearly they hold some kind of mental separation from the CLI commands and arguments. Let's give that, whatever it might be, time to consider it. 
+--> **FUNCTIONAL** -- Commands that don't use `mao` as a prefix, but have a slash command, are currently used in the app, and are in the `./scripts/` directory. However, the commands have JSON files that are stored in the `./configs/cli/` directory. 
+    - `./scripts/unique_id_generator/` 
+    - `./configs/cli/workflow_id/`
+    - `./scripts/user_id_generator/` 
+    - `./configs/cli/user_id/`
 
-#### Actual Task (Understanding All The Above)
+    The first two were created on the fly, before we finished building out the CLI commands and arguments, to solve a problem while developing the projects workflow. They've been implemented into system files. 
 
-  - Understanding the misunderstanding with which the first attempt at this task was made, we should now review that plan, and edit it to handle the standard CLI commands and arguments. 
-  - Afterwards, we should also create a new plan for the 'SCRIPTS' directory. 
+    The third one is a custom command that is how we've been activating use-case workflows since the beginning with the SFA. It resides here for that reason. In the SFA, there was no application it just ran in the terminal, and we didn't have any CLI commands and arguments. 
 
-**DOCUMENT TO REVISE ACCORDINGLY, REVISIONS HAVE BEEN STARTED BUT MUST BE CONFIRMED:** 
-`./versioning-docs/v4_MAO/CLI_COMMAND_STANDARDIZATION_PLAN.md`
+    While they are all actual CLI commands, not techincally flag arguments, they all also have an in-app slash command planned. 
+
+    The `unique_id_generator` and the `user_id_generator` are both .py python scripts that have a .sh shell script to install them as custom commands. 
+
+--> **FUNCTIONAL** -- Command that does not use `mao` as a prefix, can be run as a slash command in the app, but is stored with the use-case's files in `./configs/workflows/USE-CASE/` created for that specific use-case. 
+
+    These are created using the .sh shell script for the workflow which is the next command directly below this one. 
+
+--> **FUNCTIONAL** -- Commands that do use `mao` as a prefix, have a slash command, but are currently in the `./scripts/` directory. However the three commands have JSON files that are stored in the `./configs/cli/` directory. 
+    - `./scripts/workflow_setup/`
+    - `./configs/cli/setup/`
+    - `./configs/cli/update/`
+    - `./configs/cli/fix_it/`
+
+    This is techincally two scripts. The one is primary, and is what you run with the JSON file to create a workflow; running it creates the 'custom command' mentioned above. The other is secondary and is primarily used to give the primary script a way to run in the terminal using a custom command. 
+
+    The `workflow_setup` script is a .sh shell script that uses the JSON file to create the workflow's .sh shell script which is stored with the JSON file and other files for that use case in a `./configs/workflows/USE-CASE/` directory. In addition, it sets up that actual directory and writes a README.md file about the use-case's workflow. It also runs the `install-workflow-commands.sh` script to install the custom command for the use-case. 
+
+    The `install-workflow-commands.sh` script is a .sh shell script that installs the custom command for the use-case. It is run by the `workflow_setup` script. 
+
+--> Commands that do use `mao` as a prefix, have a slash command, and are currently in the `./configs/cli/` directory. We will need to chat about each, one at a time as we go, to understand the full functionality of each. 
+    - `./configs/cli/chat/`
+    - `./configs/cli/config/`
+    - `./configs/cli/continue/`
+    - `./configs/cli/doctor/`
+    - `./configs/cli/dry_run/`
+    - `./configs/cli/free_only/`
+    - `./configs/cli/goal/`
+    - `./configs/cli/help/`
+    - `./configs/cli/list_tools/`
+    - `./configs/cli/login/`
+    - `./configs/cli/logout/`
+    - `./configs/cli/logs/`
+    - `./configs/cli/model/`
+    - `./configs/cli/model_list/`
+    - `./configs/cli/output_directory/`
+    - `./configs/cli/privacy/`
+    - `./configs/cli/provider/`
+    - `./configs/cli/provider_list/`
+    - `./configs/cli/review/`
+    - `./configs/cli/stats/`
+    - `./configs/cli/variables/`
+    - `./configs/cli/variables_explain/`
+    - `./configs/cli/verbose/`
+    - `./configs/cli/workflows/`
+
+--> Commands that are in-app slash commands only, are currently in the `./configs/cli/` directory. 
+    - `./configs/cli/exit/`
+    - `./configs/cli/restart/`
+
+#### Table of Commands, Flag Arguments, and Slash Commands for Clarity 
+
+| **FUNCTION**           | **TERMINAL COMMAND**           | **IN-APP COMMAND**            |
+| ---------------------- | ------------------------------ | ----------------------------- |
+| **Start Application**  | `mao mao`                      | -                             |
+| **Run Your Workflow**  | `custom command`               | `/custom command`             |
+| Create Workflow ID     | `uid`                          | `/uid` or `! uid`             |
+| Create User ID         | `meid username`                | `/meid username`              |
+| Restart application    | -                              | `/restart` or `! mao restart` |
+| Exit application       | -                              | `/exit` or `! mao exit`       |
+| *Setup from JSON*      | `mao --setup ./config.json`    | `/setup ./config.json`        |
+| *Update Workflow*      | `mao --update ./phase.json`    | `/update ./phase.json`        |
+| *Fix Deliverable*      | `mao --fix-it ./fix.json`      | `/fix-it ./fix.json`          |
+| Login User ID          | `mao --login`                  | `/login`                      |
+| Logout User ID         | `mao --logout`                 | `/logout`                     |
+| Open app config        | `mao --config`                 | `/config`                     |
+| Resume last workflow   | `mao --continue`               | `/continue`                   |
+| First message to AI    | `mao --chat message`           | `/chat message`               |
+| Create entire workflow | `mao --goal project goal`      | `/goal project goal`          |
+| System Statistics      | `mao --stats`                  | `/stats`                      |
+| List Workflows         | `mao --workflows`              | `/workflows`                  |
+| Review Workflow        | `mao --review custom command`  | `/review custom command`      |
+| Set output directory   | `mao --output ~/downloads`     | `/output ~/downloads`         |
+| Use only free models   | `mao --free`                   | `/free`                       |
+| Privacy models only    | `mao --privacy`                | `/privacy`                    |
+| Verbose Debug Mode     | `mao --verbose`                | `/verbose`                    |
+| View workflow logs     | `mao --logs`                   | `/logs`                       |
+| Show workflow stats    | `mao --stats`                  | `/stats`                      |
+| Check Health           | `mao --doctor`                 | `/doctor`                     |
+| View help messages     | `mao --help`                   | `/help`                       |
+| Simulate Workflow      | `mao --dry-run`                | `/dry-run`                    |
+| Set favorite model     | `mao --model model-name`       | `/model model-name`           |
+| Set default provider   | `mao --provider provider-name` | `/provider provider-name`     |
+| List models            | `mao --model-list`             | `/model-list`                 |
+| List providers         | `mao --provider-list`          | `/provider-list`              |
+| List tools             | `mao --list-tools`             | `/list-tools`                 |
+| List variables         | `mao --variables`              | `/variables`                  |
+| Explain variables      | `mao --variables-explain`      | `/variables-explain`          |
+| Terminal Commands      | -                              | `! ls -la` (any bash/zsh)     |
 
 ---
 
