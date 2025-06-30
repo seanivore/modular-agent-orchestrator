@@ -103,6 +103,7 @@ interfaces/terminal/
 │   └── completion_summary.py      # Results and deliverables
 ├── components/
 │   ├── input_handler.py           # Unified text input system
+│   ├── autocomplete_system.py     # CLI command auto-complete with fuzzy search
 │   ├── display_manager.py         # Screen content management
 │   ├── cost_tracker.py           # Real-time cost monitoring
 │   └── help_system.py            # Contextual guidance
@@ -122,6 +123,7 @@ interfaces/terminal/
 
 #### 2. Conversation Interface (`conversation_interface.py`)
 - **Unified input system**: Single text field for all interactions
+- **CLI Auto-Complete System**: Claude Code-style command discovery and suggestion
 - **Message routing**: Determine intent (workflow creation, execution, help)
 - **Context awareness**: Maintain conversation history and workflow state
 - **Response formatting**: Apply visual language to all responses

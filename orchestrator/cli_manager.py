@@ -227,10 +227,13 @@ class CLICommandsManager:
             "variables": lambda data: self._execute_variables_command(data),
             "list_variables": lambda data: self._execute_variables_command(data),
             "variables_explain": lambda data: self._explain_variables(),
-            "logs": lambda data: self._get_logs(data),
-            "doctor": lambda data: self._run_diagnostics(),
+            "show_workflow_logs": lambda data: self._execute_logs_command(data),
+            "logs": lambda data: self._execute_logs_command(data),
+            "doctor": lambda data: self._execute_doctor_command(data),
+            "dry_run": lambda data: self._execute_dry_run_command(data),
             
-            # Debug and verbose commands
+            # Communication and debug commands
+            "chat": lambda data: self._execute_chat_command(data),
             "toggle_verbose": lambda data: self._execute_verbose_command(data),
             "verbose": lambda data: self._execute_verbose_command(data)
         }
@@ -570,6 +573,48 @@ class CLICommandsManager:
         except Exception as e:
             # Fallback to existing workflow review logic if needed
             return self._workflow_review(data)
+    
+    def _execute_chat_command(self, data: Any) -> Dict[str, Any]:
+        """Execute chat command using dedicated CLI logic"""
+        try:
+            from configs.cli.chat.chat import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Chat command", "input": data, "error": f"Chat command failed: {str(e)}"}
+    
+    def _execute_doctor_command(self, data: Any) -> Dict[str, Any]:
+        """Execute doctor command using dedicated CLI logic"""
+        try:
+            from configs.cli.doctor.doctor import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to existing diagnostics logic if needed
+            return self._run_diagnostics()
+    
+    def _execute_dry_run_command(self, data: Any) -> Dict[str, Any]:
+        """Execute dry_run command using dedicated CLI logic"""
+        try:
+            from configs.cli.dry_run.dry_run import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Dry run", "input": data, "error": f"Dry run command failed: {str(e)}"}
+    
+    def _execute_verbose_command(self, data: Any) -> Dict[str, Any]:
+        """Execute verbose command using dedicated CLI logic"""
+        try:
+            from configs.cli.verbose.verbose import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Verbose toggle", "input": data, "error": f"Verbose command failed: {str(e)}"}
+    
+    def _execute_logs_command(self, data: Any) -> Dict[str, Any]:
+        """Execute logs command using dedicated CLI logic"""
+        try:
+            from configs.cli.logs.logs import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to existing logs logic if needed
+            return self._get_logs(data)
     
     def _execute_models_command(self, data: Any) -> Dict[str, Any]:
         """Execute models command using dedicated models CLI logic"""
