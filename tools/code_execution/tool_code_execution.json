@@ -1,5 +1,6 @@
 {
   "name": "code_execution",
+  "display_name": "Code Execution",
   "version": "1.0.0",
   "description": "Claude Code Execution API Integration - Execute Python code in secure sandboxed environment",
   "capabilities": [
@@ -52,7 +53,7 @@
   "api_requirements": {
     "anthropic_beta_header": "code-execution-2025-05-22",
     "files_beta_header": "files-api-2025-04-14",
-    "pricing": "$0.05 per session-hour (minimum 5 minutes)"
+    "pricing": "$0.05 per session-hour (minimum 5 minutes if files included)"
   },
   "sandbox_environment": {
     "python_version": "3.11.12",

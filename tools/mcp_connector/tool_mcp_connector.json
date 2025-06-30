@@ -1,5 +1,6 @@
 {
   "name": "mcp_connector",
+  "display_name": "Connect Model Context Protocol Servers",
   "version": "1.0.0",
   "description": "External MCP Server Integration - Connect to Model Context Protocol servers for extended tool capabilities",
   "capabilities": [

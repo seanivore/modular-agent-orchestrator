@@ -1,5 +1,6 @@
 {
   "name": "think",
+  "display_name": "Sequential Thinking",
   "version": "4.0.0",
   "description": "Simple structured thinking and reasoning capabilities for AI agents",
   "capabilities": [

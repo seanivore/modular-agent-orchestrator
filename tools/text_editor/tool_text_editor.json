@@ -1,5 +1,6 @@
 {
   "name": "text_editor",
+  "display_name": "Text Editor",
   "version": "4.0.0",
   "description": "Advanced text editing with AI assistance and seamless autosave functionality",
   "capabilities": [

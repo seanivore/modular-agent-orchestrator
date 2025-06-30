@@ -1,5 +1,6 @@
 {
   "name": "file_operations",
+  "display_name": "File Operations",
   "version": "4.0.0",
   "description": "Comprehensive file and directory operations with safety checks and error handling",
   "capabilities": [

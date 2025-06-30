@@ -1,5 +1,6 @@
 {
   "name": "perplexity_search",
+  "display_name": "Ask Perplexity",
   "version": "4.0.0",
   "description": "AI-powered search with reasoning, source citations, and comprehensive analysis",
   "capabilities": [

@@ -1,5 +1,6 @@
 {
   "name": "files_api",
+  "display_name": "Files API",
   "version": "1.0.0",
   "description": "Agent handoff file management and workspace organization using Anthropic Files API",
   "capabilities": [

@@ -1,5 +1,6 @@
 {
   "name": "graphic_design",
+  "display_name": "Image Text Overlay & Crop",
   "version": "4.0.0",
   "description": "Professional image editing with sophisticated 5-step workflow",
   "capabilities": [

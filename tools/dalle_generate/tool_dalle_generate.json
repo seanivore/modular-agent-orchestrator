@@ -1,5 +1,6 @@
 {
   "name": "dalle_generate",
+  "display_name": "Generate DALL-E Image",
   "version": "4.0.0",
   "description": "AI-powered image generation using OpenAI's DALL-E with professional workflow and error recovery",
   "capabilities": [

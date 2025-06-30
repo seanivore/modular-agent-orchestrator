@@ -1,5 +1,6 @@
 {
   "name": "brave_search",
+  "display_name": "Brave Search",
   "version": "1.0.0",
   "description": "Independent web search using Brave Search API with enhanced error handling and privacy focus",
   "capabilities": [
