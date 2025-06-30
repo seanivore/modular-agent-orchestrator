@@ -1,0 +1,29 @@
+{
+  "command": "set_model",
+  "type": "standalone",
+  "terminal_flag": "--set-model",
+  "app_command": "/set-model",
+  "interface_method": "set_model",
+  "help": "Set favorite model via settings_manager.py",
+  "cost_estimate": 0.001,
+  "logic_file": "configs/cli/set_model/set_model.py",
+  "ui_file": "configs/cli/set_model/ui_set_model.py",
+  "operations": {
+    "execute": {
+      "description": "Set user's favorite model preference",
+      "required_params": ["model_name", "username"],
+      "optional_params": []
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["settings_manager", "manager_models"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 60,
+    "cache_key_includes": ["model_directory_state", "user_context"]
+  }
+}

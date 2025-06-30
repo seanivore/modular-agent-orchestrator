@@ -190,7 +190,7 @@ class CLICommandsManager:
             
             # Workflow management
             "workflows": lambda data: self._call_manager_method(self.workflow_manager, "list_workflows"),
-            "workflow_id": lambda data: self._call_manager_method(self.workflow_manager, "generate_workflow_id"),
+            "workflow_id": lambda data: self._execute_workflow_id_command(data),
             "goal": lambda data: self._create_workflow_from_goal(data),
             
             # System information
@@ -215,8 +215,14 @@ class CLICommandsManager:
             "provider": lambda data: self._provider_management(data),
             "providers": lambda data: self._list_providers(),
             
+            # User settings commands (Command 13)
+            "set_model": lambda data: self._execute_set_model_command(data),
+            "default_provider": lambda data: self._execute_default_provider_command(data),
+            "output": lambda data: self._execute_output_command(data),
+            
             # Environment and diagnostics
-            "variables": lambda data: self._get_variables(data),
+            "variables": lambda data: self._execute_variables_command(data),
+            "list_variables": lambda data: self._execute_variables_command(data),
             "variables_explain": lambda data: self._explain_variables(),
             "logs": lambda data: self._get_logs(data),
             "doctor": lambda data: self._run_diagnostics()
@@ -385,13 +391,34 @@ class CLICommandsManager:
         """List available providers"""
         return {"message": "List providers", "note": "Implementation pending"}
     
-    def _get_variables(self, data: Any) -> Dict[str, Any]:
-        """Get environment variables"""
-        return {"message": "Get variables", "input": data, "note": "Implementation pending"}
+    def _execute_workflow_id_command(self, data: Any) -> Dict[str, Any]:
+        """Execute workflow_id command using dedicated CLI logic"""
+        try:
+            # Import and execute the workflow_id command logic directly
+            from configs.cli.workflow_id.workflow_id import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to manager integration if workflow_id CLI fails
+            return self._call_manager_method(self.workflow_manager, "generate_workflow_id")
+    
+    def _execute_variables_command(self, data: Any) -> Dict[str, Any]:
+        """Execute variables command using dedicated CLI logic"""
+        try:
+            # Import and execute the variables command logic directly
+            from configs.cli.variables.variables import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to placeholder if variables CLI fails
+            return {"message": "Get variables", "input": data, "error": f"Variables command failed: {str(e)}"}
     
     def _explain_variables(self) -> Dict[str, Any]:
-        """Explain environment variables"""
-        return {"message": "Explain variables", "note": "Implementation pending"}
+        """Explain environment variables using variables command with explain flag"""
+        try:
+            # Use variables command with explain flag
+            from configs.cli.variables.variables import execute_command
+            return execute_command({"explain": True})
+        except Exception as e:
+            return {"message": "Explain variables", "error": f"Variables explain failed: {str(e)}"}
     
     def _get_logs(self, data: Any) -> Dict[str, Any]:
         """Get system logs"""
@@ -400,6 +427,30 @@ class CLICommandsManager:
     def _run_diagnostics(self) -> Dict[str, Any]:
         """Run system diagnostics"""
         return {"message": "Run diagnostics", "note": "Implementation pending"}
+    
+    def _execute_set_model_command(self, data: Any) -> Dict[str, Any]:
+        """Execute set_model command using dedicated CLI logic"""
+        try:
+            from configs.cli.set_model.set_model import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Set model", "input": data, "error": f"Set model command failed: {str(e)}"}
+    
+    def _execute_default_provider_command(self, data: Any) -> Dict[str, Any]:
+        """Execute default_provider command using dedicated CLI logic"""
+        try:
+            from configs.cli.default_provider.default_provider import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Default provider", "input": data, "error": f"Default provider command failed: {str(e)}"}
+    
+    def _execute_output_command(self, data: Any) -> Dict[str, Any]:
+        """Execute output command using dedicated CLI logic"""
+        try:
+            from configs.cli.output_directory.output_directory import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Output directory", "input": data, "error": f"Output command failed: {str(e)}"}
     
     def _execute_models_command(self, data: Any) -> Dict[str, Any]:
         """Execute models command using dedicated models CLI logic"""
