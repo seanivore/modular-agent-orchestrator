@@ -77,34 +77,34 @@ configs/cli/[command]/
 - Create workflow from single message; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Connect `goal()` method to real `WorkflowOrchestrator`". 
 
 ### 15. `mao setup` and `/setup`
-- Already implemented, needs standardization audit and make sure it has multi-path support (user config JSON updates via `settings_manager.py`)
+- Already implemented, needs standardization audit and make sure it has multi-path support; via `workflow_manager.py` and/or `workflow_state.py` and/or `memory_mcp.py` and/or `username_manager.py` and/or `settings_manager.py`
 
 ### 16. `mao update` and `/update`
-- Already implemented but needs updating to accomodate with multi-path support + secondary flags (-add, -remove, -replace, -rename, -chat) (user config JSON updates via `settings_manager.py`)
+- Already implemented but needs updating to accomodate with multi-path support + secondary flags (-add, -remove, -replace, -rename, -chat), plus update of the workflow JSON object in the appropriate directory if the path provided wasn't the workflow's directory; so that it can be run from any directory; via `workflow_manager.py` and/or `workflow_state.py` and/or `memory_mcp.py` and/or `username_manager.py` and/or `settings_manager.py`
 
 ### 17. `mao fix_it` and `/fix_it`
-- Workflow correction with automatic JSON copying logic (user config JSON updates via `settings_manager.py` already implemented, but needs additional logic to copy the JSON object to the appropriate directory)
+- Already implemented but needs additional logic for workflow correction with automatic JSON copying logic if the JSON object wasn't executed from the workflow's directory; via `workflow_manager.py` and/or `workflow_state.py` and/or `memory_mcp.py` and/or `username_manager.py` and/or `settings_manager.py` 
 
 ### 18. `mao continue` and `/continue`
-- Workflow state management integration (workflow_state.py)
+- Workflow state management to jump back into an interrupted workflow; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Workflow state management for `continue/review`" via `workflow_state.py`
 
 ### 19. `mao review` and `/review`
-- Workflow analysis and search capabilities (workflow_state.py)
+- Workflow state management to review and search workflows; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Workflow state management for `continue/review`" via `workflow_state.py`
 
 ### 20. `mao chat` and `/chat`
-- Jump to main app with message passthrough (conversation_bridge.py)
+- Jump to main app with message passthrough (`conversation_bridge.py`)
 
 ### 21. `mao doctor` and `/doctor`
-- System health checks and workflow diagnostics (workflow_state.py)
+- System health checks and workflow diagnostics (possibly via `workflow_state.py`)
 
 ### 22. `mao dry_run` and `/dry_run`
-- Workflow simulation mode (workflow_state.py)
+- Workflow simulation mode; possibly via `workflow_state.py`
 
 ### 23. `mao verbose` and `/verbose`
-- Debug mode toggle (already created, needs to be added to the workflow_state.py)
+- Verbose mode is already written, just needs a debug mode toggle added to, probably `workflow_state.py`
 
 ### 24. `mao logs` and `/logs`
-- Workflow log viewing (relates to stats/review/workflows) (workflow_state.py)
+- Workflow log viewing; relates to stats/review/workflows; via probably `workflow_state.py`
 
 ---
 
@@ -113,8 +113,8 @@ configs/cli/[command]/
 **DO ONE COMMAND AT A TIME, THEN AUDIT THAT COMMAND**
 
 ### Phase 1: Planning (Per Command)
-1. **Choose command** from complexity category
-2. **Sequential think requirements**:
+1. **Next command** 
+2. **Sequential think requirements**
    - What functionality does this CLI command provide?
    - Which orchestrator files need integration?
    - What manager methods will be called?
@@ -128,10 +128,10 @@ configs/cli/[command]/
    - `[command].py` - Logic with full MAO standardization
    - `ui_[command].py` - Display patterns for command output
    - Update `[command].json` if needed (cost_estimate, etc.)
-5. **Update integration touchpoints** if required
+5. **Update integration touchpoints** 
+6. **Report implementation results** 
 
 ### Phase 3: Quality Control
-6. **Report implementation results** 
 7. **Sequential thinking + full audit** using `MAO_FILE_STANDARDIZATION_RULES.md`:
    - Standard MAO imports ✓
    - CacheManager integration ✓  
@@ -140,7 +140,7 @@ configs/cli/[command]/
    - Fingerprinting patterns ✓
    - UI consistency patterns ✓
 8. **Fix any standardization violations**
-9. **Report fix results**
+9. **Report of fixes**
 10. **Move to next command**
 
 ---
@@ -347,33 +347,15 @@ system information
    help       View these help messages
 ```
 
-### Tool Nickname Implementation
+### Tool Display Name Implementation
 Add to each `tool_*.json`:
 ```json
 {
   "name": "brave_search",
-  "nickname": "Brave Search",
+  "display_name": "Brave Search",
   "description": "Privacy-focused web search capabilities"
 }
 ```
-
----
-
-## Command-Specific Implementation Notes
-
-### Special Requirements by Command
-
-**list_tools**: Add nickname fields to tool JSON files for display flexibility
-
-**update/fix_it**: Automatic JSON file copying logic to appropriate workflow directories
-
-**variables**: Support optional `--explain` flag for detailed descriptions vs simple listing
-
-**model/provider/output**: Update user config JSON files via settings_manager integration
-
-**help**: Implement git-style command grouping with logical categorization
-
-**stats**: Integration with `real_time_metrics.py` for live system data (no mock data)
 
 ---
 
@@ -399,27 +381,7 @@ Add to each `tool_*.json`:
 
 ---
 
-## Recommended Starting Command
-
-**Suggest: `help` command** - Establishes UI patterns, tests discovery logic, demonstrates git-style grouping, relatively simple but showcases the system.
-
-**Alternative: `list_tools`** - Simple data display, tests JSON enhancement (nickname fields), good template for other listing commands.
-
-**Sean's Suggestion: `stats`** - Good example showing real integration complexity but more involved than starting templates.
-
----
-
-## Document Status
-
-**REPLACES**: 
-- Previous partial `CLI_COMMAND_STANDARDIZATION_PLAN.md` 
-- `CLI_IMPLEMENTATION_PLAN_NOTES.md` (can be deleted after consolidation)
-
-**REFERENCES**:
-- `MAO_FILE_STANDARDIZATION_RULES.md` for audit checklist
-- Task completion docs for integration touchpoints
-- `NEW_USER_FLOW.md` for login/logout/config flow details
-
----
-
 *This comprehensive plan provides everything needed for systematic CLI command implementation with full MAO standardization compliance.*
+
+---
+

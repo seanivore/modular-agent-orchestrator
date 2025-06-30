@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MCP Integration Hub - Complete Foundation System
+MCP Integration Hub Complete Foundation System
 Integrates Memory MCP, Files API, and MCP Connector into unified system
 """
 

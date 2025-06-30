@@ -1,8 +1,6 @@
-# orchestrator/workflow_state.py
 """
 Workflow State Management
 Simple state tracking with Memory MCP integration
-Clean, focused patterns; no unnecessary complexity
 """
 
 import json

@@ -1,7 +1,6 @@
 """
-CLI Commands Manager for MAO v4
-Handles dynamic CLI command discovery and interface integration
-Connects CLI/slash commands to actual orchestrator functionality using modular approach
+CLI Commands Manager 
+Dynamic CLI command discovery and interface integration connecting CLI/slash commands to orchestrator functionality
 """
 
 import json

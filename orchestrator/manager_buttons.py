@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Human Button Generator
-Creates executable code snippets for any model/provider combo, avoids SDK hell
+Button Snippet Generator
+Creates executable code snippets for any model/provider combo to avoid SDK hell
 """
 
 import json

@@ -1,6 +1,6 @@
 """
-Username Manager for MAO v4
-Handles user creation, session persistence, settings integration
+Username Manager 
+Handles user creation, session persistence, and settings integration
 """
 
 import json

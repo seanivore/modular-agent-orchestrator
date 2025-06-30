@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Orchestrator Core
-The BRAIN that turns natural language into intelligent workflows
+The main brain that turns natural language into intelligent workflows
 """
 
 import asyncio

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Agent Callback Handler - Workflow Progression System
+Agent Callback Handler of the Workflow Progression System
 Handles agent returns, execution results, and workflow progression
 """
 

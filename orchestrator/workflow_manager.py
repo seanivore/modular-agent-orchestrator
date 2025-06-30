@@ -1,5 +1,5 @@
 """
-Workflow Manager for MAO v4
+Workflow Manager 
 Handles workflow ID generation, discovery, and tracking
 """
 

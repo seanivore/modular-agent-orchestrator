@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Memory MCP Manager - Workflow State Persistence
+Memory MCP Manager for Workflow State Persistence
 Provides workflow context tracking, state management, and session recovery
 """
 

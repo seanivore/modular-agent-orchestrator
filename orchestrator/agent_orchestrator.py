@@ -2,7 +2,6 @@
 """
 Agent Orchestration 
 Coordinates agent handoffs with context packages via Files API
-Follows clean, focused patterns - no unnecessary complexity
 """
 
 import json

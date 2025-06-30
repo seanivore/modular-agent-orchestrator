@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Real-Time System Metrics Provider
-Provides live data for UI components instead of mock data
+Provides live data for UI components; no mock data allowed
 """
 
 from typing import Dict, List, Any, Optional

@@ -1,9 +1,6 @@
 """
-Mao Application Settings Manager
-Modular JSON Configuration System
-
-This module provides dynamic settings discovery and management using
-directory-based scanning of individual setting files.
+Mao Application JSON Configuration System Settings Manager
+Dynamic settings discovery and management using directory-based scanning of individual setting files
 """
 
 import json

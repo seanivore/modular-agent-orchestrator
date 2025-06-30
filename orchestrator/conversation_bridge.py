@@ -1,5 +1,5 @@
 """
-Conversation to Workflow Bridge -
+Conversation to Workflow Bridge
 Converts natural language goals into executable custom commands 
 """
 

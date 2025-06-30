@@ -46,6 +46,26 @@
 
 ## Documentation Organization 
 
+### Orchestrator File Roles 
+
+- `__init__.py` = "Modular AI workflow orchestration system"
+- `agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
+- `agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
+- `cli_manager.py` = "Dynamic CLI command discovery and interface integration connecting CLI/slash commands to orchestrator functionality"
+- `conversation_bridge.py` = "Converts natural language goals into executable custom commands"
+- `core.py` = "The main brain that turns natural language into intelligent workflows"
+- `error_handling.py` = "Professional error handling patterns for all tools"
+- `manager_buttons.py` = "Creates executable code snippets for any model/provider combo to avoid SDK hell"
+- `manager_models.py` = "Loads JSON configs and provides intelligent model selection"
+- `manager_tools.py` = "Dynamic tool suggestion based on goals, not hardcoded categories"
+- `mcp_hub.py` = "Integrates Memory MCP, Files API, and MCP Connector into unified system"
+- `memory_mcp.py` = "Provides workflow context tracking, state management, and session recovery"
+- `real_time_metrics.py` = "Provides live data for UI components; no mock data allowed"
+- `settings_manager.py` = "Dynamic settings discovery and management using directory-based scanning of individual setting files"
+- `username_manager.py` = "Handles user creation, session persistence, and settings integration"
+- `workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
+- `workflow_state.py` = "Simple state tracking with Memory MCP integration"
+
 ### User-Facing Documentation
 
 **Application Usage Guide** 

@@ -10,10 +10,6 @@ import importlib.util
 
 
 class ToolManager:
-    """
-    🔍 Dynamic tool discovery without hardcoded specifics
-    Suggests tools based on goal analysis, not predefined categories
-    """
     
     def __init__(self, config_dir: str = "configs"):
         self.config_dir = Path(config_dir)
