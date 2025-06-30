@@ -5,7 +5,7 @@
 
 ---
 
-## Implementation Scope: 23 CLI Commands
+## Implementation Scope
 
 **Current State**: CLI Manager infrastructure complete, JSON configs exist 
 **Missing**: Individual .py logic files + UI files for each command  
@@ -31,6 +31,13 @@ configs/cli/[command]/
 ├── [command].json        ← Enhanced config (already exists)
 └── ui_[command].py       ← UI file for command display patterns
 ```
+
+## Universal Touchpoints 
+
+**EVERY CLI command should have:**
+
+- `cli_manager.py` - This is the routing system that discovers and executes ALL CLI commands
+- `ui_terminal.py` - This provides the /slash command support for ALL commands in interactive mode
 
 ---
 
@@ -359,6 +366,7 @@ def display_error(error_message: str) -> None:
 
 ### Manager Integration Map
 ```
+Universal Touchpoints: ALL commands → cli_manager.py (routing), ui_terminal.py (slash commands)
 User Management: login, logout, user_id → username_manager.py
 Settings: config, model, provider, output → settings_manager.py  
 Workflows: goal, workflows, workflow_id → workflow_manager.py
