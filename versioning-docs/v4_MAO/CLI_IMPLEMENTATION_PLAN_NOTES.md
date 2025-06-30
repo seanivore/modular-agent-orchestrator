@@ -5,146 +5,53 @@
 **Simple Commands (data display, no complex logic)**
 
 ### 1. help 
-   - Pull all of the commands from the `./configs/cli/` directory 
-   - Display the commands with the information shown in the table as each command's function 
-   - Simple one-line help text 
-   - We should determine what order to display the commands based on what will be the most useful for the user 
-   - Make notation for the UI regarding spacing, etc. 
+Pull simple, one-line command details from the `./configs/cli/` directory, and then display them in the UI; consider display order and grouping for UX. 
 
 ### 2. list_tools
-   - Pull all of the tools from the `./tools/*.json` in each tool's directory 
-   - Ensure that the "description" in the JSON file is what we want to display as the tool's function 
-   - The current ID looks like: `"name": "brave_search"` 
-     - Create a 'nickname' variable on each tool's JSON file to give flexibility to how we want to display the tool's name 
-     - Start initially by filling the 'nickname' variable just using a space and initial caps on the "name" variable 
-   - Consider what kind of grouping and headings will be most useful for the user 
-   - Make notation for the UI regarding spacing, etc. 
+Pull description and 'nickname' from tool's JSON file to display in the UI; consider display order and grouping for UX. 
 
-### 3. stats 
-   - This is listed as "Show system performance and orchestrator statistics" in the JSON file 
-   - We should consider first what exactly that means and where is it pulling from 
-     - See "Task #5 PHASE 3: Confirm 'Orchestrator Integration' for 'Real-Time Features'" in `./versioning-docs/v4_MAO/FINAL_IMPLEMENTATION_DETAILS.md`
-     - "Re: **Add real cost tracking and progress monitoring**"
-     - "Re: **Confirm stats ready to connect to actual system metrics**"
-   - Then we should consider building to that it is easy to build out 
-     - Pull in the User ID and provide those kind of stats 
-     - Pull in the Workflow ID and provide those kind of stats 
-     - Pull in the Model ID and provide those kind of stats 
-     - Pull in the Provider ID and provide those kind of stats 
-     - Basically I think we want to be thinking about this kind of stuff; not to do immediately, but we should make it easy for us to build out in this way in the next update: 
-       - `./versioning-docs/v4_MAO/DATA_COLLECTION.md`
-       - `./versioning-docs/v4_MAO/DATA_COLLECTION_ARCHITECTURE.md` 
-    - For whatever stats we start with, provide ideas for the UI 
-      - Create something that fits the UX/UI design aesthetics 
-      - Make sure that there is enough creative freedom room 
-    - `orchestrator/real_time_metrics.py` provides live data for UI
-      - No mock data - all metrics come from real system state
-      - Foundation build can use SystemMetricsProvider, WorkflowMonitor, CostTracker
-      - This is mentioned in `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
-    - The command -logs is realted along with -workflows and -stats and -review 
+### 3. model_list
+Pull notes and model's 'display-name' from model's JSON file in the `./configs/models/` directory to display in the UI; consider display order and grouping for UX. 
 
-### 4. model_list
-   - Should be simple, pulling all of the models according to the colleciton of JSON files in the `./models/` directory 
-   - Display the models with the information shown in the table as each model's function 
-   - Opportunity for us to see if there are any new variables we want to add to the model JSON files for this UI information 
-   - Consider grouping logic, etc. and what will be passed on to the UI 
+### 4. provider_list
+Pull notes and provider's 'display-name' from provider's JSON file in the `./configs/providers/` directory to display in the UI; consider display order and grouping for UX. 
 
-### 5. provider_list
-   - Should be simple, pulling all of the providers according to the colleciton of JSON files in the `./providers/` directory 
-   - Display the providers with the information shown in the table as each provider's function 
-   - Opportunity for us to see if there are any new variables we want to add to the provider JSON files for this UI information 
-   - Consider grouping logic, etc. and what will be passed on to the UI 
+### 5. workflows 
+List workflows, integrate with `/review` command UX; provide easy access to `/logs`, `/stats`; users can search by custom command to search workflow JSON files; can use User ID, Username, or Workflow ID if they have.
 
-### 6. workflows 
-   - The original intention of this is just to "list workflows" 
-   - We have a "Review Workflow" command that we should acknowledge and then pair next to this option 
-   - "Review Workflow" is intended to search and get a group based on including custom command, workflow ID, or User ID 
-     - However we should consider how we want the two to work together 
-     - Ideally someone could use /workflows and then decide to search (and thus group) by using custom commands, workflow IDs, or User IDs once they are in /workflows because this is natural UX based on how human thinking works 
-   - Again, and UI notes to pass along for that development in addition to the UI needs that should go in a specific shared UI files for CLI commands 
-   - There are two other commands on the list that are related to the workflow and are not listed here: 
-     - `-logs`
-     - `-stats`
+### 6. stats 
+System performance metrics via `real_time_metrics.py` including SystemMetricsProvider, WorkflowMonitor, CostTracker; when implementing this, also implement "Task #5 PHASE 3: Confirm 'Orchestrator Integration' for 'Real-Time Features'" in `./versioning-docs/v4_MAO/FINAL_IMPLEMENTATION_DETAILS.md` including "Re: **Add real cost tracking and progress monitoring**" and "Re: **Confirm stats ready to connect to actual system metrics**". Should be easy to build out to search for larger metrics using User ID, Workflow ID, Model ID, and Provider ID, etc. as detailed in `./versioning-docs/v4_MAO/DATA_COLLECTION_ARCHITECTURE.md`
 
 **Medium Commands (basic operations, some manager integration)**
 
 ### 7. config 
-   - This is listed as "Open app config" in the JSON file 
-   - The implementation details of setting up application settings, how they save to a JSON for the Username/User ID that is created on their first login, is documented: `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
-   - We should also review `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` to ensure everything is clear and that we are not missing any steps 
+Application settings via `settings_manager.py` should be primarily implemented; settings changes auto-update the user config JSON file via their User ID/Username. 
 
 ### 8. login 
-   - The logic of how and when this screen shows is detailed in `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
-   - Most of it should all be implemented already, should confirm: 
-     - Username > User ID Config Setup" `./versioning-docs/v4_MAO/TASK_2_USERNAME_CONFIG_COMPLETE.md`
-     - Workflow Unique ID - COMPLETE WITH FULL INTEGRATION ✅" `./versioning-docs/v4_MAO/TASK_3_WORKFLOW_ID_COMPLETE.md` 
-     - Workflow ID Integration" `./versioning-docs/v4_MAO/TASK_3_INTEGRATION_POINTS.md` 
-     - Workflow Creation - Implementation Complete" `./versioning-docs/v4_MAO/TASK_4_WORKFLOW_CREATION_COMPLETE.md` 
-     - "User Configuration & Setup Script Implementation" `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
+User authentication via `username_manager.py`; see `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` for more details. 
 
 ### 9. logout 
-   - The logic of how and when this screen shows is detailed in `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
-   - Most of it should all be implemented already, should confirm: 
-     - Username > User ID Config Setup" `./versioning-docs/v4_MAO/TASK_2_USERNAME_CONFIG_COMPLETE.md`
-     - Workflow Unique ID - COMPLETE WITH FULL INTEGRATION ✅" `./versioning-docs/v4_MAO/TASK_3_WORKFLOW_ID_COMPLETE.md` 
-     - Workflow ID Integration" `./versioning-docs/v4_MAO/TASK_3_INTEGRATION_POINTS.md` 
-     - Workflow Creation - Implementation Complete" `./versioning-docs/v4_MAO/TASK_4_WORKFLOW_CREATION_COMPLETE.md` 
-     - "User Configuration & Setup Script Implementation" `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
+User session management via `username_manager.py`; see `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` for more details. 
 
 ### 10. user_id 
-   - The logic of how and when this screen shows is detailed in `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
-   - Most of it should all be implemented already, should confirm: 
-     - Username > User ID Config Setup" `./versioning-docs/v4_MAO/TASK_2_USERNAME_CONFIG_COMPLETE.md`
-     - Workflow Unique ID - COMPLETE WITH FULL INTEGRATION ✅" `./versioning-docs/v4_MAO/TASK_3_WORKFLOW_ID_COMPLETE.md` 
-     - Workflow ID Integration" `./versioning-docs/v4_MAO/TASK_3_INTEGRATION_POINTS.md` 
-     - Workflow Creation - Implementation Complete" `./versioning-docs/v4_MAO/TASK_4_WORKFLOW_CREATION_COMPLETE.md` 
-     - "User Configuration & Setup Script Implementation" `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
+Display/generate user ID via `username_manager.py` as part of `NEW_USER_FLOW.md`. Workflow state management via `workflow_state.py` and `memory_mcp.py`. 
 
 ### 11. workflow_id 
-   - The logic of how and when this screen shows is detailed in `./versioning-docs/v4_MAO/NEW_USER_FLOW.md` 
-   - Most of it should all be implemented already, should confirm: 
-     - Username > User ID Config Setup" `./versioning-docs/v4_MAO/TASK_2_USERNAME_CONFIG_COMPLETE.md`
-     - Workflow Unique ID - COMPLETE WITH FULL INTEGRATION ✅" `./versioning-docs/v4_MAO/TASK_3_WORKFLOW_ID_COMPLETE.md` 
-     - Workflow ID Integration" `./versioning-docs/v4_MAO/TASK_3_INTEGRATION_POINTS.md` 
-     - Workflow Creation - Implementation Complete" `./versioning-docs/v4_MAO/TASK_4_WORKFLOW_CREATION_COMPLETE.md` 
-     - "User Configuration & Setup Script Implementation" `./versioning-docs/v4_MAO/NEEDS_UPDATE_CACHE_USER_CONFIG_SETUP.md` 
+Generate workflow ID via `workflow_manager.py` as part of workflow setup flow. Workflow state management via `workflow_state.py` and `memory_mcp.py`. 
 
 ### 12. variables 
-   - This is intended to list the variables for the User as a reminder when they are setting up a new workflow 
-   - These are the same variables that are on the JSON 
-   - Templates can be seen here: 
-     - `./configs/examples/workflow_templates/example-workflow/example-workflow_handoff_config.json`
-     - `./configs/examples/workflow_templates/example-workflow/example-workflow_phase_config.json`
-     - `./configs/examples/workflow_templates/example-workflow/example-workflow_workflow_config.json`
-   - A README.md was included with those example files: `./configs/examples/workflow_templates/README.md` 
-   - There is a secondary -explain flag that can follow the variables flag to explain the variables in more detail; when just the --variables flag is used, it is just meant to list the variables without any explaination or descriptions necessary; a simple command UX reminder if the user needs
-
-~~### 13. privacy~~
-   - I have removed this and added notes that are needed to implement it in the next update. 
+Simple UI list of variables needed to setup a workflow, filling out the workflow use-case JSON object. Workflow template `./configs/examples/workflow_templates/README.md`. Includes a `variables-explain` flag. 
 
 **Complex Commands (workflow operations, file processing)**
 
 ### 13. goal 
-   - This is to be used by the user when they want to create an entire workflow from one message
-   - That message can be sent from the command line using the `mao --goal` command or from within the app 
-   - It has yet to be determined how little influence the user will have over building the workflow or when they can check and adjust it 
-   - See "## Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `./versioning-docs/v4_MAO/FINAL_IMPLEMENTATION_DETAILS.md` for the section "### **Connect `goal()` method to real `WorkflowOrchestrator`**"  
+Create workflow from single message; when completing this, also implement "Task #5 PHASE 2: Confirm 'Orchestrator Integration' for CLI Related Features" in `FINAL_IMPLEMENTATION_DETAILS.md` for the section "Connect `goal()` method to real `WorkflowOrchestrator`". 
 
 ### 14. setup
-   - This is already implemented
-   - It is used when the user or Mao has a complete .temp directory of JSON config files prepared 
-   - It is executed with that path behind the flag or slash command 
+Already implemented, needs standardization audit and make sure it has multi-path support (user config JSON updates via `settings_manager.py`).
 
 ### 15. update
-   - This is already implemented --> new specifics below need to be added to the implementation 
-   - It is used when the user or Mao has a prepared workflow already and they need to update 
-   - This logic is not planned but should be simple in that it should mirror the setup logic for normal workflows, as in: `./versioning-docs/v4_MAO/TASK_4_WORKFLOW_CREATION_COMPLETE.md`
-   - In this case, they will place the new JSON object that is being added using its path behind the flag or slash command 
-   - We should be able to add multiple paths behind the flag or slash command 
-   - I think we should also consider creating -add, -remove, -replace, -rename, -chat as secondary flags that can be used with the --update flag or following the slash command 
-   - Each one does what it says and would be followed by a path to a new JSON object or a JSON object that is already in the workflow 
-   - The "-chat" flag would instead jump to the chat with Mao, sending them a message that they want to adjust the workflow; this message needs to include the workflow ID which we should include by pulling it from the JSON object using the custom command if the User provides that, or by providing the actual workflow ID 
-   - NOTE: we should set up logic so that it automatically looks to see if the path for the JSON object being added is in the appropriate directory for that workflow, and if not, rather than throwing an error or asking the user to move it, it should copy the JSON object to the appropriate directory as the last step of the update process 
+Already implemented but needs updating to accomodate with multi-path support + secondary flags (-add, -remove, -replace, -rename, -chat) (user config JSON updates via `settings_manager.py`)
 
 ### 16. fix_it
    - This is already implemented --> new specifics below need to be added to the implementation 
