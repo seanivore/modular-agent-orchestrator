@@ -8,7 +8,7 @@
 3. Review the requirement analysis; with approval they may begin implementation. 
 4. Have them return a detailed report on the completed implementation. 
 5. Review the report; with approval they may conduct an audit of all files: touchpoints, new files, etc. 
-6. Have them report, for each file, what is good and what is bad; then implement fixes. 
+6. Have them report, for each file, what is good and what is bad; then implement fixes using the `MAO_FILE_STANDARDIZATION_RULES.md` file. 
 7. Have them return a final report on the completed implementation. 
 8. Upon receiving the final report and approval, have them start on the next command. 
 9. Repeat the process until all commands are implemented. 
