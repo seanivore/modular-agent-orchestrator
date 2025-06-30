@@ -3,6 +3,16 @@
 **COMPREHENSIVE IMPLEMENTATION GUIDE**
 *Consolidates previous partial plans into complete standardization strategy*
 
+1. Deletegate one command at a time to batches of sub agents. 
+2. Have them return a requirements analysis (example: `./versioning-docs/v4_MAO/CLI_COMMAND_NOTES/help.md`, `./versioning-docs/v4_MAO/CLI_COMMAND_NOTES/models.md`, `./versioning-docs/v4_MAO/CLI_COMMAND_NOTES/tools.md`). 
+3. Review the requirement analysis; with approval they may begin implementation. 
+4. Have them return a detailed report on the completed implementation. 
+5. Review the report; with approval they may conduct an audit of all files: touchpoints, new files, etc. 
+6. Have them report, for each file, what is good and what is bad; then implement fixes. 
+7. Have them return a final report on the completed implementation. 
+8. Upon receiving the final report and approval, have them start on the next command. 
+9. Repeat the process until all commands are implemented. 
+
 ---
 
 ## Implementation Scope
@@ -32,16 +42,11 @@ configs/cli/[command]/
 └── ui_[command].py       ← UI file for command display patterns
 ```
 
-## Universal Touchpoints 
-
-**EVERY CLI command should have:**
-
-- `cli_manager.py` - This is the routing system that discovers and executes ALL CLI commands
-- `ui_terminal.py` - This provides the /slash command support for ALL commands in interactive mode
-
 ---
 
 ## CLI Reference Chart With Grouping and Ordering 
+
+Please check the chart below for the CLI commands and their corresponding terminal and in-app commands in their most accurate form. If there is a discrepancy between a JSON file, etc. and the chart, please use the chart and update the files. 
 
 | **FUNCTION**             | **TERMINAL COMMAND**                   | **IN-APP COMMAND**                |
 | ------------------------ | -------------------------------------- | --------------------------------- |
@@ -96,7 +101,7 @@ configs/cli/[command]/
 ### 2. `mao tools` and `/tools` --> ✅
 - Pull description and new 'display-name' from tool's JSON file to display in the UI; consider display order and grouping for UX. 
 
-### 3. `mao models` and `/models`
+### 3. `mao models` and `/models` --> ✅ 
 - Pull notes and model's 'display-name' from model's JSON file in the `./configs/models/` directory to display with helpful UX in UI. 
 
 ### 4. `mao providers` and `/providers`
@@ -459,22 +464,3 @@ Add to each `tool_*.json`:
 
 ---
 
-## Orchestrator File Roles 
-
-- `__init__.py` = "Modular AI workflow orchestration system"
-- `agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
-- `agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
-- `cli_manager.py` = "Dynamic CLI command discovery and interface integration connecting CLI/slash commands to orchestrator functionality"
-- `conversation_bridge.py` = "Converts natural language goals into executable custom commands"
-- `core.py` = "The main brain that turns natural language into intelligent workflows"
-- `error_handling.py` = "Professional error handling patterns for all tools"
-- `manager_buttons.py` = "Creates executable code snippets for any model/provider combo to avoid SDK hell"
-- `manager_models.py` = "Loads JSON configs and provides intelligent model selection"
-- `manager_tools.py` = "Dynamic tool suggestion based on goals, not hardcoded categories"
-- `mcp_hub.py` = "Integrates Memory MCP, Files API, and MCP Connector into unified system"
-- `memory_mcp.py` = "Provides workflow context tracking, state management, and session recovery"
-- `real_time_metrics.py` = "Provides live data for UI components; no mock data allowed"
-- `settings_manager.py` = "Dynamic settings discovery and management using directory-based scanning of individual setting files"
-- `username_manager.py` = "Handles user creation, session persistence, and settings integration"
-- `workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
-- `workflow_state.py` = "Simple state tracking with Memory MCP integration"
