@@ -4,5 +4,34 @@
   "terminal_flag": "uid",
   "app_command": "/uid",
   "interface_method": "workflow_id",
-  "help": "Gives you a unique, never repeated, workflow ID every time you run the command."
+  "help": "Generates a unique, never repeated, workflow ID for workflow setup. Use --explain flag for mathematical explanation of ID generation.",
+  "flags": {
+    "explain": {
+      "flag": "--explain",
+      "help": "Show mathematical explanation of the workflow ID generation process",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "examples": [
+    {
+      "command": "mao workflow_id",
+      "description": "Generate a new workflow ID"
+    },
+    {
+      "command": "mao workflow_id --explain",
+      "description": "Generate workflow ID with mathematical explanation"
+    },
+    {
+      "command": "/uid",
+      "description": "Generate workflow ID (app command)"
+    }
+  ],
+  "category": "workflow",
+  "complexity": "medium",
+  "integration_points": [
+    "workflow_manager",
+    "workflow_state",
+    "memory_mcp"
+  ]
 }

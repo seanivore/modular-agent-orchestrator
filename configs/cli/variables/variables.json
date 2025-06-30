@@ -4,5 +4,51 @@
   "terminal_flag": "--variables",
   "app_command": "/variables",
   "interface_method": "list_variables",
-  "help": "List all workflow variables"
+  "help": "Discover and list all workflow template variables needed for workflow setup. Shows required fields for workflow JSON configuration.",
+  "flags": {
+    "explain": {
+      "flag": "--explain",
+      "help": "Show detailed explanations of each workflow variable and their usage",
+      "type": "boolean",
+      "default": false
+    },
+    "template": {
+      "flag": "--template",
+      "help": "Specify a specific workflow template to analyze for variables",
+      "type": "string",
+      "default": null
+    },
+    "format": {
+      "flag": "--format",
+      "help": "Output format: table, json, compact",
+      "type": "string",
+      "choices": ["table", "json", "compact"],
+      "default": "table"
+    }
+  },
+  "examples": [
+    {
+      "command": "mao variables",
+      "description": "List all workflow variables"
+    },
+    {
+      "command": "mao variables --explain",
+      "description": "List variables with detailed explanations"
+    },
+    {
+      "command": "mao variables --template example-workflow",
+      "description": "Show variables for specific template"
+    },
+    {
+      "command": "/variables",
+      "description": "List variables (app command)"
+    }
+  ],
+  "category": "workflow",
+  "complexity": "medium",
+  "integration_points": [
+    "workflow_manager",
+    "workflow_templates",
+    "memory_mcp"
+  ]
 }

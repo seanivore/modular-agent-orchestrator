@@ -1,0 +1,203 @@
+"""
+Workflows CLI Command - Core Logic
+Lists all configured workflows with comprehensive search and filtering capabilities
+"""
+
+import json
+import hashlib
+import os
+from typing import Dict, Any, Optional, List
+from datetime import datetime
+from pathlib import Path
+
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+from orchestrator.workflow_manager import WorkflowManager
+
+# Standard cache instance
+cache = CacheManager()
+
+@handle_errors(operation_name="workflows", return_dict=True)
+def execute_workflows(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """
+    Main workflows command execution with caching and error handling.
+    
+    Args:
+        params: Command parameters from CLI/app input
+        - search: Optional search term to filter workflows
+        - status: Optional status filter (active, completed, created, temp)
+        - user_id: Optional user ID filter
+        - command: Optional custom command filter
+        
+    Returns:
+        Standardized result dictionary with workflow information
+    """
+    # Check cache first
+    cache_key = _generate_cache_key(params)
+    cached_result = cache.get_cached_analysis(cache_key, "workflows")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # Execute workflow discovery logic
+    result = _discover_workflows(params)
+    
+    # Cache result with 15-minute duration
+    cache.cache_content_analysis(cache_key, json.dumps(result), "workflows")
+    
+    return result
+
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """
+    Estimate operation cost for budget planning.
+    Uses Claude Sonnet 4 cost structure.
+    """
+    # Low cost for file system operations and JSON parsing
+    # Slightly higher than providers due to more complex data processing
+    return 0.002
+
+def _generate_cache_key(params: Dict[str, Any] = None) -> str:
+    """Generate fingerprinted cache key including workflow directory state"""
+    base_key = f"workflows|{str(params) if params else 'none'}"
+    
+    # Add workflow directory fingerprint
+    workflows_dir = Path(__file__).parent.parent.parent / "workflows"
+    
+    # Include directory modification time and file count
+    directory_state = ""
+    if workflows_dir.exists():
+        # Get all workflow directories (exclude .temp and templates)
+        workflow_dirs = [d for d in workflows_dir.iterdir() 
+                        if d.is_dir() and not d.name.startswith('.') 
+                        and d.name != 'json_object_templates']
+        
+        if workflow_dirs:
+            file_count = len(workflow_dirs)
+            # Get most recent modification from all workflow directories
+            last_modified = max([d.stat().st_mtime for d in workflow_dirs] + [0])
+            directory_state = f"dirs:{file_count}|modified:{last_modified}"
+        else:
+            directory_state = "dirs:0|modified:0"
+    
+    fingerprint = f"{base_key}|{directory_state}"
+    return hashlib.md5(fingerprint.encode()).hexdigest()[:16]
+
+def _discover_workflows(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Core workflow discovery implementation"""
+    try:
+        manager = WorkflowManager()
+        
+        # Get search parameters
+        search_term = params.get("search", "") if params else ""
+        status_filter = params.get("status", "") if params else ""
+        user_id_filter = params.get("user_id", "") if params else ""
+        command_filter = params.get("command", "") if params else ""
+        
+        # Get all workflows first
+        if search_term:
+            workflows = manager.find_workflows(search_term)
+        else:
+            workflows = manager.list_workflows()
+        
+        # Apply additional filters
+        filtered_workflows = workflows
+        
+        if status_filter:
+            filtered_workflows = [w for w in filtered_workflows 
+                                if w.get("status", "").lower() == status_filter.lower()]
+        
+        if user_id_filter:
+            filtered_workflows = [w for w in filtered_workflows 
+                                if w.get("user_id", "").lower() == user_id_filter.lower()]
+        
+        if command_filter:
+            filtered_workflows = [w for w in filtered_workflows 
+                                if command_filter.lower() in w.get("custom_command", "").lower()]
+        
+        # Get additional workflow categories
+        active_workflows = manager.list_active_workflows()
+        temp_workflows = manager.list_temp_workflows()
+        
+        # Compile statistics
+        stats = _compile_workflow_stats(workflows, active_workflows, temp_workflows)
+        
+        return {
+            "success": True,
+            "workflows": filtered_workflows,
+            "active_workflows": active_workflows,
+            "temp_workflows": temp_workflows,
+            "total_count": len(workflows),
+            "filtered_count": len(filtered_workflows),
+            "active_count": len(active_workflows),
+            "temp_count": len(temp_workflows),
+            "stats": stats,
+            "filters_applied": {
+                "search": search_term,
+                "status": status_filter,
+                "user_id": user_id_filter,
+                "command": command_filter
+            },
+            "discovery_time": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        return {
+            "success": False,
+            "error": f"Workflow discovery failed: {str(e)}",
+            "workflows": [],
+            "active_workflows": [],
+            "temp_workflows": [],
+            "total_count": 0,
+            "filtered_count": 0,
+            "active_count": 0,
+            "temp_count": 0
+        }
+
+def _compile_workflow_stats(workflows: List[Dict], active: List[Dict], temp: List[Dict]) -> Dict[str, Any]:
+    """Compile workflow statistics for overview"""
+    
+    # Status distribution
+    status_counts = {}
+    for workflow in workflows:
+        status = workflow.get("status", "unknown")
+        status_counts[status] = status_counts.get(status, 0) + 1
+    
+    # User distribution
+    user_counts = {}
+    for workflow in workflows:
+        user_id = workflow.get("user_id", "unknown")
+        user_counts[user_id] = user_counts.get(user_id, 0) + 1
+    
+    # Command distribution
+    command_counts = {}
+    for workflow in workflows:
+        command = workflow.get("custom_command", "unknown")
+        command_counts[command] = command_counts.get(command, 0) + 1
+    
+    # Recent activity (workflows modified in last 7 days)
+    recent_threshold = datetime.now().timestamp() - (7 * 24 * 3600)  # 7 days ago
+    recent_workflows = []
+    
+    for workflow in workflows:
+        last_modified = workflow.get("last_modified", "")
+        if last_modified:
+            try:
+                modified_time = datetime.fromisoformat(last_modified.replace('Z', '+00:00'))
+                if modified_time.timestamp() > recent_threshold:
+                    recent_workflows.append(workflow)
+            except:
+                pass
+    
+    return {
+        "status_distribution": status_counts,
+        "user_distribution": user_counts,
+        "command_distribution": command_counts,
+        "recent_activity_count": len(recent_workflows),
+        "has_deliverables_count": len([w for w in workflows if w.get("has_deliverables", False)]),
+        "has_metadata_count": len([w for w in workflows if w.get("has_metadata", False)])
+    }
+
+# Standalone function for CLI manager import
+def execute_command(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Standalone function for CLI manager routing"""
+    return execute_workflows(params)

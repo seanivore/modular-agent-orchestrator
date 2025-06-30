@@ -12,7 +12,8 @@
 ### Testing Single Commands:
 
 ```bash
-claude > /project:sequential_volley ./path/to/cli_volley_spec.md workflows
+/project:prime
+/project:sequential_volley /Users/seanivore/Development/modular-agent-orchestrator/.claude/AGENTIC_CLI_SETUP/cli_volley_spec.md 4
 ```
 
 ### Batch Processing:
@@ -24,3 +25,11 @@ claude > /project:parallel_volley ./path/to/cli_volley_spec.md 4-24 3
 # 5 parallel agents (maximum speed)
 claude > /project:parallel_volley ./path/to/cli_volley_spec.md 4-24 5
 ```
+
+
+
+----
+
+
+
+

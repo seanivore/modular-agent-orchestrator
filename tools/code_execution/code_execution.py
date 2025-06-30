@@ -224,7 +224,7 @@ class CodeExecutionTool:
                 "timestamp": datetime.now().isoformat()
             }
     
-    @handle_errors(operation_name="download_execution_files", return_list=True)
+    @handle_errors(operation_name="download_execution_files", return_dict=True)
     def download_execution_files(self, file_ids: List[str], workflow_id: str = None) -> List[Dict[str, Any]]:
         """Download files created during code execution"""
         
@@ -355,7 +355,7 @@ def create_persistent_container(workflow_id: str = None) -> Dict[str, Any]:
     result["operation"] = "create_container"
     return result
 
-@handle_errors(operation_name="download_execution_files", return_list=True)
+@handle_errors(operation_name="download_execution_files", return_dict=True)
 def download_execution_files(file_ids: List[str], workflow_id: str = None) -> List[Dict[str, Any]]:
     """Download files created during code execution"""
     tool = CodeExecutionTool()

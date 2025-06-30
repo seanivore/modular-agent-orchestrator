@@ -104,7 +104,7 @@ Please check the chart below for the CLI commands and their corresponding termin
 ### 3. `mao models` and `/models` --> ✅ 
 - Pull notes and model's 'display-name' from model's JSON file in the `./configs/models/` directory to display with helpful UX in UI. 
 
-### 4. `mao providers` and `/providers`
+### 4. `mao providers` and `/providers` --> ✅
 - Pull notes and provider's 'display-name' from provider's JSON file in the `./configs/providers/` directory to display with helpful UX in UI. 
 
 ### 5. `mao workflows` and `/workflows`
