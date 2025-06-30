@@ -17,10 +17,10 @@ Create a professional terminal application that rivals Claude Code's quality and
 ## Application Architecture Overview
 
 ### Core Concept
-Mao is a **unified terminal application** - users run `mao` and enter a beautiful interface similar to Claude Code. Everything happens in one cohesive screen through conversation-based interaction.
+Mao is a **unified terminal application** - users run `mao mao` and enter a beautiful interface similar to Claude Code. Everything happens in one cohesive screen through conversation-based interaction.
 
 ### User Flow
-1. **Launch**: User runs `mao` command
+1. **Launch**: User runs `mao mao` command
 2. **Onboarding**: Progressive setup (theme selection, user identification) 
 3. **Unified Interface**: Single text input for ALL interactions
 4. **Workflow Operations**: Create, execute, and monitor workflows through conversation
