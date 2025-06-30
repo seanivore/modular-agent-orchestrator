@@ -6,7 +6,7 @@ v4 update started on 3 June 2025 --> Today is 29 June 2025
 ## Review For Context And Standards 
 
 - UX/UI Guide `./versioning-docs/v4_MAO/NEW_USER_FLOW.md`
-- "MAO File Standardization Rules" `./versioning-docs/v4_MAO/MAO_FILE_STANDARDIZATION_RULES.md` 
+- "MAO File Standardization Rules" `./versioning-docs/technical-documentation/MAO_FILE_STANDARDIZATION_RULES.md` 
 
 ---
 
@@ -67,7 +67,8 @@ I asked that AI then write up "a blurb of text that can be used to insert what i
   - Understanding the misunderstanding with which the first attempt at this task was made, we should now review that plan, and edit it to handle the standard CLI commands and arguments. 
   - Afterwards, we should also create a new plan for the 'SCRIPTS' directory. 
 
-**DOCUMENT TO REVISE ACCORDINGLY:** `./versioning-docs/v4_MAO/CLI_COMMAND_STANDARDIZATION_PLAN.md` 
+**DOCUMENT TO REVISE ACCORDINGLY, REVISIONS HAVE BEEN STARTED BUT MUST BE CONFIRMED:** 
+`./versioning-docs/v4_MAO/CLI_COMMAND_STANDARDIZATION_PLAN.md`
 
 ---
 
