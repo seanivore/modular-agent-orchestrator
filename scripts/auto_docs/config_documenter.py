@@ -1,0 +1,455 @@
+#!/usr/bin/env python3
+"""
+MAO Config Auto-Documenter
+Automatically generates documentation when config files change
+Integrates with GitHub webhooks and Claude Code for seamless updates
+"""
+
+import json
+import os
+from pathlib import Path
+from typing import Dict, List, Any, Optional
+from datetime import datetime
+import subprocess
+
+
+class ConfigDocumenter:
+    """Automatically generate and update docs when configs change"""
+    
+    def __init__(self, repo_root: str = "."):
+        self.repo_root = Path(repo_root)
+        self.configs_dir = self.repo_root / "configs"
+        self.docs_dir = self.repo_root / "versioning-docs"
+        self.templates_dir = self.repo_root / "templates"
+        
+        # Config type mappings
+        self.config_types = {
+            'tools': {
+                'path': 'configs/tools/',
+                'doc_file': 'versioning-docs/technical-documentation/TOOLS_REFERENCE.md',
+                'template_dir': 'templates/tools/',
+                'required_files': ['tool.py', 'tool.json', 'ui_tool.py', 'button_snippet.py']
+            },
+            'models': {
+                'path': 'configs/models/',
+                'doc_file': 'versioning-docs/technical-documentation/MODELS_REFERENCE.md',
+                'template_dir': 'templates/models/',
+                'required_files': ['model.json']
+            },
+            'providers': {
+                'path': 'configs/providers/',
+                'doc_file': 'versioning-docs/technical-documentation/PROVIDERS_REFERENCE.md',
+                'template_dir': 'templates/providers/',
+                'required_files': ['provider.json']
+            },
+            'cli': {
+                'path': 'configs/cli/',
+                'doc_file': 'versioning-docs/technical-documentation/CLI_COMMANDS_REFERENCE.md',
+                'template_dir': 'templates/cli/',
+                'required_files': ['command.py', 'command.json', 'ui_command.py']
+            }
+        }
+        
+    def scan_config_changes(self, changed_files: List[str]) -> List[Dict[str, Any]]:
+        """Detect and analyze config file changes"""
+        config_changes = []
+        
+        for file_path in changed_files:
+            if not file_path.startswith('configs/'):
+                continue
+                
+            # Determine config type
+            config_type = self.determine_config_type(file_path)
+            if not config_type:
+                continue
+                
+            change_info = self.analyze_config_change(file_path, config_type)
+            if change_info:
+                config_changes.append(change_info)
+                
+        return config_changes
+        
+    def determine_config_type(self, file_path: str) -> Optional[str]:
+        """Determine what type of config this file represents"""
+        for config_type, config_info in self.config_types.items():
+            if file_path.startswith(config_info['path']):
+                return config_type
+        return None
+        
+    def analyze_config_change(self, file_path: str, config_type: str) -> Optional[Dict[str, Any]]:
+        """Analyze a specific config file change"""
+        full_path = self.repo_root / file_path
+        
+        if not full_path.exists():
+            return {
+                'type': 'deletion',
+                'config_type': config_type,
+                'file_path': file_path,
+                'name': self.extract_config_name(file_path)
+            }
+            
+        try:
+            if file_path.endswith('.json'):
+                with open(full_path) as f:
+                    config_data = json.load(f)
+                    
+                return {
+                    'type': 'addition' if self.is_new_config(file_path) else 'modification',
+                    'config_type': config_type,
+                    'file_path': file_path,
+                    'name': config_data.get('name', self.extract_config_name(file_path)),
+                    'data': config_data,
+                    'completeness': self.check_config_completeness(file_path, config_type)
+                }
+        except (json.JSONDecodeError, IOError):
+            return None
+            
+    def extract_config_name(self, file_path: str) -> str:
+        """Extract config name from file path"""
+        return Path(file_path).stem
+        
+    def is_new_config(self, file_path: str) -> bool:
+        """Check if this is a new config (simple heuristic)"""
+        # In a real implementation, this would check git history
+        # For now, assume it's new if we're being called
+        return True
+        
+    def check_config_completeness(self, file_path: str, config_type: str) -> Dict[str, Any]:
+        """Check if config has all required files"""
+        config_dir = Path(file_path).parent
+        required_files = self.config_types[config_type]['required_files']
+        
+        completeness = {
+            'complete': True,
+            'missing_files': [],
+            'present_files': []
+        }
+        
+        for required_file in required_files:
+            file_path = config_dir / required_file
+            if file_path.exists():
+                completeness['present_files'].append(required_file)
+            else:
+                completeness['missing_files'].append(required_file)
+                completeness['complete'] = False
+                
+        return completeness
+        
+    def update_documentation(self, config_changes: List[Dict[str, Any]]) -> List[str]:
+        """Update documentation based on config changes"""
+        updated_docs = []
+        
+        # Group changes by config type
+        changes_by_type = {}
+        for change in config_changes:
+            config_type = change['config_type']
+            if config_type not in changes_by_type:
+                changes_by_type[config_type] = []
+            changes_by_type[config_type].append(change)
+            
+        # Update docs for each type
+        for config_type, changes in changes_by_type.items():
+            doc_file = self.update_config_type_docs(config_type, changes)
+            if doc_file:
+                updated_docs.append(doc_file)
+                
+        return updated_docs
+        
+    def update_config_type_docs(self, config_type: str, changes: List[Dict[str, Any]]) -> Optional[str]:
+        """Update documentation for a specific config type"""
+        config_info = self.config_types[config_type]
+        doc_file_path = self.repo_root / config_info['doc_file']
+        
+        # Ensure docs directory exists
+        doc_file_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Generate new documentation
+        doc_content = self.generate_config_docs(config_type, changes)
+        
+        try:
+            with open(doc_file_path, 'w') as f:
+                f.write(doc_content)
+            return str(doc_file_path)
+        except IOError:
+            return None
+            
+    def generate_config_docs(self, config_type: str, changes: List[Dict[str, Any]]) -> str:
+        """Generate documentation content for config type"""
+        
+        # Scan all existing configs of this type
+        all_configs = self.scan_all_configs_of_type(config_type)
+        
+        doc_content = [
+            f"# {config_type.title()} Configuration Reference",
+            "",
+            f"*Auto-generated documentation - Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*",
+            "",
+            "## Overview",
+            "",
+            f"This document provides a complete reference for all available {config_type} configurations in the MAO system.",
+            "",
+            "## Available Configurations",
+            ""
+        ]
+        
+        # Add each config
+        for config_name, config_data in sorted(all_configs.items()):
+            doc_content.extend(self.generate_config_entry_docs(config_name, config_data, config_type))
+            
+        # Add template information
+        doc_content.extend([
+            "",
+            "## Creating New Configurations",
+            "",
+            f"To create a new {config_type} configuration:",
+            "",
+            "1. Copy the template files from `templates/{}/`".format(config_type),
+            "2. Modify the configuration values as needed",
+            "3. Place files in `configs/{}/your_config_name/`".format(config_type),
+            "4. Required files:"
+        ])
+        
+        required_files = self.config_types[config_type]['required_files']
+        for file in required_files:
+            doc_content.append(f"   - `{file}`")
+            
+        doc_content.extend([
+            "",
+            "5. The system will automatically detect and load your new configuration",
+            "",
+            "## Template Files",
+            "",
+            f"Template files are available in `templates/{config_type}/` directory.",
+            ""
+        ])
+        
+        return '\n'.join(doc_content)
+        
+    def generate_config_entry_docs(self, config_name: str, config_data: Dict[str, Any], config_type: str) -> List[str]:
+        """Generate documentation for a single config entry"""
+        
+        entry_docs = [
+            f"### {config_name}",
+            ""
+        ]
+        
+        # Add description if available
+        if 'description' in config_data:
+            entry_docs.extend([
+                config_data['description'],
+                ""
+            ])
+            
+        # Add key configuration details
+        if config_type == 'tools':
+            entry_docs.extend(self.generate_tool_config_docs(config_data))
+        elif config_type == 'models':
+            entry_docs.extend(self.generate_model_config_docs(config_data))
+        elif config_type == 'providers':
+            entry_docs.extend(self.generate_provider_config_docs(config_data))
+        elif config_type == 'cli':
+            entry_docs.extend(self.generate_cli_config_docs(config_data))
+            
+        entry_docs.append("")
+        return entry_docs
+        
+    def generate_tool_config_docs(self, config_data: Dict[str, Any]) -> List[str]:
+        """Generate tool-specific documentation"""
+        docs = [
+            "**Configuration:**",
+            f"- **Name:** `{config_data.get('name', 'Unknown')}`",
+            f"- **Type:** `{config_data.get('type', 'Unknown')}`"
+        ]
+        
+        if 'dependencies' in config_data:
+            docs.append(f"- **Dependencies:** {', '.join(config_data['dependencies'])}")
+            
+        if 'parameters' in config_data:
+            docs.extend([
+                "",
+                "**Parameters:**"
+            ])
+            for param, details in config_data['parameters'].items():
+                docs.append(f"- `{param}`: {details.get('description', 'No description')}")
+                
+        return docs
+        
+    def generate_model_config_docs(self, config_data: Dict[str, Any]) -> List[str]:
+        """Generate model-specific documentation"""
+        return [
+            "**Configuration:**",
+            f"- **Provider:** `{config_data.get('provider', 'Unknown')}`",
+            f"- **Model ID:** `{config_data.get('model_id', 'Unknown')}`",
+            f"- **Context Window:** {config_data.get('context_window', 'Unknown')} tokens",
+            f"- **Cost per Token:** ${config_data.get('cost_per_token', 'Unknown')}"
+        ]
+        
+    def generate_provider_config_docs(self, config_data: Dict[str, Any]) -> List[str]:
+        """Generate provider-specific documentation"""
+        return [
+            "**Configuration:**",
+            f"- **Base URL:** `{config_data.get('base_url', 'Unknown')}`",
+            f"- **Authentication:** {config_data.get('auth_type', 'Unknown')}",
+            f"- **Rate Limits:** {config_data.get('rate_limits', 'Unknown')}"
+        ]
+        
+    def generate_cli_config_docs(self, config_data: Dict[str, Any]) -> List[str]:
+        """Generate CLI command-specific documentation"""
+        docs = [
+            "**Usage:**",
+            f"- **Command:** `/{config_data.get('command', 'Unknown')}`",
+            f"- **Flag:** `{config_data.get('terminal_flag', 'Unknown')}`",
+            f"- **Type:** {config_data.get('type', 'Unknown')}"
+        ]
+        
+        if 'help' in config_data:
+            docs.extend([
+                "",
+                f"**Description:** {config_data['help']}"
+            ])
+            
+        return docs
+        
+    def scan_all_configs_of_type(self, config_type: str) -> Dict[str, Dict[str, Any]]:
+        """Scan all existing configs of a specific type"""
+        configs = {}
+        config_path = self.repo_root / self.config_types[config_type]['path']
+        
+        if not config_path.exists():
+            return configs
+            
+        for config_dir in config_path.iterdir():
+            if config_dir.is_dir():
+                json_file = config_dir / f"{config_dir.name}.json"
+                if json_file.exists():
+                    try:
+                        with open(json_file) as f:
+                            config_data = json.load(f)
+                            configs[config_dir.name] = config_data
+                    except (json.JSONDecodeError, IOError):
+                        continue
+                        
+        return configs
+        
+    def create_github_pr_description(self, config_changes: List[Dict[str, Any]], updated_docs: List[str]) -> str:
+        """Create PR description for documentation updates"""
+        
+        description_lines = [
+            "# 📚 Auto-Generated Documentation Update",
+            "",
+            "This PR automatically updates documentation based on configuration changes.",
+            "",
+            "## Changes Detected:",
+            ""
+        ]
+        
+        # Group changes by type
+        changes_by_type = {}
+        for change in config_changes:
+            change_type = change['type']
+            config_type = change['config_type']
+            key = f"{change_type}_{config_type}"
+            
+            if key not in changes_by_type:
+                changes_by_type[key] = []
+            changes_by_type[key].append(change['name'])
+            
+        for change_key, names in changes_by_type.items():
+            change_type, config_type = change_key.split('_', 1)
+            description_lines.append(f"- **{change_type.title()} {config_type}:** {', '.join(names)}")
+            
+        description_lines.extend([
+            "",
+            "## Updated Documentation:",
+            ""
+        ])
+        
+        for doc_file in updated_docs:
+            description_lines.append(f"- `{doc_file}`")
+            
+        description_lines.extend([
+            "",
+            "## Auto-Generated",
+            "",
+            "This PR was automatically created by the MAO Config Documentation System.",
+            "Review the changes and merge when ready.",
+            "",
+            "🤖 *Generated by MAO Auto-Documenter*"
+        ])
+        
+        return '\n'.join(description_lines)
+        
+    def execute_github_workflow(self, config_changes: List[Dict[str, Any]]) -> bool:
+        """Execute the complete GitHub workflow"""
+        
+        # Update documentation
+        updated_docs = self.update_documentation(config_changes)
+        
+        if not updated_docs:
+            print("No documentation updates needed")
+            return False
+            
+        # Create PR description
+        pr_description = self.create_github_pr_description(config_changes, updated_docs)
+        
+        # Create git branch and commit
+        branch_name = f"auto-docs-update-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
+        
+        try:
+            # Create branch
+            subprocess.run(['git', 'checkout', '-b', branch_name], check=True, cwd=self.repo_root)
+            
+            # Add updated files
+            for doc_file in updated_docs:
+                subprocess.run(['git', 'add', doc_file], check=True, cwd=self.repo_root)
+                
+            # Commit changes
+            commit_message = f"Auto-update documentation for config changes\n\n{pr_description}"
+            subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=self.repo_root)
+            
+            # Push branch
+            subprocess.run(['git', 'push', '-u', 'origin', branch_name], check=True, cwd=self.repo_root)
+            
+            print(f"✅ Created branch {branch_name} with documentation updates")
+            print(f"📝 Updated files: {', '.join(updated_docs)}")
+            print("\n📋 Next steps:")
+            print("1. Create PR on GitHub")
+            print("2. Tag @claude in PR for review")
+            print("3. Merge when ready")
+            
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Git operation failed: {e}")
+            return False
+
+
+def main():
+    """Main function for testing"""
+    documenter = ConfigDocumenter()
+    
+    # Example usage - simulate config changes
+    example_changes = [
+        'configs/tools/web_search/web_search.json',
+        'configs/models/claude_sonnet_4/claude_sonnet_4.json'
+    ]
+    
+    config_changes = documenter.scan_config_changes(example_changes)
+    
+    if config_changes:
+        print("Detected config changes:")
+        for change in config_changes:
+            print(f"  - {change['type']} {change['config_type']}: {change['name']}")
+            
+        # Update documentation
+        updated_docs = documenter.update_documentation(config_changes)
+        print(f"\nUpdated documentation files: {updated_docs}")
+        
+        # Execute GitHub workflow
+        documenter.execute_github_workflow(config_changes)
+    else:
+        print("No config changes detected")
+
+
+if __name__ == "__main__":
+    main()
