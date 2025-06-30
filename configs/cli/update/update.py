@@ -12,7 +12,7 @@ from pathlib import Path
 
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
-from orchestrator.error_handling import handle_errors, ValidationError
+from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError
 from orchestrator.workflow_manager import WorkflowManager
 from orchestrator.workflow_state import WorkflowStateManager
 from orchestrator.memory_mcp import MemoryMCPManager
@@ -37,15 +37,15 @@ def execute_update(params: Dict[str, Any] = None) -> Dict[str, Any]:
     
     # Check cache first
     cache_key = _generate_cache_key(params)
-    cached_result = cache.get(cache_key)
+    cached_result = cache.get_cached_analysis(cache_key, "update")
     if cached_result:
-        return cached_result
+        return json.loads(cached_result)
     
     # Execute command logic
     result = _execute_command_logic(params)
     
     # Cache result with appropriate duration (5 minutes for file operations)
-    cache.set(cache_key, result, duration=300)
+    cache.cache_content_analysis(cache_key, json.dumps(result), "update")
     
     return result
 

@@ -191,7 +191,7 @@ class CLICommandsManager:
             # Workflow management
             "workflows": lambda data: self._call_manager_method(self.workflow_manager, "list_workflows"),
             "workflow_id": lambda data: self._execute_workflow_id_command(data),
-            "goal": lambda data: self._create_workflow_from_goal(data),
+            "goal": lambda data: self._execute_goal_command(data),
             
             # System information
             "stats": lambda data: self._get_system_stats(),
@@ -201,10 +201,13 @@ class CLICommandsManager:
             
             # Workflow operations
             "setup": lambda data: self._workflow_setup(data),
-            "update": lambda data: self._workflow_update(data),
-            "fix_it": lambda data: self._workflow_fix_it(data),
-            "continue": lambda data: self._workflow_continue(data),
-            "review": lambda data: self._workflow_review(data),
+            "update_workflow": lambda data: self._execute_update_command(data),
+            "update": lambda data: self._execute_update_command(data),
+            "fix_it": lambda data: self._execute_fix_it_command(data),
+            "continue_workflow": lambda data: self._execute_continue_command(data),
+            "continue": lambda data: self._execute_continue_command(data),
+            "review_workflow": lambda data: self._execute_review_command(data),
+            "review": lambda data: self._execute_review_command(data),
             
             # System operations
             "restart": lambda data: self._system_restart(),
@@ -225,7 +228,11 @@ class CLICommandsManager:
             "list_variables": lambda data: self._execute_variables_command(data),
             "variables_explain": lambda data: self._explain_variables(),
             "logs": lambda data: self._get_logs(data),
-            "doctor": lambda data: self._run_diagnostics()
+            "doctor": lambda data: self._run_diagnostics(),
+            
+            # Debug and verbose commands
+            "toggle_verbose": lambda data: self._execute_verbose_command(data),
+            "verbose": lambda data: self._execute_verbose_command(data)
         }
         
         if method_name not in method_mappings:
@@ -385,7 +392,35 @@ class CLICommandsManager:
     
     def _workflow_fix_it(self, data: Any) -> Dict[str, Any]:
         """Workflow fix-it operation"""
-        return {"message": "Workflow fix-it", "input": data, "note": "Implementation pending"}
+        try:
+            # Import and execute fix_it command logic
+            from configs.cli.fix_it.fix_it import execute_command
+            
+            # Prepare parameters for fix_it execution
+            params = {}
+            if isinstance(data, dict):
+                params = data
+            elif isinstance(data, str):
+                params = {"path": data}
+            else:
+                params = {"path": str(data)} if data else {}
+            
+            # Execute fix_it command
+            result = execute_command(params)
+            
+            return result
+            
+        except ImportError as e:
+            return {
+                "success": False,
+                "error": f"Fix_it command implementation not found: {str(e)}",
+                "fallback": True
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Fix_it execution failed: {str(e)}"
+            }
     
     def _workflow_continue(self, data: Any) -> Dict[str, Any]:
         """Workflow continue operation"""
@@ -449,8 +484,19 @@ class CLICommandsManager:
             return {"message": "Explain variables", "error": f"Variables explain failed: {str(e)}"}
     
     def _get_logs(self, data: Any) -> Dict[str, Any]:
-        """Get system logs"""
-        return {"message": "Get logs", "input": data, "note": "Implementation pending"}
+        """Execute logs command using dedicated CLI logic"""
+        try:
+            from configs.cli.logs.logs import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback for logs command failures
+            return {
+                "success": False,
+                "error": f"Logs command failed: {str(e)}",
+                "logs": [],
+                "total_logs": 0,
+                "note": "Check workflow managers availability"
+            }
     
     def _run_diagnostics(self) -> Dict[str, Any]:
         """Run system diagnostics"""
@@ -480,6 +526,51 @@ class CLICommandsManager:
         except Exception as e:
             return {"message": "Output directory", "input": data, "error": f"Output command failed: {str(e)}"}
     
+    def _execute_goal_command(self, data: Any) -> Dict[str, Any]:
+        """Execute goal command using dedicated CLI logic"""
+        try:
+            from configs.cli.goal.goal import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to existing workflow creation logic if needed
+            return self._create_workflow_from_goal(data)
+    
+    def _execute_update_command(self, data: Any) -> Dict[str, Any]:
+        """Execute update command using dedicated CLI logic"""
+        try:
+            from configs.cli.update.update import execute_command
+            return execute_command(data)
+        except Exception as e:
+            return {"message": "Workflow update", "input": data, "error": f"Update command failed: {str(e)}"}
+    
+    def _execute_fix_it_command(self, data: Any) -> Dict[str, Any]:
+        """Execute fix_it command using dedicated CLI logic"""
+        try:
+            from configs.cli.fix_it.fix_it import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to existing workflow fix_it logic if needed
+            return self._workflow_fix_it(data)
+    
+    def _execute_continue_command(self, data: Any) -> Dict[str, Any]:
+        """Execute continue command using dedicated CLI logic"""
+        try:
+            import importlib
+            continue_module = importlib.import_module('configs.cli.continue.continue')
+            return continue_module.execute_command(data)
+        except Exception as e:
+            # Fallback to existing workflow continue logic if needed
+            return self._workflow_continue(data)
+    
+    def _execute_review_command(self, data: Any) -> Dict[str, Any]:
+        """Execute review command using dedicated CLI logic"""
+        try:
+            from configs.cli.review.review import execute_command
+            return execute_command(data)
+        except Exception as e:
+            # Fallback to existing workflow review logic if needed
+            return self._workflow_review(data)
+    
     def _execute_models_command(self, data: Any) -> Dict[str, Any]:
         """Execute models command using dedicated models CLI logic"""
         try:
@@ -501,6 +592,39 @@ class CLICommandsManager:
         except Exception as e:
             # Fallback to manager integration if tools CLI fails
             return self._list_available_tools()
+    
+    def _execute_verbose_command(self, data: Any) -> Dict[str, Any]:
+        """Execute verbose command using dedicated verbose CLI logic"""
+        try:
+            # Import and execute the verbose command logic directly
+            from configs.cli.verbose.verbose import execute_command
+            
+            # Handle different input formats
+            if isinstance(data, str):
+                # Parse string input for action/level
+                params = {"action": data}
+            elif isinstance(data, dict):
+                # Already structured params
+                params = data
+            elif isinstance(data, list) and len(data) > 0:
+                # List with action as first element
+                params = {"action": data[0]}
+                if len(data) > 1:
+                    params["level"] = data[1]
+            else:
+                # Default to toggle action
+                params = {"action": "toggle"}
+            
+            return execute_command(params)
+            
+        except Exception as e:
+            # Fallback to simple toggle if verbose CLI fails
+            return {
+                "success": False,
+                "error": f"Verbose command failed: {str(e)}",
+                "fallback": "Simple verbose toggle unavailable",
+                "available_actions": ["toggle", "debug", "status", "info"]
+            }
     
     @handle_errors(operation_name="get_command_help", return_dict=True)
     def get_command_help(self, command: str = None) -> Dict[str, Any]:

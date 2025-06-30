@@ -2,7 +2,37 @@
   "command": "doctor",
   "type": "standalone",
   "terminal_flag": "--doctor",
-  "app_command": "/doctor",
+  "app_command": "/doctor", 
   "interface_method": "doctor",
-  "help": "Check health and status of Mao installation"
+  "help": "System health checks and workflow diagnostics",
+  "cost_estimate": 0.005,
+  "logic_file": "configs/cli/doctor/doctor.py",
+  "ui_file": "configs/cli/doctor/ui_doctor.py",
+  "operations": {
+    "execute": {
+      "description": "Comprehensive system health diagnostics",
+      "required_params": [],
+      "optional_params": ["verbose", "component_filter"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 300,
+    "cache_key_includes": ["system_state", "component_status", "directory_structure"]
+  },
+  "diagnostic_components": [
+    "system_info",
+    "directory_structure", 
+    "workflow_manager",
+    "memory_mcp",
+    "workflow_state",
+    "cache_system",
+    "orchestrator_files"
+  ]
 }
