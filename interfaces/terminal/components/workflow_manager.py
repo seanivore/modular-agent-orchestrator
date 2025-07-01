@@ -10,8 +10,8 @@ from rich.text import Text
 from pathlib import Path
 import json
 
-from .styles import MAO_COLORS, get_panel_style
-from .components.workflow_list import WorkflowList
+from ..styles import MAO_COLORS, get_panel_style
+from .workflow_list import WorkflowList
 from orchestrator.workflow_manager import WorkflowManager as WFManager
 
 

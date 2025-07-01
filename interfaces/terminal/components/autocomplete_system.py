@@ -280,12 +280,13 @@ class CLIAutoCompleteSystem(Widget):
             self.suggestions = suggestions
             self.selected_index = 0
             
-            # Create or update dropdown
-            if self.dropdown:
-                await self.dropdown.remove()
-                
-            self.dropdown = AutoCompleteDropdown(suggestions)
-            await self.mount(self.dropdown)
+            # Create or update dropdown - only if we're mounted
+            if self.is_attached:
+                if self.dropdown:
+                    await self.dropdown.remove()
+                    
+                self.dropdown = AutoCompleteDropdown(suggestions)
+                await self.mount(self.dropdown)
         else:
             await self.hide_suggestions()
             
@@ -294,7 +295,7 @@ class CLIAutoCompleteSystem(Widget):
         self.is_visible = False
         self.suggestions = []
         
-        if self.dropdown:
+        if self.dropdown and self.is_attached:
             await self.dropdown.remove()
             self.dropdown = None
             

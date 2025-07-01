@@ -11,8 +11,8 @@ from rich.spinner import Spinner
 import asyncio
 from datetime import datetime
 
-from .styles import MAO_COLORS, get_panel_style
-from .components.progress_display import ProgressDisplay
+from ..styles import MAO_COLORS, get_panel_style
+from .progress_display import ProgressDisplay
 
 
 class CommandRunner(Static):
