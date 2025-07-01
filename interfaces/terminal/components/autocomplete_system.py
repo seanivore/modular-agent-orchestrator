@@ -11,7 +11,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime
 
 from textual.widget import Widget
-from textual.widgets import Static, Container
+from textual.widgets import Static
 from textual.containers import Vertical, Horizontal
 from textual.message import Message
 from textual.reactive import reactive

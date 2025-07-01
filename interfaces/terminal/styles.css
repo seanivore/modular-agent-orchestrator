@@ -191,7 +191,7 @@ SettingsScreen Select {
 /* Animation Classes */
 .fade-in {
     opacity: 0;
-    transition: opacity 300ms ease-out;
+    transition: opacity 300ms;
 }
 
 .fade-in-active {
@@ -200,7 +200,7 @@ SettingsScreen Select {
 
 .slide-up {
     offset-y: 2;
-    transition: offset-y 300ms ease-out;
+    transition: offset-y 300ms;
 }
 
 .slide-up-active {

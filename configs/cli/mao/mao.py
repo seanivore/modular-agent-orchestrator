@@ -20,15 +20,15 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     """Estimate operation cost for budget planning"""
     return 0.0  # No cost for launching UI
 
+# Import terminal app components at module level
+from interfaces.terminal.app import MaoTerminalApp
+from interfaces.terminal.onboarding.welcome_flow import WelcomeFlow
+
 @handle_errors(operation_name="launch_terminal_ui", return_dict=True)
 def execute_command(data: Any = None) -> Dict[str, Any]:
     """Launch the beautiful Mao terminal UI"""
     
     try:
-        # Import terminal app components
-        from interfaces.terminal.app import MaoTerminalApp
-        from interfaces.terminal.onboarding.welcome_flow import WelcomeFlow
-        
         # Create and run the terminal app
         return asyncio.run(launch_terminal_app())
         
@@ -74,10 +74,12 @@ async def launch_terminal_app() -> Dict[str, Any]:
             "interrupted": True
         }
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return {
             "success": False,
             "error": str(e),
-            "message": "Terminal UI encountered an error"
+            "message": f"Terminal UI encountered an error: {str(e)}"
         }
 
 # Standalone function for button imports

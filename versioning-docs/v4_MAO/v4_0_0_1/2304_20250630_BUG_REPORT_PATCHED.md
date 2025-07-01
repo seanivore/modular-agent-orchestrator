@@ -1,3 +1,39 @@
+  Files Structure (Following Your Pattern):
+
+  scripts/
+  ├── install_mao_command.sh    # Installation script (like
+  install_ptree_command.sh)
+  └── mao.sh                    # Implementation script (like ptree.sh)
+
+  After Installation:
+
+  ~/bin/
+  └── mao                       # Clean command (no .sh extension, like
+  ptree)
+
+  Usage (Clean Commands):
+
+  mao           # New user onboarding
+  mao mao       # Smart launch (git-inspired)
+
+  Installation Process (Following Your MO):
+
+  # 1. Run the installer
+  bash scripts/install_mao_command.sh
+
+  # 2. Use the clean command
+  mao mao
+
+  Now it matches exactly how you have ptree set up! No more confusion with
+  .sh extensions in the command usage - just clean mao and mao mao
+  commands! 🎭✨
+
+  The bug report should now work perfectly with the proper command
+  structure and the MCP error handling fixes!
+
+
+----
+
 I just installed the latest version of Mao, and I'm getting the following error: 
 
 ```zsh
