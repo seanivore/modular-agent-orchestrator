@@ -108,8 +108,8 @@ def main():
             else:
                 method(value)
         else:
-            # No command provided - default behavior
-            interface.interactive()
+            # No command provided - default to onboarding (single 'mao' command)
+            interface.launch_terminal_ui_onboarding()
             
     except KeyboardInterrupt:
         sys.exit(0)

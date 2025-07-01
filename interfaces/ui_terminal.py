@@ -188,6 +188,40 @@ class TerminalInterface:
     def warning(self, message: str):
         """Display warning message"""
         print(f"⚠️  {message}")
+    
+    # =================================================================
+    # TERMINAL UI LAUNCH METHODS (for CLI commands)
+    # =================================================================
+    
+    def launch_terminal_ui_smart(self, data: Any = None):
+        """Smart launch - quick for returning users, onboarding for new users (mao mao)"""
+        try:
+            # Import the CLI command and execute it
+            from configs.cli.mao.mao import execute_command
+            result = execute_command(data)
+            
+            if result.get("success"):
+                print(f"🎭 {result.get('message', 'Terminal UI launched')}")
+            else:
+                print(f"❌ {result.get('message', 'Failed to launch terminal UI')}")
+                
+        except Exception as e:
+            print(f"❌ Failed to launch terminal UI: {str(e)}")
+    
+    def launch_terminal_ui_onboarding(self, data: Any = None):
+        """Always launch with full onboarding experience (single mao)"""
+        try:
+            # Import the onboarding command and execute it
+            from configs.cli.onboard.onboard import execute_command
+            result = execute_command(data)
+            
+            if result.get("success"):
+                print(f"🎭 {result.get('message', 'Onboarding completed')}")
+            else:
+                print(f"❌ {result.get('message', 'Onboarding failed')}")
+                
+        except Exception as e:
+            print(f"❌ Failed to start onboarding: {str(e)}")
 
 
 # =================================================================

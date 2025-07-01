@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MAO Terminal Application Launcher
+Mao Terminal Application Launcher
 Entry point for the beautiful MAO terminal UI
 Handles command-line arguments and launches the appropriate interface
 """
@@ -164,7 +164,7 @@ async def launch_terminal_ui(args):
             app.set_user_data(user_data)
             
         elif args.continue:
-            # Try to continue last session
+            # Try to start last session
             welcome = WelcomeFlow()
             user_data = welcome.get_last_user()
             
