@@ -1,19 +1,28 @@
-# 🚀 Launch Your Beautiful MAO Terminal UI!
+# 🚀 Launch Your Beautiful Mao Terminal UI!
 
 ## 🎯 **Quick Start (30 seconds)**
 
-### **Step 1: Setup the Command**
+### **Step 1: Setup the Command (Following Your MO)**
 ```bash
-# Make the setup script executable and run it
-chmod +x setup_mao_command.sh
-sudo bash setup_mao_command.sh
+# Install the mao command using your established pattern
+bash scripts/install_mao_command.sh
 ```
 
-### **Step 2: Launch MAO!**
+### **Step 2: Choose Your Launch Style!**
 ```bash
-# Launch the beautiful terminal UI
+# New to Mao? Start here (always shows onboarding)
+mao
+
+# Know what you're doing? Power user command (smart detection)
 mao mao
 ```
+
+## 🎭 **The Git-Inspired Command Design**
+
+Every time you commit, git says `mao -> mao`... so naturally:
+
+- **`mao`** = Fresh start, new user experience 🌱
+- **`mao mao`** = The full experience, power user flow 🚀
 
 **That's it!** Your beautiful MAO terminal will launch with:
 - Claude Code-style interface

@@ -86,18 +86,31 @@ class MCPConnector:
             tools = connection.list_tools()
             self.registered_tools[server_name] = tools
             
-            # Log server registration in Memory MCP
+            # Log server registration in Memory MCP (with graceful fallback)
             if self.memory_manager:
-                self.memory_manager.create_entities([{
-                    "name": f"mcp-server-{server_name}",
-                    "entityType": "mcp-server",
-                    "observations": [
-                        f"Registered: {server_config['description']}",
-                        f"Command: {' '.join(server_config['command'])}",
-                        f"Available tools: {list(tools.keys())}",
-                        f"Registration time: {datetime.now().isoformat()}"
-                    ]
-                }])
+                try:
+                    # Try new interface first
+                    if hasattr(self.memory_manager, 'create_entities'):
+                        self.memory_manager.create_entities([{
+                            "name": f"mcp-server-{server_name}",
+                            "entityType": "mcp-server",
+                            "observations": [
+                                f"Registered: {server_config['description']}",
+                                f"Command: {' '.join(server_config['command'])}",
+                                f"Available tools: {list(tools.keys())}",
+                                f"Registration time: {datetime.now().isoformat()}"
+                            ]
+                        }])
+                    # Try alternative interface
+                    elif hasattr(self.memory_manager, 'store_memory'):
+                        self.memory_manager.store_memory(
+                            f"mcp-server-{server_name}",
+                            f"Registered MCP server: {server_config['description']}"
+                        )
+                    else:
+                        print(f"📝 MCP server {server_name} registered (memory logging unavailable)")
+                except Exception as e:
+                    print(f"⚠️  MCP server {server_name} registered (memory logging failed: {e})")
             
             return {
                 "server_name": server_name,
@@ -111,11 +124,20 @@ class MCPConnector:
             print(f"Warning: {error_msg}")
             
             if self.memory_manager:
-                self.memory_manager.create_entities([{
-                    "name": f"mcp-server-{server_name}-error",
-                    "entityType": "mcp-error",
-                    "observations": [error_msg]
-                }])
+                try:
+                    if hasattr(self.memory_manager, 'create_entities'):
+                        self.memory_manager.create_entities([{
+                            "name": f"mcp-server-{server_name}-error",
+                            "entityType": "mcp-error",
+                            "observations": [error_msg]
+                        }])
+                    elif hasattr(self.memory_manager, 'store_memory'):
+                        self.memory_manager.store_memory(
+                            f"mcp-server-{server_name}-error",
+                            error_msg
+                        )
+                except Exception:
+                    pass  # Graceful fallback - don't crash on memory logging
             
             return {
                 "server_name": server_name,

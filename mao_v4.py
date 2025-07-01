@@ -85,6 +85,13 @@ def bootstrap_interface():
 def main():
     """Pure dynamic routing - zero hardcoding"""
     
+    # Special handling for 'mao mao' command
+    if len(sys.argv) == 2 and sys.argv[1] == "mao":
+        # User typed 'mao mao' - trigger smart launch
+        interface = bootstrap_interface()
+        interface.launch_terminal_ui_smart()
+        return
+    
     # Load all commands and create parser
     commands = load_all_commands()
     parser = create_dynamic_parser(commands)
