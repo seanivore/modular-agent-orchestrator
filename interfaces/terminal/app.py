@@ -14,6 +14,8 @@ from textual.binding import Binding
 from .styles import MAO_THEME, MAO_COLORS
 from .components.main_menu import MainMenu
 from .navigation import NavigationManager
+from .conversation_interface import ConversationInterface
+from .visual_language import create_mao_welcome_panel
 
 
 class MaoTerminalApp(App):
@@ -38,14 +40,26 @@ class MaoTerminalApp(App):
         self.console = Console(theme=MAO_THEME)
         self.navigation = NavigationManager()
         self.current_screen = None
+        self.user_data = None
+        self.conversation_interface = None
         
     def compose(self) -> ComposeResult:
         """Compose the main application layout."""
         yield Header(show_clock=True)
-        yield Container(
-            MainMenu(id="main-menu"),
-            id="main-container"
-        )
+        
+        # Use conversation interface if user is logged in, otherwise show main menu
+        if self.user_data:
+            self.conversation_interface = ConversationInterface()
+            yield Container(
+                self.conversation_interface,
+                id="main-container"
+            )
+        else:
+            yield Container(
+                MainMenu(id="main-menu"),
+                id="main-container"
+            )
+            
         yield Footer()
         
     def on_mount(self) -> None:
@@ -69,10 +83,28 @@ class MaoTerminalApp(App):
         """Show help."""
         self.notify("Help: q=quit, esc=back, tab=navigate, enter=select")
         
+    def set_user_data(self, user_data: dict) -> None:
+        """Set user data for the application"""
+        self.user_data = user_data
+        
+        # Update header with user info
+        if user_data:
+            username = user_data.get('username', 'User')
+            self.sub_title = f"Welcome back, {username}!"
+            
+    def show_config_screen(self) -> None:
+        """Show configuration screen"""
+        # Implementation for config screen
+        self.notify("Configuration screen - Coming soon!")
+        
     async def switch_to_screen(self, screen_name: str) -> None:
         """Switch to different screen."""
         # Implementation will be completed by multistage integration
         self.notify(f"Switching to: {screen_name}")
+        
+    async def run_async(self) -> None:
+        """Run the app asynchronously"""
+        await super().run_async()
 
 
 def main():
