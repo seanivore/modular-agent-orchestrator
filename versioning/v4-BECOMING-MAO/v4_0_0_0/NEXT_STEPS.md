@@ -33,11 +33,11 @@
   - `MAO_APP_UI_IMPLEMENTATION.md`
   - `foundation_spec.md`
   - `advanced_spec.md`
-**Deliverable:** Complete technical specification artifact for NEXT_STEPS.md  
+**Deliverable:** Complete technical specification --> ✅ `./versioning/v4-BECOMING-MAO/v4_0_0_0/UI_FOUNDATION_BUILD_PLANNING/UI_TECH_ARCHITECTURE.md`  
 **Goal:** Prevent any tech stack confusion like previous implementation 
 
 ## Step 2: CLI Command Integration Analysis 
-**Task:** Identify clear list of relevant newly created files and touch-points, then create plan on how to integrate into UI plan including what needs to be planned for. 
+**Task:** Identify clear list of relevant newly created files and touch-points. Map: All 30 CLI commands → How they connect to orchestrator; All 20 orchestrator files → Better descriptions of what each does; Integration touchpoints → How TypeScript terminal calls Python backend; File dependencies → What the TypeScript app needs to read/access. 
 **Approach:** Review scope → Delegate to Claude Code  
 **Delegation:** Agentic (systematic file analysis)  
 **Resources:** 
