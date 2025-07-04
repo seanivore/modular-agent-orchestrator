@@ -43,7 +43,7 @@
 **Resources:** 
   - `CLI_COMMAND_STANDARDIZATION_PLAN.md`
 **Deliverable:** Integration touchpoint mapping document  
-**Goal:** Identify all 27 remaining CLI commands and their integration needs
+**Goal:** Identify all CLI commands and their integration needs regarding the UI 
 
 ## Step 3A: Auto-Complete 
 **Task:** Describe the UX and UI that should result from implementation and then create plan on how to integrate into UI plan including what needs to be planned for. 
