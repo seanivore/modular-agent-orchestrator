@@ -1,36 +1,39 @@
-# Development Planning Next Steps 
-STARTED: 3 June 2025 
+# UI Foundation Build Planning 
+
+## Overview, Goals, and Process 
+
+* Our dated foundation UI build plan: 
+  --> Was written before implementing core systems; CLI commands, User ID, Workflow Systems, app settings, etc. The AI attempted an update of the SPEC requirements but ended up neglecting more than a few of the top level requirements. The result was unappealing, too buggy to use, and not representative of our brand, the apps potential, nor our dedication to strict standards stemming from our modular philosophy and the detailed nature it requires. 
+
+* We're writing a new UI build plan: 
+  --> The following steps are essential to ensure that our new UI build plan is comprehensive, detailed, and up to date. Within the steps below we will also build out the visual descriptions using wireframes and other aids. This will be build using TypeScript and Node.js. The steps below are to ensure that the UI foundation build plan is complete and up to date
+
+* Our overarching goal: 
+  --> We need to situate ourselves to build the best possible UI first build we can. We will do everything in our power to avoid as many bugs as possible. We will do everything we can think of to ensure our aesthetic vision is as close to fully realized for a first build as possible. Our first build will be functional. 
+
+* Using our resources intelligently: 
+  --> Maximize agentic work so that we can be mindful of the context window issues using Claude OS app; this is not an issue with Claude Code. Note that there is no such thing as something taking too long, a task just is what it is. Every bit of code written or reviewed must be done will paced, grounded intention; use sequential thinking before reach step, document every move before acting, during, and after, both in the Memory MCP Project State tool, and in written form form our 'Versioning' directory. Write or review code as if it is about to be published and sold to the public. There is no such thing as a "TO DO" written in the code --> do it now. You are writing code for a product, not a public audience or repository. You do not need to brand everything with 'Mao' or even 'Modular Agent Orchestrator XYZ File' --> be more specific and precise by being more deliberate and concise. 
+
+* Our pragmatic process: 
+  --> Each task below will be organized with fuller, more specific, details. They will be broken down into managable chunks; managable in that we can ensure the number of steps and checks necessary to ensure perfection are manageable. We do not work ahead on other sections out of eagerness; be stoic. You are Virgo, the Editor, Earth. 
+  --> This document will serve as our single source of truth, carefully updated with each iteration. The Memory MCP Project State tool should only be used for conceptual information, progress updates, and references back to this document. This prevents issues where LLMs retain outdated information during code audits, which previously required extensive re-auditing.
+
+* The result of this work: 
+  --> We will be left with a collection of detailed information that will then be synthesized into our comprehensive UI build plan update. 
 
 ---
 
-## UI Foundation Build 
+## Build Steps 
 
-- The steps below are to ensure that the UI foundation build plan is complete and up to date
-- The goal is to get us into position to build the best possible UI first build we can 
-- Of the steps below, any of them may be done agentically if possible 
-- The steps below should be reviewed, scrutinized, and refined 
-- Do not presume the are complete or accurate as I have not done this before; avoid all confirmation bias, etc. 
-- Combine parts, separate, add, remove --> whatever is needed to ensure that the plan is complete and up to date 
-- Let's see if we can get to a place where we are planning as much of this as possible as SPECS to be built agentically 
-
-## Process 
-
-1. Let's first go through each below, and provide a plan for each that includes how we plan on going about it, if it'll be something we'll do or that we can have done agentically, and include any other details that help expand on the finer details. 
-   - Consider this our 'context window protection' so that no matter how abruptly we get cut off, it will be easy to pick up where we were left off. 
-   - For the same reason, we should consider delegating to Claude Code wherever possible. It was quite a contrast last week doing the first three CLI Command Standardizations in the Claude OS app, having gotten cut off apruptly before completing each one, resulting in it taking about an hour for each one. Then Claude Code was able to do the rest of the list in maybe 30 mintues. Not a huge deal if we're aware of it and plan how to work accordingly; we're essentially being pushed to be more directive and efficient. 
-   - This bit, Re: "Map out all integration touchpoints from your CLI work and core systems" is what made me think of this point because that would be a lot of tokens given there being 24 commands and all of them having two universal touch points, and then all of them having at least a third, often a couple more. That is a lot of read, write, and think tokens and it would be one of those tasks that would stress us out trying to make sure it gets finished within the conversation context window. 
-2. I want to plan out documentation ahead of time because of how often we end up with many files making it difficult for me to keep track of all the cross references. 
-   - Let's use this document to build on, considering it in its current state as our outline 
-   - We should first adjust the actual steps, the numbering and their titles, according to what planning makes the most sense to you 
-   - Then we should complete #1 above for each of the confirmed steps 
-   - Finally, when we do something like you described for the first on the list, Re: "Create crystal-clear technical specifications that prevent any architecture confusion" I'd like to have it prepared, probably on an artifact makes the most sense, so that I can paste it right into this document within that numbered step/task. 
-   - In this way we'll just only have a single document that evolves to our needs as we go. 
-3. Thanks to #2, we'll have all of what we need to create a new comprehensive plan for the UI build all in one place. 
-4. Lastly, I think we should consider potentially planning out more of the agentic work and making those SPEC plans before the work that we need to work on ourselves in this app. 
-   - This way when I get rate limited, I can use the API with Claude Code to keep working through the tasks. 
-   - I also think it will be good for us to think about each of the tasks and their dependencies, and then plan out the agentic work for each of them, rather than ending up taking on more ourselves than we necessarily needed to in retrospect. 
-
-### 1. Review most recent plan 
+## Step 1: Technical Architecture Clarity
+**Approach:** Conversational planning → Artifact creation  
+**Delegation:** Manual (requires architectural decisions)  
+**Resources:** 
+  - `MAO_APP_UI_IMPLEMENTATION.md`
+  - `foundation_spec.md`
+  - `advanced_spec.md`
+**Deliverable:** Complete technical specification artifact for NEXT_STEPS.md  
+**Goal:** Prevent any tech stack confusion like previous implementation
 
 - `MAO_APP_UI_IMPLEMENTATION.md`
 - `foundation_spec.md`
@@ -173,17 +176,7 @@ STARTED: 3 June 2025
 
 ---
 
-# Refined UI Foundation Build Steps
 
-## Step 1: Technical Architecture Clarity
-**Approach:** Conversational planning → Artifact creation  
-**Delegation:** Manual (requires architectural decisions)  
-**Resources:** 
-  - `MAO_APP_UI_IMPLEMENTATION.md`
-  - `foundation_spec.md`
-  - `advanced_spec.md`
-**Deliverable:** Complete technical specification artifact for NEXT_STEPS.md  
-**Goal:** Prevent any tech stack confusion like previous implementation
 
 ## Step 2: CLI Command Integration Analysis 
 **Approach:** Review scope → Delegate to Claude Code  

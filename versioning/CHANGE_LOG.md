@@ -15,6 +15,10 @@ Each version should include documentation in the versioning directory with namin
 
 Test files should be documented in the PATCH document, including paths and test results.
 
+## v4_0_0_0 - 2025-06-03
+
+Update of changing our SFA to Mao begane on 3 June 2025. 
+
 ## v3_3_0 - 2025-05-21
 
 ### Added
