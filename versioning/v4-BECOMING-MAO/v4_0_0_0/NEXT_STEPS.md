@@ -5,13 +5,20 @@ STARTED: 3 June 2025
 
 ## UI Foundation Build 
 
-The steps below are to ensure that the UI foundation build plan is complete and up to date, getting us into position to build the best possible UI first build we can. Of the steps below, any of them may be done agentically if possible. 
+- The steps below are to ensure that the UI foundation build plan is complete and up to date
+- The goal is to get us into position to build the best possible UI first build we can 
+- Of the steps below, any of them may be done agentically if possible 
+- The steps below should be reviewed, scrutinized, and refined 
+- Do not presume the are complete or accurate as I have not done this before; avoid all confirmation bias, etc. 
+- Combine parts, separate, add, remove --> whatever is needed to ensure that the plan is complete and up to date 
 
 ### 1. Review most recent plan 
 
 - `MAO_APP_UI_IMPLEMENTATION.md`
 - `foundation_spec.md`
 - `advanced_spec.md`
+
+--> Create a technical description of what the plan should look like, what tech will be used, code, etc. so that we can avoid any confusion like the first build where TypeScript and Node.js should have been used, but were not. 
 
 ### 2. Review CLI Command Implementation for Inclusion 
 
