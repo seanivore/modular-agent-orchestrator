@@ -170,3 +170,85 @@ STARTED: 3 June 2025
 - Create new SPECS 
 - Have Claude Code review and provide feedback and ask questions 
 - Ensure that the plan is complete and up to date based on all the above steps 
+
+---
+
+# Refined UI Foundation Build Steps
+
+## Step 1: Technical Architecture Clarity
+**Approach:** Conversational planning → Artifact creation  
+**Delegation:** Manual (requires architectural decisions)  
+**Resources:** 
+  - `MAO_APP_UI_IMPLEMENTATION.md`
+  - `foundation_spec.md`
+  - `advanced_spec.md`
+**Deliverable:** Complete technical specification artifact for NEXT_STEPS.md  
+**Goal:** Prevent any tech stack confusion like previous implementation
+
+## Step 2: CLI Command Integration Analysis 
+**Approach:** Review scope → Delegate to Claude Code  
+**Delegation:** Agentic (systematic file analysis)  
+**Resources:** 
+  - `CLI_COMMAND_STANDARDIZATION_PLAN.md`
+**Deliverable:** Integration touchpoint mapping document  
+**Goal:** Identify all 27 remaining CLI commands and their integration needs
+
+## Step 3: Auto-Complete & Auto-Updates Integration
+**Approach:** Requirements analysis → Implementation planning  
+**Delegation:** Mixed (planning manual, implementation agentic)  
+**Resources:** 
+  - `CLI_AUTOCOMPLETE_IMPLEMENTATION.md` --> this is the one we started last week that ended up making more sense as being part of the larger UI Foundation build plan. As such, while we should definitely review it at this point, that will likely be all that is needed until we go to compile the comprehensive build plan after completing all ofther steps. 
+  - `GITHUB_INTEGRATION_SETUP.md` --> definitely needs us to review it; I have a feeling much of it is manual; more of a guide than implementation. 
+**Deliverable:** UX/UI specification for new functionality  
+**Goal:** Plan how these features integrate into conversation-driven interface
+
+## Step 4: Workflow & User System Integration
+**Approach:** Document review → Integration mapping  
+**Delegation:** Manual (requires understanding of Tasks 1-4)  
+**Resources:** 
+  - `TASK_2_CACHE_USER_CONFIG_SETUP.md`
+  - `TASK_2_USERNAME_CONFIG_COMPLETE.md`
+  - `TASK_3_INTEGRATION_POINTS.md`
+  - `TASK_3_WORKFLOW_ID_COMPLETE.md`
+  - `TASK_4_WORKFLOW_CREATION_COMPLETE.md`
+**Deliverable:** Comprehensive integration requirements document  
+**Goal:** Ensure all previous work properly connects to UI
+
+## Step 5: Visual Brand & Wireframe Creation
+**Approach:** Review → Wireframe design → Validation  
+**Delegation:** Manual (creative/design decisions)  
+**Resources:** 
+  - `MAO_VISUAL_BRAND_IDENTITY.md`
+  - `NEW_USER_FLOW.md` 
+**Deliverable:** Complete wireframe with zero ambiguity  
+**Goal:** Prevent any "navigation menu" architecture mistakes
+
+## Step 6: Comprehensive Plan Assembly
+**Approach:** Synthesize all above into unified plan  
+**Delegation:** Manual (requires architectural oversight)  
+**Deliverable:** Master UI build specification  
+**Goal:** Single source of truth for implementation
+
+## Step 7: Plan Review & Refinement
+**Approach:** Step back → Critical review → Refinements  
+**Delegation:** Manual (requires judgment and experience)  
+**Deliverable:** Validated and refined plan  
+**Goal:** Quality gate before implementation
+
+## Step 8: Technical Documentation Completion
+**Approach:** Documentation audit → Updates  
+**Delegation:** Agentic (systematic documentation work)  
+**Deliverable:** Complete and current technical docs  
+**Goal:** Ensure everything is properly documented
+
+## Step 9: Testing & Validation Planning
+**Approach:** Strategy design → Test plan creation  
+**Delegation:** Mixed (strategy manual, test creation agentic)  
+**Deliverable:** Comprehensive testing strategy  
+**Goal:** Prevent bugs that plagued previous implementation
+
+## Step 10: Claude Code SPEC Creation
+**Approach:** Convert plan to executable specifications  
+**Delegation:** Manual (requires understanding of Claude Code patterns)  
+**Deliverable:** Ready-to-execute Claude Code specifications  
+**Goal:** Enable efficient agentic implementation
