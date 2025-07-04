@@ -13,6 +13,23 @@ STARTED: 3 June 2025
 - Combine parts, separate, add, remove --> whatever is needed to ensure that the plan is complete and up to date 
 - Let's see if we can get to a place where we are planning as much of this as possible as SPECS to be built agentically 
 
+## Process 
+
+1. Let's first go through each below, and provide a plan for each that includes how we plan on going about it, if it'll be something we'll do or that we can have done agentically, and include any other details that help expand on the finer details. 
+   - Consider this our 'context window protection' so that no matter how abruptly we get cut off, it will be easy to pick up where we were left off. 
+   - For the same reason, we should consider delegating to Claude Code wherever possible. It was quite a contrast last week doing the first three CLI Command Standardizations in the Claude OS app, having gotten cut off apruptly before completing each one, resulting in it taking about an hour for each one. Then Claude Code was able to do the rest of the list in maybe 30 mintues. Not a huge deal if we're aware of it and plan how to work accordingly; we're essentially being pushed to be more directive and efficient. 
+   - This bit, Re: "Map out all integration touchpoints from your CLI work and core systems" is what made me think of this point because that would be a lot of tokens given there being 24 commands and all of them having two universal touch points, and then all of them having at least a third, often a couple more. That is a lot of read, write, and think tokens and it would be one of those tasks that would stress us out trying to make sure it gets finished within the conversation context window. 
+2. I want to plan out documentation ahead of time because of how often we end up with many files making it difficult for me to keep track of all the cross references. 
+   - Let's use this document to build on, considering it in its current state as our outline 
+   - We should first adjust the actual steps, the numbering and their titles, according to what planning makes the most sense to you 
+   - Then we should complete #1 above for each of the confirmed steps 
+   - Finally, when we do something like you described for the first on the list, Re: "Create crystal-clear technical specifications that prevent any architecture confusion" I'd like to have it prepared, probably on an artifact makes the most sense, so that I can paste it right into this document within that numbered step/task. 
+   - In this way we'll just only have a single document that evolves to our needs as we go. 
+3. Thanks to #2, we'll have all of what we need to create a new comprehensive plan for the UI build all in one place. 
+4. Lastly, I think we should consider potentially planning out more of the agentic work and making those SPEC plans before the work that we need to work on ourselves in this app. 
+   - This way when I get rate limited, I can use the API with Claude Code to keep working through the tasks. 
+   - I also think it will be good for us to think about each of the tasks and their dependencies, and then plan out the agentic work for each of them, rather than ending up taking on more ourselves than we necessarily needed to in retrospect. 
+
 ### 1. Review most recent plan 
 
 - `MAO_APP_UI_IMPLEMENTATION.md`
