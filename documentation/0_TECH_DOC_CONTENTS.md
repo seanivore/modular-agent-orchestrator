@@ -1,4 +1,4 @@
-# Mao Technical Specifications 
+# Mao Technical Essentials 
 
 ## Critical Rules 
 
@@ -44,131 +44,26 @@
   * Don't use m-dashes, use semicolons; if it is a header, it doesn't need to be bold 
   * We don't use emojis in UI; not a huge fan of them in docs but eh 
 
-## Documentation Organization 
+## Important Files 
 
-### Orchestrator File Roles 
+1. `./orchestrator/__init__.py` = "Modular AI workflow orchestration system"
+2. `./orchestrator/agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
+3. `./orchestrator/agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
+4. `./orchestrator/cache/__init__.py` = "Universal caching infrastructure for modular tools" 
+5. `./orchestrator/cache/cache_system.py` = "Files API for workflow handoffs and Local cache for permanence; fingerprinting" 
+6. `./orchestrator/cli_manager.py` = "Dynamic CLI command discovery and interface integration"
+7. `./orchestrator/conversation_bridge.py` = "Converts natural language goals into executable custom commands"
+8. `./orchestrator/core.py` = "The main brain that turns natural language into intelligent workflows"
+9. `./orchestrator/error_handling.py` = "Professional error handling patterns for all tools"
+10. `./orchestrator/manager_buttons.py` = "Creates executable code snippets for any model/provider combo"
+11. `./orchestrator/manager_models.py` = "Loads JSON configs and provides intelligent model selection"
+12. `./orchestrator/manager_tools.py` = "Dynamic tool suggestion based on goals, not hardcoded categories"
+13. `./orchestrator/mcp_hub.py` = "Integrates Memory MCP, Files API, and MCP Connector into unified system"
+14. `./orchestrator/memory_mcp.py` = "Provides workflow context tracking, state management, and session recovery"
+15. `./orchestrator/protocol.md`
+16. `./orchestrator/real_time_metrics.py` = "Provides live data for UI components; no mock data allowed"
+17. `./orchestrator/settings_manager.py` = "Dynamic settings discovery and management using directory-based scanning"
+18. `./orchestrator/username_manager.py` = "Handles user creation, session persistence, and settings integration"
+19. `./orchestrator/workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
+20. `./orchestrator/workflow_state.py` = "Simple state tracking with Memory MCP integration"
 
-- `__init__.py` = "Modular AI workflow orchestration system"
-- `agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
-- `agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
-- `cli_manager.py` = "Dynamic CLI command discovery and interface integration connecting CLI/slash commands to orchestrator functionality"
-- `conversation_bridge.py` = "Converts natural language goals into executable custom commands"
-- `core.py` = "The main brain that turns natural language into intelligent workflows"
-- `error_handling.py` = "Professional error handling patterns for all tools"
-- `manager_buttons.py` = "Creates executable code snippets for any model/provider combo to avoid SDK hell"
-- `manager_models.py` = "Loads JSON configs and provides intelligent model selection"
-- `manager_tools.py` = "Dynamic tool suggestion based on goals, not hardcoded categories"
-- `mcp_hub.py` = "Integrates Memory MCP, Files API, and MCP Connector into unified system"
-- `memory_mcp.py` = "Provides workflow context tracking, state management, and session recovery"
-- `real_time_metrics.py` = "Provides live data for UI components; no mock data allowed"
-- `settings_manager.py` = "Dynamic settings discovery and management using directory-based scanning of individual setting files"
-- `username_manager.py` = "Handles user creation, session persistence, and settings integration"
-- `workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
-- `workflow_state.py` = "Simple state tracking with Memory MCP integration"
-
-### User-Facing Documentation
-
-**Application Usage Guide** 
-How to use Mao as an interactive application platform --> [7_MAO_USER_GUIDE.md](./7_MAO_USER_GUIDE.md)
-
-**What This Covers**
-
-- Command reference with terminal and in-app variants
-- User experience flows and workflow creation patterns  
-- Setup scripts and custom command usage
-- Quality framework integration and troubleshooting
-- Advanced configuration and Memory MCP integration
-
-**Perfect For**
-
-- Users learning MAO application features
-- Command reference and troubleshooting
-- Understanding workflow creation and execution
-- Setup script and custom command usage
-
-### Technical Documentation
-
-**MAO Overview**
-Clean, focused overview --> [1_MAO_OVERVIEW.md](./1_MAO_OVERVIEW.md)
-
-**What This Covers**
-
-- Clear value proposition and problem/solution
-- How it actually works with real examples
-- User journeys for different audiences
-- Performance metrics and success stories
-- Getting started guide
-
-**What This Doesn't Try To Be**
-
-- Technical architecture reference
-- Extension development guide
-- Protection rules documentation
-
-**MAO System File Roles**
-How all these files fit together --> [2_MAO_SYSTEM_FILES.md](./2_MAO_SYSTEM_FILES.md)
-
-**What This Covers**
-
-- Overview of system files and their roles
-- How they interact with each other
-- How they are used to create tools/models/providers
-- How they are used to create the orchestrator
-- Aka. how everything fits together 
-
-**Perfect For**
-
-- Quick reference to understand the system 
-- Understanding the system files and their roles 
-
-**MAO Architecture**
-Complete technical deep-dive --> [3_MAO_ARCHITECTURE.md](./3_MAO_ARCHITECTURE.md)
-
-**What This Covers**
-
-- Complete system architecture and integration patterns
-- Memory MCP integration and workflow state management
-- Tool integration framework and human button system
-- Implementation status and roadmap with clear gaps
-- Performance characteristics and optimization strategies
-
-**Perfect For**
-
-- Architects and senior developers
-- Understanding complex integration patterns
-- Implementation planning and dependency analysis
-- Performance optimization and troubleshooting
-
-**MAO Extension Guide**
-How to add tools/models/providers --> [4_MAO_EXTENSION_GUIDE.md](./4_MAO_EXTENSION_GUIDE.md)
-
-**What This Covers**
-
-- Adding new tools following 6-file pattern
-- Model and provider integration
-- Variable-input philosophy implementation
-- Testing and validation requirements
-
-**Perfect For**
-
-- Developers extending MAO capabilities
-- Tool creators and integration partners
-- Understanding modular architecture patterns
-
-**MAO Protection Rules**
-What never to change and why --> [5_MAO_PROTECTION_RULES.md](./5_MAO_PROTECTION_RULES.md)
-
-**What This Covers**
-
-- Architectural integrity insurance
-- Variable-input philosophy protection
-- Human button interface requirements
-- Performance regression prevention
-- File naming and structure standards
-
-**Perfect For**
-
-- All developers working on MAO
-- Architectural decision validation
-- Code review and quality assurance
-- Preventing regression and maintaining innovation 
