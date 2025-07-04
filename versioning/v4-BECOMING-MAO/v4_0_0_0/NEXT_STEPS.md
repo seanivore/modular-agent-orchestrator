@@ -11,6 +11,7 @@ STARTED: 3 June 2025
 - The steps below should be reviewed, scrutinized, and refined 
 - Do not presume the are complete or accurate as I have not done this before; avoid all confirmation bias, etc. 
 - Combine parts, separate, add, remove --> whatever is needed to ensure that the plan is complete and up to date 
+- Let's see if we can get to a place where we are planning as much of this as possible as SPECS to be built agentically 
 
 ### 1. Review most recent plan 
 
