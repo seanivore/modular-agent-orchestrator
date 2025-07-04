@@ -3,7 +3,7 @@
 ## Overview, Goals, and Process 
 
 * Our dated foundation UI build plan: 
-  --> Was written before implementing core systems; CLI commands, User ID, Workflow Systems, app settings, etc. The AI attempted an update of the SPEC requirements but ended up neglecting more than a few of the top level requirements. The result was unappealing, too buggy to use, and not representative of our brand, the apps potential, nor our dedication to strict standards stemming from our modular philosophy and the detailed nature it requires. 
+  --> Written before implementing core systems; CLI commands, User ID, Workflow Systems, app settings, etc. The AI attempted an update of the SPEC requirements but ended up neglecting more than a few of the top level requirements. The result was unappealing, too buggy to use, and not representative of our brand, the apps potential, nor our dedication to strict standards stemming from our modular philosophy and the detailed nature it requires. 
 
 * We're writing a new UI build plan: 
   --> The following steps are essential to ensure that our new UI build plan is comprehensive, detailed, and up to date. Within the steps below we will also build out the visual descriptions using wireframes and other aids. This will be build using TypeScript and Node.js. The steps below are to ensure that the UI foundation build plan is complete and up to date
@@ -26,6 +26,7 @@
 ## Build Steps 
 
 ## Step 1: Technical Architecture Clarity
+**Task:** Create a technical description of what the plan should look like, what tech will be used, code, etc. so that we can avoid any confusion like the first build where TypeScript and Node.js should have been used, but were not. 
 **Approach:** Conversational planning → Artifact creation  
 **Delegation:** Manual (requires architectural decisions)  
 **Resources:** 
@@ -33,60 +34,51 @@
   - `foundation_spec.md`
   - `advanced_spec.md`
 **Deliverable:** Complete technical specification artifact for NEXT_STEPS.md  
-**Goal:** Prevent any tech stack confusion like previous implementation
+**Goal:** Prevent any tech stack confusion like previous implementation 
 
-- `MAO_APP_UI_IMPLEMENTATION.md`
-- `foundation_spec.md`
-- `advanced_spec.md`
+## Step 2: CLI Command Integration Analysis 
+**Task:** Identify clear list of relevant newly created files and touch-points, then create plan on how to integrate into UI plan including what needs to be planned for. 
+**Approach:** Review scope → Delegate to Claude Code  
+**Delegation:** Agentic (systematic file analysis)  
+**Resources:** 
+  - `CLI_COMMAND_STANDARDIZATION_PLAN.md`
+**Deliverable:** Integration touchpoint mapping document  
+**Goal:** Identify all 27 remaining CLI commands and their integration needs
 
---> Create a technical description of what the plan should look like, what tech will be used, code, etc. so that we can avoid any confusion like the first build where TypeScript and Node.js should have been used, but were not. 
+## Step 3A: Auto-Complete 
+**Task:** Describe the UX and UI that should result from implementation and then create plan on how to integrate into UI plan including what needs to be planned for. 
+**Approach:** Requirements analysis → Implementation planning  
+**Delegation:** Mixed (planning manual, implementation agentic)  
+**Resources:** 
+  - `CLI_AUTOCOMPLETE_IMPLEMENTATION.md` --> this is the one we started last week that ended up making more sense as being part of the larger UI Foundation build plan. As such, while we should definitely review it at this point, that will likely be all that is needed until we go to compile the comprehensive build plan after completing all ofther steps. 
+**Deliverable:** UX/UI specification for new functionality  
+**Goal:** Plan how these features integrate into conversation-driven interface
 
-### 2. Review CLI Command Implementation for Inclusion 
-
-- `CLI_COMMAND_STANDARDIZATION_PLAN.md`
-- Identify clear list of relevant newly created files and touch-points 
-- Create plan on how to integrate into UI plan including what needs to be planned for 
-
-### 3. Integrate New Functionality into UI Plan 
-
-#### Auto-Complete 
-
-- `CLI_AUTOCOMPLETE_IMPLEMENTATION.md` 
-- Describe the UX and UI that should result from implementation 
-- Create plan on how to integrate into UI plan including what needs to be planned for
-
-#### Auto-Updates for Configuration Changes 
-
-- `GITHUB_INTEGRATION_SETUP.md` 
-- Implement this first; requires webhooks, etc. 
-- How it works: 
-  - New config is added, removed, or updated (model, provider, setting, slash command, etc.)
-  - Changes trigger flow that produces auto-documentation and agentic config updates 
-  - Documentation will be pushed to a Github PR automatically
-  - Claude Code will agentically update any necessary documentation related to the config changes
-  - Files are in place to ensure that in-app, digitally, scanning ensure always up to date displays of configs 
-- Create plan on how to integrate into UI plan including what needs to be planned for
-- Templates have been started for config files
-  - We should create a README for each config file type that explains how to create and add that item 
-  - Then let's make sure that Mao is an expert on these matters so that Users and go to Mao for help setting up their own configs 
-  - Completing this will double as a great way to ensure complete understanding of all config files and their roles, including all their touch-points 
+## Step 3B: Auto-Updates Integration
+**Task:** First, we need to fully understand how this works exactly. Then we need to create all of the necessary templates and README for each describing what is necessary to create that new config. Does the auto-documentation know what it needs, or is this something that we hand off to Mao? Either way it seems like Mao should end up being the expert on this matter. Possibly most importantly, what are all the touch-points for each config file? We should also include audit information or task Mao with delegating an audit of any new config submitted. Eventually we can also have Mao delegate the posting of configs to our collection for subscribers to use. 
+**Approach:** Requirements analysis → Implementation planning  
+**Delegation:** Mixed (planning manual, implementation agentic)  
+**Resources:** 
+  - `GITHUB_INTEGRATION_SETUP.md` --> definitely needs us to review it; I have a feeling much of it is manual; more of a guide than implementation. 
+**Deliverable:** UX/UI specification for new functionality  
+**Goal:** Plan how these features integrate into conversation-driven interface
 
 ```
 ~/Development/modular-agent-orchestrator/templates/
-├── cli_commands
+├── cli_commands        ← See below for all files necessary to create a new command; also needs a README 
 │   └── cli_command.json
-├── models
+├── models                ← needs a README 
 │   └── model.json
-├── providers
+├── providers                ← needs a README 
 │   └── provider.json
-├── settings
+├── settings                ← needs a README 
 │   └── setting_name_app_settings.json
-├── tools
+├── tools                ← needs a README 
 │   ├── tool_config_template.json
 │   ├── tool.json
 │   ├── tool.py
 │   └── ui_tool.py
-├── users
+├── users                ← needs a README 
 │   └── user_username.json
 └── workflows
     ├── example-workflow_handoff_config.json
@@ -95,14 +87,39 @@
     └── README.md
 ```
 
-### 4. Review Orchestrator Files 
+```
+configs/cli/[command]/
+├── [command].py          ← Logic file with full MAO standardization  
+├── [command].json        ← Enhanced config (already exists)
+└── ui_[command].py       ← UI file for command display patterns
+```
 
-- Ensure full understanding of all files and their roles 
-- Identify if there is any overlap or gaps 
-- Complete a standard audit of them, one at a time for `MAO_FILE_STANDARDIZATION_RULES.md` I think I saw some hardcoding 
-- Create plan that ensures all touch-points are implemented into the UI plan as needed 
-- If it makes sense, create a plan to audit them from the perspective of UI build
+## Step 4: Workflow & User System Integration
+**Task:** The user and workflow file were a handful of tasks that included everything from app configuration settings, to workflow creation. We need to fully document EVERY touch-point for EVERY file in our codebase. This section is for Workflow & User System Integration with the UI, which is a large bulk of everything. The results of this section will be needed the documentation task and then the testing and validation task, as this is where we will need be be more thorough than just the UI touch-points, important, proper class names, etc. 
+**Approach:** Document review → Integration mapping  
+**Delegation:** Manual (requires understanding of Tasks 1-4)  
+**Resources:** 
+  - `TASK_2_CACHE_USER_CONFIG_SETUP.md`
+  - `TASK_2_USERNAME_CONFIG_COMPLETE.md`
+  - `TASK_3_INTEGRATION_POINTS.md`
+  - `TASK_3_WORKFLOW_ID_COMPLETE.md`
+  - `TASK_4_WORKFLOW_CREATION_COMPLETE.md`
+  - `MAO_FILE_STANDARDIZATION_RULES.md`
+  - List of all the orchestrator files in documentation section below  
+**Deliverable:** Comprehensive integration requirements document  
+**Goal:** Ensure all previous work properly connects to UI
 
+## Step 5: Technical Documentation Completion & Audit 
+**Task:** The intention of this step is multi-pronged. We need to ensure that we have a complete understanding of all files and their roles, identify any overlap or gaps, and create a plan that ensures all touch-points are implemented across the entire source code, NOT just the UI as in the previous step. The reprecussions of not one is the same as not doing the other when it comes to running the UI. The other purpose is that these orchestrator files and other files all need an audit; I saw hardcoding in the CLI files below, and I'm sure we'll find other issues. The third prong is ensuring that our code is as simple implement as possible. We have come across SO MANY redundancies in files and across files which is just unacceptable. We already have the world critisizing and watching any AI-Pair programming, and "pointless code" or adding a funciton instead of import and vice versa is something they specifically call out. We will not be the butt of their joke. We just won't publish if we cannot assure this essential standard. The FINAL prong is simple: We need our documentation to be complete and up to date. Much of it will likely be easier to rewrite than to edit. But I am moving this task up because it needs to be done before the rest of the steps. 
+**Approach:** Documentation audit → Updates  
+**Delegation:** Agentic (systematic documentation work)  
+**Resources:** 
+  - `MAO_FILE_STANDARDIZATION_RULES.md`
+  - List of all the orchestrator files in documentation section below  
+**Deliverable:** Complete and current technical docs  
+**Goal:** Ensure everything is properly documented
+
+```
   1. `./orchestrator/__init__.py` = "Modular AI workflow orchestration system"
   2. `./orchestrator/agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
   3. `./orchestrator/agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
@@ -123,91 +140,10 @@
   18. `./orchestrator/username_manager.py` = "Handles user creation, session persistence, and settings integration"
   19. `./orchestrator/workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
   20. `./orchestrator/workflow_state.py` = "Simple state tracking with Memory MCP integration"
+```
 
-### 5. User and Workflow Implementation 
-
-- Handful of tasks that included everything from app configuration settings, to workflow creation 
-- Review all integration feedback and ensure that it is completely represented in the plan 
-  - `TASK_2_CACHE_USER_CONFIG_SETUP.md`
-  - `TASK_2_USERNAME_CONFIG_COMPLETE.md`
-  - `TASK_3_INTEGRATION_POINTS.md`
-  - `TASK_3_WORKFLOW_ID_COMPLETE.md`
-  - `TASK_4_WORKFLOW_CREATION_COMPLETE.md`
-- Create plan that ensures all touch-points are implemented into the UI plan as needed
-
-### 6. Review Visual Brand Identity and User Flow to Create Stronger Visual Guide 
-
-- Review and improve to use to build wire-frame:
-  - `MAO_VISUAL_BRAND_IDENTITY.md`
-  - `NEW_USER_FLOW.md` 
-
-- Create wire-frame for the UI 
-- Ensure there is no question about the UI; for example, the previous build ended up with a "navigation" and a "main menu" -- neither of these are things the application requires at all 
-- Ensure that the UI is as simple as possible, but still functional and easy to use 
-
-### 7. Of New Plans, Create Comprehensive Plan 
-
-- Put together a comprehensive plan based on the original, plus the noted additions above 
-- Step away, then come back and review the plan, providing feedback
-  - What is missing 
-  - What is not clear and should be expanded on 
-  - Etc. 
-- Refine plan accordingly 
-
-### 8. Ensure Completion of All Technical Documentation 
-
-- Between all recent implementation mentioned above, and the resulting new plan 
-- Review all techincal documentation and ensure that it is complete and up to date 
-- It will likely result best from a complete rewrite and restructuring 
-- Can be done agentically if possible 
-
-### 9. Plan Agentic Debugging, Testing, Validation 
-
-- What is possible? How can we be as thorough as possible? 
-- When we had the previous working UI, every one little thing you tried to do hit a bug that seemed to be system file issues rather than UI issues 
-- Regardless, we want to make sure that everything is thoroughly tested and validated 
-- That way when we build the UI, we can be confident that it is working as expected, and if it is not, we can be confident of where the look for the issue 
-
-### 10. Finalize New UI Build Plan 
-
-- Create new SPECS 
-- Have Claude Code review and provide feedback and ask questions 
-- Ensure that the plan is complete and up to date based on all the above steps 
-
----
-
-
-
-## Step 2: CLI Command Integration Analysis 
-**Approach:** Review scope → Delegate to Claude Code  
-**Delegation:** Agentic (systematic file analysis)  
-**Resources:** 
-  - `CLI_COMMAND_STANDARDIZATION_PLAN.md`
-**Deliverable:** Integration touchpoint mapping document  
-**Goal:** Identify all 27 remaining CLI commands and their integration needs
-
-## Step 3: Auto-Complete & Auto-Updates Integration
-**Approach:** Requirements analysis → Implementation planning  
-**Delegation:** Mixed (planning manual, implementation agentic)  
-**Resources:** 
-  - `CLI_AUTOCOMPLETE_IMPLEMENTATION.md` --> this is the one we started last week that ended up making more sense as being part of the larger UI Foundation build plan. As such, while we should definitely review it at this point, that will likely be all that is needed until we go to compile the comprehensive build plan after completing all ofther steps. 
-  - `GITHUB_INTEGRATION_SETUP.md` --> definitely needs us to review it; I have a feeling much of it is manual; more of a guide than implementation. 
-**Deliverable:** UX/UI specification for new functionality  
-**Goal:** Plan how these features integrate into conversation-driven interface
-
-## Step 4: Workflow & User System Integration
-**Approach:** Document review → Integration mapping  
-**Delegation:** Manual (requires understanding of Tasks 1-4)  
-**Resources:** 
-  - `TASK_2_CACHE_USER_CONFIG_SETUP.md`
-  - `TASK_2_USERNAME_CONFIG_COMPLETE.md`
-  - `TASK_3_INTEGRATION_POINTS.md`
-  - `TASK_3_WORKFLOW_ID_COMPLETE.md`
-  - `TASK_4_WORKFLOW_CREATION_COMPLETE.md`
-**Deliverable:** Comprehensive integration requirements document  
-**Goal:** Ensure all previous work properly connects to UI
-
-## Step 5: Visual Brand & Wireframe Creation
+## Step 6: Visual Brand & Wireframe Creation
+**Task:** We need to reivew and improve our visual brand identity document especially to make it clearer and more decisive; there must be no question as to what a certain bit of typography should look like. Then we need to go through our New User Flow document and turn it into a wire frame. It is imporant to include both by illustration and directly, that the VISUALS and the build of the app ARE THE TYPOGRAPHY. In the previous UI there was framing and containers. We need to REMEMBER that this UI is for a terminal and we need to design it to play welL with ANYONE'S terminal design. Claude Code's didn't change a single bit of my zsh terminal settings and I think that is extremely important. The initial build had backgrounds which is pointless. We have no idea what the background of the users terminal is and we definitely do not want to overwrite it. Nor do we want to overwrite their primary color. 
 **Approach:** Review → Wireframe design → Validation  
 **Delegation:** Manual (creative/design decisions)  
 **Resources:** 
@@ -216,32 +152,41 @@
 **Deliverable:** Complete wireframe with zero ambiguity  
 **Goal:** Prevent any "navigation menu" architecture mistakes
 
-## Step 6: Comprehensive Plan Assembly
+## Step 7: Comprehensive Plan Assembly
+**Task:** Through all the points above, we have pulled what is best from the origiginal plan, and we have detailed what is needed in our final plan. Now we need to put it all together. Much of this might overlap with the previous step when creating a wire frame. But as we do this we also need to ask ourself if anything is missing, should be expanded on, etc. 
 **Approach:** Synthesize all above into unified plan  
 **Delegation:** Manual (requires architectural oversight)  
+**Resources:** 
+  - All of the above information from each step 
 **Deliverable:** Master UI build specification  
 **Goal:** Single source of truth for implementation
 
-## Step 7: Plan Review & Refinement
+## Step 8: Plan Review & Refinement
+**Task:** This is when you stop working and stop thinking about everything related to the task at hand. If there are big undecided questions, write those clearly, and then stop and move on. This is how the best work is done. It comes when it is ready. 
 **Approach:** Step back → Critical review → Refinements  
 **Delegation:** Manual (requires judgment and experience)  
+**Resources:** 
+  - Our cognative abilities  
 **Deliverable:** Validated and refined plan  
 **Goal:** Quality gate before implementation
 
-## Step 8: Technical Documentation Completion
-**Approach:** Documentation audit → Updates  
-**Delegation:** Agentic (systematic documentation work)  
-**Deliverable:** Complete and current technical docs  
-**Goal:** Ensure everything is properly documented
-
 ## Step 9: Testing & Validation Planning
+**Task:** Okay, not going to lie, this freaks me out a lot after experiencing the UI of the previous build. You could not do one single thing without hitting a bug, which I made a report for, then gave to the AI, who fixed it, then I documented the patch. I AM NOT DOING THIS. Idk what is the norm, what is possible, or if we need to get innovative with new AI tools, but we aren't dealing with that. This is why we are being a thorough from the start as possible: To hopefully avoid that number of bugs. But we cannot plan for success, we must plan for all possible contingencies, and the big terrible one is a bug at every step. What do we do about it. 
 **Approach:** Strategy design → Test plan creation  
 **Delegation:** Mixed (strategy manual, test creation agentic)  
+**Resources:** 
+  - AI wisdom 
+  - Whatever we need   
 **Deliverable:** Comprehensive testing strategy  
 **Goal:** Prevent bugs that plagued previous implementation
 
 ## Step 10: Claude Code SPEC Creation
+**Task:** Not only do we need to create the new SPECS, but we need to decide on which custom command workflow to use. Here I want to prepare our plan for the SPECS and see if there is a command to improve, then have Claude Code review it in full. They had a lot of interest in our custom command workflows, like, got really excited about using them. They also were able to identify when they should be specific to the use case and when they don't need to be. I am imagining that this will be more than a couple commands and handful of SPECS. Sort of like the funnel command idea, but I think we'll end up building them specifically for the use case for this project. 
 **Approach:** Convert plan to executable specifications  
 **Delegation:** Manual (requires understanding of Claude Code patterns)  
+**Resources:** 
+  - The "resources" file in .claude folder with SPECS for examples 
+  - Our commands in the .claude/commands directory 
+  - Claude Code themselves 
 **Deliverable:** Ready-to-execute Claude Code specifications  
-**Goal:** Enable efficient agentic implementation
+**Goal:** Enable efficient agentic implementation 
