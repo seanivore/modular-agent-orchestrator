@@ -2,9 +2,9 @@
 
 ## Core Challenge
 
-Systematically analyze all 292 MAO files to **eliminate bugs, redundancies, and standardization violations** before UI development. Prevent the "bug at every step" scenario through comprehensive architectural analysis that identifies hardcoding violations, duplicate code, state management conflicts, and integration touchpoints.
+Systematically analyze all 292 MAO files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
 
-**The Goal:** Create a bulletproof foundation for UI implementation by catching all systemic issues that could cause crashes, corruption, or development nightmares.
+**The Goal:** Create detailed violation reports with actionable fix specifications that can be reviewed, approved, and executed in controlled batches with full before/after verification.
 
 ---
 
@@ -14,17 +14,16 @@ Systematically analyze all 292 MAO files to **eliminate bugs, redundancies, and 
 
 ### **Directory Structure**:
 ```
-./tests/FULL_CODEBASE_AUDIT/
-├── 00_EXECUTIVE_SUMMARY.md             ← Complete findings overview with critical issues
-├── 01_CRITICAL_VIOLATIONS.md           ← Immediate fixes needed (hardcoding, state conflicts)  
-├── 02_UI_INTEGRATION_MAP.md            ← TypeScript→Python integration requirements
-├── 03_DEPENDENCY_MATRIX.md             ← Complete file dependency mapping
-├── 04_STANDARDIZATION_REPORT.md        ← MAO compliance violations and fixes
-├── 05_DUPLICATE_CODE_REPORT.md         ← Function redundancy and merge recommendations
-├── codebase_directory_trees            ← directory structure showing all files in codebase
-├── complete_codebase_audit_spec.md     ← you are here 
+tests/FULL_CODEBASE_AUDIT/
+├── 00_EXECUTIVE_SUMMARY.md           ← Complete findings overview with critical issues
+├── 01_CRITICAL_VIOLATIONS.md         ← Immediate fixes needed with detailed implementation specs
+├── 02_UI_INTEGRATION_MAP.md           ← TypeScript→Python integration requirements
+├── 03_DEPENDENCY_MATRIX.md            ← Complete file dependency mapping
+├── 04_STANDARDIZATION_REPORT.md       ← MAO compliance violations with fix specifications
+├── 05_DUPLICATE_CODE_REPORT.md        ← Function redundancy with merge/consolidation specs
+├── 06_FIX_IMPLEMENTATION_SPECS.md     ← Actionable fix specifications for approved changes
 └── batch_reports/
-    ├── batch_01_orchestrator.md        ← Individual batch analyses
+    ├── batch_01_orchestrator.md       ← Individual batch analyses
     ├── batch_02_interfaces.md
     └── [continues through batch_14...]
 ```
@@ -35,17 +34,23 @@ Systematically analyze all 292 MAO files to **eliminate bugs, redundancies, and 
 
 ## Critical Issues Found
 - **VIOLATION:** [Type] in [file:line] - [specific issue]
-- **FIX REQUIRED:** [exact action needed]
+- **CURRENT CODE:** ```[exact code that violates standard]```
+- **PROPOSED FIX:** ```[exact replacement code]```
+- **IMPACT:** [what this change affects]
+- **DEPENDENCIES:** [other files that may be affected]
 
 ## Integration Touchpoints  
 - **CALLS:** [files this depends on]
 - **CALLED BY:** [files that depend on this]
 - **UI INTEGRATION:** [TypeScript API needs]
 
-## Standardization Status
-- ✅ Compliant files: [count]
-- ❌ Violations found: [count] 
-- 🔄 Fixes applied: [count]
+## Fix Implementation Specifications
+- **FILE:** [exact file path]
+- **ACTION:** [REPLACE | INSERT | DELETE | RENAME]
+- **LOCATION:** [line numbers or function names]
+- **BEFORE:** ```[current code block]```
+- **AFTER:** ```[proposed code block]```
+- **VALIDATION:** [how to verify fix worked]
 ```
 
 ---
@@ -209,10 +214,29 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 **Modularity Violations:**
 ```markdown
 **VIOLATION:** Hardcoded command list
-**Location:** Line [X] in orchestrator/cli_manager.py
-**Issue:** Commands hardcoded instead of dynamic discovery
-**Code:** `commands = ["help", "tools", "models"]`  
-**Fix Required:** Replace with dynamic scanning of configs/cli/
+**FILE:** orchestrator/cli_manager.py
+**LOCATION:** Line 45-52, function _get_available_commands()
+**CURRENT CODE:** 
+```python
+def _get_available_commands(self):
+    return ["help", "tools", "models", "providers", "stats"]
+```
+**PROPOSED FIX:**
+```python
+def _get_available_commands(self):
+    return self._discover_commands_from_configs()
+
+def _discover_commands_from_configs(self):
+    commands = []
+    cli_dir = Path("configs/cli")
+    for cmd_dir in cli_dir.iterdir():
+        if cmd_dir.is_dir() and (cmd_dir / f"{cmd_dir.name}.json").exists():
+            commands.append(cmd_dir.name)
+    return commands
+```
+**IMPACT:** Enables true plug-and-play CLI commands
+**DEPENDENCIES:** No breaking changes, only enhancement
+**VALIDATION:** Verify dynamic command discovery works
 ```
 
 **State Management Violations:**
@@ -260,18 +284,53 @@ def _create_operation1_snippet(params: Dict[str, Any], model: str) -> str:
 
 ### **Success Criteria**
 - ✅ **All 292 files analyzed** with comprehensive violation documentation
-- ✅ **Zero critical violations** remaining after fixes
+- ✅ **Detailed fix specifications** with exact before/after code blocks
 - ✅ **Complete integration map** for TypeScript UI development  
-- ✅ **Function deduplication** with import/merge recommendations
-- ✅ **State management compliance** with Memory MCP single source
-- ✅ **MAO standardization** across entire codebase
+- ✅ **Actionable fix packages** ready for review and approval
+- ✅ **Verification procedures** for each proposed change
+- ✅ **Dependency impact analysis** for all interconnected fixes
+
+### **Analysis Standards (NO FIXES IMPLEMENTED)**
+This phase produces **documentation only**:
+- Comprehensive violation inventory
+- Detailed fix specifications with exact code
+- Integration touchpoint mapping
+- **Zero file modifications** during analysis phase
 
 ### **Violation Documentation Format**
 Every violation MUST include:
-- **Exact location** (file:line)
-- **Code quote** showing the violation
-- **Specific fix** required to resolve
-- **Impact assessment** on UI development
+- **Exact location** (file:line) with function context
+- **CURRENT CODE** block showing violation
+- **PROPOSED FIX** block with exact replacement
+- **Impact assessment** and dependency analysis
+- **Validation steps** to verify fix works
+
+### **Fix Implementation Specification Format**
+```markdown
+## Fix Package: [CATEGORY_NAME]
+**Priority:** [CRITICAL | HIGH | MEDIUM | LOW]
+**Files Affected:** [count]
+**Dependencies:** [list of interconnected changes]
+
+### Fix #1: [Description]
+- **FILE:** `path/to/file.py`
+- **ACTION:** REPLACE
+- **FUNCTION:** `function_name()`
+- **LINES:** 45-52
+- **BEFORE:** ```[exact current code]```
+- **AFTER:** ```[exact replacement code]```
+- **TEST:** [how to verify this specific change]
+
+### Fix #2: [Description]
+[continue for all related fixes...]
+
+## Verification Checklist
+- [ ] All syntax valid after changes
+- [ ] No import errors introduced  
+- [ ] Function signatures unchanged
+- [ ] Integration points still work
+- [ ] No new violations created
+```
 
 ---
 
