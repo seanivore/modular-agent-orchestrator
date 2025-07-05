@@ -1,9 +1,0 @@
-{
-  "workflow_name": "create-simple-marketing-plan",
-  "goal": "Create a simple marketing plan for a tech startup",
-  "executed_at": "2025-05-25T20:30:47.113304",
-  "total_cost": 0.08147999999999998,
-  "phases_completed": 4,
-  "total_phases": 4,
-  "workspace": "test_workspace"
-}
