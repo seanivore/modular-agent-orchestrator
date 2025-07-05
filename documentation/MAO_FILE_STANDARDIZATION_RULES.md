@@ -11,7 +11,7 @@
 
 ### File Naming & Headers
 - **No Version Numbers** in file headers (creates maintenance debt)
-- **Simple Product Name** - "Mao" not "MAO v4" or other variants
+- **Simple Product Name** - It is a file in the product, so there is no need to use "Mao" or "MAO V4" or variants 
 - **Generic Headers** - Avoid version-specific or brand-specific references
 
 ## Standardization Patterns
