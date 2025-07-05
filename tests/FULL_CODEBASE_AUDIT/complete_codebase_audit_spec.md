@@ -69,7 +69,6 @@
 - [ ] **Professional Quality:** Code that would pass senior developer review
 - [ ] **Industry Standards:** Follows Python/JavaScript best practices
 ```
-```
 
 ---
 
@@ -140,7 +139,6 @@ def execute_command(params: Dict[str, Any] = None) -> Dict[str, Any]:
 - Missing integration touchpoint definitions
 - Incomplete operations schema in JSON
 - UI files with excessive formatting constraints
-```
 
 ### Orchestrator Files (Special Analysis)
 ```markdown
@@ -194,7 +192,6 @@ class ComponentManager:
 - **State Management Violations:** Multiple files handling workflow state (Memory MCP should be single source)
 - **Duplicate State Saving:** Any state persistence outside of Memory MCP integration
 - **Parallel Tracking Systems:** Multiple files tracking same information independently
-```
 
 ### Python Files (.py)
 ```markdown
@@ -409,7 +406,6 @@ def _create_operation2_snippet(params: Dict[str, Any], model: str) -> str:
 - UI files with excessive formatting (should be data-only)
 - JSON configs missing required tool schema fields
 - Operations without proper parameter definitions
-```
 
 ---
 
@@ -460,34 +456,40 @@ def _create_operation2_snippet(params: Dict[str, Any], model: str) -> str:
 **DEPENDENCIES:** [Required external dependencies]
 ```
 
-### Phase 1: Core Systems (High Priority)
+## Batch Processing Strategy
+
+### Phase 1: Core Systems (SEQUENTIAL - High Interdependency)
 ```
-Batch 1: orchestrator/ (20 files) - Core system integrity
-Batch 2: interfaces/ (2 files) - UI integration points  
-Batch 3: configs/cli/ (first 25) - CLI command modules
-Batch 4: configs/cli/ (remaining) - CLI command modules
+Batch 1: orchestrator/ (20 files) - SEQUENTIAL - Core system integrity, many cross-dependencies
+Batch 2: interfaces/ (2 files) - SEQUENTIAL AFTER Batch 1 - Depends on orchestrator analysis
 ```
 
-### Phase 2: Configuration Systems
+### Phase 2: CLI Commands (PARALLEL - Independent Modules)
 ```
-Batch 5: configs/models/ (8 files) - Model configurations
-Batch 6: configs/providers/ (6 files) - Provider configurations
-Batch 7: configs/settings/ (9 files) - Application settings
-Batch 8: configs/connections/ (3 files) - Integration configs
+Batch 3: configs/cli/ (first 25) - PARALLEL - Independent CLI command modules
+Batch 4: configs/cli/ (remaining) - PARALLEL - Independent CLI command modules
 ```
 
-### Phase 3: Tools & Extensions  
+### Phase 3: Configuration Systems (PARALLEL - Independent Configs)
 ```
-Batch 9: tools/ (first 25) - Tool implementations
-Batch 10: tools/ (next 25) - Tool implementations  
-Batch 11: tools/ (remaining) - Tool implementations
+Batch 5: configs/models/ (8 files) - PARALLEL - Independent model configurations
+Batch 6: configs/providers/ (6 files) - PARALLEL - Independent provider configurations
+Batch 7: configs/settings/ (9 files) - PARALLEL - Independent application settings
+Batch 8: configs/connections/ (3 files) - PARALLEL - Independent integration configs
 ```
 
-### Phase 4: Supporting Systems
+### Phase 4: Tools (PARALLEL - Independent Tool Implementations)
 ```
-Batch 12: scripts/ (21 files) - Automation scripts
-Batch 13: templates/ (13 files) - File templates
-Batch 14: root files (2 files) - Main application files
+Batch 9: tools/ (first 25) - PARALLEL - Independent tool implementations
+Batch 10: tools/ (next 25) - PARALLEL - Independent tool implementations  
+Batch 11: tools/ (remaining) - PARALLEL - Independent tool implementations
+```
+
+### Phase 5: Supporting Systems (PARALLEL - Independent Support Files)
+```
+Batch 12: scripts/ (21 files) - PARALLEL - Independent automation scripts
+Batch 13: templates/ (13 files) - PARALLEL - Independent file templates
+Batch 14: root files (2 files) - SEQUENTIAL AFTER Phase 1 - May depend on orchestrator analysis
 ```
 
 ---
@@ -520,14 +522,16 @@ Batch 14: root files (2 files) - Main application files
 ### Master Analysis Document
 ```
 tests/FULL_CODEBASE_AUDIT/
-├── 00_EXECUTIVE_SUMMARY.md           ← Complete findings overview
-├── 01_CRITICAL_VIOLATIONS.md         ← Immediate fixes needed
-├── 02_UI_INTEGRATION_MAP.md           ← TypeScript integration requirements
-├── 03_DEPENDENCY_MATRIX.md            ← Complete file dependency mapping
-├── 04_STANDARDIZATION_REPORT.md       ← MAO compliance analysis
-├── 05_BUG_RISK_ASSESSMENT.md          ← Potential failure points
+├── 00_EXECUTIVE_SUMMARY.md          ← Complete findings overview
+├── 01_CRITICAL_VIOLATIONS.md        ← Immediate fixes needed
+├── 02_UI_INTEGRATION_MAP.md         ← TypeScript integration requirements
+├── 03_DEPENDENCY_MATRIX.md          ← Complete file dependency mapping
+├── 04_STANDARDIZATION_REPORT.md     ← Mao compliance analysis
+├── 05_BUG_RISK_ASSESSMENT.md        ← Potential failure points
+├── codebase_directory_trees/        ← directory structure showing all files in codebase
+├── complete_codebase_audit_spec.md  ← you are here 
 └── batch_reports/
-    ├── batch_01_orchestrator.md       ← Detailed batch analyses
+    ├── batch_01_orchestrator.md   ← Detailed batch analyses
     ├── batch_02_interfaces.md
     └── [...]
 ```
@@ -577,14 +581,18 @@ This analysis directly feeds into Step 9 by identifying:
 
 ### Command Structure
 ```bash
-claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_size=5
+# For sequential batches (orchestrator, interfaces, root files)
+claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch_number=1
+
+# For parallel batches (CLI, configs, tools, scripts, templates)  
+claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=3-4
 ```
 
-### Batch Size Rationale
-- **5 files per batch** maintains manageable analysis depth
-- **58 total batches** for complete codebase coverage
-- **Parallel processing** where files don't have interdependencies
-- **Sequential processing** for critical system files
+### Processing Guidelines
+- **SEQUENTIAL REQUIRED:** Batches 1, 2, 14 (orchestrator dependencies)
+- **PARALLEL ALLOWED:** Batches 3-13 (independent modules)
+- **Cross-Reference:** Maintain function inventory across ALL batches for duplicate detection
+- **State Analysis:** Only apply to orchestrator files (Batch 1)
 
 ### Progress Tracking
 - Each batch produces standalone report
