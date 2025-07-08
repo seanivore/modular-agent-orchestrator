@@ -1,8 +1,8 @@
-# Step 1: Technical Architecture Clarity - UI Foundation Specification
+# UI Foundation Technical Architecture Specification
 
 ## Executive Summary
 
-This specification defines the **exact** technical architecture for Mao's UI Foundation Build to prevent any confusion like the previous implementation where the wrong tech stack and architecture were used. The goal is a **conversation-driven terminal interface** that rivals Claude Code's quality while maintaining MAO's unique visual identity.
+This specification defines the **exact** technical architecture for the UI Foundation Build to prevent any confusion like the previous implementation where the wrong tech stack and architecture were used. The goal is a **conversation-driven terminal interface** that rivals Claude Code's quality while maintaining the unique visual identity.
 
 ---
 
@@ -42,26 +42,26 @@ ARCHITECTURE PATTERN:
 ### ✅ CORRECT: Conversation-Driven Architecture
 ```
 ┌─────────────────────────────────────┐
-│  MAO TERMINAL INTERFACE             │
+│  TERMINAL INTERFACE                 │
 ├─────────────────────────────────────┤
-│  [Live Progress Display]            │ <-- Visible only if applicable 
-│  ▲ Creating components...           │
-│  ○ Testing integration...           │
+│  [Single Input Field]               │
+│  > Tell me what you want to do...   │
 │                                     │
 │  [Conversation History]             │
 │  AI: I'll help you create that...   │
 │  User: Make it use TypeScript       │
 │  AI: Updated! Here's your workflow  │
 │                                     │
-│  [Single Input Field]               │
-│  > Tell me what you want to do...   │ <-- Always visible 
+│  [Live Progress Display]            │
+│  ▲ Creating components...           │
+│  ○ Testing integration...           │
 └─────────────────────────────────────┘
 ```
 
 ### ❌ WRONG: Menu/Navigation Architecture (What We Avoided)
 ```
 ┌─────────────────────────────────────┐
-│  MAO TERMINAL INTERFACE             │
+│  TERMINAL INTERFACE                 │
 ├─────────────────────────────────────┤
 │  [Main Menu]                        │
 │  1. Create Workflow                 │
@@ -69,7 +69,7 @@ ARCHITECTURE PATTERN:
 │  3. View Statistics                 │
 │                                     │
 │  [Navigation Bar]                   │
-│  < Back | Next > | Help             │
+│  < Back | Next > | Help            │
 └─────────────────────────────────────┘
 ```
 
@@ -85,7 +85,7 @@ terminal-app/                    ← NEW: TypeScript terminal application
 │   │   ├── ConversationInterface.tsx    ← Main conversation UI (Ink/React)
 │   │   ├── AutoCompleteSystem.tsx       ← CLI command suggestions
 │   │   ├── ProgressVisualization.tsx    ← Live workflow progress
-│   │   └── MAOVisualProtocol.tsx        ← Color/shape system
+│   │   └── VisualProtocol.tsx           ← Color/shape system
 │   ├── api/
 │   │   ├── PythonBridge.ts              ← HTTP/JSON-RPC to Python
 │   │   └── CLICommandRouter.ts          ← Routes to Python backend
@@ -177,12 +177,12 @@ export class PythonBridge {
 }
 ```
 
-### 3. MAOVisualProtocol (TypeScript/Ink)
+### 3. VisualProtocol (TypeScript/Ink)
 ```typescript
-// terminal-app/src/components/MAOVisualProtocol.tsx
+// terminal-app/src/components/VisualProtocol.tsx
 import { Text } from 'ink';
 
-export const MAOColors = {
+export const Colors = {
   pink: '#ff49ff',      // AI actions (BOLD only)
   yellow: '#f1d771',    // AI explanations  
   light_blue: '#82d0ff', // Highlighted items
@@ -191,20 +191,20 @@ export const MAOColors = {
   light_brown: '#7b714a' // Tree/metadata
 } as const;
 
-export const MAOShapes = {
+export const Shapes = {
   ai_active: '▲',       // AI working
   ai_waiting: '△',      // AI idle
   task_active: '●',     // Task in progress
   task_complete: '○'    // Task done
 } as const;
 
-export const MAOText: React.FC<{
-  color: keyof typeof MAOColors;
-  shape?: keyof typeof MAOShapes;
+export const StyledText: React.FC<{
+  color: keyof typeof Colors;
+  shape?: keyof typeof Shapes;
   children: React.ReactNode;
 }> = ({ color, shape, children }) => (
-  <Text color={MAOColors[color]}>
-    {shape && MAOShapes[shape]} {children}
+  <Text color={Colors[color]}>
+    {shape && Shapes[shape]} {children}
   </Text>
 );
 ```
@@ -230,21 +230,23 @@ export const MAOText: React.FC<{
 
 ## Integration Strategy
 
-### Phase 1: Enhanced ui_terminal.py
-1. **Enhance existing file** (don't replace)
-2. **Add ConversationInterface class**
-3. **Integrate with existing CLICommandsManager**
-4. **Implement MAO visual protocol**
+### Phase 1: TypeScript Terminal App Setup
+1. **Create terminal-app directory** with TypeScript/Node.js project
+2. **Install Ink and React dependencies** (like your playground)
+3. **Build ConversationInterface component** (single conversation UI)
+4. **Create Python API bridge** for backend communication
 
-### Phase 2: Auto-Complete Integration  
-1. **Dynamic command discovery** from configs/cli/
-2. **Fuzzy search implementation**
-3. **Claude Code-style suggestions**
+### Phase 2: Python Backend API  
+1. **Add FastAPI server** to existing Python orchestrator
+2. **Expose CLI commands via HTTP endpoints**
+3. **Create WebSocket endpoints** for real-time progress
+4. **Test TypeScript ↔ Python communication**
 
-### Phase 3: Live Progress Display
-1. **Connect to real_time_metrics.py**
-2. **Workflow visualization with MAO shapes/colors**
-3. **Session state integration with memory_mcp.py**
+### Phase 3: Integration & Polish
+1. **Connect auto-complete** to Python CLI discovery
+2. **Implement live progress display** via WebSocket
+3. **Add visual protocol** with Ink styling
+4. **Professional Claude Code-quality experience**
 
 ---
 
@@ -253,7 +255,7 @@ export const MAOText: React.FC<{
 ### Technical Requirements
 - ✅ **Single conversation interface** (no menus/navigation)
 - ✅ **Integrates with existing CLI commands** via cli_manager.py
-- ✅ **MAO visual protocol** implemented with Rich styling
+- ✅ **Visual protocol** implemented with Ink styling
 - ✅ **Auto-complete system** discovering commands dynamically
 - ✅ **Session continuity** via memory_mcp.py integration
 
@@ -267,28 +269,40 @@ export const MAOText: React.FC<{
 ### Integration Validation
 - ✅ **All existing systems work** unchanged
 - ✅ **CLI commands route properly** through cli_manager.py
-- ✅ **Visual protocol** displays correctly with Rich
+- ✅ **Visual protocol** displays correctly with Ink
 - ✅ **Auto-complete** discovers all CLI commands
 - ✅ **Progress display** shows real workflow data
 
 ---
 
-## Implementation Approach
+## Dependencies and Setup
 
-### Development Strategy
-1. **Start small** - Enhance ui_terminal.py incrementally
-2. **Test continuously** - Verify existing CLI commands work
-3. **Add visual protocol** - Implement MAO colors/shapes gradually  
-4. **Build auto-complete** - Dynamic command discovery
-5. **Polish progressively** - Professional Claude Code quality
+### Required Libraries
+```bash
+npm install ink ink-spinner ink-select-input ink-text-input react
+npm install -D @types/node @types/react tsx typescript
+```
+
+### Foundation Files
+- Existing orchestrator core system (`orchestrator/core.py`)
+- Memory MCP integration (`orchestrator/memory_mcp.py`)
+- Configuration system (`configs/` directory structure)
+- Tool integration system (`tools/` with button snippets)
+
+### Development Approach
+1. **Start with Claude Code patterns** - use proven interface design
+2. **Implement content translator** - systematically convert ui_terminal.py
+3. **Build incrementally** - working application from first implementation
+4. **Test continuously** - verify all existing functionality preserved
+5. **Polish progressively** - enhance visual quality and user experience
 
 ### Quality Gates
 - **Architecture review** - No menu/navigation patterns
 - **Integration testing** - All CLI commands functional
-- **Visual validation** - MAO protocol implemented correctly
+- **Visual validation** - Protocol implemented correctly
 - **Performance testing** - Smooth, responsive experience
 - **User experience** - Conversation-driven flow works naturally
 
 ---
 
-*This specification ensures we build exactly what the foundation_spec.md calls for: a professional, conversation-driven terminal interface that integrates seamlessly with MAO's existing systems while maintaining the unique visual identity and avoiding all previous architectural mistakes.*
+*This specification ensures we build exactly what the foundation_spec.md calls for: a professional, conversation-driven terminal interface that integrates seamlessly with existing systems while maintaining the unique visual identity and avoiding all previous architectural mistakes.*
