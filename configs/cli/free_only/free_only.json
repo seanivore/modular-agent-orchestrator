@@ -1,8 +1,0 @@
-{
-  "command": "free_only",
-  "type": "standalone",
-  "terminal_flag": "--free",
-  "app_command": "/free",
-  "interface_method": "enable_free_only",
-  "help": "Use only free AI models for cost optimization"
-}

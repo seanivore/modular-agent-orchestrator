@@ -213,16 +213,30 @@ Which text style looks best on your screen?
 
 ●   Great idea, seanivore. 
     ├ Rattle off the details and I'll wait to reply
-    └ Or say 'lead me' and I'll take the lead 
+    └ Or say something like "lead me" and I'll take the lead 
 
 >   Mao created a Workflow ID: uid-scw-965
     Workflow added to memory; workflow log created 
 
 
 ╭───────────────────────────────────────────────────╮
-│ > but what should we                              │
+│ > some rough notes to                             │
 ╰───────────────────────────────────────────────────╯
   ? /variables to see what is needed 
+```
+```
+⌬
+  ? /help for help, /config to change settings 
+  ? try /models or /tools to explore 
+  ? share your /goal and Mao will do all the work 
+  ? /workflow [custom_command] to continue a build 
+  ? message /continue to find your last project 
+  ? /workflow [custom_command] [uid-abc-000] to continue a building workflow 
+  ? /workflow [custom_command] [uid-abc-000] [phase_number] to continue a building workflow 
+  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] to continue a building workflow 
+  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] [phase_number] to continue a building workflow 
+  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] [phase_number] [phase_number] to continue a building workflow 
+  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] [phase_number] [phase_number] [phase_number] to continue a building workflow 
 ```
 
 ### Gathering Variables 
