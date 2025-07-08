@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-This specification defines the **exact** technical architecture for MAO's UI Foundation Build to prevent any confusion like the previous implementation where the wrong tech stack and architecture were used. The goal is a **conversation-driven terminal interface** that rivals Claude Code's quality while maintaining MAO's unique visual identity.
+This specification defines the **exact** technical architecture for Mao's UI Foundation Build to prevent any confusion like the previous implementation where the wrong tech stack and architecture were used. The goal is a **conversation-driven terminal interface** that rivals Claude Code's quality while maintaining MAO's unique visual identity.
 
 ---
 
@@ -44,17 +44,17 @@ ARCHITECTURE PATTERN:
 ┌─────────────────────────────────────┐
 │  MAO TERMINAL INTERFACE             │
 ├─────────────────────────────────────┤
-│  [Single Input Field]               │
-│  > Tell me what you want to do...   │
+│  [Live Progress Display]            │ <-- Visible only if applicable 
+│  ▲ Creating components...           │
+│  ○ Testing integration...           │
 │                                     │
 │  [Conversation History]             │
 │  AI: I'll help you create that...   │
 │  User: Make it use TypeScript       │
 │  AI: Updated! Here's your workflow  │
 │                                     │
-│  [Live Progress Display]            │
-│  ▲ Creating components...           │
-│  ○ Testing integration...           │
+│  [Single Input Field]               │
+│  > Tell me what you want to do...   │ <-- Always visible 
 └─────────────────────────────────────┘
 ```
 
@@ -69,7 +69,7 @@ ARCHITECTURE PATTERN:
 │  3. View Statistics                 │
 │                                     │
 │  [Navigation Bar]                   │
-│  < Back | Next > | Help            │
+│  < Back | Next > | Help             │
 └─────────────────────────────────────┘
 ```
 
