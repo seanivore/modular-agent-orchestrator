@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mao Terminal Interface Wireframes - Refined</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #f8f9fa;
+            color: #000000;
+            font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .wireframe-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .wireframe {
+            margin-bottom: 40px;
+        }
+        
+        .wireframe-title {
+            color: #000000;
+            margin: 0 0 20px 0;
+            font-size: 16px;
+            font-weight: normal;
+            font-family: 'Menlo', 'Monaco', monospace;
+        }
+        
+        .terminal-content {
+            background: #0a0c10;
+            padding: 30px;
+            font-family: 'Menlo', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            border: 1px solid #ddd;
+            min-height: 400px;
+        }
+        
+        /* Mao Color System - Refined */
+        .pink { color: #ff49ff; font-weight: bold; }
+        .yellow { color: #f1d771; }
+        .yellow-secondary { color: #b8a456; opacity: 0.7; } /* Brown mustard with opacity */
+        .light-blue { color: #82d0ff; opacity: 0.5; } /* 50% opacity - subtle trustworthy */
+        .gray { color: #bbbcbb; }
+        .white { color: #ffffff; opacity: 0.5; } /* 50% opacity */
+        .white-full { color: #ffffff; } /* Full opacity for specific cases */
+        .light-brown { color: #7b714a; }
+        
+        .cat-ascii {
+            color: #f1d771;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .thinking {
+            color: #82d0ff;
+            opacity: 0.5;
+            font-style: italic;
+            margin: 20px 0;
+        }
+        
+        .help-section {
+            margin-top: 30px;
+        }
+        
+        .message-line {
+            margin: 20px 0;
+        }
+        
+        .workflow-line {
+            margin: 15px 0;
+        }
+        
+        .tree-spacing {
+            margin-left: 30px;
+        }
+        
+        .big-gap {
+            margin-left: 6ch; /* 6 character spaces */
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .pulsing {
+            animation: pulse 2s infinite;
+        }
+        
+        .input-section {
+            margin: 25px 0;
+        }
+        
+        .completion-frame {
+            margin: 25px 0;
+        }
+        
+        .choice-toggle {
+            margin: 8px 0;
+            color: #7b714a;
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-container">
+        
+        <!-- 1. Login/Welcome State - Proper Spacing -->
+        <div class="wireframe">
+            <div class="wireframe-title">1. Login/Welcome State - Proper Spacing</div>
+            <div class="terminal-content">
+                <div class="cat-ascii">~(=^‥^)</div>
+                <div class="white-full"><span class="pink">Mao</span> is ready to help!</div>
+                
+                <div class="message-line">
+                    <span class="gray">user: seanivore</span>
+                </div>
+                <div class="message-line">
+                    <span class="gray">workflow id: uid-vhe-249</span>
+                </div>
+                
+                <div class="input-section">
+                    <span class="gray">></span><span class="big-gap"></span>
+                </div>
+                
+                <div class="help-section">
+                    <div class="light-brown">? share your /goal and Mao will do all the work</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Goal Input with Proper Pink Usage -->
+        <div class="wireframe">
+            <div class="wireframe-title">2. Goal Input with Proper Pink Usage</div>
+            <div class="terminal-content">
+                <div class="message-line">
+                    <span class="gray">●</span><span class="big-gap"></span><span class="gray">I need to build a landing page for my design portfolio</span>
+                </div>
+                
+                <div class="thinking pulsing">standby, ruminating on your creative vision...</div>
+                
+                <div class="message-line">
+                    <span class="white">●</span><span class="big-gap"></span><span class="yellow">Perfect! I can help you create a stunning <span class="pink">portfolio landing page</span>.</span>
+                </div>
+                
+                <div class="message-line">
+                    <span class="yellow">Let me break this down into phases:</span>
+                </div>
+                
+                <div class="workflow-line">
+                    <span class="yellow">△</span><span class="big-gap"></span><span class="yellow">Planning your <span class="pink">portfolio structure</span></span>
+                </div>
+                <div class="tree-spacing">
+                    <div class="light-brown">├── Design system selection</div>
+                    <div class="light-brown">├── Content organization</div>
+                    <div class="light-brown">└── Technical architecture</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Completion State - Frame 1: Reaching Completion -->
+        <div class="wireframe">
+            <div class="wireframe-title">3. Completion State - Frame 1: Reaching Completion</div>
+            <div class="terminal-content">
+                <div class="completion-frame">
+                    <div class="workflow-line">
+                        <span class="light-blue">▲ ✓</span><span class="big-gap"></span><span class="light-blue">Portfolio landing page complete!</span>
+                    </div>
+                    <div class="tree-spacing">
+                        <div class="light-blue">✓ 4 components generated</div>
+                        <div class="light-blue">✓ Responsive design implemented</div>
+                        <div class="light-blue">✓ Dark/light mode toggle</div>
+                        <div class="light-blue">✓ Ready for deployment</div>
+                    </div>
+                </div>
+                
+                <div class="message-line">
+                    <span class="white">●</span><span class="big-gap"></span><span class="yellow">Your <span class="pink">portfolio</span> is live at </span><span class="light-blue">http://localhost:3000</span>
+                </div>
+                <div class="yellow-secondary">Files created in ./portfolio-site/</div>
+            </div>
+        </div>
+
+        <!-- 4. Completion State - Frame 2: Collapsed -->
+        <div class="wireframe">
+            <div class="wireframe-title">4. Completion State - Frame 2: Collapsed</div>
+            <div class="terminal-content">
+                <div class="completion-frame">
+                    <div class="workflow-line">
+                        <span class="light-blue">✓</span><span class="big-gap"></span><span class="light-blue">Portfolio landing page complete!</span>
+                    </div>
+                </div>
+                
+                <div class="message-line">
+                    <span class="white">●</span><span class="big-gap"></span><span class="yellow">Your <span class="pink">portfolio</span> is live at </span><span class="light-blue">http://localhost:3000</span>
+                </div>
+                <div class="yellow-secondary">Files created in ./portfolio-site/</div>
+                
+                <div class="help-section">
+                    <div class="choice-toggle">Deploy now? (y/n)</div>
+                    <div class="choice-toggle">Start new project? (y/n)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Permission Request - Refined Pink Usage -->
+        <div class="wireframe">
+            <div class="wireframe-title">5. Permission Request - Refined Pink Usage</div>
+            <div class="terminal-content">
+                <div class="message-line">
+                    <span class="light-blue">●</span><span class="big-gap"></span><span class="white">About to run: npm install <span class="pink">next react tailwindcss</span></span>
+                </div>
+                
+                <div class="message-line">
+                    <span class="yellow">This will modify your package.json and install dependencies.</span>
+                </div>
+                
+                <div class="input-section">
+                    <span class="white">Continue? (y/n):</span><span class="big-gap"></span>
+                </div>
+                
+                <div class="help-section">
+                    <div class="choice-toggle">y/yes/⏎  to proceed</div>
+                    <div class="choice-toggle">n/no to skip this step</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Error State - No Double Pink -->
+        <div class="wireframe">
+            <div class="wireframe-title">6. Error State - No Double Pink</div>
+            <div class="terminal-content">
+                <div class="message-line">
+                    <span class="white">●</span><span class="big-gap"></span><span class="yellow">Encountered an issue with the <span class="pink">build process</span>:</span>
+                </div>
+                <div class="tree-spacing">
+                    <div class="light-brown">└ Module 'framer-motion' not found</div>
+                </div>
+                
+                <div class="message-line">
+                    <span class="light-blue">●</span><span class="big-gap"></span><span class="white">Auto-fixing: Installing missing dependency</span>
+                </div>
+                
+                <div class="thinking">consulting the package registry...</div>
+                
+                <div class="message-line">
+                    <span class="yellow">Running: npm install framer-motion</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

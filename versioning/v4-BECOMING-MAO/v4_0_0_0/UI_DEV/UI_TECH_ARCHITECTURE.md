@@ -158,21 +158,41 @@ export const ConversationInterface: React.FC = () => {
 // terminal-app/src/api/PythonBridge.ts
 export class PythonBridge {
   private baseURL = 'http://localhost:8000'; // Python FastAPI server
+  private responseTimeout = 200; // 200ms threshold for immediate feedback
   
   async executeCommand(command: string, args?: string): Promise<any> {
-    // HTTP call to Python cli_manager.py via FastAPI
-    const response = await fetch(`${this.baseURL}/cli/${command}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ args, source: 'typescript-terminal' })
-    });
-    return response.json();
+    // Show immediate feedback within 200ms threshold
+    this.showImmediateFeedback(`Executing ${command}...`);
+    
+    try {
+      // Non-blocking HTTP call to Python cli_manager.py via FastAPI
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      
+      const response = await fetch(`${this.baseURL}/cli/${command}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ args, source: 'typescript-terminal' }),
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      return response.json();
+    } catch (error) {
+      // Fast, human-readable error handling
+      throw new Error(`Command failed: ${error.message}`);
+    }
   }
   
   async getAutoCompleteOptions(partial: string): Promise<string[]> {
-    // Get CLI commands from Python backend
+    // Stream results as they arrive, don't batch
     const response = await fetch(`${this.baseURL}/autocomplete?q=${partial}`);
     return response.json();
+  }
+  
+  private showImmediateFeedback(message: string): void {
+    // Immediate feedback within 200ms - app feels alive
+    console.log(message); // Replace with proper UI feedback
   }
 }
 ```
@@ -208,6 +228,69 @@ export const StyledText: React.FC<{
   </Text>
 );
 ```
+
+---
+
+## Responsive UI Performance Rules
+
+### Terminal App Responsiveness Philosophy
+**"Responsiveness isn't just about speed—it's about rhythm. The best terminal apps feel like a conversation."** - Dia
+
+### Core Performance Patterns
+```typescript
+// 1. NON-BLOCKING EVERYTHING
+// ❌ Never block the event loop
+await fs.readFile(path); // ✅ Always async
+fs.readFileSync(path);   // ❌ Never sync calls
+
+// 2. IMMEDIATE FEEDBACK (200ms threshold)
+if (estimatedTime > 200) {
+  showSpinner('Processing...');
+}
+
+// 3. STREAM RESULTS, DON'T BATCH
+workflowStream.on('data', (chunk) => {
+  displayProgress(chunk); // Show as it arrives
+});
+
+// 4. MINIMAL STARTUP TIME
+// Lazy-load modules, lean dependencies
+const heavyModule = await import('./heavy-processing');
+```
+
+### Conversation Rhythm Requirements
+- **Echo within 200ms** - User needs to know app is alive
+- **Stream progress updates** - Don't wait for completion to show output
+- **Fast error feedback** - Human-readable errors immediately
+- **Configurable verbosity** - Adapt to user's environment
+- **Clear visual rhythm** - Predictable response patterns
+
+### Technical Implementation
+```typescript
+// Use readline/enquirer for interactive prompts
+import readline from 'readline';
+import ora from 'ora'; // Spinners for long tasks
+import cliProgress from 'cli-progress'; // Progress bars
+
+// Always show activity within 200ms
+const spinner = ora('Working...').start();
+setTimeout(() => {
+  if (!taskComplete) spinner.text = 'Still working...';
+}, 200);
+
+// Stream output with Node's native streams
+process.stdout.write(chunk); // Real-time display
+
+// Offload heavy computation to worker threads
+const worker = new Worker('./heavy-task.js');
+worker.postMessage(data);
+```
+
+### Visual Protocol Integration
+- **Immediate color feedback** - Pink interrupts within 200ms
+- **Smooth state transitions** - No jarring changes
+- **Progressive disclosure** - Build complexity gradually
+- **Contextual rhythm** - Match conversation flow
 
 ---
 
@@ -305,4 +388,71 @@ npm install -D @types/node @types/react tsx typescript
 
 ---
 
-*This specification ensures we build exactly what the foundation_spec.md calls for: a professional, conversation-driven terminal interface that integrates seamlessly with existing systems while maintaining the unique visual identity and avoiding all previous architectural mistakes.*
+## Design Rules Integration
+
+### Cognitive Flow Protocol Requirements
+The TypeScript/Ink implementation must follow the **45 design rules** documented in `MAO_TERMINAL_INTERFACE_DESIGN_RULES.md`:
+
+#### Critical Spacing & Alignment
+```typescript
+// 4ch left alignment for ALL content
+const CONTENT_INDENT = '    '; // 4 character spaces
+const TREE_ALIGNMENT = '    ├── '; // Tree branches align with content
+
+// No-indicator lines for RARE emphasis
+<Text>Creating your portfolio...</Text>     // ← POWER LINE (no indicator)
+<Text>●    Portfolio structure planned</Text> // ← Normal line with indicator
+```
+
+#### Pink Usage Rules (Most Critical)
+```typescript
+// ✅ CORRECT: Pink emphasizes WHAT something happens TO
+<Text>Creating <Text color="#ff49ff" bold>project structure</Text></Text>
+
+// ❌ WRONG: Pink on verbs/actions
+<Text><Text color="#ff49ff" bold>Creating</Text> project structure</Text>
+
+// One pink statement per 60-row viewport
+const maxPinkPerViewport = 1;
+```
+
+#### Color Opacity System
+```typescript
+export const Colors = {
+  pink: '#ff49ff',           // Full opacity - cognitive interrupts
+  yellow: '#f1d771',         // Full opacity - conversation flow
+  light_blue: 'rgba(130, 208, 255, 0.5)', // 50% opacity - subtle trust
+  white: 'rgba(255, 255, 255, 0.5)',      // 50% opacity - less prominent
+  gray: '#bbbcbb',           // Full opacity - user space
+  yellow_secondary: 'rgba(184, 164, 86, 0.7)' // Brown mustard with opacity
+} as const;
+```
+
+#### Layout Architecture
+```typescript
+// Paragraph grouping with document-style spacing
+<Box flexDirection="column" gap={2}>
+  {/* Group 1: Header content */}
+  <Box flexDirection="column">
+    <Text>{headerLines}</Text>
+  </Box>
+  
+  {/* Large gap */}
+  <Box height={3} />
+  
+  {/* Group 2: Input field */}
+  <Box flexDirection="column">
+    <Text>{inputPrompt}</Text>
+  </Box>
+</Box>
+```
+
+### Quality Enforcement
+- **Every space is intentional** - Match Sean's precise typography examples
+- **Cognitive architecture** - Colors serve brain function, not aesthetics
+- **Visual conversation protocol** - Clear turn-taking and attribution
+- **Professional polish** - Terminal UI that rivals graphical applications
+
+---
+
+*This specification ensures we build exactly what the foundation_spec.md calls for: a professional, conversation-driven terminal interface that integrates seamlessly with existing systems while maintaining the unique visual identity, responsive performance, and cognitive flow protocol.*

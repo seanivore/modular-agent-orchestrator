@@ -1,8 +1,8 @@
-# MAO Complete Codebase Audit & Standardization Specification
+# Complete Codebase Audit & Standardization Specification
 
 ## Core Challenge
 
-Systematically analyze all 292 MAO files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
+Systematically analyze all 292 Mao files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
 
 **The Goal:** Create detailed violation reports with actionable fix specifications that can be reviewed, approved, and executed in controlled batches with full before/after verification.
 
@@ -19,7 +19,7 @@ tests/FULL_CODEBASE_AUDIT/
 ├── 01_CRITICAL_VIOLATIONS.md          ← Immediate fixes needed with detailed implementation specs
 ├── 02_UI_INTEGRATION_MAP.md           ← TypeScript→Python integration requirements
 ├── 03_DEPENDENCY_MATRIX.md            ← Complete file dependency mapping
-├── 04_STANDARDIZATION_REPORT.md       ← MAO compliance violations with fix specifications
+├── 04_STANDARDIZATION_REPORT.md       ← Mao compliance violations with fix specifications
 ├── 05_DUPLICATE_CODE_REPORT.md        ← Function redundancy with merge/consolidation specs
 ├── 06_FIX_IMPLEMENTATION_SPECS.md     ← Actionable fix specifications for approved changes
 ├── codebase_directory_trees/          ← directory structure showing all files in codebase
@@ -32,7 +32,7 @@ tests/FULL_CODEBASE_AUDIT/
 
 ### **Master Report Format**:
 ```markdown
-# MAO Codebase Analysis - [CATEGORY]
+# Codebase Analysis - [CATEGORY]
 
 ## Critical Issues Found
 - **VIOLATION:** [Type] in [file:line] - [specific issue]
@@ -61,7 +61,7 @@ tests/FULL_CODEBASE_AUDIT/
 
 ### **Batch Processing Commands**
 
-**SEQUENTIAL (Because of Core Dependencies)**:
+**SEQUENTIAL (Core Dependencies):**
 ```bash
 # Batch 1: Orchestrator files (20 files) - Heavy interdependencies
 claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=1
@@ -73,7 +73,7 @@ claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=2
 claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=14
 ```
 
-**PARALLEL (Safe thanks to Independent Modules)**:
+**PARALLEL (Independent Modules):**
 ```bash
 # Batches 3-4: CLI commands (independent modules)
 claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=3-4
@@ -138,7 +138,7 @@ PARALLEL BATCHES (11):
 
 ### **File Type Specific Standards**
 
-**Python Files (.py)**:
+**Mao Python Standards (Check Every Item):**
 ```python
 # REQUIRED PATTERN:
 from orchestrator.cache.cache_system import CacheManager
@@ -162,7 +162,7 @@ def estimate_cost(params: Dict[str, Any] = None) -> float:
     return 0.001  # Appropriate for complexity
 ```
 
-**JSON Configuration Files**:
+**Mao JSON Standards (Check Every Item):**
 ```json
 {
     "name": "component_name",  // NOT "id" or "tool_id"
@@ -178,7 +178,7 @@ def estimate_cost(params: Dict[str, Any] = None) -> float:
 }
 ```
 
-**CLI Commands (Special Requirements)**:
+**CLI Commands (Special Requirements):**
 ```python
 # EXACT PATTERN REQUIRED:
 @handle_errors(operation_name="command_name", return_dict=True)
@@ -191,7 +191,7 @@ def execute_command(params: Dict[str, Any] = None) -> Dict[str, Any]:
     return execute_command_name(params)
 ```
 
-**Tool Button Files (Special Requirements)**:
+**Tool Button Files (Special Requirements):**
 ```python
 # EXACT PATTERN REQUIRED:
 def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
@@ -351,8 +351,8 @@ This analysis ensures professional code quality that:
 - **Follows industry standards** - proper Python/JSON patterns
 - **Prevents criticism** - code quality that passes senior developer review
 - **Enables reliable UI development** - solid foundation without hidden bugs
-- **Show the world that AI-Pair Programming code is flawless** - no more excuses for bad code
+- **Shows the world that AI-pair programming code is flawless** - no more excuses for bad code
 
 ---
 
-*Execute this specification to create an bulletproof foundation for MAO UI development. Zero tolerance for bugs, redundancy, or standardization violations. Professional quality assured.*
+*Execute this specification to create a bulletproof foundation for Mao UI development. Zero tolerance for bugs, redundancy, or standardization violations. Professional quality assured.*
