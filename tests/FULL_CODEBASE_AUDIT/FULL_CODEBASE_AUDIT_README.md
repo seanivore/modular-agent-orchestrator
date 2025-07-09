@@ -54,6 +54,20 @@ cd ~/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT
 claude --review complete_codebase_audit_spec.md
 ```
 
+**Then get their input on the execution strategy custom command:** 
+
+```bash
+# Ask Claude Code:
+claude --review .claude/commands/sequential_volley.md 
+```
+
+**Ensure to share the alternative execution strategy custom commands; choose the best path forward:**
+
+```bash
+# Ask Claude Code:
+claude --review .claude/commands/multistage.md 
+```
+
 **Ask Claude Code:**
 1. "Does this specification clearly define what you need to analyze?"
 2. "Are the batch processing instructions clear for parallel vs sequential?"
@@ -69,7 +83,7 @@ claude --review complete_codebase_audit_spec.md
 
 ### **Batch Execution Strategy**
 
-**SEQUENTIAL BATCHES (Must be done in order):**
+**SEQUENTIAL BATCHES (Must be done in order) ASSUMING THE EXECUTION STRATEGY IS SEQUENTIAL_VOLLEY:**
 ```bash
 # Batch 1: Orchestrator files (20 files) - Core system analysis
 claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=1
@@ -81,7 +95,7 @@ claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=2
 claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=14
 ```
 
-**PARALLEL BATCHES (Can be done simultaneously):**
+**PARALLEL BATCHES (Can be done simultaneously) ASSUMING THE EXECUTION STRATEGY IS PARALLEL_VOLLEY:**
 ```bash
 # CLI Commands (Batches 3-4)
 claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=3-4
@@ -109,7 +123,7 @@ claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=
 
 ---
 
-## Phase 3: Review Results
+## Phase 3: Review Resulting Files Created by Claude Code & Sub-Agents
 
 ### **Key Files to Check:**
 
