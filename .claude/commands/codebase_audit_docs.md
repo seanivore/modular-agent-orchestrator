@@ -21,35 +21,47 @@ batch_file: $ARGUMENTS
 ## Stage Overview
 
 ### **Stage 0: Pre-Execution Validation**
+- **Memory MCP Checkpoint:** Query current audit state for session recovery
 - Verify file inventory completeness (100% coverage)
 - Validate batch definitions accuracy
 - Confirm execution environment readiness
+- **Memory MCP Save:** "Stage 0 Pre-Execution - Environment validated, ready to begin"
 - **Decision Point:** Approve execution readiness before proceeding
 
 ### **Stage 1: File Inventory & Sequential Analysis**
+- **Memory MCP Query:** Check batch completion status (batches 1-5)
 - Execute batches 1-5 sequentially (foundation files)
+- **Memory MCP Save:** After each batch - "Batch [X] completed - [key violations found]"
 - Complete file inventory verification
 - **Mid-Stage Decision Point:** Review foundation analysis after batches 1-3
+- **Memory MCP Save:** "Stage 1 Mid-Point - Foundation analysis quality approved"
 - **Decision Point:** Review foundation analysis quality before proceeding
 
 ### **Stage 2: Parallel Batch Analysis** 
+- **Memory MCP Query:** Check parallel batch completion status (batches 6-24)
 - Execute batches 6-24 in parallel (independent modules)
+- **Memory MCP Save:** Track batch completion - "Batch [X] completed - [violations and discoveries]"
 - Generate individual batch reports
 - **Mid-Stage Decision Point:** Review parallel batch progress at 50% completion
+- **Memory MCP Save:** "Stage 2 Mid-Point - 50% parallel batches complete, quality approved"
 - **Decision Point:** Review batch completeness and quality
 
 ### **Stage 3: Master Reports Generation**
+- **Memory MCP Query:** Retrieve all batch findings for consolidation
 - Consolidate findings into master reports
 - Generate critical violations and fix specifications
+- **Memory MCP Save:** "Stage 3 - Master reports generated, [X] critical violations documented"
 - **Quality Gate:** Comprehensive violation inventory review
 - **Decision Point:** Approve violation inventory before documentation
 
 ### **Stage 4: Documentation Consolidation**
+- **Memory MCP Query:** Retrieve all documentation updates from batches
 - Execute documentation consolidation using `docs_spec`
 - Input: All batch reports and analysis from Stages 1-3
 - Use Sequential Thinking MCP for consolidation strategy
 - Build fresh documentation from audit discoveries
 - Compare against existing documentation files
+- **Memory MCP Save:** "Stage 4 - Documentation consolidated, [X] sections updated"
 - **Decision Point:** Review documentation quality and completeness
 
 ### **Stage 5: Visual Documentation Assessment**
@@ -58,18 +70,22 @@ batch_file: $ARGUMENTS
 - **Human Understanding Focus:** What diagrams would make documentation easier for humans to understand?
 - **Priority Options:** Integration touchpoint diagrams (TypeScript↔Python), API mappings, architecture flow
 - **Additional Options:** State management, error handling, workflow diagrams
+- **Memory MCP Save:** "Stage 5 - Visual assessment complete, [X] diagrams approved for generation"
 - **Decision Point:** Approve diagram generation plan for enhanced human comprehension
 
 ### **Stage 6: Diagram Generation** (if approved)
 - Generate Mermaid diagrams for approved areas
 - Integrate visual documentation with written docs
+- **Memory MCP Save:** "Stage 6 - [X] diagrams generated and integrated"
 - **Decision Point:** Review diagram quality and integration
 
 ### **Stage 7: Independent Agent Review**
+- **Memory MCP Query:** Retrieve complete audit package for independent review
 - **Fresh Agent Handoff:** Different agent reviews complete documentation package
 - **Independent Assessment:** Fresh perspective on documentation quality and completeness
 - **Use Sequential Thinking MCP for thorough analysis**
 - **Final Quality Gate:** Comprehensive system validation by independent reviewer
+- **Memory MCP Save:** "Stage 7 - Independent review complete, audit approved for implementation"
 - **Decision Point:** Independent agent approval of final documentation package
 
 ## Decision Points
@@ -148,10 +164,26 @@ batch_file: $ARGUMENTS
 
 ## Usage Notes
 
+- **Memory MCP Integration** - Query state before starting, save at each checkpoint
+- **Session Recovery** - Use Memory MCP to resume from any stage
 - **Pause at each decision point** - Don't rush through
 - **Use Sequential Thinking** for complex decisions
 - **Quality over speed** - Each stage builds on previous
 - **Collaborative approach** - Decision maker input required
+
+## Session Recovery Protocol
+
+**To Resume Mid-Audit:**
+1. Query Memory MCP: "What is the current state of Full_Codebase_Audit for Mao_v4_Build?"
+2. Review stage completion status and last checkpoint
+3. Identify next required action based on saved state
+4. Continue from appropriate stage with full context
+
+**Common Recovery Points:**
+- After Stage 1: Continue with parallel batch analysis
+- After Stage 3: Continue with documentation consolidation
+- After Stage 5: Continue with diagram generation (if approved)
+- After Stage 6: Continue with independent agent review
 
 ---
 

@@ -9,6 +9,9 @@ Comprehensive analysis system for the Mao codebase with decision-driven executio
 # Navigate to audit directory
 cd ~/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/
 
+# Check current state (for session recovery)
+# Query Memory MCP: "What is the current state of Full_Codebase_Audit for Mao_v4_Build?"
+
 # Execute multistage audit
 claude > /project:codebase_audit_docs ./codebase_audit_spec.md ./documentation_spec.md batch_00_[category].md
 
@@ -97,11 +100,13 @@ cat PROGRESS_CHECKLIST.md
 ## Usage Guidelines
 
 ### **Before Starting**
+- Query Memory MCP for current audit state
 - Ensure all batch definition files are complete
 - Review progress checklist for current status
 - Confirm Claude Code availability for execution
 
 ### **During Execution**
+- Save state at each Memory MCP checkpoint
 - Pause at each decision point
 - Review quality at each stage
 - Don't rush through analysis
@@ -112,6 +117,46 @@ cat PROGRESS_CHECKLIST.md
 - Validate UI development readiness
 - Approve fix implementation packages
 - Archive analysis results
+
+## Session Recovery Procedures
+
+### **Mid-Session Recovery**
+If audit is interrupted at any point:
+
+1. **State Assessment:**
+   - Query Memory MCP: "What is the current state of Full_Codebase_Audit for Mao_v4_Build?"
+   - Review last checkpoint and stage completion
+   - Identify where to resume based on saved state
+
+2. **Resume Points:**
+   - **Stage 0:** Pre-execution validation
+   - **Stage 1:** Sequential batch analysis (batches 1-5)
+   - **Stage 2:** Parallel batch analysis (batches 6-24)
+   - **Stage 3:** Master report generation
+   - **Stage 4:** Documentation consolidation
+   - **Stage 5:** Visual documentation assessment
+   - **Stage 6:** Diagram generation (if approved)
+   - **Stage 7:** Independent agent review
+
+3. **Context Recovery:**
+   - Retrieve batch completion status
+   - Review documented violations and discoveries
+   - Confirm decision point approvals
+   - Load architectural findings and integration mappings
+
+### **Batch-Level Recovery**
+If individual batch fails:
+- Query Memory MCP for batch-specific state
+- Review partial analysis completed
+- Restart specific batch with context
+- Update progress tracking after completion
+
+### **Cross-Session Continuity**
+For multi-session audits:
+- Memory MCP preserves all state between sessions
+- Full context available for session resumption
+- No loss of architectural discoveries or violation tracking
+- Seamless continuation from any checkpoint
 
 ## File Structure
 
@@ -143,19 +188,28 @@ tests/FULL_CODEBASE_AUDIT/
 ## Troubleshooting
 
 ### **If Batch Fails**
+- Query Memory MCP for batch-specific state
 - Check batch definition file for clarity
 - Verify file inventory is accurate
-- Restart specific batch, not entire audit
+- Restart specific batch with preserved context
 
 ### **If Documentation Incomplete**
+- Query Memory MCP for documentation update status
 - Review batch outputs for missing sections
 - Use consolidation spec to fill gaps
 - Consider additional diagram generation
 
 ### **If Integration Unclear**
+- Query Memory MCP for integration mapping progress
 - Focus on UI_INTEGRATION_MAP.md
 - Generate additional API documentation
 - Create flow diagrams for complex interactions
+
+### **If Session Recovery Fails**
+- Verify Memory MCP connection is active
+- Check entity name "Mao_v4_Build" and relation "Full_Codebase_Audit"
+- Review last successful checkpoint in Memory MCP
+- Restart from closest valid checkpoint
 
 ---
 
