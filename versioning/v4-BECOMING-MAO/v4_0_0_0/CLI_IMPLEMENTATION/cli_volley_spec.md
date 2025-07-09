@@ -5,7 +5,7 @@ This specification defines how to use the iterative volley workflows (sequential
 ### **Process Overview**
 
 **Source Document:** `./versioning-docs/v4_MAO/CLI_COMMAND_STANDARDIZATION_PLAN.md`
-**Quality Standards:** `./versioning-docs/technical-documentation/MAO_FILE_STANDARDIZATION_RULES.md`
+**Quality Standards:** `./versioning-docs/technical-documentation/FILE_STANDARDIZATION_RULES.md`
 **Reference Patterns:** Completed commands 1-3 (help, tools, models)
 
 ### **3-Phase Volley Pattern for CLI Commands**
@@ -52,7 +52,7 @@ Comprehensive compliance verification using MAO standardization rules:
 ### **Quality Standards & Compliance**
 
 **MAO Standardization Requirements:**
-- Follow all patterns in MAO_FILE_STANDARDIZATION_RULES.md exactly
+- Follow all patterns in FILE_STANDARDIZATION_RULES.md exactly
 - Use completed commands 1-3 as reference patterns for consistency
 - Maintain "data-only" UI philosophy for maximum creative freedom
 - Ensure no emoji icons, version numbers, or hardcoded references
@@ -67,7 +67,7 @@ Comprehensive compliance verification using MAO standardization rules:
 
 **Per Command Completion:**
 - 3-file structure created with correct naming and full MAO compliance
-- 100% compliance with MAO_FILE_STANDARDIZATION_RULES.md requirements
+- 100% compliance with FILE_STANDARDIZATION_RULES.md requirements
 - Proper integration with all identified orchestrator touchpoints
 - Professional code quality suitable for production deployment
 

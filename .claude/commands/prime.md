@@ -15,7 +15,7 @@ MAINTAIN:
 
 READ: 
     `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/FULL_CODEBASE_AUDIT_README.md`
-    `/Users/seanivore/Development/modular-agent-orchestrator/documentation/MAO_FILE_STANDARDIZATION_RULES.md`
+    `/Users/seanivore/Development/modular-agent-orchestrator/documentation/FILE_STANDARDIZATION_RULES.md`
     `/Users/seanivore/Development/modular-agent-orchestrator/documentation/0_TECH_DOC_CONTENTS.md`
 
 ACCOMPLISH: 

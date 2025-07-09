@@ -196,7 +196,7 @@ mao --fix-it ./fix.json    # CLI flag version
 
 ## Quality Validation
 
-All files validated against `MAO_FILE_STANDARDIZATION_RULES.md`:
+All files validated against `FILE_STANDARDIZATION_RULES.md`:
 - ✅ No emoji icons (text-based design only)
 - ✅ Simple product name "Mao" (no version numbers)
 - ✅ Clean file structure and naming

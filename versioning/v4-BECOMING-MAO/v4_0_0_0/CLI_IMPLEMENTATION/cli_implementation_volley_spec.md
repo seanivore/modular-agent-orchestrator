@@ -4,7 +4,7 @@ This specification defines the systematic implementation of MAO CLI commands usi
 
 **SOURCE DOCUMENTS:**
 - **Command Reference:** `./versioning-docs/v4_MAO/CLI_COMMAND_STANDARDIZATION_PLAN.md`
-- **Quality Standards:** `./versioning-docs/technical-documentation/MAO_FILE_STANDARDIZATION_RULES.md`
+- **Quality Standards:** `./versioning-docs/technical-documentation/FILE_STANDARDIZATION_RULES.md`
 - **Proven Pattern:** Implementation success from commands #1-4 (help, tools, models, providers)
 
 ---
@@ -376,7 +376,7 @@ ORCHESTRATOR INTEGRATION TEST:
 
 **Per Command Implementation:**
 - ✅ 3-file structure created with correct naming and full MAO compliance
-- ✅ 100% compliance with MAO_FILE_STANDARDIZATION_RULES.md requirements
+- ✅ 100% compliance with FILE_STANDARDIZATION_RULES.md requirements
 - ✅ Proper integration with identified orchestrator touchpoints
 - ✅ Professional code quality suitable for production deployment
 - ✅ Intelligent caching with appropriate fingerprinting

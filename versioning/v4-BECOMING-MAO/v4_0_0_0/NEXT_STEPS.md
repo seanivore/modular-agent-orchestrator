@@ -104,7 +104,7 @@ configs/cli/[command]/
   - `TASK_3_INTEGRATION_POINTS.md`
   - `TASK_3_WORKFLOW_ID_COMPLETE.md`
   - `TASK_4_WORKFLOW_CREATION_COMPLETE.md`
-  - `MAO_FILE_STANDARDIZATION_RULES.md`
+  - `FILE_STANDARDIZATION_RULES.md`
   - List of all the orchestrator files in documentation section below  
 **Deliverable:** Comprehensive integration requirements document  
 **Goal:** Ensure all previous work properly connects to UI
@@ -114,7 +114,7 @@ configs/cli/[command]/
 **Approach:** Documentation audit → Updates  
 **Delegation:** Agentic (systematic documentation work)  
 **Resources:** 
-  - `MAO_FILE_STANDARDIZATION_RULES.md`
+  - `FILE_STANDARDIZATION_RULES.md`
   - List of all the orchestrator files in documentation section below  
 **Deliverable:** Complete and current technical docs  
 **Goal:** Ensure everything is properly documented
