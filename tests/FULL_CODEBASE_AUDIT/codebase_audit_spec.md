@@ -79,9 +79,9 @@ tests/FULL_CODEBASE_AUDIT/
 │   ├── scripts.md
 │   ├── templates.md
 │   └── tools.md
-├── complete_codebase_audit_spec.md    ← you are here (this file)
-├── documentation_consolidation_spec.md    ← SPEC phase 2 (exists)
-├── FULL_CODEBASE_AUDIT_README.md    ← (exists)
+├── codebase_audit_spec.md    ← you are here (this file)
+├── documentation_spec.md    ← SPEC phase 2 (exists)
+├── WORKFLOW_README.md    ← (exists)
 └── PROGRESS_CHECKLIST.md    ← (exists)
 ```
 

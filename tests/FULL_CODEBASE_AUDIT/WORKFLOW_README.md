@@ -7,10 +7,10 @@ Comprehensive analysis system for the Mao codebase with decision-driven executio
 
 ```bash
 # Navigate to audit directory
-cd ~/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT
+cd ~/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/
 
 # Execute multistage audit
-claude > /project:multistage_audit ./complete_codebase_audit_spec.md
+claude > /project:codebase_audit_docs ./codebase_audit_spec.md ./documentation_spec.md batch_00_[category].md
 
 # Monitor progress
 cat PROGRESS_CHECKLIST.md
@@ -19,19 +19,19 @@ cat PROGRESS_CHECKLIST.md
 ## System Components
 
 ### **1. Main Audit Spec**
-`complete_codebase_audit_spec.md` - Core specification for analyzing ~270 files across 24 batches
+`codebase_audit_spec.md` - Core specification for analyzing ~270 files across 24 batches
 
 ### **2. Individual Batch Definitions**
 `batch_definitions/` - 24 separate files defining each batch scope and requirements
 
 ### **3. Documentation Consolidation**
-`documentation_consolidation_spec.md` - Spec for pulling together all documentation updates
+`documentation_spec.md` - Spec for pulling together all documentation updates
 
 ### **4. Progress Tracking**
 `PROGRESS_CHECKLIST.md` - Visual checklist showing completion status
 
 ### **5. Multistage Command**
-`.claude/commands/multistage_audit.md` - Decision-driven execution workflow
+`.claude/commands/codebase_audit_docs.md` - Decision-driven execution workflow
 
 ## Execution Flow
 
@@ -64,7 +64,9 @@ cat PROGRESS_CHECKLIST.md
 
 ### **Documentation Strategy**
 - Write fresh docs from code discoveries
-- Compare against old docs only at end
+- Contemplate and create appropriate document flow and structure 
+- One idea is to make the documentation flow similar to how using the application flows (`./versioning/v4-BECOMING-MAO/v4_0_0_0/UI_DEV/APP_UI_IMPLEMENTATION/NEW_USER_FLOW.md`)
+- Compare against old docs only at end to avoid bias 
 - Consolidate into unified documentation suite
 - Generate visual diagrams where helpful
 
@@ -115,9 +117,9 @@ cat PROGRESS_CHECKLIST.md
 
 ```
 tests/FULL_CODEBASE_AUDIT/
-├── README.md                          ← This file
-├── complete_codebase_audit_spec.md    ← Main audit specification
-├── documentation_consolidation_spec.md ← Doc consolidation spec
+├── WORKFLOW_README.md                          ← This file
+├── codebase_audit_spec.md    ← Main audit specification
+├── documentation_spec.md ← Doc consolidation spec
 ├── PROGRESS_CHECKLIST.md              ← Visual progress tracking
 ├── batch_definitions/                 ← Individual batch specs
 │   ├── batch_01_root_files.md
@@ -127,7 +129,7 @@ tests/FULL_CODEBASE_AUDIT/
 ├── 00_EXECUTIVE_SUMMARY.md           ← Master reports (generated)
 ├── 01_CRITICAL_VIOLATIONS.md
 ├── [...02-08...]
-└── .claude/commands/multistage_audit.md ← Execution command
+└── .claude/commands/codebase_audit_docs.md ← Execution command
 ```
 
 ## Success Metrics

@@ -17,14 +17,14 @@ MAINTAIN:
     3. After each batch of steps within the sessions larger tasks.  
 
 READ: 
-    - `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/FULL_CODEBASE_AUDIT_README.md`
+    - `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/WORKFLOW_README.md`
     - `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/PROGRESS_CHECKLIST.md`
     - `/Users/seanivore/Development/modular-agent-orchestrator/documentation/FILE_STANDARDIZATION_RULES.md`
     - `/Users/seanivore/Development/modular-agent-orchestrator/documentation/CONTENTS.md`
 
 ACCOMPLISH: 
-    `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/complete_codebase_audit_spec.md`
-    `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/documentation_consolidation_spec.md`
+    `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/codebase_audit_spec.md`
+    `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/documentation_spec.md`
 
 WORKFLOW: 
-    `/Users/seanivore/Development/modular-agent-orchestrator/.claude/commands/full_codebase_audit.md`
+    `/Users/seanivore/Development/modular-agent-orchestrator/.claude/commands/codebase_audit_docs.md`

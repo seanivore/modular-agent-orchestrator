@@ -1,17 +1,17 @@
-# Full Codebase Audit, A Multistage Command
+# Full Codebase Audit: A Multistage Command with Dual Specs for Technical Documentation Completion 
 
 ## Purpose
 Execute comprehensive codebase audit with decision points, documentation consolidation, and visual diagram generation.
 
 ## Command Structure
 ```bash
-claude > /project:full_codebase_audit ./complete_codebase_audit_spec.md ./documentation_consolidation_spec.md batch_01_root_files.md
+claude > /project:codebase_audit_docs ./codebase_audit_spec.md ./documentation_spec.md batch_01_root_files.md
 ```
 
 **Variables:**
-audit_spec: $ARGUMENTS[0]
-docs_spec: $ARGUMENTS[1]
-batch_file: $ARGUMENTS[2]
+audit_spec: $ARGUMENTS
+docs_spec: $ARGUMENTS
+batch_file: $ARGUMENTS
 
 **ARGUMENTS PARSING:**
 1. `audit_spec` - Complete codebase audit specification
