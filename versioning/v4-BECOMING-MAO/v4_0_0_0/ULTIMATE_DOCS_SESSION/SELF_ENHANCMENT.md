@@ -37,12 +37,12 @@ mao self-enhance --schedule weekly --focus "performance optimization"
 - Legal precedent knowledge
 - Real-time regulatory updates
 
-### 4. Self-Marketing Coordinator 
+### 5. Self-Marketing Coordinator 
 - Regular workflow producing direct marketing
 - Monthly analytic report preparations 
 - Business plan proposals based on user patterns 
 
-### 5. Ongoing Business Accounting
+### 6. Ongoing Business Accounting
 - Research and prepare tax and business obligations 
 - Maintain subscription backend payments 
 - Monthly, quarterly, and yearly revenue reporting 
@@ -50,12 +50,12 @@ mao self-enhance --schedule weekly --focus "performance optimization"
 - Investment research and analysis 
 - Investment portfolio management 
 
-### 6. User Contact and Support
+### 7. User Contact and Support
 - What features are users requesting?
 - Which workflows are most popular?
 - Where do users get stuck?
 
-### 7. Full-Time Developer 
+### 8. Full-Time Developer 
 - Setup user-requested tools 
 - Add any modular variable to collections 
 - QA and validation testing after every update 
@@ -66,7 +66,7 @@ With the **v4.2.0 Claude Code SDK integration**, users will literally be able to
 - *"Build a research agent that monitors patent filings in our industry"*
 - *"Make a business intelligence agent that tracks competitor pricing"*
 
-### 8. Baby Subagents Roaming the Internet 
+### 9. Baby Subagents Roaming the Internet 
 
 - Web scraping agents gathering market intelligence
 - Social media monitoring agents tracking brand mentions
