@@ -14,7 +14,7 @@
 
 1. Integrate Claude Code SDK for Tool Builds 
 2. Setup catalogs for anything modular 
-3. Add data analytics 
+3. ~~Add data analytics~~
 4. Build it into a blockchain 
 
 ### Concept 
