@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/configs/providers > ptree -s   19:51
+> ~/Development/modular-agent-orchestrator/configs/providers > ptree -s    2:51
 Project Structure (with select hidden files):
 =============================================
 .
@@ -8,3 +8,12 @@ Project Structure (with select hidden files):
 ├── lm-studio.json
 ├── openai-direct.json
 └── requesty.json
+
+1 directory, 6 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/configs/providers >             2:51

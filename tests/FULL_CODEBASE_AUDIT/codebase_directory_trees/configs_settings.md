@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/configs/settings > ptree -s    19:51
+> ~/Development/modular-agent-orchestrator/configs/settings > ptree -s     2:52
 Project Structure (with select hidden files):
 =============================================
 .
@@ -11,3 +11,12 @@ Project Structure (with select hidden files):
 ├── quick_launch_app_settings.json
 ├── theme_app_settings.json
 └── tone_notification_app_settings.json
+
+1 directory, 9 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/configs/settings >              2:52

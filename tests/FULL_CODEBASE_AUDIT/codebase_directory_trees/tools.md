@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/tools > ptree -s               19:58
+> ~/Development/modular-agent-orchestrator/tools > ptree -s                2:54
 Project Structure (with select hidden files):
 =============================================
 .
@@ -99,3 +99,12 @@ Project Structure (with select hidden files):
     ├── tool_web_search.json
     ├── ui_web_search.py
     └── web_search.py
+
+24 directories, 74 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/tools >                         2:54

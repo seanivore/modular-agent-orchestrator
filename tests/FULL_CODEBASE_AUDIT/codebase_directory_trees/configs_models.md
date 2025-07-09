@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/configs/models > ptree -s      19:50
+> ~/Development/modular-agent-orchestrator/configs/models > ptree -s       2:51
 Project Structure (with select hidden files):
 =============================================
 .
@@ -10,3 +10,12 @@ Project Structure (with select hidden files):
 ├── gpt-4.1-mini.json
 ├── gpt-4.1-nano.json
 └── local-llama-3.1-8b.json
+
+1 directory, 8 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/configs/models >                2:51

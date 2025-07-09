@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/templates > ptree -s           19:57
+> ~/Development/modular-agent-orchestrator/templates > ptree -s            2:53
 Project Structure (with select hidden files):
 =============================================
 .
@@ -22,3 +22,12 @@ Project Structure (with select hidden files):
     ├── example-workflow_phase_config.json
     ├── example-workflow_workflow_config.json
     └── README.md
+
+8 directories, 13 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/templates >                     2:53

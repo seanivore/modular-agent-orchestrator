@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/configs/cli > ptree -s         19:47
+> ~/Development/modular-agent-orchestrator/configs/cli > ptree -s          2:49
 Project Structure (with select hidden files):
 =============================================
 .
@@ -52,8 +52,6 @@ Project Structure (with select hidden files):
 │   ├── fix_it.json
 │   ├── fix_it.py
 │   └── ui_fix_it.py
-├── free_only
-│   └── free_only.json
 ├── goal
 │   ├── __pycache__
 │   │   └── goal.cpython-313.pyc
@@ -64,8 +62,6 @@ Project Structure (with select hidden files):
 │   ├── help.json
 │   ├── help.py
 │   └── ui_help.py
-├── list_tools
-│   └── list_tools.json
 ├── login
 │   ├── __pycache__
 │   │   ├── login.cpython-313.pyc
@@ -93,6 +89,12 @@ Project Structure (with select hidden files):
 │   ├── mao.json
 │   ├── mao.py
 │   └── ui_mao.py
+├── memory
+│   ├── __pycache__
+│   │   └── memory.cpython-313.pyc
+│   ├── memory.json
+│   ├── memory.py
+│   └── ui_memory.py
 ├── model
 │   └── model.json
 ├── models
@@ -197,3 +199,12 @@ Project Structure (with select hidden files):
     ├── ui_workflows.py
     ├── workflows.json
     └── workflows.py
+
+63 directories, 135 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/configs/cli >                   2:49

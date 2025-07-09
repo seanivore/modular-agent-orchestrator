@@ -1,4 +1,4 @@
-> ~/Development/modular-agent-orchestrator/scripts > ptree -s             19:57
+> ~/Development/modular-agent-orchestrator/scripts > ptree -s              2:53
 Project Structure (with select hidden files):
 =============================================
 .
@@ -34,3 +34,12 @@ Project Structure (with select hidden files):
 └── workflow_setup
     ├── install-workflow-commands.sh
     └── workflow_setup.sh
+
+12 directories, 21 files
+
+Important Hidden Items:
+======================
+
+Hidden Files:
+============
+> ~/Development/modular-agent-orchestrator/scripts >                       2:53
