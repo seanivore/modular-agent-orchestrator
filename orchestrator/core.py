@@ -14,13 +14,28 @@ from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
+# Conditional imports for optional dependencies
+try:
+    import anthropic
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
+    anthropic = None
+
 from .manager_models import ModelManager
 from .manager_buttons import ButtonManager
 from .manager_tools import ToolManager
 from .cache.cache_system import CacheManager
 from .mcp_hub import MCPIntegrationHub
 from .agent_callback import AgentCallbackHandler
-from tools.code_execution.code_execution import CodeExecutionTool
+
+# Conditional import for code execution tool
+try:
+    from tools.code_execution.code_execution import CodeExecutionTool
+    CODE_EXECUTION_AVAILABLE = True
+except ImportError:
+    CODE_EXECUTION_AVAILABLE = False
+    CodeExecutionTool = None
 
 @dataclass
 class WorkflowPhase:
@@ -80,7 +95,7 @@ class WorkflowOrchestrator:
         
         # Initialize Tool Integration Framework
         self.agent_callback = AgentCallbackHandler()
-        self.code_execution = CodeExecutionTool()
+        self.code_execution = CodeExecutionTool() if CODE_EXECUTION_AVAILABLE else None
         
         # Workflow state
         self.active_workflows: Dict[str, WorkflowPlan] = {}
@@ -557,7 +572,7 @@ class WorkflowOrchestrator:
             phase_name = input_file.replace(".md", "").replace("_", "")
             if phase_name in workflow_memory:
                 file_id = workflow_memory[phase_name]
-                if anthropic_client:
+                if anthropic_client and ANTHROPIC_AVAILABLE:
                     file_content = await self.cache_manager.retrieve_workflow_file(
                         file_id,
                         anthropic_client
@@ -663,7 +678,7 @@ class WorkflowOrchestrator:
                         )
                 
                 # Store result in workflow memory for next phases
-                if anthropic_client and result.success:
+                if anthropic_client and result.success and ANTHROPIC_AVAILABLE:
                     workflow_id = f"{workflow.id}_{phase.name}"
                     file_id = await self.cache_manager.store_workflow_file(
                         result.content,

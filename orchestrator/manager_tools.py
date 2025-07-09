@@ -227,15 +227,19 @@ class ToolManager:
         
         # 4. Log discovery results
         if self.memory_mcp:
-            self.memory_mcp.create_entities([{
-                "name": "tool-discovery",
-                "entityType": "system-status",
-                "observations": [
-                    f"Discovered {len(local_tools)} local tools",
-                    f"Discovered {len(mcp_tools)} MCP tools",
-                    f"Total tools available: {len(tools)}"
-                ]
-            }])
+            try:
+                self.memory_mcp.client.create_entities([{
+                    "name": "tool-discovery",
+                    "entityType": "system-status",
+                    "observations": [
+                        f"Discovered {len(local_tools)} local tools",
+                        f"Discovered {len(mcp_tools)} MCP tools",
+                        f"Total tools available: {len(tools)}"
+                    ]
+                }])
+            except Exception as e:
+                # Don't fail tool discovery if memory logging fails
+                print(f"Warning: Failed to log tool discovery to memory: {e}")
         
         return tools
     
