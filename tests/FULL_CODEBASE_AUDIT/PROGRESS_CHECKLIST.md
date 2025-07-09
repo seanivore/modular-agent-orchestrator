@@ -23,20 +23,20 @@
 - [x] **Batch 12:** CLI Commands Group 2 (12 files) - `batch_12_cli_group_2.md`
 - [x] **Batch 13:** CLI Commands Group 3 (12 files) - `batch_13_cli_group_3.md`
 - [x] **Batch 14:** CLI Commands Group 4 (12 files) - `batch_14_cli_group_4.md`
-- [ ] **Batch 15:** CLI Commands Group 5 (12 files) - `batch_15_cli_group_5.md`
-- [ ] **Batch 16:** CLI Commands Group 6 (12 files) - `batch_16_cli_group_6.md`
-- [ ] **Batch 17:** CLI Commands Group 7 (12 files) - `batch_17_cli_group_7.md`
-- [ ] **Batch 18:** CLI Commands Group 8 + JSON-only (10 files) - `batch_18_cli_group_8.md`
+- [x] **Batch 15:** CLI Commands Group 5 (12 files) - `batch_15_cli_group_5.md`
+- [x] **Batch 16:** CLI Commands Group 6 (12 files) - `batch_16_cli_group_6.md`
+- [x] **Batch 17:** CLI Commands Group 7 (12 files) - `batch_17_cli_group_7.md`
+- [x] **Batch 18:** CLI Commands Group 8 + JSON-only (10 files) - `batch_18_cli_group_8.md`
 
 #### Config Files Analysis (Batches 19-21)
-- [ ] **Batch 19:** Config Files - Models & Providers (13 files) - `batch_19_config_models_providers.md`
-- [ ] **Batch 20:** Config Files - Settings & System (14 files) - `batch_20_config_settings_system.md`
-- [ ] **Batch 21:** Config Files - User & Workflows (10 files) - `batch_21_config_user_workflows.md`
+- [x] **Batch 19:** Config Files - Models & Providers (13 files) - `batch_19_config_models_providers.md`
+- [x] **Batch 20:** Config Files - Settings & System (14 files) - `batch_20_config_settings_system.md`
+- [x] **Batch 21:** Config Files - User & Workflows (10 files) - `batch_21_config_user_workflows.md`
 
 #### Support Files Analysis (Batches 22-25)
-- [ ] **Batch 22:** Templates (13 files) - `batch_22_templates.md`
-- [ ] **Batch 23:** Scripts - Utilities (14 files) - `batch_23_scripts_utilities.md`
-- [ ] **Batch 24:** Scripts - Workflow & GitHub (4 files) - `batch_24_scripts_workflow_github.md`
+- [x] **Batch 22:** Templates (13 files) - `batch_22_templates.md`
+- [x] **Batch 23:** Scripts - Utilities (14 files) - `batch_23_scripts_utilities.md`
+- [x] **Batch 24:** Scripts - Workflow & GitHub (4 files) - `batch_24_scripts_workflow_github.md`
 
 
 ---
