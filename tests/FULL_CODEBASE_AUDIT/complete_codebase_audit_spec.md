@@ -2,15 +2,22 @@
 
 ## Core Challenge
 
-Systematically analyze all 321 Mao files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
+ - Total Files: ~270 files
+ - Total Batches: 24 batches
+ - Average Batch Size: ~11 files per batch
+ - Execution Time: ~5-10 minutes per batch = 2-4 hours total
+ - Natural Breaking Points: Directory-based logical groupings
+ - Context Window Safe: 10-15 files per batch, manageable for Claude Code
+
+Systematically analyze all ~270 Mao files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
 
 **The Goal:** Create detailed violation reports with actionable fix specifications that can be reviewed, approved, and executed in controlled batches with full before/after verification.
-
+ 
 ---
 
 ## Output Requirements
 
-### **File Naming**: `batch_[number]_[category]_analysis.md`
+### **Batch Report File Naming**: `batch_[number]_[prior-naming]_analysis.md`
 
 ### **Directory Structure**:
 ```
@@ -22,12 +29,56 @@ tests/FULL_CODEBASE_AUDIT/
 ├── 04_STANDARDIZATION_REPORT.md       ← Mao compliance violations with fix specifications
 ├── 05_DUPLICATE_CODE_REPORT.md        ← Function redundancy with merge/consolidation specs
 ├── 06_FIX_IMPLEMENTATION_SPECS.md     ← Actionable fix specifications for approved changes
-├── codebase_directory_trees/          ← directory structure showing all files in codebase
-├── complete_codebase_audit_spec.md    ← you are here 
-└── batch_reports/
-    ├── batch_01_orchestrator.md       ← Individual batch analyses
-    ├── batch_02_interfaces.md
-    └── [continues through batch_14...]
+├── batch_reports/
+│   ├── batch_01_root_files_analysis.md       ← Individual batch analyses
+│   ├── batch_02_interfaces_analysis.md
+│   └── [will continue through all batches...]
+├── batch_definitions
+│   ├── batch_01_root_files.md
+│   ├── batch_02_interfaces.md
+│   ├── batch_03_orchestrator_core.md
+│   ├── batch_04_orchestrator_managers.md
+│   ├── batch_05_cache_system.md
+│   ├── batch_06_tools_search.md
+│   ├── batch_07_tools_search_part_2.md
+│   ├── batch_08_tools_content_creation.md
+│   ├── batch_09_tools_development.md
+│   ├── batch_10_tools_system.md
+│   ├── batch_11_cli_commands_group_1.md
+│   ├── batch_12_cli_commands_group_2.md
+│   ├── batch_13_cli_commands_group_3.md
+│   ├── batch_14_cli_commands_group_4.md
+│   ├── batch_15_cli_commands_group_5.md
+│   ├── batch_16_cli_commands_group_6.md
+│   ├── batch_17_cli_commands_group_7.md
+│   ├── batch_18_cli_commands_group_8_json_only.md
+│   ├── batch_19_config_files_models_providers.md
+│   ├── batch_20_config_files_settings_system.md
+│   ├── batch_21_config_files_users_workflows.md
+│   ├── batch_22_templates.md
+│   ├── batch_23_scripts_utilities.md
+│   └── batch_24_scripts_workflow_github.md
+├── codebase_directory_trees     ← (all files exist) directory structure showing files in codebase
+│   ├── configs_cli.md
+│   ├── configs_connections.md
+│   ├── configs_models.md
+│   ├── configs_providers.md
+│   ├── configs_settings.md
+│   ├── configs_system.md
+│   ├── configs_user.md
+│   ├── configs_workflows.md
+│   ├── interfaces.md
+│   ├── orchestrator.md
+│   ├── root.md
+│   ├── scripts.md
+│   ├── templates.md
+│   └── tools.md
+├── complete_codebase_audit_spec.md    ← you are here (this file)
+├── documentation_consolidation_spec.md    ← SPEC phase 2 (exists)
+├── FULL_CODEBASE_AUDIT_README.md    ← (exists)
+└── PROGRESS_CHECKLIST.md    ← (exists)
+
+3 directories, 44 files
 ```
 
 ### **Master Report Format**:
