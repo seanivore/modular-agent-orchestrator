@@ -1,11 +1,11 @@
-# Multistage Codebase Audit Command
+# Full Codebase Audit, A Multistage Command
 
 ## Purpose
 Execute comprehensive codebase audit with decision points, documentation consolidation, and visual diagram generation.
 
 ## Command Structure
 ```bash
-claude > /project:multistage_audit ./complete_codebase_audit_spec.md
+claude > /project:full_codebase_audit ./complete_codebase_audit_spec.md
 ```
 
 ## Stage Overview
