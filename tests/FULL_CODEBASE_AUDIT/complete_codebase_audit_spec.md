@@ -2,7 +2,7 @@
 
 ## Core Challenge
 
-Systematically analyze all 292 Mao files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
+Systematically analyze all 321 Mao files to **document bugs, redundancies, and standardization violations** with detailed fix recommendations. Create comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
 
 **The Goal:** Create detailed violation reports with actionable fix specifications that can be reviewed, approved, and executed in controlled batches with full before/after verification.
 
