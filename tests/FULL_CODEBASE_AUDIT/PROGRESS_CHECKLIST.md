@@ -98,7 +98,7 @@
 ## Memory MCP State Queries
 
 **Before Starting Session:**
-Query: "What is the current state of Full_Codebase_Audit for Mao_v4_Build?"
+Query: "What is the current state of Full_Codebase_Audit_Mao_v4_Build?"
 
 **Current Session Status:**
 - **Stage Progress:** [Query Memory MCP for current stage]
