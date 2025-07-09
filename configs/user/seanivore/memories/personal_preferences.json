@@ -1,0 +1,91 @@
+{
+  "schema_version": "1.0",
+  "category": "personal_preferences",
+  "user_id": "user-1642",
+  "created_at": "2025-07-09T10:00:00.000Z",
+  "last_updated": "2025-07-09T10:00:00.000Z",
+  "memories": [
+    {
+      "memory_id": "mem_001",
+      "content": "I prefer working in the morning hours, typically starting around 7 AM when I'm most productive and focused.",
+      "category": "personal_preferences",
+      "tags": ["work_schedule", "productivity", "morning_person"],
+      "priority": "medium",
+      "created_at": "2025-07-09T10:00:00.000Z",
+      "last_accessed": "2025-07-09T10:00:00.000Z",
+      "access_count": 1,
+      "relevance_score": 0.85,
+      "context_triggers": ["schedule", "work_time", "productivity"],
+      "source": "user_input",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.92,
+        "related_memories": [],
+        "embedding_vector": null
+      }
+    },
+    {
+      "memory_id": "mem_002",
+      "content": "I prefer using Claude Sonnet 4 for complex reasoning tasks and GPT-4 for creative writing projects.",
+      "category": "personal_preferences",
+      "tags": ["ai_models", "task_preferences", "claude", "gpt4"],
+      "priority": "high",
+      "created_at": "2025-07-09T10:05:00.000Z",
+      "last_accessed": "2025-07-09T10:05:00.000Z",
+      "access_count": 1,
+      "relevance_score": 0.90,
+      "context_triggers": ["model_selection", "ai_choice", "reasoning", "creativity"],
+      "source": "user_input",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.95,
+        "related_memories": [],
+        "embedding_vector": null
+      }
+    },
+    {
+      "memory_id": "mem_003",
+      "content": "I work best with detailed project documentation and clear step-by-step breakdowns rather than high-level overviews.",
+      "category": "personal_preferences",
+      "tags": ["work_style", "documentation", "detailed_planning", "step_by_step"],
+      "priority": "medium",
+      "created_at": "2025-07-09T10:10:00.000Z",
+      "last_accessed": "2025-07-09T10:10:00.000Z",
+      "access_count": 1,
+      "relevance_score": 0.88,
+      "context_triggers": ["project_planning", "documentation", "work_approach"],
+      "source": "user_input",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.89,
+        "related_memories": ["mem_001"],
+        "embedding_vector": null
+      }
+    }
+  ],
+  "metadata": {
+    "total_memories": 3,
+    "category_stats": {
+      "personal_preferences": 3
+    },
+    "tag_frequency": {
+      "work_schedule": 1,
+      "productivity": 1,
+      "morning_person": 1,
+      "ai_models": 1,
+      "task_preferences": 1,
+      "claude": 1,
+      "gpt4": 1,
+      "work_style": 1,
+      "documentation": 1,
+      "detailed_planning": 1,
+      "step_by_step": 1
+    },
+    "last_backup": "2025-07-09T10:10:00.000Z",
+    "mcp_integration": {
+      "enabled": true,
+      "last_sync": "2025-07-09T10:10:00.000Z",
+      "sync_status": "active"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "daily_costs": [
+    {
+      "date": "2025-01-15",
+      "total_spend": 2.45,
+      "model_breakdown": {
+        "claude-sonnet-4": 1.80,
+        "gpt-4": 0.65
+      },
+      "session_count": 3
+    }
+  ],
+  "totals": {
+    "monthly_spend": 45.67,
+    "avg_daily": 1.52
+  },
+  "metadata": {
+    "user_id": "user-1642",
+    "last_updated": "2025-01-15T23:59:59Z"
+  }
+}

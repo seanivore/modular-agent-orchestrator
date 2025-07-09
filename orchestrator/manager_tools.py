@@ -7,6 +7,20 @@ import json
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 import importlib.util
+import time
+from datetime import datetime, timezone
+
+# Standard MAO imports (following standardization pattern)
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Analytics managers
+from orchestrator.user_analytics_manager import UserAnalyticsManager
+from orchestrator.system_analytics_manager import SystemAnalyticsManager
+from orchestrator.username_manager import UsernameManager
+
+# Standard cache instance
+cache = CacheManager()
 
 
 class ToolManager:
@@ -19,6 +33,11 @@ class ToolManager:
         # Lazy load MCP connector for external tools
         self._mcp_connector = None
         self._memory_mcp = None
+        
+        # Analytics managers
+        self.user_analytics_manager = UserAnalyticsManager()
+        self.system_analytics_manager = SystemAnalyticsManager()
+        self.username_manager = UsernameManager()
         
         # Discover all tools on initialization
         self.discover_all_tools()
@@ -481,4 +500,94 @@ def discover_tools_for_goal(goal: str, model: str = "claude-sonnet-4",
     Used by orchestrator for dynamic tool selection
     """
     discovery = ToolManager()
-    return discovery.interactive_tool_selection(goal, model, budget) 
+    return discovery.interactive_tool_selection(goal, model, budget)
+
+
+# Analytics methods for ToolManager class
+def add_analytics_methods_to_tool_manager():
+    """Add analytics methods to ToolManager class"""
+    
+    @handle_errors
+    def estimate_cost(self, operation: str = "tool_operation") -> float:
+        """Standard cost estimation for tool operations"""
+        cost_map = {
+            "tool_discovery": 0.002,
+            "tool_execution": 0.005,
+            "tool_suggestion": 0.001,
+            "tool_operation": 0.002
+        }
+        return cost_map.get(operation, 0.002)
+    
+    @handle_errors
+    def execute_tool_with_analytics(self, tool_name: str, username: str, session_id: str = None) -> Dict[str, Any]:
+        """Execute tool with analytics tracking"""
+        start_time = time.time()
+        success = False
+        error_type = None
+        
+        try:
+            # Track tool execution start
+            if session_id:
+                self.user_analytics_manager.track_session(username, session_id, "update_tool_activations")
+            
+            # Execute tool (placeholder - would call actual tool execution)
+            result = {
+                "success": True,
+                "tool": tool_name,
+                "output": f"Tool {tool_name} executed successfully",
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+            success = True
+            
+        except Exception as e:
+            error_type = type(e).__name__
+            result = {
+                "success": False,
+                "tool": tool_name,
+                "error": str(e),
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+            
+        finally:
+            # Calculate response time
+            response_time = time.time() - start_time
+            
+            # Track analytics (failures don't break main functionality)
+            try:
+                # Track user analytics
+                self.user_analytics_manager.track_tool_usage(
+                    username, tool_name, success, response_time
+                )
+                
+                # Track system analytics
+                self.system_analytics_manager.track_performance(
+                    tool_name, response_time, success, error_type
+                )
+                
+            except Exception as analytics_error:
+                # Analytics failures should not break tool execution
+                pass
+        
+        return result
+    
+    @handle_errors
+    def track_tool_discovery(self, username: str, discovered_tools: Dict[str, Any]) -> bool:
+        """Track tool discovery for analytics"""
+        try:
+            # Auto-add newly discovered tools to analytics
+            for tool_name in discovered_tools.keys():
+                self.user_analytics_manager.auto_add_component(username, "tool", tool_name)
+            
+            return True
+            
+        except Exception as e:
+            # Analytics failures should not break discovery
+            return False
+    
+    @handle_errors
+    def get_tool_usage_analytics(self, username: str) -> Dict[str, Any]:
+        """Get tool usage analytics for user"""
+        try:
+            return self.user_analytics_manager._read_analytics_file(username, "tool_usage.json")
+        except Exception as e:
+            return {}

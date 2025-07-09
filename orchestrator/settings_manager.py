@@ -165,6 +165,7 @@ class ApplicationSettingsManager:
         """
         Get user settings with delta-only storage.
         Merges user changes with current application defaults.
+        Supports both legacy (flat) and new (nested) directory structures.
         
         Args:
             username: User's username
@@ -182,17 +183,17 @@ class ApplicationSettingsManager:
         # Get current defaults
         defaults = self.get_default_settings()
         
-        # Load user deltas
-        user_file = self.user_dir / f"user_{username}.json"
+        # Load user deltas - check both new and legacy paths
+        user_file = self._get_user_file_path(username)
         user_deltas = {}
         
-        if user_file.exists():
+        if user_file and user_file.exists():
             try:
                 with open(user_file, 'r') as f:
                     user_data = json.load(f)
-                    # Extract only setting changes (exclude username, user_id)
+                    # Extract only setting changes (exclude username, user_id, created_at, last_login, etc.)
                     user_deltas = {k: v for k, v in user_data.items() 
-                                 if k not in ['username', 'user_id']}
+                                 if k not in ['username', 'user_id', 'first_name', 'last_name', 'email', 'dob', 'created_at', 'last_login', 'last_updated']}
             except Exception:
                 user_deltas = {}  # Use empty deltas on error
         
@@ -209,6 +210,7 @@ class ApplicationSettingsManager:
     def update_user_setting(self, username: str, setting_name: str, value: Any) -> bool:
         """
         Update a single user setting (delta-only storage).
+        Supports both legacy (flat) and new (nested) directory structures.
         
         Args:
             username: User's username
@@ -225,10 +227,10 @@ class ApplicationSettingsManager:
                 return False
             
             # Load existing user file or create new
-            user_file = self.user_dir / f"user_{username}.json"
+            user_file = self._get_user_file_path(username)
             user_data = {}
             
-            if user_file.exists():
+            if user_file and user_file.exists():
                 with open(user_file, 'r') as f:
                     user_data = json.load(f)
             else:
@@ -240,6 +242,14 @@ class ApplicationSettingsManager:
                     "username": username,
                     "user_id": user_id
                 }
+                
+                # Ensure nested directory exists if using new structure
+                nested_dir = self.user_dir / username
+                if not nested_dir.exists():
+                    nested_dir.mkdir(parents=True, exist_ok=True)
+                    # Create memories and analytics subdirectories
+                    (nested_dir / "memories").mkdir(exist_ok=True)
+                    (nested_dir / "analytics").mkdir(exist_ok=True)
             
             # Update setting (delta-only - only store if different from default)
             default_value = settings[setting_name].default
@@ -250,6 +260,13 @@ class ApplicationSettingsManager:
                 del user_data[setting_name]
             
             # Save updated user file
+            if not user_file:
+                # Default to new nested structure if no existing file
+                user_file = self.user_dir / username / f"user_{username}.json"
+                user_file.parent.mkdir(parents=True, exist_ok=True)
+                (user_file.parent / "memories").mkdir(exist_ok=True)
+                (user_file.parent / "analytics").mkdir(exist_ok=True)
+            
             with open(user_file, 'w') as f:
                 json.dump(user_data, f, indent=2)
             
@@ -361,6 +378,30 @@ class ApplicationSettingsManager:
             except Exception:
                 return None
         
+        return None
+    
+    def _get_user_file_path(self, username: str) -> Optional[Path]:
+        """
+        Get user file path, checking both new nested structure and legacy flat structure.
+        Prioritizes nested structure for forward compatibility.
+        
+        Args:
+            username: User's username
+            
+        Returns:
+            Path to user file or None if not found
+        """
+        # First check new nested structure: ./configs/user/[username]/user_[username].json
+        nested_path = self.user_dir / username / f"user_{username}.json"
+        if nested_path.exists():
+            return nested_path
+        
+        # Fallback to legacy flat structure: ./configs/user/user_[username].json
+        legacy_path = self.user_dir / f"user_{username}.json"
+        if legacy_path.exists():
+            return legacy_path
+        
+        # Return None if neither exists
         return None
 
 # Standalone functions for button file imports (Mao standardization pattern)

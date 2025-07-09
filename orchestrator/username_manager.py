@@ -53,20 +53,21 @@ class UsernameManager:
                    email: str = "", dob: str = "") -> Dict[str, Any]:
         """
         Create a new user with generated user_id
+        Creates nested directory structure with memories and analytics subdirectories
         Returns user data and creation status
         """
         if not username or not username.strip():
             raise ValueError("Username cannot be empty")
         
         clean_username = username.strip().lower()
-        user_file = self.user_dir / f"user_{clean_username}.json"
         
-        # Check if user already exists
-        if user_file.exists():
+        # Check if user already exists (check both new and legacy paths)
+        existing_user = self.load_user(username)
+        if existing_user:
             return {
                 "success": False,
                 "message": f"User '{username}' already exists",
-                "user_data": self.load_user(username)
+                "user_data": existing_user
             }
         
         # Generate user_id using meid script
@@ -87,7 +88,16 @@ class UsernameManager:
             "last_login": datetime.now().isoformat()
         }
         
-        # Save user file
+        # Create nested directory structure
+        user_dir = self.user_dir / clean_username
+        user_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create memories and analytics subdirectories
+        (user_dir / "memories").mkdir(exist_ok=True)
+        (user_dir / "analytics").mkdir(exist_ok=True)
+        
+        # Save user file in nested structure
+        user_file = user_dir / f"user_{clean_username}.json"
         with open(user_file, 'w') as f:
             json.dump(user_data, f, indent=2)
         
@@ -106,7 +116,7 @@ class UsernameManager:
     
     @handle_errors(operation_name="load_user", return_dict=True)
     def load_user(self, username: str) -> Optional[Dict[str, Any]]:
-        """Load user data by username"""
+        """Load user data by username, checking both new nested and legacy flat structures"""
         if not username:
             return None
         
@@ -118,9 +128,10 @@ class UsernameManager:
         if cached_result:
             return json.loads(cached_result)
         
-        user_file = self.user_dir / f"user_{clean_username}.json"
+        # Check both new nested structure and legacy flat structure
+        user_file = self._get_user_file_path(clean_username)
         
-        if not user_file.exists():
+        if not user_file or not user_file.exists():
             return None
         
         try:
@@ -140,6 +151,7 @@ class UsernameManager:
         """
         Update user settings with delta-only storage
         Only saves settings that differ from defaults
+        Supports both legacy and new nested directory structures
         """
         user_data = self.load_user(username)
         if not user_data:
@@ -162,9 +174,17 @@ class UsernameManager:
         user_data["settings"].update(delta_settings)
         user_data["last_updated"] = datetime.now().isoformat()
         
-        # Save updated user file
+        # Save updated user file using appropriate path
         clean_username = username.strip().lower()
-        user_file = self.user_dir / f"user_{clean_username}.json"
+        user_file = self._get_user_file_path(clean_username)
+        
+        if not user_file:
+            # Create new file in nested structure
+            user_dir = self.user_dir / clean_username
+            user_dir.mkdir(parents=True, exist_ok=True)
+            (user_dir / "memories").mkdir(exist_ok=True)
+            (user_dir / "analytics").mkdir(exist_ok=True)
+            user_file = user_dir / f"user_{clean_username}.json"
         
         with open(user_file, 'w') as f:
             json.dump(user_data, f, indent=2)
@@ -182,7 +202,7 @@ class UsernameManager:
     
     @handle_errors(operation_name="set_session_user", return_dict=True)
     def set_session_user(self, username: str) -> Dict[str, Any]:
-        """Set the current session user"""
+        """Set the current session user with nested directory support"""
         user_data = self.load_user(username)
         if not user_data:
             return {"success": False, "message": f"User '{username}' not found"}
@@ -190,7 +210,15 @@ class UsernameManager:
         # Update last login
         user_data["last_login"] = datetime.now().isoformat()
         clean_username = username.strip().lower()
-        user_file = self.user_dir / f"user_{clean_username}.json"
+        user_file = self._get_user_file_path(clean_username)
+        
+        if not user_file:
+            # Create new file in nested structure
+            user_dir = self.user_dir / clean_username
+            user_dir.mkdir(parents=True, exist_ok=True)
+            (user_dir / "memories").mkdir(exist_ok=True)
+            (user_dir / "analytics").mkdir(exist_ok=True)
+            user_file = user_dir / f"user_{clean_username}.json"
         
         with open(user_file, 'w') as f:
             json.dump(user_data, f, indent=2)
@@ -235,9 +263,10 @@ class UsernameManager:
     
     @handle_errors(operation_name="list_users", return_dict=True)
     def list_users(self) -> List[Dict[str, Any]]:
-        """Get fresh list of all users from directory"""
+        """Get fresh list of all users from directory, checking both nested and legacy structures"""
         users = []
         
+        # Check legacy flat structure
         for user_file in self.user_dir.glob("user_*.json"):
             if user_file.name.startswith('.'):
                 continue
@@ -248,6 +277,20 @@ class UsernameManager:
                 users.append(user_data)
             except (json.JSONDecodeError, IOError):
                 continue
+        
+        # Check new nested structure
+        for user_dir in self.user_dir.iterdir():
+            if user_dir.is_dir() and not user_dir.name.startswith('.'):
+                user_file = user_dir / f"user_{user_dir.name}.json"
+                if user_file.exists():
+                    try:
+                        with open(user_file, 'r') as f:
+                            user_data = json.load(f)
+                        # Check if we already have this user (avoid duplicates)
+                        if not any(u.get('username') == user_data.get('username') for u in users):
+                            users.append(user_data)
+                    except (json.JSONDecodeError, IOError):
+                        continue
         
         # Sort by last_login (most recent first)
         users.sort(key=lambda x: x.get("last_login", ""), reverse=True)
@@ -289,6 +332,30 @@ class UsernameManager:
             self.session_file.unlink()
         
         return {"success": True, "message": "User logged out successfully"}
+    
+    def _get_user_file_path(self, username: str) -> Optional[Path]:
+        """
+        Get user file path, checking both new nested structure and legacy flat structure.
+        Prioritizes nested structure for forward compatibility.
+        
+        Args:
+            username: Clean username (already processed)
+            
+        Returns:
+            Path to user file or None if not found
+        """
+        # First check new nested structure: ./configs/user/[username]/user_[username].json
+        nested_path = self.user_dir / username / f"user_{username}.json"
+        if nested_path.exists():
+            return nested_path
+        
+        # Fallback to legacy flat structure: ./configs/user/user_[username].json
+        legacy_path = self.user_dir / f"user_{username}.json"
+        if legacy_path.exists():
+            return legacy_path
+        
+        # Return None if neither exists
+        return None
     
     def estimate_cost(self, params: Dict[str, Any]) -> float:
         """Estimate operation cost for budget planning"""
