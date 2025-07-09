@@ -10,6 +10,13 @@ from rich.text import Text
 from rich.tree import Tree
 from typing import Dict, Any
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
+
 # Module-level console for consistency
 console = Console()
 
@@ -309,3 +316,8 @@ def display_verbose_help() -> None:
         style="blue",
         title_align="left"
     ))
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate verbose UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

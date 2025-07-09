@@ -3,14 +3,14 @@ Update CLI Command - UI Display Patterns
 Data structure definitions for workflow update display
 """
 
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
 
 # Standard cache instance
-cache = CacheManager(), List
+cache = CacheManager()
 
 def display_update_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """
