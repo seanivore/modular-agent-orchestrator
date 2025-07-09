@@ -5,6 +5,13 @@ Essential data structure for authentication flow display per NEW_USER_FLOW.md
 
 from typing import Dict, Any
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
+
 def display_login_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """
     Organize login command results for UI display per NEW_USER_FLOW.md specifications.
@@ -287,6 +294,11 @@ def display_error(error_message: str) -> Dict[str, Any]:
         ],
         "show_help_hint": True
     }
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate login UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free
 
 def get_theme_selection_display() -> Dict[str, Any]:
     """

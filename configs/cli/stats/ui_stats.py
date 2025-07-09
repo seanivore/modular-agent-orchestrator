@@ -4,6 +4,13 @@ Performance-focused UI patterns for real-time metrics display
 """
 
 from typing import Dict, Any, List
+
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
 from datetime import datetime
 
 def display_stats_result(result: Dict[str, Any]) -> Dict[str, Any]:
@@ -410,3 +417,8 @@ def display_workflow_progress(progress_data: Dict[str, Any]) -> Dict[str, Any]:
         "phases": progress_data.get("phases", []),
         "timestamp": progress_data.get("timestamp")
     }
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate stats UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

@@ -11,9 +11,15 @@ from rich.panel import Panel
 from rich.text import Text
 from rich import box
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
 console = Console()
+cache = CacheManager()
 
 
+@handle_errors(operation_name="display_mcp_connector_result", return_dict=False)
 def display_mcp_connector_result(result: Dict[str, Any], verbose: bool = False) -> None:
     """
     Display MCP Connector operation results with beautiful formatting
@@ -51,6 +57,7 @@ def display_mcp_connector_result(result: Dict[str, Any], verbose: bool = False) 
                     console.print(f"  {key}: {value}")
 
 
+@handle_errors(operation_name="display_error", return_dict=False)
 def display_error(error_msg: str) -> None:
     """Display error with consistent formatting"""
     panel = Panel(
@@ -294,3 +301,17 @@ def format_operation_params(operation: str, params: Dict[str, Any]) -> str:
         return "Checking health of all registered servers"
     else:
         return f"Operation: {operation}"
+
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate cost for UI operations (typically free)
+    
+    Args:
+        params: Operation parameters
+        
+    Returns:
+        Cost estimate (0.0 for UI operations)
+    """
+    return 0.0  # UI operations are free

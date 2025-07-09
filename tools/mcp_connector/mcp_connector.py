@@ -5,6 +5,7 @@ Provides connectivity to external MCP servers and tool discovery
 """
 
 import json
+import logging
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path
@@ -12,6 +13,9 @@ from pathlib import Path
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 # Standard cache instance
 cache = CacheManager()
@@ -108,9 +112,9 @@ class MCPConnector:
                             f"Registered MCP server: {server_config['description']}"
                         )
                     else:
-                        print(f"📝 MCP server {server_name} registered (memory logging unavailable)")
+                        logger.info(f"MCP server {server_name} registered (memory logging unavailable)")
                 except Exception as e:
-                    print(f"⚠️  MCP server {server_name} registered (memory logging failed: {e})")
+                    logger.warning(f"MCP server {server_name} registered (memory logging failed: {e})")
             
             return {
                 "server_name": server_name,
@@ -121,7 +125,7 @@ class MCPConnector:
             
         except Exception as e:
             error_msg = f"Failed to register server {server_name}: {str(e)}"
-            print(f"Warning: {error_msg}")
+            logger.warning(error_msg)
             
             if self.memory_manager:
                 try:
@@ -269,7 +273,7 @@ class MCPConnector:
                 
                 return True
             except Exception as e:
-                print(f"Warning: Error disconnecting from {server_name}: {e}")
+                logger.warning(f"Error disconnecting from {server_name}: {e}")
                 return False
         
         return False
@@ -434,11 +438,11 @@ class MCPServerConnection:
         try:
             # In real implementation, this would start the server process
             # and establish MCP protocol connection
-            print(f"Mock connecting to {self.name} server...")
+            logger.info(f"Mock connecting to {self.name} server...")
             self._connected = True
             return True
         except Exception as e:
-            print(f"Failed to connect to {self.name}: {e}")
+            logger.error(f"Failed to connect to {self.name}: {e}")
             return False
     
     def disconnect(self) -> bool:

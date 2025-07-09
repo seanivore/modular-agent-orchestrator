@@ -1,10 +1,20 @@
 """
 PERPLEXITY SEARCH
-Human Button Generator - Standardized Single Entry Point
+Button Generator - Standardized Single Entry Point
 """
 
 from typing import Dict, Any, List
 import json
+
+# Rich import with fallback for graceful degradation
+try:
+    from rich.console import Console
+    HAS_RICH = True
+    console = Console()
+except ImportError:
+    HAS_RICH = False
+    console = None
+
 from tools.perplexity_search.perplexity_search import (
     perform_perplexity_search, perform_enhanced_research, validate_perplexity_query,
     get_research_suggestions, check_api_configuration, estimate_cost
@@ -49,6 +59,14 @@ def _create_basic_search_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''
 # Perplexity AI Search - Using MAO Logic Functions
 import json
+try:
+    from rich.console import Console
+    console = Console()
+    HAS_RICH = True
+except ImportError:
+    HAS_RICH = False
+    console = None
+
 from tools.perplexity_search.perplexity_search import perform_perplexity_search, estimate_cost
 from tools.perplexity_search.ui_perplexity_search import display_perplexity_result
 
@@ -61,21 +79,35 @@ def execute_search():
         "search_context": "{search_context}"
     }}
     
-    print("🧠 Perplexity AI Search")
-    print(f"📝 Query: {{params['query']}}")
-    print(f"🤖 Model: {{params['model']}}")
-    print("="*60)
+    if HAS_RICH and console:
+        console.print("[blue]🧠 Perplexity AI Search[/blue]")
+        console.print(f"[cyan]📝 Query:[/cyan] {{params['query']}}")
+        console.print(f"[cyan]🤖 Model:[/cyan] {{params['model']}}")
+        console.print("=" * 60)
+    else:
+        print("🧠 Perplexity AI Search")
+        print(f"📝 Query: {{params['query']}}")
+        print(f"🤖 Model: {{params['model']}}")
+        print("="*60)
     
     # Use MAO logic function
     result = perform_perplexity_search(**params)
     display_perplexity_result(result, verbose=True)
     
     if result.get("status") == "ready_for_execution":
-        print("✅ Search configuration ready")
-        print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
-        print("💡 Now execute with Perplexity API using the configuration above")
+        if HAS_RICH and console:
+            console.print("[green]✅ Search configuration ready[/green]")
+            console.print(f"[yellow]💰 Estimated cost:[/yellow] ${{estimate_cost(params):.4f}}")
+            console.print("[dim]💡 Now execute with Perplexity API using the configuration above[/dim]")
+        else:
+            print("✅ Search configuration ready")
+            print(f"💰 Estimated cost: ${{estimate_cost(params):.4f}}")
+            print("💡 Now execute with Perplexity API using the configuration above")
     else:
-        print("❌ Search preparation failed")
+        if HAS_RICH and console:
+            console.print("[red]❌ Search preparation failed[/red]")
+        else:
+            print("❌ Search preparation failed")
 
 execute_search()
 '''
@@ -93,6 +125,14 @@ def _create_enhanced_research_snippet(params: Dict[str, Any], model: str) -> str
     return f'''
 # Enhanced Perplexity Research - Using MAO Logic Functions
 import json
+try:
+    from rich.console import Console
+    console = Console()
+    HAS_RICH = True
+except ImportError:
+    HAS_RICH = False
+    console = None
+
 from tools.perplexity_search.perplexity_search import perform_enhanced_research, estimate_cost
 from tools.perplexity_search.ui_perplexity_search import display_perplexity_result
 
@@ -106,22 +146,37 @@ def execute_enhanced_research():
         "model": "{perplexity_model}"
     }}
     
-    print("🧠 Enhanced Perplexity Research")
-    print(f"📝 Query: {{params['query']}}")
-    print(f"📊 Approach: {{params['research_approach']}}")
-    print(f"🎯 Focus: {{params['analysis_focus']}}")
-    print("="*80)
+    if HAS_RICH and console:
+        console.print("[blue]🧠 Enhanced Perplexity Research[/blue]")
+        console.print(f"[cyan]📝 Query:[/cyan] {{params['query']}}")
+        console.print(f"[cyan]📊 Approach:[/cyan] {{params['research_approach']}}")
+        console.print(f"[cyan]🎯 Focus:[/cyan] {{params['analysis_focus']}}")
+        console.print("=" * 80)
+    else:
+        print("🧠 Enhanced Perplexity Research")
+        print(f"📝 Query: {{params['query']}}")
+        print(f"📊 Approach: {{params['research_approach']}}")
+        print(f"🎯 Focus: {{params['analysis_focus']}}")
+        print("="*80)
     
     # Use MAO logic function
     result = perform_enhanced_research(**params)
     display_perplexity_result(result, verbose=True)
     
     if result.get("status") == "ready_for_execution":
-        print("✅ Enhanced research configuration ready")
-        print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
-        print("💡 Now execute with Perplexity API using the enhanced configuration above")
+        if HAS_RICH and console:
+            console.print("[green]✅ Enhanced research configuration ready[/green]")
+            console.print(f"[yellow]💰 Estimated cost:[/yellow] ${{estimate_cost(params):.4f}}")
+            console.print("[dim]💡 Now execute with Perplexity API using the enhanced configuration above[/dim]")
+        else:
+            print("✅ Enhanced research configuration ready")
+            print(f"💰 Estimated cost: ${{estimate_cost(params):.4f}}")
+            print("💡 Now execute with Perplexity API using the enhanced configuration above")
     else:
-        print("❌ Research preparation failed")
+        if HAS_RICH and console:
+            console.print("[red]❌ Research preparation failed[/red]")
+        else:
+            print("❌ Research preparation failed")
 
 execute_enhanced_research()
 '''
@@ -135,6 +190,14 @@ def _create_validation_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''
 # Perplexity Query Validation - Using MAO Logic Functions
 import json
+try:
+    from rich.console import Console
+    console = Console()
+    HAS_RICH = True
+except ImportError:
+    HAS_RICH = False
+    console = None
+
 from tools.perplexity_search.perplexity_search import validate_perplexity_query
 from tools.perplexity_search.ui_perplexity_search import display_perplexity_result
 
@@ -143,18 +206,29 @@ def validate_query():
     
     query = {escaped_query}
     
-    print("🧠 Perplexity Query Validation")
-    print(f"📝 Query: {{query}}")
-    print("="*60)
+    if HAS_RICH and console:
+        console.print("[blue]🧠 Perplexity Query Validation[/blue]")
+        console.print(f"[cyan]📝 Query:[/cyan] {{query}}")
+        console.print("=" * 60)
+    else:
+        print("🧠 Perplexity Query Validation")
+        print(f"📝 Query: {{query}}")
+        print("="*60)
     
     # Use MAO logic function
     result = validate_perplexity_query(query)
     display_perplexity_result(result, verbose=True)
     
     if result.get("is_valid"):
-        print("✅ Query is optimized for Perplexity AI")
+        if HAS_RICH and console:
+            console.print("[green]✅ Query is optimized for Perplexity AI[/green]")
+        else:
+            print("✅ Query is optimized for Perplexity AI")
     else:
-        print("⚠️ Query could be improved for better results")
+        if HAS_RICH and console:
+            console.print("[yellow]⚠️ Query could be improved for better results[/yellow]")
+        else:
+            print("⚠️ Query could be improved for better results")
 
 validate_query()
 '''
@@ -170,6 +244,14 @@ def _create_suggestions_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''
 # Perplexity Research Suggestions - Using MAO Logic Functions
 import json
+try:
+    from rich.console import Console
+    console = Console()
+    HAS_RICH = True
+except ImportError:
+    HAS_RICH = False
+    console = None
+
 from tools.perplexity_search.perplexity_search import get_research_suggestions
 from tools.perplexity_search.ui_perplexity_search import display_perplexity_result
 
@@ -181,19 +263,31 @@ def generate_suggestions():
         "suggestion_type": "{suggestion_type}"
     }}
     
-    print("🧠 Perplexity Research Suggestions")
-    print(f"📝 Query: {{params['query']}}")
-    print(f"🎯 Type: {{params['suggestion_type']}}")
-    print("="*60)
+    if HAS_RICH and console:
+        console.print("[blue]🧠 Perplexity Research Suggestions[/blue]")
+        console.print(f"[cyan]📝 Query:[/cyan] {{params['query']}}")
+        console.print(f"[cyan]🎯 Type:[/cyan] {{params['suggestion_type']}}")
+        console.print("=" * 60)
+    else:
+        print("🧠 Perplexity Research Suggestions")
+        print(f"📝 Query: {{params['query']}}")
+        print(f"🎯 Type: {{params['suggestion_type']}}")
+        print("="*60)
     
     # Use MAO logic function
     result = get_research_suggestions(**params)
     display_perplexity_result(result, verbose=True)
     
     if result.get("suggestions"):
-        print(f"✅ Generated {{len(result['suggestions'])}} research suggestions")
+        if HAS_RICH and console:
+            console.print(f"[green]✅ Generated {{len(result['suggestions'])}} research suggestions[/green]")
+        else:
+            print(f"✅ Generated {{len(result['suggestions'])}} research suggestions")
     else:
-        print("⚠️ No suggestions could be generated")
+        if HAS_RICH and console:
+            console.print("[yellow]⚠️ No suggestions could be generated[/yellow]")
+        else:
+            print("⚠️ No suggestions could be generated")
 
 generate_suggestions()
 '''
@@ -202,28 +296,44 @@ generate_suggestions()
 def _create_api_check_snippet(params: Dict[str, Any], model: str) -> str:
     """Generate API check snippet using MAO logic functions"""
     
-    return '''
+    return f'''
 # Perplexity API Configuration Check - Using MAO Logic Functions
+import json
+try:
+    from rich.console import Console
+    console = Console()
+    HAS_RICH = True
+except ImportError:
+    HAS_RICH = False
+    console = None
+
 from tools.perplexity_search.perplexity_search import check_api_configuration
 from tools.perplexity_search.ui_perplexity_search import display_perplexity_result
 
-def check_api_setup():
+def check_api():
     """Check Perplexity API configuration using MAO functions"""
     
-    print("🧠 Perplexity API Configuration Check")
-    print("="*60)
+    if HAS_RICH and console:
+        console.print("[blue]🧠 Perplexity API Configuration Check[/blue]")
+        console.print("=" * 60)
+    else:
+        print("🧠 Perplexity API Configuration Check")
+        print("="*60)
     
     # Use MAO logic function
     result = check_api_configuration()
     display_perplexity_result(result, verbose=True)
     
-    if result.get("api_key_present"):
-        print("✅ Perplexity API is properly configured")
-        print("🚀 Ready to perform AI-powered searches")
+    if result.get("is_configured"):
+        if HAS_RICH and console:
+            console.print("[green]✅ Perplexity API is properly configured[/green]")
+        else:
+            print("✅ Perplexity API is properly configured")
     else:
-        print("❌ API key not found - setup required")
-        print("💡 Set PERPLEXITY_API_KEY environment variable")
-        print("🔗 Get your API key at: https://www.perplexity.ai/settings/api")
+        if HAS_RICH and console:
+            console.print("[red]❌ API configuration needs attention[/red]")
+        else:
+            print("❌ API configuration needs attention")
 
-check_api_setup()
+check_api()
 '''

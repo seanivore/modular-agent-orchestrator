@@ -223,6 +223,23 @@ class TerminalInterface:
         except Exception as e:
             print(f"❌ Failed to start onboarding: {str(e)}")
 
+    @handle_errors(operation_name="estimate_cost", return_dict=True)
+    def estimate_cost(self, params: Dict[str, Any] = None) -> float:
+        """Estimate interface operation cost for budget planning"""
+        base_cost = 0.01  # Base interface cost
+        
+        if params:
+            commands = params.get("commands", 1)
+            base_cost += commands * 0.005
+            
+            ui_operations = params.get("ui_operations", 1)
+            base_cost += ui_operations * 0.002
+            
+            orchestrator_calls = params.get("orchestrator_calls", 0)
+            base_cost += orchestrator_calls * 0.01
+        
+        return base_cost
+
 
 # =================================================================
 # LEGACY COMPATIBILITY & BOOTSTRAPPING

@@ -4,14 +4,25 @@ UI Display Component
 """
 
 from typing import Dict, Any
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.text import Text
 
-console = Console()
+# Rich import with fallback handling
+try:
+    from rich.console import Console
+    from rich.table import Table
+    from rich.panel import Panel
+    from rich.text import Text
+    HAS_RICH = True
+    console = Console()
+except ImportError:
+    HAS_RICH = False
+    console = None
+
+# Standardization imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
 
 
+@handle_errors(operation_name="display_brave_search", return_dict=False)
 def display_brave_search_result(result: Dict[str, Any], verbose: bool = False) -> None:
     """
     Display Brave Search operation results with beautiful formatting
@@ -20,6 +31,10 @@ def display_brave_search_result(result: Dict[str, Any], verbose: bool = False) -
         result: Search result data from brave_search tool
         verbose: Show detailed technical information
     """
+    
+    if not HAS_RICH:
+        _display_basic_result(result, verbose)
+        return
     
     # Handle error cases
     if "error" in result:
@@ -85,23 +100,69 @@ def display_brave_search_result(result: Dict[str, Any], verbose: bool = False) -
             console.print(f"   Timestamp: {result.get('timestamp', 'Unknown')}")
 
 
+def _display_basic_result(result: Dict[str, Any], verbose: bool = False) -> None:
+    """Fallback display function when Rich is not available"""
+    
+    # Handle error cases
+    if "error" in result:
+        print(f"❌ Error: {result.get('error', 'Unknown error')}")
+        return
+    
+    # Handle empty results
+    if result.get("count", 0) == 0:
+        print(f"🔍 No results found for: {result.get('query', 'unknown query')}")
+        return
+    
+    # Main results display
+    query = result.get("query", "Unknown query")
+    search_type = result.get("search_type", "web")
+    count = result.get("count", 0)
+    
+    print(f"🔍 Found {count} results for: {query}")
+    
+    # Determine result key
+    result_key = "articles" if search_type == "news" else "results"
+    results = result.get(result_key, [])
+    
+    for item in results:
+        rank = item.get("rank", "?")
+        title = item.get("title", "No title")
+        description = item.get("description", "No description")
+        print(f"{rank}. {title}")
+        print(f"   {description}")
+        if verbose:
+            print(f"   URL: {item.get('url', 'No URL')}")
+        print()
+
+
+@handle_errors(operation_name="display_error", return_dict=False)
 def display_error(error_msg: str) -> None:
     """Display error with consistent formatting"""
-    panel = Panel(
-        f"❌ Error: {error_msg}",
-        title="Brave Search Error",
-        border_style="red"
-    )
-    console.print(panel)
+    if HAS_RICH:
+        panel = Panel(
+            f"❌ Error: {error_msg}",
+            title="Brave Search Error",
+            border_style="red"
+        )
+        console.print(panel)
+    else:
+        print(f"❌ Brave Search Error: {error_msg}")
 
 
+@handle_errors(operation_name="display_api_validation", return_dict=False)
 def display_api_validation(result: Dict[str, Any], verbose: bool = False) -> None:
     """Display API key validation results"""
     
     if result.get("valid", False):
-        console.print("✅ Brave API key is valid and ready", style="green")
-        if verbose:
-            console.print(f"   Key length: {result.get('key_length', 'unknown')} characters", style="dim")
+        message = "✅ Brave API key is valid and ready"
+        if HAS_RICH:
+            console.print(message, style="green")
+            if verbose:
+                console.print(f"   Key length: {result.get('key_length', 'unknown')} characters", style="dim")
+        else:
+            print(message)
+            if verbose:
+                print(f"   Key length: {result.get('key_length', 'unknown')} characters")
     else:
         error_msg = "Brave API key validation failed"
         if "error" in result:
@@ -109,18 +170,32 @@ def display_api_validation(result: Dict[str, Any], verbose: bool = False) -> Non
         display_error(error_msg)
 
 
+@handle_errors(operation_name="display_cost_estimate", return_dict=False)
 def display_cost_estimate(cost: float, verbose: bool = False) -> None:
     """Display cost estimation for search operation"""
     
     if cost == 0:
-        console.print("💰 Cost: FREE", style="green bold")
+        message = "💰 Cost: FREE"
+        if HAS_RICH:
+            console.print(message, style="green bold")
+        else:
+            print(message)
     else:
-        console.print(f"💰 Estimated cost: ${cost:.4f}", style="yellow")
+        message = f"💰 Estimated cost: ${cost:.4f}"
+        if HAS_RICH:
+            console.print(message, style="yellow")
+        else:
+            print(message)
     
     if verbose:
-        console.print("   Brave Search API is typically free for reasonable usage", style="dim")
+        note = "   Brave Search API is typically free for reasonable usage"
+        if HAS_RICH:
+            console.print(note, style="dim")
+        else:
+            print(note)
 
 
+@handle_errors(operation_name="display_search_summary", return_dict=False)
 def display_search_summary(results: Dict[str, Any], verbose: bool = False) -> None:
     """Display a summary of search operation"""
     
@@ -138,7 +213,11 @@ def display_search_summary(results: Dict[str, Any], verbose: bool = False) -> No
         timestamp = results.get("timestamp", "Unknown time")
         summary_text += f" at {timestamp}"
     
-    console.print(f"📋 {summary_text}", style="green")
+    message = f"📋 {summary_text}"
+    if HAS_RICH:
+        console.print(message, style="green")
+    else:
+        print(message)
 
 
 def format_for_agent_handoff(results: Dict[str, Any]) -> str:
@@ -169,3 +248,8 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
         formatted_results.append(f"   URL: {url}\n")
     
     return "\n".join(formatted_results)
+
+
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate cost for UI operations - standardized naming"""
+    return 0.0  # UI operations are free

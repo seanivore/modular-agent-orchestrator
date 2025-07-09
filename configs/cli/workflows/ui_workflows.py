@@ -10,6 +10,13 @@ from rich.text import Text
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from typing import Dict, Any, List
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
+
 # Module-level console for consistency
 console = Console()
 
@@ -252,3 +259,8 @@ def display_error(error_message: str) -> None:
         style="red",
         title="Workflows Command Error"
     ))
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate workflows UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

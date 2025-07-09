@@ -9,9 +9,15 @@ from rich.table import Table
 from rich.text import Text
 from typing import Dict, Any
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
 console = Console()
+cache = CacheManager()
 
 
+@handle_errors(operation_name="display_files_api_result", return_dict=False)
 def display_files_api_result(result: Dict[str, Any], interface: str = "terminal") -> None:
     """
     Display Files API results with beautiful formatting
@@ -31,6 +37,7 @@ def display_files_api_result(result: Dict[str, Any], interface: str = "terminal"
         display_web_results(result)
 
 
+@handle_errors(operation_name="display_terminal_results", return_dict=False)
 def display_terminal_results(result: Dict[str, Any]) -> None:
     """Display Files API results in beautiful terminal format"""
     
@@ -218,6 +225,7 @@ def display_generic_result(result: Dict[str, Any]) -> None:
         console.print(details_table)
 
 
+@handle_errors(operation_name="display_error", return_dict=False)
 def display_error(error_msg: str) -> None:
     """Display error with consistent formatting"""
     panel = Panel(
@@ -273,3 +281,17 @@ def display_operation_summary(results: Dict[str, Any], verbose: bool = False) ->
         for key, value in results.items():
             if key not in ["status", "error", "cost"]:
                 console.print(f"   {key}: {value}", style="dim")
+
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate cost for UI operations (typically free)
+    
+    Args:
+        params: Operation parameters
+        
+    Returns:
+        Cost estimate (0.0 for UI operations)
+    """
+    return 0.0  # UI operations are free

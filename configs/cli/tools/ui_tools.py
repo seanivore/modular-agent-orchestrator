@@ -5,6 +5,13 @@ Provides essential data structure for categorized tool listing
 
 from typing import Dict, Any
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
+
 def display_tools_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """
     Organize tools command results for UI display.
@@ -155,3 +162,8 @@ def display_error(error_message: str) -> Dict[str, Any]:
         ],
         "show_help_hint": True
     }
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate tools UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

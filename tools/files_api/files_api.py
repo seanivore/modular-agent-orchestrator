@@ -5,12 +5,16 @@ Provides workspace organization, draft storage, and agent communication via File
 """
 
 import json
+import logging
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from uuid import uuid4
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 # Standard cache instance
 cache = CacheManager()
@@ -396,7 +400,7 @@ class FilesAPIManager:
             
             return workflow_files
         except Exception as e:
-            print(f"Warning: Failed to get workflow files: {e}")
+            logger.warning(f"Failed to get workflow files: {e}")
             return {}
     
     def cleanup_workflow_files(self, workflow_id: str, keep_deliverables: bool = True):
@@ -412,7 +416,7 @@ class FilesAPIManager:
                     self.client.delete(file_info["file_id"])
                     cleanup_count += 1
                 except Exception as e:
-                    print(f"Warning: Failed to delete {file_info['filename']}: {e}")
+                    logger.warning(f"Failed to delete {file_info['filename']}: {e}")
         
         # Optionally clean up deliverables
         if not keep_deliverables:
@@ -421,7 +425,7 @@ class FilesAPIManager:
                     self.client.delete(file_info["file_id"])
                     cleanup_count += 1
                 except Exception as e:
-                    print(f"Warning: Failed to delete {file_info['filename']}: {e}")
+                    logger.warning(f"Failed to delete {file_info['filename']}: {e}")
         
         # Update Memory MCP
         if self.memory_mcp:

@@ -7,7 +7,14 @@ from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
-from typing import Dict, Any, List
+from typing import Dict, Any
+
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager(), List
 
 # Module-level console for consistency
 console = Console()
@@ -156,3 +163,8 @@ def get_workflow_id_display_title(result: Dict[str, Any]) -> str:
         return f"Workflow ID: {result.get('workflow_id', 'N/A')}"
     else:
         return "Workflow ID Generation Failed"
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate workflow_id UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

@@ -12,8 +12,14 @@ from rich.markdown import Markdown
 from typing import Dict, Any
 import time
 
-console = Console()
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
 
+console = Console()
+cache = CacheManager()
+
+@handle_errors(operation_name="display_error", return_dict=False)
 def display_error(error_message: str):
     """Display standardized error message with Panel formatting"""
     console.print(Panel(
@@ -22,6 +28,7 @@ def display_error(error_message: str):
         border_style="red"
     ))
 
+@handle_errors(operation_name="display_think_result", return_dict=False)
 def display_think_result(result: Dict[str, Any], verbose: bool = False):
     """Main dispatcher for think tool results"""
     if "error" in result:
@@ -255,4 +262,18 @@ def display_agent_handoff(operation: str, params: Dict[str, Any]):
         handoff_table.add_row("📝 Context:", params.get("context", ""))
     
     console.print(Panel(handoff_table, title="Handoff Details", border_style="blue"))
-    console.print("🚀 Ready for execution via human button") 
+    console.print("🚀 Ready for execution via human button")
+
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate cost for UI operations (typically free)
+    
+    Args:
+        params: Operation parameters
+        
+    Returns:
+        Cost estimate (0.0 for UI operations)
+    """
+    return 0.0  # UI operations are free 

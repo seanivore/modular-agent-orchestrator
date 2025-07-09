@@ -10,6 +10,13 @@ from rich.text import Text
 from rich.tree import Tree
 from typing import Dict, Any
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
+
 # Module-level console for consistency
 console = Console()
 
@@ -107,3 +114,8 @@ def display_goal_help() -> None:
         style="blue"
     )
     console.print(help_panel)
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate goal UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

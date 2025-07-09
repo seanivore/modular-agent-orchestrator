@@ -12,6 +12,9 @@ from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass, asdict
 
+# MAO error handling  
+from ..error_handling import handle_errors
+
 
 @dataclass
 class CacheEntry:
@@ -274,7 +277,7 @@ class CacheManager:
         return stats
     
     def cleanup_old_cache(self, days_old: int = 30):
-        """🗑️ Clean up old cache entries"""
+        """Clean up old cache entries"""
         cutoff_date = datetime.now() - timedelta(days=days_old)
         cleaned = 0
         
@@ -295,11 +298,29 @@ class CacheManager:
                         
                 except Exception as e:
                     if self.verbose:
-                        print(f"⚠️ Error cleaning {cache_file}: {e}")
+                        print(f"Warning: Error cleaning {cache_file}: {e}")
         
         if self.verbose:
-            print(f"🗑️ Cleaned {cleaned} old cache entries")
+            print(f"Cleaned {cleaned} old cache entries")
         return cleaned
+
+    @handle_errors(operation_name="estimate_cost", return_dict=True)
+    def estimate_cost(self, params: Dict[str, Any] = None) -> float:
+        """Estimate cache operation cost for budget planning"""
+        base_cost = 0.001  # Base cache cost (very low)
+        
+        if params:
+            operations = params.get("operations", 1)
+            base_cost += operations * 0.0001
+            
+            cache_size = params.get("cache_size_mb", 10)
+            base_cost += cache_size * 0.00001
+            
+            persistent_storage = params.get("persistent_storage", False)
+            if persistent_storage:
+                base_cost += 0.0005
+        
+        return base_cost
 
 
 # Demo the hybrid caching system

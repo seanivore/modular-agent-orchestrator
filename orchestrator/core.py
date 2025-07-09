@@ -14,6 +14,9 @@ from typing import Dict, List, Optional, Any, Tuple
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
+# MAO error handling
+from .error_handling import handle_errors
+
 # Conditional imports for optional dependencies
 try:
     import anthropic
@@ -142,7 +145,7 @@ class WorkflowOrchestrator:
         preferences: Optional[Dict] = None
     ) -> WorkflowPlan:
         """
-        🚀 THE MAGIC METHOD!
+        THE MAGIC METHOD!
         Transform natural language goal into intelligent workflow
         """
         preferences = preferences or {}
@@ -214,7 +217,7 @@ class WorkflowOrchestrator:
     
     def _analyze_goal(self, goal: str) -> Dict[str, Any]:
         """
-        🔍 Analyze user goal to understand requirements
+        Analyze user goal to understand requirements
         """
         goal_lower = goal.lower()
         
@@ -279,7 +282,7 @@ class WorkflowOrchestrator:
         tool_suggestions: Dict[str, Any]
     ) -> List[WorkflowPhase]:
         """
-        🏗️ Design optimal workflow structure with tools
+        Design optimal workflow structure with tools
         """
         phases = []
         task_types = analysis["task_types"]
@@ -391,7 +394,7 @@ class WorkflowOrchestrator:
         return phases
     
     def _create_tool_phases(self, selected_tools: List[str], analysis: Dict[str, Any]) -> List[WorkflowPhase]:
-        """🔧 Create workflow phases dynamically from tool registry configurations"""
+        """Create workflow phases dynamically from tool registry configurations"""
         tool_phases = []
         
         for tool_id in selected_tools:
@@ -535,7 +538,7 @@ class WorkflowOrchestrator:
         return estimated_tokens, estimated_cost
     
     def _generate_workflow_name(self, goal: str) -> str:
-        """📝 Generate a clean workflow name"""
+        """Generate a clean workflow name"""
         # Extract key words and create a name
         words = re.findall(r'\b\w+\b', goal.lower())
         key_words = [w for w in words if len(w) > 3 and w not in ["and", "the", "for", "with", "that", "this"]]
@@ -564,7 +567,7 @@ class WorkflowOrchestrator:
     
     async def _execute_phase_with_caching(self, phase: WorkflowPhase, workflow: WorkflowPlan, 
                                          workflow_memory: Dict, anthropic_client) -> ExecutionResult:
-        """🚀 Execute a single phase with context from Files API"""
+        """Execute a single phase with context from Files API"""
         
         # Build context from previous phases using Files API
         context_content = ""
@@ -609,7 +612,7 @@ class WorkflowOrchestrator:
     
     async def execute_workflow(self, workflow_id: str, anthropic_client=None) -> Dict[str, Any]:
         """
-        🚀 Execute a complete workflow with hybrid caching
+        Execute a complete workflow with hybrid caching
         """
         if workflow_id not in self.active_workflows:
             return {"error": f"Workflow {workflow_id} not found"}
@@ -739,7 +742,7 @@ class WorkflowOrchestrator:
         }
     
     def get_workflow_status(self, workflow_id: str) -> Dict[str, Any]:
-        """📊 Get workflow status and progress"""
+        """Get workflow status and progress"""
         if workflow_id not in self.active_workflows:
             return {"error": f"Workflow {workflow_id} not found"}
         
@@ -758,7 +761,7 @@ class WorkflowOrchestrator:
         }
     
     def list_workflows(self) -> List[Dict[str, Any]]:
-        """📋 List all workflows"""
+        """List all workflows"""
         return [
             {
                 "id": wf_id,
@@ -770,6 +773,26 @@ class WorkflowOrchestrator:
             }
             for wf_id, workflow in self.active_workflows.items()
         ]
+
+    @handle_errors(operation_name="estimate_cost", return_dict=True)
+    def estimate_cost(self, params: Dict[str, Any] = None) -> float:
+        """Estimate orchestrator cost for budget planning"""
+        base_cost = 0.01  # Base orchestrator cost
+        
+        if params:
+            workflows = params.get("workflows", 1)
+            base_cost += workflows * 0.05
+            
+            phases = params.get("phases", 3)
+            base_cost += phases * 0.02
+            
+            model_calls = params.get("model_calls", 10)
+            base_cost += model_calls * 0.001
+            
+            cache_operations = params.get("cache_operations", 5)
+            base_cost += cache_operations * 0.0001
+        
+        return base_cost
 
 
 # Example usage and testing

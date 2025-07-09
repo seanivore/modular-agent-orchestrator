@@ -5,6 +5,13 @@ Provides essential data structure for memory command results with rich formattin
 
 from typing import Dict, Any, List
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager()
+
 def display_memory_result(result: Dict[str, Any], verbose: bool = False) -> Dict[str, Any]:
     """
     Organize memory command results for UI display with rich formatting.
@@ -333,3 +340,8 @@ def display_usage_help() -> Dict[str, Any]:
             "/memory --suggest 'starting new project'"
         ]
     }
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate memory UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

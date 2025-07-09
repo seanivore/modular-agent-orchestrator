@@ -3,7 +3,14 @@ Update CLI Command - UI Display Patterns
 Data structure definitions for workflow update display
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any
+
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+# Standard cache instance
+cache = CacheManager(), List
 
 def display_update_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -214,3 +221,8 @@ def display_processing_status(status: str, details: str = "") -> Dict[str, Any]:
         "show_progress": True,
         "timestamp": None  # Would be set by caller
     }
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate update UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

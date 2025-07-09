@@ -3,18 +3,70 @@ PERPLEXITY SEARCH
 UI Display Component
 """
 
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from rich.text import Text
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.syntax import Syntax
-from rich.tree import Tree
-from rich.columns import Columns
+# Rich import with fallback for graceful degradation
+try:
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.table import Table
+    from rich.text import Text
+    from rich.progress import Progress, SpinnerColumn, TextColumn
+    from rich.syntax import Syntax
+    from rich.tree import Tree
+    from rich.columns import Columns
+    HAS_RICH = True
+    console = Console()
+except ImportError:
+    HAS_RICH = False
+    console = None
+    # Fallback classes for when Rich is not available
+    class Console:
+        def print(self, *args, **kwargs):
+            print(*args)
+    
+    class Panel:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    class Table:
+        def __init__(self, *args, **kwargs):
+            pass
+        def add_column(self, *args, **kwargs):
+            pass
+        def add_row(self, *args, **kwargs):
+            pass
+    
+    console = Console()
+
 from typing import Dict, Any, List
 
-console = Console()
+# Standardization imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
 
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """
+    Estimate cost for UI operations (always free)
+    
+    Args:
+        params: Operation parameters
+        
+    Returns:
+        Cost estimate (0.0 for UI operations)
+    """
+    return 0.0  # UI operations are free
+
+@handle_errors(operation_name="display_perplexity_result", return_dict=False)
+def display_perplexity_result(result: Dict[str, Any], verbose: bool = False):
+    """
+    Standardized display function alias for consistency
+    
+    Args:
+        result: Result dictionary from Perplexity operations
+        verbose: Whether to show detailed information
+    """
+    return display_perplexity_search_result(result, verbose)
+
+@handle_errors(operation_name="display_perplexity_search_result", return_dict=False)
 def display_perplexity_search_result(result: Dict[str, Any], verbose: bool = False):
     """
     Display Perplexity Search operation results with beautiful formatting
@@ -42,16 +94,21 @@ def display_perplexity_search_result(result: Dict[str, Any], verbose: bool = Fal
     else:
         _display_generic_result(result, verbose)
 
+@handle_errors(operation_name="display_error", return_dict=False)
 def display_error(error_msg: str) -> None:
     """Display error with consistent formatting"""
-    panel = Panel(
-        f"❌ Error: {error_msg}",
-        title="Perplexity Search Error",
-        border_style="red"
-    )
-    console.print(panel)
+    if HAS_RICH:
+        panel = Panel(
+            f"❌ Error: {error_msg}",
+            title="Perplexity Search Error",
+            border_style="red"
+        )
+        console.print(panel)
+    else:
+        print(f"❌ Perplexity Search Error: {error_msg}")
 
 
+@handle_errors(operation_name="_display_basic_search", return_dict=False)
 def _display_basic_search(result: Dict[str, Any], verbose: bool):
     """Display basic Perplexity search results"""
     query = result.get("query", "Unknown")
@@ -60,26 +117,42 @@ def _display_basic_search(result: Dict[str, Any], verbose: bool):
     search_context = result.get("search_context", "general")
     
     # Main search message
-    console.print(f"[blue]🧠 Perplexity Search Ready: {query}[/blue]")
+    if HAS_RICH:
+        console.print(f"[blue]🧠 Perplexity Search Ready: {query}[/blue]")
+    else:
+        print(f"🧠 Perplexity Search Ready: {query}")
     
     if verbose:
-        # Detailed search configuration
-        info_table = Table(show_header=False, box=None, padding=(0, 1))
-        info_table.add_column("Property", style="cyan")
-        info_table.add_column("Value", style="white")
-        
-        info_table.add_row("🧠 Query", query)
-        info_table.add_row("🤖 Model", model)
-        info_table.add_row("🎯 Context", search_context.title())
-        info_table.add_row("💰 Estimated Cost", f"${estimated_cost:.3f}")
-        info_table.add_row("🔧 Method", result.get("execution_method", "unknown"))
-        info_table.add_row("🌐 Endpoint", result.get("api_endpoint", "unknown"))
-        info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
-        
-        console.print(Panel(info_table, title="[bold]Perplexity Search Configuration[/bold]", border_style="blue"))
+        if HAS_RICH:
+            # Detailed search configuration
+            info_table = Table(show_header=False, box=None, padding=(0, 1))
+            info_table.add_column("Property", style="cyan")
+            info_table.add_column("Value", style="white")
+            
+            info_table.add_row("🧠 Query", query)
+            info_table.add_row("🤖 Model", model)
+            info_table.add_row("🎯 Context", search_context.title())
+            info_table.add_row("💰 Estimated Cost", f"${estimated_cost:.3f}")
+            info_table.add_row("🔧 Method", result.get("execution_method", "unknown"))
+            info_table.add_row("🌐 Endpoint", result.get("api_endpoint", "unknown"))
+            info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
+            
+            console.print(Panel(info_table, title="[bold]Perplexity Search Configuration[/bold]", border_style="blue"))
+        else:
+            print(f"🧠 Query: {query}")
+            print(f"🤖 Model: {model}")
+            print(f"🎯 Context: {search_context.title()}")
+            print(f"💰 Estimated Cost: ${estimated_cost:.3f}")
+            print(f"🔧 Method: {result.get('execution_method', 'unknown')}")
+            print(f"🌐 Endpoint: {result.get('api_endpoint', 'unknown')}")
+            print(f"⏰ Prepared: {result.get('timestamp', 'Unknown')}")
     else:
-        console.print(f"[dim]🤖 {model} • ${estimated_cost:.3f} estimated[/dim]")
+        if HAS_RICH:
+            console.print(f"[dim]🤖 {model} • ${estimated_cost:.3f} estimated[/dim]")
+        else:
+            print(f"🤖 {model} • ${estimated_cost:.3f} estimated")
 
+@handle_errors(operation_name="_display_enhanced_research", return_dict=False)
 def _display_enhanced_research(result: Dict[str, Any], verbose: bool):
     """Display enhanced research results"""
     query = result.get("query", "Unknown")
@@ -106,6 +179,7 @@ def _display_enhanced_research(result: Dict[str, Any], verbose: bool):
         
         console.print(Panel(info_table, title="[bold]Enhanced Research Configuration[/bold]", border_style="purple"))
 
+@handle_errors(operation_name="_display_query_validation", return_dict=False)
 def _display_query_validation(result: Dict[str, Any], verbose: bool):
     """Display query validation results"""
     query = result.get("query", "Unknown")
@@ -155,6 +229,7 @@ def _display_query_validation(result: Dict[str, Any], verbose: bool):
         
         console.print(Panel(info_table, title="[bold]Validation Details[/bold]", border_style="yellow"))
 
+@handle_errors(operation_name="_display_research_suggestions", return_dict=False)
 def _display_research_suggestions(result: Dict[str, Any], verbose: bool):
     """Display research suggestions"""
     original_query = result.get("original_query", "Unknown")
@@ -188,6 +263,7 @@ def _display_research_suggestions(result: Dict[str, Any], verbose: bool):
         
         console.print(Panel(info_table, title="[bold]Suggestion Details[/bold]", border_style="green"))
 
+@handle_errors(operation_name="_display_api_configuration", return_dict=False)
 def _display_api_configuration(result: Dict[str, Any], verbose: bool):
     """Display API configuration status"""
     api_key_present = result.get("api_key_present", False)
@@ -253,6 +329,7 @@ def _display_api_configuration(result: Dict[str, Any], verbose: bool):
             
             console.print(models_table)
 
+@handle_errors(operation_name="_display_generic_result", return_dict=False)
 def _display_generic_result(result: Dict[str, Any], verbose: bool):
     """Display generic operation results"""
     status = result.get("status", "unknown")
@@ -281,6 +358,7 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
         
         console.print(Panel(info_table, title="[bold]Operation Details[/bold]", border_style="blue"))
 
+@handle_errors(operation_name="display_search_execution_status", return_dict=False)
 def display_search_execution_status(query: str, status: str = "executing"):
     """
     Display search execution status
@@ -300,6 +378,7 @@ def display_search_execution_status(query: str, status: str = "executing"):
     icon = status_icons.get(status, "🧠")
     console.print(f"{icon} {status.title()}: {query}")
 
+@handle_errors(operation_name="display_perplexity_capabilities", return_dict=False)
 def display_perplexity_capabilities(capabilities: Dict[str, Any]):
     """
     Display Perplexity search capabilities and limitations
@@ -368,6 +447,7 @@ def display_perplexity_capabilities(capabilities: Dict[str, Any]):
         console.print(f"  Huge Model: ${cost_info.get('huge_model', 0.040):.3f}")
         console.print(f"  Enhanced Research: +{int((cost_info.get('enhanced_multiplier', 1.5) - 1) * 100)}%")
 
+@handle_errors(operation_name="display_agent_handoff_format", return_dict=False)
 def display_agent_handoff_format(result: Dict[str, Any]):
     """
     Format result for agent-to-agent handoff
@@ -400,6 +480,7 @@ def display_agent_handoff_format(result: Dict[str, Any]):
     else:
         return f"🧠 {operation.replace('_', ' ').title()}: {query}"
 
+@handle_errors(operation_name="display_research_progress", return_dict=False)
 def display_research_progress(stage: str, details: str = ""):
     """
     Display research progress indicator
