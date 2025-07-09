@@ -15,6 +15,12 @@ Systematically analyze all ~270 Mao files to **document bugs, redundancies, and 
  
 ---
 
+## Integration Notes
+
+This specification serves as the foundation phase of the specialized full codebase audit workflow. The workflow command handles all batch orchestration, timing, and execution coordination.
+
+---
+
 ## Output Requirements
 
 ### **Batch Report File Naming**: `batch_[number]_[prior-naming]_analysis.md`
@@ -106,58 +112,11 @@ tests/FULL_CODEBASE_AUDIT/
 
 ---
 
-## Execution Strategy
-
-### **Batch Processing Commands**
-
-**SEQUENTIAL (Core Dependencies):**
-```bash
-# Batch 1: Orchestrator files (20 files) - Heavy interdependencies
-claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=1
-
-# Batch 2: Interfaces (2 files) - Depends on orchestrator analysis  
-claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=2
-
-# Batch 14: Root files including mao_v4.py - Depends on orchestrator understanding
-claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=14
-```
-
-**PARALLEL (Independent Modules):**
-```bash
-# Batches 3-4: CLI commands (independent modules)
-claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=3-4
-
-# Batches 5-8: Config files (independent configurations)
-claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=5-8
-
-# Batches 9-11: Tools (independent implementations)  
-claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=9-11
-
-# Batches 12-13: Scripts/templates (independent support files)
-claude > /project:parallel_volley ./complete_codebase_audit_spec.md batch_range=12-13
-```
-
-### **Batch Distribution**:
-```
-SEQUENTIAL BATCHES (3):
-├── Batch 1: orchestrator/ (20 files)
-├── Batch 2: interfaces/ (2 files)  
-└── Batch 14: root files including mao_v4.py (2 files)
-
-PARALLEL BATCHES (11):
-├── Batches 3-4: configs/cli/ (37 commands)
-├── Batches 5-8: configs/models, providers, settings, connections (26 files)
-├── Batches 9-11: tools/ (74 tools)
-└── Batches 12-13: scripts/, templates/ (34 files)
-```
-
----
-
 ## Analysis Standards
 
 ### **Universal Requirements (Every File)**
 
-**Apply this analysis to ALL 292 files:**
+**Apply this analysis to ALL ~270 files:**
 
 ```markdown
 ### [FILE_NAME]
@@ -334,7 +293,7 @@ def _discover_commands_from_configs(self):
 - **Missing error handling** on any main functions (breaks reliability)
 
 ### **Success Criteria**
-- ✅ **All 292 files analyzed** with comprehensive violation documentation
+- ✅ **All ~270 files analyzed** with comprehensive violation documentation
 - ✅ **Detailed fix specifications** with exact before/after code blocks
 - ✅ **Complete integration map** for TypeScript UI development  
 - ✅ **Actionable fix packages** ready for review and approval

@@ -25,3 +25,6 @@ READ:
 ACCOMPLISH: 
     `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/complete_codebase_audit_spec.md`
     `/Users/seanivore/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/documentation_consolidation_spec.md`
+
+WORKFLOW: 
+    `/Users/seanivore/Development/modular-agent-orchestrator/.claude/commands/full_codebase_audit.md`
