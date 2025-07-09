@@ -13,19 +13,19 @@
 
 ## High-Level Objective
 
-Add sophisticated memory system and privacy-compliant analytics infrastructure to MAO's solid foundation. Implement user preference storage, contextual suggestions, and comprehensive analytics while maintaining MAO's modular discovery philosophy.
+Add sophisticated memory system and privacy-compliant analytics infrastructure to Mao's solid foundation. Implement user preference storage, contextual suggestions, and comprehensive analytics while maintaining Mao's modular discovery philosophy.
 
 ## Mid-Level Objectives
 
 - Create complete memory system with CLI commands and contextual suggestions  
 - Build privacy-first analytics infrastructure (user vs system separation)
 - Establish foundation for advanced user preference and analytics features
-- Maintain MAO's modular discovery patterns for all new systems
+- Maintain Nao's modular discovery patterns for all new systems
 
 ## Implementation Notes
 
 - **MAJOR CHANGE**: Restructure user directories from flat to nested organization
-- Follow established MAO patterns (CacheManager, @handle_errors, estimate_cost)
+- Follow established Mao patterns (CacheManager, @handle_errors, estimate_cost)
 - Use collected JSON files for analytics (not individual files per metric)
 - Maintain privacy-first architecture with clear user vs system data separation
 - Update all existing managers for new directory structure
