@@ -2,7 +2,7 @@
 
 ## What This Accomplishes
 
-**Systematically analyze all 292 Mao files** to document bugs, redundancies, and standardization violations with detailed fix specifications. Creates comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
+**Systematically analyze all 321 Mao files** to document bugs, redundancies, and standardization violations with detailed fix specifications. Creates comprehensive violation inventory and integration mapping to enable controlled, verified fixes before UI development.
 
 **The Goal:** Prevent the "bug at every step" nightmare through comprehensive analysis that catches all systemic issues upfront.
 
@@ -32,7 +32,7 @@ claude > /project:sequential_volley ./complete_codebase_audit_spec.md batch=1
 - [ ] **Codebase synced** - Latest Mao codebase in project knowledge
 - [ ] **Claude Code available** - Ensure you can run claude commands
 - [ ] **Directory structure ready** - `tests/FULL_CODEBASE_AUDIT/` exists with spec file
-- [ ] **Understanding of scope** - 292 files across 14 batches, analysis only (no fixes)
+- [ ] **Understanding of scope** - 321 files across 14 batches, analysis only (no fixes)
 
 ### **Mental Preparation:**
 - This is **analysis only** - no files will be modified
@@ -185,7 +185,7 @@ claude > /project:implement_fixes ./approved_fixes_batch_1.md
 ## What You'll Get
 
 ### **Comprehensive Analysis:**
-- **292 files analyzed** with detailed violation documentation
+- **321 files analyzed** with detailed violation documentation
 - **Complete integration map** for UI development
 - **Function redundancy analysis** with merge recommendations
 - **State management compliance** verification (Memory MCP single source)
