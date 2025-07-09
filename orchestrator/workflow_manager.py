@@ -8,11 +8,17 @@ import os
 import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-from datetime import datetime
+from datetime import datetime, timezone
+import time
 
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Analytics managers
+from orchestrator.user_analytics_manager import UserAnalyticsManager
+from orchestrator.system_analytics_manager import SystemAnalyticsManager
+from orchestrator.username_manager import UsernameManager
 
 # Import workflow ID generator
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'unique_id_generator'))
@@ -31,6 +37,11 @@ class WorkflowManager:
         self.base_path = Path(__file__).parent.parent / "configs"
         self.workflows_dir = self.base_path / "workflows"
         self.temp_dir = self.workflows_dir / ".temp"
+        
+        # Analytics managers
+        self.user_analytics_manager = UserAnalyticsManager()
+        self.system_analytics_manager = SystemAnalyticsManager()
+        self.username_manager = UsernameManager()
         
         # Ensure directories exist
         self.workflows_dir.mkdir(exist_ok=True)
@@ -303,6 +314,135 @@ class WorkflowManager:
         }
         
         return cost_map.get(operation, 0.001)
+    
+    @handle_errors
+    def track_workflow_start(self, workflow_id: str, workflow_command: str, username: str, tags: List[str] = None) -> bool:
+        """Track workflow start for analytics"""
+        try:
+            # Track workflow start
+            self.user_analytics_manager.track_workflow(
+                username, workflow_id, workflow_command, "start", tags=tags or []
+            )
+            
+            # Track session workflow count update
+            # This would be integrated with session management
+            
+            return True
+            
+        except Exception as e:
+            # Analytics failures should not break workflow execution
+            return False
+    
+    @handle_errors
+    def track_workflow_completion(self, workflow_id: str, username: str, success: bool = True) -> bool:
+        """Track workflow completion for analytics"""
+        try:
+            # Track workflow completion
+            self.user_analytics_manager.track_workflow(
+                username, workflow_id, "", "complete", success=success
+            )
+            
+            return True
+            
+        except Exception as e:
+            # Analytics failures should not break workflow execution
+            return False
+    
+    @handle_errors
+    def extract_workflow_tags(self, workflow_path: Path) -> List[str]:
+        """Extract tags from workflow README.md for analytics"""
+        try:
+            readme_path = workflow_path / "README.md"
+            if not readme_path.exists():
+                return []
+            
+            with open(readme_path, 'r') as f:
+                content = f.read()
+            
+            # Extract tags from README content
+            tags = []
+            
+            # Look for tags in various formats
+            if "Tags:" in content:
+                # Extract tags after "Tags:" line
+                lines = content.split('\n')
+                for line in lines:
+                    if line.strip().startswith("Tags:"):
+                        tag_line = line.split("Tags:")[1].strip()
+                        tags.extend([tag.strip() for tag in tag_line.split(',')])
+                        break
+            
+            # Look for hashtags
+            import re
+            hashtags = re.findall(r'#(\w+)', content)
+            tags.extend(hashtags)
+            
+            # Look for workflow type indicators
+            if "parallel" in content.lower():
+                tags.append("parallel")
+            if "research" in content.lower():
+                tags.append("research")
+            if "analysis" in content.lower():
+                tags.append("analysis")
+            
+            # Remove duplicates and return
+            return list(set(tags))
+            
+        except Exception as e:
+            return []
+    
+    @handle_errors
+    def start_workflow_with_analytics(self, workflow_id: str, workflow_command: str, username: str) -> Dict[str, Any]:
+        """Start workflow with analytics tracking"""
+        try:
+            # Get workflow details
+            workflow = self.get_workflow_by_id(workflow_id)
+            if not workflow:
+                return {"success": False, "error": "Workflow not found"}
+            
+            # Extract tags from workflow README
+            workflow_path = Path(workflow["path"])
+            tags = self.extract_workflow_tags(workflow_path)
+            
+            # Track workflow start
+            self.track_workflow_start(workflow_id, workflow_command, username, tags)
+            
+            # Return success with analytics tracking
+            return {
+                "success": True,
+                "workflow_id": workflow_id,
+                "workflow_command": workflow_command,
+                "tags": tags,
+                "analytics_tracked": True
+            }
+            
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    
+    @handle_errors
+    def complete_workflow_with_analytics(self, workflow_id: str, username: str, success: bool = True) -> Dict[str, Any]:
+        """Complete workflow with analytics tracking"""
+        try:
+            # Track workflow completion
+            self.track_workflow_completion(workflow_id, username, success)
+            
+            return {
+                "success": True,
+                "workflow_id": workflow_id,
+                "completion_success": success,
+                "analytics_tracked": True
+            }
+            
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+    
+    @handle_errors
+    def get_workflow_analytics(self, username: str) -> Dict[str, Any]:
+        """Get workflow analytics for user"""
+        try:
+            return self.user_analytics_manager._read_analytics_file(username, "workflow_metrics.json")
+        except Exception as e:
+            return {}
 
 # Standalone functions for button imports
 def generate_workflow_id(with_explanation: bool = False) -> Dict[str, Any]:

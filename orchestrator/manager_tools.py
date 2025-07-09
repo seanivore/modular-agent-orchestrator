@@ -490,22 +490,6 @@ if __name__ == "__main__":
         else:
             names_str = ", ".join(tool_names[:-1]) + f", and {tool_names[-1]}"
             return f"I can accomplish this with {names_str}."
-
-
-# Simple interface for orchestrator integration
-def discover_tools_for_goal(goal: str, model: str = "claude-sonnet-4", 
-                           budget: str = "balanced") -> Dict[str, Any]:
-    """
-    🎯 Simple interface for tool discovery
-    Used by orchestrator for dynamic tool selection
-    """
-    discovery = ToolManager()
-    return discovery.interactive_tool_selection(goal, model, budget)
-
-
-# Analytics methods for ToolManager class
-def add_analytics_methods_to_tool_manager():
-    """Add analytics methods to ToolManager class"""
     
     @handle_errors
     def estimate_cost(self, operation: str = "tool_operation") -> float:
@@ -591,3 +575,14 @@ def add_analytics_methods_to_tool_manager():
             return self.user_analytics_manager._read_analytics_file(username, "tool_usage.json")
         except Exception as e:
             return {}
+
+
+# Simple interface for orchestrator integration
+def discover_tools_for_goal(goal: str, model: str = "claude-sonnet-4", 
+                           budget: str = "balanced") -> Dict[str, Any]:
+    """
+    🎯 Simple interface for tool discovery
+    Used by orchestrator for dynamic tool selection
+    """
+    discovery = ToolManager()
+    return discovery.interactive_tool_selection(goal, model, budget)

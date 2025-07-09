@@ -1,5 +1,5 @@
 {
-  "command": "memory",
+  "name": "memory",
   "type": "needs_input",
   "terminal_flag": "--memory",
   "app_command": "/memory",

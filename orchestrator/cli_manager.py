@@ -235,7 +235,10 @@ class CLICommandsManager:
             # Communication and debug commands
             "chat": lambda data: self._execute_chat_command(data),
             "toggle_verbose": lambda data: self._execute_verbose_command(data),
-            "verbose": lambda data: self._execute_verbose_command(data)
+            "verbose": lambda data: self._execute_verbose_command(data),
+            
+            # Memory management commands
+            "memory": lambda data: self._execute_memory_command(data)
         }
         
         if method_name not in method_mappings:
@@ -671,6 +674,81 @@ class CLICommandsManager:
                 "available_actions": ["toggle", "debug", "status", "info"]
             }
     
+    def _execute_memory_command(self, data: Any) -> Dict[str, Any]:
+        """Execute memory command using dedicated memory CLI logic"""
+        try:
+            # Import and execute the memory command logic directly
+            from configs.cli.memory.memory import execute_command
+            
+            # Handle different input formats
+            if isinstance(data, str):
+                # Direct content for storing
+                params = {"content": data}
+            elif isinstance(data, dict):
+                # Already structured params
+                params = data
+            elif isinstance(data, list) and len(data) > 0:
+                # List with content as first element
+                params = {"content": data[0]}
+                if len(data) > 1:
+                    # Additional parameters like category or tags
+                    params["category"] = data[1]
+                    if len(data) > 2:
+                        params["tags"] = data[2:] if isinstance(data[2], list) else [data[2]]
+            else:
+                # Default to list operation
+                params = {"list": True}
+            
+            return execute_command(params)
+            
+        except Exception as e:
+            # Fallback to user memory manager if memory CLI fails
+            return self._fallback_memory_operation(data, e)
+    
+    def _fallback_memory_operation(self, data: Any, error: Exception) -> Dict[str, Any]:
+        """Fallback memory operation using user memory manager directly"""
+        try:
+            from orchestrator.user_memory_manager import UserMemoryManager
+            from orchestrator.username_manager import get_session_user
+            
+            memory_manager = UserMemoryManager()
+            user = get_session_user()
+            
+            if not user:
+                return {
+                    "success": False,
+                    "error": "No user logged in. Please login first to use memory commands.",
+                    "original_error": str(error)
+                }
+            
+            user_id = user.get("user_id")
+            
+            # Simple fallback - just store the content
+            if isinstance(data, str):
+                result = memory_manager.store_memory(user_id, data)
+                return {
+                    "success": True,
+                    "operation": "store",
+                    "memory_id": result.get("memory_id"),
+                    "message": "Memory stored successfully (fallback mode)",
+                    "original_error": str(error)
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": f"Memory command failed: {str(error)}",
+                    "fallback": "Direct memory manager integration unavailable",
+                    "available_operations": ["store", "retrieve", "list", "delete", "suggest"]
+                }
+        
+        except Exception as fallback_error:
+            return {
+                "success": False,
+                "error": f"Memory command completely failed: {str(error)}",
+                "fallback_error": str(fallback_error),
+                "suggestion": "Check memory system configuration"
+            }
+    
     @handle_errors(operation_name="get_command_help", return_dict=True)
     def get_command_help(self, command: str = None) -> Dict[str, Any]:
         """
@@ -724,7 +802,8 @@ class CLICommandsManager:
         manager_costs = {
             "discover_cli_commands": 0.0001,
             "execute_command": 0.002,  # May involve orchestrator calls
-            "get_command_help": 0.0001
+            "get_command_help": 0.0001,
+            "memory": 0.001  # Memory operations cost
         }
         
         # If it's a manager operation, use fixed costs
@@ -755,7 +834,8 @@ class CLICommandsManager:
             "models": 600,     # Cache for 10 minutes
             "list_tools": 600, # Cache for 10 minutes
             "help": 3600,      # Cache for 1 hour
-            "providers": 600   # Cache for 10 minutes
+            "providers": 600,  # Cache for 10 minutes
+            "memory": 300      # Cache for 5 minutes (memory operations)
         }
         
         if command not in cacheable_commands:
@@ -790,7 +870,7 @@ class CLICommandsManager:
         # Only cache expensive or frequently called commands
         cacheable_commands = {
             "workflows", "stats", "models", "list_tools", "help", 
-            "providers"
+            "providers", "memory"
         }
         
         if command not in cacheable_commands:
@@ -847,6 +927,22 @@ class CLICommandsManager:
             if providers_dir.exists():
                 provider_files = sorted([f.name for f in providers_dir.glob("*.json")])
                 base_key += f"|providers:{hashlib.md5(str(provider_files).encode()).hexdigest()[:8]}"
+                
+        elif command == "memory":
+            # Include user-specific memory state
+            try:
+                from orchestrator.username_manager import get_session_user
+                user = get_session_user()
+                if user:
+                    user_id = user.get("user_id", "anonymous")
+                    username = user.get("username", "anonymous")
+                    memories_dir = Path(__file__).parent.parent / "configs" / "user" / username / "memories"
+                    if memories_dir.exists():
+                        memory_files = sorted([f.name for f in memories_dir.glob("*.json")])
+                        base_key += f"|memories:{hashlib.md5(str(memory_files).encode()).hexdigest()[:8]}"
+                    base_key += f"|user:{user_id}"
+            except Exception:
+                base_key += "|user:anonymous"
         
         # Generate final cache key
         return hashlib.md5(base_key.encode()).hexdigest()[:16]
