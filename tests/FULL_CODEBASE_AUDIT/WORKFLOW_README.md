@@ -13,7 +13,7 @@ cd ~/Development/modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT/
 # Query Memory MCP: "What is the current state of Full_Codebase_Audit for Mao_v4_Build?"
 
 # Execute multistage audit
-claude > /project:codebase_audit_docs ./codebase_audit_spec.md ./documentation_spec.md batch_01_root_files.md
+claude > /project:codebase_audit_docs ./codebase_audit_spec.md ./documentation_spec.md batch_05_cache_system.md
 
 # Monitor progress
 cat PROGRESS_CHECKLIST.md
