@@ -269,71 +269,71 @@ user_analytics_manager.track_workflow_setup_start(workflow_id, workflow_command,
 
 ### Session Metrics (`session_metrics.json`)
 
-| Metric | Trigger Point | Calculation Method | Update Frequency | Privacy Level |
-|--------|---------------|-------------------|------------------|---------------|
-| `session_id` | App start | UUID generation | Once per session | User-tied |
-| `start_time` | App initialization | ISO timestamp | Once per session | User-tied |
-| `end_time` | App shutdown/timeout | ISO timestamp | Once per session | User-tied |
-| `duration_minutes` | Session end | `(end_time - start_time) / 60` | Once per session | User-tied |
-| `workflow_count` | Workflow completion | Increment counter | Real-time | User-tied |
-| `tool_activations` | Tool completion | Increment counter | Real-time | User-tied |
-| `commands_executed` | CLI completion | Increment counter | Real-time | User-tied |
-| `cost_total` | API calls | Accumulate costs | Real-time | User-tied |
+| Metric              | Trigger Point        | Calculation Method             | Update Frequency | Privacy Level |
+| ------------------- | -------------------- | ------------------------------ | ---------------- | ------------- |
+| `session_id`        | App start            | UUID generation                | Once per session | User-tied     |
+| `start_time`        | App initialization   | ISO timestamp                  | Once per session | User-tied     |
+| `end_time`          | App shutdown/timeout | ISO timestamp                  | Once per session | User-tied     |
+| `duration_minutes`  | Session end          | `(end_time - start_time) / 60` | Once per session | User-tied     |
+| `workflow_count`    | Workflow completion  | Increment counter              | Real-time        | User-tied     |
+| `tool_activations`  | Tool completion      | Increment counter              | Real-time        | User-tied     |
+| `commands_executed` | CLI completion       | Increment counter              | Real-time        | User-tied     |
+| `cost_total`        | API calls            | Accumulate costs               | Real-time        | User-tied     |
 
 ### Tool Usage Metrics (`tool_usage.json`)
 
-| Metric | Trigger Point | Calculation Method | Update Frequency | Privacy Level |
-|--------|---------------|-------------------|------------------|---------------|
-| `total_uses` | Tool completion | Increment counter | Real-time | User-tied |
-| `avg_cost` | Tool completion | `total_cost / total_uses` | Each completion | User-tied |
-| `last_used` | Tool completion | ISO timestamp | Each completion | User-tied |
-| `efficiency_score` | Tool completion | `success_rate * (1/avg_duration)` | Each completion | User-tied |
-| `avg_response_time` | Tool completion | Running average of durations | Each completion | User-tied |
-| `success_rate` | Tool completion | `successes / total_attempts` | Each completion | User-tied |
-| `error_patterns` | Tool failure | Categorize error types | Each failure | User-tied |
+| Metric              | Trigger Point   | Calculation Method                | Update Frequency | Privacy Level |
+| ------------------- | --------------- | --------------------------------- | ---------------- | ------------- |
+| `total_uses`        | Tool completion | Increment counter                 | Real-time        | User-tied     |
+| `avg_cost`          | Tool completion | `total_cost / total_uses`         | Each completion  | User-tied     |
+| `last_used`         | Tool completion | ISO timestamp                     | Each completion  | User-tied     |
+| `efficiency_score`  | Tool completion | `success_rate * (1/avg_duration)` | Each completion  | User-tied     |
+| `avg_response_time` | Tool completion | Running average of durations      | Each completion  | User-tied     |
+| `success_rate`      | Tool completion | `successes / total_attempts`      | Each completion  | User-tied     |
+| `error_patterns`    | Tool failure    | Categorize error types            | Each failure     | User-tied     |
 
 ### Workflow Metrics (`workflow_metrics.json`)
 
-| Metric | Trigger Point | Calculation Method | Update Frequency | Privacy Level |
-|--------|---------------|-------------------|------------------|---------------|
-| `workflow_runs` | Workflow start | Increment counter | Real-time | User-tied |
-| `completion_rate` | Workflow end | `completed / started` | Each completion | User-tied |
-| `avg_duration` | Workflow end | Running average | Each completion | User-tied |
-| `workflow_tags` | Setup script | Extract from README | Each setup | User-tied |
-| `tag_success_rates` | Workflow end | Group by tags | Each completion | User-tied |
-| `cost_per_workflow` | Workflow end | Accumulate costs | Each completion | User-tied |
-| `deliverable_types` | Workflow end | Extract from outputs | Each completion | User-tied |
+| Metric              | Trigger Point  | Calculation Method    | Update Frequency | Privacy Level |
+| ------------------- | -------------- | --------------------- | ---------------- | ------------- |
+| `workflow_runs`     | Workflow start | Increment counter     | Real-time        | User-tied     |
+| `completion_rate`   | Workflow end   | `completed / started` | Each completion  | User-tied     |
+| `avg_duration`      | Workflow end   | Running average       | Each completion  | User-tied     |
+| `workflow_tags`     | Setup script   | Extract from README   | Each setup       | User-tied     |
+| `tag_success_rates` | Workflow end   | Group by tags         | Each completion  | User-tied     |
+| `cost_per_workflow` | Workflow end   | Accumulate costs      | Each completion  | User-tied     |
+| `deliverable_types` | Workflow end   | Extract from outputs  | Each completion  | User-tied     |
 
 ### Cost Tracking Metrics (`cost_tracking.json`)
 
-| Metric | Trigger Point | Calculation Method | Update Frequency | Privacy Level |
-|--------|---------------|-------------------|------------------|---------------|
-| `daily_spend` | API calls | Accumulate by date | Real-time | User-tied |
-| `model_breakdown` | API calls | Group by model | Real-time | User-tied |
-| `cost_per_minute` | Session end | `total_cost / session_duration` | Each session | User-tied |
-| `optimization_savings` | Model selection | Track alternative costs | Each optimization | User-tied |
-| `spending_trends` | Daily rollup | Calculate trends | Daily batch | User-tied |
+| Metric                 | Trigger Point   | Calculation Method              | Update Frequency  | Privacy Level |
+| ---------------------- | --------------- | ------------------------------- | ----------------- | ------------- |
+| `daily_spend`          | API calls       | Accumulate by date              | Real-time         | User-tied     |
+| `model_breakdown`      | API calls       | Group by model                  | Real-time         | User-tied     |
+| `cost_per_minute`      | Session end     | `total_cost / session_duration` | Each session      | User-tied     |
+| `optimization_savings` | Model selection | Track alternative costs         | Each optimization | User-tied     |
+| `spending_trends`      | Daily rollup    | Calculate trends                | Daily batch       | User-tied     |
 
 ---
 
 ## Privacy Compliance Matrix
 
 ### User Analytics (Deletable Data)
-| Data Category | Storage Location | User Identifier | Deletion Method | Retention Policy |
-|---------------|------------------|-----------------|-----------------|------------------|
-| Session Data | `./configs/user/[username]/analytics/session_metrics.json` | `user_id` | Delete user directory | User-controlled |
-| Tool Usage | `./configs/user/[username]/analytics/tool_usage.json` | `user_id` | Delete user directory | User-controlled |
-| Workflow Data | `./configs/user/[username]/analytics/workflow_metrics.json` | `user_id` | Delete user directory | User-controlled |
-| Cost Data | `./configs/user/[username]/analytics/cost_tracking.json` | `user_id` | Delete user directory | User-controlled |
-| Memory Data | `./configs/user/[username]/memories/` | `user_id` | Delete user directory | User-controlled |
+| Data Category | Storage Location                                            | User Identifier | Deletion Method       | Retention Policy |
+| ------------- | ----------------------------------------------------------- | --------------- | --------------------- | ---------------- |
+| Session Data  | `./configs/user/[username]/analytics/session_metrics.json`  | `user_id`       | Delete user directory | User-controlled  |
+| Tool Usage    | `./configs/user/[username]/analytics/tool_usage.json`       | `user_id`       | Delete user directory | User-controlled  |
+| Workflow Data | `./configs/user/[username]/analytics/workflow_metrics.json` | `user_id`       | Delete user directory | User-controlled  |
+| Cost Data     | `./configs/user/[username]/analytics/cost_tracking.json`    | `user_id`       | Delete user directory | User-controlled  |
+| Memory Data   | `./configs/user/[username]/memories/`                       | `user_id`       | Delete user directory | User-controlled  |
 
 ### System Analytics (Anonymous Data)
-| Data Category | Storage Location | Anonymization Method | Retention Policy | Purpose |
-|---------------|------------------|---------------------|------------------|---------|
-| Tool Performance | `./configs/system/analytics/tool_performance.json` | Remove all user identifiers | 1 year rolling | Performance optimization |
-| Aggregate Usage | `./configs/system/analytics/aggregate_usage.json` | Statistical aggregation only | 1 year rolling | Product insights |
-| Model Metrics | `./configs/system/analytics/model_metrics.json` | Remove user context | 1 year rolling | Model optimization |
-| System Health | `./configs/system/analytics/system_health.json` | No user data included | 1 year rolling | System monitoring |
+| Data Category    | Storage Location                                   | Anonymization Method         | Retention Policy | Purpose                  |
+| ---------------- | -------------------------------------------------- | ---------------------------- | ---------------- | ------------------------ |
+| Tool Performance | `./configs/system/analytics/tool_performance.json` | Remove all user identifiers  | 1 year rolling   | Performance optimization |
+| Aggregate Usage  | `./configs/system/analytics/aggregate_usage.json`  | Statistical aggregation only | 1 year rolling   | Product insights         |
+| Model Metrics    | `./configs/system/analytics/model_metrics.json`    | Remove user context          | 1 year rolling   | Model optimization       |
+| System Health    | `./configs/system/analytics/system_health.json`    | No user data included        | 1 year rolling   | System monitoring        |
 
 ### Data Flow Privacy Controls
 1. **Collection Phase**: All user analytics include `user_id` for easy identification
