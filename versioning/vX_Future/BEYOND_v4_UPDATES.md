@@ -6,11 +6,11 @@
 
 ## Over v4.1.0  
 
-1. WebSocket to keep Claude Orchestrator available in Chat
+1. ~~WebSocket to keep Claude Orchestrator available in Chat~~
 2. Translation tool agents 
 3. Offer it in other languages 
 
-## V5.0.0 Update 
+## V4.2.0 Update 
 
 1. Integrate Claude Code SDK for Tool Builds 
 2. Setup catalogs for anything modular 
