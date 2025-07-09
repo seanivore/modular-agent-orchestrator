@@ -1,4 +1,5 @@
 {
+  "name": "anthropic-direct",
   "display_name": "Anthropic Direct API",
   "api_type": "anthropic",
   "base_url": "https://api.anthropic.com",

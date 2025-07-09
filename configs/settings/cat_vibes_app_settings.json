@@ -1,4 +1,7 @@
 {
+  "name": "cat_vibes_app_settings",
+  "description": "Configure cat personality level and language style",
+  "version": "1.0",
   "cat_vibes": {
     "default": "love_it",
     "description": "We'll meow it up for you",
@@ -25,5 +28,9 @@
       "preview_enabled": true,
       "help_text": "Controls personality level and language style throughout the app"
     }
+  },
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
   }
 }

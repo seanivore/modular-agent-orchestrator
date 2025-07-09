@@ -1,4 +1,5 @@
 {
+  "name": "model_template",
   "display_name": "Nickname",
   "model_id": "Official Model ID",
   "context_window": 200000,

@@ -1,4 +1,7 @@
 {
+  "name": "quick_launch_app_settings",
+  "description": "Configure startup and login behavior",
+  "version": "1.0",
   "quick_launch": {
     "default": "always",
     "description": "Launch app with last user logged in",
@@ -25,5 +28,9 @@
       "preview_enabled": false,
       "help_text": "Controls how MAO handles user login on startup"
     }
+  },
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
   }
 }

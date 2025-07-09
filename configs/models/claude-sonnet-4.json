@@ -1,4 +1,5 @@
 {
+  "name": "claude-sonnet-4",
   "display_name": "Claude Sonnet 4",
   "model_id": "claude-sonnet-4-20250514",
   "context_window": 200000,

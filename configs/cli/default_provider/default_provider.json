@@ -1,6 +1,5 @@
 {
   "name": "default_provider",
-  "command": "default_provider",
   "type": "needs_input",
   "terminal_flag": "--default-provider",
   "app_command": "/default-provider",

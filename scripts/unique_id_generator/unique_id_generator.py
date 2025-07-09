@@ -2,6 +2,70 @@ import time
 from datetime import datetime
 import hashlib
 import random
+from typing import Dict, Any, Tuple, List
+
+# Standard Mao imports (with fallback for standalone usage)
+try:
+    from orchestrator.cache.cache_system import CacheManager
+    from orchestrator.error_handling import handle_errors
+    MAO_AVAILABLE = True
+except ImportError:
+    # Fallback for standalone usage outside Mao environment
+    MAO_AVAILABLE = False
+    CacheManager = None
+    def handle_errors(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+
+def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]:
+    """
+    Estimate computational cost for UID generation operations
+    
+    Args:
+        generation_params: Parameters affecting generation complexity
+        
+    Returns:
+        Dict with cost estimates (time, memory, operations)
+    """
+    generation_params = generation_params or {}
+    
+    batch_size = generation_params.get('batch_size', 1)
+    include_explanation = generation_params.get('include_explanation', False)
+    mathematical_complexity = generation_params.get('mathematical_complexity', 'standard')
+    
+    # Base cost per UID generation
+    base_time_per_uid = 0.001  # Very fast generation
+    base_memory_per_uid = 256  # bytes for string storage
+    math_operations_per_uid = 3  # One operation per letter
+    
+    # Apply batch multiplier
+    total_time = base_time_per_uid * batch_size
+    total_memory = base_memory_per_uid * batch_size
+    total_operations = math_operations_per_uid * batch_size
+    
+    # Apply explanation overhead
+    if include_explanation:
+        total_time *= 1.2
+        total_memory *= 1.5  # Store operation logs
+    
+    # Apply complexity multiplier
+    complexity_multipliers = {
+        'simple': 0.8,
+        'standard': 1.0,
+        'complex': 1.3
+    }
+    multiplier = complexity_multipliers.get(mathematical_complexity, 1.0)
+    
+    total_time *= multiplier
+    total_operations = int(total_operations * multiplier)
+    
+    return {
+        'estimated_time_seconds': round(total_time, 4),
+        'estimated_memory_bytes': int(total_memory),
+        'estimated_math_operations': total_operations,
+        'complexity_score': min(10, batch_size / 100)  # 1-10 scale
+    }
 
 class WorkflowUIDGenerator:
     """
@@ -16,6 +80,9 @@ class WorkflowUIDGenerator:
     def __init__(self):
         self.last_timestamp = 0
         self.counter = 0
+        
+        # Mao integrations  
+        self.cache = CacheManager() if CacheManager else None
         # Map letters to mathematical operations
         self.letter_operations = {
             'a': ('add', lambda x: x + 17),
@@ -55,6 +122,7 @@ class WorkflowUIDGenerator:
             a, b = b, (a + b) % 1000
         return b
     
+    @handle_errors(operation_name="uid_generation", return_dict=False)
     def generate_uid(self):
         """Generate a unique workflow ID with mathematical letter operations"""
         now = datetime.now()

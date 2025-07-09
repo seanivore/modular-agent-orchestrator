@@ -17,7 +17,7 @@
     ],
     "ui_metadata": {
       "section": "Settings Section Name",
-      "icon": "❯",
+      "icon": "arrow-right",
       "preview_enabled": true,
       "help_text": "Additional contextual help text"
     }

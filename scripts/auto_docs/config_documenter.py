@@ -7,10 +7,80 @@ Integrates with GitHub webhooks and Claude Code for seamless updates
 
 import json
 import os
+import sys
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime
 import subprocess
+import logging
+
+# Standard Mao imports (with fallback for standalone usage)
+try:
+    # Add parent directories to path for Mao imports
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from orchestrator.cache.cache_system import CacheManager
+    from orchestrator.error_handling import handle_errors
+    MAO_AVAILABLE = True
+except ImportError:
+    # Fallback for standalone usage outside Mao environment
+    print("INFO: Running in standalone mode (Mao imports not available)")
+    MAO_AVAILABLE = False
+    CacheManager = None
+    def handle_errors(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+def estimate_cost(operation_params: Dict[str, Any] = None) -> Dict[str, float]:
+    """
+    Estimate computational cost for documentation generation operations
+    
+    Args:
+        operation_params: Parameters affecting documentation complexity
+        
+    Returns:
+        Dict with cost estimates (time, memory, io_operations)
+    """
+    operation_params = operation_params or {}
+    
+    config_count = operation_params.get('config_count', 1)
+    file_size_total = operation_params.get('file_size_bytes', 1024)
+    doc_generation = operation_params.get('generate_docs', True)
+    github_integration = operation_params.get('github_integration', False)
+    
+    # Base cost calculation
+    base_time = 0.1  # Base documentation processing time
+    base_memory = 2048  # Base memory for processing configs
+    base_io_ops = config_count * 2  # Read config + write doc
+    
+    # File size affects processing time
+    size_multiplier = max(1.0, file_size_total / 10240)  # 10KB baseline
+    
+    # Apply operation multipliers
+    total_time = base_time * config_count * size_multiplier
+    total_memory = base_memory * config_count
+    total_io_ops = base_io_ops
+    
+    if doc_generation:
+        total_time *= 1.5
+        total_memory *= 1.3
+        total_io_ops += config_count  # Additional doc writes
+        
+    if github_integration:
+        total_time *= 1.2  # Git operations overhead
+        total_io_ops += 3  # Git status, add, commit operations
+        
+    return {
+        'estimated_time_seconds': round(total_time, 2),
+        'estimated_memory_bytes': int(total_memory),
+        'estimated_io_operations': total_io_ops,
+        'complexity_score': min(10, config_count / 5)  # 1-10 scale
+    }
 
 
 class ConfigDocumenter:
@@ -21,6 +91,9 @@ class ConfigDocumenter:
         self.configs_dir = self.repo_root / "configs"
         self.docs_dir = self.repo_root / "versioning-docs"
         self.templates_dir = self.repo_root / "templates"
+        
+        # Mao integrations
+        self.cache = CacheManager() if CacheManager else None
         
         # Config type mappings
         self.config_types = {
@@ -50,6 +123,7 @@ class ConfigDocumenter:
             }
         }
         
+    @handle_errors(operation_name="config_scan", return_dict=True)
     def scan_config_changes(self, changed_files: List[str]) -> List[Dict[str, Any]]:
         """Detect and analyze config file changes"""
         config_changes = []
@@ -135,6 +209,7 @@ class ConfigDocumenter:
                 
         return completeness
         
+    @handle_errors(operation_name="doc_update", return_dict=True)
     def update_documentation(self, config_changes: List[Dict[str, Any]]) -> List[str]:
         """Update documentation based on config changes"""
         updated_docs = []
@@ -386,7 +461,7 @@ class ConfigDocumenter:
         updated_docs = self.update_documentation(config_changes)
         
         if not updated_docs:
-            print("No documentation updates needed")
+            logger.info("No documentation updates needed")
             return False
             
         # Create PR description
@@ -410,17 +485,17 @@ class ConfigDocumenter:
             # Push branch
             subprocess.run(['git', 'push', '-u', 'origin', branch_name], check=True, cwd=self.repo_root)
             
-            print(f"✅ Created branch {branch_name} with documentation updates")
-            print(f"📝 Updated files: {', '.join(updated_docs)}")
-            print("\n📋 Next steps:")
-            print("1. Create PR on GitHub")
-            print("2. Tag @claude in PR for review")
-            print("3. Merge when ready")
+            logger.info("SUCCESS: Created branch %s with documentation updates", branch_name)
+            logger.info("UPDATED: Files: %s", ', '.join(updated_docs))
+            logger.info("NEXT STEPS:")
+            logger.info("1. Create PR on GitHub")
+            logger.info("2. Tag @claude in PR for review")
+            logger.info("3. Merge when ready")
             
             return True
             
         except subprocess.CalledProcessError as e:
-            print(f"❌ Git operation failed: {e}")
+            logger.error("ERROR: Git operation failed: %s", e)
             return False
 
 
@@ -437,18 +512,18 @@ def main():
     config_changes = documenter.scan_config_changes(example_changes)
     
     if config_changes:
-        print("Detected config changes:")
+        logger.info("Detected config changes:")
         for change in config_changes:
-            print(f"  - {change['type']} {change['config_type']}: {change['name']}")
+            logger.info("  - %s %s: %s", change['type'], change['config_type'], change['name'])
             
         # Update documentation
         updated_docs = documenter.update_documentation(config_changes)
-        print(f"\nUpdated documentation files: {updated_docs}")
+        logger.info("Updated documentation files: %s", updated_docs)
         
         # Execute GitHub workflow
         documenter.execute_github_workflow(config_changes)
     else:
-        print("No config changes detected")
+        logger.info("No config changes detected")
 
 
 if __name__ == "__main__":

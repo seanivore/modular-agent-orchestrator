@@ -1,4 +1,7 @@
 {
+  "name": "favorite_model_app_settings",
+  "description": "Configure default AI model preferences",
+  "version": "1.0",
   "favorite_model": {
     "default": "claude-sonnet-4",
     "description": "Use for workflows unless discussed",
@@ -15,5 +18,9 @@
       "preview_enabled": true,
       "help_text": "Default AI model for new workflows - can be changed per workflow"
     }
+  },
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
   }
 }

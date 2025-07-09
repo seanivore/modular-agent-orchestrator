@@ -1,4 +1,5 @@
 {
+  "name": "lm-studio",
   "display_name": "LM Studio (Local)",
   "api_type": "openai",
   "base_url": "http://localhost:1234/v1",

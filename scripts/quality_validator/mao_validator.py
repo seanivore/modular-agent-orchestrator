@@ -14,6 +14,19 @@ from typing import Dict, List, Tuple, Any
 from dataclasses import dataclass
 import re
 
+# Standard Mao imports (with fallback for standalone usage)
+try:
+    from orchestrator.cache.cache_system import CacheManager
+    from orchestrator.error_handling import handle_errors
+except ImportError:
+    # Fallback for standalone usage outside Mao environment
+    print("INFO: Running in standalone mode (Mao imports not available)")
+    CacheManager = None
+    def handle_errors(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+
 @dataclass
 class ValidationResult:
     """Results from a validation check"""
@@ -48,6 +61,47 @@ class MAOQualityValidator:
         self.orchestrator_dir = self.project_root / "orchestrator"
         self.results: List[ValidationResult] = []
         
+        # Mao integrations
+        self.cache = CacheManager() if CacheManager else None
+        
+    def estimate_cost(self, validation_params: Dict[str, Any] = None) -> Dict[str, float]:
+        """
+        Estimate computational cost for validation operations
+        
+        Args:
+            validation_params: Parameters affecting validation complexity
+            
+        Returns:
+            Dict with cost estimates (time, memory, io_operations)
+        """
+        validation_params = validation_params or {}
+        
+        # Base cost calculation
+        tools_count = len(list(self.tools_dir.iterdir())) if self.tools_dir.exists() else 0
+        orchestrator_files = len(list(self.orchestrator_dir.glob("*.py"))) if self.orchestrator_dir.exists() else 0
+        
+        # Estimate based on file count and validation complexity
+        estimated_time = max(0.5, (tools_count * 0.1) + (orchestrator_files * 0.05))  # seconds
+        estimated_memory = (tools_count + orchestrator_files) * 1024  # bytes
+        estimated_io_ops = (tools_count * 4) + (orchestrator_files * 2)  # file reads
+        
+        # Apply parameter-based multipliers
+        if validation_params.get('deep_analysis', False):
+            estimated_time *= 2
+            estimated_memory *= 1.5
+            
+        if validation_params.get('ast_parsing', True):
+            estimated_time *= 1.3
+            estimated_memory *= 1.2
+        
+        return {
+            'estimated_time_seconds': round(estimated_time, 2),
+            'estimated_memory_bytes': int(estimated_memory),
+            'estimated_io_operations': estimated_io_ops,
+            'complexity_score': min(10, tools_count / 2)  # 1-10 scale
+        }
+        
+    @handle_errors(operation_name="quality_validation", return_dict=False)
     def run_all_validations(self) -> bool:
         """Run all validation checks and return overall pass/fail"""
         print(f"{Colors.BOLD}{Colors.CYAN}🎯 MAO v4 Quality Control Validator{Colors.END}\n")

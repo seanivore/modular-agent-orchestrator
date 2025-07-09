@@ -1,5 +1,5 @@
 {
-  "command": "set_model",
+  "name": "set_model",
   "type": "standalone",
   "terminal_flag": "--set-model",
   "app_command": "/set-model",

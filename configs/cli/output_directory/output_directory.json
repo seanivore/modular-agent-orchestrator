@@ -1,5 +1,5 @@
 {
-  "command": "output_directory",
+  "name": "output_directory",
   "type": "needs_input",
   "terminal_flag": "--output",
   "app_command": "/output",

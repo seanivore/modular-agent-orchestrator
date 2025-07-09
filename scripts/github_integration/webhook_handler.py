@@ -8,13 +8,90 @@ Integrates with Claude Code GitHub app for seamless PR creation
 import json
 import hashlib
 import hmac
+import sys
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 from flask import Flask, request, jsonify
 import subprocess
 import os
+import logging
 
-from ..auto_docs.config_documenter import ConfigDocumenter
+# Standard Mao imports (with fallback for standalone usage)
+try:
+    # Add parent directories to path for Mao imports
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from orchestrator.cache.cache_system import CacheManager
+    from orchestrator.error_handling import handle_errors
+    MAO_AVAILABLE = True
+except ImportError:
+    # Fallback for standalone usage outside Mao environment
+    print("INFO: Running in standalone mode (Mao imports not available)")
+    MAO_AVAILABLE = False
+    CacheManager = None
+    def handle_errors(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Import config documenter with relative import fix
+try:
+    from ..auto_docs.config_documenter import ConfigDocumenter
+except ImportError:
+    # Fallback for direct execution
+    sys.path.append(str(Path(__file__).parent.parent))
+    from auto_docs.config_documenter import ConfigDocumenter
+
+
+def estimate_cost(webhook_params: Dict[str, Any] = None) -> Dict[str, float]:
+    """
+    Estimate computational cost for webhook processing operations
+    
+    Args:
+        webhook_params: Parameters affecting webhook processing complexity
+        
+    Returns:
+        Dict with cost estimates (time, memory, network_operations)
+    """
+    webhook_params = webhook_params or {}
+    
+    commit_count = webhook_params.get('commit_count', 1)
+    changed_files = webhook_params.get('changed_files', 1)
+    config_files = webhook_params.get('config_files', 0)
+    github_operations = webhook_params.get('github_operations', False)
+    
+    # Base cost calculation
+    base_time = 0.05  # Base webhook processing time
+    base_memory = 1024  # Base memory for JSON processing
+    base_network_ops = 1  # Webhook receive
+    
+    # Processing complexity based on changes
+    processing_multiplier = max(1.0, (commit_count + changed_files) / 10)
+    
+    # Apply operation multipliers
+    total_time = base_time * processing_multiplier
+    total_memory = base_memory * max(1, changed_files)
+    total_network_ops = base_network_ops
+    
+    # Config file processing overhead
+    if config_files > 0:
+        total_time += config_files * 0.1  # Documentation generation time
+        total_memory += config_files * 512  # Config processing memory
+        total_network_ops += 2  # Git operations
+        
+    if github_operations:
+        total_time += 0.3  # GitHub API operations
+        total_network_ops += 3  # API calls (PR creation, comments, etc.)
+        
+    return {
+        'estimated_time_seconds': round(total_time, 2),
+        'estimated_memory_bytes': int(total_memory),
+        'estimated_network_operations': total_network_ops,
+        'complexity_score': min(10, (commit_count + config_files) / 5)  # 1-10 scale
+    }
 
 
 class GitHubWebhookHandler:
@@ -24,6 +101,9 @@ class GitHubWebhookHandler:
         self.repo_root = Path(repo_root)
         self.webhook_secret = webhook_secret or os.getenv('GITHUB_WEBHOOK_SECRET')
         self.config_documenter = ConfigDocumenter(repo_root)
+        
+        # Mao integrations
+        self.cache = CacheManager() if CacheManager else None
         
         # Flask app for webhook endpoint
         self.app = Flask(__name__)
@@ -78,6 +158,7 @@ class GitHubWebhookHandler:
         
         return hmac.compare_digest(signature, expected_signature)
         
+    @handle_errors(operation_name="webhook_processing", return_dict=True)
     def process_webhook_event(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         """Process GitHub webhook event"""
         
@@ -250,9 +331,9 @@ class GitHubWebhookHandler:
         
     def start_webhook_server(self, host: str = '0.0.0.0', port: int = 5000, debug: bool = False):
         """Start the webhook server"""
-        print(f"🚀 Starting MAO GitHub webhook handler on {host}:{port}")
-        print(f"📡 Webhook endpoint: http://{host}:{port}/webhook/github")
-        print(f"💚 Status endpoint: http://{host}:{port}/webhook/status")
+        logger.info("STARTING: Mao GitHub webhook handler on %s:%s", host, port)
+        logger.info("WEBHOOK: Endpoint: http://%s:%s/webhook/github", host, port)
+        logger.info("STATUS: Endpoint: http://%s:%s/webhook/status", host, port)
         
         self.app.run(host=host, port=port, debug=debug)
 
@@ -337,14 +418,14 @@ def main():
     
     # Show integration guide
     guide = handler.create_claude_code_integration()
-    print("🔧 Claude Code GitHub Integration Guide:")
-    print(json.dumps(guide, indent=2))
+    logger.info("GUIDE: Claude Code GitHub Integration Guide:")
+    logger.info(json.dumps(guide, indent=2))
     
     # Start webhook server (for testing)
     if os.getenv('START_WEBHOOK_SERVER'):
         handler.start_webhook_server(debug=True)
     else:
-        print("\n💡 To start webhook server: SET START_WEBHOOK_SERVER=1 and run again")
+        logger.info("INFO: To start webhook server: SET START_WEBHOOK_SERVER=1 and run again")
 
 
 if __name__ == "__main__":

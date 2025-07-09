@@ -18,6 +18,7 @@
     "total_tools_tracked": 2,
     "discovery_enabled": true,
     "last_discovery_scan": "2025-01-15T10:30:00Z",
-    "last_updated": "2025-01-15T10:30:00Z"
+    "last_updated": "2025-01-15T10:30:00Z",
+    "schema_version": "1.0"
   }
 }

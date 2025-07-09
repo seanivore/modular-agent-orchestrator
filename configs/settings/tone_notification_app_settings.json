@@ -1,4 +1,7 @@
 {
+  "name": "tone_notification_app_settings",
+  "description": "Configure completion notification preferences",
+  "version": "1.0",
   "tone_notification": {
     "default": "once_no_push",
     "description": "When a workflow is complete, a simple tone is played",
@@ -25,5 +28,9 @@
       "preview_enabled": false,
       "help_text": "Controls how you're notified when workflows complete"
     }
+  },
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
   }
 }

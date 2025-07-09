@@ -160,20 +160,20 @@ All commands implement sophisticated cost estimation:
 
 ## File-by-File Compliance Summary
 
-| File | MAO Compliance | Architecture | Error Handling | Caching | Print Violations |
-|------|---------------|--------------|----------------|---------|------------------|
-| dry_run.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ None |
-| ui_dry_run.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ None |
-| dry_run.json | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ Perfect | ✅ None |
-| chat.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ None |
-| ui_chat.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ None |
-| chat.json | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ Perfect | ✅ None |
-| continue.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ None |
-| ui_continue.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ None |
-| continue.json | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ Perfect | ✅ None |
-| logs.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ None |
-| ui_logs.py | ✅ Perfect | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ None |
-| logs.json | ✅ Perfect | ✅ Perfect | ✅ N/A | ✅ Perfect | ✅ None |
+| File           | MAO Compliance | Architecture | Error Handling | Caching   | Print Violations |
+| -------------- | -------------- | ------------ | -------------- | --------- | ---------------- |
+| dry_run.py     | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ Perfect | ✅ None           |
+| ui_dry_run.py  | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ N/A     | ✅ None           |
+| dry_run.json   | ✅ Perfect      | ✅ Perfect    | ✅ N/A          | ✅ Perfect | ✅ None           |
+| chat.py        | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ Perfect | ✅ None           |
+| ui_chat.py     | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ N/A     | ✅ None           |
+| chat.json      | ✅ Perfect      | ✅ Perfect    | ✅ N/A          | ✅ Perfect | ✅ None           |
+| continue.py    | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ Perfect | ✅ None           |
+| ui_continue.py | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ N/A     | ✅ None           |
+| continue.json  | ✅ Perfect      | ✅ Perfect    | ✅ N/A          | ✅ Perfect | ✅ None           |
+| logs.py        | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ Perfect | ✅ None           |
+| ui_logs.py     | ✅ Perfect      | ✅ Perfect    | ✅ Perfect      | ✅ N/A     | ✅ None           |
+| logs.json      | ✅ Perfect      | ✅ Perfect    | ✅ N/A          | ✅ Perfect | ✅ None           |
 
 ## Conclusion
 

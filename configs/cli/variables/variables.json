@@ -1,6 +1,5 @@
 {
   "name": "variables",
-  "command": "variables",
   "type": "standalone",
   "terminal_flag": "--variables",
   "app_command": "/variables",

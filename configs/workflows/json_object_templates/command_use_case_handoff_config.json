@@ -1,7 +1,9 @@
 {
+  "name": "command_use_case_handoff_config",
+  "schema_version": "1.0",
   "handoff": [
     {
-      "workflow_id": "uid-abd-123",
+      "workflow_id": "{{WORKFLOW_ID}}",
       "handoff_number": "01",
       "assessment_questions": [
         "How can I assess if this deliverable is complete?",

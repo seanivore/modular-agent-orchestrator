@@ -1,4 +1,7 @@
 {
+  "name": "default_provider_app_settings",
+  "description": "Configure default API provider preferences",
+  "version": "1.0",
   "default_provider": {
     "default": "anthropic direct",
     "description": "I prefer this provider; discuss to change",
@@ -15,5 +18,9 @@
       "preview_enabled": true,
       "help_text": "Default provider for API connections - affects cost and availability"
     }
+  },
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
   }
 }

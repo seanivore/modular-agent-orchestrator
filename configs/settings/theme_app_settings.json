@@ -1,4 +1,7 @@
 {
+  "name": "theme_app_settings",
+  "description": "Configure visual theme and color preferences",
+  "version": "1.0",
   "theme": {
     "default": "dark_mode_cvd",
     "description": "Dark computer theme; use high legibility colors",
@@ -40,5 +43,9 @@
       "preview_enabled": true,
       "help_text": "Visual theme affects all interface colors and contrast"
     }
+  },
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
   }
 }

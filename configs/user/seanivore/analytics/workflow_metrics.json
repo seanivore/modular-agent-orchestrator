@@ -22,6 +22,7 @@
   "metadata": {
     "user_id": "user-1642",
     "total_workflows_tracked": 1,
-    "last_updated": "2025-01-15T10:30:00Z"
+    "last_updated": "2025-01-15T10:30:00Z",
+    "schema_version": "1.0"
   }
 }

@@ -6,29 +6,32 @@ UI components for launching the terminal interface
 
 from typing import Dict, Any
 from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
 
 # Standard cache instance
 cache = CacheManager()
 
+@handle_errors(operation_name="format_launch_status", return_dict=False)
 def format_launch_status(result: Dict[str, Any]) -> str:
     """Format the terminal UI launch status for display"""
     
     if result.get("success"):
         if result.get("interrupted"):
-            return "👋 Terminal UI closed by user"
+            return "[CLOSED] Terminal UI closed by user"
         elif result.get("user"):
-            return f"🚀 Terminal UI launched for user: {result['user']}"
+            return f"[LAUNCHED] Terminal UI launched for user: {result['user']}"
         else:
-            return "🚀 Terminal UI launched successfully"
+            return "[LAUNCHED] Terminal UI launched successfully"
     else:
         error = result.get("error", "Unknown error")
-        return f"❌ Failed to launch terminal UI: {error}"
+        return f"[ERROR] Failed to launch terminal UI: {error}"
 
+@handle_errors(operation_name="get_launch_help", return_dict=False)
 def get_launch_help() -> str:
     """Get help text for the terminal UI launch command"""
     
     return """
-🎭 Mao Terminal UI Launch Command
+[MAO] Terminal UI Launch Command
 
 USAGE:
   mao --mao                 Launch the beautiful terminal interface
@@ -60,6 +63,7 @@ The terminal UI provides a complete environment for AI workflow
 orchestration with a professional, Claude Code-inspired interface.
 """
 
+@handle_errors(operation_name="create_launch_summary", return_dict=True)
 def create_launch_summary(result: Dict[str, Any]) -> Dict[str, Any]:
     """Create a summary of the launch attempt"""
     
@@ -73,3 +77,8 @@ def create_launch_summary(result: Dict[str, Any]) -> Dict[str, Any]:
         },
         "help_available": True
     }
+
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate UI operation cost for budget planning"""
+    return 0.0  # UI operations are typically free

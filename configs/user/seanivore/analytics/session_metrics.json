@@ -16,6 +16,7 @@
   },
   "metadata": {
     "user_id": "user-1642",
-    "last_updated": "2025-01-15T11:30:00Z"
+    "last_updated": "2025-01-15T11:30:00Z",
+    "schema_version": "1.0"
   }
 }

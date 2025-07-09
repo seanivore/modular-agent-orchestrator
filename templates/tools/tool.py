@@ -9,6 +9,49 @@ import asyncio
 import json
 from pathlib import Path
 
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors
+
+
+def estimate_cost(input_data: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, float]:
+    """
+    Estimate execution cost for tool usage
+    
+    Args:
+        input_data: Input data to process
+        options: Optional processing options
+        
+    Returns:
+        Dict with cost estimates (tokens, time, resources)
+    """
+    options = options or {}
+    
+    # Basic cost estimation template
+    # Modify these calculations based on your tool's actual resource usage
+    input_length = len(input_data)
+    
+    # Estimate based on input size
+    estimated_tokens = input_length * 0.75  # Rough token estimate
+    estimated_time = max(0.1, input_length / 1000)  # Rough time estimate in seconds
+    estimated_memory = input_length * 2  # Rough memory estimate in bytes
+    
+    # Apply option-based multipliers
+    if options.get('detailed_processing', False):
+        estimated_tokens *= 2
+        estimated_time *= 1.5
+        
+    if options.get('high_quality', False):
+        estimated_tokens *= 1.3
+        estimated_time *= 1.2
+    
+    return {
+        'estimated_tokens': round(estimated_tokens, 2),
+        'estimated_time_seconds': round(estimated_time, 2),
+        'estimated_memory_bytes': estimated_memory,
+        'complexity_score': min(10, input_length / 100)  # 1-10 scale
+    }
+
 
 class ToolTemplate:
     """
@@ -31,6 +74,9 @@ class ToolTemplate:
         self.timeout = self.config.get('timeout', 30)
         self.retries = self.config.get('retries', 3)
         
+        # MAO integrations
+        self.cache = CacheManager()
+        
         # Tool state
         self.is_initialized = False
         self.last_result = None
@@ -50,9 +96,10 @@ class ToolTemplate:
             return True
             
         except Exception as e:
-            print(f"❌ Failed to initialize {self.name}: {e}")
+            print(f"ERROR: Failed to initialize {self.name}: {e}")
             return False
             
+    @handle_errors(operation_name="tool_execute", return_dict=True)
     async def execute(self, input_data: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Main tool execution method
@@ -68,6 +115,9 @@ class ToolTemplate:
             await self.initialize()
             
         options = options or {}
+        
+        # Estimate execution cost
+        cost_estimate = estimate_cost(input_data, options)
         
         try:
             # Main tool logic goes here
@@ -182,7 +232,7 @@ class ToolTemplate:
             return True
             
         except Exception as e:
-            print(f"❌ Failed to cleanup {self.name}: {e}")
+            print(f"ERROR: Failed to cleanup {self.name}: {e}")
             return False
             
     def get_help(self) -> Dict[str, Any]:
@@ -261,25 +311,25 @@ async def main():
     tool = create_tool(config)
     
     # Test initialization
-    print(f"🔧 Testing {tool.name}")
+    print(f"TESTING: {tool.name}")
     initialized = await tool.initialize()
-    print(f"✅ Initialized: {initialized}")
+    print(f"SUCCESS: Initialized: {initialized}")
     
     # Test validation
     validation = await tool.validate_input("test input")
-    print(f"🔍 Validation: {validation}")
+    print(f"VALIDATION: {validation}")
     
     # Test execution
     result = await tool.execute("test input", {"test_option": True})
-    print(f"🚀 Execution result: {result}")
+    print(f"RESULT: Execution result: {result}")
     
     # Test help
     help_info = tool.get_help()
-    print(f"❓ Help: {help_info}")
+    print(f"HELP: {help_info}")
     
     # Test cleanup
     cleaned = await tool.cleanup()
-    print(f"🧹 Cleanup: {cleaned}")
+    print(f"CLEANUP: {cleaned}")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,60 @@
 import hashlib
+from typing import Dict, Any, Tuple
+
+# Standard Mao imports (with fallback for standalone usage)
+try:
+    from orchestrator.cache.cache_system import CacheManager
+    from orchestrator.error_handling import handle_errors
+    MAO_AVAILABLE = True
+except ImportError:
+    # Fallback for standalone usage outside Mao environment
+    MAO_AVAILABLE = False
+    CacheManager = None
+    def handle_errors(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+
+def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]:
+    """
+    Estimate computational cost for user ID generation operations
+    
+    Args:
+        generation_params: Parameters affecting generation complexity
+        
+    Returns:
+        Dict with cost estimates (time, memory, operations)
+    """
+    generation_params = generation_params or {}
+    
+    username_length = generation_params.get('username_length', 10)
+    batch_size = generation_params.get('batch_size', 1)
+    include_explanation = generation_params.get('include_explanation', False)
+    
+    # Base cost per user ID generation
+    base_time_per_id = 0.002  # Slightly more complex than UID generation
+    base_memory_per_id = 512  # bytes for string processing and storage
+    math_operations_per_id = 5  # ASCII sum + 2 mathematical operations + formatting
+    
+    # Username length affects processing time
+    length_multiplier = max(0.5, username_length / 20)  # Longer usernames take more time
+    
+    # Apply batch and complexity multipliers
+    total_time = (base_time_per_id * length_multiplier) * batch_size
+    total_memory = base_memory_per_id * batch_size
+    total_operations = math_operations_per_id * batch_size
+    
+    # Apply explanation overhead
+    if include_explanation:
+        total_time *= 1.3
+        total_memory *= 1.4  # Store detailed explanation
+    
+    return {
+        'estimated_time_seconds': round(total_time, 4),
+        'estimated_memory_bytes': int(total_memory),
+        'estimated_math_operations': total_operations,
+        'complexity_score': min(10, (username_length + batch_size) / 20)  # 1-10 scale
+    }
 
 class UserIDGenerator:
     """
@@ -10,6 +66,9 @@ class UserIDGenerator:
     """
     
     def __init__(self):
+        # Mao integrations
+        self.cache = CacheManager() if CacheManager else None
+        
         # Mathematical operations similar to workflow IDs
         self.operations = {
             'add': lambda x, y: x + y,
@@ -42,6 +101,7 @@ class UserIDGenerator:
         """Sum of digits in a number"""
         return sum(int(d) for d in str(n))
     
+    @handle_errors(operation_name="user_id_generation", return_dict=True)
     def generate_user_id(self, username):
         """Generate a deterministic user ID from username"""
         if not username or not username.strip():

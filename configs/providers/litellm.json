@@ -1,4 +1,5 @@
 {
+  "name": "litellm",
   "display_name": "LiteLLM Proxy",
   "api_type": "openai",
   "base_url": "http://localhost:4000/v1",

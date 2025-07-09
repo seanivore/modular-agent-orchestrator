@@ -1,4 +1,5 @@
 {
+  "name": "requesty",
   "display_name": "Requesty Router",
   "api_type": "openai",
   "base_url": "https://router.requesty.ai/v1",

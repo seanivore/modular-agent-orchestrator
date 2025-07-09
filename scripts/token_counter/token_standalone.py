@@ -12,6 +12,59 @@ import os
 import re
 from typing import Dict, Union, Optional, Any, List
 
+# Standard Mao imports (with fallback for standalone usage)
+try:
+    from orchestrator.cache.cache_system import CacheManager
+    from orchestrator.error_handling import handle_errors
+    MAO_AVAILABLE = True
+except ImportError:
+    # Fallback for standalone usage outside Mao environment
+    MAO_AVAILABLE = False
+    CacheManager = None
+    def handle_errors(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+
+# ----------- Cost Estimation Function -----------
+
+def estimate_cost(input_params: Dict[str, Any] = None) -> Dict[str, float]:
+    """
+    Estimate computational cost for token counting operations
+    
+    Args:
+        input_params: Parameters affecting counting complexity
+        
+    Returns:
+        Dict with cost estimates (time, memory, io_operations)
+    """
+    input_params = input_params or {}
+    
+    text_length = input_params.get('text_length', 0)
+    file_count = input_params.get('file_count', 1)
+    is_directory = input_params.get('is_directory', False)
+    
+    # Base cost calculation
+    estimated_time = 0.01  # Base time in seconds
+    estimated_memory = 1024  # Base memory in bytes
+    estimated_io_ops = 0
+    
+    if is_directory:
+        estimated_time = max(0.1, file_count * 0.02)
+        estimated_memory = file_count * 2048
+        estimated_io_ops = file_count
+    elif text_length > 0:
+        estimated_time = max(0.005, text_length / 100000)  # Very fast text processing
+        estimated_memory = text_length * 2  # Character storage
+        estimated_io_ops = 1 if input_params.get('is_file', False) else 0
+    
+    return {
+        'estimated_time_seconds': round(estimated_time, 3),
+        'estimated_memory_bytes': int(estimated_memory),
+        'estimated_io_operations': estimated_io_ops,
+        'complexity_score': min(10, file_count / 10 if is_directory else text_length / 10000)
+    }
+
 # ----------- Token Counter Core Functions -----------
 
 def count_text_tokens(text: str) -> int:
@@ -137,6 +190,7 @@ def pretty_print_results(title, result):
 
 # ----------- Main Function -----------
 
+@handle_errors(operation_name="token_counting", return_dict=False)
 def main():
     # Check for arguments
     if len(sys.argv) < 2:

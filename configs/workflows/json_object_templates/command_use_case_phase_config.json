@@ -1,7 +1,9 @@
 {
+  "name": "command_use_case_phase_config",
+  "schema_version": "1.0",
   "phase": [
     {
-      "workflow_id": "uid-abd-123",
+      "workflow_id": "{{WORKFLOW_ID}}",
       "phase_number": "01",
       "phase_goal": "Create use-case report",
       "phase_deliverable": "Use-case report",
