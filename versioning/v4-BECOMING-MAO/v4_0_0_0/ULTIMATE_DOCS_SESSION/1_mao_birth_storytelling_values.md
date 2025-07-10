@@ -1,5 +1,7 @@
 # Storytelling Mao's Value
 
+Illustrating the values and principles learned, leading into the success story.
+
 ## Goals 
 
 - Show values by telling the brand story 
