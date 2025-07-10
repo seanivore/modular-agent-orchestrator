@@ -11,7 +11,7 @@ synthesis_approach: $ARGUMENTS
 **ARGUMENTS PARSING:**
 Parse the following arguments from "$ARGUMENTS":
 1. `documentation_spec` - Path to the main documentation specification file
-2. `review_enhancement_spec` - Path to the review and enhancement specification file  
+2. `review_spec` - Path to the review and enhancement specification file  
 3. `synthesis_approach` - Integration mode: "business-first" (default), "technical-first", or "balanced"
 
 ---
@@ -29,7 +29,7 @@ Read and deeply understand the documentation specification at `documentation_spe
 - Exponential value creation through AI coordination
 
 **WIN #2: Technical Flow Illustration** 🔄  
-- Data flow diagrams showing HOW the magic happens
+- File data flow diagrams showing HOW the magic happens
 - Architecture that proves the concepts are real
 
 **WIN #3: 30-Day Autonomous Business** 🚀
