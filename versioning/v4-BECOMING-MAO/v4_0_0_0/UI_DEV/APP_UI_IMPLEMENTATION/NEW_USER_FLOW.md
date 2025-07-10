@@ -96,7 +96,7 @@ Mathematical Operations:
 ╰─────────────────────────────╯
 
 ●   What is your name?
-    └ Please enter User ID to continue 
+    └ Please enter a username to continue 
 
 ╭────────────────────────────────────────────────────────╮
 │ >                                                      │
@@ -225,18 +225,12 @@ Which text style looks best on your screen?
   ? /variables to see what is needed 
 ```
 ```
-⌬
   ? /help for help, /config to change settings 
   ? try /models or /tools to explore 
   ? share your /goal and Mao will do all the work 
   ? /workflow [custom_command] to continue a build 
   ? message /continue to find your last project 
-  ? /workflow [custom_command] [uid-abc-000] to continue a building workflow 
-  ? /workflow [custom_command] [uid-abc-000] [phase_number] to continue a building workflow 
-  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] to continue a building workflow 
-  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] [phase_number] to continue a building workflow 
-  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] [phase_number] [phase_number] to continue a building workflow 
-  ? /workflow [custom_command] [uid-abc-000] [phase_number] [phase_number] [phase_number] [phase_number] [phase_number] to continue a building workflow 
+  ? /workflow [custom_command] or [uid-abc-000] to continue a building workflow 
 ```
 
 ### Gathering Variables 
@@ -480,7 +474,7 @@ mkt not found # This is the output telling me nothing is using the command
 - **THE FORMULA** 
 
 ```bash
-command category variant # This is the command 
+command category variant   # This is the command 
 ```
 
 | **COMMAND** | **CATEGORY** | **VARIANT**  | **DESCRIPTION**                                |

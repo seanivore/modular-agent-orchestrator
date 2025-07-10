@@ -55,7 +55,7 @@ mao self-enhance --schedule weekly --focus "performance optimization"
 - Which workflows are most popular?
 - Where do users get stuck?
 
-### 8. Full-Time Developer 
+### 8. Full-Time Developer (Claude Code SDK)
 - Setup user-requested tools 
 - Add any modular variable to collections 
 - QA and validation testing after every update 
