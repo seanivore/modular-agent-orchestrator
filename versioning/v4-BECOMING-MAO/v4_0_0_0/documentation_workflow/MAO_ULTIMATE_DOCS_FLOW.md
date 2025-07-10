@@ -1,17 +1,17 @@
-# MAO ULTIMATE DOCUMENTATION COMMAND
+# MAO ULTIMATE DOCUMENTATION WORKFLOW COMMAND
 
-**Create world-class documentation following Sean's 5-section structure with business hooks and technical excellence**
+**Create world-class documentation following Sean's 5-section structure with business hooks and 5-win technical excellence**
 
 **Variables:**
 
-documentation_spec: $ARGUMENTS
-review_enhancement_spec: $ARGUMENTS
+DOC_FLOW_SPEC: $ARGUMENTS
+DOC_REVIEW_SPEC: $ARGUMENTS
 synthesis_approach: $ARGUMENTS
 
 **ARGUMENTS PARSING:**
 Parse the following arguments from "$ARGUMENTS":
-1. `documentation_spec` - Path to the main documentation specification file
-2. `review_spec` - Path to the review and enhancement specification file  
+1. `DOC_FLOW_SPEC` - Path to the main documentation specification file
+2. `DOC_REVIEW_SPEC` - Path to the review and enhancement specification file  
 3. `synthesis_approach` - Integration mode: "business-first" (default), "technical-first", or "balanced"
 
 ---

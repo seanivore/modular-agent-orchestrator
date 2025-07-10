@@ -1,6 +1,6 @@
-# UI/UX: Creating a Workflow as a New User 
+## New User Flow For Documentation Structuring  
 
-## Getting Started 
+### Getting Started 
 
 You have a use-case to create a workflow for. Start the Mao application. 
   - By default Mao launches with the last session user's settings 
@@ -12,13 +12,15 @@ You have a use-case to create a workflow for. Start the Mao application.
 mao mao # Proper startup command; launches the Mao application 
 mao --login # Launches the login screen 
 mao # Launches the app as if you're a new user 
-mao --continue # Launches the app in the state of the last session 
+mao --continue # Launches the app in the state of the last session (MCP memory one source of truth)
 ``` 
 
 ### Usernames versus User ID 
 
 - A username is for UX; it is what Users type into the login screen 
 - A user ID is created from the username and used on the backend 
+- It will be displayed in a grayed-out and uneditable field below the username field 
+- In the future, the User ID may provide another layer of security as analytics implementation is added 
 - Specific usernames always populate the same user ID 
 - User ID connects all workflows, use-cases, and other *data for that user*
 - The custom User ID is created by a simple script that can also be run manually as a cli-command 
@@ -26,8 +28,8 @@ mao --continue # Launches the app in the state of the last session
 #### User ID Creation 
 
 ```bash
-meid seanivore # Run command with the Username  
-user-1642 # Response is that Username's User ID  
+meid seanivore # Run command with the Username 
+user-1642 # Response is that Username's User ID 
 ```
 
 #### Forget Your Username? 
@@ -60,27 +62,30 @@ Mathematical Operations:
 
 ### New User ID Application Background Setup 
 
-- The application will create a new `user_username.json` file 
+- The application will create a new `./configs/user/username/user_username.json` directory and file
 - "username" in the filename is the username: `user_seanivore.json`
-- This JSON is saved in the `configs/user` directory 
-- All user settings are saved to this JSON file 
-- Initial settings are set to default 
+- All user settings are saved to a subdirectory here 
+- Initial settings are set to defaults
 - Even default settings are recorded on this JSON file
-- This ensures then when the app pulls up the JSON settings, it will show their actual settings regardless of them being default or not 
+- This ensures then when the app pulls up the JSON settings, it will show their actual settings regardless of them being default or not, eliminating a common UX issue of confusion (hello, VS Code)
 
 #### User ID Application Session Startup 
 
-- The application will load User ID's settings on subsequent launches 
-- The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates their `user_username.json` file 
+- The application saves the state with the most recent User ID used
+- Subsequent launches load with that ID and their settings 
+- The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates a subdirectory in their `./configs/user/username/` directory 
 
 #### User ID & Workflow JSON Configs 
 
 - New Workflows created by this User ID are not recorded to the User ID JSON file 
-- However, all Workflow JSON's have a User ID field, which is how they can be searched for by the application 
+- However Orchestrator Management files easily can search a User ID or Username to pull up their workflows 
+- All workflow JSONs have a User ID field, which is how they can be searched for by the application 
+- They also have Workflow IDs which we'll get to shortly  
 
 ### Login Screen 
 
 *App UI/UX* 
+
   - A minimalistic screen loads 
   - The welcome message persists throughout new user setup pages 
   - Most lines are bulleted; all bullets have large 3 space indent 
@@ -107,11 +112,16 @@ Mathematical Operations:
 ### Theme Selection 
 
 *App UI/UX* 
+
   - This is **NOT** a new screen
-  - The users message enters the conversation thread 
-  - The messages above the user's message disappear 
-  - Then new messages below the user's message appear 
-  - **NOTE** if the User ID was recognized, the theme selection would not be shown 
+  - If the User ID was recognized, the theme selection would not be shown
+  - The app is a "one-screen" experience with irrelevant or dated info being removed for new info 
+  - After login, the User is prompted to select a theme "that looks best in their terminal" 
+  - The only things the termal actually changes is text colors (not main text color), use of white space, and character choices
+  - As a user's message enters the conversation thread, the messages above the user's message may disappear; upward scrolling is reserved for essential content that needs to remain in our one-screen experience 
+
+*The application UI uses semantic highlighting for cognitive leading and will be explained further in another section* 
+
   - The user's message is `>   seanivore` is always a faded gray text 
   - Any 3rd level context below a secondary `└` context, is also faded gray text 
   - 3rd level context is help text, much like the `?` under the text input field 
@@ -130,11 +140,9 @@ Mathematical Operations:
 ●   Mao, seanivore!
     └ This is your first time here 
 
-●   We won't ask you again, mao. 
-    └ We'll save your settings to your User ID 
-      Change this and other settings with /config 
-
-Which text style looks best on your screen?
+●   Choose a legible theme palette for your terminal. 
+    └ We'll save your settings. We won't ask you again, mao. 
+      Change this and other default settings with /config 
 
    1. Dark mode
    2. Light mode
@@ -153,12 +161,12 @@ Which text style looks best on your screen?
  ╰───────────────────────────────────────────────╯
 ```
 
-### Primary Workspace Page 
+### Primary Workspace View (Again, the same "page" in our one-screen experience) 
 
 *App UI/UX* 
-  - This is a new screen 
-  - This is the primary workspace page where everything happens
-  - Things like "Mao is ready to help!" can be prepared with many different messages to cycle through
+
+  - Once settings are complete, those messages clear and make way for the primary workspace view where everything happens
+  - Collections of "Mao is ready to help!" are not 'CANNED' prepared in advance, per say, but rather we use the AI to prepare something unique in the moment; it is virutally always different for Users unless certain help or tips are being pushed 
   - The tips "Describe your workflow", "Ask a question", and "Share your goal" are all tips that can be prepared with many different messages to cycle through 
   - The /help option shows all of the available commands 
   - The /config option shows all of the current settings, which are still set to default 
@@ -184,15 +192,16 @@ Which text style looks best on your screen?
   ? /help for help, /config to change settings
 ```
 
-## Workflow Creation 
-
-### Chatting with Mao 
+### Chatting with Mao To Create a Workflow 
 
 *App UI/UX* 
+
   - This is the same screen as the image above 
-  - When the User starts typing the prompt text disappears 
-  - The app has no wait UX; you can double text and interrupt Mao 
-  - The `?` help message has rotated to a new message that is context relevant 
+  - When the User starts typing the prompt text above disappears 
+  - Usage of a / would auto populate a list of possible commands to run 
+  - Note that one might call it a "modal" but it has no casing, and scrolls through the prepared space for it 
+  - The app has no wait UX; you can double text and interrupt Mao (or turn that off in app settings)
+  - The `?` help message rotates to a new message that is context relevant; they are not created completely on the fly, but batches are prepared in advance around certain context to maintain the allway new feeling 
   - As they continue, the `?` would rotate more, showing `/tool-menu` and other tips
   - The test left in the input field is intended to show they were in the middle of typing 
   - As mentioned before, the `>` bullet is a canned app message; same bullet as User messages, same color text; below it shows an action that Mao took while working 
@@ -244,7 +253,7 @@ Which text style looks best on your screen?
 /variables-explain # Shows the variables that are needed with an explanation 
 ```
 
-In the end, the only thing Mao **MUST** have is the workflow goal. The rest of the variables are 'option' in that, Mao is fully capable of assessing the workflow goal and determining the best way to complete it. 
+In the end, the only thing Mao **MUST** have is the workflow goal. The rest of the variables are 'optional' in that, Mao is fully capable of assessing the workflow goal and determining the best way to complete it. This is intended to create a quiet, but very flexable workflow creation experience. It should come naturally as the user just decides what to do or say. Mao has no script and only knows the variables requires and tool informtation, running parallell agents, etc. Many of the variables can be setup in the User's settings as defaults like the fallback models, providers, etc. 
 
 ### JSON Config File
 
@@ -275,6 +284,8 @@ In the end, the only thing Mao **MUST** have is the workflow goal. The rest of t
 ### Workflow ID 
 
 - When you create a workflow alone or with Mao's help, the JSON object will need a workflow ID 
+- Orchestrator Management files can search a User ID or Username to pull up their workflows 
+- These are also used by Mao in their MCP memory one source of truth to pull back up the workflow details when returning to the workflow as a new instance 
 - Run the `uid` command to get a collision-free (never repeated) unique ID --> `uid-abc-000` 
 - Later, you can follow the `--workflow` command with this ID for that workflow's details, though the custom command might be easier to remember 
 
@@ -309,20 +320,29 @@ Mathematical Operations:
   s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
-### JSON Config Schemas
+### Three Workflow JSON Config Schemas
 
-The config schemas have been broken into three JSON objects. This is to simplify the fact that Mao is a multi-agent system. They might run agents in parallel, or in series, or in a mix of both. They also might leave phases open-ended, or they might decide the deliverable is inadequate and needs to be edited and improved, resulting in the creation of a new phase JSON object. 
+The config schemas have been broken into three JSON objects. This is to simplify the fact that Mao is a multi-agent system, and is modular. Changes to workflows means that they different objects shouldn't be pre-attached. Agents might run agents in parallel, or in series, or in a mix of both. 
 
-- **TEMPLATES:** `./configs/workflows/json_object_templates/`
+NOTE: It is VERY common and highly encouraged that Mao leave the final phase of workflows that deal with creative subject matter completely open. When the Agent completes their deliverable, Mao is able to assess it on the spot and make a decision as to what the next step in the flow should be. This is pushed heavily because it is so very natural to how a human would do it on their own. 
 
-#### Workflow JSON Object 
+Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to par. In this case they may use a command to change the workflow instead up updating it, though the result is similar, a new agent is tasked and called and the flow continues until completion. 
+
+* **TEMPLATES FOR REFERENCE:** 
+
+  - WORKFLOW: `./templates/workflows/example-workflow_workflow_config.json`
+  - PHASE: `./templates/workflows/example-workflow_phase_config.json`
+  - HANDOFF: `./templates/workflows/example-workflow_handoff_config.json`
+  - HELPER: `./templates/workflows/README.md`
+
+#### **WORKFLOW** JSON Object 
 
 - This is the first JSON object that is created when a workflow is created 
 - It contains the workflow's goal, deliverable, description, and other details 
 - Each project's workflow has only one workflow JSON object 
 - The 'goal', 'deliverable', and 'description' are all items that will be broken down into the phases 
 - The objects are tied together by the workflow_id 
-- While building the workflow, the temp_directory is used to store the JSON objects 
+- While building the workflow, the temp_directory is used to store the JSON objects, the management of this file is explained later
 
 ```json
 {
@@ -340,7 +360,7 @@ The config schemas have been broken into three JSON objects. This is to simplify
 }
 ```
 
-#### Phase JSON Object 
+#### **PHASE** JSON Object 
 
 - This is the second JSON object that is created when a workflow is created 
 - It contains a task needed to be completed to achieve the workflow's goal 
@@ -374,10 +394,11 @@ The config schemas have been broken into three JSON objects. This is to simplify
 }
 ```
 
-#### Handoff JSON Object 
+#### **HANDOFF** JSON Object 
 
 - This is the third type of JSON object that is created when a workflow is created 
-- This is created while building the workflow as part of the creative process; when the assessment is being discussed, it is important to get it written down in real time 
+- This is created while building the workflow as part of the creative process 
+- When the assessment is being discussed, it is important to get it written down in real time 
 - This object also helps provide important indicators to the orchestrator or the User watching the workflow 
 - For example, if there is a human in the loop, the orchestrator will need to know when to get human feedback 
 - Additionally, the handoff object is important when the subsequent phases have been left open-ended, where the handoff object is used as a placeholder and indicator that the Orchestrator needs to make a decision and then build the rest of the workflow accordingly 
@@ -401,11 +422,11 @@ The config schemas have been broken into three JSON objects. This is to simplify
 ```
 ### Workflow Updates 
 
-In cases where the workflow is left open-ended, the Orchestrator will create additional phases as needed, included potential handoffs in between each of the phases. The separated, modularity of the JSON objects makes this easy to do on the fly. All of the JSON objects are properly labeled so that they do not need to be created in a single file. In fact, each type of JSON object may best be created as separate files from the start. 
+As mentioned, in cases where the workflow is left open-ended, the Orchestrator will create additional phases as needed, included potential handoffs in between each of the phases. The separated, modularity of the JSON objects makes this easy to do on the fly. All of the JSON objects are properly labeled so that they do not need to be created in a single file. In fact, each type of JSON object may best be created as separate files from the start and stored in the same WORKFLOW directory which will end up being auto created. 
 
-## The Setup Script
+### The Setup Script
 
-### Temporary JSON Object Directory 
+*Deals with our temporary JSON Object Directory* 
 
 - During workflow creation, the JSON objects are saved in a temporary directory 
 - A sub-directory is created in the temporary directory named for the use-case 
@@ -414,13 +435,15 @@ In cases where the workflow is left open-ended, the Orchestrator will create add
 
 ### Command Naming Conventions 
 
-The custom command created for the workflow, named for it's use-case, has a carefully structured name which is used across the entire collection of workflow assets. This include the following, which will be illustrated in a structured example below the command writing protocol. 
+The custom command created for the workflow, named for it's use-case, has a carefully structured name which is used across the entire collection of workflow assets. This include the following, which will be illustrated in a structured example below the command writing protocol. As mentioned before, it will likely be the most memorable part of the workflow for the User. 
 
-  - Temporary JSON object sub-directory name 
-  - Permanent workflow directory name 
-  - Workflow JSON object sub-directory file name 
-  - Execution script file name 
-  - README.md file name 
+That same command is used in the following naming structures to tie everything together: 
+
+  - Temporary JSON object sub-directory name `./configs/workflows/.temp/use_case_name/`
+  - Permanent workflow directory name `./configs/workflows/use_case_name/`
+  - Workflow JSON object sub-directory file name `./configs/workflows/use_case_name/use_case_name_workflow_config.json`
+  - Execution script file name `./configs/workflows/use_case_name/use_case_name.sh`
+  - README.md file name `./configs/workflows/use_case_name/README_use_case_name.md`
 
 #### Command Writing Protocol 
 
@@ -443,6 +466,7 @@ The custom command created for the workflow, named for it's use-case, has a care
   3. For the third word, I'm just going to drill down more: `report`
      - This makes it extrememly memorable 
      - It also makes it clear for future workflow creation that this might be a workflow that can easily be repurposed for marketing strategy reports on other startup ideas 
+     - The workflow can be reused in the future simply by updating the JSON objects and running the setup script again 
 
 The idea here is that, if in the future I need to create another marketing strategy report, I can use the same command, and just adjust the workflow to include an $ARGUMENT. Not necessary for the first workflow, where it would be dog-tech, but a good habit to get into. 
 
@@ -460,7 +484,7 @@ mkt strategy report # This is the command
 
   2. Take the first word, the actual command, and run it in the terminal 
      - It will be colored (mine is green) if it is already being used 
-     - Use `which` before the command to confirm if it is/isn't being used 
+     - If it isn't colored, or to double check, use `which` before the command to confirm if it is/isn't being used 
 
 ```bash 
 mkt # This is the command 
@@ -516,6 +540,7 @@ When the workflow is created, you need to run the JSON config file(s) through th
 3. Produces a README.md file in the new directory 
    - Describes the workflow
    - Reminds the user how to activate the workflow 
+   - Also creates categorical tags about the workflow project to be used in analytics 
 4. Creates executable script with all the details of the workflow 
    - This is the script that will be used to run the workflow 
    - Finally, we have a script that is specific and not generic 
@@ -526,8 +551,9 @@ When the workflow is created, you need to run the JSON config file(s) through th
 6. Creates new sub-directories for 
    - Deliverables 
    - Metadata 
+   - **This is all automated**
 
-**NOTE:** It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you need them, you need to indicate them as one of the deliverables. 
+**NOTE:** It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you NEED draft documents, you will need to list them as deliverables. 
 
 #### Workflow Directory Structure
 
@@ -551,7 +577,7 @@ configs/workflows/command_use_case/
 
 ### Using The Setup Script 
 
-1. This needs to be finalized and then saved as: `./scripts/setup_workflow/build_use_case.sh` 
+1. This is located here: `./scripts/workflow_setup/workflow_setup.sh`  
 2. The initial JSON objects will be in a temp directory 
    - The script should use them and create the final JSON objects in the new directory 
    - Then delete the temp directory 
@@ -564,77 +590,14 @@ configs/workflows/command_use_case/
 3. The script itself should be made executable using a custom command defined in the CLI configs 
 
 ```bash 
-mao --setup ./command_use_case/ # This is the command 
-/setup ./command_use_case/ # This is the slash command 
+mao --setup ./command_use_case/ # This is the command and the argument is the directory with all the JSON objects  
+/setup ./command_use_case/ # This is the slash command with JSON object directory argument 
 ```
 
-### The Actual Setup Script **DRAFT** 
-
-```bash
-#!/bin/bash
-# Workflow Setup Script
-# Processes JSON config .temp directory and creates executable commands
-
-CONFIG_FILE="$1"
-
-if [ ! -f "$CONFIG_FILE" ]; then
-    echo "❌ Config file not found: $CONFIG_FILE"
-    exit 1
-fi
-
-# Parse JSON config
-WORKFLOW_ID=$(jq -r '.workflow_id' "$CONFIG_FILE")
-COMMAND_NAME=$(jq -r '.custom_command' "$CONFIG_FILE")
-COMMAND_FILE="${COMMAND_NAME// /-}"  # Replace spaces with hyphens for filesystem
-
-echo "🚀 Setting up MAO workflow: $COMMAND_NAME"
-
-# Create use-case directory
-USE_CASE_DIR="configs/use_case/${COMMAND_FILE}"
-mkdir -p "$USE_CASE_DIR"
-cp "$CONFIG_FILE" "$USE_CASE_DIR/config.json"
-
-# Generate executable command
-cat > "/usr/local/bin/${COMMAND_FILE}" << EOF
-#!/usr/bin/env python3
-"""
-MAO Custom Command: $COMMAND_NAME
-Workflow ID: $WORKFLOW_ID
-"""
-
-import sys
-import os
-
-# Add MAO to path
-sys.path.insert(0, "$(pwd)")
-
-from orchestrator.core import WorkflowOrchestrator
-import json
-
-def main():
-    config_path = "$USE_CASE_DIR/config.json"
-    with open(config_path, 'r') as f:
-        config = json.load(f)
-    
-    orchestrator = WorkflowOrchestrator()
-    orchestrator.execute_workflow_from_config(config)
-
-if __name__ == "__main__":
-    main()
-EOF
-
-# Make executable
-chmod +x "/usr/local/bin/${COMMAND_FILE}"
-
-echo "✅ Custom command installed: $COMMAND_NAME"
-echo "📁 Use-case directory: $USE_CASE_DIR"
-echo "🧪 Test: which ${COMMAND_FILE}"
-echo "🚀 Ready: ${COMMAND_FILE}"
-```
-
-## Application Configuration Settings 
+### Application Configuration Settings 
 
 *App UI/UX* 
+
   - Users are quietly prompted to adjust configuration settings 
     - Via the `?` message mentioning they try /config
     - This /help and /config are persistent 
@@ -692,3 +655,5 @@ echo "🚀 Ready: ${COMMAND_FILE}"
 1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
 2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
 3. `no notifications` - No tone is played, no push notification 
+
+**MODULAR MAGIC:** Have a new setting for the application? Either as Mao what files are needed, or of them to help create them, or check the templates directory. PLUG-AND-PLAY. New files in their proper place is all that is needed to, for example, add a new setting that says "bark like a dog when workflow is done y/n?". Magic. 
