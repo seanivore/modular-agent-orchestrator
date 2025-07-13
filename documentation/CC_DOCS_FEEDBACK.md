@@ -1,75 +1,100 @@
 # Review of Claude Code Documentation 
 
-## About This Document 
+## Included Documents & Files  
+
+  * Includes documentation created while developing the v4 update 
+  * Implementation files used to direct new feature architecture 
+  * Conceptual explainations of app functioning, visual interface, user experience, and more 
+  * Forward looking planning documents illustrating the scope and power of Mao's practical usecases 
+  * Files that were created to help write the documentation 
+  * An early version of the new documents created by Claude Code 
+  * The final version, unintentionally revamped by Claude Code, after I provided misplaced guidance before seeing any work  
+
+## Resources 
+
+### Implementation Files 
+
+- `./versioning/v4/v4_0_0/implemented-analytics-memory`
+- `./versioning/v4/v4_0_0/implemented-cli-commands`
+- `./versioning/v4/v4_0_0/implemented-workflow-setup`
+- `./versioning/v4/v4_0_0/implementing-github-auto-docs`
+- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev`
+
+### Documentation Files 
+
+- _1: First Collection of Documentation 
+- _2: Creative Feature Direction 
+- _3: Future Planning Potential 
+- _4: New Documentation Planning
+- _5: The CC Workflow Creation Files 
+- _6: Found Other CC Documentation Files 
+- _7: The CC Single-File Draft
+- _8: The CC Documentation Final Drafts 
+
+### First Collection of Documentation 
+
+- `./documentation/_1/01_OVERVIEW.md`
+- `./documentation/_1/02_DEV_RULES.md`
+- `./documentation/_1/03_FILE_DEFINITIONS_A.md`
+- `./documentation/_1/03_FILE_DEFINITIONS_B.md`
+- `./documentation/_1/04_ARCHITECTURE.md`
+- `./documentation/_1/05_EXTENSION_GUIDE.md`
+- `./documentation/_1/06_PROTECTION_RULES.md`
+- `./documentation/_1/07_USER_GUIDE.md`
+- `./documentation/_1/08_VISUAL_IDENTITY.md`
+- `./documentation/_1/09_ANALYTICS.md`
+- `./documentation/_1/10_FILE_STANDARDIZATION_RULES.md`
+
+### Creative Feature Direction 
+
+- `./documentation/_2/BRAND_STORY.md`
+- `./documentation/_2/INTENTION_DETAILS.md`
+- `./documentation/_2/NEW_USER_FLOW.md`
+- `./documentation/_2/VISUAL_BRAND_IDENTITY.md`
+
+### Future Planning Potential
+
+- `./documentation/_3/LOOKING_AHEAD.md`
+- `./documentation/_3/SELF_ENHANCMENT.md`
+
+### New Documentation Planning 
+
+- `./documentation/_4/INTENDED_OUTLINE.md`
+
+### The CC Workflow Creation Files
+
+- `./documentation/_5/DOC_FLOW_README.md`
+- `./documentation/_5/DOC_FLOW_SPEC.md`
+- `./documentation/_5/DOC_REVIEW_SPEC.md`
+
+### Found Other CC Documentation Files 
+
+- `./documentation/_6/01_THE_HOOK.md`
+- `./documentation/_6/1-hook.md`
+- `./documentation/_6/02_ARCHITECTURE.md`
+- `./documentation/_6/README.md`
+
+### The CC Single-File Draft
+
+- `./documentation/_7/MAO_ULTIMATE_DOCUMENTATION.md` 
+
+### The CC Documentation Final Drafts
+
+- `./documentation/_8/00_OVERVIEW.md`
+- `./documentation/_8/01_THE_HOOK.md`
+- `./documentation/_8/02_ARCHITECTURE.md`
+- `./documentation/_8/03_USER_FLOW.md`
+- `./documentation/_8/04_BUSINESS_ROI.md`
+- `./documentation/_8/05_VISUAL_DESIGN.md`
+
+---
+
+# About the Heading Collection 
 
 - The top section is from me rewriting most of the first section of the documentation 
 - I started to write this because I wanted to see the the heading flow and thus the doc flow 
 - They seemed like they could all be improved and written better to make more sense and flow
 - As I continued to list the headings for the new documentation I came across a lot of questions listed below 
-
-## Our Documentation 
-
-This includes actual documentation as well as files that were created to help create the documentation. 
-
-### CC SPECs & Other Files 
-
-#### Used By CC to Create Docs 
-
-The README strangely had a lot of SPEC information in it that was valuable but not in other actual documentation files. I have now moved those and integrated them properly. 
-
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/CC_WORKFLOW/DOC_FLOW_README.md`
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/CC_WORKFLOW/DOC_FLOW_SPEC.md`
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/CC_WORKFLOW/DOC_REVIEW_SPEC.md`
-
-#### Drafted CC Workflow Docs 
-
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/drafted_doc.md`
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/drafted_storytelling.md`
-
-#### CC Workflow Docs 
-
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/CC_WORKFLOW/DOC_FLOW_README.md`
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/CC_WORKFLOW/DOC_FLOW_SPEC.md`
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/CC_WORKFLOW/DOC_REVIEW_SPEC.md`
-
-### The Old Documentation 
-
-- `./.archive/docs_batch_01/ANALYTICS.md`
-- `./.archive/docs_batch_01/ARCHITECTURE.md`
-- `./.archive/docs_batch_01/CONTENTS.md`
-- `./.archive/docs_batch_01/EXTENSION_GUIDE.md`
-- `./.archive/docs_batch_01/FILE_STANDARDIZATION_RULES.md`
-- `./.archive/docs_batch_01/OVERVIEW.md`
-- `./.archive/docs_batch_01/PROTECTION_RULES.md`
-- `./.archive/docs_batch_01/storytelling_philosophy_maos_birth.md`
-- `./.archive/docs_batch_01/SYSTEM_FILES.md`
-- `./.archive/docs_batch_01/USER_GUIDE.md`
-- `./.archive/docs_batch_01/VISUAL_IDENTITY.md`
-
-### The CC Draft Documentation 
-
-#### Found Early Versions of the Documentation 
-
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/01_THE_HOOK.md`
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/02_ARCHITECTURE.md`
-
-#### CC Final Doc Draft Deliverable 
-
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/MAO_ULTIMATE_DOCUMENTATION.md`
-
-### The CC Documentation Final Drafts 
-
-- `./versioning/v4-BECOMING-MAO/v4_0_0_0/documentation_workflow/README.md` 
-- `./.archive/docs_batch_02/00_OVERVIEW.md`
-- `./.archive/docs_batch_02/01_THE_HOOK.md`
-- `./.archive/docs_batch_02/02_ARCHITECTURE.md`
-- `./.archive/docs_batch_02/03_USER_FLOW.md`
-- `./.archive/docs_batch_02/04_BUSINESS_ROI.md`
-- `./.archive/docs_batch_02/05_VISUAL_DESIGN.md`
-
-### Start of My Edited Update Version 
-
-- `./documentation/1.1_INDUSTRY_ABSOLUTE_TRUTHS.md` 
 
 --
 # Section I: Acceptance of Industry Absolutes 

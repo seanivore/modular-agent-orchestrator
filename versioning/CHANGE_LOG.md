@@ -2,6 +2,13 @@
 
 All notable changes to the Single-File Agent will be documented in this file in reverse chronological order (most recent changes at the top).
 
+## Major Version Overview 
+
+  * v1 "Original SFA" 
+  * v2 "Decision Branching"
+  * v3 "Workflow Tooling"
+  * v4 "Becoming Mao"
+
 ## Version Notes Guidelines
 
 Underscores are used instead of periods because of a conflict with running the python script and finding the files. 
