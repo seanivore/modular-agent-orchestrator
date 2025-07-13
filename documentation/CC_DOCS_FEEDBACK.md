@@ -1,6 +1,74 @@
-# Review of Claude Code Documentation 
+# Technical, Marketing, & Product Pitch Documentation 
 
-## Included Documents & Files  
+## Overview 
+
+In its earlier state, it was composed just to find better wording for headings by seeing them together. It has transformed into a comprehensive breakdown of our product's document evolution and resource materials, now functioning as our 'one source of truth' so that we're all on the same page about what works well and what needs work as we continue to improve and complete the files. 
+
+### Brief History 
+
+1. Original docs were created throughout building out SFA into the much larger, Mao v4 model 
+2. These were groomed and improved in an unbalanced way 
+3. As design briefings were written, they were perfected to be included in the docs 
+4. Eventually, we prepared SPEC files and a workflow custom command for Claude Code to regenerate them 
+5. Claude Code was wrapping up their work and I noticed it was only one file 
+   - Without reviewing it, I anxiously advised them about previous collection being bigger and asked if there was enough code snippets 
+   - What resulted was me pushing Claude Code's work away from a narrative and code balance 
+   - As a result we could find some early drafts in git of what Claude Code had created 
+   - The final collection has almost every single concept illustrated through code snippets alone 
+   - What we want is something that better works for all our multiple audiences and purposes 
+
+### Plans Moving Forward 
+
+1. All files and resources are organized for doc production  
+2. The best work is being identified, files are being cleaned up 
+3. During the process I did find quite a few, large question marks for us to discuss 
+4. I'm working on a collection of written feedback to point us in a better direction 
+
+### Noteworthy Considerations 
+
+* This product is robust, has many features, a story, vision, and planned future 
+  - It is not expected that the documents will be just a few documents 
+  - Instead, consider what documents for Anthropic look like, for example 
+* Imagine the process of creating documents like Anthropic's
+  - We have a lot of helpful, accurate code snippets 
+  - As in our Anthropic docs example, these snippets need to be spaced out and given context 
+  - Now consider the end state of Anthropic docs; there are a lot, and they are mainly text
+* Let's consider that we have an accurate amount of code snippets; all we need shown is shown 
+  - This means now we need to put the narrative in between the code 
+  - We need to give each feature context, explaining it using words 
+  - The words need to be concise, have flow, decent white space that they might be scanned 
+  - By this I mean, if you were looking through them for something specific, they cannot "feel" dense 
+  - The result of this texturing means that also those who are not technical can understand the product 
+  - This is a very important goal for us 
+* We have great resources to pull from 
+  - We have a lot of helpful, accurate code snippets 
+  - We have a lot of helpful, accurate design files 
+  - We have a lot of helpful, accurate user flow files 
+  - We have a lot of helpful, accurate business files 
+* Ask ourselves, 'What did we use the most while building the product?' 
+  - First, be sure to keep those files, or the best of them 
+  - Second, look to what made these file so very useful throughout the build 
+  - Then see where that kind of writing is still needed, and attempt to create it 
+
+### Our Docs Tranformative Vision 
+
+* In the end we need to strike a blanace, both in the amount of text and the amount of code, as well as the way we present information, and the way we present the product's story; we need something for all of our audiences, that stays light and does not bog down or exclude certain groups. 
+* This means we need to better consider structure; take stock of all that must be included, then don't present it in any singular way, but present it in multiple ways in succession so that they compliment each other. In this way we should think about the UX of being a user looking at the documents.
+  - Is it easy to read a section and skip over the code you might not understand and still find what you needed? 
+  - Is it easy to skip over basics and find the deeply technical details you need to understand complex features? 
+* Again, consider Anthropic's docs, both visually, sructurally, in length, contents, as well as formatting and voice. Our only difference is that we don't need as many sections as they do: We have no SDK, no API, and don't have multiple product lines at this point. Where they have this variety, we instead have variety in content crafted for our different audiences. 
+  - We have branding in the form of story, vision, conviction, intention. 
+  - We have very quick overview reference pages sort of like cheat sheets or our collection of rules. 
+  - We have forward thinking business plans illustrating how powerful the product's agentic capabilities. 
+  - We discuss how wildly autonomous it can be. 
+  - We have visual diagrams and charts. 
+  - We have analytics for the number lovers and data sharks. 
+  - And of course, we have quite plenty of code that was masterfully created. 
+* I've broken this down to show that, yes, it is a lot. Not too much, but enough to want to show how very important structure will be to achieving our goals here. 
+
+---
+
+# Included Resource Documents & Files 
 
   * Includes documentation created while developing the v4 update 
   * Implementation files used to direct new feature architecture 
@@ -8,19 +76,9 @@
   * Forward looking planning documents illustrating the scope and power of Mao's practical usecases 
   * Files that were created to help write the documentation 
   * An early version of the new documents created by Claude Code 
-  * The final version, unintentionally revamped by Claude Code, after I provided misplaced guidance before seeing any work  
+  * The final version, unintentionally revamped by Claude Code, after I provided misplaced guidance before seeing any work 
 
-## Resources 
-
-### Implementation Files 
-
-- `./versioning/v4/v4_0_0/implemented-analytics-memory`
-- `./versioning/v4/v4_0_0/implemented-cli-commands`
-- `./versioning/v4/v4_0_0/implemented-workflow-setup`
-- `./versioning/v4/v4_0_0/implementing-github-auto-docs`
-- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev`
-
-### Documentation Files 
+## Collection Groupings 
 
 - _1: First Collection of Documentation 
 - _2: Creative Feature Direction 
@@ -31,35 +89,43 @@
 - _7: The CC Single-File Draft
 - _8: The CC Documentation Final Drafts 
 
+### Implementation Files 
+
+- `./versioning/v4/v4_0_0/implemented-analytics-memory`    # Completed
+- `./versioning/v4/v4_0_0/implemented-cli-commands`        # Completed
+- `./versioning/v4/v4_0_0/implemented-workflow-setup`      # Completed
+- `./versioning/v4/v4_0_0/implementing-github-auto-docs`   # Planned, unsure if complete 
+- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev`    # Replan after docs task 
+
 ### First Collection of Documentation 
 
-- `./documentation/_1/01_OVERVIEW.md`
-- `./documentation/_1/02_DEV_RULES.md`
-- `./documentation/_1/03_FILE_DEFINITIONS_A.md`
-- `./documentation/_1/03_FILE_DEFINITIONS_B.md`
-- `./documentation/_1/04_ARCHITECTURE.md`
-- `./documentation/_1/05_EXTENSION_GUIDE.md`
-- `./documentation/_1/06_PROTECTION_RULES.md`
-- `./documentation/_1/07_USER_GUIDE.md`
-- `./documentation/_1/08_VISUAL_IDENTITY.md`
-- `./documentation/_1/09_ANALYTICS.md`
-- `./documentation/_1/10_FILE_STANDARDIZATION_RULES.md`
+- `./documentation/_1/01_OVERVIEW.md`                     # Showcasing incredible usability 
+- `./documentation/_1/02_DEV_RULES.md`                    # Simple, useful rules and standardizations 
+- `./documentation/_1/03_FILE_DEFINITIONS_A.md`           # Making complexity understandable 
+- `./documentation/_1/03_FILE_DEFINITIONS_B.md`           # Making complexity understandable 
+- `./documentation/_1/04_ARCHITECTURE.md`                 # Classic necessity, too grouped 
+- `./documentation/_1/05_EXTENSION_GUIDE.md`              # Showcasing incredible usability
+- `./documentation/_1/06_PROTECTION_RULES.md`             # Already simplified and now dated 
+- `./documentation/_1/07_USER_GUIDE.md`                   # Showcasing incredible usability 
+- `./documentation/_1/08_VISUAL_IDENTITY.md`              # Making it tanglible; real not just words
+- `./documentation/_1/09_ANALYTICS.md`                    # Not given nearly enough attention 
+- `./documentation/_1/10_FILE_STANDARDIZATION_RULES.md`   # Simple, useful rules and standardizations 
 
 ### Creative Feature Direction 
 
-- `./documentation/_2/BRAND_STORY.md`
-- `./documentation/_2/INTENTION_DETAILS.md`
-- `./documentation/_2/NEW_USER_FLOW.md`
-- `./documentation/_2/VISUAL_BRAND_IDENTITY.md`
+- `./documentation/_2/BRAND_STORY.md`            # Reader inspiration 
+- `./documentation/_2/INTENTION_DETAILS.md`      # Writing guidance  
+- `./documentation/_2/NEW_USER_FLOW.md`          # Making it tanglible; real not just words 
+- `./documentation/_2/VISUAL_BRAND_IDENTITY.md`  # Making it tanglible; real not just words 
 
 ### Future Planning Potential
 
-- `./documentation/_3/LOOKING_AHEAD.md`
-- `./documentation/_3/SELF_ENHANCMENT.md`
+- `./documentation/_3/LOOKING_AHEAD.md`    # Reader inspiration, brings understanding  
+- `./documentation/_3/SELF_ENHANCMENT.md`  # Reader inspiration, brings understanding  
 
 ### New Documentation Planning 
 
-- `./documentation/_4/INTENDED_OUTLINE.md`
+- `./documentation/_4/INTENDED_OUTLINE.md`   # Writing guidance
 
 ### The CC Workflow Creation Files
 
