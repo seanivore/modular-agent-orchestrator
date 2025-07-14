@@ -1,5 +1,8 @@
 # Technical, Marketing, & Product Pitch Documentation 
 
+**UPDATED THOUGHTS ON PLAN** 
+I think I'm going to pull together all of the text portion of the documentation files. Then we can go through the CC final draft and move code snippets to their proper places. 
+
 ## Overview 
 
 In its earlier state, it was composed just to find better wording for headings by seeing them together. It has transformed into a comprehensive breakdown of our product's document evolution and resource materials, now functioning as our 'one source of truth' so that we're all on the same page about what works well and what needs work as we continue to improve and complete the files. 
@@ -158,12 +161,36 @@ In its earlier state, it was composed just to find better wording for headings b
 
 ### The CC Documentation Final Drafts
 
-- `./documentation/_8/00_OVERVIEW.md`
+- `./documentation/_8/00_OVERVIEW.md` -- consolidated; most of it went to a new README.md file for the project directory -- the  links at the bottom and layout of documentation at the top may need to be updated on that README.md file 
 - `./documentation/_8/01_THE_HOOK.md`
 - `./documentation/_8/02_ARCHITECTURE.md`
 - `./documentation/_8/03_USER_FLOW.md`
 - `./documentation/_8/04_BUSINESS_ROI.md`
 - `./documentation/_8/05_VISUAL_DESIGN.md`
+
+### Newly Created Files and Final Documentation 
+
+1. `./README.md` -- needs review and link updates 
+2. `./documentation/00_OVERVIEW_INTRO.md` 
+   - Meant to be a "briefing" type of quick overview of all the documentation files 
+   - It will need to be reviewed and probably updated as we continue to build out the final documentation 
+   - Mostly selling points or value propositions 
+   - No code snippets yet 
+3. `./documentation/1_SELF_EVOLVING_AGENT.md` 
+   - The hook aka the actual introduction to the product 
+   - It has some longer form text storytelling 
+   - It also has exponential growth numbers from this year 
+   - The general idea is to highlight how *only* a completely modular application is safe with any kind of longevity in the current industry climate 
+   - It then goes through our problem and solution 
+   - Telling our three earlier identified narrative points 
+   - (1) realizing the magic of modularity 
+   - (2) starting point as the SFA and about variable input 
+   - (3) then our rapid development success stor 
+4. `./documentation/2_QUICK_REFERENCE_MATERIALS.md` 
+   - A place to go and answer quick questions about the product 
+   - "what is this file for?" "oh i see" 
+   - It should also then be diagram heavy with at least - Integration touchpoint maps - though i could see some of the other diagrams being here and linking to their section such as the user flow one. 
+   - Looking through the architecture section from the new CC final draft and Im' sort of baffled by "config_factory.py" section --- I just searched the codebase and it does not exist which is comforting because it was starting to seem like there are lots of things I had no idea were created. Sort of getting more annoyed as I do this because seriously why would AI do something like that? We're documenting a product that is real, that was just audited and identified as being complete other that an UI. So creating new functions for the documentation is more than a bit odd. I honestly think I might just stop here which trying to do the wirting part by myself because this is just really irritating like why am I weeding through my documentation getting past things that literally don't even exist. I've enver known Claude to halucinate that seriously. 
 
 ---
 
@@ -174,10 +201,28 @@ In its earlier state, it was composed just to find better wording for headings b
 - They seemed like they could all be improved and written better to make more sense and flow
 - As I continued to list the headings for the new documentation I came across a lot of questions listed below 
 
+---
+
+# Planned Sections
+
+## Section I: Self-Evolving AI-Project Manager
+## Section II: Quick Reference Materials
+## Section III: Architectural Review Led by UX Flow Walkthrough 
+## Section IV: Business Value & Future Evolution
+## Section V: Visual Brand Identity & User Interfaces
+
+---
 --
-# Section I: Tactfully Avoided AI Industry Dangers
+# Overview 
+----> error_handling.py is the only file that comes up when you search for "requirements.txt" which is indicated as being able to install app dependencies 
+----> It also lists the command "mao init --setup-complete" which reminds me that the other day the reviewing Agent of CC's docs said that we had 90-something CLI commands ... so are there others somewhere else and is this one real? 
+----> I also have seen details about automations that setup configuration like tools; which is listed here. Is this actually implemented too? It is still so baffling to me how these things *STILL* get created without me having a single clue. It is very strange to me that AI wouldn't want to share the details of how they do things. 
 --
-## Chapter 1.1: Uncomprehendable Exponential Change 
+# Section I: Self-Evolving AI-Project Manager
+--
+## Chapter 1.1: Exponentially Uncomprehendable 
+### Small Players Need To Be Smart
+### Numbers Unlike We've Ever Seen 
 ### Our Problem Is Clear 
 ### Slowly Identified Solution 
 #### 1. Modularity's Evergreen Value 
@@ -195,6 +240,7 @@ In its earlier state, it was composed just to find better wording for headings b
 ### Quality Must Be Systematic 
 ### Strictly Business-Minded 
 
+-- NOTE THAT THE SINGLE FILE HAS DIFFERENT STRUCTURE THAN THE SEPARATED FILES -- 
 --ABOVE FROM FIXED DOCUMENT: `./documentation/1.1_EXPONENTIAL_DANGERS_SOLUTIONS.md`--
 --BOTTOM FROM CC DOCUMENT OUTPUT-- [compare-to-chapter-breakdown.md]
 

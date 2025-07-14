@@ -12,7 +12,9 @@
 
 ---
 
-## Chapter 1.1: Uncomprehendable Exponential Change 
+## Chapter 1.1: Exponentially Uncomprehendable
+
+### Small Players Need To Be Smart
 
 A couple years ago I was creating automations using various AI models, carefully crafted prompts, and timely data I'd put into a database. These automations generated text that was then reviewed and edited by other AI down the chain to a final draft. The final: a script for a Podcast series I had been posting daily for months. The script then reached ChatGPT's Text-to-Speech API and out the other side we could hear our beloved host, Theodore. The workflow was ahead of its time, enjoyable to listen to, and of a voice over quality only the best listeners could tell was AI. 
 
@@ -25,6 +27,9 @@ I was fortunately not to have invested much into my own programmed product, but 
 Humans, and our businesses, are not accustomed to dealing with anything that changes at an exponential rate. It isn't something that is dealt with enough to understand the magnitude and rate of change, until after it has happened. 
 
 ---
+
+### Numbers Unlike We've Ever Seen 
+
 > These are some numbers we need to find ways to illustrate in final draft. They are from a business presentation, I'll find the source so we can cite it. It is research I pulled from their massive number of slides that were presented for CEOs and business leaders. I posted it in this format to my LinkedIn. The *italicized text* I added to note next steps.
 
 > This is what investors and companies are going to be thinking about all year, Re: AI, just the numbers. 
