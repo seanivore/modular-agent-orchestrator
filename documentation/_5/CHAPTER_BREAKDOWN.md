@@ -19,7 +19,7 @@
 - Architecture that enables the revolutionary concepts
 - Error handling and recovery mechanisms
 
-## Section III: User Flow Walkthrough (Highlighting Architecture)
+## Section III: Architectural Review Led by UX Flow Walkthrough 
 ### Chapter 3.1: From Business Idea to Workflow Creation
 - Natural conversation interface with Mao
 - Goal articulation and workflow planning
