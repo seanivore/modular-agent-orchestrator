@@ -303,6 +303,6 @@ git push origin main
 ## Getting Help 
 
 - **Developer Questions**: See [02_ARCHITECTURE.md](./documentation/_8/02_ARCHITECTURE.md) for technical details
-- **User Guides**: Check [03_USER_FLOW.md](./documentation/_8/03_USER_FLOW.md) for workflows
+- **User Guides**: Check [03_USER_FLOW.md](./documentation/_8/03_USER_FLOW_.md) for workflows
 - **Business Questions**: Review [04_BUSINESS_ROI.md](./documentation/_8/04_BUSINESS_ROI.md) for ROI info
 - **Design Implementation**: Reference [05_VISUAL_DESIGN.md](./documentation/_8/05_VISUAL_DESIGN.md) for UI patterns

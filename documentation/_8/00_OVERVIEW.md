@@ -29,7 +29,7 @@ This comprehensive documentation is organized into focused sections for differen
 - Modular architecture deep dive with implementation details
 - Data flow illustrations with Mermaid diagrams
 
-### **[03_USER_FLOW.md](./03_USER_FLOW.md)**
+### **[03_USER_FLOW.md](./03_USER_FLOW_.md)**
 *Complete User Journey with Code Snippets*
 - Goal definition to workflow creation
 - JSON configuration system mastery
@@ -59,7 +59,7 @@ Start with: [01_THE_HOOK.md](./01_THE_HOOK.md) → [04_BUSINESS_ROI.md](./04_BUS
 *Understand the market opportunity and business impact*
 
 ### **For Technical Decision Makers**
-Start with: [02_ARCHITECTURE.md](./02_ARCHITECTURE.md) → [03_USER_FLOW.md](./03_USER_FLOW.md)
+Start with: [02_ARCHITECTURE.md](./02_ARCHITECTURE.md) → [03_USER_FLOW.md](./03_USER_FLOW_.md)
 *Evaluate technical foundations and implementation approach*
 
 ### **For Developers**
@@ -71,7 +71,7 @@ Start with: [01_THE_HOOK.md](./01_THE_HOOK.md) → [04_BUSINESS_ROI.md](./04_BUS
 *Assess market opportunity, business case, and technical defensibility*
 
 ### **For End Users**
-Start with: [03_USER_FLOW.md](./03_USER_FLOW.md) → [05_VISUAL_DESIGN.md](./05_VISUAL_DESIGN.md)
+Start with: [03_USER_FLOW.md](./03_USER_FLOW_.md) → [05_VISUAL_DESIGN.md](./05_VISUAL_DESIGN.md)
 *Learn how to create and optimize AI workflows*
 
 ---
@@ -375,6 +375,6 @@ git push origin main
 ## 📞 GETTING HELP
 
 - **Developer Questions**: See [02_ARCHITECTURE.md](./02_ARCHITECTURE.md) for technical details
-- **User Guides**: Check [03_USER_FLOW.md](./03_USER_FLOW.md) for workflows
+- **User Guides**: Check [03_USER_FLOW.md](./03_USER_FLOW_.md) for workflows
 - **Business Questions**: Review [04_BUSINESS_ROI.md](./04_BUSINESS_ROI.md) for ROI info
 - **Design Implementation**: Reference [05_VISUAL_DESIGN.md](./05_VISUAL_DESIGN.md) for UI patterns
