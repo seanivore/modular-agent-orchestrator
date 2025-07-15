@@ -220,7 +220,7 @@ Mathematical Operations:
 >   I have a bunch of details in my notes 
     already 
 
-●   Great idea, seanivore. 
+●   Great, seanivore. 
     ├ Rattle off the details and I'll wait to reply
     └ Or say something like "lead me" and I'll take the lead 
 
