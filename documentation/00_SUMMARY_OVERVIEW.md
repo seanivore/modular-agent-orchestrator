@@ -1,3 +1,8 @@
+This file is really beautiful, the way it is structured, pattern of notes and statements. Just mentioning in case we want to create a standard across them all. 
+`./.archive/09_ANALYTICS.md` 
+
+---
+
 # Introducing 'Mao' 
 
 *Transform natural language goals into sophisticated multi-agent workflows*
