@@ -1,5 +1,9 @@
 ## Mao Application New User Flow  
 
+> I sort of want to put the analytics trigger points throughout this flow. I'm going through that document now, and I don't think I can do both at once, so I'm noting it here in case you agree that it would make sense to do so. 
+> Basically, this narrative format is supposed to serve as our 'ARCHITECTURE.md' file. So the more thorough we can be without jarring the flow, the less we'll have to fit into the documents in a different way. 
+> Other than the documentation topics that have their own section files, which appears to be user memory system, user analytics, and system analytics, all of which I'm planning on making the first part of the business value section, just about everything else should be in this file as an opportunity to explain the architecture after the flow. We want to try to not integrate them too complete, but also still have them both in the same file. "Make a point" then "explain the architecture of that point" and repeat. Oh, also the visual identity UI section can hold its own architecture ... probably for the best since that needs to be the TypeScript and Node.js code so it is good to keep it separate for clarity. The "evolving" agentic timer is in the business value section as well (it is what the analytics work up to), but correct me if I'm wrong that we don't actually have any code implemented for that yet and thus no architecture to explain. 
+
 ### Getting Started 
 
 You have a use-case to create a workflow for. Start the Mao application. 

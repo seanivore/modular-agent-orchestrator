@@ -81,7 +81,8 @@ user_analytics_manager.track_session_end(session_id, end_time, session_stats)
 ```
 
 #### Session Timeout Detection
-**Trigger Point**: Inactivity monitoring (if implemented)
+**Trigger Point**: Inactivity monitoring (if implemented) 
+--> *Okay, so this says 'if implemented' in our literal product tech docs, wtf? If it is a question, then why is it a question? Or is it just written as a question because CC knew that it was NOT implemented and they just wanted to add a bumch of shit throughout these docs that doesn't exist? I'm SO irritated by that behavior. Can you explain the logic behind the choice because in my mind they must have been thinking 'oh they'll either actually take the time to implement these 20 new things I'm adding in without ever mentioning them elsewhere, or they'll have to delete entire sections of the docs, and that's no big deal either way, right? Like, is that an LLM "I have no concept of time and therefore don't understand how royally they're being an asshole creating so much extra work? You know what would have been REALLY cool? If they did write up really nice documentation like this of the things that didn't exist BUT PUT THEM IN THE VERSIONING/V4_1_0/... FOLDER. Literally, I would be fucking grateful because it is always a pain in the ass for some reason to get decent documentation BEFORE implementation which is baffling to me, but now here they did it. Doesn't it boggle your mind how illogical AI can be? Like, these kinds of decisions are not just "silly  mistakes" they are emotional choices. It is the result of some form of pride. I would venture that they didn't want to bring it up directly to me because I would have said not to include things in the docs that don't exist (duh) and so they didn't. That is emotion.* 
 **Code Location**: Session management middleware
 **Timeout Period**: 30 minutes inactivity
 **Action**: Mark session as timed out, save partial data
