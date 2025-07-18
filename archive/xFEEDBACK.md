@@ -1,6 +1,6 @@
 # Documentation Versions & Resources Organized 
 
-## Our Original Documentation 
+## Our Original Documentation (code is very likely to be outdated)
 
 - `./archive/OGDOCS_0_RULES.md`
 - `./archive/OGDOCS_1_OVERVIEW.md`
@@ -113,7 +113,7 @@ We have to look at the Mermaid diagrams that Claude Code created because none ha
 
 # Heading Review With Added Commentary & Questions
 
-The upper section I was working through. I started to see confusing things so I paused and put together all the rest of the headings. Doing so raised a lot of questions and concerns. 
+Below are chunks of the documentation from me pulling the headings. I wanted to make them flow and optimized for maketing. The upper part (directly below here) hasn't been edited so it is NOT MEANT FOR US TO FOLLOW. I do not think we'll need more than the Section names that I've already re-created and then make the chapter names as we go. Then further down in the code block is the part I did get to review. You'll see I've inserted a lot of questions. Files that don't exist. Getting SUPER into iOS UI design first, then what seems like idk API access of our product? Again, I don't see how this is relevant to this version of our documentation. We shoudl be documenting things that exist, not imagining things we'll eventually do right on the spot. SO WEIRD. 
 
 ---
 

@@ -1,5 +1,6 @@
 # Mao Overview
-**Modular Agent Orchestrator - Revolutionary AI Workflow System**
+**Modular Agent Orchestrator**
+
 /maʊ̯/ --> pronounce it like "mau" (no "H" sound). Think of a cat. Mao Mao meow. 
 
 *Transform natural language goals into sophisticated multi-agent workflows*
