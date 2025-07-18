@@ -1,14 +1,30 @@
 # Section I: Self-Evolving AI-Project Manager
 
-  - Mao's strategic, risk-adverse developmental architecture ensures that your AI employee can learn and grow so you don't need to worry about the constantly changing industry. No need to find new tools every few months when AI models improve, as Mao is built to improve right along side the AI industry, no matter how fast or drastically it changes. 
+* **Mao's has a strategic, risk-adverse developmental architecture.** 
+  - Ensures you don't need to worry about the constantly changing industry. 
+  - No need to find new tools every few months when AI models improve. 
+  - Mao is built to improve right along side the AI industry, no matter how fast or drastically it changes. 
 
-  - Mao is an agentic tool that can handle highly complex and diverse projects, at scale, delegating work to teams of AI agents working in parallel, when needs arise. They take responsibility to fix an agents work when it isn't up to par; and you needn't even be in the loop. So no matter how little you know about the project you need to complete, Mao can handle it. 
+* **Mao is an agentic tool built to handle highly complex, diverse projects, at scale.** 
+  - Work is delegated to teams of AI agents who work in parallel. 
+  - Mao inspects deliverables at every step, and takes it upon themself to improve work if needed, without a human in the loop. 
+  - No matter how little you know about the project you need to complete, Mao can handle it. 
 
-  - When they're not working on your projects, Mao triggers regular self-evaluations, reviewing performance data used to create workflows that are crafted to improve their own capabilities. You're welcome to nudge their transformation in any direction you may need, or provide a list of resopnsibilities; but you can also allow them to do what they do best: make decisions by following the data. 
+* **Mao is powerful enough to evaluate and self-improve, on their own.**
+  - Identify the time, and Mao triggers self-evaluations, reviews performance data, and crafts workflows that improve the Mao tool. 
+  - Nudge their transformation in any direction you may need, or provide a list of resopnsibilities. 
+  - Or simply allow them to do what they do best: make decisions by following the data.
 
-  - Managing a business is a lot of work, and it's not always easy to know where to start. Mao's triggered workflows can be designed to ensure the completion of just about any aspect of business administration. The [possibilities are endless](./05_AUTOMATED_APPRECIATION.md) when you work towards a future where your entire business is run by AI. You'll never have to ask for that late monthly budget report again. They're prepared to automate just about anything you can think of in the digital business world, provided with as little as a goal. 
+* **Mao's triggered workflows let them take over running your business, one step at a time.** 
+  - Managing a business is a lot of work; but Mao is designed in a way that allows for the completion of just about any aspect of business administration. 
+  - With Mao's triggered workflows the [possibilities are endless](./05_AUTOMATED_APPRECIATION.md), including having your entire business run by AI. 
+  - They're prepared to automate just about anything you can think of in the digital business world, provided with as little as a goal. 
+  - You'll never have to ask for that late monthly budget report again. 
 
-  - Mao is a revolutionary tool crafted for our current revolution. They might end up being the most compentent coworker you've ever had who's built to stay with you for the long haul. Keep reading below to learn more about the challenges of the AI industry and how Mao isn't designed to avoid them, but to turn them into opportunities to become a more powerful product. 
+* **Mao is a revolutionary tool crafted for our current revolution.**
+  - They might end up being the most compentent coworker you've ever had, built to stay with you for the long haul.
+  - Keep reading below to learn more about the challenges of the AI industry. 
+  - Mao isn't just designed to avoid them, they're designed to turn them into opportunities to become a more powerful product. 
 
 ---
 
