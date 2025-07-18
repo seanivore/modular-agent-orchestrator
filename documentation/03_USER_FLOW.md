@@ -1,49 +1,123 @@
-## Mao Application New User Flow  
 
-> I sort of want to put the analytics trigger points throughout this flow. I'm going through that document now, and I don't think I can do both at once, so I'm noting it here in case you agree that it would make sense to do so. 
-> Basically, this narrative format is supposed to serve as our 'ARCHITECTURE.md' file. So the more thorough we can be without jarring the flow, the less we'll have to fit into the documents in a different way. 
-> Other than the documentation topics that have their own section files, which appears to be user memory system, user analytics, and system analytics, all of which I'm planning on making the first part of the business value section, just about everything else should be in this file as an opportunity to explain the architecture after the flow. We want to try to not integrate them too complete, but also still have them both in the same file. "Make a point" then "explain the architecture of that point" and repeat. Oh, also the visual identity UI section can hold its own architecture ... probably for the best since that needs to be the TypeScript and Node.js code so it is good to keep it separate for clarity. The "evolving" agentic timer is in the business value section as well (it is what the analytics work up to), but correct me if I'm wrong that we don't actually have any code implemented for that yet and thus no architecture to explain. 
+THIS SECTION NOTE: 
+- You'll see that I've explained a section and then added an architecture section directly after it. This is to help keep the flow of the document clean and easy to read. 
+- I'm curious to see if we'll be able to make this document our entire ARCHITECTURE file or not. Let's see how it goes. 
+- I didn't add chapters yet because I think we'll want to strcture those according to how the architecture sections end up breaking up the document. I figure that we might end up combining or separating sections once we have all the information in place depending on length. Once that is done, it will make sense to add chapters and they'll be more helpful because we can make each one be about specific topics and have one architecture section or something. 
 
-### Getting Started 
+NEXT STEPS: 
+- Look at the top of the page and then find where ===THIS IS AS FAR AS I'VE GOTTEN=== is. 
+- Continue to format the document below that line just like above, with removing much text at all except for things that are heavily UI; you'll see I only left two examples of the screen they'll see. The rest we can put in the visual identity section. 
+- Don't add the actual architecture details in full yet. If there are some details in this document that belong in the architecture section, add them there. But finish the whole document first, then double back to complete the architecture sections. 
+- In doing this, I think we should also add the analytics trigger points to the document. I think we could do it in an interesting, visual way, at the end of a section/archtecture section start. 
 
-You have a use-case to create a workflow for. Start the Mao application. 
-  - By default Mao launches with the last session user's settings 
-  - If that isn't you, you can launch with `--login` to enter your Username  
-  - Or once the app is running, you in you can use `/login` to enter your Username 
-  - If you've never used Mao before, you'll need to login and choose a couple settings 
+OTHER NOTES: 
+- After the setup script there is a section "# SECTION II: QUICK REFERENCE & ARCHITECTURE" that from there down we need to analyze and decide what it is, if it is accurate, and if so where it should go. 
+- I see things about workflow types, parallel agents, parallel tool execution (which idk if it needs to be specifically implemented or not but we definitely need to mention it because it is like a new thing that i'm noticing now that agents are reading like 10 documents simultaneously and i'd like to make a big edeal about that and what that means for the future.)
+- I also see stuff about the CACHE as well as error handling 
+- I'm thinking we might actually also need a section about all of the orchestrator's responsibilities and how it is able to do all of that. 
+
+  We could add: 
+  - ORCHESTRATION.md -- which can be all technical because in the quick reference seciton i want to have all of the files listed and defined, followed by the touchpoints and a map for the touchpoints, etc. as well as the data flow. 
+  - ENHANCMENT.md -- for cache and error handling i think we'll want to do the "sentence structure" and then "architecture" again even though i think that the actual section structure sections will probably be much smaller. 
+
+
+NEXT SECTION, ANALYTICS, MEMORY; NEXT NEXT SECTION, AGENTIC TIMER: 
+- The section that folows this one is about "user memory system, user analytics, and system analytics" so the triggers for the analytics would be a nice flow into that section. This section should be primarily just architecture. Because... 
+- The section after the analytics and memory system climaxes with the "evolving" agentic timer. We should describe the functionality of the user, system, analytics, and memory system in the start of this section. Make it about business value; this is why we held the details separate. This should make for a natural build to the evolving agentic timer. Thoughout the agentic timer information we will divide up the sentence structure explaining about it and its value in sections, followed by the architecture details, mimicking the flow of this user-flow section. 
+- I currently have these as two files but they can be one if we want though given the switch back to sentence structure then architecgtur and back and forth, as well as how much can be said about the automating stuff, it might be better to keep them separate: 
+  - documentation/04_ANALYTICS_MEMORY.md
+  - documentation/05_AUTOMATING_BUSINESSES.md
+
+NEXT SECTION AFTER THAT IS VISUAL IDENTITY. 
+LAST SECTION IS FUTURE GROWTH PLANS. 
+THEN WE WILL ADDRESS THE QUICK REFERENCE SECTION. 
+THEN A REVIEW OF THE EVOLVING AGENT DOCUMENT. 
+ONCE ALL OF THAT IS DONE, THEN WE CAN DO THE SUMMARY OVERVIEW SECTION BEACUSE I WANT IT TO HAVE LINKS TO EACH SECTION, BUT IN A MUCH MORE CONVERSATIONAL WAY THAN CC'S VERSION DID. 
+
+---
+
+# Section III: User Flow of Giving Mao A Project To Work On 
+Remember: Mao v4.0.0 is released for use in your computer's terminal. 
+*User guide from start to finish; with tactfully placed architecture & analytics trigger points* 
+
+---
+
+## Install Mao v4.0.0 
+
+1. Install [Node.js 18+](https://nodejs.org/en/download/)
+2. Open the terminal on your computer
+3. Run `npm install -g @seanivore/mao` 
+
+```bash
+npm install -g @seanivore/mao
+#     │      │  │
+#     │      │  └── Scoped package name  
+#     │      └────── Install globally (system-wide)
+#     └───────────── Package manager
+```
+
+## Launch the application 
+
+Use the `mao mao` command to launch the application. 
 
 ```bash
 mao mao # Proper startup command; launches the Mao application 
-mao --login # Launches the login screen 
+mao --continue # Launches the app in the state of the last session 
 mao # Launches the app as if you're a new user 
-mao --continue # Launches the app in the state of the last session (MCP memory one source of truth)
-``` 
+```
 
-### Usernames versus User ID 
+## Login & Usernames 
 
-- A username is for UX; it is what Users type into the login screen 
-- A user ID is created from the username and used on the backend 
-- It will be displayed in a grayed-out and uneditable field below the username field 
-- In the future, the User ID may provide another layer of security as analytics implementation is added 
-- Specific usernames always populate the same user ID 
-- User ID connects all workflows, use-cases, and other *data for that user*
-- The custom User ID is created by a simple script that can also be run manually as a cli-command 
+- If this is you first time using Mao, you'll need to login and choose a couple settings, all of which you'll be walked through when the application launches. 
+- If this isn't your first time using Mao and you want to make sure you're logging into your account, you can use the `--login` flag. 
 
-#### User ID Creation 
+```bash
+mao --login # Launches the login screen 
+mao --login --username seanivore # Launches the login screen with the username "seanivore" 
+```
+
+### UserID, Username, and Security 
+
+**You only need to remember your Username** 
+
+- The UserID is automatically generated from a Username 
+- It is used on the backend as an additinal layer of anonymity for the user and their data 
+- On the back end, your Username and its UserID are shown together only in one configuration file 
+- All other data, settings, and workflows are stored with the UserID 
+
+**Extra security?** 
+
+- We do not currently have any analytics that would require a UserID to be anonymous and you will be notified if we add any in the future. 
+- If you would ever like to know what data `Mao` has stored on your behalf, please email support. 
+- All data is stored in a secure, encrypted database. 
+- All user analytics are stored separately from all other analytics in the system 
+- Should you ever want to have your data deleted, please email support. 
+
+**Where do I set my password?** 
+
+- In Mao v4.0.0, due to the early states of development, we have not yet implemented a password system. 
+- We will be adding a password system in the future, and you will be notified when it is available. 
+- Should this concern you, please email support, and we will be happy to help you. 
+
+---
+
+| **ADD ARCHITECTURE HERE** |
+| ------------------------- |
+
+## Setup & Login **ARCHITECTURE**  
+
+### `meid` UserID Creation 
+
+- The UserID is created using a simple script 
+- The script can also be run manually as a CLI command by using the command `meid` followed by the Username 
+- A UserID will always be the same for a specific Username 
 
 ```bash
 meid seanivore # Run command with the Username 
 user-1642 # Response is that Username's User ID 
 ```
 
-#### Forget Your Username? 
-
-```bash
-whoami # Run command with nothing else
-> seanivore # Response is the username of the logged in user 
-```
-
-#### Meid Whoami Help 
+### `meid` Help 
 
 ```bash
 > meid 
@@ -64,89 +138,48 @@ Mathematical Operations:
   Same username always produces the same user ID
 ```
 
-### New User ID Application Background Setup 
+### New UserID Application Background Setup 
 
-- The application will create a new `./configs/user/username/user_username.json` directory and file
-- "username" in the filename is the username: `user_seanivore.json`
-- All user settings are saved to a subdirectory here 
-- Initial settings are set to defaults
-- Even default settings are recorded on this JSON file
-- This ensures then when the app pulls up the JSON settings, it will show their actual settings regardless of them being default or not, eliminating a common UX issue of confusion (hello, VS Code)
+- When a new user logs in, the application will create a new `./configs/user/username/user_username.json` directory and file
+- "username" in the filename is the Username: `user_seanivore.json`
+- All user settings, memories, User analytics, and other data are saved to subdirectories in this directory 
 
-#### User ID Application Session Startup 
-
-- The application saves the state with the most recent User ID used
-- Subsequent launches load with that ID and their settings 
-- The application will allow users to adjust these settings at any time using `/config` or launching with `mao --config` which updates a subdirectory in their `./configs/user/username/` directory 
-
-#### User ID & Workflow JSON Configs 
+### Workflows & UserID 
 
 - New Workflows created by this User ID are not recorded to the User ID JSON file 
 - However Orchestrator Management files easily can search a User ID or Username to pull up their workflows 
 - All workflow JSONs have a User ID field, which is how they can be searched for by the application 
-- They also have Workflow IDs which we'll get to shortly  
 
-### Login Screen 
+### UserID Application Session State 
 
-*App UI/UX* 
+- The application saves the state with the most recent User ID used
+- Subsequent launches load with that ID and their settings 
+- The application will allow users to adjust these settings which updates a subdirectory in their `./configs/user/username/` directory 
 
-  - A minimalistic screen loads 
-  - The welcome message persists throughout new user setup pages 
-  - Most lines are bulleted; all bullets have large 3 space indent 
-  - Priority visibility messages have no bullet or indent 
-  - The `>` prompt is a visual indicator of the user's input 
-  - The `●` is a primary message context from Mao 
-  - Branched down `└` is a secondary context of the parent message 
-  - Active help messages are `?` under the text input field 
-
-```ui_login_id
-╭─────────────────────────────╮
-│ ~(=^‥^)  Mao welcomes you!  │
-╰─────────────────────────────╯
-
-●   What is your name?
-    └ Please enter a username to continue 
-
-╭────────────────────────────────────────────────────────╮
-│ >                                                      │
-╰────────────────────────────────────────────────────────╯
-  ? 6-20 alpha-numeric characters
+```bash
+/config   # Run this slash command while in the app to open the config screen 
+mao --config   # Launch the app to open on the config screen 
 ```
 
-### Theme Selection 
+| **END ARCHITECTURE SECTION** |
+| ---------------------------- |
 
-*App UI/UX* 
+---
 
-  - This is **NOT** a new screen
+## Login & Theme Selection  
+
+**Choosing your username** 
+
+- On the login screen you'll be prompted to enter a username in the input field 
+- It must be 6-20 characters long and can only contain alpha-numeric characters 
+- Chose a username that you **will not forget** as it can be used to search you workflows and more 
+
+**Setting your theme** 
+
   - If the User ID was recognized, the theme selection would not be shown
-  - The app is a "one-screen" experience with irrelevant or dated info being removed for new info 
   - After login, the User is prompted to select a theme "that looks best in their terminal" 
-  - The only things the termal actually changes is text colors (not main text color), use of white space, and character choices
-  - As a user's message enters the conversation thread, the messages above the user's message may disappear; upward scrolling is reserved for essential content that needs to remain in our one-screen experience 
-
-*The application UI uses semantic highlighting for cognitive leading and will be explained further in another section* 
-
-  - The user's message is `>   seanivore` is always a faded gray text 
-  - Any 3rd level context below a secondary `└` context, is also faded gray text 
-  - 3rd level context is help text, much like the `?` under the text input field 
-  - The `❯` is the user's input; move with up and down arrows and enter to select, this is intuitive and needs no explanation 
-  - The `✔` is the user's selected input; it is a visual indicator of the user's selection 
-  - The `1`, `2`, `3`, etc. are the options the user can select from 
-  - The `Preview` is a visual representation of the user's selection; what they can expect to see from their selection 
-
-```ui_login_theme
-╭─────────────────────────────╮
-│ ~(=^‥^)  Mao welcomes you!  │
-╰─────────────────────────────╯
-
->   seanivore
-
-●   Mao, seanivore!
-    └ This is your first time here 
-
-●   Choose a legible theme palette for your terminal. 
-    └ We'll save your settings. We won't ask you again, mao. 
-      Change this and other default settings with /config 
+  - You'll have a few simple options that vary in contrast so you can choose the most legible for your terminal 
+  - Your terminal settings otherwise will not be affected in any way 
 
    1. Dark mode
    2. Light mode
@@ -155,27 +188,99 @@ Mathematical Operations:
    2. Dark mode (ANSI colors only)
    3. Light mode (ANSI colors only)
 
+## Application Configuration Settings 
 
- Preview
- ╭───────────────────────────────────────────────╮
- │   1   standard ~(=^‥^) {                      │
- │   2 -    removed ("Bye, mao.");               │
- │   2 +    addition ("Mao!");                   │
- │   3   }                                       │
- ╰───────────────────────────────────────────────╯
-```
+- New users will be have a more prominient message to adjust configuration settings 
+- It wil appear on the main screen where "Tips" often are shown, but only for this first time 
+- After the first login, the user will occasionally see a subtle message to adjust app settings 
+- These show up under the main text input field prefaced by a `?` 
+- They'll say something like "try /config" or "try /help" 
+- Changing any settings below will automatically update your settings in the `configs/users/user_username/` directory settings file 
+- The 'Description' is only displayed when the user's selector `❯` is on the setting 
+- 'Description' shows the meaning of the selected setting, place the selector on other options for hover display to show their meanings 
+- Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
+- Models in this app are not standard web modals, the term merely means that options to toggle will be presented, typically without a container 
 
-### Primary Workspace View (Again, the same "page" in our one-screen experience) 
+| **SETTING**       | **DEFAULT**         | **DESCRIPTION**                                      |
+| ----------------- | ------------------- | ---------------------------------------------------- |
+| Quick launch      | `always`            | Launch app with last user logged in                  |
+| Favorite model    | `claude-sonnet-4`   | Use for workflows unless discussed                   |
+| Default provider  | `anthropic direct`  | I prefer this provider; discuss to change            |
+| Theme             | `dark mode CVD`     | Dark computer theme; use high legibility colors      |
+| Tone notification | `one time, no push` | When a workflow is complete, a simple tone is played |
+| Cat vibes         | `I love it`         | We'll meow it up for you                             |
+| Double-texting    | `always`            | Interrupt Mao like any messenger experience          |
 
-*App UI/UX* 
+### Quick Launch Options 
 
-  - Once settings are complete, those messages clear and make way for the primary workspace view where everything happens
-  - Collections of "Mao is ready to help!" are not 'CANNED' prepared in advance, per say, but rather we use the AI to prepare something unique in the moment; it is virutally always different for Users unless certain help or tips are being pushed 
-  - The tips "Describe your workflow", "Ask a question", and "Share your goal" are all tips that can be prepared with many different messages to cycle through 
-  - The /help option shows all of the available commands 
-  - The /config option shows all of the current settings, which are still set to default 
-  - The `>` bullet is a canned app message; same bullet as User messages, same color text  
-  - The "Try" message has many different messages that cycle each time they see this screen
+1. `always` - Launch app with user from last session, unless logged out
+2. `off` - Load Username login on every startup 
+3. `continue only` - Launch `mao --continue` to skip login, otherwise load Username login 
+
+### Favorite Model 
+
+- Any model can be added using nickname or full name 
+- Startup `mao --model` or `/model` to set favorite model 
+- Startup `mao --model-list` or `/model-list` to see all available models 
+
+### Default Provider 
+
+- Any provider can be added using nickname or full name 
+- This is helpful for Users who have a bunch of cash in a specific API provider 
+- Startup `mao --provider` or `/provider` to set default provider 
+- Startup `mao --provider-list` or `/provider-list` to see all available providers 
+
+### Cat Vibes 
+
+- We don't want to be too annoying with our cat branding 
+
+  1. `I love it` - We'll meow it up for you 
+  2. `mao and then` - Adequate but not too much meowing 
+  3. `be serious pls` - No meowing at all 
+
+### Double-texting 
+
+1. `always` - Interrupt Mao like any messenger experience 
+2. `never` - One reply at a time for each party  
+
+### Tone Notification 
+
+1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
+2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
+3. `no notifications` - No tone is played, no push notification 
+
+## Application Settings Are **MODULAR** Magic 
+
+- Want to set up new settings for the application? 
+- You can find what files are needed in in the architecture section below 
+- Mao will be able to help you make any necessary changes since settings might involve system files. 
+- EXAMPLE: Add a new setting that says "Bark like a dog when workflow is done y/n?" --> Magic. 
+
+---
+
+| **ADD ARCHITECTURE HERE** |
+| ------------------------- |
+
+## Login, Theme & Application Settings **ARCHITECTURE** 
+
+| **END ARCHITECTURE SECTION** |
+| ---------------------------- |
+
+---
+
+## Creating a Workflow 
+
+### One-Screen Terminal App Experience 
+
+- Note that after logging in and altering settings that everything happens on the same screen in this application. 
+- The app is a "one-screen" experience with irrelevant or dated info being removed for new info 
+- The only things the termal actually changes is text colors (not main text color), use of white space, and character choices
+- As a user's message enters the conversation thread, the messages above the user's message may disappear 
+- Upward scrolling is reserved for essential content that needs to remain in our one-screen experience 
+
+### Chatting with Mao  
+
+- Your screen should show something like this: 
 
 ```
 ╭───────────────────────────────────────────────────╮
@@ -196,19 +301,29 @@ Mathematical Operations:
   ? /help for help, /config to change settings
 ```
 
-### Chatting with Mao To Create a Workflow 
+- The `/help` option shows all of the available commands and we've already discussed what `/config` does 
+- These `?` help tips will always be changing, and depending on what you're doing, they'll change based on context 
 
-*App UI/UX* 
+#### Some Other Help Tip Examples 
 
-  - This is the same screen as the image above 
-  - When the User starts typing the prompt text above disappears 
-  - Usage of a / would auto populate a list of possible commands to run 
-  - Note that one might call it a "modal" but it has no casing, and scrolls through the prepared space for it 
-  - The app has no wait UX; you can double text and interrupt Mao (or turn that off in app settings)
-  - The `?` help message rotates to a new message that is context relevant; they are not created completely on the fly, but batches are prepared in advance around certain context to maintain the allway new feeling 
-  - As they continue, the `?` would rotate more, showing `/tool-menu` and other tips
-  - The test left in the input field is intended to show they were in the middle of typing 
-  - As mentioned before, the `>` bullet is a canned app message; same bullet as User messages, same color text; below it shows an action that Mao took while working 
+```
+  ? /help for help, /config to change settings 
+  ? try /models or /tools to explore 
+  ? share your /goal and Mao will do all the work 
+  ? /workflow [custom_command] to continue a build 
+  ? message /continue to find your last project 
+  ? /workflow [custom_command] or [uid-abc-000] to continue a building workflow 
+```
+
+**Start telling Mao what you want to do!** 
+
+- The app has no wait UX; you can double text and interrupt Mao (or turn that off in app settings)
+- Usage of a `/` will auto populate a list of possible commands to run; those are explained later in this section 
+
+**You screen will look something like this:** 
+
+- User messages are prefaced by a `>` bullet 
+- Mao's messages are prefaced by a `●` bullet 
 
 ```
 ╭───────────────────────────────────────────────────╮
@@ -237,58 +352,39 @@ Mathematical Operations:
 ╰───────────────────────────────────────────────────╯
   ? /variables to see what is needed 
 ```
-```
-  ? /help for help, /config to change settings 
-  ? try /models or /tools to explore 
-  ? share your /goal and Mao will do all the work 
-  ? /workflow [custom_command] to continue a build 
-  ? message /continue to find your last project 
-  ? /workflow [custom_command] or [uid-abc-000] to continue a building workflow 
-```
 
-### Gathering Variables 
+### Tell Mao About Your Project 
 
-- The user and Mao can chat as casually or intentionally as they like 
-- The user can ask for variables to be gathered 
-- The user could provide the variables prepared in advance 
+You have a lot of flexability here. Treat this like a conversation with an employee. Provide as much detail as you can, or as little as you want. Mao is not trained with any scripts; they are a generalist who is an expert in taking your project, breaking it down into phases and tasks, and then putting it into a use-case workflow. 
+
+**A goal is all Mao needs**
+
+- The minimum that Mao needs to be told is what your goal is! 
+- In most cases, Mao will work with that, at least to get an inital workflow created. 
+- If your goal is a bit too vauge, Mao will ask for more details. 
+- You can jump over the entire process by using the `/goal` command.
 
 ```bash
-/variables # Shows the variables that are needed 
-/variables-explain # Shows the variables that are needed with an explanation 
+mao --goal "Create a marketing plan for my Etsy shop featuring our promotion on crystals"  
+/goal "I need instagram followers and we're running a promotion on crystals for my Etsy shop; what should we do?"  
 ```
 
-In the end, the only thing Mao **MUST** have is the workflow goal. The rest of the variables are 'optional' in that, Mao is fully capable of assessing the workflow goal and determining the best way to complete it. This is intended to create a quiet, but very flexable workflow creation experience. It should come naturally as the user just decides what to do or say. Mao has no script and only knows the variables requires and tool informtation, running parallell agents, etc. Many of the variables can be setup in the User's settings as defaults like the fallback models, providers, etc. 
+**Work through the process with Mao**
 
-### JSON Config File
+- If you're new to the app, or trying to learn how be create better strategies, work through the process with Mao. 
+- You could ask Mao to tell you what the variables they need are and work on that first. 
 
-| **VARIABLE**         | **DESCRIPTION**                                               |
-| -------------------- | ------------------------------------------------------------- |
-| user_id              | User ID of Username creating the workflow                     |
-| workflow_id          | Workflow ID created at start of planning                      |
-| custom_command       | Custom command to execute workflow                            |
-| workflow_goal        | Goal statement of entire workflow project                     |
-| workflow_deliverable | Final deliverables of entire workflow project                 |
-| workflow_description | Description of workflow to complete project                   |
-| phase_number         | Count of phases as they're added to workflow                  |
-| phase_goal           | Goal statement of the phase's assigned task                   |
-| phase_deliverable    | Deliverable of the phase's assigned task                      |
-| phase_description    | Description of the phase's assigned task                      |
-| resources            | Resources the agent can use to complete the phase's tasks     |
-| tools                | Tools the agent can use to complete the phase's tasks         |
-| model_1              | Choice model to be the agent of this phase                    |
-| model_2              | Backup model agent should choice agent be unavailable         |
-| model_3              | Fail-safe model agent should choice and backup be unavailable |
-| provider_1           | Provides for the choice model                                 |
-| provider_2           | Provider for the backup model                                 |
-| provider_3           | Provider for the fail-safe model                              |
-| handoff_number       | Count of the handoffs as they're added to the workflow        |
-| assessment_questions | Questions to assess if the deliverable is complete            |
-| human_in_loop        | Whether the orchestrator should get human feedback            |
+**When in doubt, just have a conversation**
 
-### Workflow ID 
+- If you are still working out the specifics yourself 
+- Or if you need to brainstorm more 
+- Just start talking about the Project
+- By the end of the chat, Mao will have a workflow created for you 
+
+### The Workflow ID 
 
 - When you create a workflow alone or with Mao's help, the JSON object will need a workflow ID 
-- Orchestrator Management files can search a User ID or Username to pull up their workflows 
+- In the app you will later be able to search for workflows using this ID; they can be pulled up by your Username 
 - These are also used by Mao in their MCP memory one source of truth to pull back up the workflow details when returning to the workflow as a new instance 
 - Run the `uid` command to get a collision-free (never repeated) unique ID --> `uid-abc-000` 
 - Later, you can follow the `--workflow` command with this ID for that workflow's details, though the custom command might be easier to remember 
@@ -324,22 +420,114 @@ Mathematical Operations:
   s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
-### Three Workflow JSON Config Schemas
+### Mao's One Source of Truth 
 
-The config schemas have been broken into three JSON objects. This is to simplify the fact that Mao is a multi-agent system, and is modular. Changes to workflows means that they different objects shouldn't be pre-attached. Agents might run agents in parallel, or in series, or in a mix of both. 
+Before we get into variables and setup scripts that create the workflow, let's talk about how Mao is able to always be on the same page as you. 
 
-NOTE: It is VERY common and highly encouraged that Mao leave the final phase of workflows that deal with creative subject matter completely open. When the Agent completes their deliverable, Mao is able to assess it on the spot and make a decision as to what the next step in the flow should be. This is pushed heavily because it is so very natural to how a human would do it on their own. 
+**The Memory MCP tool give Mao a Persistant Vector Graph "memory" for context between sessions**
+
+- Workflow ID is one of the first variables we'll be talking about in the next section
+- The Workflow ID has a few important uses 
+  - It identifies your workflow by connecting it to your UserID and thus your Username 
+  - When you start a new Project, Mao will create a new Workflow ID for you 
+  - Mao uses the Workflow ID as a key that connects all of the memory information about the project together 
+  - If you get inturrupted and need to pick up again later, Mao will use the workflow ID and know just where to start 
+  - When running a workflow, Mao uses the Workflow ID to understand the project every time they start, or get called in by an Agent 
+- Mao uses the MCP memory is their one source of truth because there are other ways the same tool is used that we'll get into later 
+  - Analytics for exceptional UX experiences 
+  - Filing and finding files and documents for a project workflow 
+  - And more... 
+
+---
+
+| **ADD ARCHITECTURE HERE** |
+| ------------------------- |
+
+## Chatting with Mao, the UI options, Workflow ID, Using Memory MCP **ARCHITECTURE** 
+
+This is the first introductory half of creating a workflow for their project. What the experience will look like. What they will need to do, or how little they'll need to do. We touch on how Mao is able to always be on the same page using the Memory MCP tool as well as Workflow ID. 
+
+| **END ARCHITECTURE SECTION** |
+| ---------------------------- |
+
+---
+
+## The Workflow's JSON Config
+ 
+When chatting with Mao, you will be halping them to fill out a JSON config file. This is basically a prompt that has been broken down into variables. If you were to use the `/variables` command, you would see a list of variables that are needed to create the workflow. 
+
+```bash
+/variables # Shows the variables that are needed 
+/variables-explain # Shows the variables that are needed with an explanation 
+```
+
+### JSON Config File Variables Described 
+
+| **VARIABLE**         | **DESCRIPTION**                                               |
+| -------------------- | ------------------------------------------------------------- |
+| user_id              | User ID of Username creating the workflow                     |
+| workflow_id          | Workflow ID created at start of planning                      |
+| custom_command       | Custom command to execute workflow                            |
+| workflow_goal        | Goal statement of entire workflow project                     |
+| workflow_deliverable | Final deliverables of entire workflow project                 |
+| workflow_description | Description of workflow to complete project                   |
+| phase_number         | Count of phases as they're added to workflow                  |
+| phase_goal           | Goal statement of the phase's assigned task                   |
+| phase_deliverable    | Deliverable of the phase's assigned task                      |
+| phase_description    | Description of the phase's assigned task                      |
+| resources            | Resources the agent can use to complete the phase's tasks     |
+| tools                | Tools the agent can use to complete the phase's tasks         |
+| model_1              | Choice model to be the agent of this phase                    |
+| model_2              | Backup model agent should choice agent be unavailable         |
+| model_3              | Fail-safe model agent should choice and backup be unavailable |
+| provider_1           | Provides for the choice model                                 |
+| provider_2           | Provider for the backup model                                 |
+| provider_3           | Provider for the fail-safe model                              |
+| handoff_number       | Count of the handoffs as they're added to the workflow        |
+| assessment_questions | Questions to assess if the deliverable is complete            |
+| human_in_loop        | Whether the orchestrator should get human feedback            |
+
+
+### The 3 JSON Config Schemas In A Workflow
+
+We'll touch on the basics of the JSON config file and the three JSON objects that are created when a workflow is created before jumping into the technical details in an architecture section. 
+
+* **JSON Config Schema Templates** 
+
+  - 1. WORKFLOW: `./templates/workflows/example-workflow_workflow_config.json`
+  - 2. PHASE: `./templates/workflows/example-workflow_phase_config.json`
+  - 3. HANDOFF: `./templates/workflows/example-workflow_handoff_config.json`
+
+* **HELPER:** `./templates/workflows/README.md`
+
+#### 1. The WORKFLOW JSON Object 
+
+This is the first JSON object that is created when a workflow is created. It contains the workflow's goal, deliverable, description, and other details. Each project's workflow has only one workflow JSON object. It is the JSON object that holds together all the other JSON objects. 
+
+#### 2. The PHASE JSON Object 
+
+This is the second JSON object that is created when a workflow is created. It contains a task needed to be completed to achieve the workflow's goal. Just like the workflow, each phase has a goal, deliverable, description, and specific details for the agent. The objects are tied together by the workflow_id. Phases are numbered sequentially, starting with 01, 02, 03, etc. If there are agents running in parallel, they will share the same phase_number, appended with an underscore and a letter, a, b, c, etc. 
+
+#### 3. The HANDOFF JSON Object 
+
+This is the third type of JSON object. Since Mao is orchestrating the entire workflow, even though they have delegated the tasks to various agents, they will be present for every handoff of deliverables. When an Agent is complete, they call Mao to hand off the deliverable. The deliverable object provides a list of questions that the Orchestrator will use to assess if the deliverable is complete. 
+
+**NOTE:** It is VERY common and highly encouraged that Mao leave the final phase of workflows that deal with creative subject matter completely open. When the Agent completes their deliverable, Mao is able to assess it on the spot and make a decision as to what the next step in the flow should be. This is pushed heavily because it is so very natural to how a human would do it on their own. 
 
 Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to par. In this case they may use a command to change the workflow instead up updating it, though the result is similar, a new agent is tasked and called and the flow continues until completion. 
 
-* **TEMPLATES FOR REFERENCE:** 
+We'll touch on the specifics of how to setup, edit, or fix a workflow via JSON objects after this architecture section. 
 
-  - WORKFLOW: `./templates/workflows/example-workflow_workflow_config.json`
-  - PHASE: `./templates/workflows/example-workflow_phase_config.json`
-  - HANDOFF: `./templates/workflows/example-workflow_handoff_config.json`
-  - HELPER: `./templates/workflows/README.md`
+---
 
-#### **WORKFLOW** JSON Object 
+| **ADD ARCHITECTURE HERE** |
+| ------------------------- |
+
+## The Workflow's JSON Config **ARCHITECTURE** 
+
+This is the first half of the workflow setup details, specifically about the JSON config file. It should cover everything up to and NOT including the setup script itself. In the section to follow we'll talk about the setup script along with the commands used to create the workflow. 
+
+### **WORKFLOW** JSON Object 
 
 - This is the first JSON object that is created when a workflow is created 
 - It contains the workflow's goal, deliverable, description, and other details 
@@ -364,7 +552,7 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
 }
 ```
 
-#### **PHASE** JSON Object 
+### **PHASE** JSON Object 
 
 - This is the second JSON object that is created when a workflow is created 
 - It contains a task needed to be completed to achieve the workflow's goal 
@@ -398,7 +586,7 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
 }
 ```
 
-#### **HANDOFF** JSON Object 
+### **HANDOFF** JSON Object 
 
 - This is the third type of JSON object that is created when a workflow is created 
 - This is created while building the workflow as part of the creative process 
@@ -424,6 +612,15 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
   ]
 }
 ```
+
+| **END ARCHITECTURE SECTION** |
+| ---------------------------- |
+
+---
+
+
+===THIS IS AS FAR AS I'VE GOTTEN=== 
+
 ### Workflow Updates 
 
 As mentioned, in cases where the workflow is left open-ended, the Orchestrator will create additional phases as needed, included potential handoffs in between each of the phases. The separated, modularity of the JSON objects makes this easy to do on the fly. All of the JSON objects are properly labeled so that they do not need to be created in a single file. In fact, each type of JSON object may best be created as separate files from the start and stored in the same WORKFLOW directory which will end up being auto created. 
@@ -598,69 +795,6 @@ mao --setup ./command_use_case/ # This is the command and the argument is the di
 /setup ./command_use_case/ # This is the slash command with JSON object directory argument 
 ```
 
-### Application Configuration Settings 
-
-*App UI/UX* 
-
-  - Users are quietly prompted to adjust configuration settings 
-    - Via the `?` message mentioning they try /config
-    - This /help and /config are persistent 
-    - Always the first `?` messages on the primary workspace page each time it is loaded  
-  - Settings below are those same settings saved to the `user_username.json` 
-  - The 'Description' is only displayed when the user's selector `❯` is on the setting 
-  - 'Description' shows the meaning of the selected setting
-  - Place selector on the other options for hover display to show their meanings 
-  - Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
-
-| **SETTING**       | **DEFAULT**         | **DESCRIPTION**                                      |
-| ----------------- | ------------------- | ---------------------------------------------------- |
-| Quick launch      | `always`            | Launch app with last user logged in                  |
-| Favorite model    | `claude-sonnet-4`   | Use for workflows unless discussed                   |
-| Default provider  | `anthropic direct`  | I prefer this provider; discuss to change            |
-| Theme             | `dark mode CVD`     | Dark computer theme; use high legibility colors      |
-| Tone notification | `one time, no push` | When a workflow is complete, a simple tone is played |
-| Cat vibes         | `I love it`         | We'll meow it up for you                             |
-| Double-texting    | `always`            | Interrupt Mao like any messenger experience          |
-
-### Quick Launch Options 
-
-1. `always` - Launch app with user from last session, unless logged out
-2. `off` - Load Username login on every startup 
-3. `continue only` - Launch `mao --continue` to skip login, otherwise load Username login 
-
-### Favorite Model 
-
-- Any model can be added using nickname or full name 
-- Startup `mao --model` or `/model` to set favorite model 
-- Startup `mao --model-list` or `/model-list` to see all available models 
-
-### Default Provider 
-
-- Any provider can be added using nickname or full name 
-- This is helpful for Users who have a bunch of cash in a specific API provider 
-- Startup `mao --provider` or `/provider` to set default provider 
-- Startup `mao --provider-list` or `/provider-list` to see all available providers 
-
-### Cat Vibes 
-
-- We don't want to be too annoying with our cat branding 
-
-  1. `I love it` - We'll meow it up for you 
-  2. `mao and then` - Adequate but not too much meowing 
-  3. `be serious pls` - No meowing at all 
-
-### Double-texting 
-
-1. `always` - Interrupt Mao like any messenger experience 
-2. `never` - One reply at a time for each party  
-
-### Tone Notification 
-
-1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
-2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
-3. `no notifications` - No tone is played, no push notification 
-
-**MODULAR MAGIC:** Have a new setting for the application? Either as Mao what files are needed, or of them to help create them, or check the templates directory. PLUG-AND-PLAY. New files in their proper place is all that is needed to, for example, add a new setting that says "bark like a dog when workflow is done y/n?". Magic. 
 
 ---
 
