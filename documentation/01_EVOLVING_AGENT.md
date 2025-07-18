@@ -30,20 +30,6 @@
 
 ## Chapter 1.1: Exponentially Uncomprehendable
 
-### Small Players Need To Be Smart
-
-A couple years ago I was creating automations using various AI models, carefully crafted prompts, and timely data I'd put into a database. These automations generated text that was then reviewed and edited by other AI down the chain to a final draft. The final: a script for a Podcast series I had been posting daily for months. The script then reached ChatGPT's Text-to-Speech API and out the other side we could hear our beloved host, Theodore. The workflow was ahead of its time, enjoyable to listen to, and of a voice over quality only the best listeners could tell was AI. 
-
-After a couple months of growth, Google quietly released a tool called NotebookLM. Created to help digest information, the tool let you upload PDFs of science studies, add links to articles, or transcripts from YouTube videos. The AI would then generate a collection of files that synthesized the information in various ways: You got FAQ's, an Executive Summary, among others, and you could ask any question you wanted. 
-
-This tool went viral instantly, but not for the overviews it would write. It went viral because the written content was paired with a automatically generated Podcast featuring two of the most engaging AI hosts anyone had ever heard. They bounced ideas back and forth at each other, talking rapidly, bantering, and modulating their voices. The show was called "The Deep Dive." 
-
-I was fortunately not to have invested much into my own programmed product, but other start-ups haven't all been quite so lucky as this same story seems to happen over and over again. Tech companies make their AI models smarter and give them more abilities, and then small startups who had bootstrapped creative but more complex ways to do the same, then become obsolete overnight. 
-
-Humans, and our businesses, are not accustomed to dealing with anything that changes at an exponential rate. It isn't something that is dealt with enough to understand the magnitude and rate of change, until after it has happened. 
-
----
-
 ### Numbers Unlike We've Ever Seen 
 
 > These are some numbers we need to find ways to illustrate in final draft. They are from a business presentation, I'll find the source so we can cite it. It is research I pulled from their massive number of slides that were presented for CEOs and business leaders. I posted it in this format to my LinkedIn. The *italicized text* I added to note next steps.
@@ -72,6 +58,20 @@ Humans, and our businesses, are not accustomed to dealing with anything that cha
 
 > *And yes, that is 105,000 multiplied by itself 105,000 times. 
 > That is why AI suddenly so possible.
+
+---
+
+### Small Players Need To Be Smart
+
+A few years ago I was creating automations using various AI models, carefully crafted prompts, and timely data I'd put into a database. Text was generated that another AI edited before another made it into a final script draft. That script then reached ChatGPT's Text-to-Speech API and out the other side came a Podcast I had been publishing for a month or so; finally audible was our beloved host, Theodore. The workflow was ahead of its time and enjoyable to listen to. 
+
+I had that month or so of growth before Google quietly released a tool called NotebookLM. The tool let you upload PDFs of science studies, add links to articles, or transcripts from YouTube videos. To help you digest the information it would create a collection of files synthesizing the information as FAQ's, an Executive Summary and, among others, you could ask any question you wanted. 
+
+NotebookLM instantly went viral, but not for the overviews it would write. It went viral because the written content was paired with an automatically generated Podcast featuring two of the most engaging AI hosts anyone had ever heard. They bounced ideas back and forth at each other, talking rapidly, bantering, and modulating their voices. The show was called "The Deep Dive." 
+
+I was fortunate to not have invested much into my own programmed product, but not all start-ups have been quite so lucky. This same story seems to happen over and over again as AI tech giants improve their models. 
+
+Humans, and our businesses, are not accustomed to dealing with anything that changes at an exponential rate. It isn't something that is dealt with enough to understand the magnitude and rate of change, until after it has happened. 
 
 ---
 
@@ -249,7 +249,7 @@ The reality of agentic development and its scalability feels a little insane, bu
 * Perfectly setting the stage for executing Mao workflows 
 * This is what Modular Agent Orchestration is all about 
 * ONE. PERSON. ONE. DAY. ENTERPRISE SCALE WORK COMPLETED. 
-* Wild foreshadowing of your work-life future 
+* Wild foreshadowing of our work-life future 
 
 ---
 
@@ -298,6 +298,10 @@ Drop out components → Zero breaking changes
 
 *If you have ever had to set up Google Analytics, you'll LOL at that process after drag and dropping in a new metric to track via agentically produced reporting and a modern dashboard.*
 
+---
+
+## Chapter 1.3: Combining Modularity And Scalability 
+
 ### Why Modular Architecture Wins Long-Term
 
 * **Traditional Approach:**
@@ -329,10 +333,6 @@ Result: ∞ combinations, O(1) complexity, infinite scalability
 - Competitive advantage because you are using superior AI coordination
 
 *This is the future of business; they've all seen the numbers we started this section with. They know it is coming fast.* 
-
----
-
-## Chapter 1.3: Combining Modularity And Scalability 
 
 Our commitment and strict adherence to a completely modular architecture combined with completely novel technology that allows for scalable agentic development creates excellence. 
 
@@ -367,6 +367,7 @@ The result also meant we were only choosing the pathway that was most beneficial
 ---
 
 OUR SUCCESS STORY AND INTREGUING BY HIGHLIGHTING WHAT ADVANCED AGENTIC DEVELOPMENT ACTUALLY LOOKS LIKE. 
+Maybe we want to pull "#### 3. Embracing Scalable Agentic Development" down here into this section? 
 
 ---
 
