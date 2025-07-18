@@ -8,26 +8,8 @@ Please add the most important details from that document to our Memory MCP Proje
 
 - `./documentation/03_USER_FLOW.md`
 
-### The top of that file has a large note that says: 
-
-THIS SECTION NOTE: 
-- You'll see that I've explained a section and then added an architecture section directly after it. This is to help keep the flow of the document clean and easy to read. 
-- I'm curious to see if we'll be able to make this document our entire ARCHITECTURE file or not. Let's see how it goes. 
-- I didn't add chapters yet because I think we'll want to strcture those according to how the architecture sections end up breaking up the document. I figure that we might end up combining or separating sections once we have all the information in place depending on length. Once that is done, it will make sense to add chapters and they'll be more helpful because we can make each one be about specific topics and have one architecture section or something. 
-
 NEXT STEPS: 
-- Look at the top of the page and then find where ===THIS IS AS FAR AS I'VE GOTTEN=== is. 
-- Continue to format the document below that line just like above, with removing much text at all except for things that are heavily UI; you'll see I only left two examples of the screen they'll see. The rest we can put in the visual identity section. 
-- Don't add the actual architecture details in full yet. If there are some details in this document that belong in the architecture section, add them there. But finish the whole document first, then double back to complete the architecture sections. 
-- In doing this, I think we should also add the analytics trigger points to the document. I think we could do it in an interesting, visual way, at the end of a section/archtecture section start. 
 
-OTHER NOTES: 
-- After the setup script there is a section "# SECTION II: QUICK REFERENCE & ARCHITECTURE" that from there down we need to analyze and decide what it is, if it is accurate, and if so where it should go. 
-- I see things about workflow types, parallel agents, parallel tool execution (which idk if it needs to be specifically implemented or not but we definitely need to mention it because it is like a new thing that i'm noticing now that agents are reading like 10 documents simultaneously and i'd like to make a big edeal about that and what that means for the future.)
-- I also see stuff about the CACHE as well as error handling 
-- I'm thinking we might actually also need a section about all of the orchestrator's responsibilities and how it is able to do all of that. 
-
-  We could add: 
   - ORCHESTRATION.md -- which can be all technical because in the quick reference seciton i want to have all of the files listed and defined, followed by the touchpoints and a map for the touchpoints, etc. as well as the data flow. 
   - ENHANCMENT.md -- for cache and error handling i think we'll want to do the "sentence structure" and then "architecture" again even though i think that the actual section structure sections will probably be much smaller. 
 - `./documentation/04_ORCHESTRATION.md`
