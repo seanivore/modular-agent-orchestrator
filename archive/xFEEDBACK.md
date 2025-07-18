@@ -2,7 +2,7 @@
 
 ## **Start Here** 
 
-- `./documentation/03_USER_FLOW.md` 
+- `./documentation/03_USER_FLOW.md`
 
 ### The top of that file has a large note that says: 
 
@@ -26,20 +26,33 @@ OTHER NOTES:
   We could add: 
   - ORCHESTRATION.md -- which can be all technical because in the quick reference seciton i want to have all of the files listed and defined, followed by the touchpoints and a map for the touchpoints, etc. as well as the data flow. 
   - ENHANCMENT.md -- for cache and error handling i think we'll want to do the "sentence structure" and then "architecture" again even though i think that the actual section structure sections will probably be much smaller. 
+- `./documentation/04_ORCHESTRATION.md`
+- `./documentation/05_ENHANCEMENTS.md`
 
 
 NEXT SECTION, ANALYTICS, MEMORY; NEXT NEXT SECTION, AGENTIC TIMER: 
 - The section that folows this one is about "user memory system, user analytics, and system analytics" so the triggers for the analytics would be a nice flow into that section. This section should be primarily just architecture. Because... 
 - The section after the analytics and memory system climaxes with the "evolving" agentic timer. We should describe the functionality of the user, system, analytics, and memory system in the start of this section. Make it about business value; this is why we held the details separate. This should make for a natural build to the evolving agentic timer. Thoughout the agentic timer information we will divide up the sentence structure explaining about it and its value in sections, followed by the architecture details, mimicking the flow of this user-flow section. 
 - I currently have these as two files but they can be one if we want though given the switch back to sentence structure then architecgtur and back and forth, as well as how much can be said about the automating stuff, it might be better to keep them separate: 
-  - documentation/04_ANALYTICS_MEMORY.md
-  - documentation/05_AUTOMATING_BUSINESSES.md
+- `./documentation/06_ANALYTICS_MEMORY.md`
+- `./documentation/07_AUTOMATING_BUSINESSES.md`
 
 NEXT SECTION AFTER THAT IS VISUAL IDENTITY. 
+- `./documentation/08_VISUAL_IDENTITY.md`
+
 LAST SECTION IS FUTURE GROWTH PLANS. 
+- `./documentation/09_FUTURE_GROWTH.md`
+
+THEN WE SHOULD CONSIDER VISUALS. 
+
 THEN WE WILL ADDRESS THE QUICK REFERENCE SECTION. 
-THEN A REVIEW OF THE EVOLVING AGENT DOCUMENT. 
+- `./documentation/02_QUICK_REFERERNCE.md`
+
+THEN A REVIEW OF THE EVOLVING AGENT INTRODUCTION.
+- `./documentation/01_EVOLVING_AGENT.md`
+ 
 ONCE ALL OF THAT IS DONE, THEN WE CAN DO THE SUMMARY OVERVIEW SECTION BEACUSE I WANT IT TO HAVE LINKS TO EACH SECTION, BUT IN A MUCH MORE CONVERSATIONAL WAY THAN CC'S VERSION DID. 
+- `./documentation/00_SUMMARY_OVERVIEW.md`
 
 ---
 
@@ -116,3 +129,18 @@ We have to look at the Mermaid diagrams that Claude Code created because none ha
 - Cross-session state management showing memory state persistence flow
 - Tool integration data exchange flow chart showing how 'button snippets' are created and used
 - Flow chart showing analytics trigger points and data flow 
+
+---
+
+# New Documentation 
+
+- `./documentation/00_SUMMARY_OVERVIEW.md`
+- `./documentation/01_EVOLVING_AGENT.md`
+- `./documentation/02_QUICK_REFERERNCE.md`
+- `./documentation/03_USER_FLOW.md`
+- `./documentation/04_ORCHESTRATION.md`
+- `./documentation/05_ENHANCEMENTS.md`
+- `./documentation/06_ANALYTICS_MEMORY.md`
+- `./documentation/07_AUTOMATING_BUSINESSES.md`
+- `./documentation/08_VISUAL_IDENTITY.md`
+- `./documentation/09_FUTURE_GROWTH.md`
