@@ -56,26 +56,7 @@ In 2025, building AI workflows feels like **assembling a rocket from spare parts
 **Revolutionary Principles:**
 
 #### **1. True Modularity**
-```python
-# Traditional approach: Hardcoded integration
-class MyWorkflow:
-    def __init__(self):
-        self.model = OpenAIGPT4()  # Locked to one provider
-        self.tool = CustomResearchTool()  # Custom implementation
-        
-    def execute(self):
-        # Brittle, provider-specific code
-        return self.model.generate(self.tool.research())
 
-# Mao approach: Dynamic orchestration
-@mao_workflow
-def my_workflow(goal: str):
-    # System automatically selects optimal:
-    # - Model (Claude, GPT, Local, etc.)
-    # - Provider (Anthropic, OpenAI, LiteLLM, etc.)
-    # - Tools (Research, Analysis, Generation, etc.)
-    return mao.orchestrate(goal, auto_optimize=True)
-```
 
 ```
 Drop in any model → System adapts automatically
@@ -85,26 +66,7 @@ Drop out components → Zero breaking changes
 ```
 
 #### **2. Conversation-Driven Architecture**
-```python
-# Traditional: Complex configuration
-config = {
-    "model": "gpt-4",
-    "provider": "openai",
-    "tools": ["web_scraper", "data_analyzer", "report_generator"],
-    "parameters": {
-        "temperature": 0.7,
-        "max_tokens": 2000,
-        "tool_configs": {
-            "web_scraper": {"timeout": 30, "max_pages": 10},
-            "data_analyzer": {"algorithm": "clustering", "confidence": 0.8}
-        }
-    }
-}
 
-# Mao: Natural conversation
-mao.chat("Analyze competitor pricing for SaaS tools, focus on mid-market segment")
-# System handles all configuration automatically
-```
 
 - **Natural language interface** reduces learning curve by 90%
 - **Goal-focused workflows** - describe what you want, not how to build it
@@ -112,19 +74,7 @@ mao.chat("Analyze competitor pricing for SaaS tools, focus on mid-market segment
 - **Human-AI collaboration** that feels like working with a skilled team
 
 #### **3. Self-Enhancement Capability**
-```python
-# Built-in self-assessment workflow
-@mao.schedule("weekly")
-def self_enhancement_analysis():
-    performance_data = mao.analytics.get_performance_metrics()
-    improvement_areas = mao.ai.identify_optimization_opportunities(performance_data)
-    
-    for area in improvement_areas:
-        enhancement_plan = mao.ai.create_enhancement_plan(area)
-        mao.implement_enhancement(enhancement_plan, test_first=True)
-        
-    mao.report_improvements(to="stakeholders")
-```
+
 
 - **Weekly self-assessment** analyzing performance and planning improvements
 - **Autonomous business operations** for legal, financial, marketing automation
@@ -132,37 +82,7 @@ def self_enhancement_analysis():
 - **Exponential value creation** through continuous optimization
 
 #### **4. Production-Ready Excellence**
-```python
-# Every Mao component includes enterprise patterns
-from orchestrator.core import CacheManager
-from orchestrator.decorators import handle_errors
-from orchestrator.cost import estimate_cost
-from orchestrator.monitoring import track_performance
 
-@track_performance
-@handle_errors
-@estimate_cost
-def production_workflow(goal: str, context: dict):
-    """Enterprise-grade workflow with all safety nets"""
-    
-    # Automatic caching for performance
-    cache_key = f"workflow:{hash(goal)}"
-    cached_result = CacheManager.get(cache_key)
-    if cached_result:
-        return cached_result
-    
-    # Cost estimation before execution
-    estimated_cost = estimate_cost("production_workflow", context)
-    if estimated_cost > context.get("budget_limit", 10.0):
-        return {"error": "Exceeds budget", "estimated_cost": estimated_cost}
-    
-    # Execute with monitoring
-    result = mao.orchestrate(goal, context)
-    
-    # Cache for future use
-    CacheManager.set(cache_key, result, ttl=3600)
-    return result
-```
 
 - **70%+ reliability standards** with comprehensive error handling (ongoing to 95%+)
 - **Zero breaking changes** during system improvements
@@ -174,51 +94,11 @@ def production_workflow(goal: str, context: dict):
 **Why Modular Architecture Wins Long-Term:**
 
 **Traditional Approach:**
-```python
-# Brittle integration - breaks when anything changes
-class TraditionalWorkflow:
-    def __init__(self):
-        self.openai_client = OpenAI(api_key="sk-...")  # Hardcoded
-        self.research_tool = CustomWebScraper()         # Custom
-        self.analyzer = CustomAnalyzer()                # Custom
-        
-    def execute(self, query):
-        # Breaks if OpenAI changes API
-        raw_data = self.research_tool.scrape(query)
-        # Breaks if data format changes  
-        analysis = self.analyzer.analyze(raw_data)
-        # Breaks if model changes
-        return self.openai_client.generate(analysis)
-```
+
 
 **Mao Approach:**
-```python
-# Resilient orchestration - adapts to any changes
-@mao_workflow
-def resilient_workflow(query: str):
-    # Automatically adapts to:
-    # - New models (GPT-5, Claude 4, etc.)
-    # - Provider changes (API updates, pricing, availability)
-    # - Tool improvements (better scrapers, analyzers, etc.)
-    return mao.orchestrate(
-        goal=query,
-        optimize_for=["cost", "speed", "quality"],
-        fallback_providers=["anthropic", "openai", "local"],
-        auto_upgrade=True
-    )
-```
 
-**Technical Benefits:**
-- **No vendor lock-in** - switch providers instantly
-- **Future-proof** - new models integrate automatically  
-- **Quality assurance** - comprehensive error handling and monitoring
-- **Cost optimization** - intelligent routing and budget management
 
-**Business Benefits:**
-- **Rapid deployment** - workflows operational in minutes
-- **Predictable costs** - transparent pricing across all operations
-- **Measurable ROI** with documented productivity multipliers
-- **Competitive advantage** through superior AI coordination
 
 ---
 
