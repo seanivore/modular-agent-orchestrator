@@ -1,41 +1,3 @@
-
-THIS SECTION NOTE: 
-- You'll see that I've explained a section and then added an architecture section directly after it. This is to help keep the flow of the document clean and easy to read. 
-- I'm curious to see if we'll be able to make this document our entire ARCHITECTURE file or not. Let's see how it goes. 
-- I didn't add chapters yet because I think we'll want to strcture those according to how the architecture sections end up breaking up the document. I figure that we might end up combining or separating sections once we have all the information in place depending on length. Once that is done, it will make sense to add chapters and they'll be more helpful because we can make each one be about specific topics and have one architecture section or something. 
-
-NEXT STEPS: 
-- Look at the top of the page and then find where ===THIS IS AS FAR AS I'VE GOTTEN=== is. 
-- Continue to format the document below that line just like above, with removing much text at all except for things that are heavily UI; you'll see I only left two examples of the screen they'll see. The rest we can put in the visual identity section. 
-- Don't add the actual architecture details in full yet. If there are some details in this document that belong in the architecture section, add them there. But finish the whole document first, then double back to complete the architecture sections. 
-- In doing this, I think we should also add the analytics trigger points to the document. I think we could do it in an interesting, visual way, at the end of a section/archtecture section start. 
-
-OTHER NOTES: 
-- After the setup script there is a section "# SECTION II: QUICK REFERENCE & ARCHITECTURE" that from there down we need to analyze and decide what it is, if it is accurate, and if so where it should go. 
-- I see things about workflow types, parallel agents, parallel tool execution (which idk if it needs to be specifically implemented or not but we definitely need to mention it because it is like a new thing that i'm noticing now that agents are reading like 10 documents simultaneously and i'd like to make a big edeal about that and what that means for the future.)
-- I also see stuff about the CACHE as well as error handling 
-- I'm thinking we might actually also need a section about all of the orchestrator's responsibilities and how it is able to do all of that. 
-
-  We could add: 
-  - ORCHESTRATION.md -- which can be all technical because in the quick reference seciton i want to have all of the files listed and defined, followed by the touchpoints and a map for the touchpoints, etc. as well as the data flow. 
-  - ENHANCMENT.md -- for cache and error handling i think we'll want to do the "sentence structure" and then "architecture" again even though i think that the actual section structure sections will probably be much smaller. 
-
-
-NEXT SECTION, ANALYTICS, MEMORY; NEXT NEXT SECTION, AGENTIC TIMER: 
-- The section that folows this one is about "user memory system, user analytics, and system analytics" so the triggers for the analytics would be a nice flow into that section. This section should be primarily just architecture. Because... 
-- The section after the analytics and memory system climaxes with the "evolving" agentic timer. We should describe the functionality of the user, system, analytics, and memory system in the start of this section. Make it about business value; this is why we held the details separate. This should make for a natural build to the evolving agentic timer. Thoughout the agentic timer information we will divide up the sentence structure explaining about it and its value in sections, followed by the architecture details, mimicking the flow of this user-flow section. 
-- I currently have these as two files but they can be one if we want though given the switch back to sentence structure then architecgtur and back and forth, as well as how much can be said about the automating stuff, it might be better to keep them separate: 
-  - documentation/04_ANALYTICS_MEMORY.md
-  - documentation/05_AUTOMATING_BUSINESSES.md
-
-NEXT SECTION AFTER THAT IS VISUAL IDENTITY. 
-LAST SECTION IS FUTURE GROWTH PLANS. 
-THEN WE WILL ADDRESS THE QUICK REFERENCE SECTION. 
-THEN A REVIEW OF THE EVOLVING AGENT DOCUMENT. 
-ONCE ALL OF THAT IS DONE, THEN WE CAN DO THE SUMMARY OVERVIEW SECTION BEACUSE I WANT IT TO HAVE LINKS TO EACH SECTION, BUT IN A MUCH MORE CONVERSATIONAL WAY THAN CC'S VERSION DID. 
-
----
-
 # Section III: User Flow of Giving Mao A Project To Work On 
 Remember: Mao v4.0.0 is released for use in your computer's terminal. 
 *User guide from start to finish; with tactfully placed architecture & analytics trigger points* 
@@ -618,13 +580,6 @@ This is the first half of the workflow setup details, specifically about the JSO
 
 ---
 
-
-===THIS IS AS FAR AS I'VE GOTTEN=== 
-
-### Workflow Updates 
-
-As mentioned, in cases where the workflow is left open-ended, the Orchestrator will create additional phases as needed, included potential handoffs in between each of the phases. The separated, modularity of the JSON objects makes this easy to do on the fly. All of the JSON objects are properly labeled so that they do not need to be created in a single file. In fact, each type of JSON object may best be created as separate files from the start and stored in the same WORKFLOW directory which will end up being auto created. 
-
 ### The Setup Script
 
 *Deals with our temporary JSON Object Directory* 
@@ -795,437 +750,45 @@ mao --setup ./command_use_case/ # This is the command and the argument is the di
 /setup ./command_use_case/ # This is the slash command with JSON object directory argument 
 ```
 
+## Workflow Updates 
 
----
+Mao's modular design means workflows can evolve naturally as projects develop. This is especially powerful for creative workflows where it makes more sense to not predetermine the final phase. When the Agent completes their deliverable, Mao reviews it and then decides what should be done next, creating new workflow phases on the fly.
 
-# SECTION II: QUICK REFERENCE & ARCHITECTURE
-*Technical Foundations with Visual Diagrams*
+### Creative Workflow Evolution
 
----
+For creative-type workflows, Mao uses the `/update` command when they need to create additional phases after reviewing an agent's work. The new workflow phases are created using JSON objects that follow the same structure, and the command can be executed from anywhere:
 
-## Chapter 2.1: Complete File Touchpoints Diagram
-
-### The Mao Ecosystem Overview
-
-**Mao's modular architecture** is built on **dynamic discovery patterns** - the system automatically finds and integrates components without hardcoded mappings.
-
-```mermaid
-graph TB
-    subgraph "User Interface Layer"
-        A[Terminal UI]
-        B[Conversation Bridge]
-    end
-    
-    subgraph "Orchestration Layer"
-        C[Core Orchestrator]
-        D[Agent Callback System]
-        E[Memory MCP]
-    end
-    
-    subgraph "Tool Ecosystem"
-        F[Tool 1: Research]
-        G[Tool 2: Analysis]
-        H[Tool 3: Generation]
-        I[Tool 4: Validation]
-    end
-    
-    subgraph "Provider Integration"
-        J[Claude API]
-        K[GPT API]
-        L[Local Models]
-    end
-    
-    subgraph "Data Management"
-        M[Cache System]
-        N[Configuration Factory]
-        O[State Persistence]
-    end
-    
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    D --> F
-    D --> G
-    D --> H
-    D --> I
-    F --> J
-    G --> K
-    H --> L
-    C --> M
-    C --> N
-    C --> O
-```
-
-### Directory Structure and Component Relationships
-
-**Core Directory Organization:**
-```
-modular-agent-orchestrator/
-├── tools/                    # Modular tool ecosystem
-│   ├── research_tool/
-│   │   ├── logic.py         # Core functionality
-│   │   ├── button_research.py    # UI integration
-│   │   ├── ui_research.py        # Interface components
-│   │   └── research_tool.json    # Configuration
-│   └── [11 other tools following same pattern]
-├── orchestrator/            # Core coordination system
-│   ├── core.py             # Main orchestration logic
-│   ├── agent_callback.py   # Agent coordination
-│   └── conversation_bridge.py    # UI communication
-├── configs/                 # Dynamic configuration system
-│   ├── user/               # User-specific settings
-│   ├── models/             # Model configurations
-│   ├── providers/          # Provider integrations
-│   └── workflows/          # Workflow templates
-└── .claude/                # CLI command system
-    └── commands/           # Custom command definitions
-```
-
-### Key Integration Patterns
-
-#### **4-File Tool Structure**
-Every tool follows the consistent pattern:
-- **`logic.py`**: Core functionality and business logic
-- **`button_*.py`**: UI integration and user interactions
-- **`ui_*.py`**: Interface components and visual elements
-- **`*.json`**: Configuration and metadata
-
-#### **3-File CLI Command Structure**
-Custom commands use:
-- **`command.py`**: Core command logic
-- **`ui_command.py`**: User interface handling
-- **`command.json`**: Command configuration and metadata
-
----
-
-## Chapter 2.2: Template System & Configuration Factory
-
-### Dynamic Configuration Generation
-
-**The Problem Mao Solves**: Traditional AI tools require manual configuration of every combination of model, provider, and tool. Mao's **Configuration Factory** generates any needed configuration on demand.
-
-#### **Configuration Templates**
-
-**Tool Configuration Template:**
-```json
-{
-  "name": "{tool_name}",
-  "version": "1.0.0",
-  "description": "{tool_description}",
-  "dependencies": [
-    "CacheManager",
-    "@handle_errors",
-    "estimate_cost"
-  ],
-  "providers": ["any"],
-  "models": ["any"],
-  "input_schema": {
-    "type": "object",
-    "properties": {
-      "goal": {"type": "string"},
-      "context": {"type": "object"}
-    }
-  },
-  "output_schema": {
-    "type": "object",
-    "properties": {
-      "result": {"type": "string"},
-      "metadata": {"type": "object"}
-    }
-  }
-}
-```
-
-**Model Configuration Template:**
-```json
-{
-  "name": "{model_name}",
-  "provider": "{provider_name}",
-  "api_endpoint": "{endpoint}",
-  "capabilities": [
-    "text_generation",
-    "analysis",
-    "coding"
-  ],
-  "cost_per_1k_tokens": {
-    "input": "{input_cost}",
-    "output": "{output_cost}"
-  },
-  "context_window": "{context_size}",
-  "rate_limits": {
-    "requests_per_minute": "{rpm}",
-    "tokens_per_minute": "{tpm}"
-  }
-}
-```
-
-#### **Drop-In/Drop-Out Modularity**
-
-**Adding New Components:**
 ```bash
-# Add new tool
-mao add-tool research_assistant
-# Automatically generates:
-# - logic.py with standard patterns
-# - button_research_assistant.py
-# - ui_research_assistant.py  
-# - research_assistant_tool.json
-
-# Add new model
-mao add-model claude-4 --provider anthropic
-# Automatically generates:
-# - Model configuration
-# - Provider integration
-# - Cost estimation setup
+/update configs/workflows/this-project/this-project-config-update.json 
+mao --update configs/workflows/this-project/this-project-config-update.json
 ```
 
-**Removing Components:**
+### Quality Control with Fix-It
+
+When Mao reviews an agent's work and decides it isn't up to par, they take responsibility and immediately create new workflow phases to address the issues. The `/fix-it` command handles this:
+
 ```bash
-# Remove tool (zero breaking changes)
-mao remove-tool old_research
-# Automatically:
-# - Removes tool files
-# - Updates configurations
-# - Maintains workflow compatibility
-
-# Remove provider (graceful degradation)
-mao remove-provider old_api
-# Automatically:
-# - Redirects to fallback providers
-# - Updates cost calculations
-# - Preserves workflow functionality
+/fix-it configs/workflows/this-project/this-project-config-fix.json 
+mao --fix-it configs/workflows/this-project/this-project-config-fix.json
 ```
 
-### Template Inheritance System
+### Flexible Execution
 
-#### **Base Templates**
-- **Tool Base**: Standard patterns for all tools
-- **Command Base**: CLI command foundations
-- **Workflow Base**: Business process templates
-- **Provider Base**: API integration patterns
-
-#### **Specialized Templates**
-- **Research Tools**: Web scraping, data analysis
-- **Generation Tools**: Content creation, code generation
-- **Analysis Tools**: Data processing, pattern recognition
-- **Validation Tools**: Quality assurance, testing
-
-#### **User Templates**
-- **Custom Workflows**: User-defined process templates
-- **Business Templates**: Industry-specific patterns
-- **Integration Templates**: Third-party service connections
+Both commands are designed so they can create new JSONs anywhere Mao, or you!, happen to be working, and the system automatically copies the new JSON to the appropriate directory for that use-case. This flexibility means workflow evolution can happen organically as projects develop.
 
 ---
 
-## Chapter 2.3: Modular Architecture Deep Dive
+| **ADD ARCHITECTURE HERE** |
+| ------------------------- |
 
-### The 11-Tool Ecosystem
+The Setup Script 
+Workflow Updates 
 
-**Current Production Tools:**
-1. **Research Tool** - Web scraping and data gathering
-2. **Analysis Tool** - Data processing and insights
-3. **Generation Tool** - Content and code creation
-4. **Validation Tool** - Quality assurance and testing
-5. **Integration Tool** - Third-party service connections
-6. **Workflow Tool** - Process orchestration
-7. **Monitoring Tool** - System health and performance
-8. **Optimization Tool** - Performance enhancement
-9. **Security Tool** - Privacy and compliance
-10. **Analytics Tool** - Usage tracking and insights
-11. **Coordination Tool** - Multi-agent management
+*Details about how the setup script works, referencing:*
+- `./scripts/workflow_setup`
+- `./versioning/v4/v4_0_0/implemented-workflow-setup/TASK_4_WORKFLOW_CREATION_COMPLETE.md`
+*Reference: `./archive/OGDOCS_7_USER_GUIDE.md` contains additional details*
 
-### Orchestrator Management Layer
+| **END ARCHITECTURE SECTION** |
+| ---------------------------- |
 
-#### **Core Orchestration Engine**
-
-**`core.py` Responsibilities:**
-- **Goal interpretation** and workflow planning
-- **Resource allocation** and optimization
-- **Quality assurance** and error recovery
-- **Performance monitoring** and reporting
-
-**`agent_callback.py` Responsibilities:**
-- **Agent selection** based on capabilities
-- **Task distribution** and load balancing
-- **Progress tracking** and status updates
-- **Result aggregation** and validation
-
-**`conversation_bridge.py` Responsibilities:**
-- **Natural language processing** for user input
-- **Intent recognition** and goal extraction
-- **Response formatting** and user communication
-- **Session management** and context preservation
-
-#### **Memory MCP as Single Source of Truth**
-
-**Memory Architecture:**
-```mermaid
-graph TD
-    A[User Input] --> B[Memory MCP]
-    B --> C[Context Storage]
-    C --> D[Knowledge Graph]
-    D --> E[Session State]
-    E --> F[Workflow History]
-    F --> G[Performance Metrics]
-    G --> H[User Preferences]
-    H --> I[System Configuration]
-    
-    J[New Session] --> K[Context Recovery]
-    K --> B
-    B --> L[Seamless Continuation]
-```
-
-**What Gets Stored:**
-- **Conversation context** and user preferences
-- **Workflow definitions** and execution history
-- **Performance metrics** and optimization data
-- **Error patterns** and resolution strategies
-- **Cost tracking** and budget management
-- **Quality assessments** and improvement recommendations
-
-**Recovery Capabilities:**
-- **Session restoration** after disconnection
-- **Context preservation** across tool switches  
-- **Learning retention** from previous interactions
-- **Preference persistence** for user experience
-- **Performance optimization** based on history
-
----
-
-## Chapter 2.4: Data Flow Illustrations
-
-### Technical Flows Showing HOW the Magic Happens
-
-#### **Workflow Execution Data Flow**
-
-```mermaid
-graph LR
-    A[User Goal: "Analyze Competitors"] --> B[Intent Parser]
-    B --> C[Tool Selection Engine]
-    C --> D[Agent Coordination Layer]
-    D --> E[Web Research Agent]
-    D --> F[Analysis Agent]
-    D --> G[Report Generation Agent]
-    E --> H[Raw Data Collection]
-    F --> I[Structured Analysis]
-    G --> J[Formatted Report]
-    H --> K[Data Aggregation]
-    I --> K
-    J --> K
-    K --> L[Deliverable: Competitor Analysis Report]
-```
-
-**Information Journey:**
-1. **User Input**: Natural language goal description
-2. **Intent Parsing**: Extract actionable requirements
-3. **Tool Selection**: Choose optimal agents for task
-4. **Agent Coordination**: Distribute work efficiently
-5. **Parallel Execution**: Multiple agents work simultaneously
-6. **Data Integration**: Combine results intelligently
-7. **Quality Assurance**: Validate output quality
-8. **Delivery**: Present results to user
-
-#### **Cache Performance Pipeline**
-
-```mermaid
-graph LR
-    A[Request] --> B{Cache Check}
-    B -->|Hit| C[Cached Data]
-    B -->|Miss| D[Data Source]
-    D --> E[Processing]
-    E --> F[Cache Update]
-    F --> G[Response Delivery]
-    C --> G
-    
-    H[Cache Management] --> I[Expiration Policy]
-    I --> J[Cleanup Process]
-    J --> K[Performance Optimization]
-```
-
-**Performance Benefits:**
-- **Instant responses** for repeated queries
-- **Cost reduction** through result reuse
-- **Load balancing** across providers
-- **Quality consistency** through verified results
-
-#### **Error Handling and Recovery Flow**
-
-```mermaid
-graph TD
-    A[Operation Start] --> B{Error Occurs?}
-    B -->|No| C[Successful Completion]
-    B -->|Yes| D[@handle_errors Decorator]
-    D --> E[Error Classification]
-    E --> F{Recoverable?}
-    F -->|Yes| G[Automatic Recovery]
-    F -->|No| H[Graceful Degradation]
-    G --> I[Retry Operation]
-    H --> J[Alternative Approach]
-    I --> K[Success Notification]
-    J --> K
-    K --> L[Continue Workflow]
-```
-
-**Error Handling Benefits:**
-- **Automatic recovery** for transient issues
-- **Graceful degradation** when services unavailable
-- **User notification** without system crashes
-- **Learning integration** to prevent future issues
-
-#### **Cost Estimation and Monitoring**
-
-```mermaid
-graph LR
-    A[Workflow Request] --> B[estimate_cost()]
-    B --> C[Resource Requirements]
-    C --> D[Provider Pricing]
-    D --> E[Total Estimate]
-    E --> F{Budget Check}
-    F -->|Approved| G[Execute Workflow]
-    F -->|Over Budget| H[Optimization Suggestions]
-    G --> I[Real-time Monitoring]
-    H --> I
-    I --> J[Actual Cost Tracking]
-    J --> K[Budget Updates]
-```
-
-**Cost Management Benefits:**
-- **Predictable pricing** before execution
-- **Budget protection** against overruns
-- **Optimization suggestions** for cost reduction
-- **Real-time monitoring** during execution
-
-### Architecture That Enables Revolutionary Concepts
-
-**Why This Architecture Matters:**
-
-#### **Scalability**
-- **Horizontal scaling** through modular components
-- **Vertical optimization** through intelligent caching
-- **Load distribution** across multiple providers
-- **Resource efficiency** through smart coordination
-
-#### **Reliability**
-- **Zero breaking changes** through modular design
-- **Automatic failover** between providers
-- **Comprehensive error handling** at every level
-- **State preservation** across system updates
-
-#### **Extensibility**
-- **Plugin architecture** for easy tool addition
-- **Template system** for rapid customization
-- **API integration** for third-party services
-- **Configuration flexibility** for diverse use cases
-
-#### **Performance**
-- **Parallel execution** across multiple agents
-- **Intelligent caching** for repeated operations
-- **Cost optimization** through smart routing
-- **Real-time monitoring** for continuous improvement
-
----
-
-**The Technical Foundation is Solid**: This architecture proves that the revolutionary concepts in Mao are built on enterprise-grade technical foundations, not theoretical possibilities.
-
-*Ready to see how users actually interact with this powerful system?*
