@@ -1,5 +1,9 @@
 # FIXING OUR DOCUMENTATION 
 
+First, please see the `./archive/xWHY.md` file for the reasoning behind this process. 
+
+Please add the most important details from that document to our Memory MCP Project State using `Mao-v4` as an entity, and also a relation called `wow_final_tech_docs` -- this is because I'm tired or explaining why and what happened multiple times. I thought we did this already but I just looked at the previous AI chat and looks like they didn't use the memory tool at all. They also didn't know how to use sequential thinking so that was just a strange instance in general. Let me know when this is done so that I can delete the WHY file. Thank you. 
+
 ## **Start Here** 
 
 - `./documentation/03_USER_FLOW.md`
