@@ -10,19 +10,34 @@ Systematically verify every code example, class name, function signature, and im
 
 ## Verification Methodology
 
-### 1. Code Example Extraction
+### 1. MANDATORY: Read Before Writing Rule
+**CRITICAL**: Before documenting ANY code element, the agent MUST:
+- Read the actual file using the Read tool
+- Copy the exact code snippet from the file
+- Verify class names, function signatures, and variable names match exactly
+- **NEVER write code from memory or training patterns**
+
+### 2. Code Example Extraction & Immediate Verification
 For each architecture document (ARCH_01 through ARCH_06):
 - Extract every code snippet, class name, function signature
-- Note the claimed file path and line numbers
-- List all import statements and dependencies
+- **IMMEDIATELY read the claimed source file to verify accuracy**
+- Note the actual file path and line numbers where code exists
+- List all import statements and verify they exist in the actual files
 
-### 2. Codebase Cross-Reference
+### 3. Systematic File Reading Protocol
 For each extracted code element:
-- **File Verification**: Confirm file exists at documented path
-- **Class Verification**: Verify class names exist exactly as documented
-- **Function Verification**: Check function signatures match reality
-- **Import Verification**: Ensure import statements are accurate
-- **Context Verification**: Confirm code is used in documented context
+- **File Verification**: Read actual file at documented path using Read tool
+- **Exact Match Verification**: Code snippet must match file contents exactly
+- **Context Verification**: Verify surrounding code context is accurate
+- **Import Verification**: Read import statements from actual files
+- **NO INVENTION RULE**: If code doesn't exist, mark as "TO BE IMPLEMENTED"
+
+### 4. Code Snippet Verification Script Integration
+Create verification process that:
+- Greps codebase for exact code snippets
+- Flags any code that doesn't exist in actual files
+- Provides "ACTUAL CODE FOUND AT:" corrections
+- Reports "CODE NOT FOUND - MARK AS PROPOSED" for non-existent patterns
 
 ### 3. Systematic File Review
 Key files to verify against:
