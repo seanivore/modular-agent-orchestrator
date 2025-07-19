@@ -6,8 +6,6 @@ Please add the most important details from that document to our Memory MCP Proje
 
 ## **Start Here** 
 
-- `./documentation/03_USER_FLOW.md`
-
 NEXT STEPS: 
 
   - ORCHESTRATION.md -- which can be all technical because in the quick reference seciton i want to have all of the files listed and defined, followed by the touchpoints and a map for the touchpoints, etc. as well as the data flow. 
