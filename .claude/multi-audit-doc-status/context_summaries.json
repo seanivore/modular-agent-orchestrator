@@ -1,0 +1,19 @@
+{
+  "architecture_principles_summary": {
+    "key_insights": [
+      "Mao is a LOCAL ONLY terminal application like Claude Code",
+      "NOT a web service, API provider, or cloud application",
+      "Architecture: TypeScript/Node.js terminal UI + Python backend + External API calls",
+      "Communication: Node.js ↔ Python via subprocess, Python → External APIs via HTTP",
+      "Data storage: Local files only, no remote databases",
+      "Think 'desktop app' not 'web app', 'subprocess calls' not 'API calls'"
+    ],
+    "critical_principles": [
+      "LOCAL FIRST - user owns data and processing",
+      "Subprocess communication between UI and backend",
+      "Personal productivity tool, not multi-user service",
+      "All documentation must reinforce LOCAL application concept"
+    ],
+    "comparison_analogy": "Like VSCode/Claude Code/Photoshop, NOT like GitHub Codespaces/Figma/Google Docs"
+  }
+}
