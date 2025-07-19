@@ -2,13 +2,13 @@
 
 ## Introduction
 
-The Modular Agent Orchestrator (MAO) implements a LOCAL-only application architecture designed as a professional terminal application that runs entirely on the user's machine. This architecture pattern emphasizes subprocess communication, dynamic discovery, and privacy-first design while avoiding any web service capabilities.
+The Modular Agent Orchestrator (Mao) implements a LOCAL-only application architecture designed as a professional terminal application that runs entirely on the user's machine. This architecture pattern emphasizes subprocess communication, dynamic discovery, and privacy-first design while avoiding any web service capabilities.
 
 ## Core Architectural Principles
 
 ### LOCAL Application Architecture
 
-MAO follows a fundamental architectural principle that distinguishes it from web-based systems:
+Mao follows a fundamental architectural principle that distinguishes it from web-based systems:
 
 - **❌ MAO does NOT provide APIs** - No web server, no endpoints for external clients
 - **✅ MAO CONSUMES APIs** - Calls OpenAI, Anthropic, search services, and other external providers
@@ -56,7 +56,7 @@ function executeCommand(command, data) {
 
 ### Dynamic Discovery Patterns
 
-MAO implements comprehensive dynamic discovery to eliminate hardcoded dependencies:
+Mao implements comprehensive dynamic discovery to eliminate hardcoded dependencies:
 
 ```python
 # Dynamic Command Discovery - mao_v4.py
@@ -139,7 +139,7 @@ class MCPHub:
 
 ### Four-File Tool Structure
 
-Every tool in MAO follows a standardized four-file architecture pattern:
+Every tool in Mao follows a standardized four-file architecture pattern:
 
 ```
 tools/
@@ -223,7 +223,7 @@ async def execute_goal_command(args, interface):
 
 ### Comprehensive Error Management
 
-MAO implements layered error handling ensuring system resilience:
+Mao implements layered error handling ensuring system resilience:
 
 ```python
 # orchestrator/error_handling.py

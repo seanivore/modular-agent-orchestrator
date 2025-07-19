@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any
 
-# Standard MAO imports
+# Standard Mao imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError
 
