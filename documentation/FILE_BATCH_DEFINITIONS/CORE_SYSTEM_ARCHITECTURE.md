@@ -1,4 +1,4 @@
-# Core System Architecture Documentation Gathering
+# Core System Architecture (25 files)
 
 ## 🚨 **CRITICAL: LOCAL APPLICATION ONLY** 🚨
 **See `/ARCHITECTURE_PRINCIPLES.md` - Mao is LOCAL ONLY, not web-based**
@@ -7,11 +7,10 @@ This document defines the files and information needed to document the foundatio
 
 ---
 
-# Batch 01: Root Files (2 files)
+# Batch 01: Root Files (1 file)
 
-## Files to Analyze:
+## File to Analyze:
 - `./mao_v4.py` - Main application entry point and system initialization
-- `./CLAUDE.md` - Project instructions and development guidelines
 
 ### Simple Sentence Form: 
 
@@ -43,11 +42,10 @@ This document defines the files and information needed to document the foundatio
 
 ---
 
-# Batch 02: Interfaces (2 files)
+# Batch 02: Interfaces (1 file)
 
-## Files to Analyze:
+## File to Analyze:
 - `./interfaces/ui_terminal.py` - Terminal UI interface implementation
-- `./interfaces/ui_web.py` - Web UI interface implementation
 
 ### Simple Sentence Form: 
 
@@ -62,15 +60,15 @@ This document defines the files and information needed to document the foundatio
 - Interface standardization and consistency patterns
 - Recommended documentation location for interface specifications
 
-### UI & TypeScript/Node.js Integration:
-- UI interface patterns and design principles
-- TypeScript integration touchpoints and API boundaries
-- Interface standardization across different UI implementations
-- UI integration guide requirements and specifications
-- Interface specifications for external consumption
-- TypeScript→Python API mappings and data transformation
+### UI for TypeScript/Node.js Integration:
+- Provide UI interface patterns and design principles
+- Identify touchpoints for TypeScript integration 
+- Define interface standardization method across different UI implementations
+- Identify UI integration guide requirements and specifications
+- Define Interface specifications for external consumption
+- Python --> TypeScript mappings and data transformation
 
-### Written & Illustrated Data Info.: 
+### Provide Written & Illustrated Data Info.: 
 
 * **Data In-Flow:** 
 - User input processing and validation
@@ -178,12 +176,11 @@ This document defines the files and information needed to document the foundatio
 
 ---
 
-# Batch 05: Cache System (3 files)
+# Batch 05: Cache System (2 files)
 
 ## Files to Analyze:
 - `./orchestrator/cache/__init__.py` - Cache package initialization
 - `./orchestrator/cache/cache_system.py` - Core caching implementation and strategies
-- `./orchestrator/cache/cache_system.py.backup` - Backup cache implementation
 
 ### Simple Sentence Form: 
 

@@ -7,28 +7,34 @@ Create comprehensive technical documentation for the Mao v4 modular agent orches
 
 ## Mid-Level Objective
 
-- Read each batch grouping file in `/documentation/FILE_BATCH_DEFINITIONS/`
+- Read each batch grouping file in `./documentation/FILE_BATCH_DEFINITIONS/...`
 - Answer the questions for each file listed in the batch
 - Save the gathered information as organized documentation
-- Focus on LOCAL terminal application architecture (read `/ARCHITECTURE_PRINCIPLES.md` first)
+- Focus on LOCAL terminal application architecture; read `/ARCHITECTURE_PRINCIPLES.md` first
 
 ## Implementation Notes
 
-- **CRITICAL**: Mao is a LOCAL ONLY terminal application like Claude Code - read `/ARCHITECTURE_PRINCIPLES.md` first
-- This is documentation gathering, NOT code modification
+- **CRITICAL**: Mao is a LOCAL ONLY terminal application like Claude Code; read `/ARCHITECTURE_PRINCIPLES.md` first
+- This is documentation gathering, NOT code modification 
+- Only on limited files will you be asked to provide code that is not already in the codebase; e.g. 'UI interface patterns'
 - Each batch file contains specific questions to answer about the listed files
-- Save documentation in `/documentation/GATHERED_INFO/` directory
+- For each file, please copy the questionaire and insert your responses below each question or prompt 
+- Save documentation in `/documentation/GATHERED_INFO/...` directory
+- Each file should have its own copy of the questionaire 
+- Name the file as as the batch number followed by the name of the file without its extension 
+- E.g. 'CORE_SYSTEM_ARCHITECTURE_BATCH_01_FILE_NAME.md'; do this for every file in every batch 
 
 ## Context
 
 ### Beginning context
-- 6 batch grouping files exist in `/documentation/FILE_BATCH_DEFINITIONS/`
-- Complete Mao v4 codebase ready for documentation
+- 6 batch grouping files exist in `/documentation/FILE_BATCH_DEFINITIONS/...`
+- Complete, audited, Mao v4 codebase ready for documentation
 - Architecture principles document emphasizing LOCAL application
 
-### Ending context  
+### Ending context 
 - Comprehensive technical documentation saved in organized files
 - All batch grouping questions answered with real codebase information
+- When pulling code, only pull from codebase files; old, outdated implementation files exist  
 
 ## Tasks
 
@@ -39,27 +45,52 @@ Create comprehensive technical documentation for the Mao v4 modular agent orches
 - Understand LOCAL terminal application concept
 - Save: No output needed, just understanding
 
-**Task 2: Core System Architecture**
-- Use `/documentation/FILE_BATCH_DEFINITIONS/CORE_SYSTEM_ARCHITECTURE.md` as questionnaire
-- Answer questions for all files listed in the batch (28 files total)
-- Save: `/documentation/GATHERED_INFO/01_CORE_SYSTEM_ARCHITECTURE.md`
+**Task 2: Core System Architecture** (25 files)
+- Use `./documentation/FILE_BATCH_DEFINITIONS/CORE_SYSTEM_ARCHITECTURE.md` as questionnaire
+- Answer questions for all files listed in the batches
+  - Batch 01: Root Files (1 file)
+  - Batch 02: Interfaces (1 file)
+  - Batch 03: Orchestrator Core (12 files)
+  - Batch 04: Orchestrator Managers (9 files)
+  - Batch 05: Cache System (2 files) 
+- Save: `/documentation/GATHERED_INFO/CORE_SYSTEM_ARCHITECTURE_BATCH_01_FILE_NAME.md`
+  - 25 total deliverables for 'Task 2, Batches 1-5'
 
 ### **Phase 2: Modules (Parallel)**
 
-**Task 3: Tools Ecosystem** 
+**Task 3: Tools Ecosystem** (45 files)
 - Use `/documentation/FILE_BATCH_DEFINITIONS/TOOLS_ECOSYSTEM.md` as questionnaire
-- Answer questions for all files listed in the batch (45 files total)
-- Save: `/documentation/GATHERED_INFO/02_TOOLS_ECOSYSTEM.md`
+- Answer questions for all files listed in the batch 
+  - Batch 06: Search Tools (8 files)
+  - Batch 07: Web Search Tools (4 files)
+  - Batch 08: Content Creation Tools (8 files)
+  - Batch 09: Development Tools (12 files)
+  - Batch 10: System Tools (13 files)
+- Save: `/documentation/GATHERED_INFO/TOOLS_ECOSYSTEM_BATCH_06_FILE_NAME.md`
+  - 45 total deliverables for 'Task 3, Batches 6-10'
 
-**Task 4: CLI Command System**
+**Task 4: CLI Command System** (94 files)
 - Use `/documentation/FILE_BATCH_DEFINITIONS/CLI_COMMAND_SYSTEM.md` as questionnaire  
-- Answer questions for all files listed in the batch (96 files total)
-- Save: `/documentation/GATHERED_INFO/03_CLI_COMMAND_SYSTEM.md`
+- Answer questions for all files listed in the batch 
+  - Batch 11: CLI Commands Group 1 (12 files)
+  - Batch 12: CLI Commands Group 2 (12 files)
+  - Batch 13: CLI Commands Group 3 (12 files)
+  - Batch 14: CLI Commands Group 4 (12 files)
+  - Batch 15: CLI Commands Group 5 (12 files)
+  - Batch 16: CLI Commands Group 6 (12 files)
+  - Batch 17: CLI Commands Group 7 (12 files)
+  - Batch 18: CLI Commands Group 8 - JSON Only (10 files)
+- Save: `/documentation/GATHERED_INFO/CLI_COMMAND_SYSTEM_BATCH_11_FILE_NAME.md`
+  - 94 total deliverables for 'Task 4, Batches 11-18'
 
-**Task 5: Configuration Management**
+**Task 5: Configuration Management** (37 files)
 - Use `/documentation/FILE_BATCH_DEFINITIONS/CONFIGURATION_MANAGEMENT.md` as questionnaire
-- Answer questions for all files listed in the batch (37 files total)
-- Save: `/documentation/GATHERED_INFO/04_CONFIGURATION_MANAGEMENT.md`
+- Answer questions for all files listed in the batch 
+  - Batch 19: Models & Providers Configuration (13 files)
+  - Batch 20: Settings & System Configuration (14 files)
+  - Batch 21: User & Workflow Configuration (10 files)
+- Save: `/documentation/GATHERED_INFO/CONFIGURATION_MANAGEMENT_BATCH_19_FILE_NAME.md`
+  - 37 total deliverables for 'Task 5, Batches 19-21'
 
 **Task 6: Templates and Scripts**
 - Use `/documentation/FILE_BATCH_DEFINITIONS/TEMPLATES_AND_SCRIPTS.md` as questionnaire
