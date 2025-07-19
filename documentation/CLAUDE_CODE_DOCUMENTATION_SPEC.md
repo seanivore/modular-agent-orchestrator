@@ -112,17 +112,39 @@ Create comprehensive technical documentation for the Mao v4 modular agent orches
 - Save: `/documentation/GATHERED_INFO/UI_TYPESCRIPT_INTEGRATION_FILE_NAME.md`
   - 41 total deliverables for 'Task 7'
 
-### Phase 4: Finalization 
+### **Phase 4: Architecture Documentation**
 
-**NOTE: Task 8 Proposed**
-*added by Sean at 0750 on 19 July 2025 while waiting for our rate limit to reset at 1100* 
+**Task 8: Create Technical Architecture Sections**
 
-```plaintext
-I think we need to add a "Task 8" -- AI had originally written "Create final documentation" as a task 8 which I removed because it sounded a bit lofty a request for what we were doing. However the main intention of doing this is because we created a very narrative-heavy overview of the product and we want to create "Architecture" sections showing the code snippets, patterns, I.e. the type of stuff that is expected in standard technical documentation. We're just trying to create more of a vibe like... Anthropic's documentation for example, where each section is 60-80% written content with maybe 10-20% of that being bullet points. Then the remaining 40-20% of each section is the code. It really helps make things a lot more entry level. 
+Create comprehensive architecture sections using gathered documentation to provide code snippets, patterns, and technical implementation guidance following Anthropic documentation style (60-80% written content, 10-20% bullet points, 20-40% code examples).
 
-Anyway I removed task 8 because I thought that the questionnaires were implying that we highlights of each file's code be included in the "Code & Explanation" 
+**Architecture Pattern Categories:**
 
-However, this is probably better to happen this route anyway, because we certainly don't need snippets of code for 8 tools and ~40 CLI commands, settings, etc. We only really need code snippets as examples for each section. If we do that then we can't really provide too much, it'll all be helpful. 
+1. **Architecture Overview** (LOCAL app patterns, subprocess communication)
+2. **Core System Patterns** (orchestration, state management, caching) 
+3. **Tool Integration Patterns** (discovery, generation, execution)
+4. **Configuration & Data Patterns** (JSON configs, memory systems, analytics)
+5. **User Interface Patterns** (CLI design, terminal UI, workflow UX)
+6. **Extension & Automation Patterns** (adding tools/models, business automation)
 
-Wdyt? Can we add this as the final step? 
-```
+**Implementation Approach:**
+
+- Use gathered information from Tasks 1-7 to extract representative code examples for each pattern category
+- Focus on practical implementation guidance rather than exhaustive code documentation
+- Integrate architecture sections into existing narrative documentation where marked
+- Provide entry-level accessible technical content with clear code examples
+- Demonstrate modular architecture principles through concrete patterns
+
+**Deliverables:**
+
+- **6 comprehensive architecture pattern sections** (one for each category) with 3-5 representative code examples per pattern
+- **Architecture integration for all 10 documentation files** (00-09) where narrative content has designated architecture insertion points
+- **Implementation guidance covering 80%+ of core system functionality** through practical code snippets and patterns rather than exhaustive file-by-file documentation
+- **Complete pattern coverage** demonstrating modular architecture principles across all major system components (orchestration, tools, CLI, configuration, UI, extensions)
+- **Entry-level technical documentation** that maintains 60-80% written content, 10-20% bullet points, 20-40% code ratio throughout
+
+**Coverage Goal:** Provide sufficient technical depth that developers can understand and extend any aspect of the Mao system using the documented patterns, while keeping content accessible and practical rather than overwhelming.
+
+**Dependencies:**
+- Requires completion of Tasks 1-7 (all gathered documentation)
+- Integrates with existing documentation structure and narrative content
