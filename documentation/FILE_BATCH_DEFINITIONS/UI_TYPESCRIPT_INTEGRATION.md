@@ -1,4 +1,4 @@
-# Local Terminal UI Integration Documentation Gathering
+# Local Terminal UI Integration (41 files)
 
 ## 🚨 **CRITICAL: READ ARCHITECTURE_PRINCIPLES.md FIRST** 🚨
 **Mao is a LOCAL ONLY APPLICATION - NO WEB SERVICES, NO APIs, NO CLOUD**  
@@ -16,8 +16,8 @@ This document defines the files and information needed to document the **local t
 
 ## Files That Need Terminal UI Integration Analysis:
 - `./interfaces/ui_terminal.py` - Python terminal interface (PRIMARY FOCUS)
-- All `ui_*.py` files in CLI commands (40+ files) - Python UI components
-- All `ui_*.py` files in tools (30+ files) - Python UI components
+- All `ui_*.py` files in CLI commands (29 files); Python UI components
+- All `ui_*.py` files in tools (11 files); Python UI components
 - Future TypeScript/Node.js terminal application files (not yet created)
 
 ### Simple Sentence Form: 

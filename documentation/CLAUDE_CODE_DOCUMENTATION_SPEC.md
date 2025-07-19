@@ -92,18 +92,22 @@ Create comprehensive technical documentation for the Mao v4 modular agent orches
 - Save: `/documentation/GATHERED_INFO/CONFIGURATION_MANAGEMENT_BATCH_19_FILE_NAME.md`
   - 37 total deliverables for 'Task 5, Batches 19-21'
 
-**Task 6: Templates and Scripts**
+**Task 6: Templates and Scripts** (31 files)
 - Use `/documentation/FILE_BATCH_DEFINITIONS/TEMPLATES_AND_SCRIPTS.md` as questionnaire
-- Answer questions for all files listed in the batch (31 files total)
-- Save: `/documentation/GATHERED_INFO/05_TEMPLATES_AND_SCRIPTS.md`
+- Answer questions for all files listed in the batch 
+  - Batch 22: Templates System (13 files)
+  - Batch 23: Utility Scripts (14 files)
+  - Batch 24: Workflow & GitHub Scripts (4 files)
+- Save: `/documentation/GATHERED_INFO/TEMPLATES_AND_SCRIPTS_BATCH_22_FILE_NAME.md`
+  - 31 total deliverables for 'Task 6, Batches 22-24'
 
 ### **Phase 3: Integration (Sequential)**
 
-**Task 7: UI Integration Requirements**
+**Task 7: UI Integration Requirements** (41 files)
 - Use `/documentation/FILE_BATCH_DEFINITIONS/UI_TYPESCRIPT_INTEGRATION.md` as questionnaire
 - Focus on LOCAL subprocess communication patterns
-- Save: `/documentation/GATHERED_INFO/06_UI_INTEGRATION.md`
-
-**Task 8: Create Final Documentation**
-- Consolidate all gathered information into organized technical documentation
-- Save: `/documentation/GATHERED_INFO/00_COMPLETE_DOCUMENTATION.md`
+  - Pythong terminal interface `./interfaces/ui_terminal.py` (1 file)
+  - CLI `ui_*.py` files (29 files)
+  - Tools `ui_*.py` files (11 files)
+- Save: `/documentation/GATHERED_INFO/UI_TYPESCRIPT_INTEGRATION_FILE_NAME.md`
+  - 41 total deliverables for 'Task 7'
