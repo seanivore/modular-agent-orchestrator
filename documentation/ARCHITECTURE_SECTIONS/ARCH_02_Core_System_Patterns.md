@@ -14,34 +14,61 @@ The central orchestration system coordinates multiple AI agents and manages thei
 # orchestrator/agent_orchestrator.py
 class AgentOrchestrator:
     def __init__(self):
-        self.active_workflows = {}
-        self.agent_registry = {}
-        self.performance_metrics = RealTimeMetrics()
-        self.cache_manager = CacheManager()
+        # Standard cache instance
+        self.cache = CacheManager()
         
-    @handle_errors
-    async def orchestrate_workflow(self, workflow_id: str, goal: str):
-        """Core orchestration logic for multi-agent workflows"""
-        workflow = await self.initialize_workflow(workflow_id, goal)
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
+        self.tool_manager = ToolManager()
+    
+    @handle_errors(operation_name="execute_workflow_phase", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, ConnectionError))
+    def execute_workflow_phase(self, workflow_id: str, phase: dict) -> Dict[str, Any]:
+        """Execute a workflow phase with agent coordination"""
         
-        try:
-            # Agent capability analysis
-            suitable_agents = await self.analyze_agent_capabilities(goal)
-            
-            # Workflow decomposition
-            tasks = await self.decompose_workflow(goal, suitable_agents)
-            
-            # Sequential and parallel task execution
-            results = await self.execute_task_sequence(tasks, workflow)
-            
-            # Result synthesis and validation
-            final_result = await self.synthesize_results(results, workflow)
-            
-            return final_result
-            
-        except Exception as e:
-            await self.handle_workflow_failure(workflow_id, e)
-            raise
+        # Check cache for similar phase executions
+        cache_key = f"{workflow_id}|{phase.get('name', 'unknown')}|phase_execution"
+        cached_result = self.cache.get_cached_analysis(cache_key, "workflow_phase")
+        if cached_result:
+            return json.loads(cached_result)
+        
+        # Get workflow context from Memory MCP
+        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
+        if not workflow_context:
+            return {
+                "success": False,
+                "error": f"No workflow context found for {workflow_id}"
+            }
+        
+        # Prepare agent handoff package
+        handoff_package = self._create_agent_package(
+            workflow_id, 
+            phase, 
+            workflow_context
+        )
+        
+        # Store package via Files API
+        package_id = self.files_api.save_agent_package(workflow_id, handoff_package)
+        
+        # Track phase start in Memory MCP
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Phase started: {phase['name']} (Package: {package_id})"
+        )
+        
+        result = {
+            "success": True,
+            "package_id": package_id,
+            "agent_instructions": handoff_package["instructions"],
+            "tool_buttons": handoff_package["tool_buttons"],
+            "callback_info": handoff_package["callback"],
+            "phase_context": handoff_package["phase_info"]
+        }
+        
+        # Cache the result for future use
+        self.cache.cache_content_analysis(cache_key, json.dumps(result), "workflow_phase")
+        
+        return result
 ```
 
 ### Agent Callback Management
@@ -50,52 +77,59 @@ The callback system provides structured communication between agents and the orc
 
 ```python
 # orchestrator/agent_callback.py
-class AgentCallback:
-    def __init__(self, orchestrator):
-        self.orchestrator = orchestrator
-        self.callback_registry = {}
+class AgentCallbackHandler:
+    """Manages agent returns and workflow progression"""
+    
+    def __init__(self):
+        # Standard cache instance
+        self.cache = CacheManager()
         
-    async def register_callback(self, agent_id: str, callback_type: str, handler):
-        """Register agent callback handlers for orchestrator communication"""
-        if agent_id not in self.callback_registry:
-            self.callback_registry[agent_id] = {}
-            
-        self.callback_registry[agent_id][callback_type] = handler
+        # Lazy load to avoid circular imports
+        self._memory_mcp = None
+        self._files_api = None
+        self._code_execution = None
+    
+    @handle_errors(operation_name="agent_callback", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, ConnectionError))
+    def handle_agent_return(self, workflow_id: str, execution_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Process agent return with execution results"""
         
-    async def handle_agent_response(self, agent_id: str, response_data: dict):
-        """Process agent responses with type-specific handling"""
-        response_type = response_data.get("type", "general")
+        execution_id = execution_data.get('execution_id', 'unknown')
+        tool_name = execution_data.get('tool_name', 'unknown')
         
-        handlers = {
-            "progress_update": self.handle_progress_update,
-            "tool_request": self.handle_tool_request,
-            "handoff_request": self.handle_handoff_request,
-            "completion": self.handle_completion,
-            "error": self.handle_error
+        # Check cache for similar workflow executions
+        cache_key = f"{workflow_id}|{tool_name}|{execution_id}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "agent_callback")
+        if cached_result:
+            return json.loads(cached_result)
+        
+        # Retrieve workflow context from Memory MCP
+        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
+        
+        # Process execution results
+        processed_results = self._process_execution_results(workflow_id, execution_data)
+        
+        # Determine next workflow phase
+        next_phase_info = self._determine_next_phase(workflow_context, processed_results)
+        
+        # Update workflow state with agent return
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Agent returned: {tool_name} execution {execution_id} - {processed_results['summary']}"
+        )
+        
+        result = {
+            "workflow_context": workflow_context,
+            "execution_results": processed_results,
+            "next_phase": next_phase_info,
+            "workflow_status": self._get_workflow_status(workflow_context, processed_results),
+            "timestamp": datetime.now().isoformat()
         }
         
-        handler = handlers.get(response_type, self.handle_generic_response)
-        return await handler(agent_id, response_data)
+        # Cache the result for future use
+        self.cache.cache_content_analysis(cache_key, json.dumps(result), "agent_callback")
         
-    async def handle_tool_request(self, agent_id: str, request_data: dict):
-        """Handle agent tool execution requests"""
-        tool_name = request_data["tool_name"]
-        tool_params = request_data["parameters"]
-        
-        # Tool availability verification
-        if not await self.verify_tool_availability(tool_name):
-            return {"status": "error", "message": f"Tool {tool_name} not available"}
-            
-        # Tool execution with cost tracking
-        cost_estimate = estimate_cost("tool_execution", tool=tool_name, params=tool_params)
-        
-        try:
-            result = await self.orchestrator.execute_tool(tool_name, tool_params)
-            await self.update_workflow_costs(agent_id, cost_estimate)
-            return {"status": "success", "result": result}
-            
-        except Exception as e:
-            return {"status": "error", "message": str(e)}
+        return result
 ```
 
 ### Conversation Bridge Pattern
@@ -103,60 +137,69 @@ class AgentCallback:
 The conversation bridge maintains context and enables seamless agent-to-agent communication:
 
 ```python
-# orchestrator/conversation_bridge.py
-class ConversationBridge:
+# orchestrator/conversation_bridge.py  
+class ConversationToWorkflowBridge:
+    """Convert conversations to executable workflows using proven SFA patterns"""
+    
     def __init__(self):
-        self.context_store = {}
-        self.conversation_history = {}
-        self.memory_mcp = None
+        from .memory_mcp import MemoryMCPManager
         
-    async def create_conversation_context(self, workflow_id: str, participants: list):
-        """Create shared conversation context for multi-agent workflows"""
-        context = {
-            "workflow_id": workflow_id,
-            "participants": participants,
-            "shared_memory": {},
-            "conversation_log": [],
-            "context_metadata": {
-                "created_at": datetime.utcnow(),
-                "last_updated": datetime.utcnow(),
-                "message_count": 0
+        # Standard cache instance
+        self.cache = CacheManager()
+        
+        self.memory_mcp = MemoryMCPManager()
+        self.setup_script_path = "scripts/setup_workflow.sh"  # ONE setup script
+        self.use_case_base = "configs/use_case"
+        
+        # Ensure use-case directory exists
+        os.makedirs(self.use_case_base, exist_ok=True)
+    
+    @handle_errors(operation_name="create_workflow_from_conversation", return_dict=True)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError, subprocess.CalledProcessError))
+    def create_workflow_from_conversation(self, user_goal: str) -> Dict[str, Any]:
+        """Convert conversation to executable workflow following SFA pattern"""
+        workflow_id = f"workflow-{uuid4().hex[:8]}"
+        
+        # Check cache for similar goal analysis
+        cache_key = f"goal_analysis|{user_goal[:50]}"  # First 50 chars for caching
+        cached_result = self.cache.get_cached_analysis(cache_key, "goal_analysis")
+        if cached_result:
+            cached_data = json.loads(cached_result)
+            # Use cached analysis but generate new workflow ID
+            workflow_spec = cached_data["workflow_spec"]
+        else:
+            # Analyze goal and extract requirements (no hardcoded categories)
+            workflow_spec = self._analyze_goal(user_goal)
+            # Cache the analysis
+            self.cache.cache_content_analysis(cache_key, json.dumps({"workflow_spec": workflow_spec}), "goal_analysis")
+        
+        try:
+            # Create workflow entity in Memory MCP
+            self.memory_mcp.create_workflow_context(workflow_id, user_goal)
+            
+            # Generate JSON config (same format humans create)
+            config = {
+                "workflow_id": workflow_id,
+                "custom_command": self._generate_command_name(workflow_spec, user_goal),
+                "goal": user_goal,
+                "phases": self._design_phases(workflow_spec),
+                "variables": self._extract_variables(workflow_spec, user_goal)
             }
-        }
-        
-        self.context_store[workflow_id] = context
-        
-        # Persist to Memory MCP if available
-        if self.memory_mcp:
-            await self.memory_mcp.store_conversation_context(workflow_id, context)
             
-        return context
-        
-    async def bridge_agent_communication(self, from_agent: str, to_agent: str, 
-                                       message: dict, workflow_id: str):
-        """Bridge communication between agents with context preservation"""
-        context = self.context_store.get(workflow_id)
-        if not context:
-            raise ValueError(f"No conversation context for workflow {workflow_id}")
+            return {
+                "success": True,
+                "workflow_id": workflow_id,
+                "custom_command": config["custom_command"],
+                "config": config,
+                "ready_to_execute": True
+            }
             
-        # Message enrichment with context
-        enriched_message = {
-            "from": from_agent,
-            "to": to_agent,
-            "content": message,
-            "timestamp": datetime.utcnow(),
-            "context_snapshot": self.extract_relevant_context(context, message)
-        }
-        
-        # Update conversation log
-        context["conversation_log"].append(enriched_message)
-        context["context_metadata"]["last_updated"] = datetime.utcnow()
-        context["context_metadata"]["message_count"] += 1
-        
-        # Persist updated context
-        await self.persist_context_update(workflow_id, context)
-        
-        return enriched_message
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e),
+                "workflow_id": workflow_id
+            }
 ```
 
 ## State Management Architecture
@@ -167,76 +210,125 @@ The workflow state manager handles complex multi-agent workflow states with pers
 
 ```python
 # orchestrator/workflow_state.py
-class WorkflowState:
+class WorkflowStateManager:
+    """
+    Simple state tracking with Memory MCP
+    Handles workflow progress, status, and session recovery
+    """
+    
     def __init__(self):
-        self.state_store = {}
-        self.state_history = {}
-        self.recovery_handlers = {}
+        # Standard cache instance
+        self.cache = CacheManager()
         
-    async def initialize_workflow_state(self, workflow_id: str, initial_state: dict):
-        """Initialize workflow state with recovery planning"""
-        state = {
-            "workflow_id": workflow_id,
-            "status": "initialized",
-            "current_phase": "planning",
-            "agent_states": {},
-            "shared_data": {},
-            "execution_metadata": {
-                "start_time": datetime.utcnow(),
-                "estimated_duration": None,
-                "cost_tracking": {"estimated": 0, "actual": 0},
-                "progress_percentage": 0
-            },
-            "recovery_checkpoints": []
-        }
+        self.memory_mcp = MemoryMCPManager()
+        self.files_api = FilesAPIManager()
+    
+    def track_workflow_progress(self, workflow_id: str, update: str) -> bool:
+        """Simple progress tracking with timestamps for logging (not filenames)"""
         
-        state.update(initial_state)
-        
-        self.state_store[workflow_id] = state
-        await self.create_recovery_checkpoint(workflow_id, "initialization")
-        
-        return state
-        
-    async def update_workflow_state(self, workflow_id: str, updates: dict):
-        """Update workflow state with automatic checkpointing"""
-        current_state = self.state_store.get(workflow_id)
-        if not current_state:
-            raise ValueError(f"Workflow {workflow_id} not found")
-            
-        # Apply updates
-        self.deep_update(current_state, updates)
-        current_state["execution_metadata"]["last_updated"] = datetime.utcnow()
-        
-        # Automatic checkpoint creation for significant state changes
-        if self.is_significant_update(updates):
-            await self.create_recovery_checkpoint(workflow_id, updates.get("phase", "update"))
-            
-        # Persist to Memory MCP
-        if hasattr(self, 'memory_mcp') and self.memory_mcp:
-            await self.memory_mcp.update_workflow_state(workflow_id, current_state)
-            
-        return current_state
-        
-    async def recover_workflow_state(self, workflow_id: str, checkpoint_id: str = None):
-        """Recover workflow state from checkpoint with intelligent resumption"""
         try:
-            # Primary recovery from Memory MCP
-            if hasattr(self, 'memory_mcp') and self.memory_mcp:
-                state = await self.memory_mcp.get_workflow_state(workflow_id)
-                if state:
-                    self.state_store[workflow_id] = state
-                    return state
+            # Timestamps for LOGGING, not filenames - clean separation
+            timestamp = datetime.now().isoformat()
+            
+            # Single source of truth: Memory MCP
+            success = self.memory_mcp.update_workflow_state(
+                workflow_id,
+                f"{timestamp}: {update}"
+            )
+            
+            return success
+            
         except Exception as e:
-            logger.warning(f"MCP recovery failed: {e}")
+            # Graceful degradation - log locally if MCP unavailable
+            print(f"Warning: State tracking failed for {workflow_id}: {str(e)}")
+            return False
+    
+    @handle_errors(operation_name="get_workflow_status", return_dict=False)
+    def get_workflow_status(self, workflow_id: str) -> Optional[WorkflowStatus]:
+        """Get current workflow status with comprehensive analysis"""
+        
+        # Check cache for recent status
+        cache_key = f"workflow_status|{workflow_id}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "workflow_status")
+        if cached_result:
+            status_data = json.loads(cached_result)
+            return WorkflowStatus(**status_data)
+        
+        try:
+            # Get complete context from Memory MCP
+            context = self.memory_mcp.get_workflow_context(workflow_id)
+            if not context:
+                return None
             
-        # Secondary recovery from local checkpoints
-        checkpoint = await self.load_checkpoint(workflow_id, checkpoint_id)
-        if checkpoint:
-            self.state_store[workflow_id] = checkpoint["state"]
-            return checkpoint["state"]
+            # Parse observations to determine status
+            observations = context.get("observations", [])
+            analysis = self._analyze_workflow_observations(observations)
             
-        # Tertiary recovery with state reconstruction
-        return await self.reconstruct_workflow_state(workflow_id)
+            status = WorkflowStatus(
+                workflow_id=workflow_id,
+                status=analysis["status"],
+                phases_total=analysis["phases_total"],
+                phases_completed=analysis["phases_completed"],
+                phases_active=analysis["phases_active"],
+                last_activity=analysis["last_activity"],
+                created_at=analysis["created_at"],
+                updated_at=datetime.now().isoformat(),
+                health=analysis["health"]
+            )
+            
+            # Cache the result for future use
+            self.cache.cache_content_analysis(cache_key, json.dumps(asdict(status)), "workflow_status")
+            
+            return status
+            
+        except Exception as e:
+            print(f"Error getting workflow status: {str(e)}")
+            return None
+    
+    @handle_errors(operation_name="recover_interrupted_workflow", return_dict=False)
+    def recover_interrupted_workflow(self, workflow_id: str) -> Optional[RecoveryPlan]:
+        """Handle session recovery with comprehensive analysis"""
+        
+        try:
+            # Get workflow context from Memory MCP
+            context = self.memory_mcp.get_workflow_context(workflow_id)
+            if not context:
+                return RecoveryPlan(
+                    workflow_id=workflow_id,
+                    recovery_type="not_found",
+                    current_phase=None,
+                    next_phase=None,
+                    context_available=False,
+                    files_accessible=False,
+                    recovery_actions=["Workflow not found - may need to recreate"],
+                    estimated_recovery_time="N/A"
+                )
+            
+            # Analyze context to determine recovery strategy
+            observations = context.get("observations", [])
+            workflow_config = context.get("workflow_config", {})
+            
+            # Determine current state
+            current_phase_info = self._determine_current_phase(observations)
+            next_phase_info = self._determine_next_phase(current_phase_info, workflow_config)
+            
+            # Check file accessibility
+            files_accessible = self._check_files_accessibility(workflow_id, context)
+            
+            # Generate recovery plan
+            recovery_plan = self._generate_recovery_plan(
+                workflow_id,
+                current_phase_info,
+                next_phase_info,
+                context,
+                files_accessible
+            )
+            
+            return recovery_plan
+            
+        except Exception as e:
+            print(f"Recovery analysis failed for {workflow_id}: {str(e)}")
+            return None
 ```
 
 ### Memory MCP Integration
@@ -245,91 +337,80 @@ The Memory MCP provides persistent state storage with intelligent fallback mecha
 
 ```python
 # orchestrator/memory_mcp.py
-class MemoryMCP:
+class MemoryMCPManager:
+    """Manages workflow state persistence using Memory MCP"""
+    
     def __init__(self):
-        self.connection = None
-        self.local_fallback = {}
-        self.sync_queue = []
+        # Standard cache instance
+        self.cache = CacheManager()
         
-    async def store_workflow_memory(self, workflow_id: str, memory_data: dict):
-        """Store workflow memory with automatic fallback"""
-        try:
-            # Primary storage to Memory MCP
-            if self.connection:
-                result = await self.connection.store_memory({
-                    "workflow_id": workflow_id,
-                    "memory_type": "workflow_state",
-                    "data": memory_data,
-                    "timestamp": datetime.utcnow().isoformat()
-                })
-                
-                if result.get("status") == "success":
-                    return result
-                    
-        except Exception as e:
-            logger.warning(f"Memory MCP storage failed: {e}")
-            
-        # Fallback to local storage
-        self.local_fallback[workflow_id] = {
-            "data": memory_data,
-            "timestamp": datetime.utcnow(),
-            "sync_pending": True
+        # Initialize MCP client when available
+        self._client = None
+        
+    @property
+    def client(self):
+        """Lazy load MCP client to avoid import issues"""
+        if self._client is None:
+            try:
+                # This would connect to the actual Memory MCP server
+                # For now, using a mock implementation
+                self._client = MockMemoryMCP()
+            except Exception:
+                # Fallback to local storage if MCP unavailable
+                self._client = LocalMemoryFallback()
+        return self._client
+    
+    @handle_errors(operation_name="create_workflow_context", return_dict=False)
+    def create_workflow_context(self, workflow_id: str, user_goal: str) -> str:
+        """Create workflow entity with unique ID"""
+        entity_data = {
+            "name": f"workflow-{workflow_id}",
+            "entityType": "active-workflow", 
+            "observations": [
+                f"User goal: {user_goal}",
+                f"Created: {datetime.now().isoformat()}",
+                f"Workflow ID: {workflow_id}",
+                "Status: initialized"
+            ]
         }
         
-        # Queue for later synchronization
-        self.sync_queue.append({
-            "operation": "store",
-            "workflow_id": workflow_id,
-            "data": memory_data
-        })
+        result = self.client.create_entities([entity_data])
+        return f"workflow-{workflow_id}"
+    
+    def update_workflow_state(self, workflow_id: str, state_update: str) -> bool:
+        """Add observations to workflow entity"""
+        observation_data = {
+            "entityName": f"workflow-{workflow_id}",
+            "contents": [f"{datetime.now().strftime('%H:%M:%S')} - {state_update}"]
+        }
         
-        return {"status": "stored_locally", "sync_pending": True}
-        
-    async def retrieve_workflow_memory(self, workflow_id: str):
-        """Retrieve workflow memory with intelligent fallback"""
         try:
-            # Primary retrieval from Memory MCP
-            if self.connection:
-                result = await self.connection.get_memory({
-                    "workflow_id": workflow_id,
-                    "memory_type": "workflow_state"
-                })
-                
-                if result.get("status") == "success":
-                    return result["data"]
-                    
+            self.client.add_observations([observation_data])
+            return True
         except Exception as e:
-            logger.warning(f"Memory MCP retrieval failed: {e}")
-            
-        # Fallback to local storage
-        local_data = self.local_fallback.get(workflow_id)
-        if local_data:
-            return local_data["data"]
-            
-        return None
+            print(f"Warning: Failed to update workflow state: {e}")
+            return False
+    
+    @handle_errors(operation_name="get_workflow_context", return_dict=False)
+    def get_workflow_context(self, workflow_id: str) -> Optional[Dict]:
+        """Retrieve full workflow context"""
+        # Check cache first for recent workflow contexts
+        cache_key = f"workflow_context|{workflow_id}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "workflow_context")
+        if cached_result:
+            return json.loads(cached_result)
         
-    async def sync_pending_operations(self):
-        """Synchronize pending operations when MCP becomes available"""
-        if not self.connection or not self.sync_queue:
-            return
-            
-        successful_syncs = []
-        
-        for operation in self.sync_queue:
-            try:
-                if operation["operation"] == "store":
-                    await self.store_workflow_memory(
-                        operation["workflow_id"],
-                        operation["data"]
-                    )
-                    successful_syncs.append(operation)
-                    
-            except Exception as e:
-                logger.warning(f"Sync failed for {operation['workflow_id']}: {e}")
-                
-        # Remove successfully synced operations
-        for sync_op in successful_syncs:
-            self.sync_queue.remove(sync_op)
+        try:
+            context = self.client.open_nodes([f"workflow-{workflow_id}"])
+            if context and len(context) > 0:
+                result = context[0]
+                # Cache the result for future use
+                self.cache.cache_content_analysis(cache_key, json.dumps(result), "workflow_context")
+                return result
+            return None
+        except Exception as e:
+            print(f"Warning: Failed to retrieve workflow context: {e}")
+            return None
 ```
 
 ## Caching Architecture Patterns
@@ -341,49 +422,61 @@ MAO implements sophisticated caching with memory and persistent layers:
 ```python
 # orchestrator/cache/cache_system.py
 class CacheManager:
-    def __init__(self):
-        self.memory_cache = {}
-        self.cache_stats = {"hits": 0, "misses": 0, "writes": 0}
-        self.files_api = None
-        self.cache_policies = {
-            "default_ttl": 3600,  # 1 hour
-            "max_memory_size": 100 * 1024 * 1024,  # 100MB
-            "compression_threshold": 1024  # 1KB
-        }
+    """🔄 Dual-layer caching: Files API + Local fingerprinting"""
+    
+    def __init__(self, cache_dir: str = "~/.oc_cache", verbose: bool = False):
+        self.cache_dir = Path(cache_dir).expanduser()
+        self.cache_dir.mkdir(exist_ok=True)
+        self.verbose = verbose
         
-    async def get(self, key: str, category: str = "general"):
-        """Intelligent cache retrieval with fingerprinting and validation"""
-        cache_key = f"{category}:{key}"
+        # Create cache subdirectories
+        (self.cache_dir / "content_analysis").mkdir(exist_ok=True)
+        (self.cache_dir / "tool_definitions").mkdir(exist_ok=True)
+        (self.cache_dir / "workflow_memory").mkdir(exist_ok=True)
         
-        # Layer 1: Memory cache with TTL validation
-        if cache_key in self.memory_cache:
-            entry = self.memory_cache[cache_key]
-            if self.is_cache_entry_valid(entry):
-                self.cache_stats["hits"] += 1
-                return entry["data"]
-            else:
-                # Remove expired entry
-                del self.memory_cache[cache_key]
-                
-        # Layer 2: Files API cache
-        if self.files_api:
-            try:
-                file_path = f"cache/{category}/{key}"
-                content = await self.files_api.read_file(file_path)
-                
-                # Validate content integrity
-                if await self.validate_cached_content(file_path, content):
-                    # Promote to memory cache
-                    await self.promote_to_memory_cache(cache_key, content)
-                    self.cache_stats["hits"] += 1
-                    return content
-                    
-            except FileNotFoundError:
-                pass
-            except Exception as e:
-                logger.warning(f"Cache read error for {key}: {e}")
-                
-        self.cache_stats["misses"] += 1
+        # Active workflow file tracking
+        self.workflow_files: Dict[str, str] = {}  # file_id -> content_hash
+        self.session_memory: Dict[str, Any] = {}
+    
+    def generate_content_hash(self, content: str) -> str:
+        """📄 Generate fingerprint for content"""
+        return hashlib.md5(content.encode()).hexdigest()[:12]
+    
+    def cache_content_analysis(self, content: str, analysis: str, cache_type: str = "content_analysis") -> str:
+        """💾 Cache content analysis permanently"""
+        content_hash = self.generate_content_hash(content)
+        
+        cache_entry = CacheEntry(
+            content=analysis,
+            created_at=datetime.now().isoformat(),
+            content_hash=content_hash,
+            cache_type=cache_type
+        )
+        
+        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
+        cache_file.parent.mkdir(exist_ok=True)  # Ensure directory exists
+        with open(cache_file, 'w') as f:
+            json.dump(asdict(cache_entry), f, indent=2)
+        
+        if self.verbose:
+            print(f"💾 Cached {cache_type}: {content_hash}")
+        return content_hash
+    
+    def get_cached_analysis(self, content: str, cache_type: str = "content_analysis") -> Optional[str]:
+        """📄 Get cached content analysis"""
+        content_hash = self.generate_content_hash(content)
+        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
+        
+        if cache_file.exists():
+            with open(cache_file, 'r') as f:
+                cache_entry = json.load(f)
+            
+            if self.verbose:
+                print(f"💾 Cache HIT: {content_hash} ({cache_type})")
+            return cache_entry["content"]
+        
+        if self.verbose:
+            print(f"💾 Cache MISS: {content_hash} ({cache_type})")
         return None
         
     async def set(self, key: str, value: any, category: str = "general", ttl: int = None):
@@ -482,59 +575,25 @@ class CacheManager:
 Advanced content fingerprinting enables intelligent deduplication:
 
 ```python
-async def generate_content_fingerprint(self, content: any, metadata: dict = None):
-    """Generate comprehensive content fingerprint for deduplication"""
-    # Primary content hash
-    content_str = json.dumps(content, sort_keys=True) if isinstance(content, dict) else str(content)
-    primary_hash = hashlib.sha256(content_str.encode()).hexdigest()
+# TO BE IMPLEMENTED: Advanced content fingerprinting
+def generate_content_fingerprint(self, content: any, metadata: dict = None):
+    """Generate comprehensive content fingerprint for deduplication
     
-    # Semantic hash for similar content detection
-    semantic_features = self.extract_semantic_features(content)
-    semantic_hash = hashlib.sha256(str(semantic_features).encode()).hexdigest()
-    
-    # Metadata hash for context-aware caching
-    metadata_hash = None
-    if metadata:
-        metadata_str = json.dumps(metadata, sort_keys=True)
-        metadata_hash = hashlib.sha256(metadata_str.encode()).hexdigest()
-        
-    fingerprint = {
-        "primary": primary_hash,
-        "semantic": semantic_hash,
-        "metadata": metadata_hash,
-        "size": len(content_str),
-        "type": type(content).__name__,
-        "timestamp": time.time()
-    }
-    
-    return fingerprint
-    
-def extract_semantic_features(self, content):
-    """Extract semantic features for similar content detection"""
+    Note: This is a planned enhancement not yet implemented in the current codebase.
+    The current implementation uses simple MD5 hashing via generate_content_hash().
+    """
+    # Current implementation uses simple hashing
     if isinstance(content, str):
-        # Text content features
-        words = content.lower().split()
-        return {
-            "word_count": len(words),
-            "unique_words": len(set(words)),
-            "avg_word_length": sum(len(w) for w in words) / len(words) if words else 0,
-            "key_terms": sorted(set(w for w in words if len(w) > 4))[:10]
-        }
-    elif isinstance(content, dict):
-        # Structured data features
-        return {
-            "key_count": len(content.keys()),
-            "depth": self.calculate_dict_depth(content),
-            "keys": sorted(content.keys()),
-            "value_types": [type(v).__name__ for v in content.values()]
-        }
+        return self.generate_content_hash(content)
     else:
-        # Generic features
-        return {
-            "type": type(content).__name__,
-            "size": len(str(content)),
-            "hash": hashlib.md5(str(content).encode()).hexdigest()
-        }
+        content_str = str(content)
+        return hashlib.md5(content_str.encode()).hexdigest()[:12]
+    
+    # TODO: Implement advanced fingerprinting with:
+    # - Semantic feature extraction
+    # - Similarity detection
+    # - Metadata-aware caching
+    # - Content deduplication
 ```
 
 ## Performance Monitoring Patterns
@@ -545,82 +604,89 @@ The system provides comprehensive real-time performance monitoring:
 
 ```python
 # orchestrator/real_time_metrics.py
-class RealTimeMetrics:
-    def __init__(self):
-        self.metrics_store = {}
-        self.metric_history = {}
-        self.performance_thresholds = {
-            "response_time_ms": 5000,
-            "memory_usage_mb": 500,
-            "cache_hit_rate": 0.8,
-            "error_rate": 0.05
-        }
-        
-    async def record_operation_metrics(self, operation: str, duration_ms: float, 
-                                     metadata: dict = None):
-        """Record operation performance metrics"""
-        timestamp = time.time()
-        
-        metric_entry = {
-            "operation": operation,
-            "duration_ms": duration_ms,
-            "timestamp": timestamp,
-            "metadata": metadata or {},
-            "performance_score": self.calculate_performance_score(duration_ms, operation)
-        }
-        
-        # Store current metrics
-        if operation not in self.metrics_store:
-            self.metrics_store[operation] = []
+class SystemMetricsProvider:
+    """Provides real-time system metrics for UI components"""
+    
+    def __init__(self, orchestrator):
+        self.orchestrator = orchestrator
+        self.start_time = datetime.now()
+    
+    def get_dashboard_metrics(self) -> Dict[str, Any]:
+        """Live metrics for dashboard display"""
+        try:
+            model_stats = self.orchestrator.model_manager.get_stats()
+            tool_stats = self.orchestrator.tool_discovery.get_stats()
+            workflows = self.orchestrator.list_workflows()
             
-        self.metrics_store[operation].append(metric_entry)
-        
-        # Maintain rolling history (last 1000 entries)
-        if len(self.metrics_store[operation]) > 1000:
-            self.metrics_store[operation] = self.metrics_store[operation][-1000:]
+            # Calculate real statistics
+            completed = [w for w in workflows if w['status'] == 'completed']
+            in_progress = [w for w in workflows if w['status'] == 'in_progress']
+            failed = [w for w in workflows if w['status'] == 'failed']
             
-        # Update aggregated metrics
-        await self.update_aggregated_metrics(operation, metric_entry)
-        
-        # Performance threshold monitoring
-        await self.check_performance_thresholds(operation, metric_entry)
-        
-    async def get_performance_summary(self, time_window_minutes: int = 60):
-        """Generate comprehensive performance summary"""
-        cutoff_time = time.time() - (time_window_minutes * 60)
-        
-        summary = {
-            "time_window_minutes": time_window_minutes,
-            "operations": {},
-            "system_health": {},
-            "recommendations": []
-        }
-        
-        for operation, metrics in self.metrics_store.items():
-            recent_metrics = [m for m in metrics if m["timestamp"] > cutoff_time]
+            total_cost = sum(w.get('estimated_cost', 0) for w in completed)
+            avg_cost = (total_cost / len(completed)) if completed else 0
             
-            if recent_metrics:
-                durations = [m["duration_ms"] for m in recent_metrics]
-                
-                operation_summary = {
-                    "call_count": len(recent_metrics),
-                    "avg_duration_ms": sum(durations) / len(durations),
-                    "min_duration_ms": min(durations),
-                    "max_duration_ms": max(durations),
-                    "p95_duration_ms": self.calculate_percentile(durations, 95),
-                    "error_count": len([m for m in recent_metrics if m.get("error")]),
-                    "performance_trend": self.calculate_performance_trend(recent_metrics)
-                }
-                
-                summary["operations"][operation] = operation_summary
-                
-        # System health assessment
-        summary["system_health"] = await self.assess_system_health(summary["operations"])
-        
-        # Performance recommendations
-        summary["recommendations"] = await self.generate_performance_recommendations(summary)
-        
-        return summary
+            return {
+                "models": {
+                    "total": model_stats['total_models'],
+                    "providers": model_stats['total_providers'],
+                    "free_models": model_stats.get('free_models', 0)
+                },
+                "tools": {
+                    "total": tool_stats.get('total_tools', 0),
+                    "available": tool_stats.get('available_tools', 0)
+                },
+                "workflows": {
+                    "total": len(workflows),
+                    "completed": len(completed),
+                    "in_progress": len(in_progress),
+                    "failed": len(failed),
+                    "success_rate": (len(completed) / len(workflows) * 100) if workflows else 0
+                },
+                "costs": {
+                    "total_spent": total_cost,
+                    "average_cost": avg_cost,
+                    "today_cost": self._calculate_today_cost(workflows)
+                },
+                "uptime": {
+                    "seconds": (datetime.now() - self.start_time).total_seconds(),
+                    "formatted": self._format_uptime()
+                },
+                "cache": self._get_cache_metrics(),
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            return {"error": str(e), "timestamp": datetime.now().isoformat()}
+    
+    def get_workflow_progress(self, workflow_id: str) -> Dict[str, Any]:
+        """Real-time workflow execution progress"""
+        try:
+            workflow_status = self.orchestrator.get_workflow_status(workflow_id)
+            if workflow_status.get('error'):
+                return {"error": workflow_status['error']}
+            
+            # Get execution history for real progress
+            execution_history = self.orchestrator.execution_history.get(workflow_id, [])
+            
+            return {
+                "workflow_id": workflow_id,
+                "name": workflow_status.get('name', 'Unknown'),
+                "status": workflow_status.get('status', 'unknown'),
+                "progress": {
+                    "completed_phases": workflow_status.get('completed_phases', 0),
+                    "total_phases": workflow_status.get('total_phases', 0),
+                    "percentage": self._calculate_progress_percentage(workflow_status)
+                },
+                "costs": {
+                    "estimated": workflow_status.get('estimated_cost', 0),
+                    "actual": workflow_status.get('actual_cost', 0),
+                    "remaining": max(0, workflow_status.get('estimated_cost', 0) - workflow_status.get('actual_cost', 0))
+                },
+                "phases": self._get_phase_details(workflow_id, execution_history),
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            return {"error": str(e), "timestamp": datetime.now().isoformat()}
 ```
 
 ## Integration Patterns
@@ -630,27 +696,25 @@ class RealTimeMetrics:
 Every core system operation includes comprehensive cost estimation:
 
 ```python
-def estimate_orchestration_cost(workflow_complexity: str, agent_count: int, 
-                              estimated_duration_minutes: int):
-    """Estimate cost for orchestration operations"""
-    base_costs = {
-        "simple": {"base_tokens": 500, "complexity_multiplier": 1.0},
-        "medium": {"base_tokens": 1500, "complexity_multiplier": 1.5},
-        "complex": {"base_tokens": 3000, "complexity_multiplier": 2.0}
-    }
+# Standard cost estimation pattern used across all MAO components
+def estimate_cost(self, params: Dict[str, Any]) -> float:
+    """Estimate operation cost for budget planning"""
+    # Agent orchestration involves phase coordination and file operations
+    base_cost = 0.0
     
-    complexity_config = base_costs.get(workflow_complexity, base_costs["medium"])
+    # Add cost for workflow phases
+    num_phases = params.get("num_phases", 1)
+    base_cost += num_phases * 0.005  # $0.005 per phase coordination
     
-    estimated_cost = {
-        "tokens": int(complexity_config["base_tokens"] * agent_count * complexity_config["complexity_multiplier"]),
-        "time_minutes": estimated_duration_minutes,
-        "memory_mb": agent_count * 50,  # Estimated memory per agent
-        "cache_operations": agent_count * 10,  # Estimated cache operations
-        "complexity": workflow_complexity,
-        "confidence": 0.8 if workflow_complexity != "complex" else 0.6
-    }
+    # Add cost for agent handoffs
+    num_handoffs = params.get("num_handoffs", 1)
+    base_cost += num_handoffs * 0.003  # $0.003 per agent handoff
     
-    return estimated_cost
+    # Add cost for file operations
+    file_operations = params.get("file_operations", 2)
+    base_cost += file_operations * 0.002  # $0.002 per file operation
+    
+    return base_cost
 ```
 
 ## Conclusion

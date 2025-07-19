@@ -18,40 +18,30 @@ This LOCAL-first approach ensures user privacy, reduces attack surface, and prov
 
 ### Subprocess Communication Architecture
 
-The system uses a sophisticated subprocess communication pattern between Node.js frontend and Python backend:
+**TO BE IMPLEMENTED**: The system is designed to support sophisticated subprocess communication patterns between Node.js frontend and Python backend. The current terminal interface includes placeholder structures for this functionality:
 
 ```python
-# Python Interface Layer - ui_terminal.py
-class TerminalInterface:
-    def __init__(self):
-        self.mcp_hub = None
-        self.logger = setup_logger(__name__)
+# TO BE IMPLEMENTED: SubprocessCommunicationBridge in ui_terminal.py
+class SubprocessCommunicationBridge:
+    """
+    TO BE IMPLEMENTED: Node.js ↔ Python subprocess communication bridge
     
-    async def handle_subprocess_command(self, command, data=None):
-        """Handle commands from Node.js subprocess calls"""
-        try:
-            result = await self.route_command(command, data)
-            return {"status": "success", "data": result, "display_type": result.get("display_type")}
-        except Exception as e:
-            return {"status": "error", "message": str(e), "display_type": "error"}
-```
-
-```javascript
-// Node.js Subprocess Integration
-const { spawn } = require('child_process');
-
-function executeCommand(command, data) {
-    const python = spawn('python3', [
-        'interfaces/ui_terminal.py', 
-        '--command', command, 
-        '--data', JSON.stringify(data)
-    ]);
+    This class will handle structured message passing between the Node.js
+    terminal UI and the Python backend for rich terminal interface functionality.
+    """
     
-    python.stdout.on('data', (data) => {
-        const result = JSON.parse(data.toString());
-        handleResponse(result.display_type, result);
-    });
-}
+    def __init__(self, terminal_interface: 'TerminalInterface'):
+        self.terminal_interface = terminal_interface
+        self.message_queue = []
+        self.subprocess_handlers = {}
+    
+    def handle_nodejs_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
+        """TO BE IMPLEMENTED: Process incoming messages from Node.js terminal UI"""
+        pass
+    
+    def send_to_nodejs(self, response: Dict[str, Any]) -> None:
+        """TO BE IMPLEMENTED: Send structured responses to Node.js terminal UI"""
+        pass
 ```
 
 ### Dynamic Discovery Patterns
@@ -61,21 +51,20 @@ Mao implements comprehensive dynamic discovery to eliminate hardcoded dependenci
 ```python
 # Dynamic Command Discovery - mao_v4.py
 def load_all_commands():
-    """Dynamically discover all CLI commands from JSON configurations"""
+    """Load all command configs dynamically"""
     commands = {}
-    config_dir = Path(__file__).parent / "configs" / "cli"
+    cli_dir = Path(__file__).parent / "configs" / "cli"
     
-    for config_file in config_dir.glob("*.json"):
-        if ".OLD" in config_file.name:
+    for json_file in cli_dir.glob("*.json"):
+        if json_file.name.endswith('.OLD'):
             continue
-            
         try:
-            with open(config_file, 'r') as f:
-                config = json.load(f)
-                commands[config['command']] = config
-        except json.JSONDecodeError as e:
-            logger.warning(f"Malformed JSON in {config_file}: {e}")
-            
+            with open(json_file) as f:
+                cmd_config = json.load(f)
+                commands[cmd_config["command"]] = cmd_config
+        except (json.JSONDecodeError, KeyError):
+            continue  # Skip malformed files
+    
     return commands
 ```
 
@@ -93,23 +82,42 @@ The system follows a carefully orchestrated bootstrap sequence ensuring proper i
 
 ```python
 # Main Bootstrap Sequence - mao_v4.py
-async def main():
-    # 1. Special case handling for smart launch
+@handle_errors(operation_name="main", return_dict=True)
+def main():
+    """Pure dynamic routing - zero hardcoding"""
+    
+    # Special handling for 'mao mao' command
     if len(sys.argv) == 2 and sys.argv[1] == "mao":
-        return await handle_smart_launch()
+        # User typed 'mao mao' - trigger smart launch
+        interface = bootstrap_interface()
+        interface.launch_terminal_ui_smart()
+        return
     
-    # 2. Dynamic command discovery
+    # Load all commands and create parser
     commands = load_all_commands()
-    
-    # 3. Argument parser creation from configurations
-    parser = create_parser_from_configs(commands)
+    parser = create_dynamic_parser(commands)
     args = parser.parse_args()
     
-    # 4. Interface and MCP hub initialization
+    # Bootstrap interface
     interface = bootstrap_interface()
     
-    # 5. Command routing and execution
-    await route_to_interface_method(interface, args, commands)
+    # Find which command was used
+    cmd_config, value = find_used_command(args, commands)
+    
+    try:
+        if cmd_config:
+            # Route to the interface method specified in JSON
+            method_name = cmd_config["interface_method"]
+            method = getattr(interface, method_name)
+            
+            # Call with appropriate arguments based on type
+            if cmd_config["type"] == "standalone":
+                method()
+            else:
+                method(value)
+        else:
+            # No command provided - default to onboarding
+            interface.launch_terminal_ui_onboarding()
 ```
 
 ### MCP Hub Integration
@@ -117,22 +125,37 @@ async def main():
 The Memory Control Protocol (MCP) hub provides centralized state management:
 
 ```python
-# MCP Hub Bootstrap - orchestrator/mcp_hub.py
-class MCPHub:
+# MCP Hub - orchestrator/mcp_hub.py
+class MCPIntegrationHub:
+    """Unified MCP system providing state persistence, file management, and tool connectivity"""
+    
     def __init__(self):
-        self.memory_mcp = None
-        self.files_api = None
-        self.workflow_state = {}
+        # Standard cache instance
+        self.cache = CacheManager()
         
-    async def initialize(self):
-        """Initialize MCP connections and workflow state"""
+        # Initialize core components
+        self.memory = MemoryMCPManager()
+        self.files = FilesAPIManager()
+        self.connector = MCPConnector()
+        
+        # Wire components together
+        self.files.set_memory_mcp(self.memory)
+        self.connector.set_memory_manager(self.memory)
+        
+        # Initialize external servers
+        self._initialize_servers()
+    
+    def _initialize_servers(self):
+        """Initialize default MCP servers"""
         try:
-            self.memory_mcp = await self.setup_memory_mcp()
-            self.files_api = await self.setup_files_api()
-            await self.restore_workflow_state()
+            results = self.connector.initialize_default_servers()
+            for server_name, result in results.items():
+                if result["status"] == "registered":
+                    print(f"✅ MCP server {server_name}: {result['tools_count']} tools")
+                else:
+                    print(f"⚠️  MCP server {server_name}: {result.get('error', 'failed')}")
         except Exception as e:
-            logger.warning(f"MCP initialization failed: {e}")
-            # Graceful fallback to local state management
+            print(f"Warning: Failed to initialize MCP servers: {e}")
 ```
 
 ## Component Architecture Patterns
@@ -144,43 +167,59 @@ Every tool in Mao follows a standardized four-file architecture pattern:
 ```
 tools/
 ├── tool_name/
-│   ├── logic.py              # Core tool implementation
+│   ├── tool_name.py          # Core tool implementation
 │   ├── button_tool_name.py   # Button generation for UI
 │   ├── ui_tool_name.py       # UI integration and display
-│   └── tool_name.json        # Configuration and metadata
+│   └── tool_tool_name.json   # Configuration and metadata
 ```
 
 Example tool implementation:
 
 ```python
-# tools/web_search/logic.py
+# tools/web_search/web_search.py
 from orchestrator.cache.cache_system import CacheManager
-from orchestrator.error_handling import handle_errors
+from orchestrator.error_handling import handle_errors, ValidationError
 
-class WebSearchTool:
-    def __init__(self):
-        self.cache = CacheManager()
-        
-    @handle_errors
-    async def execute(self, query: str, **kwargs):
-        """Execute web search with caching and error handling"""
-        cache_key = f"web_search:{hash(query)}"
-        
-        if cached_result := await self.cache.get(cache_key):
-            return cached_result
-            
-        result = await self.perform_search(query)
-        await self.cache.set(cache_key, result)
-        return result
-        
-    def estimate_cost(self, query: str):
-        """Estimate resource cost for budget planning"""
-        return {
-            "tokens": len(query.split()) * 1.2,
-            "time_ms": 2000,
-            "api_calls": 1,
-            "complexity": "medium"
-        }
+@handle_errors(operation_name="web_search", return_dict=True)
+def perform_web_search(query: str, max_results: int = 5, search_context: str = "general") -> Dict[str, Any]:
+    """
+    Perform web search operation (returns structured data for human button execution)
+    """
+    # Validate inputs
+    if not query or not query.strip():
+        raise ValidationError("Search query cannot be empty", "query", query)
+    
+    if max_results < 1 or max_results > 20:
+        raise ValidationError("Max results must be between 1 and 20", "max_results", max_results)
+    
+    # Check cache first (fingerprinting)
+    cache = CacheManager()
+    cache_key = f"{query.strip()}|{max_results}|{search_context}"
+    cached_result = cache.get_cached_analysis(cache_key, "web_search")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # Prepare search configuration
+    search_config = {
+        "status": "ready_for_execution",
+        "operation": "web_search",
+        "query": query.strip(),
+        "max_results": max_results,
+        "search_context": search_context,
+        "timestamp": datetime.now().isoformat(),
+        "estimated_cost": _calculate_search_cost(max_results),
+        "execution_method": "anthropic_native_web_search"
+    }
+    
+    # Cache the result (fingerprinting)
+    cache.cache_content_analysis(cache_key, json.dumps(search_config), "web_search")
+    
+    return search_config
+
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate operation cost for budget planning"""
+    max_results = params.get("max_results", 5)
+    return _calculate_search_cost(max_results)
 ```
 
 ### CLI Command Architecture
@@ -188,34 +227,65 @@ class WebSearchTool:
 CLI commands follow a three-file pattern with JSON-driven configuration:
 
 ```python
-# cli/goal/command.py
-@handle_errors
-async def execute_goal_command(args, interface):
-    """Execute goal command with user input processing"""
-    goal_text = args.goal_text or await prompt_for_goal()
+# configs/cli/goal/goal.py
+@handle_errors(operation_name="goal", return_dict=True)
+def execute_goal(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """
+    Main goal command execution with caching and error handling.
     
-    workflow = await interface.create_workflow(goal_text)
+    Args:
+        params: Command parameters containing user goal text
+        
+    Returns:
+        Standardized result dictionary with workflow creation results
+    """
+    if not params or not params.get("goal"):
+        raise ValidationError("Goal text is required", "goal", params.get("goal") if params else None)
     
-    return {
-        "display_type": "workflow_created",
-        "workflow_id": workflow.id,
-        "goal": goal_text,
-        "status": "initialized"
-    }
+    goal_text = params["goal"].strip()
+    user_id = params.get("user_id", "default_user")
+    
+    # Create workflow through conversation bridge
+    bridge = ConversationToWorkflowBridge()
+    workflow_result = bridge.create_workflow_from_goal(goal_text, user_id)
+    
+    if workflow_result.get("success"):
+        return {
+            "success": True,
+            "workflow_id": workflow_result["workflow_id"],
+            "goal": goal_text,
+            "status": "created",
+            "next_steps": workflow_result.get("next_steps", [])
+        }
+    else:
+        return workflow_result
 ```
 
 ```json
 // configs/cli/goal.json
 {
-    "command": "goal",
-    "terminal_flag": "--goal",
-    "type": "workflow",
-    "interface_method": "handle_goal_command",
-    "description": "Create or modify workflow goals",
-    "examples": [
-        "mao goal \"Build a website\"",
-        "mao --goal \"Analyze data\""
-    ]
+  "command": "goal",
+  "type": "needs_input",
+  "terminal_flag": "--goal",
+  "app_command": "/goal",
+  "interface_method": "goal",
+  "help": "Create entire workflow from goal description",
+  "cost_estimate": 0.008,
+  "logic_file": "configs/cli/goal/goal.py",
+  "ui_file": "configs/cli/goal/ui_goal.py",
+  "operations": {
+    "execute": {
+      "description": "Create workflow from natural language goal",
+      "required_params": ["goal"],
+      "optional_params": ["user_id", "complexity_hint"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["conversation_bridge", "workflow_manager", "workflow_state"]
+  }
 }
 ```
 
@@ -227,31 +297,89 @@ Mao implements layered error handling ensuring system resilience:
 
 ```python
 # orchestrator/error_handling.py
-class MAOError(Exception):
-    """Base exception for all MAO-specific errors"""
-    pass
+class OrchestrationError(Exception):
+    """Base exception for orchestration tools"""
+    def __init__(self, message: str, error_code: str = "ORCHESTRATION_ERROR", details: Optional[Dict] = None):
+        self.message = message
+        self.error_code = error_code
+        self.details = details or {}
+        self.timestamp = datetime.now().isoformat()
+        super().__init__(self.message)
 
-class ToolExecutionError(MAOError):
-    """Raised when tool execution fails"""
-    pass
+class ValidationError(OrchestrationError):
+    """Raised when input validation fails"""
+    def __init__(self, message: str, field: str = None, value: Any = None):
+        details = {"field": field, "value": str(value) if value is not None else None}
+        super().__init__(message, "VALIDATION_ERROR", details)
 
-class ConfigurationError(MAOError):
-    """Raised when configuration is invalid"""
-    pass
+class ProcessingError(OrchestrationError):
+    """Raised when tool processing fails"""
+    def __init__(self, message: str, operation: str = None, stage: str = None):
+        details = {"operation": operation, "stage": stage}
+        super().__init__(message, "PROCESSING_ERROR", details)
 
-def handle_errors(func):
-    """Decorator for comprehensive error handling"""
-    @functools.wraps(func)
-    async def wrapper(*args, **kwargs):
-        try:
-            return await func(*args, **kwargs)
-        except MAOError as e:
-            logger.error(f"MAO Error in {func.__name__}: {e}")
-            return {"status": "error", "type": "mao_error", "message": str(e)}
-        except Exception as e:
-            logger.error(f"Unexpected error in {func.__name__}: {e}")
-            return {"status": "error", "type": "system_error", "message": "An unexpected error occurred"}
-    return wrapper
+class ResourceError(OrchestrationError):
+    """Raised when resource access fails"""
+    def __init__(self, message: str, resource_type: str = None, resource_path: str = None):
+        details = {"resource_type": resource_type, "resource_path": resource_path}
+        super().__init__(message, "RESOURCE_ERROR", details)
+
+class APIError(OrchestrationError):
+    """Raised when external API calls fail"""
+    def __init__(self, message: str, api_name: str = None, status_code: int = None):
+        details = {"api_name": api_name, "status_code": status_code}
+        super().__init__(message, "API_ERROR", details)
+
+def handle_errors(operation_name: str = "operation", 
+                 return_dict: bool = True,
+                 log_errors: bool = True) -> Callable:
+    """Decorator for comprehensive error handling with professional patterns"""
+    def decorator(func: Callable) -> Callable:
+        def wrapper(*args, **kwargs) -> Any:
+            try:
+                return func(*args, **kwargs)
+            
+            except OrchestrationError as e:
+                # Handle known orchestration errors
+                error_info = {
+                    "error": e.message,
+                    "error_code": e.error_code,
+                    "operation": operation_name,
+                    "timestamp": e.timestamp,
+                    "details": e.details
+                }
+                
+                if log_errors:
+                    logging.error(f"Orchestration Error in {operation_name}: {e.message}", extra=e.details)
+                
+                if return_dict:
+                    return error_info
+                else:
+                    raise
+            
+            except Exception as e:
+                # Handle unexpected errors
+                error_info = {
+                    "error": f"Unexpected error: {str(e)}",
+                    "error_code": "UNEXPECTED_ERROR",
+                    "operation": operation_name,
+                    "timestamp": datetime.now().isoformat(),
+                    "details": {
+                        "exception_type": type(e).__name__,
+                        "traceback": traceback.format_exc()
+                    }
+                }
+                
+                if log_errors:
+                    logging.error(f"Unexpected error in {operation_name}: {str(e)}", exc_info=True)
+                
+                if return_dict:
+                    return error_info
+                else:
+                    raise ProcessingError(f"Unexpected error: {str(e)}", operation_name, "exception")
+        
+        return wrapper
+    return decorator
 ```
 
 ### Graceful Degradation Patterns
@@ -293,23 +421,67 @@ The architecture prioritizes user privacy through LOCAL-only operation:
 ### Data Isolation Patterns
 
 ```python
-# User Data Isolation - orchestrator/username_manager.py
+# User Data Management - orchestrator/username_manager.py
 class UsernameManager:
+    """
+    Manages user accounts, session persistence, and settings integration
+    Implements delta-only storage for user settings
+    """
+    
     def __init__(self):
-        self.user_data_dir = Path.home() / ".mao" / "users"
+        self.base_path = Path(__file__).parent.parent / "configs"
+        self.user_dir = self.base_path / "user"
+        self.examples_dir = self.base_path / "examples"
+        self.session_file = self.user_dir / ".last_session"
         
-    def get_user_directory(self, username):
-        """Get isolated directory for user data"""
-        user_dir = self.user_data_dir / username
+        # Ensure directories exist
+        self.user_dir.mkdir(exist_ok=True)
+    
+    @handle_errors(operation_name="create_user", return_dict=True)
+    def create_user(self, username: str, first_name: str = "", last_name: str = "", 
+                   email: str = "", dob: str = "") -> Dict[str, Any]:
+        """Create a new user with generated user_id"""
+        if not username or not username.strip():
+            raise ValueError("Username cannot be empty")
+        
+        clean_username = username.strip().lower()
+        
+        # Generate user_id using meid script
+        try:
+            user_id = generate_user_id(username)
+        except Exception as e:
+            raise APIError(f"Failed to generate user ID: {str(e)}")
+        
+        # Create user data
+        user_data = {
+            "username": username,
+            "user_id": user_id,
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "dob": dob,
+            "created_at": datetime.now().isoformat(),
+            "last_login": datetime.now().isoformat()
+        }
+        
+        # Create nested directory structure
+        user_dir = self.user_dir / clean_username
         user_dir.mkdir(parents=True, exist_ok=True)
-        return user_dir
         
-    def delete_user_data(self, username):
-        """Complete user data deletion for GDPR compliance"""
-        user_dir = self.get_user_directory(username)
-        if user_dir.exists():
-            shutil.rmtree(user_dir)
-            logger.info(f"User data deleted for: {username}")
+        # Create memories and analytics subdirectories
+        (user_dir / "memories").mkdir(exist_ok=True)
+        (user_dir / "analytics").mkdir(exist_ok=True)
+        
+        # Save user file in nested structure
+        user_file = user_dir / f"user_{clean_username}.json"
+        with open(user_file, 'w') as f:
+            json.dump(user_data, f, indent=2)
+        
+        return {
+            "success": True,
+            "message": f"User '{username}' created successfully",
+            "user_data": user_data
+        }
 ```
 
 ## Performance Optimization Patterns
@@ -321,38 +493,55 @@ MAO implements intelligent dual-layer caching for optimal performance:
 ```python
 # orchestrator/cache/cache_system.py
 class CacheManager:
-    def __init__(self):
-        self.memory_cache = {}
-        self.files_api = None
+    """🔄 Dual-layer caching: Files API + Local fingerprinting"""
+    
+    def __init__(self, cache_dir: str = "~/.oc_cache", verbose: bool = False):
+        self.cache_dir = Path(cache_dir).expanduser()
+        self.cache_dir.mkdir(exist_ok=True)
+        self.verbose = verbose
         
-    async def get(self, key: str):
-        """Intelligent cache retrieval with fingerprinting"""
-        # Layer 1: Memory cache
-        if key in self.memory_cache:
-            return self.memory_cache[key]
-            
-        # Layer 2: Files API cache
-        if self.files_api:
-            try:
-                content = await self.files_api.read_file(f"cache/{key}")
-                self.memory_cache[key] = content
-                return content
-            except FileNotFoundError:
-                pass
-                
+        # Create cache subdirectories
+        (self.cache_dir / "content_analysis").mkdir(exist_ok=True)
+        (self.cache_dir / "tool_definitions").mkdir(exist_ok=True)
+        (self.cache_dir / "workflow_memory").mkdir(exist_ok=True)
+        
+        # Active workflow file tracking
+        self.workflow_files: Dict[str, str] = {}  # file_id -> content_hash
+        self.session_memory: Dict[str, Any] = {}
+    
+    def generate_content_hash(self, content: str) -> str:
+        """📄 Generate fingerprint for content"""
+        return hashlib.md5(content.encode()).hexdigest()[:12]
+    
+    def cache_content_analysis(self, content: str, analysis: str, cache_type: str = "content_analysis") -> str:
+        """💾 Cache content analysis permanently"""
+        content_hash = self.generate_content_hash(content)
+        
+        cache_entry = CacheEntry(
+            content=analysis,
+            created_at=datetime.now().isoformat(),
+            content_hash=content_hash,
+            cache_type=cache_type
+        )
+        
+        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
+        cache_file.parent.mkdir(exist_ok=True)
+        with open(cache_file, 'w') as f:
+            json.dump(asdict(cache_entry), f, indent=2)
+        
+        return content_hash
+    
+    def get_cached_analysis(self, content: str, cache_type: str = "content_analysis") -> Optional[str]:
+        """📄 Get cached content analysis"""
+        content_hash = self.generate_content_hash(content)
+        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
+        
+        if cache_file.exists():
+            with open(cache_file, 'r') as f:
+                cache_entry = json.load(f)
+            return cache_entry["content"]
+        
         return None
-        
-    async def set(self, key: str, value: any):
-        """Intelligent cache storage with deduplication"""
-        content_hash = hashlib.sha256(str(value).encode()).hexdigest()
-        
-        # Memory cache
-        self.memory_cache[key] = value
-        
-        # Files API cache with deduplication
-        if self.files_api:
-            await self.files_api.write_file(f"cache/{key}", value)
-            await self.files_api.write_file(f"cache/{key}.hash", content_hash)
 ```
 
 ### Cost Estimation Integration

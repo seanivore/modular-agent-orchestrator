@@ -11,306 +11,298 @@ MAO implements comprehensive extension and automation patterns that enable devel
 The system provides standardized templates for creating new tools with consistent patterns:
 
 ```python
-# templates/tools/tool.py - Standardized Tool Template
+# templates/tools/tool.py - VERIFIED: Actual Template Implementation
+from typing import Dict, Any, Optional
+import asyncio
+import json
+from pathlib import Path
+
+# Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
-import asyncio
+
+
+def estimate_cost(input_data: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, float]:
+    """
+    Estimate execution cost for tool usage
+    
+    Args:
+        input_data: Input data to process
+        options: Optional processing options
+        
+    Returns:
+        Dict with cost estimates (tokens, time, resources)
+    """
+    options = options or {}
+    
+    # Basic cost estimation template
+    # Modify these calculations based on your tool's actual resource usage
+    input_length = len(input_data)
+    
+    # Estimate based on input size
+    estimated_tokens = input_length * 0.75  # Rough token estimate
+    estimated_time = max(0.1, input_length / 1000)  # Rough time estimate in seconds
+    estimated_memory = input_length * 2  # Rough memory estimate in bytes
+    
+    # Apply option-based multipliers
+    if options.get('detailed_processing', False):
+        estimated_tokens *= 2
+        estimated_time *= 1.5
+        
+    if options.get('high_quality', False):
+        estimated_tokens *= 1.3
+        estimated_time *= 1.2
+    
+    return {
+        'estimated_tokens': round(estimated_tokens, 2),
+        'estimated_time_seconds': round(estimated_time, 2),
+        'estimated_memory_bytes': estimated_memory,
+        'complexity_score': min(10, input_length / 100)  # 1-10 scale
+    }
+
 
 class ToolTemplate:
-    """Standardized template for creating MAO tools with integrated services"""
+    """
+    Template class for MAO tools
     
-    def __init__(self, config: dict = None):
-        self.config = config or {}
-        self.cache_manager = CacheManager()
-        self.logger = self.setup_logger()
-        self.tool_metadata = {
-            "name": self.__class__.__name__,
-            "version": "1.0.0",
-            "capabilities": [],
-            "dependencies": []
-        }
+    This serves as a template for creating new tools in the MAO system.
+    Copy this file and modify the methods to implement your tool's functionality.
+    """
+    
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
+        """
+        Initialize the tool with configuration
         
-    @handle_errors
-    async def initialize(self):
-        """Initialize tool with configuration and dependencies"""
+        Args:
+            config: Tool configuration dictionary
+        """
+        self.config = config or {}
+        self.name = self.config.get('name', 'tool_template')
+        self.version = self.config.get('version', '1.0.0')
+        self.timeout = self.config.get('timeout', 30)
+        self.retries = self.config.get('retries', 3)
+        
+        # MAO integrations
+        self.cache = CacheManager()
+        
+        # Tool state
+        self.is_initialized = False
+        self.last_result = None
+        
+    async def initialize(self) -> bool:
+        """
+        Initialize the tool (async setup if needed)
+        
+        Returns:
+            bool: True if initialization successful
+        """
         try:
-            # Initialize cache manager
-            await self.cache_manager.initialize()
+            # Add any async initialization logic here
+            # Examples: connect to APIs, load models, setup resources
             
-            # Validate configuration
-            validation_result = await self.validate_configuration()
-            if not validation_result["valid"]:
-                raise ValueError(f"Configuration validation failed: {validation_result['errors']}")
-                
-            # Setup tool-specific dependencies
-            await self.setup_tool_dependencies()
-            
-            self.logger.info(f"Tool {self.tool_metadata['name']} initialized successfully")
-            
-            return {
-                "status": "initialized",
-                "tool_name": self.tool_metadata["name"],
-                "config": self.config
-            }
+            self.is_initialized = True
+            return True
             
         except Exception as e:
-            self.logger.error(f"Tool initialization failed: {e}")
-            raise
+            print(f"ERROR: Failed to initialize {self.name}: {e}")
+            return False
             
-    @handle_errors  
-    async def execute(self, input_data: str, parameters: dict = None):
-        """Execute tool with standardized error handling and caching"""
-        parameters = parameters or {}
+    @handle_errors(operation_name="tool_execute", return_dict=True)
+    async def execute(self, input_data: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """
+        Main tool execution method
         
-        # Input validation
-        validation_result = await self.validate_input(input_data, parameters)
-        if not validation_result["valid"]:
-            return {
-                "status": "error",
-                "errors": validation_result["errors"],
-                "warnings": validation_result["warnings"]
-            }
+        Args:
+            input_data: Primary input for the tool
+            options: Optional parameters and configuration
             
-        # Check cache for existing results
-        cache_key = self.generate_cache_key(input_data, parameters)
-        cached_result = await self.cache_manager.get(cache_key, "tool_results")
+        Returns:
+            Dict containing execution results
+        """
+        if not self.is_initialized:
+            await self.initialize()
+            
+        options = options or {}
         
-        if cached_result:
-            return {
-                "status": "success",
-                "result": cached_result,
-                "cached": True,
-                "cost": {"tokens": 0, "time_ms": 0}
-            }
-            
-        # Cost estimation before execution
-        estimated_cost = self.estimate_cost(input_data, parameters)
+        # Estimate execution cost
+        cost_estimate = estimate_cost(input_data, options)
         
         try:
-            # Execute tool-specific logic
-            start_time = asyncio.get_event_loop().time()
-            result = await self.perform_tool_operation(input_data, parameters)
-            execution_time = (asyncio.get_event_loop().time() - start_time) * 1000
+            # Main tool logic goes here
+            # This is where you implement your tool's core functionality
             
-            # Cache successful results
-            if result.get("success", True):
-                await self.cache_manager.set(cache_key, result, "tool_results", ttl=3600)
-                
-            # Update cost with actual execution time
-            actual_cost = estimated_cost.copy()
-            actual_cost["time_ms"] = execution_time
+            # Example implementation:
+            result = await self._process_input(input_data, options)
+            
+            # Store result for potential reuse
+            self.last_result = result
             
             return {
-                "status": "success",
-                "result": result,
-                "cached": False,
-                "cost": actual_cost,
-                "execution_metadata": {
-                    "tool_name": self.tool_metadata["name"],
-                    "execution_time_ms": execution_time
+                'success': True,
+                'data': result,
+                'message': f'{self.name} executed successfully',
+                'metadata': {
+                    'tool_name': self.name,
+                    'version': self.version,
+                    'execution_time': 'calculated_time_here'
                 }
             }
             
         except Exception as e:
-            self.logger.error(f"Tool execution failed: {e}")
             return {
-                "status": "error",
-                "message": str(e),
-                "cost": estimated_cost,
-                "error_type": type(e).__name__
+                'success': False,
+                'data': None,
+                'message': f'{self.name} execution failed: {str(e)}',
+                'error': str(e),
+                'metadata': {
+                    'tool_name': self.name,
+                    'version': self.version
+                }
             }
             
-    def estimate_cost(self, input_data: str, parameters: dict = None):
-        """Estimate resource cost for budget planning"""
-        base_cost = {
-            "tokens": len(input_data.split()) * 1.2,
-            "time_ms": 1000,
-            "memory_mb": 10,
-            "complexity": "medium",
-            "api_calls": 0
+    async def _process_input(self, input_data: str, options: Dict[str, Any]) -> Any:
+        """
+        Internal method to process the input data
+        
+        Modify this method to implement your tool's specific logic
+        
+        Args:
+            input_data: The input to process
+            options: Processing options
+            
+        Returns:
+            Processed result
+        """
+        # TEMPLATE: Replace this with your tool's actual logic
+        
+        # Example processing:
+        processed_data = {
+            'original_input': input_data,
+            'processed_at': 'timestamp_here',
+            'options_used': options,
+            'result': f'Processed: {input_data}'
         }
         
-        # Adjust based on parameters
-        if parameters:
-            complexity_modifiers = {
-                "detailed_analysis": 2.0,
-                "high_quality": 1.5,
-                "batch_processing": lambda count: count * 0.8
-            }
+        # Simulate some async work
+        await asyncio.sleep(0.1)
+        
+        return processed_data
+        
+    async def validate_input(self, input_data: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """
+        Validate input before processing
+        
+        Args:
+            input_data: Input to validate
+            options: Validation options
             
-            for param, value in parameters.items():
-                if param in complexity_modifiers:
-                    modifier = complexity_modifiers[param]
-                    if callable(modifier):
-                        base_cost["tokens"] *= modifier(value)
-                    else:
-                        base_cost["tokens"] *= modifier
-                        base_cost["time_ms"] *= modifier
-                        
-        return base_cost
-        
-    async def perform_tool_operation(self, input_data: str, parameters: dict):
-        """Tool-specific operation implementation (to be overridden)"""
-        raise NotImplementedError("Tool-specific logic must be implemented in subclass")
-        
-    async def validate_input(self, input_data: str, parameters: dict = None):
-        """Validate input data and parameters"""
-        validation = {
-            "valid": True,
-            "errors": [],
-            "warnings": []
+        Returns:
+            Validation results
+        """
+        validation_result = {
+            'valid': True,
+            'errors': [],
+            'warnings': []
         }
         
-        # Basic input validation
-        if not input_data or not input_data.strip():
-            validation["valid"] = False
-            validation["errors"].append("Input data cannot be empty")
-            
-        if len(input_data) > 50000:  # 50KB limit
-            validation["valid"] = False
-            validation["errors"].append("Input data exceeds maximum size limit")
-            
-        # Parameter validation
-        if parameters and not isinstance(parameters, dict):
-            validation["valid"] = False
-            validation["errors"].append("Parameters must be a dictionary")
-            
-        return validation
+        # Add your validation logic here
+        # Examples:
         
-    async def cleanup(self):
-        """Cleanup resources and connections"""
+        if not input_data:
+            validation_result['valid'] = False
+            validation_result['errors'].append('Input data cannot be empty')
+            
+        if len(input_data) > 10000:  # Example limit
+            validation_result['warnings'].append('Input data is very large')
+            
+        # Validate options
+        if options:
+            required_option_keys = []  # Define required options
+            for key in required_option_keys:
+                if key not in options:
+                    validation_result['valid'] = False
+                    validation_result['errors'].append(f'Required option missing: {key}')
+                    
+        return validation_result
+        
+    async def cleanup(self) -> bool:
+        """
+        Cleanup resources when tool is no longer needed
+        
+        Returns:
+            bool: True if cleanup successful
+        """
         try:
-            if hasattr(self.cache_manager, 'cleanup'):
-                await self.cache_manager.cleanup()
-                
-            self.logger.info(f"Tool {self.tool_metadata['name']} cleanup completed")
+            # Add cleanup logic here
+            # Examples: close connections, free resources, save state
+            
+            self.is_initialized = False
+            return True
             
         except Exception as e:
-            self.logger.warning(f"Cleanup warning: {e}")
+            print(f"ERROR: Failed to cleanup {self.name}: {e}")
+            return False
 ```
 
 ### Configuration Template Generation
 
-The system provides templates for configuration generation:
+The system provides actual template files for configuration generation. These template files exist in the `/templates/` directory:
+
+**VERIFIED: Actual Template Files Available**
+
+```json
+// templates/tools/tool.json - REAL Template File
+{
+    "name": "tool_name",
+    "version": "1.0.0",
+    "description": "Template tool for MAO system",
+    "type": "utility",
+    "dependencies": [],
+    "capabilities": [
+        "example_capability"
+    ],
+    "ui_integration": {
+        "button_snippet_function": "create_button_snippet",
+        "terminal_ui_function": "create_terminal_ui"
+    },
+    "configuration": {
+        "timeout": 30,
+        "retries": 3
+    },
+    "output": {
+        "format": "structured",
+        "fields": ["result", "metadata"]
+    }
+}
+```
+
+**Configuration Templates Available:**
+- `templates/tools/tool.json` - Tool configuration template
+- `templates/models/model.json` - Model configuration template  
+- `templates/providers/provider.json` - Provider configuration template
+- `templates/cli_commands/cli_command.json` - CLI command template
+- `templates/settings/setting_name_app_settings.json` - Settings template
+- `templates/users/user_username.json` - User configuration template
+- `templates/workflows/` - Workflow configuration templates
+
+**TO BE IMPLEMENTED: Dynamic Template Generator**
+
+The following ConfigurationTemplateGenerator class would need to be implemented to provide programmatic template generation:
 
 ```python
-# Configuration template generation patterns
+# TO BE IMPLEMENTED: Dynamic template generation
 class ConfigurationTemplateGenerator:
+    """Programmatic configuration template generator - NOT YET IMPLEMENTED"""
+    
     def __init__(self):
         self.template_registry = {
             "tool": self.generate_tool_config_template,
             "model": self.generate_model_config_template,
             "provider": self.generate_provider_config_template,
-            "cli_command": self.generate_cli_command_template,
-            "user_setting": self.generate_user_setting_template
+            "cli_command": self.generate_cli_command_template
         }
         
-    async def generate_tool_config_template(self, tool_name: str, capabilities: list = None):
-        """Generate standardized tool configuration template"""
-        capabilities = capabilities or []
-        
-        tool_config_template = {
-            "name": tool_name,
-            "version": "1.0.0",
-            "description": f"{tool_name} tool for MAO system",
-            "capabilities": capabilities,
-            "dependencies": {
-                "python_packages": [],
-                "external_services": [],
-                "api_keys": []
-            },
-            "configuration": {
-                "default_timeout": 30000,
-                "cache_enabled": True,
-                "cache_ttl": 3600,
-                "retry_attempts": 3,
-                "batch_size": 10
-            },
-            "cost_model": {
-                "base_tokens": 100,
-                "complexity_multiplier": 1.0,
-                "api_cost_per_request": 0.001
-            },
-            "ui_integration": {
-                "button_generation": True,
-                "progress_tracking": True,
-                "result_formatting": "default"
-            },
-            "validation": {
-                "input_size_limit": 50000,
-                "required_parameters": [],
-                "optional_parameters": []
-            }
-        }
-        
-        return tool_config_template
-        
-    async def generate_model_config_template(self, model_name: str, provider: str):
-        """Generate model configuration template"""
-        model_config_template = {
-            "name": model_name,
-            "provider": provider,
-            "model_type": "language_model",
-            "capabilities": [
-                "text_generation",
-                "conversation",
-                "analysis"
-            ],
-            "parameters": {
-                "max_tokens": 4096,
-                "temperature": 0.7,
-                "top_p": 1.0,
-                "frequency_penalty": 0.0,
-                "presence_penalty": 0.0
-            },
-            "cost_model": {
-                "input_cost_per_token": 0.00001,
-                "output_cost_per_token": 0.00003,
-                "base_cost": 0.001
-            },
-            "limits": {
-                "requests_per_minute": 60,
-                "tokens_per_minute": 60000,
-                "context_window": 128000
-            },
-            "compatibility": {
-                "tools": ["all"],
-                "workflows": ["standard", "advanced"],
-                "features": ["streaming", "function_calling"]
-            }
-        }
-        
-        return model_config_template
-        
-    async def generate_cli_command_template(self, command_name: str, command_type: str = "utility"):
-        """Generate CLI command configuration template"""
-        cli_command_template = {
-            "command": command_name,
-            "terminal_flag": f"--{command_name}",
-            "type": command_type,
-            "interface_method": f"handle_{command_name}_command",
-            "description": f"{command_name} command for MAO CLI",
-            "category": self.determine_command_category(command_type),
-            "parameters": {
-                "required": [],
-                "optional": []
-            },
-            "examples": [
-                f"mao {command_name}",
-                f"mao --{command_name}"
-            ],
-            "help_text": {
-                "short": f"Execute {command_name} operation",
-                "long": f"Detailed description of {command_name} command functionality and usage patterns."
-            },
-            "execution": {
-                "timeout": 30000,
-                "progress_tracking": True,
-                "subprocess_safe": True
-            }
-        }
-        
-        return cli_command_template
+    # Implementation would go here - currently uses static template files
 ```
 
 ## Automated Quality Validation
@@ -505,198 +497,70 @@ The system provides automated installation and setup scripts:
 
 ```bash
 #!/bin/bash
-# scripts/install_mao_command.sh - MAO installation automation
+# scripts/mao_launch_setup/install_mao_command.sh - VERIFIED: Actual Installation Script
+# Install script for the Mao terminal interface command
 
-set -e  # Exit on any error
+# Set paths
+BIN_DIR="${HOME}/bin"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-echo "🚀 Installing MAO (Modular Agent Orchestrator)..."
+# Create bin directory if it doesn't exist
+mkdir -p "$BIN_DIR"
 
-# Function to check if command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
+# Backup existing mao if it exists
+if [ -f "${BIN_DIR}/mao" ]; then
+    echo "Backing up existing mao to mao.backup..."
+    cp "${BIN_DIR}/mao" "${BIN_DIR}/mao.backup"
+fi
 
-# Function to detect OS
-detect_os() {
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        echo "linux"
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        echo "macos"
-    elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
-        echo "windows"
-    else
-        echo "unknown"
-    fi
-}
+# Create the mao command in bin directory (NO .sh extension)
+echo "🚀 Creating Mao command in ${BIN_DIR}..."
+cat > "${BIN_DIR}/mao" << EOF
+#!/bin/bash
+# Mao Terminal Interface Command
+# Generated by install_mao_command.sh
 
-# Function to install Python dependencies
-install_python_dependencies() {
-    echo "📦 Installing Python dependencies..."
-    
-    # Check for Python
-    if ! command_exists python3; then
-        echo "❌ Python 3 is required but not installed."
-        echo "Please install Python 3.8 or higher and try again."
-        exit 1
-    fi
-    
-    # Check for pip
-    if ! command_exists pip3; then
-        echo "❌ pip3 is required but not installed."
-        echo "Please install pip and try again."
-        exit 1
-    fi
-    
-    # Install requirements
-    if [ -f "requirements.txt" ]; then
-        pip3 install -r requirements.txt
-        echo "✅ Python dependencies installed successfully"
-    else
-        echo "⚠️  requirements.txt not found, skipping Python dependencies"
-    fi
-}
+# Get the absolute path to the project directory
+PROJECT_DIR="$PROJECT_DIR"
+LAUNCHER_PATH="\$PROJECT_DIR/mao_v4.py"
 
-# Function to install Node.js dependencies
-install_nodejs_dependencies() {
-    echo "📦 Installing Node.js dependencies..."
-    
-    # Check for Node.js
-    if ! command_exists node; then
-        echo "❌ Node.js is required but not installed."
-        echo "Please install Node.js 16 or higher and try again."
-        exit 1
-    fi
-    
-    # Check for npm
-    if ! command_exists npm; then
-        echo "❌ npm is required but not installed."
-        echo "Please install npm and try again."
-        exit 1
-    fi
-    
-    # Install Node.js dependencies
-    if [ -f "package.json" ]; then
-        npm install
-        echo "✅ Node.js dependencies installed successfully"
-    else
-        echo "⚠️  package.json not found, skipping Node.js dependencies"
-    fi
-}
+# Check if Python 3 is available
+if ! command -v python3 &> /dev/null; then
+    echo "❌ Python 3 is required but not installed"
+    exit 1
+fi
 
-# Function to setup MAO command
-setup_mao_command() {
-    echo "🔧 Setting up MAO command..."
-    
-    local os_type=$(detect_os)
-    local install_dir
-    local mao_script_path="./scripts/mao.sh"
-    
-    # Determine installation directory based on OS
-    case $os_type in
-        "linux"|"macos")
-            install_dir="/usr/local/bin"
-            ;;
-        "windows")
-            install_dir="$HOME/bin"
-            mkdir -p "$install_dir"
-            ;;
-        *)
-            echo "⚠️  Unknown OS, using current directory"
-            install_dir="."
-            ;;
-    esac
-    
-    # Check if MAO script exists
-    if [ ! -f "$mao_script_path" ]; then
-        echo "❌ MAO script not found at $mao_script_path"
-        exit 1
-    fi
-    
-    # Copy MAO script to installation directory
-    if [ -w "$install_dir" ]; then
-        cp "$mao_script_path" "$install_dir/mao"
-        chmod +x "$install_dir/mao"
-        echo "✅ MAO command installed to $install_dir/mao"
-    else
-        echo "❌ Permission denied: Cannot write to $install_dir"
-        echo "Please run with sudo or choose a different installation directory"
-        exit 1
-    fi
-    
-    # Update PATH if necessary
-    case $os_type in
-        "linux"|"macos")
-            if [[ ":$PATH:" != *":$install_dir:"* ]]; then
-                echo "⚠️  $install_dir is not in your PATH"
-                echo "Add this line to your shell profile (.bashrc, .zshrc, etc.):"
-                echo "export PATH=\"$install_dir:\$PATH\""
-            fi
-            ;;
-        "windows")
-            echo "⚠️  Please add $install_dir to your PATH environment variable"
-            ;;
-    esac
-}
+# Launch Mao with all arguments passed through
+python3 "\$LAUNCHER_PATH" "\$@"
+EOF
 
-# Function to validate installation
-validate_installation() {
-    echo "🔍 Validating MAO installation..."
-    
-    # Check if MAO command is available
-    if command_exists mao; then
-        echo "✅ MAO command is available"
-        
-        # Test MAO command
-        if mao --version >/dev/null 2>&1; then
-            echo "✅ MAO command working correctly"
-        else
-            echo "⚠️  MAO command found but not working properly"
-        fi
-    else
-        echo "⚠️  MAO command not found in PATH"
-        echo "You may need to restart your terminal or update your PATH"
-    fi
-    
-    # Run MAO validator if available
-    if [ -f "scripts/quality_validator/mao_validator.py" ]; then
-        echo "🔍 Running quality validation..."
-        python3 scripts/quality_validator/mao_validator.py
-    fi
-}
+# Make the command executable
+chmod +x "${BIN_DIR}/mao"
 
-# Main installation process
-main() {
-    echo "🎯 Starting MAO installation process..."
-    echo "Operating System: $(detect_os)"
+# Check if ~/bin is in PATH
+if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
+    echo "⚠️  ~/bin is not in your PATH"
+    echo "💡 Add this to your shell profile (~/.bashrc, ~/.zshrc, etc.):"
+    echo "   export PATH=\"\$HOME/bin:\$PATH\""
     echo ""
-    
-    # Install dependencies
-    install_python_dependencies
-    echo ""
-    
-    install_nodejs_dependencies
-    echo ""
-    
-    # Setup MAO command
-    setup_mao_command
-    echo ""
-    
-    # Validate installation
-    validate_installation
-    echo ""
-    
-    echo "🎉 MAO installation completed successfully!"
-    echo ""
-    echo "Quick Start:"
-    echo "  mao help                 # Show available commands"
-    echo "  mao goal \"your goal\"     # Create a new workflow"
-    echo "  mao workflows            # List active workflows"
-    echo ""
-    echo "For more information, visit: https://github.com/your-org/mao"
-}
+fi
 
-# Run main function
-main "$@"
+# Verify the command was created
+if [ -f "${BIN_DIR}/mao" ]; then
+    echo "✅ Mao command installed successfully!"
+    echo ""
+    echo "🎭 You can now use:"
+    echo "   mao           # New user onboarding"
+    echo "   mao mao       # Smart launch (git-inspired)"
+    echo ""
+    echo "🚀 Try running: mao mao"
+    echo ""
+    echo "📝 Note: Make sure ~/bin is in your PATH to use 'mao' directly"
+else
+    echo "❌ Failed to create Mao command"
+    exit 1
+fi
 ```
 
 ### Configuration Documentation Script
@@ -704,248 +568,173 @@ main "$@"
 Automated configuration documentation generation:
 
 ```python
-# scripts/config_documenter.py
-class ConfigurationDocumenter:
-    """Automated configuration documentation generator"""
+# scripts/auto_docs/config_documenter.py - VERIFIED: Actual Implementation
+
+class ConfigDocumenter:
+    """Automatically generate and update docs when configs change"""
     
-    def __init__(self):
+    def __init__(self, repo_root: str = "."):
+        self.repo_root = Path(repo_root)
+        self.configs_dir = self.repo_root / "configs"
+        self.docs_dir = self.repo_root / "versioning-docs"
+        self.templates_dir = self.repo_root / "templates"
+        
+        # Mao integrations
+        self.cache = CacheManager() if CacheManager else None
+        
+        # Config type mappings
         self.config_types = {
-            "models": "AI model configurations",
-            "providers": "AI service provider configurations", 
-            "tools": "Tool configurations and metadata",
-            "settings": "Application settings and user preferences",
-            "cli": "CLI command configurations"
+            'tools': {
+                'path': 'configs/tools/',
+                'doc_file': 'versioning-docs/technical-documentation/TOOLS_REFERENCE.md',
+                'template_dir': 'templates/tools/',
+                'required_files': ['tool.py', 'tool.json', 'ui_tool.py', 'button_snippet.py']
+            },
+            'models': {
+                'path': 'configs/models/',
+                'doc_file': 'versioning-docs/technical-documentation/MODELS_REFERENCE.md',
+                'template_dir': 'templates/models/',
+                'required_files': ['model.json']
+            },
+            'providers': {
+                'path': 'configs/providers/',
+                'doc_file': 'versioning-docs/technical-documentation/PROVIDERS_REFERENCE.md',
+                'template_dir': 'templates/providers/',
+                'required_files': ['provider.json']
+            },
+            'cli': {
+                'path': 'configs/cli/',
+                'doc_file': 'versioning-docs/technical-documentation/CLI_COMMANDS_REFERENCE.md',
+                'template_dir': 'templates/cli/',
+                'required_files': ['command.py', 'command.json', 'ui_command.py']
+            }
         }
         
-    async def generate_full_documentation(self, output_dir: Path):
-        """Generate comprehensive configuration documentation"""
-        print("📚 Generating MAO configuration documentation...")
+    @handle_errors(operation_name="config_scan", return_dict=True)
+    def scan_config_changes(self, changed_files: List[str]) -> List[Dict[str, Any]]:
+        """Detect and analyze config file changes"""
+        config_changes = []
         
-        output_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Generate documentation for each configuration type
-        for config_type, description in self.config_types.items():
-            print(f"📄 Documenting {config_type} configurations...")
-            
-            try:
-                doc_content = await self.document_configuration_type(config_type)
+        for file_path in changed_files:
+            if not file_path.startswith('configs/'):
+                continue
                 
-                doc_file = output_dir / f"{config_type}_configuration.md"
-                with open(doc_file, 'w') as f:
-                    f.write(doc_content)
+            # Determine config type
+            config_type = self.determine_config_type(file_path)
+            if not config_type:
+                continue
+                
+            change_info = self.analyze_config_change(file_path, config_type)
+            if change_info:
+                config_changes.append(change_info)
+                
+        return config_changes
+        
+    def determine_config_type(self, file_path: str) -> Optional[str]:
+        """Determine what type of config this file represents"""
+        for config_type, config_info in self.config_types.items():
+            if file_path.startswith(config_info['path']):
+                return config_type
+        return None
+        
+    def analyze_config_change(self, file_path: str, config_type: str) -> Optional[Dict[str, Any]]:
+        """Analyze a specific config file change"""
+        full_path = self.repo_root / file_path
+        
+        if not full_path.exists():
+            return {
+                'type': 'deletion',
+                'config_type': config_type,
+                'file_path': file_path,
+                'name': self.extract_config_name(file_path)
+            }
+            
+        try:
+            if file_path.endswith('.json'):
+                with open(full_path) as f:
+                    config_data = json.load(f)
                     
-                print(f"✅ {config_type} documentation saved to {doc_file}")
-                
-            except Exception as e:
-                print(f"❌ Failed to document {config_type}: {e}")
-                
-        # Generate master configuration index
-        index_content = await self.generate_configuration_index()
-        index_file = output_dir / "configuration_index.md"
-        
-        with open(index_file, 'w') as f:
-            f.write(index_content)
-            
-        print(f"📑 Configuration index saved to {index_file}")
-        print("🎉 Configuration documentation generation completed!")
-        
-    async def document_configuration_type(self, config_type: str):
-        """Document specific configuration type with examples"""
-        config_dir = Path(f"configs/{config_type}")
-        
-        documentation = f"""# {config_type.title()} Configuration Documentation
-
-## Overview
-
-{self.config_types[config_type]}
-
-## Configuration Files
-
-"""
-        
-        if config_dir.exists():
-            config_files = sorted(config_dir.glob("*.json"))
-            
-            for config_file in config_files:
-                try:
-                    with open(config_file, 'r') as f:
-                        config_data = json.load(f)
-                        
-                    file_doc = await self.document_configuration_file(
-                        config_file.name, 
-                        config_data,
-                        config_type
-                    )
-                    
-                    documentation += file_doc + "\n\n"
-                    
-                except Exception as e:
-                    documentation += f"### {config_file.name}\n\n❌ Error loading configuration: {e}\n\n"
-        else:
-            documentation += f"⚠️  Configuration directory `configs/{config_type}` not found.\n\n"
-            
-        # Add usage examples
-        documentation += await self.generate_usage_examples(config_type)
-        
-        return documentation
-        
-    async def document_configuration_file(self, filename: str, config_data: dict, config_type: str):
-        """Document individual configuration file"""
-        doc = f"### {filename}\n\n"
-        
-        # Add description if available
-        if "description" in config_data:
-            doc += f"**Description:** {config_data['description']}\n\n"
-            
-        # Add key configuration elements
-        if config_type == "models":
-            doc += await self.document_model_config(config_data)
-        elif config_type == "providers":
-            doc += await self.document_provider_config(config_data)
-        elif config_type == "tools":
-            doc += await self.document_tool_config(config_data)
-        elif config_type == "settings":
-            doc += await self.document_settings_config(config_data)
-        elif config_type == "cli":
-            doc += await self.document_cli_config(config_data)
-        else:
-            doc += await self.document_generic_config(config_data)
-            
-        return doc
-        
-    async def document_model_config(self, config_data: dict):
-        """Document model configuration specifics"""
-        doc = "**Model Configuration:**\n\n"
-        
-        key_fields = ["name", "provider", "capabilities", "parameters", "cost_model"]
-        
-        for field in key_fields:
-            if field in config_data:
-                doc += f"- **{field.title()}:** `{config_data[field]}`\n"
-                
-        if "cost_model" in config_data:
-            cost_model = config_data["cost_model"]
-            doc += f"\n**Cost Information:**\n"
-            doc += f"- Input cost: ${cost_model.get('input_cost_per_token', 'N/A')} per token\n"
-            doc += f"- Output cost: ${cost_model.get('output_cost_per_token', 'N/A')} per token\n"
-            
-        return doc
+                return {
+                    'type': 'addition' if self.is_new_config(file_path) else 'modification',
+                    'config_type': config_type,
+                    'file_path': file_path,
+                    'name': config_data.get('name', self.extract_config_name(file_path)),
+                    'data': config_data,
+                    'completeness': self.check_config_completeness(file_path, config_type)
+                }
+        except (json.JSONDecodeError, IOError):
+            return None
 ```
 
 ## Workflow Automation Patterns
 
 ### Automated Business Process Integration
 
-The system enables automated business process workflows:
+**TO BE IMPLEMENTED: Business Process Automation System**
+
+The MAO system provides foundational components for workflow automation through its existing infrastructure:
+
+**VERIFIED: Existing Workflow Foundation**
+- Workflow management via `orchestrator/workflow_manager.py`
+- Workflow state tracking via `orchestrator/workflow_state.py`
+- Tool integration patterns for automated execution
+- MCP connector for external service integration
+- Configuration-driven workflow templates
+
+**VERIFIED: Workflow Template Files Available**
+```
+templates/workflows/
+├── README.md
+├── example-workflow_handoff_config.json
+├── example-workflow_phase_config.json
+└── example-workflow_workflow_config.json
+```
+
+**TO BE IMPLEMENTED: Comprehensive Business Process Automation**
+
+The following BusinessProcessAutomation class represents the intended automation capabilities:
 
 ```python
-# Workflow automation example for business processes
+# TO BE IMPLEMENTED: Advanced workflow automation
 class BusinessProcessAutomation:
-    """Automated business process workflows using MAO"""
+    """Automated business process workflows using MAO - FUTURE IMPLEMENTATION"""
     
     def __init__(self):
+        # Would integrate with existing MAO components:
+        # - WorkflowManager from orchestrator/workflow_manager.py
+        # - ToolManager from orchestrator/manager_tools.py
+        # - CacheManager from orchestrator/cache/cache_system.py
+        # - MCP Hub from orchestrator/mcp_hub.py
+        
         self.workflow_templates = {
             "content_marketing": self.content_marketing_workflow,
             "data_analysis": self.data_analysis_workflow,
-            "project_planning": self.project_planning_workflow,
-            "customer_service": self.customer_service_workflow
+            "project_planning": self.project_planning_workflow
         }
         
     async def execute_automated_workflow(self, workflow_type: str, inputs: dict):
-        """Execute automated business workflow"""
-        if workflow_type not in self.workflow_templates:
-            raise ValueError(f"Unknown workflow type: {workflow_type}")
-            
-        workflow_func = self.workflow_templates[workflow_type]
+        """Execute automated business workflow - IMPLEMENTATION NEEDED"""
+        # Implementation would use existing MAO workflow infrastructure
+        # Combined with tool orchestration and state management
+        pass
         
-        # Initialize workflow tracking
-        workflow_id = f"{workflow_type}_{int(time.time())}"
-        
-        try:
-            result = await workflow_func(workflow_id, inputs)
-            
-            return {
-                "workflow_id": workflow_id,
-                "workflow_type": workflow_type,
-                "status": "completed",
-                "result": result,
-                "automation_level": "full"
-            }
-            
-        except Exception as e:
-            return {
-                "workflow_id": workflow_id,
-                "workflow_type": workflow_type,
-                "status": "failed",
-                "error": str(e),
-                "automation_level": "partial"
-            }
-            
     async def content_marketing_workflow(self, workflow_id: str, inputs: dict):
-        """Automated content marketing workflow"""
-        topic = inputs.get("topic", "")
-        target_audience = inputs.get("target_audience", "general")
-        content_types = inputs.get("content_types", ["blog_post", "social_media"])
-        
-        workflow_steps = []
-        
-        # Step 1: Research and ideation
-        research_result = await self.execute_tool_step(
-            "web_search",
-            f"research latest trends in {topic}",
-            {"count": 10, "freshness": "week"}
-        )
-        workflow_steps.append(("research", research_result))
-        
-        # Step 2: Content generation for each type
-        content_results = {}
-        
-        for content_type in content_types:
-            if content_type == "blog_post":
-                blog_result = await self.execute_tool_step(
-                    "content_creation",
-                    f"write comprehensive blog post about {topic} for {target_audience}",
-                    {"style": "professional", "length": "detailed"}
-                )
-                content_results["blog_post"] = blog_result
-                
-            elif content_type == "social_media":
-                social_result = await self.execute_tool_step(
-                    "content_creation",
-                    f"create social media posts about {topic} for {target_audience}",
-                    {"platforms": ["twitter", "linkedin"], "count": 5}
-                )
-                content_results["social_media"] = social_result
-                
-        workflow_steps.append(("content_generation", content_results))
-        
-        # Step 3: Image generation
-        image_result = await self.execute_tool_step(
-            "dalle_image_generation",
-            f"create professional image for {topic} content marketing",
-            {"style": "professional", "size": "1024x1024"}
-        )
-        workflow_steps.append(("image_generation", image_result))
-        
-        # Step 4: SEO optimization
-        seo_result = await self.execute_tool_step(
-            "seo_optimizer",
-            f"optimize content for {topic} SEO",
-            {"target_keywords": [topic], "content": content_results}
-        )
-        workflow_steps.append(("seo_optimization", seo_result))
-        
-        return {
-            "topic": topic,
-            "target_audience": target_audience,
-            "workflow_steps": workflow_steps,
-            "deliverables": {
-                "content": content_results,
-                "images": image_result,
-                "seo_recommendations": seo_result
-            }
-        }
+        """Content marketing automation - IMPLEMENTATION NEEDED"""
+        # Would orchestrate existing tools:
+        # - web_search tool for research
+        # - dalle_generate tool for images  
+        # - content creation workflows
+        # - file_operations for output management
+        pass
 ```
+
+**Current Implementation Status:**
+- ✅ Core workflow management infrastructure exists
+- ✅ Tool orchestration patterns established
+- ✅ Configuration templates available
+- ❌ High-level business process automation not implemented
+- ❌ Content marketing workflow automation not implemented
+- ❌ Multi-step automated workflows need development
 
 ## Integration Guidelines
 
