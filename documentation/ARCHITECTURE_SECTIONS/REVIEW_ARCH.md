@@ -9,6 +9,10 @@
 
 --> I didn't finish the second document below because it was just error after error; so it seemed like a better use of time will just be to review and fix them all against the actual files, the system files. We do have a lot of old documentation and old implementation files in the archive and in our versioning directories. I've not pulled out or shared any of those documents but figured I'd mention it because I don't know where these mistakes, particularly the very close, but not quite there mistakes, are coming from. 
 
+My one idea, something that we did when making workflows for my own SFA agent that was creating targeted resumes and cover letter that had to be perfectly accurate, was have the agents, all of which were the latest Claude, review for accuracy and provide feedback. Then it would go back and they would integrate the feedback. Note that we did have a subagent review last time when we did the large batch of documentation in full, and that didn't work, but I figured this was worth mentioning. Perhaps our wording in the SPEC documents is not specific enough for this type of task. 
+
+Very eager to hear your thoughts. I enjoy working with the speed of Claude Code and it would be a bummer if a huge amount of work we'd need to divert to a different tool. Which again is part of my confusion, because I'm created so many sets of technical documentations for so many different projects over the past few years and no other tool has has these issues. It is clear that Claude Code is in some way making presumptions, but why? Given the task. It is strange that with other tasks they need so litle specific directions but perhaps for this type of work they need stricter directions and fallback reviews. Maybe there is some way to create a script that can be used to see if a snippet of code exists in exact form in the codebase in a faster way than I've been doing which is just to copy, paste, and search to see what comes up. 
+
 ---
 
 ## 1. ARCH_01_Architecture_Overview.md
