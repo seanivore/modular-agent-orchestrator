@@ -116,7 +116,7 @@ Create comprehensive technical documentation for the Mao v4 modular agent orches
 
 **Task 8: Create Technical Architecture Sections**
 
-Create comprehensive architecture sections using gathered documentation to provide code snippets, patterns, and technical implementation guidance following Anthropic documentation style (60-80% written content, 10-20% bullet points, 20-40% code examples).
+Create comprehensive architecture sections, one document for each of the 6 categories, using gathered documentation to provide code snippets, patterns, and technical implementation guidance following Anthropic documentation style (60-80% written content, 10-20% bullet points, 20-40% code examples).
 
 **Architecture Pattern Categories:**
 
@@ -142,6 +142,15 @@ Create comprehensive architecture sections using gathered documentation to provi
 - **Implementation guidance covering 80%+ of core system functionality** through practical code snippets and patterns rather than exhaustive file-by-file documentation
 - **Complete pattern coverage** demonstrating modular architecture principles across all major system components (orchestration, tools, CLI, configuration, UI, extensions)
 - **Entry-level technical documentation** that maintains 60-80% written content, 10-20% bullet points, 20-40% code ratio throughout
+
+* Please create the directory and save them in: `/documentation/ARCHITECTURE_SECTIONS/...` using the following file names: 
+
+- ARCH_01_Architecture_Overview.md
+- ARCH_02_Core_System_Patterns.md
+- ARCH_03_Tool_Integration_Patterns.md
+- ARCH_04_Configuration_Data_Patterns.md
+- ARCH_05_User_Interface_Patterns.md
+- ARCH_06_Extension_Automation_Patterns.md
 
 **Coverage Goal:** Provide sufficient technical depth that developers can understand and extend any aspect of the Mao system using the documented patterns, while keeping content accessible and practical rather than overwhelming.
 
