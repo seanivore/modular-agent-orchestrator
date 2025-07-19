@@ -111,3 +111,18 @@ Create comprehensive technical documentation for the Mao v4 modular agent orches
   - Tools `ui_*.py` files (11 files)
 - Save: `/documentation/GATHERED_INFO/UI_TYPESCRIPT_INTEGRATION_FILE_NAME.md`
   - 41 total deliverables for 'Task 7'
+
+### Phase 4: Finalization 
+
+**NOTE: Task 8 Proposed**
+*added by Sean at 0750 on 19 July 2025 while waiting for our rate limit to reset at 1100* 
+
+```plaintext
+I think we need to add a "Task 8" -- AI had originally written "Create final documentation" as a task 8 which I removed because it sounded a bit lofty a request for what we were doing. However the main intention of doing this is because we created a very narrative-heavy overview of the product and we want to create "Architecture" sections showing the code snippets, patterns, I.e. the type of stuff that is expected in standard technical documentation. We're just trying to create more of a vibe like... Anthropic's documentation for example, where each section is 60-80% written content with maybe 10-20% of that being bullet points. Then the remaining 40-20% of each section is the code. It really helps make things a lot more entry level. 
+
+Anyway I removed task 8 because I thought that the questionnaires were implying that we highlights of each file's code be included in the "Code & Explanation" 
+
+However, this is probably better to happen this route anyway, because we certainly don't need snippets of code for 8 tools and ~40 CLI commands, settings, etc. We only really need code snippets as examples for each section. If we do that then we can't really provide too much, it'll all be helpful. 
+
+Wdyt? Can we add this as the final step? 
+```
