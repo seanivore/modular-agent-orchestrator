@@ -7,15 +7,40 @@
 
 ## Overview 
 
-Mao application run frontier model orchestration of complex and modified-on-the-fly workflows, and was developed using a strictly modular and variable-input architecture. Modular files, or 'configuration collections', are the essential specifics which which the system files opperate. By their modular nature, they are 100% interchangeable, replacable, or removable, without any installation or setup. This allows for a high degree of flexibility and scalability, and perhaps most importantly in this rapidly changing AI landscape, an incredible amount of longevity. 
+Mao modular agent orchestration let's you plug-and-play the newest models or tools. They can complete complex projects, changing their workflow as needed, while it is running. The strict modular, variable input architecture means you'll never be out-of-date. All the essentials are 100% interchangable, compatable, and replacable without any installation. Mao provides the flexibility you need to be able to commit to one product that is build to scale; they're designed for this rapidly changing landscape. 
 
 ### Documentation Sections 
 
-  * Section I: Self-Evolving AI-Project Manager
-  * Section II: Quick Reference Materials
-  * Section III: Architectural Review Led by UX Flow Walkthrough 
-  * Section IV: Business Value & Future Evolution
-  * Section V: Visual Brand Identity & User Interfaces
+  * [Mao Is Not Your Assistant, An Overview](documentation/00_OVERVIEW.md)
+    - Briefing of each section and select currated plathways 
+    - Developers, new users, or business owners can easily find their way 
+  * [Section I: Self-Evolving AI-Project Manager](documentation/01_EVOLVING_AI.md)
+    - Your official introduction to Mao and what makes them different 
+    - Hint: They can handle things on their own, if you let them 
+  * [Section II: Quick Reference Materials](documentation/02_REFERENCE.md)
+    - Quickly find the information you need 
+    - Overviews, charts of application settings, workflow variables, and more 
+  * [Section III: Setting Up a Project for Mao](documentation/03_USER_FLOW.md)
+    - Explain to Mao your idea, no matter how thought out or complex 
+    - Not sure what you need? Just tell them a goal and nothing else 
+  * [Section IV: Orchestration of Core Functionality](documentation/04_ORCHESTRATION.md)
+    - The core of Mao's system file architecture 
+    - See how files work to gether and how Mao manages everything 
+  * [Section V: Enhancing the Average Agentic Experience](documentation/05_ENHANCEMENTS.md)
+    - This is why Mao is cheaper than any AI tool you've ever used
+    - Compatability with any model is simple because Mao creates "Human Buttons" for Agents 
+  * [Section VI: Memory-Enhanced Contextual Analytics](documentation/06_ANALYTICS_MEMORY.md)
+    - The memory system for you to add things you need Mao to know 
+    - Is the same memory system that Mao will use on their own to improve your experience 
+  * [Section VII: Mao Does The Business Automation For You](documentation/07_AUTOMATE_BUSINESS.md)
+    - With triggered workflows, Mao can automate just about all digital business tasks 
+    - Not sure what you need? Mao will analyze business data and create workflows on their own 
+  * [Section VIII: Conceptual Semantic Visual Identity](documentation/08_VISUAL_IDENTITY.md)
+    - Mao's visual identity is designed to be easy on the eyes and cognitive load 
+    - Word and concept grouping by color, icons, and white space are the only design elements 
+  * [Section IX: Mao's 10-Year Plan](documentation/09_FUTURE_THINKING.md)
+    - What's your 10-year plan? Mao will be around, and they've got a lot planned 
+    - Suggested expansion can actually be pushed any direction you need 
 
 ### Configuration Collections 
 

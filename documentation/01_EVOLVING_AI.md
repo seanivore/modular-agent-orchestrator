@@ -17,7 +17,7 @@
 
 * **Mao's triggered workflows let them take over running your business, one step at a time.** 
   - Managing a business is a lot of work; but Mao is designed in a way that allows for the completion of just about any aspect of business administration. 
-  - With Mao's triggered workflows the [possibilities are endless](./07_AUTOMATING_BUSINESSES.md), including having your entire business run by AI. 
+  - With Mao's triggered workflows the [possibilities are endless](./07_AUTOMATE_BUSINESSES.md), including having your entire business run by AI. 
   - They're prepared to automate just about anything you can think of in the digital business world, provided with as little as a goal. 
   - You'll never have to ask for that late monthly budget report again. 
 

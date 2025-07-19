@@ -1,4 +1,4 @@
-# Introducing 'Mao' 
+# Mao Is Not Your Assistant, An Overview 
 Pronounce it /maʊ̯/ like "mau" with no "H" sound, like a cat. Mao, meow! 
 *Just say the word: Tell Mao your project's primary goal and they'll manage it.* 
 

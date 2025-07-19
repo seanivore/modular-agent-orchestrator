@@ -1,4 +1,4 @@
-# Section III: User Flow of Giving Mao A Project To Work On 
+# Section III: Setting Up a Project for Mao 
 Remember: Mao v4.0.0 is released for use in your computer's terminal. 
 *User guide from start to finish; with tactfully placed architecture & analytics trigger points* 
 

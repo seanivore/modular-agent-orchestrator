@@ -1,4 +1,4 @@
-# Section IV: Memory System Enhanced Analytics 
+# Section IV: Memory-Enhanced Contextual Analytics 
 > Complete specifications for analytics collection, triggers, and implementation
 
 ## Overview

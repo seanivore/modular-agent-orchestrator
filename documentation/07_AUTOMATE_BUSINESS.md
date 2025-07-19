@@ -1,3 +1,6 @@
+# Section VII: Mao Does The Business Automation For You
+
+---
 
 # Workflows Building Mao's Business Planning 
 
