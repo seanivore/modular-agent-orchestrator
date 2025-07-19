@@ -478,99 +478,115 @@ class CacheManager:
         if self.verbose:
             print(f"💾 Cache MISS: {content_hash} ({cache_type})")
         return None
+    
+    def cache_tool_definition(self, tool_name: str, tool_definition: Dict) -> str:
+        """🔧 Cache tool definition permanently"""
+        tool_hash = self.generate_tool_hash(tool_name, tool_definition)
         
-    async def set(self, key: str, value: any, category: str = "general", ttl: int = None):
-        """Intelligent cache storage with deduplication and compression"""
-        cache_key = f"{category}:{key}"
-        ttl = ttl or self.cache_policies["default_ttl"]
+        cache_entry = CacheEntry(
+            content=json.dumps(tool_definition),
+            created_at=datetime.now().isoformat(),
+            content_hash=tool_hash,
+            cache_type="tool_definition"
+        )
         
-        # Content fingerprinting for deduplication
-        content_hash = hashlib.sha256(str(value).encode()).hexdigest()
+        cache_file = self.cache_dir / "tool_definitions" / f"{tool_name}_{tool_hash}.json"
+        with open(cache_file, 'w') as f:
+            json.dump(asdict(cache_entry), f, indent=2)
         
-        # Check for existing content with same hash
-        if await self.content_exists(content_hash):
-            await self.create_content_link(cache_key, content_hash)
-            return content_hash
+        if self.verbose:
+            print(f"🔧 Cached tool: {tool_name} ({tool_hash})")
+        return tool_hash
+    
+    def get_cached_tool(self, tool_name: str, tool_definition: Dict) -> Optional[Dict]:
+        """🔧 Get cached tool definition"""
+        tool_hash = self.generate_tool_hash(tool_name, tool_definition)
+        cache_file = self.cache_dir / "tool_definitions" / f"{tool_name}_{tool_hash}.json"
+        
+        if cache_file.exists():
+            with open(cache_file, 'r') as f:
+                cache_entry = json.load(f)
             
-        # Compression for large content
-        stored_value = value
-        compressed = False
+            if self.verbose:
+                print(f"🔧 Tool cache HIT: {tool_name} ({tool_hash})")
+            return json.loads(cache_entry["content"])
         
-        if len(str(value)) > self.cache_policies["compression_threshold"]:
-            stored_value = await self.compress_content(value)
-            compressed = True
+        if self.verbose:
+            print(f"🔧 Tool cache MISS: {tool_name} ({tool_hash})")
+        return None
+    
+    # ========================================================================
+    # LAYER 2: FILES API WORKFLOW HANDOFFS (Free Inter-Agent Communication)
+    # ========================================================================
+    
+    async def store_workflow_file(self, content: str, filename: str, anthropic_client) -> str:
+        """📁 Store content in Files API for free inter-agent handoffs"""
+        try:
+            # Create file in Anthropic Files API
+            file_response = await anthropic_client.files.create(
+                content=content.encode(),
+                name=filename,
+                type="text/plain"
+            )
             
-        # Memory cache entry
-        cache_entry = {
-            "data": value,  # Store uncompressed in memory
-            "stored_data": stored_value,
-            "hash": content_hash,
-            "compressed": compressed,
-            "timestamp": time.time(),
-            "ttl": ttl,
-            "access_count": 0
-        }
-        
-        # Memory cache with size management
-        await self.ensure_memory_cache_space(cache_key, cache_entry)
-        self.memory_cache[cache_key] = cache_entry
-        
-        # Files API storage
-        if self.files_api:
-            try:
-                file_path = f"cache/{category}/{key}"
-                await self.files_api.write_file(file_path, stored_value)
-                await self.files_api.write_file(f"{file_path}.meta", {
-                    "hash": content_hash,
-                    "compressed": compressed,
-                    "timestamp": cache_entry["timestamp"],
-                    "ttl": ttl
-                })
-                
-            except Exception as e:
-                logger.warning(f"Cache write error for {key}: {e}")
-                
-        self.cache_stats["writes"] += 1
-        return content_hash
-        
-    async def invalidate_pattern(self, pattern: str, category: str = "general"):
-        """Invalidate cache entries matching pattern"""
-        import fnmatch
-        
-        invalidated_keys = []
-        cache_prefix = f"{category}:"
-        
-        # Memory cache invalidation
-        keys_to_remove = []
-        for cache_key in self.memory_cache:
-            if cache_key.startswith(cache_prefix):
-                key_part = cache_key[len(cache_prefix):]
-                if fnmatch.fnmatch(key_part, pattern):
-                    keys_to_remove.append(cache_key)
-                    invalidated_keys.append(key_part)
-                    
-        for key in keys_to_remove:
-            del self.memory_cache[key]
+            file_id = file_response.id
+            content_hash = self.generate_content_hash(content)
             
-        # Files API cache invalidation
-        if self.files_api:
-            try:
-                cache_dir = f"cache/{category}"
-                files = await self.files_api.list_files(cache_dir)
-                
-                for file_path in files:
-                    file_name = Path(file_path).name
-                    if fnmatch.fnmatch(file_name, pattern):
-                        await self.files_api.delete_file(file_path)
-                        await self.files_api.delete_file(f"{file_path}.meta")
-                        
-            except Exception as e:
-                logger.warning(f"Cache invalidation error: {e}")
-                
-        return invalidated_keys
+            # Track for this workflow session
+            self.workflow_files[file_id] = content_hash
+            
+            if self.verbose:
+                print(f"📁 Stored in Files API: {filename} (ID: {file_id[:8]}...)")
+            return file_id
+            
+        except Exception as e:
+            if self.verbose:
+                print(f"❌ Files API error: {e}")
+            # Fallback to session memory
+            self.session_memory[filename] = content
+            return f"session_{filename}"
 ```
 
-### Content Fingerprinting
+## Performance Monitoring Integration
+
+The cache system includes built-in cost estimation for budget planning:
+
+```python
+@handle_errors(operation_name="estimate_cost", return_dict=True)
+def estimate_cost(self, params: Dict[str, Any] = None) -> float:
+    """Estimate cache operation cost for budget planning"""
+    base_cost = 0.001  # Base cache cost (very low)
+    
+    if params:
+        operations = params.get("operations", 1)
+        base_cost += operations * 0.0001
+        
+        cache_size = params.get("cache_size_mb", 10)
+        base_cost += cache_size * 0.00001
+        
+        persistent_storage = params.get("persistent_storage", False)
+        if persistent_storage:
+            base_cost += 0.0005
+    
+    return base_cost
+```
+
+The caching system provides significant cost optimization by:
+
+- **Permanent caching** of reusable content (job descriptions, research results)
+- **Free Files API storage** for agent handoffs and workflow coordination
+- **Content fingerprinting** to avoid duplicate API calls for similar requests
+- **Smart cache decisions** based on content type and size
+
+This dual-layer approach ensures that expensive API operations are cached while maintaining free inter-agent communication for complex workflows.
+
+---
+
+## Summary
+
+MAO's Core System Patterns demonstrate sophisticated orchestration capabilities while maintaining simplicity and reliability. The agent orchestrator coordinates complex workflows, state management preserves context across sessions, and the dual-layer caching system optimizes performance and costs.
+
+These patterns form the foundation for scalable AI orchestration that grows with your needs while maintaining the LOCAL-first architecture principles that ensure data privacy and system independence.
 
 Advanced content fingerprinting enables intelligent deduplication:
 

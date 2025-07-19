@@ -19,13 +19,27 @@ class SettingsManager:
         self.user_settings = {}
         self.settings_schema = None
         
-    @handle_errors
-    async def load_settings_architecture(self):
-        """Load complete settings architecture with schema and defaults"""
-        # Load application settings schema
-        schema_path = Path("configs/settings/application_settings_schema.json")
-        with open(schema_path, 'r') as f:
-            self.settings_schema = json.load(f)
+    @handle_errors(operation_name="discover_all_settings", return_dict=True)
+    def discover_all_settings(self) -> Dict[str, Any]:
+        """Discover all available settings from JSON configs"""
+        # This is the ACTUAL method that exists in the codebase
+        all_settings = {}
+        
+        # Scan settings directory for JSON files
+        settings_dir = Path("configs/settings")
+        if settings_dir.exists():
+            for setting_file in settings_dir.glob("*.json"):
+                # Load each settings JSON file
+                try:
+                    with open(setting_file, 'r') as f:
+                        setting_data = json.load(f)
+                        setting_name = setting_file.stem
+                        all_settings[setting_name] = setting_data
+                except Exception as e:
+                    if self.verbose:
+                        print(f"Warning: Could not load {setting_file}: {e}")
+        
+        return all_settings
             
         # Extract default values from schema
         self.default_settings = self.extract_defaults_from_schema(self.settings_schema)
@@ -315,7 +329,7 @@ class UsernameManager:
 
 ### Analytics with Privacy Protection
 
-The system implements dual analytics with user control and anonymization:
+The system implements dual analytics with user control and anonymization. **ACTUAL IMPLEMENTATION** exists:
 
 ```python
 # orchestrator/user_analytics_manager.py
@@ -417,7 +431,7 @@ class UserAnalyticsManager:
 
 ### System Analytics with Secondary Anonymization
 
-System analytics ensure complete anonymization for privacy protection:
+System analytics ensure complete anonymization for privacy protection. **ACTUAL IMPLEMENTATION** exists:
 
 ```python
 # orchestrator/system_analytics_manager.py

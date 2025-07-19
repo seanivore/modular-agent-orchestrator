@@ -13,114 +13,125 @@ The tool manager provides intelligent tool discovery and recommendation based on
 ```python
 # orchestrator/manager_tools.py
 class ToolManager:
-    def __init__(self):
-        self.cache_manager = CacheManager()
-        self.available_tools = {}
-        self.tool_performance_cache = {}
+    
+    def __init__(self, config_dir: str = "configs"):
+        self.config_dir = Path(config_dir)
+        self.tool_registry = self._load_tool_registry()
+        self.discovered_tools = {}
         
-    @handle_errors
-    async def discover_tools(self, refresh_cache: bool = False):
-        """Dynamically discover all available tools with caching"""
-        cache_key = "discovered_tools"
+        # Lazy load MCP connector for external tools
+        self._mcp_connector = None
+        self._memory_mcp = None
         
-        if not refresh_cache:
-            cached_tools = await self.cache_manager.get(cache_key, "tools")
-            if cached_tools:
-                self.available_tools = cached_tools
-                return cached_tools
-                
-        discovered_tools = {}
-        tools_directory = Path(__file__).parent.parent / "tools"
+        # Analytics managers
+        self.user_analytics_manager = UserAnalyticsManager()
+        self.system_analytics_manager = SystemAnalyticsManager()
+        self.username_manager = UsernameManager()
         
-        for tool_dir in tools_directory.iterdir():
-            if tool_dir.is_dir() and not tool_dir.name.startswith('.'):
-                tool_config = await self.load_tool_configuration(tool_dir)
-                
-                if tool_config and self.validate_tool_structure(tool_dir):
-                    discovered_tools[tool_dir.name] = {
-                        "config": tool_config,
-                        "path": str(tool_dir),
-                        "capabilities": tool_config.get("capabilities", []),
-                        "performance_metrics": await self.get_tool_performance(tool_dir.name)
-                    }
-                    
-        self.available_tools = discovered_tools
-        await self.cache_manager.set(cache_key, discovered_tools, "tools", ttl=3600)
-        
-        return discovered_tools
-        
-    async def suggest_tools_for_goal(self, goal: str, context: dict = None):
-        """Intelligent tool recommendation based on goal analysis"""
-        tools = await self.discover_tools()
-        
-        # Goal analysis for capability matching
-        goal_requirements = await self.analyze_goal_requirements(goal)
-        
-        suggestions = []
-        for tool_name, tool_info in tools.items():
-            compatibility_score = await self.calculate_compatibility_score(
-                tool_info, goal_requirements, context
-            )
-            
-            if compatibility_score > 0.3:  # Minimum threshold
-                suggestions.append({
-                    "tool_name": tool_name,
-                    "compatibility_score": compatibility_score,
-                    "capabilities": tool_info["capabilities"],
-                    "estimated_cost": estimate_cost("tool_execution", 
-                                                  tool=tool_name, 
-                                                  goal_complexity=goal_requirements["complexity"]),
-                    "performance_metrics": tool_info["performance_metrics"]
-                })
-                
-        # Sort by compatibility score and performance
-        suggestions.sort(key=lambda x: (x["compatibility_score"], 
-                                      x["performance_metrics"].get("success_rate", 0)), 
-                        reverse=True)
-        
-        return suggestions[:5]  # Top 5 recommendations
-        
-    async def analyze_goal_requirements(self, goal: str):
-        """Analyze goal to extract capability requirements"""
-        # Use cached analysis if available
-        goal_hash = hashlib.sha256(goal.encode()).hexdigest()
-        cache_key = f"goal_analysis:{goal_hash}"
-        
-        cached_analysis = await self.cache_manager.get(cache_key, "analysis")
-        if cached_analysis:
-            return cached_analysis
-            
-        # Goal complexity assessment
-        word_count = len(goal.split())
-        complexity = "simple" if word_count < 10 else "medium" if word_count < 25 else "complex"
-        
-        # Capability extraction patterns
-        capability_patterns = {
-            "search": ["search", "find", "lookup", "research", "investigate"],
-            "generation": ["create", "generate", "build", "make", "produce"],
-            "analysis": ["analyze", "examine", "review", "assess", "evaluate"],
-            "manipulation": ["edit", "modify", "change", "update", "transform"],
-            "communication": ["send", "notify", "alert", "message", "email"]
-        }
-        
-        detected_capabilities = []
+        # Discover all tools on initialization
+        self.discover_all_tools()
+    
+    def suggest_tools_for_goal(self, goal: str, model: str = "claude-sonnet-4", 
+                              budget_limit: float = 1.0) -> Dict[str, Any]:
+        """
+        🎯 Suggest tools based on goal analysis
+        No hardcoded categories - pure goal-to-capability matching
+        """
         goal_lower = goal.lower()
+        suggested_tools = []
+        total_cost = 0.0
         
-        for capability, keywords in capability_patterns.items():
-            if any(keyword in goal_lower for keyword in keywords):
-                detected_capabilities.append(capability)
+        # Analyze each tool's relevance to the goal
+        for tool_id, tool_config in self.tool_registry.items():
+            relevance_score = self._calculate_relevance(goal_lower, tool_config)
+            
+            if relevance_score > 0:
+                tool_cost = tool_config.get("cost_estimate", 0.0)
                 
-        analysis = {
-            "complexity": complexity,
-            "word_count": word_count,
-            "detected_capabilities": detected_capabilities,
-            "requires_internet": any(term in goal_lower for term in ["search", "web", "online", "internet"]),
-            "requires_files": any(term in goal_lower for term in ["file", "document", "save", "load"]),
-            "estimated_duration": self.estimate_goal_duration(complexity, detected_capabilities)
-        }
+                # Check budget constraint
+                if total_cost + tool_cost <= budget_limit:
+                    suggested_tools.append({
+                        "tool_id": tool_id,
+                        "name": tool_config.get("name", tool_id),
+                        "description": tool_config.get("description", ""),
+                        "cost": tool_cost,
+                        "relevance": relevance_score,
+                        "reason": self._generate_relevance_reason(goal_lower, tool_config)
+                    })
+                    total_cost += tool_cost
         
-        await self.cache_manager.set(cache_key, analysis, "analysis", ttl=1800)
-        return analysis
+        # Sort by relevance score (highest first)
+        suggested_tools.sort(key=lambda x: x["relevance"], reverse=True)
+        
+        return {
+            "suggested_tools": suggested_tools[:5],  # Top 5 suggestions
+            "total_estimated_cost": total_cost,
+            "goal_analysis": self._analyze_goal_complexity(goal),
+            "model_compatibility": self._check_model_compatibility(suggested_tools, model)
+        }
+    
+    def discover_all_tools(self) -> Dict[str, Any]:
+        """Discover tools from multiple sources"""
+        tools = {}
+        
+        # 1. Discover local MAO tools
+        local_tools = self._discover_local_tools()
+        tools.update(local_tools)
+        
+        # 2. Discover MCP server tools
+        mcp_tools = self._discover_mcp_tools()
+        tools.update(mcp_tools)
+        
+        # 3. Cache discovery results
+        self.discovered_tools = tools
+        
+        return tools
+        
+    def _analyze_goal_complexity(self, goal: str) -> Dict[str, Any]:
+        """Analyze goal complexity without hardcoded assumptions"""
+        words = goal.split()
+        
+        return {
+            "word_count": len(words),
+            "estimated_complexity": "simple" if len(words) < 10 else "complex",
+            "contains_multiple_tasks": "and" in goal.lower() or "then" in goal.lower(),
+            "time_sensitive": any(word in goal.lower() for word in ["urgent", "asap", "quickly", "fast"])
+        }
+    
+    def _calculate_relevance(self, goal: str, tool_config: Dict) -> float:
+        """
+        Calculate how relevant a tool is to the goal
+        Uses semantic matching, not hardcoded categories
+        """
+        relevance = 0.0
+        
+        # Check description overlap
+        description = tool_config.get("description", "").lower()
+        goal_words = set(goal.split())
+        desc_words = set(description.split())
+        
+        # Word overlap scoring
+        common_words = goal_words.intersection(desc_words)
+        if common_words:
+            relevance += len(common_words) * 0.3
+        
+        # Check capabilities overlap
+        capabilities = tool_config.get("capabilities", [])
+        for capability in capabilities:
+            cap_words = set(capability.lower().split())
+            cap_overlap = goal_words.intersection(cap_words)
+            if cap_overlap:
+                relevance += len(cap_overlap) * 0.5
+        
+        # Check use cases overlap
+        use_cases = tool_config.get("use_cases", [])
+        for use_case in use_cases:
+            case_words = set(use_case.lower().split())
+            case_overlap = goal_words.intersection(case_words)
+            if case_overlap:
+                relevance += len(case_overlap) * 0.4
+        
+        return relevance
 ```
 
 ### Tool Validation and Structure Verification
@@ -128,89 +139,58 @@ class ToolManager:
 The system validates tool structure and capabilities before integration:
 
 ```python
-def validate_tool_structure(self, tool_directory: Path):
-    """Validate tool follows the 4-file architecture pattern"""
+def _validate_tool_structure(self, tool_dir: Path) -> Optional[Dict[str, Any]]:
+    """Validate 6-file tool architecture"""
     required_files = {
-        "logic.py": "Core tool implementation",
-        "tool.json": "Tool configuration and metadata"
+        "main": tool_dir / f"{tool_dir.name}.py",
+        "config": tool_dir / f"tool_{tool_dir.name}.json",
+        "button": tool_dir / f"button_{tool_dir.name}.py", 
+        "ui": tool_dir / f"ui_{tool_dir.name}.py"
     }
     
-    optional_patterns = {
-        "button_*.py": "Button generation component",
-        "ui_*.py": "UI integration component"
-    }
-    
-    validation_results = {
-        "valid": True,
-        "missing_required": [],
-        "missing_optional": [],
-        "validation_errors": []
-    }
-    
-    # Check required files
-    for required_file, description in required_files.items():
-        file_path = tool_directory / required_file
+    # Check if core files exist
+    missing_files = []
+    for file_type, file_path in required_files.items():
         if not file_path.exists():
-            validation_results["missing_required"].append(required_file)
-            validation_results["valid"] = False
-            
-    # Check optional pattern files
-    for pattern, description in optional_patterns.items():
-        matching_files = list(tool_directory.glob(pattern))
-        if not matching_files:
-            validation_results["missing_optional"].append(pattern)
-            
-    # Validate logic.py structure
-    logic_file = tool_directory / "logic.py"
-    if logic_file.exists():
-        try:
-            validation_results.update(self.validate_logic_file(logic_file))
-        except Exception as e:
-            validation_results["validation_errors"].append(f"Logic file validation failed: {e}")
-            validation_results["valid"] = False
-            
-    return validation_results
+            missing_files.append(file_type)
     
-def validate_logic_file(self, logic_file_path: Path):
-    """Validate logic.py contains required methods and patterns"""
-    import ast
+    if missing_files:
+        return None  # Tool not properly structured
     
-    validation = {
-        "has_main_class": False,
-        "has_execute_method": False,
-        "has_cost_estimation": False,
-        "has_error_handling": False,
-        "imports_cache_manager": False
-    }
-    
+    # Load tool configuration
     try:
-        with open(logic_file_path, 'r') as f:
-            tree = ast.parse(f.read())
-            
-        for node in ast.walk(tree):
-            # Check for main tool class
-            if isinstance(node, ast.ClassDef):
-                validation["has_main_class"] = True
-                
-                # Check for required methods
-                for item in node.body:
-                    if isinstance(item, ast.FunctionDef):
-                        if item.name == "execute":
-                            validation["has_execute_method"] = True
-                        elif item.name == "estimate_cost":
-                            validation["has_cost_estimation"] = True
-                            
-            # Check for required imports
-            if isinstance(node, ast.ImportFrom):
-                if node.module and "cache_system" in node.module:
-                    validation["imports_cache_manager"] = True
-                elif node.module and "error_handling" in node.module:
-                    validation["has_error_handling"] = True
-                    
-    except Exception as e:
-        validation["parse_error"] = str(e)
+        with open(required_files["config"]) as f:
+            config = json.load(f)
+    except Exception:
+        return None  # Invalid config
+    
+    # Load button generator function
+    button_module = self._load_button_module(required_files["button"])
+    if not button_module:
+        return None  # Missing button function
+    
+    return {
+        "type": "local",
+        "name": config.get("name", tool_dir.name),
+        "description": config.get("description", ""),
+        "config": config,
+        "button_generator": button_module.create_button_snippet,
+        "main_module": required_files["main"],
+        "files": required_files
+    }
+def _load_button_module(self, button_file: Path):
+    """Load button module dynamically"""
+    try:
+        spec = importlib.util.spec_from_file_location("button_module", button_file)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
         
-    return validation
+        # Check if create_button_snippet function exists
+        if hasattr(module, 'create_button_snippet'):
+            return module
+        return None
+    except Exception:
+        return None
 ```
 
 ## Tool Generation Patterns
@@ -220,103 +200,52 @@ def validate_logic_file(self, logic_file_path: Path):
 The system provides templates and automation for generating new tools:
 
 ```python
-# From tool.py template analysis
-class ToolTemplate:
-    """Standardized template for creating new MAO tools"""
+# Actual tool implementation pattern from tools/brave_search/brave_search.py
+@handle_errors(operation_name="brave_search", return_dict=True)
+@retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(requests.exceptions.RequestException, APIError))
+def search_web(query: str, count: int = 10, country: str = "US", search_type: str = "web") -> Dict[str, Any]:
+    """
+    Comprehensive web search using Brave Search API with enhanced error handling
     
-    def __init__(self, config: dict = None):
-        self.config = config or {}
-        self.cache_manager = CacheManager()
-        self.logger = setup_logger(__name__)
+    Args:
+        query: Search query string
+        count: Number of results to return (1-20)
+        country: Country code for localized results
+        search_type: Type of search ("web", "news", "local")
         
-    @handle_errors
-    async def initialize(self):
-        """Initialize tool with configuration and dependencies"""
-        try:
-            await self.cache_manager.initialize()
-            await self.validate_configuration()
-            await self.setup_tool_dependencies()
-            
-            self.logger.info(f"Tool {self.__class__.__name__} initialized successfully")
-            return {"status": "initialized", "config": self.config}
-            
-        except Exception as e:
-            self.logger.error(f"Tool initialization failed: {e}")
-            raise
-            
-    @handle_errors
-    async def execute(self, input_data: str, parameters: dict = None):
-        """Execute tool with input data and optional parameters"""
-        # Input validation
-        validation_result = await self.validate_input(input_data, parameters)
-        if not validation_result["valid"]:
-            return {"status": "error", "errors": validation_result["errors"]}
-            
-        # Cost estimation before execution
-        estimated_cost = self.estimate_cost(input_data, parameters)
-        
-        try:
-            # Core tool execution logic (to be implemented by specific tools)
-            result = await self.perform_tool_operation(input_data, parameters)
-            
-            # Cache successful results
-            if result.get("status") == "success":
-                cache_key = self.generate_cache_key(input_data, parameters)
-                await self.cache_manager.set(cache_key, result, "tool_results")
-                
-            return {
-                "status": "success",
-                "result": result,
-                "cost": estimated_cost,
-                "cached": False
-            }
-            
-        except Exception as e:
-            self.logger.error(f"Tool execution failed: {e}")
-            return {
-                "status": "error",
-                "message": str(e),
-                "cost": estimated_cost
-            }
-            
-    def estimate_cost(self, input_data: str, parameters: dict = None):
-        """Estimate resource cost for tool execution"""
-        base_cost = {
-            "tokens": len(input_data.split()) * 1.2,
-            "time_ms": 1000,
-            "memory_mb": 10,
-            "complexity": "medium"
-        }
-        
-        # Adjust based on parameters
-        if parameters:
-            if parameters.get("detailed_analysis"):
-                base_cost["tokens"] *= 2
-                base_cost["time_ms"] *= 1.5
-                base_cost["complexity"] = "high"
-                
-        return base_cost
-        
-    async def validate_input(self, input_data: str, parameters: dict = None):
-        """Validate input data and parameters"""
-        validation = {"valid": True, "errors": [], "warnings": []}
-        
-        # Basic input validation
-        if not input_data or not input_data.strip():
-            validation["valid"] = False
-            validation["errors"].append("Input data cannot be empty")
-            
-        if len(input_data) > 10000:  # 10KB limit
-            validation["valid"] = False
-            validation["errors"].append("Input data exceeds size limit")
-            
-        # Parameter validation
-        if parameters:
-            if not isinstance(parameters, dict):
-                validation["valid"] = False
-                validation["errors"].append("Parameters must be a dictionary")
-                
-        return validation
+    Returns:
+        Dict with structured search results or error information
+    """
+    # Validation
+    if not query.strip():
+        return {"error": "Search query cannot be empty"}
+    
+    # Clamp count to valid range
+    count = min(20, max(1, count))
+    
+    # FINGERPRINT CACHING - Check cache first
+    cache = CacheManager()
+    cache_key = f"{query}|{count}|{country}|{search_type}"
+    
+    cached_result = cache.get_cached_analysis(cache_key, "brave_search")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # API Configuration
+    api_key = os.getenv("BRAVE_API_KEY") or os.getenv("X_SUBSCRIPTION_TOKEN")
+    if not api_key:
+        return {"error": "Brave API key not found. Set BRAVE_API_KEY or X_SUBSCRIPTION_TOKEN environment variable"}
+    
+    # Tool execution logic follows actual implementation patterns...
+    # [Implementation details based on actual codebase]
+    
+    return search_results
+
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate cost for this search operation"""
+    # Brave API is typically free for reasonable usage
+    # Return minimal cost for workflow planning
+    return 0.001
 ```
 
 ### Button Generation Pattern
@@ -324,68 +253,86 @@ class ToolTemplate:
 Tools generate executable code snippets for workflow integration:
 
 ```python
-# Button generation pattern from tool documentation
-def create_button_snippet(tool_name: str, goal: str, parameters: dict = None):
-    """Generate executable button snippet for workflow integration"""
+# Actual button generation from tools/brave_search/button_brave_search.py
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+    """
+    Generate executable code snippet for Claude execution
+    Universal model compatibility via code generation
     
-    # Sanitize inputs for code generation
-    safe_tool_name = tool_name.replace('-', '_').replace(' ', '_')
-    safe_goal = goal.replace('"', '\\"').replace('\n', '\\n')
-    
-    # Parameter handling
-    params_str = ""
-    if parameters:
-        params_list = []
-        for key, value in parameters.items():
-            if isinstance(value, str):
-                params_list.append(f'"{key}": "{value}"')
-            else:
-                params_list.append(f'"{key}": {value}')
-        params_str = f", {{{', '.join(params_list)}}}" if params_list else ""
+    Args:
+        params: Search parameters (query, count, country, search_type)
+        model: Target model for execution
         
-    # Generate executable code snippet
-    snippet = f'''
-# {tool_name} - Generated Tool Button
-import asyncio
-from tools.{safe_tool_name}.logic import {safe_tool_name.title()}Tool
+    Returns:
+        Self-contained executable Python code snippet
+    """
+    
+    # Extract parameters with defaults
+    query = params.get("query", "")
+    count = params.get("count", 10)
+    country = params.get("country", "US")
+    search_type = params.get("search_type", "web")
+    
+    # Generate snippet that imports and uses the logic file
+    snippet = f'''# Brave Search Tool Execution
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-async def execute_{safe_tool_name}_for_goal():
-    """Execute {tool_name} for goal: {goal}"""
-    tool = {safe_tool_name.title()}Tool()
-    
-    try:
-        await tool.initialize()
-        
-        result = await tool.execute(
-            input_data="{safe_goal}"{params_str}
-        )
-        
-        if result["status"] == "success":
-            print(f"✓ {tool_name} completed successfully")
-            print(f"Result: {{result['result']}}")
-            return result["result"]
-        else:
-            print(f"✗ {tool_name} failed: {{result.get('message', 'Unknown error')}}")
-            return None
-            
-    except Exception as e:
-        print(f"✗ {tool_name} execution error: {{e}}")
-        return None
-    finally:
-        await tool.cleanup()
+from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key
 
-# Execute the tool
+def main():
+    """Execute Brave search using standardized logic"""
+    
+    # Search parameters
+    query = "{query}"
+    count = {count}
+    country = "{country}"
+    search_type = "{search_type}"
+    
+    print(f"🔍 Brave {{search_type.title()}} Search: {{query}}")
+    
+    # Validate API key first
+    validation = validate_api_key()
+    if not validation["valid"]:
+        print(f"❌ API Error: {{validation['error']}}")
+        return validation
+    
+    # Execute search using logic file function
+    if search_type == "news":
+        result = search_news(query, count, country)
+    elif search_type == "local":
+        result = search_local(query, count, country)
+    else:
+        result = search_web(query, count, country, search_type)
+    
+    # Display results
+    if result.get("error"):
+        print(f"❌ Search Error: {{result['error']}}")
+    else:
+        result_key = "articles" if search_type == "news" else "results"
+        results_count = result.get("count", 0)
+        print(f"✅ Found {{results_count}} results")
+        
+        # Show top 3 results
+        for i, item in enumerate(result.get(result_key, [])[:3], 1):
+            print(f"\n{{i}}. {{item.get('title', 'No title')}}")
+            print(f"   {{item.get('description', 'No description')[:100]}}...")
+            print(f"   {{item.get('url', 'No URL')}}")
+    
+    # Calculate cost
+    cost_params = {{"query": query, "count": count, "search_type": search_type}}
+    cost = estimate_cost(cost_params)
+    print(f"\n💰 Cost: ${{cost:.4f}}")
+    
+    return result
+
 if __name__ == "__main__":
-    result = asyncio.run(execute_{safe_tool_name}_for_goal())
+    result = main()
+    print(f"\n🎯 Search {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
 '''
     
-    return {
-        "snippet": snippet,
-        "tool_name": tool_name,
-        "goal": goal,
-        "parameters": parameters,
-        "estimated_cost": estimate_cost("button_generation", tool=tool_name, goal_length=len(goal))
-    }
+    return snippet
 ```
 
 ## Tool Execution Patterns
@@ -395,71 +342,90 @@ if __name__ == "__main__":
 The system includes comprehensive search tool patterns:
 
 ```python
-# Search tool pattern from Brave Search documentation
-class BraveSearchTool:
-    def __init__(self):
-        self.cache_manager = CacheManager()
-        self.api_key = os.getenv("BRAVE_API_KEY")
-        self.base_url = "https://api.search.brave.com/res/v1/web/search"
-        
-    @handle_errors
-    async def execute_search(self, query: str, search_params: dict = None):
-        """Execute Brave search with caching and error handling"""
-        # Check cache first
-        cache_key = f"brave_search:{hashlib.sha256(query.encode()).hexdigest()}"
-        
-        cached_result = await self.cache_manager.get(cache_key, "search")
-        if cached_result:
-            return {
-                "status": "success",
-                "results": cached_result,
-                "cached": True,
-                "cost": {"tokens": 0, "api_calls": 0}
-            }
-            
-        # Prepare search parameters
-        params = {
-            "q": query,
-            "count": search_params.get("count", 10),
-            "safesearch": search_params.get("safesearch", "moderate"),
-            "freshness": search_params.get("freshness", "")
-        }
-        
-        try:
-            headers = {
-                "Accept": "application/json",
-                "Accept-Encoding": "gzip",
-                "X-Subscription-Token": self.api_key
-            }
-            
-            async with aiohttp.ClientSession() as session:
-                async with session.get(self.base_url, params=params, headers=headers) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        
-                        # Process and structure results
-                        structured_results = self.process_search_results(data)
-                        
-                        # Cache successful results
-                        await self.cache_manager.set(cache_key, structured_results, "search", ttl=3600)
-                        
-                        return {
-                            "status": "success",
-                            "results": structured_results,
-                            "cached": False,
-                            "cost": self.estimate_search_cost(query, len(structured_results))
-                        }
-                    else:
-                        error_data = await response.text()
-                        raise Exception(f"Search API error: {response.status} - {error_data}")
-                        
-        except Exception as e:
-            logger.error(f"Brave search failed: {e}")
-            return {
-                "status": "error",
-                "message": str(e),
-                "cost": {"tokens": 0, "api_calls": 1}
-            }
+# Actual Brave Search implementation from tools/brave_search/brave_search.py
+@handle_errors(operation_name="brave_search", return_dict=True)
+@retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(requests.exceptions.RequestException, APIError))
+def search_web(query: str, count: int = 10, country: str = "US", search_type: str = "web") -> Dict[str, Any]:
+    """Comprehensive web search using Brave Search API with enhanced error handling"""
+    
+    # Validation
+    if not query.strip():
+        return {"error": "Search query cannot be empty"}
+    
+    # Clamp count to valid range
+    count = min(20, max(1, count))
+    
+    # FINGERPRINT CACHING - Check cache first
+    cache = CacheManager()
+    cache_key = f"{query}|{count}|{country}|{search_type}"
+    
+    cached_result = cache.get_cached_analysis(cache_key, "brave_search")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # API Configuration
+    api_key = os.getenv("BRAVE_API_KEY") or os.getenv("X_SUBSCRIPTION_TOKEN")
+    if not api_key:
+        return {"error": "Brave API key not found. Set BRAVE_API_KEY or X_SUBSCRIPTION_TOKEN environment variable"}
+    
+    # Headers configuration
+    headers = {
+        "Accept": "application/json",
+        "Accept-Encoding": "gzip",
+        "X-Subscription-Token": api_key
+    }
+    
+    # Search parameters
+    base_params = {
+        "q": query,
+        "count": count,
+        "country": country,
+        "search_lang": "en",
+        "ui_lang": "en-US",
+        "spellcheck": 1
+    }
+    
+    # Perform search with shared retry logic (handled by decorator)
+    response = requests.get(
+        "https://api.search.brave.com/res/v1/web/search", 
+        headers=headers, 
+        params=base_params,
+        timeout=30
+    )
+    
+    if response.status_code == 429:
+        raise APIError(f"Rate limited by Brave API", "brave_search", 429)
+    elif response.status_code != 200:
+        raise APIError(f"HTTP {response.status_code}: {response.text[:200]}", "brave_search", response.status_code)
+    
+    # Parse and process results
+    data = response.json()
+    results = data.get("web", {}).get("results", [])
+    
+    processed_results = []
+    for i, result in enumerate(results, 1):
+        processed_results.append({
+            "rank": i,
+            "title": result.get("title", "No title"),
+            "url": result.get("url", "No URL"), 
+            "description": result.get("description", "No description")
+        })
+    
+    # Create comprehensive result data
+    search_results = {
+        "status": "success",
+        "query": query,
+        "search_type": search_type,
+        "timestamp": datetime.now().isoformat(),
+        "count": len(processed_results),
+        "country": country,
+        "results": processed_results
+    }
+    
+    # FINGERPRINT CACHING - Cache successful results
+    cache.cache_content_analysis(cache_key, json.dumps(search_results), "brave_search")
+    
+    return search_results
             
     def process_search_results(self, raw_data: dict):
         """Process raw search results into structured format"""
@@ -494,61 +460,51 @@ class BraveSearchTool:
 Advanced content creation tools with AI integration:
 
 ```python
-# Content creation pattern from DALL-E documentation
-class DalleImageGenerator:
-    def __init__(self):
-        self.cache_manager = CacheManager()
-        self.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        
-    @handle_errors
-    async def generate_image(self, prompt: str, generation_params: dict = None):
-        """Generate images with DALL-E integration"""
-        # Parameter processing
-        params = {
-            "model": generation_params.get("model", "dall-e-3"),
-            "size": generation_params.get("size", "1024x1024"),
-            "quality": generation_params.get("quality", "standard"),
-            "style": generation_params.get("style", "vivid"),
-            "n": generation_params.get("count", 1)
-        }
-        
-        # Prompt enhancement
-        enhanced_prompt = await self.enhance_prompt(prompt, generation_params)
-        
-        try:
-            # Cost estimation before generation
-            estimated_cost = self.estimate_generation_cost(enhanced_prompt, params)
-            
-            # Generate image
-            response = await self.openai_client.images.generate(
-                prompt=enhanced_prompt,
-                **params
-            )
-            
-            # Process and save results
-            generated_images = []
-            for idx, image_data in enumerate(response.data):
-                image_info = await self.process_generated_image(
-                    image_data, prompt, idx, params
-                )
-                generated_images.append(image_info)
-                
-            return {
-                "status": "success",
-                "images": generated_images,
-                "original_prompt": prompt,
-                "enhanced_prompt": enhanced_prompt,
-                "generation_params": params,
-                "cost": estimated_cost
-            }
-            
-        except Exception as e:
-            logger.error(f"Image generation failed: {e}")
-            return {
-                "status": "error",
-                "message": str(e),
-                "cost": estimated_cost
-            }
+# Actual DALL-E implementation pattern - TO BE IMPLEMENTED
+def generate_image_with_dalle(prompt: str, generation_params: dict = None) -> Dict[str, Any]:
+    """
+    DALL-E image generation implementation
+    
+    Note: This represents the planned DALL-E integration pattern.
+    The actual implementation would follow the same structure as other tools
+    with proper error handling, caching, and cost estimation.
+    """
+    
+    # Current MAO pattern would include:
+    # 1. Input validation
+    # 2. Cache checking
+    # 3. API key validation
+    # 4. Request execution with retry logic
+    # 5. Result processing
+    # 6. Cache storage
+    
+    return {
+        "status": "not_implemented",
+        "message": "DALL-E integration follows planned architecture but not yet implemented",
+        "planned_features": [
+            "Prompt enhancement and validation",
+            "Multiple image size and quality options",
+            "Cost estimation and tracking",
+            "Result caching and fingerprinting",
+            "Error handling with retry logic"
+        ]
+    }
+
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Estimate cost for image generation"""
+    # DALL-E pricing would be based on model and size
+    base_cost = 0.02  # Approximate cost per image
+    
+    model = params.get("model", "dall-e-3")
+    size = params.get("size", "1024x1024")
+    count = params.get("count", 1)
+    
+    # Adjust cost based on parameters
+    if model == "dall-e-3":
+        base_cost = 0.04 if size == "1024x1024" else 0.08
+    
+    return base_cost * count
+```
             
     async def enhance_prompt(self, base_prompt: str, params: dict = None):
         """Enhance prompt for better image generation"""
@@ -582,79 +538,80 @@ class DalleImageGenerator:
 The system tracks tool performance for optimization:
 
 ```python
-# Tool performance monitoring
-class ToolPerformanceMonitor:
-    def __init__(self):
-        self.performance_data = {}
-        self.cache_manager = CacheManager()
+# Actual tool performance monitoring from manager_tools.py
+@handle_errors
+def execute_tool_with_analytics(self, tool_name: str, username: str, session_id: str = None) -> Dict[str, Any]:
+    """Execute tool with analytics tracking"""
+    start_time = time.time()
+    success = False
+    error_type = None
+    
+    try:
+        # Track tool execution start
+        if session_id:
+            self.user_analytics_manager.track_session(username, session_id, "update_tool_activations")
         
-    async def record_tool_execution(self, tool_name: str, execution_data: dict):
-        """Record tool execution metrics for performance analysis"""
-        timestamp = time.time()
+        # Execute tool (placeholder - would call actual tool execution)
+        result = {
+            "success": True,
+            "tool": tool_name,
+            "output": f"Tool {tool_name} executed successfully",
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        success = True
         
-        execution_record = {
-            "tool_name": tool_name,
-            "timestamp": timestamp,
-            "duration_ms": execution_data.get("duration_ms", 0),
-            "status": execution_data.get("status", "unknown"),
-            "cost": execution_data.get("cost", {}),
-            "cache_hit": execution_data.get("cached", False),
-            "input_size": execution_data.get("input_size", 0),
-            "output_size": execution_data.get("output_size", 0)
+    except Exception as e:
+        error_type = type(e).__name__
+        result = {
+            "success": False,
+            "tool": tool_name,
+            "error": str(e),
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
         
-        # Store in performance data
-        if tool_name not in self.performance_data:
-            self.performance_data[tool_name] = []
+    finally:
+        # Calculate response time
+        response_time = time.time() - start_time
+        
+        # Track analytics (failures don't break main functionality)
+        try:
+            # Track user analytics
+            self.user_analytics_manager.track_tool_usage(
+                username, tool_name, success, response_time
+            )
             
-        self.performance_data[tool_name].append(execution_record)
-        
-        # Maintain rolling window (last 1000 executions)
-        if len(self.performance_data[tool_name]) > 1000:
-            self.performance_data[tool_name] = self.performance_data[tool_name][-1000:]
+            # Track system analytics
+            self.system_analytics_manager.track_performance(
+                tool_name, response_time, success, error_type
+            )
             
-        # Cache performance summary
-        await self.update_performance_summary(tool_name)
+        except Exception as analytics_error:
+            # Analytics failures should not break tool execution
+            pass
+    
+    return result
         
-    async def get_tool_performance_summary(self, tool_name: str, days: int = 7):
-        """Generate comprehensive performance summary for tool"""
-        cutoff_time = time.time() - (days * 24 * 3600)
+@handle_errors
+def get_tool_usage_analytics(self, username: str) -> Dict[str, Any]:
+    """Get tool usage analytics for user"""
+    try:
+        return self.user_analytics_manager._read_analytics_file(username, "tool_usage.json")
+    except Exception as e:
+        return {}
+
+@handle_errors
+def track_tool_discovery(self, username: str, discovered_tools: Dict[str, Any]) -> bool:
+    """Track tool discovery for analytics"""
+    try:
+        # Auto-add newly discovered tools to analytics
+        for tool_name in discovered_tools.keys():
+            self.user_analytics_manager.auto_add_component(username, "tool", tool_name)
         
-        tool_data = self.performance_data.get(tool_name, [])
-        recent_data = [record for record in tool_data if record["timestamp"] > cutoff_time]
+        return True
         
-        if not recent_data:
-            return {"tool_name": tool_name, "message": "No recent performance data"}
-            
-        # Calculate metrics
-        total_executions = len(recent_data)
-        successful_executions = len([r for r in recent_data if r["status"] == "success"])
-        failed_executions = total_executions - successful_executions
-        
-        durations = [r["duration_ms"] for r in recent_data if r["duration_ms"] > 0]
-        cache_hits = len([r for r in recent_data if r["cache_hit"]])
-        
-        summary = {
-            "tool_name": tool_name,
-            "time_period_days": days,
-            "execution_metrics": {
-                "total_executions": total_executions,
-                "successful_executions": successful_executions,
-                "failed_executions": failed_executions,
-                "success_rate": successful_executions / total_executions if total_executions > 0 else 0,
-                "cache_hit_rate": cache_hits / total_executions if total_executions > 0 else 0
-            },
-            "performance_metrics": {
-                "avg_duration_ms": sum(durations) / len(durations) if durations else 0,
-                "min_duration_ms": min(durations) if durations else 0,
-                "max_duration_ms": max(durations) if durations else 0,
-                "p95_duration_ms": self.calculate_percentile(durations, 95) if durations else 0
-            },
-            "cost_metrics": self.calculate_cost_metrics(recent_data),
-            "recommendations": await self.generate_performance_recommendations(tool_name, recent_data)
-        }
-        
-        return summary
+    except Exception as e:
+        # Analytics failures should not break discovery
+        return False
 ```
 
 ## Integration Guidelines
@@ -663,37 +620,46 @@ class ToolPerformanceMonitor:
 
 To integrate a new tool into the MAO system:
 
-1. **Create Tool Directory Structure**
+1. **Create Tool Directory Structure** (6-file architecture)
    ```
    tools/new_tool/
-   ├── logic.py              # Core implementation with ToolTemplate
-   ├── button_new_tool.py    # Button generation
+   ├── new_tool.py           # Core implementation with error handling
+   ├── button_new_tool.py    # Button generation with create_button_snippet()
    ├── ui_new_tool.py        # UI integration
-   └── new_tool.json         # Configuration
+   ├── tool_new_tool.json    # Configuration metadata
+   └── (optional files)      # Additional support files
    ```
 
-2. **Implement Required Interfaces**
-   - Extend ToolTemplate base class
-   - Implement `execute()` method with error handling
-   - Add `estimate_cost()` function
-   - Include cache manager integration
+2. **Implement Required Functions**
+   - Main function with `@handle_errors` and `@retry_with_backoff` decorators
+   - `estimate_cost(params: Dict[str, Any]) -> float` function
+   - Proper cache integration using `CacheManager()`
+   - Input validation and error handling
 
-3. **Tool Configuration**
+3. **Tool Configuration** (tool_new_tool.json)
    ```json
    {
      "name": "new_tool",
-     "version": "1.0.0",
      "description": "Tool description",
      "capabilities": ["capability1", "capability2"],
-     "requirements": ["dependency1"],
-     "cost_model": "standard"
+     "cost_estimate": 0.001,
+     "supported_models": ["claude-sonnet-4"]
    }
    ```
 
-4. **Automatic Integration**
-   - The tool manager will automatically discover the new tool
-   - Dynamic discovery will include it in suggestions
-   - Performance monitoring will track its usage
+4. **Button Generator Implementation**
+   ```python
+   def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+       # Generate executable code snippet that imports from new_tool.py
+       # Include parameter handling and result display
+       # Return self-contained Python code
+   ```
+
+5. **Automatic Integration**
+   - ToolManager discovers via `_discover_local_tools()`
+   - Validates 6-file structure with `_validate_tool_structure()`
+   - Includes in goal-based suggestions automatically
+   - Analytics tracking included via `execute_tool_with_analytics()`
 
 ## Conclusion
 

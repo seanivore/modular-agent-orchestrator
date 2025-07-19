@@ -229,6 +229,9 @@ class MAOInterface {
         };
     }
 }
+
+// Note: This represents planned Node.js integration functionality.
+// Current implementation is Python-only terminal interface.
 ```
 
 ## CLI Command Patterns
