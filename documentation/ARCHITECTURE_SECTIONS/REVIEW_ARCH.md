@@ -124,7 +124,7 @@ It is essential that, **not just for each of these errors,** but for all of the 
 - Every single instance of code snippets in the document must be verified
 - Verification must happen directly against document files that current exist in codebase
 
-**One File At a Time** 
+**One File At a Time Through Both Subagents And Yourself** 
 
 1. The "sequential thinking" MCP is active now 
    - I highly recommend all agents and you use it 
@@ -138,6 +138,8 @@ It is essential that, **not just for each of these errors,** but for all of the 
    - Specifically instruct the FEEDBACK_REVIEW_SUBAGENT to 'Review for accuracy' and 'Compage directly to actual codebase files'
    - The FEEDBACK_REVIEW_SUBAGENT should record any errors separately 
    - They should note the line number and exact code snippet that is incorrect, providing a clear recommended fix 
+   - They should save this new document by using the same name as the file, but with `_FEEDBACK.md` added to the end of the filename. 
+   - The document can be saved in the same directory as the original file.  
 
 *Code Verification Checklist for Review Agent* 
   - All classes/functions exist in actual codebase
@@ -160,7 +162,7 @@ It is essential that, **not just for each of these errors,** but for all of the 
 
   **This flow ensures that one subagent is not overwriting mistakes on top of quality work**
 
-3. When complete, the the document and the review should be sent back to you for final review 
+1. When complete, the the document and the review should be sent back to you for final review 
   - If there are errors found by FEEDBACK_REVIEW_SUBAGENT, review them first 
   - Implement any errors that are accurately identified 
 
