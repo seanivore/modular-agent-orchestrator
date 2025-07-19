@@ -1,3 +1,13 @@
+## 🚨 CRITICAL: Architecture Principles 🚨
+
+**READ FIRST:** Mao is a **LOCAL ONLY APPLICATION** that runs entirely on the user's machine.
+**See `/ARCHITECTURE_PRINCIPLES.md` for complete details.**
+
+**KEY PRINCIPLE:** 
+- ❌ **Mao does NOT provide APIs** (no web server, no endpoints for external clients)
+- ✅ **Mao CONSUMES APIs** (calls OpenAI, Anthropic, search services, etc.)
+- ✅ **Like Claude Code** (local terminal app that calls external services)
+
 ## Development Guidelines
 
 - Always use CacheManager, @handle_errors, and estimate_cost() in MAO files
