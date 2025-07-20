@@ -384,7 +384,6 @@ mao --setup ./config.json
 | Resume last workflow   | `mao --continue`               | `/continue`                   |
 | First message to AI    | `mao --chat message`           | `/chat message`               |
 | Create entire workflow | `mao --goal project goal`      | `/goal project goal`          |
-| System Statistics      | `mao --stats`                  | `/stats`                      |
 | List Workflows         | `mao --workflows`              | `/workflows`                  |
 | Review Workflow        | `mao --review custom command`  | `/review custom command`      |
 | Setup from JSON        | `mao --setup ./config.json`    | `/setup ./config.json`        |
