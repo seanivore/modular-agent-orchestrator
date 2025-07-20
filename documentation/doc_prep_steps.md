@@ -1,52 +1,98 @@
-Find updates at Mao-v4 Documentation Batch Groupings in the Memory MCP. 
+# Documentation Next Steps 
 
-Entire codebase is added to Project Knowledge. 
+- We have written docs, some that need to be integrated a bit, I'll point those out, but I have gone through all of the main documentation you wrote and reviewed and made things a bit more concise. 
 
-My desperate and slowly fading attempts at fixing documentation: 
+---
 
-documentation/doc_prep_guide.md 
+## GROUP 1: Add Code Architecture 
 
-I think you'll want to have a good think and look it over to help me make a POA. There are a lot of resources so I think they'll have to be taken in phases. Here are my thoughts. 
+- Start with these files. I have fully reviewed and cleaned up the written parts so just add code architecture. Small edits are okay but anything larger please do in a way that I can review and approve. 
 
-Phase 1: 
+- `./documentation/03_USER_FLOW.md`
+- `./documentation/04_INTERFACE.md`
+- `./documentation/05_ORCHESTRATION.md`
 
-Start by focusing on the text only. Tell the story and use 03_USER_FLOW.md as inspiration and a guide. Be comprehensive. Do not use m-dashes, emojis, and this should be primarily sentence form. The Anthropic docs are 60-80% text, but only 10-30% bullet points. Note that the way AI writes bullet points is TOO PERFECT to the point of them not being very helpful to read through as a human -- you all always make them exactly the same length, like 3 words, and it looks pretty but isn't helpful that way. Also if you did look at the Anthropic docs you'd see that they don't use bullet points like that either, they use it as a way to group information, not tell a story as LLMs seem to. PLEASE REMEMBER THESE GUIDELINES. Also do not directly delete my writing -- just indicate how you'd like to edit things, please. Hopefully my writing will give you a good head start on this phase. 
+---
 
-Phase 1 Flow -- 
+## GROUP 2: Combine Code Architecture With Written Parts
 
-Look to #2 for help here, and also #11. First I'd recommend deciding on the number of and name of files -- when changing that note that they all have contents pasted in them to be condensed and made into documentation info. 
+### 1. For 06_ANALYTICS_MEMORY.md
 
-Then #1 here. Which I think should be the next step, going in the order listed in the prep guide by starting with 03_USER_FLOW.md and the other few "main architecture" files. 
+- I have reviewed all the text from your version here. 
 
-Then #3 here. Then the ending files to wrap up loose ends. 
+- `./documentation/06_ANALYTICS_MEMORY.md`
 
-Then #4 here. Only after that would I say it is time to write the first three. I'm not even sure we'll really have those perfected until the very end. 
+- I'd like you to please pull over the formatted information, some of which is code architecture from the version below, placing it in the version above. Leave spaces for more code architecture if it is still missing
 
-Once those are cleaned up I'd like to review. 
+- `./documentation/06_ANALYTICS_MEMORY_ADD_TO_DOC.md`
 
-Phase 2: 
+- And I found this file that should be helpful. 
 
-After we have written docs with spaces for code architecture, I would recommend only going through these batch by batch. Taking the code you find and other helpful info, and placing it into the documentation. 
+- `./versioning/v4/v4_1_0/IMPL_ROBUST_ANALYTICS/DATA_COLLECTION_ARCHITECTURE.md`
 
-Look to #6 and #8 first -- they should be the most helpful. 
+### 2. For 07_AUTOMATE_BUSINESS.md
 
-Scan through #9 -- I saw a dependency matrix and a UI integration map for sure but probably other gems. 
+- I have reviewed all the text from your version here. 
 
-Scan through #10 -- make sure we have all that these implementation required included. 
+- `./documentation/07_AUTOMATE_BUSINESS.md`
 
-All that remains is #7 -- details for every single page. I'm not sure how to handle these but I sort of think it might be worth going through them by group for sure. 
+- I'd like you to please pull over the formatted information, some of which is code architecture from the version below, placing it in the version above. Leave spaces for more code architecture if it is still missing
 
-With those resources you should be able to find and integrate a lot of code snippets and architecture section into the cleaned up written part. 
+- `./documentation/07_AUTOMATE_BUSINESS_ADD_TO_DOC.md` 
 
-Obviously a good point for me to review again. 
+- The groups of actual ideas would be great too. 
 
-Phase 3: 
+- `./versioning/v4/v4_0_0/_SELF_ENHANCMENT.md`
 
-I think then we just need to decide if anything is missing. 
+- I needed to take a break from the very detailed implementation details for the tigger workflows. But hopefully you can get a good idea of what to add to the documentation for this section. 
 
-Also revisit #3 and #4. 
+- `./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/TRIGGER_WORKFLOWS.md`
 
-Then we need to focus on visual aids. I have the following from my list of intriguing  visuals. 
+---
+
+## GROUP 3: Add Code Architecture, Combine, And Add New MUST_UPDATE Details
+
+- These I didn't get to review the text for yet. They feel a little dry though. When you pull over the information in the above files, you can see how I was doing more formatting than originally planned. Bullets are still okay just not 20 of them all with 3 words each and 5 groups of them 🙃
+
+- `./documentation/08_FUTURE_THINKING_2.md`
+- `./documentation/08_FUTURE_THINKING.md`
+
+- However, I did go through the next update details and cleaned up that directory so hopefully pulling from this will help and be more concrete as to what is actually planned. 
+
+- `./versioning/v4/v4_1_0/IMPL_MUST_UPDATES/MUST_UPDATES.md`
+
+---
+
+## GROUP 4: Fix Wording Of UI Information 
+
+- We had CC create the typescript/node.js so that we could put it in the documents. We also have PAGES of information, principles, design semantics. And like for reals, this entire process I have been trying to make us have the documentation BEFORE implementation. Now we do. And it finally doesn't feel like we're doing things backwards. So please change up the wording to reflect that this UI is our app, currently. We won't be sharing things until we have a working app anyway. 
+
+- `./documentation/04_INTERFACE.md` 
+
+- Check out these files. 
+
+- `./ARCHITECTURE_PRINCIPLES.md` just created during our last CC session 
+
+- `./tests/FULL_CODEBASE_AUDIT/02_UI_INTEGRATION_MAP.md` was created during the audit for us to add to documentation. 
+
+- And then there were just created by CC to include in the documentation. 
+
+- `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS/ARCH_05_User_Interface_Patterns.md`
+
+- And then they prepared the TypeScript/Node.js information that we can integrate when we start the UI. 
+
+- `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/UI_TYPESCRIPT_INTEGRATION.md`
+
+- And then all of these -- we should be able to have this be a very robust section. 
+
+- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/_DESIGN_RULES.md`
+- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/_VISUAL_BRAND_IDENTITY.md`
+- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/TERMINAL_UI_RULES.md`
+- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/UI_TECH_ARCHITECTURE.md`
+
+---
+
+## GROUP 5: Visuals 
 
 - Tool architecture diagrams
 - Extension ecosystem map
@@ -61,9 +107,3 @@ Then we need to focus on visual aids. I have the following from my list of intri
 - Cross-session state management showing memory state persistence flow
 - Tool integration data exchange flow chart showing how 'button snippets' are created and used
 - Flow chart showing analytics trigger points and data flow 
-
-Phase 4: 
-
-Lastly I'm curious about ways to check things. Might we be able to create a script that checks if the code snippets (particularly from CC) in the doc are the same as in the codebase? And then any other scripts that would help us review them? 
-
-Publish. I have a directory set up to publish already but the Jekyll theme needs adjusting before we can share and celebrate. 

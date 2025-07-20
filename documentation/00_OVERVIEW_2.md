@@ -16,7 +16,7 @@ This isn't another AI assistant. This is AI that functions as a senior employee,
 
 **Start Here:** [Self-Evolving AI Revolution](01_EVOLVING_AI.md) - Understand the paradigm shift and proven 20-40x productivity improvements
 
-**Then Explore:** [Automate Business Operations](07_AUTOMATE_BUSINESS.md) - Timer-triggered workflows that transform business functions into autonomous intelligence
+**Then Explore:** [Automate Business Operations](07_AUTOMATE_BUSINESS_ADD_TO_DOC.md) - Timer-triggered workflows that transform business functions into autonomous intelligence
 
 **Strategic Vision:** [Mao's 10-Year Plan](09_FUTURE_THINKING.md) - The $100 billion market opportunity and platform economy evolution
 
@@ -122,7 +122,7 @@ Each section builds upon previous understanding while remaining accessible as st
 
 **Immediate Productivity:** Jump to [Reference Materials](02_REFERENCE.md) for commands and quick starts
 
-**Business Case:** Start with [Self-Evolving AI](01_EVOLVING_AI.md) and [Business Automation](07_AUTOMATE_BUSINESS.md)
+**Business Case:** Start with [Self-Evolving AI](01_EVOLVING_AI.md) and [Business Automation](07_AUTOMATE_BUSINESS_ADD_TO_DOC.md)
 
 **Technical Understanding:** Focus on [User Flow](03_USER_FLOW.md), [Orchestration](05_ORCHESTRATION.md), and [Interface](04_INTERFACE.md)
 
@@ -136,7 +136,7 @@ Each section builds upon previous understanding while remaining accessible as st
 1. Read the [Self-Evolving AI](01_EVOLVING_AI.md) introduction to understand the paradigm shift
 2. Review [Essential Commands](02_REFERENCE.md) for immediate capability
 3. Follow the [User Flow Guide](03_USER_FLOW.md) for your first workflow
-4. Explore [Business Automation](07_AUTOMATE_BUSINESS.md) for advanced possibilities
+4. Explore [Business Automation](07_AUTOMATE_BUSINESS_ADD_TO_DOC.md) for advanced possibilities
 
 ### Technical Implementers  
 1. Understand the [User Flow](03_USER_FLOW.md) foundation and workflow concepts
@@ -146,7 +146,7 @@ Each section builds upon previous understanding while remaining accessible as st
 
 ### Business Decision Makers
 1. Start with [Self-Evolving AI](01_EVOLVING_AI.md) for the revolutionary business case
-2. Examine [Business Automation](07_AUTOMATE_BUSINESS.md) for ROI and competitive advantage
+2. Examine [Business Automation](07_AUTOMATE_BUSINESS_ADD_TO_DOC.md) for ROI and competitive advantage
 3. Consider [Future Platform Evolution](09_FUTURE_THINKING.md) for strategic planning
 4. Use [Reference Materials](02_REFERENCE.md) for implementation timeline assessment
 
