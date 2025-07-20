@@ -1,38 +1,34 @@
 # Documentation Next Steps 
 
-- First please check the Memory MCP updates by searching exact term "Mao Documentation Reorganization Project" to get on the same page. 
+- First please check the Memory MCP updates by searching exact term "Mao Documentation Reorganization Project" to get on the same page. However, while there might be some helpful information in the MCP regarding resources to find code architecture for the documentation, please otherwise use this document as the guide.  
 
-- We have written docs, some that need to be integrated a bit, I'll point those out, but I have gone through all of the main documentation you wrote and reviewed and made things a bit more concise. 
-
----
-
-## GROUP 1: Add Code Architecture 
-
-- Start with these files. I have fully reviewed and cleaned up the written parts so just add code architecture. Small edits are okay but anything larger please do in a way that I can review and approve. 
-
-- `./documentation/03_USER_FLOW.md`
-- `./documentation/04_INTERFACE.md`
-- `./documentation/05_ORCHESTRATION.md`
+- We have written docs and I have reviewed and made things a bit more concise. 
+- You have added code architecture to documentation and I've reviewed and cleaned up the document to completion! 
+- However, we did get into a bit of a mess, somehow pulling up very wrong code architecture for the documentation that came from Claude Code's version. 
 
 ---
 
-## GROUP 2: Combine Code Architecture With Written Parts
+**COMPLETED**
+- `./documentation/04_INTERFACE.md` 
+  - This is great!
+  - It helps that much of the code we still need to implement as it is for the UI 
+  - However there are also current files referenced so we need to make sure the code detailed lives in those files for real 
+  - There was a bunch of extra stuff at the bottom, I think maybe just from audits and reviews, and I removed it all. 
+  - And so I'm happy with this file. 
 
-### 1. For 06_ANALYTICS_MEMORY.md
+**COMPLETED, with comments/FYIs** 
+- `./documentation/06_ANALYTICS_MEMORY.md` 
+  - This is pretty good too 
+  - I'm not sure where most of the second half of the details came from, Re: "The second half of the analytics documentation is fascinating but when I searched for any of the classes, many didn't exist. Like "PrivacyController" at line 636 and "UserDataController" line 695 and "CollectiveIntelligenceContributor" line 783... basically if they didn't have a file name to put under the h2 heading then I'm assuming it is not implemented. Hmm not true for them all... "AdaptiveRecommendationEngine" doesn't exist and it had a reference file" 
+  - We should assess what is recommended and see if it isn't too challenging to implement because it all seems well thought out and like good ideas. 
+  - *We don't need to do this until we finish the other docs* 
 
-- I have reviewed all the text from your version here. 
 
-- `./documentation/06_ANALYTICS_MEMORY.md`
+---
 
-- I'd like you to please pull over the formatted information, some of which is code architecture from the version below, placing it in the version above. Leave spaces for more code architecture if it is still missing
+### GROUP 1: 07_AUTOMATE_BUSINESS.md
 
-- `./documentation/06_ANALYTICS_MEMORY_ADD_TO_DOC.md`
-
-- And I found this file that should be helpful. 
-
-- `./versioning/v4/v4_1_0/IMPL_ROBUST_ANALYTICS/DATA_COLLECTION_ARCHITECTURE.md`
-
-### 2. For 07_AUTOMATE_BUSINESS.md
+Below are the original instructions. However I had to remove most of the document because it was from Claude Code and for some reason they decided that all of the self improvement workflow ideas would be not modular workflows -- they all have hardcoded information like "class FoundationIntelligenceSystem" and "class OperationsExcellenceSystem" all the way through to the end of that "90-Day Business Enhancement Roadmap" section. Honestly, I don't know that we need to do a 90-day business enhancement roadmap narrative given our audiences. I do like the idea of showing workflows for the ideas in that section, but they would all need to be recreated to be completely modular. I see that my start of the implementation details for the trigger workflows is a good start and added, but it didn't seem to connect through that the workflow examples would be created as defined in that information ... which is basically the exact same JSONs that we use already for workflows but with new setup scripts and an additional JSON for a calendar. I like that the calendar script was added. And I like that the CLI tool timer was detailed as well. You can see all that I removed here: `./documentation/07_AUTOMATE_BUSINESS_HARDCODED.md` -- seriously this mess was Claude Code's second or third attempt at documentation and the just straight up suck at it. They asked to be done about 10 times because they had to do thigns "the old fashioned way" by reading actual codebase files and copying over the code architecture. And yet they still got some of it wrong. So PLEASE review what you include in these documents from now on because even just seeing that after writing it all out it should ahve clicked that it doesn't ake any sense. I also provided this document to copy over and I think this kind of idea structure will be more useful for our audience: `./documentation/07_AUTOMATE_BUSINESS_ADD_TO_DOC.md` -- and so basically, we just need to do this again, properly this time. 
 
 - I have reviewed all the text from your version here. 
 
@@ -52,7 +48,15 @@
 
 ---
 
-## GROUP 3: Add Code Architecture, Combine, And Add New MUST_UPDATE Details
+## GROUP 2: 08_FUTURE_THINKING.md
+
+Right off the bat on this document there is a made up bit as well. Since this is the future that might be okay but we need to make sure we are abiding by all of our principles and standardization rules. Re: "# orchestrator/data_aggregation_manager.py class DataAggregationManager:" 
+
+**OUR AUDIT GUIDE; PLEASE REVIEW AND THEN AFTER CREATING EACH DOCUMENT, PLEASE REVIEW IT FOR EVERYTHING ON HERE: `./versioning/v4/v4_0_0/_RULES_FILE_AUDIT_GUIDE.md`** 
+
+However it also seems like most of what we can put in here is form the MUST UPDATES doc that I mentioned having cleaned up and organized before the last session. It is linked below. 
+
+Anyway while we did "do" this one, it doesn't have any code architecture. Perhaps it doesn't need any? But it seems like we should be sketching out at least some ideas, particularly from my list on the must update doc. 
 
 - These I didn't get to review the text for yet. They feel a little dry though. When you pull over the information in the above files, you can see how I was doing more formatting than originally planned. Bullets are still okay just not 20 of them all with 3 words each and 5 groups of them 🙃
 
@@ -65,36 +69,17 @@
 
 ---
 
-## GROUP 4: Fix Wording Of UI Information 
+## GROUP 3: Add Code Architecture 
 
-- We had CC create the typescript/node.js so that we could put it in the documents. We also have PAGES of information, principles, design semantics. And like for reals, this entire process I have been trying to make us have the documentation BEFORE implementation. Now we do. And it finally doesn't feel like we're doing things backwards. So please change up the wording to reflect that this UI is our app, currently. We won't be sharing things until we have a working app anyway. 
+- Then we have these files that remain. For user flow I have fully reviewed and cleaned up the written parts so just add code architecture. Small edits are okay but anything larger please do in a way that I can review and approve. The orchestrator i have gone through and made the writing more concise. 
 
-- `./documentation/04_INTERFACE.md` 
+- `./documentation/03_USER_FLOW.md`
+- `./documentation/05_ORCHESTRATION.md`
 
-- Check out these files. 
-
-- `./ARCHITECTURE_PRINCIPLES.md` just created during our last CC session 
-
-- `./tests/FULL_CODEBASE_AUDIT/02_UI_INTEGRATION_MAP.md` was created during the audit for us to add to documentation. 
-
-- And then there were just created by CC to include in the documentation. 
-
-- `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS/ARCH_05_User_Interface_Patterns.md`
-
-- And then they prepared the TypeScript/Node.js information that we can integrate when we start the UI. 
-
-- `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/UI_TYPESCRIPT_INTEGRATION.md`
-
-- And then all of these -- we should be able to have this be a very robust section. 
-
-- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/_DESIGN_RULES.md`
-- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/_VISUAL_BRAND_IDENTITY.md`
-- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/TERMINAL_UI_RULES.md`
-- `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/UI_TECH_ARCHITECTURE.md`
-
+- There are three other documents to do but they are very intro and overview so I didn't review them yet. We'd be better off spending time on the visuals after group 3. 
 ---
 
-## GROUP 5: Visuals 
+## GROUP 4: Visuals 
 
 - Tool architecture diagrams
 - Extension ecosystem map
