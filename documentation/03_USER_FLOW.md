@@ -1,5 +1,4 @@
 # Section III: Setting Up a Project for Mao 
-Remember: Mao v4.0.0 is released for use in your computer's terminal. 
 *User guide from start to finish; with tactfully placed architecture & analytics trigger points* 
 
 ---
@@ -160,8 +159,7 @@ mao --config   # Launch the app to open on the config screen
 - Changing any settings below will automatically update your settings in the `configs/users/user_username/` directory settings file 
 - The 'Description' is only displayed when the user's selector `❯` is on the setting 
 - 'Description' shows the meaning of the selected setting, place the selector on other options for hover display to show their meanings 
-- Selecting a setting will allow the user to toggle between the other options, usually by opening a modal
-- Models in this app are not standard web modals, the term merely means that options to toggle will be presented, typically without a container 
+- Selecting a setting will allow the user to toggle between the other options, usually by opening a toggle button
 
 | **SETTING**       | **DEFAULT**         | **DESCRIPTION**                                      |
 | ----------------- | ------------------- | ---------------------------------------------------- |
@@ -202,14 +200,14 @@ mao --config   # Launch the app to open on the config screen
 
 ### Double-texting 
 
-1. `always` - Interrupt Mao like any messenger experience 
-2. `never` - One reply at a time for each party  
+  1. `always` - Interrupt Mao like any messenger experience 
+  2. `never` - One reply at a time for each party  
 
 ### Tone Notification 
 
-1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
-2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
-3. `no notifications` - No tone is played, no push notification 
+  1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
+  2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
+  3. `no notifications` - No tone is played, no push notification 
 
 ## Application Settings Are **MODULAR** Magic 
 

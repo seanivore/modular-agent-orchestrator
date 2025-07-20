@@ -35,7 +35,7 @@ Mao modular agent orchestration let's you plug-and-play the newest models or too
   * [Section VII: Mao Does The Business Automation For You](documentation/07_AUTOMATE_BUSINESS.md)
     - With triggered workflows, Mao can automate just about all digital business tasks 
     - Not sure what you need? Mao will analyze business data and create workflows on their own 
-  * [Section VIII: Conceptual Semantic Visual Identity](documentation/08_VISUAL_IDENTITY.md)
+  * [Section VIII: Conceptual Semantic Visual Identity](documentation/04_INTERFACE.md)
     - Mao's visual identity is designed to be easy on the eyes and cognitive load 
     - Word and concept grouping by color, icons, and white space are the only design elements 
   * [Section IX: Mao's 10-Year Plan](documentation/09_FUTURE_THINKING.md)

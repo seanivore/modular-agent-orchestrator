@@ -4,6 +4,12 @@
 
 The MAO core system implements sophisticated orchestration patterns that coordinate multiple AI agents, manage complex workflow states, and optimize performance through intelligent caching. These patterns form the foundation for reliable, scalable AI orchestration while maintaining the LOCAL-only architecture principles.
 
+The core of Mao is their orchestration files. This is where data from all the places: configurations, memory, analytics, UI, chat, etc. all come together to be processed by a sophisticated collection of files. 
+
+
+
+ process and then output the appropriate coordination of agents, complex workflows, UI messaging, chat responses, 
+
 ## Orchestration Architecture Patterns
 
 ### Agent Orchestrator Core
