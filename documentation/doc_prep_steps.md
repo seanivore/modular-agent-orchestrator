@@ -8,6 +8,17 @@
 
 ---
 
+I've been keeping a list of things I think of that I haven't seen in the doccumentation yet. Here it is for now: 
+
+Types of workflows that Mao can do
+Parallel tool use
+Parallel agents 
+Basically we could get as complex as we do in Claude Code except no human needs to think all that out and write that workflow custom command document. 
+Buttons? 
+
+
+---
+
 **COMPLETED**
 - `./documentation/04_INTERFACE.md` 
   - This is great!
