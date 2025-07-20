@@ -29,7 +29,7 @@ Mao modular agent orchestration let's you plug-and-play the newest models or too
   * [Section V: Enhancing the Average Agentic Experience](documentation/06_ENHANCEMENTS.md)
     - This is why Mao is cheaper than any AI tool you've ever used
     - Compatability with any model is simple because Mao creates "Human Buttons" for Agents 
-  * [Section VI: Memory-Enhanced Contextual Analytics](documentation/06_ANALYTICS_MEMORY.md)
+  * [Section VI: Memory-Enhanced Contextual Analytics](documentation/06_ANALYTICS_MEMORY_ADD_TO_DOC.md)
     - The memory system for you to add things you need Mao to know 
     - Is the same memory system that Mao will use on their own to improve your experience 
   * [Section VII: Mao Does The Business Automation For You](documentation/07_AUTOMATE_BUSINESS.md)

@@ -42,14 +42,14 @@ This isn't another AI assistant. This is AI that functions as a senior employee,
 
 **Essential Commands:** [Reference Materials](02_REFERENCE.md) - Everything you need for immediate productivity
 
-**Power User Features:** [Analytics & Memory](06_ANALYTICS_MEMORY.md) - How Mao learns and improves your experience
+**Power User Features:** [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) - How Mao learns and improves your experience
 
 ### 🔧 For System Administrators: The Operations Perspective
 *"Show me deployment, management, and enterprise features"*
 
 **System Architecture:** [Orchestration Core](05_ORCHESTRATION.md) - Central processing, state management, and coordination
 
-**Data Management:** [Analytics & Memory](06_ANALYTICS_MEMORY.md) - Privacy-first analytics and intelligent memory systems
+**Data Management:** [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) - Privacy-first analytics and intelligent memory systems
 
 **Interface Systems:** [Data Input Channels](04_INTERFACE.md) - Multi-channel integration and communication bridges
 
@@ -126,7 +126,7 @@ Each section builds upon previous understanding while remaining accessible as st
 
 **Technical Understanding:** Focus on [User Flow](03_USER_FLOW.md), [Orchestration](05_ORCHESTRATION.md), and [Interface](04_INTERFACE.md)
 
-**Strategic Planning:** Emphasize [Analytics & Memory](06_ANALYTICS_MEMORY.md) and [Future Thinking](09_FUTURE_THINKING.md)
+**Strategic Planning:** Emphasize [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) and [Future Thinking](09_FUTURE_THINKING.md)
 
 ---
 
@@ -152,7 +152,7 @@ Each section builds upon previous understanding while remaining accessible as st
 
 ### System Administrators
 1. Review [Orchestration Systems](05_ORCHESTRATION.md) for deployment architecture
-2. Understand [Analytics & Memory](06_ANALYTICS_MEMORY.md) for data management
+2. Understand [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) for data management
 3. Study [Interface Channels](04_INTERFACE.md) for integration requirements
 4. Plan with [Future Thinking](09_FUTURE_THINKING.md) for scalability needs
 
