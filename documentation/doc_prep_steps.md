@@ -8,6 +8,10 @@
 
 ---
 
+For more resources please see this file: `./documentation/doc_prep_guide.md` 
+
+---
+
 I've been keeping a list of things I think of that I haven't seen in the doccumentation yet. Here it is for now: 
 
 Types of workflows that Mao can do
@@ -44,6 +48,10 @@ Below are the original instructions. However I had to remove most of the documen
 - I have reviewed all the text from your version here. 
 
 - `./documentation/07_AUTOMATE_BUSINESS.md`
+
+- This seems like it was an error when AI tried to continue writing after being inturrupted by a max token message limit. 
+
+- `./documentation/07_AUTOMATE_BUSINESS_2.md`
 
 - I'd like you to please pull over the formatted information, some of which is code architecture from the version below, placing it in the version above. Leave spaces for more code architecture if it is still missing
 
