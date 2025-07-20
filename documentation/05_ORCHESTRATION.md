@@ -2,8 +2,7 @@
 *Data management that orchestrates all that is Mao*
 
 ---
-
-Data travels from all over the system: config files, memory states, analytics touch-points, user-interface, chat, all to meet in Mao's core where a sophisticated collection of orchestration and management files process and send out data responses that pass through intelligent caching, and backed up by advanced error handling. 
+We've seen data flow from all over the system: config files, memory states, analytics touch-points, user-interface, chat; it has all been to meet in Mao's core where where a sophisticated collection of management files process and send out data responses that pass through intelligent caching. 
 
 ---
 
