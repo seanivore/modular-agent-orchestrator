@@ -23,10 +23,10 @@ Mao modular agent orchestration let's you plug-and-play the newest models or too
   * [Section III: Setting Up a Project for Mao](documentation/03_USER_FLOW.md)
     - Explain to Mao your idea, no matter how thought out or complex 
     - Not sure what you need? Just tell them a goal and nothing else 
-  * [Section IV: Orchestration of Core Functionality](documentation/04_ORCHESTRATION.md)
+  * [Section IV: Orchestration of Core Functionality](documentation/05_ORCHESTRATION.md)
     - The core of Mao's system file architecture 
     - See how files work to gether and how Mao manages everything 
-  * [Section V: Enhancing the Average Agentic Experience](documentation/05_ENHANCEMENTS.md)
+  * [Section V: Enhancing the Average Agentic Experience](documentation/06_ENHANCEMENTS.md)
     - This is why Mao is cheaper than any AI tool you've ever used
     - Compatability with any model is simple because Mao creates "Human Buttons" for Agents 
   * [Section VI: Memory-Enhanced Contextual Analytics](documentation/06_ANALYTICS_MEMORY.md)
