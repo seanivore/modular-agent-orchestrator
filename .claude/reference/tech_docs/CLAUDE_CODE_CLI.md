@@ -62,7 +62,7 @@ Customize Claude Code's behavior with these command-line flags:
 
 For detailed information about print mode (`-p`) including output formats,
 streaming, verbose logging, and programmatic usage, see the
-[SDK documentation](./CLAUDE_CODE_SDK.md). 
+[SDK documentation](../../../versioning/v4/v4_1_0/IMPL_CLAUDE_CODE/CLAUDE_CODE_SDK.md). 
 
 ## Slash commands
 

@@ -924,7 +924,9 @@ Computer use follows the standard [tool use pricing](/en/docs/agents-and-tools/t
 * Screenshot images (see [Vision pricing](/en/docs/build-with-claude/vision))
 * Tool execution results returned to Claude
 
-Note: If you're also using bash or text editor tools alongside computer use, those tools have their own token costs as documented in their respective pages.
+<Note>
+  If you're also using bash or text editor tools alongside computer use, those tools have their own token costs as documented in their respective pages.
+</Note>
 
 ## Next steps
 

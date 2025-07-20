@@ -371,7 +371,7 @@ When implementing the bash tool, handle various error scenarios:
 
 ## Pricing
 
-The bash tool adds 245 input tokens to your API calls.
+The bash tool adds **245 input tokens** to your API calls.
 
 Additional tokens are consumed by:
 
