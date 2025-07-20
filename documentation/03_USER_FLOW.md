@@ -33,8 +33,8 @@ mao # Launches the app as if you're a new user
 - If this isn't your first time using Mao and you want to make sure you're logging into your account, you can use the `--login` flag. 
 
 ```bash
-mao --login # Launches the login screen 
-mao --login --username seanivore # Launches the login screen with the username "seanivore" 
+mao --login # Launches with the Username field available 
+mao --login --username seanivore # Launches with the Username field set to "seanivore" 
 ```
 
 ### UserID, Username, and Security 
@@ -151,15 +151,11 @@ mao --config   # Launch the app to open on the config screen
 
 ## Application Configuration Settings 
 
-- New users will be have a more prominient message to adjust configuration settings 
-- It wil appear on the main screen where "Tips" often are shown, but only for this first time 
-- After the first login, the user will occasionally see a subtle message to adjust app settings 
-- These show up under the main text input field prefaced by a `?` 
-- They'll say something like "try /config" or "try /help" 
-- Changing any settings below will automatically update your settings in the `configs/users/user_username/` directory settings file 
-- The 'Description' is only displayed when the user's selector `❯` is on the setting 
-- 'Description' shows the meaning of the selected setting, place the selector on other options for hover display to show their meanings 
-- Selecting a setting will allow the user to toggle between the other options, usually by opening a toggle button
+- New users are shown a 'tip' suggesting they try adjusting their settings 
+- 'Tips' show up under the main text input field prefaced by a `?` 
+- Often they'll say something like `?  try /config or /help` 
+- Updated user settings automatically update in the `configs/users/user_username/` directory settings file 
+- Select a setting, then toggle between available options for that app setting
 
 | **SETTING**       | **DEFAULT**         | **DESCRIPTION**                                      |
 | ----------------- | ------------------- | ---------------------------------------------------- |
@@ -173,20 +169,20 @@ mao --config   # Launch the app to open on the config screen
 
 ### Quick Launch Options 
 
-1. `always` - Launch app with user from last session, unless logged out
-2. `off` - Load Username login on every startup 
-3. `continue only` - Launch `mao --continue` to skip login, otherwise load Username login 
+1. `always` = launch app with user from last session, unless logged out
+2. `off` = load Username login on every startup 
+3. `continue only` = launch `mao --continue` to skip login, otherwise load Username login 
 
 ### Favorite Model 
 
-- Any model can be added using nickname or full name 
-- Startup `mao --model` or `/model` to set favorite model 
+- Add a default model by casual name to your user settings  
+- Startup `mao --model` or `/model` to set the model 
 - Startup `mao --model-list` or `/model-list` to see all available models 
 
 ### Default Provider 
 
-- Any provider can be added using nickname or full name 
-- This is helpful for Users who have a bunch of cash in a specific API provider 
+- Default a provider by their casual name and save it to your user settings 
+- Helpful for Users who have a bunch of cash in a specific API provider 
 - Startup `mao --provider` or `/provider` to set default provider 
 - Startup `mao --provider-list` or `/provider-list` to see all available providers 
 
@@ -194,26 +190,25 @@ mao --config   # Launch the app to open on the config screen
 
 - We don't want to be too annoying with our cat branding 
 
-  1. `I love it` - We'll meow it up for you 
-  2. `mao and then` - Adequate but not too much meowing 
-  3. `be serious pls` - No meowing at all 
+  1. `I love it` = we'll meow it up for you 
+  2. `mao and then` = adequate but not too much meowing 
+  3. `be serious pls` = no meowing at all 
 
 ### Double-texting 
 
-  1. `always` - Interrupt Mao like any messenger experience 
-  2. `never` - One reply at a time for each party  
+  1. `always` = send multiple messages to Mao in a row like any messenger experience 
+  2. `never` = only allow one reply from each party at a time
 
 ### Tone Notification 
 
-  1. `once, no push` - When a workflow is complete, a simple tone is played, no push notification 
-  2. `silent, push` - When a workflow is complete, no tone is played, but a push notification announces completion 
-  3. `no notifications` - No tone is played, no push notification 
+  1. `once, no push` = when a workflow is complete a simple, single tone is played; no push notification 
+  2. `silent, push` = when a workflow is complete, no tone is played, but a push notification announces completion 
+  3. `no notifications` = no tone is played; no push notification 
 
 ## Application Settings Are **MODULAR** Magic 
 
 - Want to set up new settings for the application? 
-- You can find what files are needed in in the architecture section below 
-- Mao will be able to help you make any necessary changes since settings might involve system files. 
+- Ask Mao what files are needed, they'll do the rest  
 - EXAMPLE: Add a new setting that says "Bark like a dog when workflow is done y/n?" --> Magic. 
 
 ---
@@ -232,11 +227,9 @@ mao --config   # Launch the app to open on the config screen
 
 ### One-Screen Terminal App Experience 
 
-- Note that after logging in and altering settings that everything happens on the same screen in this application. 
-- The app is a "one-screen" experience with irrelevant or dated info being removed for new info 
-- The only things the termal actually changes is text colors (not main text color), use of white space, and character choices
-- As a user's message enters the conversation thread, the messages above the user's message may disappear 
-- Upward scrolling is reserved for essential content that needs to remain in our one-screen experience 
+- Entering your Username, changing settings, and main chat are all the same screen
+- This app has a "one-screen" experience; irrelevant info is cleared automatically  
+- Our app only changes text colors, other than your default 
 
 ### Chatting with Mao  
 
@@ -258,32 +251,26 @@ mao --config   # Launch the app to open on the config screen
 ╭───────────────────────────────────────────────────╮
 │ > Try "how do we start building?"                 │
 ╰───────────────────────────────────────────────────╯
-  ? /help for help, /config to change settings
+  ?  /help for help, /config to change settings
 ```
 
-- The `/help` option shows all of the available commands and we've already discussed what `/config` does 
-- These `?` help tips will always be changing, and depending on what you're doing, they'll change based on context 
+- The `/help` option shows all of the available commands  
+- The `?` 'tips' are AI created and contextually relevant 
 
-#### Some Other Help Tip Examples 
+#### `?` 'Tip' Examples 
 
 ```
-  ? /help for help, /config to change settings 
-  ? try /models or /tools to explore 
-  ? share your /goal and Mao will do all the work 
-  ? /workflow [custom_command] to continue a build 
-  ? message /continue to find your last project 
-  ? /workflow [custom_command] or [uid-abc-000] to continue a building workflow 
+  ?  /help for help, /config to change settings 
+  ?  try /models or /tools to explore 
+  ?  share your /goal and Mao will do all the work 
+  ?  /workflow [custom_command] to continue a build 
+  ?  message /continue to find your last project 
 ```
 
-**Start telling Mao what you want to do!** 
+**Tell Mao what you want to do!** 
 
-- The app has no wait UX; you can double text and interrupt Mao (or turn that off in app settings)
-- Usage of a `/` will auto populate a list of possible commands to run; those are explained later in this section 
-
-**You screen will look something like this:** 
-
-- User messages are prefaced by a `>` bullet 
-- Mao's messages are prefaced by a `●` bullet 
+- User messages have a `>` bullet 
+- Mao's messages have a `●` bullet 
 
 ```
 ╭───────────────────────────────────────────────────╮
@@ -308,21 +295,23 @@ mao --config   # Launch the app to open on the config screen
 
 
 ╭───────────────────────────────────────────────────╮
-│ > some rough notes to                             │
+│ > some rough notes to |                           │
 ╰───────────────────────────────────────────────────╯
-  ? /variables to see what is needed 
+  ?  /variables to see what is needed 
 ```
 
 ### Tell Mao About Your Project 
 
-You have a lot of flexability here. Treat this like a conversation with an employee. Provide as much detail as you can, or as little as you want. Mao is not trained with any scripts; they are a generalist who is an expert in taking your project, breaking it down into phases and tasks, and then putting it into a use-case workflow. 
+- Chat is flexible; Mao will chat like any AI model. Treat Mao like an employee. Provide as much or as little detail as you want. 
+
+- Mao is not trained with any scripts; they are simply an expert in turning projects into tasks and then into a workflow 
 
 **A goal is all Mao needs**
 
-- The minimum that Mao needs to be told is what your goal is! 
-- In most cases, Mao will work with that, at least to get an inital workflow created. 
-- If your goal is a bit too vauge, Mao will ask for more details. 
-- You can jump over the entire process by using the `/goal` command.
+- The minimum Mao needs is to know your goal! 
+- Mao will get an inital workflow create for you 
+- If your goal is vague, Mao will ask for details 
+- Jump into Mao setting up a workflow by using `/goal` 
 
 ```bash
 mao --goal "Create a marketing plan for my Etsy shop featuring our promotion on crystals"  
@@ -331,23 +320,23 @@ mao --goal "Create a marketing plan for my Etsy shop featuring our promotion on 
 
 **Work through the process with Mao**
 
-- If you're new to the app, or trying to learn how be create better strategies, work through the process with Mao. 
-- You could ask Mao to tell you what the variables they need are and work on that first. 
+- New to the app or learning workflow strategy, Mao will guide  
+- Ask Mao what variables are needed and start there
 
 **When in doubt, just have a conversation**
 
-- If you are still working out the specifics yourself 
-- Or if you need to brainstorm more 
-- Just start talking about the Project
-- By the end of the chat, Mao will have a workflow created for you 
+- Still working out the specifics yourself? 
+- Need to brainstorm more? 
+- Just start chatting about a Project
+- Mau will tell you when they have enough to build a workflow  
 
 ### The Workflow ID 
 
 - When you create a workflow alone or with Mao's help, the JSON object will need a workflow ID 
 - In the app you will later be able to search for workflows using this ID; they can be pulled up by your Username 
-- These are also used by Mao in their MCP memory one source of truth to pull back up the workflow details when returning to the workflow as a new instance 
 - Run the `uid` command to get a collision-free (never repeated) unique ID --> `uid-abc-000` 
-- Later, you can follow the `--workflow` command with this ID for that workflow's details, though the custom command might be easier to remember 
+- Later, use `--workflow` with an ID to see that workflow's details 
+- You can also run `--workflow` with the Custom Command of a workflow 
 
 ```bash 
 uid # Creates a new unique Workflow ID 
@@ -355,7 +344,24 @@ mao --workflow uid-abc-000 # Shows workflow details
 /uid # Creates a new unique Workflow ID 
 /workflow uid-abc-000 # Shows workflow details 
 ```
-- Math is used to create the ID; if you are curious or need to create a handful of UIDs, the -h flag for "HELP" will show you more information you can find. 
+
+### Mao's "One Source of Truth"
+
+Here's how Mao is able to always be on the same page as you. 
+
+**The Memory MCP tool gives Mao a Persistant Vector Graph "memory" for context between sessions**
+
+* The Workflow ID is for you 
+  - It identifies your workflow and connects it to your UserID and Username 
+  - Every new project, Mao will create a new Workflow ID 
+* The Workflow ID is for Mao 
+  - Mao tags memory context updates with the Workflow ID, keeping all information about the project together 
+  - If you get inturrupted, Mao uses the workflow ID to know exactly where to pick up
+  - Mao uses the Workflow ID when running the automation to understand the project  
+
+* Math is used to create the ID 
+  - If you are curious or need to create a handful of UIDs, the -h flag for "HELP" 
+  - This will show you more information you can find
 
 ```bash 
 > uid -h # Help message 
@@ -380,24 +386,6 @@ Mathematical Operations:
   s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
-### Mao's One Source of Truth 
-
-Before we get into variables and setup scripts that create the workflow, let's talk about how Mao is able to always be on the same page as you. 
-
-**The Memory MCP tool give Mao a Persistant Vector Graph "memory" for context between sessions**
-
-- Workflow ID is one of the first variables we'll be talking about in the next section
-- The Workflow ID has a few important uses 
-  - It identifies your workflow by connecting it to your UserID and thus your Username 
-  - When you start a new Project, Mao will create a new Workflow ID for you 
-  - Mao uses the Workflow ID as a key that connects all of the memory information about the project together 
-  - If you get inturrupted and need to pick up again later, Mao will use the workflow ID and know just where to start 
-  - When running a workflow, Mao uses the Workflow ID to understand the project every time they start, or get called in by an Agent 
-- Mao uses the MCP memory is their one source of truth because there are other ways the same tool is used that we'll get into later 
-  - Analytics for exceptional UX experiences 
-  - Filing and finding files and documents for a project workflow 
-  - And more... 
-
 ---
 
 | **ADD ARCHITECTURE HERE** |
@@ -414,7 +402,7 @@ This is the first introductory half of creating a workflow for their project. Wh
 
 ## The Workflow's JSON Config
  
-When chatting with Mao, you will be halping them to fill out a JSON config file. This is basically a prompt that has been broken down into variables. If you were to use the `/variables` command, you would see a list of variables that are needed to create the workflow. 
+When chatting with Mao, you will be halping them to fill out a JSON config file. This is basically a prompt that has been broken down into variables. Use the `/variables` command to remind yourself what you need to tell Mao. 
 
 ```bash
 /variables # Shows the variables that are needed 
@@ -448,7 +436,7 @@ When chatting with Mao, you will be halping them to fill out a JSON config file.
 | human_in_loop        | Whether the orchestrator should get human feedback            |
 
 
-### The 3 JSON Config Schemas In A Workflow
+### Three JSON Config Schemas In A Workflow
 
 We'll touch on the basics of the JSON config file and the three JSON objects that are created when a workflow is created before jumping into the technical details in an architecture section. 
 
@@ -654,6 +642,7 @@ mkt not found # This is the output telling me nothing is using the command
 ```bash
 command category variant   # This is the command 
 ```
+- **EXAMPLES**
 
 | **COMMAND** | **CATEGORY** | **VARIANT**  | **DESCRIPTION**                                |
 | ----------- | ------------ | ------------ | ---------------------------------------------- |

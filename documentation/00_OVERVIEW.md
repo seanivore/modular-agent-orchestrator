@@ -2,6 +2,8 @@
 Pronounce it /maʊ̯/ like "mau" with no "H" sound, like a cat. Mao, meow! 
 *Just say the word: Tell Mao your project's primary goal and they'll manage it.* 
 
+---
+
 ## AI 'Assistant' Gets Their Promotion 
 
 * **Treat Mao Like A Senior Employee** 
