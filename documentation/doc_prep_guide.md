@@ -2,7 +2,7 @@
 
 Oh, I'm so all over the place. Initially these were to be the architecture heavy documentation. 
 
-## Primary Architecture Containing Files 
+## 1. Primary Architecture Containing Files 
 
 - `./documentation/03_USER_FLOW.md`
 - `./documentation/04_ORCHESTRATION.md`
@@ -17,16 +17,20 @@ User flow being the only solid one.
 - At least for analytics and memory we should have enough information for that page to be solid, though I do want to put the trigger points throughout the user flow page in a way that makes sense; subtle but flags it and links to analytics. 
 - Initially put CACHE and ERROR HANDLING in the enhancements page, but then realized that they are more like core system patterns and should be on the orchestration page, after writing this at the top of the orchestration page: "Data travels from all over the system: config files, memory states, analytics touch-points, user-interface, chat, all to meet in Mao's core where a sophisticated collection of orchestration and management files process and send out data responses that pass through intelligent caching, and backed up by advanced error handling." 
 
+## 2. README.md 
+
+I've defined them really well in the README.md file if you'd please check that out here: `./README.md`. 
+
 At the very least, it is pretty clear that all of the major story telling and the related architecture can go into these categories. The only one I'm married to is User Flow, so we can condense or change the others. 
 
-## Secondary Files, Part B (start with the end)
+## 3. Secondary Files, Part B (start with the end)
 
 These came from the idea of a trigger timer to allow for Mao to work on autonomous tasks or whatever the user wanted. And then the big picture future stuff. Initally I had the analytics leading into business but it was just too much. 
 
 - `./documentation/07_AUTOMATE_BUSINESS.md`
 - `./documentation/09_FUTURE_THINKING.md`
 
-## Secondary Files, Part A 
+## 4. Secondary Files, Part A 
 
 After all of that is sorted out, then we can look at the first few files. 
 
@@ -34,11 +38,13 @@ After all of that is sorted out, then we can look at the first few files.
 - `./documentation/01_EVOLVING_AI.md`
 - `./documentation/02_REFERENCE.md`
 
-I've defined them really well in the README.md file if you'd please check that out here: `./README.md` -- but basically the overview should touch on each page and have a link but in a more tactful way. Evolving AI is the introduction with our philosophy and story. And then reference will be for whatever quick things, charts, CLI commands, etc we want to put there. 
+As mentioned in the README.md file, the overview should touch on each page and have a link but in a more tactful way. Evolving AI is the introduction with our philosophy and story. And then reference will be for whatever quick things, charts, CLI commands, etc we want to put there. 
 
 See they kind of just need to be done last. 
 
 ---
+
+## 5. File Batch Definition Questionaires (Not that helpful for docs, just for context)
 
 Today I had Claude Code write a summary about every single file in the code base for us. Every file is in a batch. Every file answered the questionaires on these pages: 
 
@@ -47,17 +53,22 @@ Today I had Claude Code write a summary about every single file in the code base
 3. batch 11 to 18: `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/CLI_COMMAND_SYSTEM.md` 
 4. batch 19 to 21: `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/CONFIGURATION_MANAGEMENT.md`
 
+## 6. Node.js/TypeScript Integration 
+
 And then they prepared the TypeScript/Node.js information that we can integrate when we start the UI. 
 
 - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/UI_TYPESCRIPT_INTEGRATION.md`
 
+(IGNORE) 
 I only saw they included this just now and I checked one of the "Missing files" and we totally have the files so I'm not sure what they were missing. I suppose it probably means that the list of questionaire answers for files are not complete; missing some files they couldn't find even though they are there. 
 
 - `./documentation/FILE_BATCH_DEFINITIONS/GATHERED_INFO/QA_AUDIT_RESULTS.md` 
 
+## 7. Codebase Files Defined 
+
 Here is the directory for the answers they gathered. 
 
-- `.//Users/seanivore/Development/modular-agent-orchestrator/documentation/FILE_BATCH_DEFINITIONS/GATHERED_INFO/...` 
+- `./Users/seanivore/Development/modular-agent-orchestrator/documentation/FILE_BATCH_DEFINITIONS/GATHERED_INFO/...` 
 
 116 files
 155,880 Tokens in directory 
@@ -77,6 +88,8 @@ Regardless, my intention was, well we have lots of written in formation. I paste
 
 So the idea of all of this was that I'd have all of the code so that I could jsut paste it in where it belongs. 
 
+## 8. File Batch Definition Architecture Documents 
+
 - `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS/ARCH_01_Architecture_Overview.md`
 - `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS/ARCH_02_Core_System_Patterns.md`
 - `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS/ARCH_03_Tool_Integration_Patterns.md`
@@ -85,6 +98,8 @@ So the idea of all of this was that I'd have all of the code so that I could jsu
 - `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS/ARCH_06_Extension_Automation_Patterns.md`
 
 After the fact I also had them go through and add notation for anything about the Python --> TypeScript/Node.js in the codebase because we would need to see that to implement it. 
+
+## 9. Full Codebase Audit Documents 
 
 You probably won't need all of them but I also noticed that the documents they wrote after the full codebase audit should be very helpful in some ways. 
 
@@ -99,6 +114,8 @@ You probably won't need all of them but I also noticed that the documents they w
 All of the old docs and what remains of the set that CC made are in the archive. I do not think you will need them at all. 
 
 - `./.archive/...`
+
+## 10. Implementation Docs 
 
 Lastly, we do not have a ton of implementation docs saved becasue of my constant effor to have them written into documentation and condensed, all of which failed and apparently are still failing (seriously, these docs are the bane of my existence and my ASD fixaction is, for the first time like ever, started to shift focus elsewhere). We have these. 
 
@@ -126,6 +143,8 @@ I do not know if we implemented this or not but is is an automation for new conf
 LASTLY THE VISUAL INFORMATION WE HAVE ABOUT THE UI 
 - `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/TERMINAL_UI_RULES.md`
 - `./versioning/v4/v4_0_0/implementing-terminal-ui-dev/UI_TECH_ARCHITECTURE.md`
+
+## 11. Architecture Principles 
 
 OH, ALSO THIS WAS CREATED TODAY. ALL OTHER RESOURCE DOCS ARE PASTED INTO THE DOCS ALREADY... 
 - `./ARCHITECTURE_PRINCIPLES.md` 
