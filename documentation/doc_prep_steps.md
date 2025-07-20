@@ -1,5 +1,7 @@
 # Documentation Next Steps 
 
+- First please check the Memory MCP updates by searching exact term "Mao Documentation Reorganization Project" to get on the same page. 
+
 - We have written docs, some that need to be integrated a bit, I'll point those out, but I have gone through all of the main documentation you wrote and reviewed and made things a bit more concise. 
 
 ---
