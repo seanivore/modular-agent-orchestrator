@@ -73,7 +73,7 @@ Anyway while we did "do" this one, it doesn't have any code architecture. Perhap
 
 ## TASK 4: Visuals 
 
-Which could be done and be the most powerful? The most helpful? The most engaging? The most visually impressive? 
+Which could be done and be the most powerful? The most helpful? The most engaging? Which could be combined to have one super informative visual instead of a few? Which could be done to be the most visually impressive? 
 
 - Tool architecture diagrams
 - Extension ecosystem map
