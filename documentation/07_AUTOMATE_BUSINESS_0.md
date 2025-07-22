@@ -17,11 +17,13 @@ This autonomous intelligence means your business can respond to opportunities an
 
 ### Timer-Triggered Workflow Architecture
 
-The scheduling system uses a modular calendar configuration that eliminates complexity through standardized patterns:
+- The scheduling system uses a modular calendar configuration that eliminates complexity through standardized patterns. 
 
-#### Scheduling Configuration System
+- This doubles as a method for keeping all of the scheduled workflows in proper sequential order in the directory file system. 
 
-**Frequency Codes (Standardized)**
+#### Standardized Scheduling Configuration System
+
+**Frequency Codes**
 ```json
 {
   "frequency_options": {
@@ -37,17 +39,35 @@ The scheduling system uses a modular calendar configuration that eliminates comp
 }
 ```
 
-**Time Block System**
-```bash
-# Standardized 3-hour blocks (Eastern Time)
-BLOCK 1: 0000-0300  # Late night automation
-BLOCK 2: 0300-0600  # Early morning processing  
-BLOCK 3: 0600-0900  # Morning intelligence
-BLOCK 4: 0900-1200  # Business hours analysis
-BLOCK 5: 1200-1500  # Midday optimization
-BLOCK 6: 1500-1800  # Afternoon operations
-BLOCK 7: 1800-2100  # Evening planning
-BLOCK 8: 2100-0000  # Night wrap-up
+**Day of Week Codes**
+```json
+{
+  "day_of_week_options": {
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday",
+    "7": "Sunday"
+  }
+}
+```
+
+**Time Block Codes**
+```json
+{
+  "eastern_time_blocks": {
+    "1": "0000-0300",
+    "2": "0300-0600", 
+    "3": "0600-0900",
+    "4": "0900-1200",
+    "5": "1200-1500",
+    "6": "1500-1800",
+    "7": "1800-2100",
+    "8": "2100-0000"
+  }
+}
 ```
 
 **Availability Check Command**
@@ -535,4 +555,4 @@ The autonomous business systems market represents a $100+ billion opportunity, w
 
 ---
 
-*This automation capability transforms Mao from a powerful productivity tool into a complete business operating system. The timer-triggered workflows enable genuine business autonomy where AI handles operations while humans focus on strategy, creativity, and growth. Through modular JSON configurations rather than hardcoded systems, every business can customize their autonomous operations to their specific needs and goals.*
+*This automation capability transforms Mao from a powerful productivity tool into a complete business operating system. The timer-triggered workflows enable genuine business autonomy where AI handles operations while humans focus on strategy, creativity, and growth. Through modular JSON configurations rather than hardcoded systems, every business can customize their autonomous operations to their specific needs and goals. And while the system is intended to be simple enough for anyone, it truly requires no learning curve to use because all you need to do is inform Mao, and all will be scheduled accurately for you*
