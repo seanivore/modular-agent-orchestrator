@@ -3,7 +3,7 @@
 
 ---
 
-Here's where Mao transcends being a tool and becomes a business operating system. The analytics and memory have been learning, the orchestrator has been perfecting workflows, and now we introduce the capability that changes everything: autonomous business operations. This isn't about automating individual tasks; it's about Mao taking responsibility for entire business functions while you focus on strategy, creativity, and growth.
+Here's where Mao transcends being a tool and becomes a business operating system. The analytics and memory have been learning, the orchestrator has been perfecting workflows, and now we introduce the capability that changes everything: autonomous business operations. 
 
 ---
 

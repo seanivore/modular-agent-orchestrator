@@ -7,6 +7,13 @@ Pronounce it /maʊ̯/ like "mau" with no "H" sound, like a cat. Mao, meow! Just 
 
 This isn't another AI assistant. This is AI that functions as a senior employee, taking responsibility for entire business functions while you focus on strategy and growth. The productivity improvements aren't incremental; they're transformational. We're talking about 20-40x more productive workflows that turn weeks of work into hours of intelligent coordination.
 
+
+---
+
+What if the AI that orchestrates automations for you could also autonomously assess data on their own performance, or app performance, or any improvement opportunities for one of your projects? 
+
+We can tell you, thanks to Mao: **Productivity increases exponentially.** 
+
 ---
 
 ## Choose Your Journey

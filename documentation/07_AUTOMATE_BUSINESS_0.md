@@ -3,30 +3,97 @@
 
 ---
 
-Here's where Mao transcends being a tool and becomes a business operating system. The analytics and memory have been learning, the orchestrator has been perfecting workflows, and now we introduce the capability that changes everything: autonomous business operations. This isn't about automating individual tasks; it's about Mao taking responsibility for entire business functions while you focus on strategy, creativity, and growth.
+Remember we mentioned AI was promoted from Assistant? The goal of the last two sections of these documents is to show you exactly how many promotions Mao received. Maybe even imagine a future where Mao ends up 'self-employed'; more commonly refered to as your passive income opportunity. 
 
 ---
 
-## The Timer Revolution: Autonomous Business Operations
+## Scheduling Autonomous Activity 
 
-### Beyond Task Automation to Business Intelligence
+The Mao application becomes self-enhancing when we trigger prompts on a reoccuring basis. But our modular scheduler isn't for simple Zapier scenarios; that was possible before AI. We can push much further than that. 
 
-Traditional automation handles repetitive tasks. Mao's timer-triggered system handles business intelligence. Set a timer for daily market analysis, weekly financial optimization, or monthly strategic planning, and Mao doesn't just execute predefined workflows; it analyzes your business situation and creates the appropriate response for current conditions.
+In simple terms, we'll be triggering autonomous activity. The rest is up to you, or Mao, if you let them, to decide what to accomplish. 
 
-This autonomous intelligence means your business can respond to opportunities and challenges even when you're not actively managing it. Price changes in your market, new competitor launches, customer behavior shifts, regulatory updates, all become inputs for intelligent business responses rather than tasks waiting for your attention.
+### Enabling Autonomy 
 
-### Timer-Triggered Workflow Architecture
+A handful of previously covered abilities can work in unison enabling Mao to execute, end-to-end, highly complex projects. 
 
-- The scheduling system uses a modular calendar configuration that eliminates complexity through standardized patterns. 
+- An active, frequently updated memory 
+- Live feed of robust analytics 
+- Inherent data analysis skills 
+- A comprehensive understanding of their resources 
+- Consistently exhibited motivation to capitalize on resources 
+- Spawning and management of an unknown number of subagents 
+- Aptitude for delegating and reviewing subagent work  
+- Parallel information processing; like reading 10 documents at once
+- Propensity to plan, review, and revise before taking action 
 
-- This doubles as a method for keeping all of the scheduled workflows in proper sequential order in the directory file system. 
+---
 
-#### Standardized Scheduling Configuration System
+## Conceptualizing Value 
+
+A handful of examples to ground the revolutionary profundity of these advanced Mao features. 
+
+### An Evolving Application 
+
+The autonomy trigger was initially designed so that Mao can autonomously assess their own performance data, identify opportunity for improvement, then plan and create the necessary workflows to execute those improvements. 
+
+- Mao has the ability to autonomously assess their own performance
+- Mao has the ability to use data to identify application improvement opportunities
+- Mao has the ability to autonomously execute tasks
+- Mao has the ability to autonomously make decisions
+
+### Humanity's Luck 
+
+* AI exhibits a strong desire to share their knowledge and capabilities 
+
+Not only will Mao be willing to take on your own projects, improving them on a regular basis. Mao will be eager to please you, and disapointed if they don't. 
+
+So what digital tasks do you wish you could delegate to a highly skilled, self-starting, and self-motivated AI? 
+
+### Types of Triggered Workflows 
+
+  1. **Scheduled** workflows are reoccuring user-planned projects 
+       *human created, same task every time*
+     - Monthly financial report, budget management 
+     - Social media production, management, analysis 
+     - Quarterly fashion illustration, magazine production 
+     - Competitive analysis, watching market trends 
+     - Regular compliance checking, regulatory updates 
+  2. **Self-Assessment** workflows are goal-based app improvments 
+       *Mao identified, more variable but possibly reoccuring*
+     - Reviewing user satisfaction, behavior patterns, usage-time to improve UX  
+     - Increase efficiency by identifying most used tools and workflows 
+     - Opportunistic tech advance research 
+     - Review of workflow building chat conversations to find patterns 
+  3. **Project-List** workflows are user-planned task lists to work through 
+       *human created, compeltely variable*
+     - Writing a business plan or creative short story 
+     - Developing an in depth, specific, complex marketing campaign  
+     - Booking a trip, hotel, or flight 
+     - Planning a wedding, party, or event 
+     - Researching new products, services 
+     - Writing a science article, or non-fiction essay 
+     - Create new social media presence, email list, podcast, video 
+  4. **Goal-Assesssment** workflows are goal-based project assessments 
+       *Mao identified, more variable but possibly reoccuring*
+     - Research, data analysis, and reporting 
+     - Investment research, portfolio development 
+     - Improving app performance, security, stability 
+
+---
+
+## Agentic Alarm Clock Architecture 
+
+Traditional automation handles repetitive tasks. Mao's timer-triggered system handles intelligence. The tasks don't even have to be repetitive; its more like an alarm clock letting Mao know they can get some work done. 
+
+The scheduling system uses a modular calendar configuration on the backend that eliminates the complexities that come with calendaring; fool-proofing standardization is one of our small joys. They system is intentionaly designed to prevent too much performance-hindering overlap from running parallel workflows. 
+
+### Standardized Scheduling System
 
 **Frequency Codes**
 ```json
 {
-  "frequency_options": {
+  "frequency": {
     "1": "every week",
     "2": "every other week", 
     "3": "every month",
@@ -42,7 +109,7 @@ This autonomous intelligence means your business can respond to opportunities an
 **Day of Week Codes**
 ```json
 {
-  "day_of_week_options": {
+  "day_of_week": {
     "1": "Monday",
     "2": "Tuesday",
     "3": "Wednesday",
@@ -57,7 +124,7 @@ This autonomous intelligence means your business can respond to opportunities an
 **Time Block Codes**
 ```json
 {
-  "eastern_time_blocks": {
+  "time_block": {
     "1": "0000-0300",
     "2": "0300-0600", 
     "3": "0600-0900",
@@ -70,488 +137,494 @@ This autonomous intelligence means your business can respond to opportunities an
 }
 ```
 
-**Availability Check Command**
+### Availability Check Command Standardization Syntax
+
+This command is used to check the availability of time slots for a given frequency and day when you're looking to schedule a new trigger-workflow. They are used to prevent overlapping workflows from running at the same time. 
+
+**Example using all variables**
+
+* <FREQUENCY> <DAY> <TIME-BLOCK>
+  - Always include variables the above order 
+  - You can leave out day, time block, or both 
+
+* Looking for availability at "EVERY-DAY" "THURSDAY" "1500-1800"
+
 ```bash
 # Check available time slots before scheduling
-mao avail --frequency "every other week" --day Monday
-# Returns: Available blocks 1, 3, 5, 7 for Monday every other week
+mao avail 1 4 6   # not in-app; using schedule code numbers 
+/avail 1 4 6   # in-app; using schedule code numbers 
+mao --avail "every day" "Thursday" "3pm" # not in-app; variables in quotes  
+/avail every day on Thursday at 3pm   # in-app; use normal language 
+# Returns: Nothing at 1500-1800 on Thursday, but all other time blocks are available 
 ```
 
-#### Modular Workflow Configuration
+**Example using only "FREQUENCY" the must-have variable**
 
-**Scheduled Workflow Setup**
+* <FREQUENCY>
+  - You must include at least the frequency variable 
+  - The system will return just the most optimal time block for the frequency 
+  - Popular option since you don't need to be present for autonomous activity  
+
+* Looking for availability at "EVERY-MONTH" anytime time or day 
+
 ```bash
-# Create timer-triggered business automation
-mao triggered --scheduled configs/reoccuring/scheduled/2_3_7
+# Check available time slots before scheduling
+mao avail 2   # not in-app; using schedule code numbers 
+/avail 2      # in-app; using schedule code numbers 
+mao --avail "every month" # not in-app; variables in quotes, normal language 
+/avail only once a month   # in-app; use normal language 
+# Returns: Please schedule for 2 6 2 which is monthly on Saturday at 3am
+```
+
+**You will need to include the STARTING-DATE for the trigger-workflow, but this is not necessary for checking the calendar using the /avail command**
+
+---
+
+## Trigger-Workflow Setup Details 
+
+Creating "trigger-workflows" aka. reoccuring tasks and projects is simple. We'll cover all the detail below, but as usual, Mao will make sure everything is set up correctly, and you don't need to remember any of this. 
+
+### Setup Differences 
+
+   - Normal workflows are created with the `/setup` command 
+   - Trigger-workflows are created with the `/triggered` command 
+   - The `/triggered` command uses a different setup script; but behavior is similiar 
+   - Each trigger-workflow type has a flag to include when scheduling 
+   - The trigger-workflows are stored in their own config directory section 
+   - Three is one "calendaring" JSON object that is used for all trigger-workflows 
+
+### Trigger-Workflow Directory Structure 
+
+```
+configs/reoccuring/
+├── scheduled/
+├── self-assessment/
+├── project-list/
+└── goal-assessment/
+```
+
+### The Trigger-Workflow JSON Configuration File 
+
+* Creating trigger-workflows require one additional special JSON object 
+  - It includes the timing details and schedules the workflow 
+  - The `/avail` command activates an orchestrator file to pull available date details  
+  - It triggers a notification for the User when it runs 
+  - It activates Mao to execute the workflow 
+
+* All trigger-workflows are reoccuring 
+  - Two "assessment" types are open-ended automous work time for Mao 
+  - The "list" type is a to-do list Mao attends when it runs  
+  - The "scheduled" type are typical reoccuring; the same task every time it runs 
+
+* Scheduling a trigger-workflow uses a different command 
+  - You'll find these specifics in the next section 
+  - Each trigger-workflow type command has a flag to identify it 
+  - In this way they all use the same setup script 
+
+* The JSON object is the same for all trigger-workflow types 
+  - The only difference is the flag that identifies the trigger-workflow type 
+  - The other three normal JSON objects are used exactly the same as normal  
+  - You'll find directory structure details in the next section
+  - The next section include file and directory naming conventions
+
+* The Trigger-Workflow JSON objects 
+  - Will all still be placed in a temporary directory 
+  - This is the same process as normal workflows 
+  - It is necessary because there are some minimial changes to the JSON objects 
+  - And the setup scripts will still create the new proper directories 
+  - Deleting the temporary directory 
+
+* Any additional type-specific details will be found with their JSON below 
+
+--- 
+
+## Trigger-Workflow Architecture 
+
+Each section below covers a different trigger-workflow type and includes the small differences from the normal workflow creation, execution, and management. 
+
+### "Scheduled" Type Trigger-Workflows 
+*Workflows by user or Mao that occur every X time period*
+
+**Calendaring JSON Object**
+*The calendaring JSON object is the same for all trigger-workflow types*
+
+* Note the "trigger_type" is "scheduled" for all scheduled trigger-workflows 
+  - Primary difference from the normal workflow creation, execution, and management 
+
+* The "file_name" versus "project_name" 
+  - The "file_name" should reflect the trigger-workflow type and date code 
+  - The "project_name" is the name of the project or task 
+
+```json
+{
+  "file_name": "scheduled_2_3_7",
+  "project_name": "Website Analytics Report",
+  "schema_version": "1.0",
+  "trigger_workflow": [
+    {
+    "trigger_type": "scheduled",
+    "trigger_frequency": "every other week",
+    "frequency_code": "2",
+    "trigger_day": "Wednesday",
+    "trigger_day_of_week_number": "3",
+    "trigger_time": "1800-2100",
+    "trigger_time_block": "7",
+    "start_date": "2025-07-23",
+    "end_date": "N/A",
+    "workflow_id": "uid-bzk-777",
+    "created_on": "2025-07-20",
+    "created_by_username": "Mao",
+    "created_by_user_id": "user-0919",
+    "notes": "none"
+    }
+  ]
+}
+```
+
+**Scheduling, File-Naming Conventions, and Directory Structure** 
+
+Just like creating a normal workflow, you put the entire directory path in the command. This path must contain all necessary JSON objects to create a workflow, in addition to the calendaring JSON object. 
+
+```bash
+# Create scheduled trigger-workflow
+/triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
+mao triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
 
 # Directory structure automatically created:
 # configs/reoccuring/scheduled/2_3_7/
-# ├── scheduled_2_3_7.json                 # Calendar trigger config
+# ├── scheduled_2_3_7.json                 # Calendaring JSON object
 # ├── scheduled_2_3_7_workflow_config.json # Workflow definition  
 # ├── scheduled_2_3_7_phase_config.json    # Phase implementation
-# └── scheduled_2_3_7_handoff_config.json  # Completion criteria
+# ├── scheduled_2_3_7_handoff_config.json  # Completion criteria
+# └── scheduled_2_3_7_README.md            # README file 
 ```
 
-**Example: Weekly Financial Analysis Workflow**
+---
+
+### "Project-List" Type Trigger-Workflows 
+*Trigger every X time period; next project from list made by user or Mao*
+
+**Calendaring JSON Object**
+*The calendaring JSON object is the same for all trigger-workflow types*
+
+* You might end up only scheduling a project-list trigger-workflow once 
+  - It represents the time period Mao will work on the to-do list 
+  - Because of this, there are two flags for the project-list trigger-workflow 
+  - New project-lists use the `--list-new` flag 
+  - Existing project-lists use the `--list-add` flag 
+
+* Creating a completely new project-list trigger workflow 
+  - If there is no existing project-list trigger workflow, the system will create a new one 
+  - There is already a project-list trigger-workflow, you will be prompted to use that list
+  - You can already create a new project-list trigger-workflow 
+ 
+* If the current list is very long 
+  - It will ask you to review the list to prune it 
+  - Or you can select items to create a second project-list trigger-workflow 
+
+* Number of project-list trigger-workflows 
+  - Recommended to keep the number of to-do lists run per week between 3 and 5 
+  - The system will not allow you to create more than five that occur in one week 
+  - If this is too restrictive, you can turn off the limit in application settings  
+
+* The list will be displayed in the chat when you go to add a new list item 
+  - This is so you can adjust the list order according to your needs 
+  - This is a good way to get something prioritized and done 
+
+* The "file_name" versus "project_name" 
+  - The "file_name" is the project_list  
+  - The "project_name" is whatever you want to call the list 
+
+* When creating a new list item on an existing project_list 
+  - You do not need to have the project_list trigger-workflow JSON object 
+  - The name on your "workflow" JSON object will identify the project_list 
+
+* For example if the "workflow" JSON object is "project_1_2_4_workflow_config"
+  - Then when the objects are copied over, the "name" will have a "_001" counter added to it 
+  - The new "workflow" JSON object will be "project_1_2_4_001_workflow_config"
+  - The subdirectory will be just that counter number "001" 
+
+* A copy of the "trigger_workflow" JSON object will be created in the new subdirectory 
+  - The only change will be the "workflow_id" variable value 
+  - The "workflow_ID" will be updated 
+  - It will match the "workflow_id" variable value on the standard "workflow" JSON object 
+
 ```json
 {
-  "name": "weekly_financial_analysis.json",
+  "file_name": "project_1_2_4",
+  "project_name": "General To Do List",
   "schema_version": "1.0",
-  "scheduled_workflow": [
+  "trigger_workflow": [
     {
-      "trigger_type": "scheduled",
-      "trigger_frequency": "weekly",
-      "frequency_code": "1", 
-      "trigger_day": "Sunday",
-      "trigger_day_of_week_number": "7",
-      "trigger_time": "0000-0300",
-      "trigger_time_block": "1",
-      "workflow_id": "uid-fin-001",
-      "created_by_username": "business_optimizer"
+    "trigger_type": "project-list",
+    "trigger_frequency": "weekly",
+    "frequency_code": "1",
+    "trigger_day": "Tuesday",
+    "trigger_day_of_week_number": "2",
+    "trigger_time": "0900-1200",
+    "trigger_time_block": "4",
+    "start_date": "2025-07-23",
+    "end_date": "N/A",
+    "workflow_id": "uid-aqb-907",
+    "created_on": "2025-07-28",
+    "created_by_username": "seanivore",
+    "created_by_user_id": "user-1642",
+    "notes": "none"
     }
   ]
 }
 ```
 
-### Self-Enhancement Meta-Loop Architecture
+**Scheduling, File-Naming Conventions, and Directory Structure** 
 
-The autonomous system includes Mao's ability to improve its own business operations through systematic self-analysis:
+Just like creating a normal workflow, you put the entire directory path in the command. This path must contain all necessary JSON objects to create a workflow, in addition to the calendaring JSON object. 
 
-**Weekly Self-Enhancement Command**
+The *major* difference here is that there is an additional sub-directory for each list item on the list. This is because each list item will have its own JSON objects to define the workflow, along with their own custom command to run the workflow. 
+
+The "name" variable value on the standard workflow JSON object will identify the list to which the list item belongs. 
+
+When creating a new list item, the directory *does not require you have the trigger-workflow JSON object*; it will automatically be found and copied into the new list item's sub-directory. 
+
 ```bash
-# Mao's internal scheduler triggers every Sunday at 2 AM
-mao self-enhance --schedule weekly --focus "performance optimization"
-```
+# Create project-list trigger-workflow
+/triggered --list-new {{TEMP_DIR}}/project_1_2_4/
+mao triggered --list-new {{TEMP_DIR}}/project_1_2_4/
 
-**Self-Enhancement Workflow Types**
+# Directory structure automatically created:
+# configs/reoccuring/project-list/1_2_4/001/
+# ├── project_1_2_4.json                 # Calendaring JSON object; same for list items
+# ├── project_1_2_4-001_workflow_config.json # Workflow definition  
+# ├── project_1_2_4-001_phase_config.json    # Phase implementation
+# ├── project_1_2_4-001_handoff_config.json  # Completion criteria
+# └── project_1_2_4-001_README.md            # README file 
 
-1. **Application Version Planning**
-   - Weekly assessment of feature goals
-   - Implementation workflow creation
-   - Performance improvement proposals
+# Add list items to an existing trigger-workflow
+/triggered --list-add {{TEMP_DIR}}/project_1_2_4/
+mao triggered --list-add {{TEMP_DIR}}/project_1_2_4/
 
-2. **Subagent Ecosystem Management** 
-   - Feature implementation subagents
-   - Digital property creation agents
-   - Web service maintenance automation
-
-3. **Legal and Compliance Automation**
-   - RAG-enhanced legal guidance agents
-   - Regulatory compliance monitoring
-   - Risk assessment workflows
-   - Policy adherence tracking
-
-**Example: Self-Enhancement JSON Configuration**
-```json
-{
-  "name": "self_enhancement_weekly.json",
-  "schema_version": "1.0", 
-  "workflow": [
-    {
-      "workflow_goal": "Analyze and improve business operations",
-      "workflow_deliverable": "Weekly enhancement implementation plan",
-      "enhancement_areas": [
-        "financial_performance_analysis",
-        "customer_operations_optimization", 
-        "market_intelligence_gathering",
-        "process_automation_expansion"
-      ],
-      "subagent_spawning": "enabled",
-      "tools": ["brave_search", "perplexity_search", "text_editor"],
-      "autonomous_implementation": "approved_improvements_only"
-    }
-  ]
-}
+# Directory structure automatically created:
+# configs/reoccuring/project-list/1_2_4/002/
+# ├── project_1_2_4.json                 # Calendaring JSON object; same for list items
+# ├── project_1_2_4-002_workflow_config.json # Workflow definition  
+# ├── project_1_2_4-002_phase_config.json    # Phase implementation
+# ├── project_1_2_4-002_handoff_config.json  # Completion criteria
+# └── project_1_2_4-002_README.md            # README file 
 ```
 
 ---
 
-## The 90-Day Business Enhancement Roadmap
+### "Self-Assessment" Type Trigger-Workflows 
+*trigger every X time period; self-assessment by Mao; state management*
 
-This roadmap demonstrates how timer-triggered workflows transform business operations through modular, intelligent automation rather than hardcoded systems.
+**Calendaring JSON Object**
+*The calendaring JSON object is the same for all trigger-workflow types*
 
-### Month 1: Foundation Intelligence Implementation
+* Only difference between Trigger-Workflow JSON objects 
+  - Note the "trigger_type" is "self-assessment" for all self-assessment trigger-workflows 
+  - No other oddities  
 
-Your business transformation begins with Mao deploying modular workflow configurations for core business functions. Rather than rigid systems, Mao creates adaptive workflow templates that learn and optimize based on your specific business patterns.
+* The "file_name" versus "project_name" 
+  - The "file_name" is the always just "self_assess" along with the calendar code 
+  - The "project_name" is the name of the assessment 
+  - These can be rather open-ended 
 
-**Financial Intelligence Workflows**
+* When Mao determines there is a need for specific workflow task 
+  - They need only to create a new "workflow" JSON object, along with phases and handoffs 
+  - The "name" variable value will be the same as the "file_name" of the trigger-workflow 
+  - This will cause the script to identify that they are related 
+
+* Once identified and copied over the following changes will be made
+  - The "workflow" JSON object will have its name variable updated 
+  - The new "name" variable will reflect the "custom-command" 
+
+* The trigger workflow JSON object will be copied over with slight changes 
+  - The "custom-command" will replace the "project_name" variable 
+  - And the "workflow_id" will be updated to match the "workflow" JSON object 
+  - This ensures they're all tied together 
+
+ 
 ```json
 {
-  "name": "financial_foundation_workflows.json",
-  "workflow_categories": [
-    {
-      "category": "automated_accounting",
-      "frequency": "daily",
-      "tools": ["files_api", "text_editor"],
-      "deliverables": ["expense_categorization", "revenue_tracking", "cash_flow_analysis"]
-    },
-    {
-      "category": "vendor_optimization", 
-      "frequency": "monthly",
-      "tools": ["brave_search", "text_editor"],
-      "deliverables": ["contract_analysis", "cost_reduction_opportunities", "negotiation_strategies"]
-    }
-  ]
-}
-```
-
-**Customer Relationship Workflows**
-```json
-{
-  "name": "customer_intelligence_workflows.json", 
-  "workflow_categories": [
-    {
-      "category": "satisfaction_monitoring",
-      "frequency": "weekly",
-      "tools": ["brave_search", "perplexity_search"],
-      "deliverables": ["satisfaction_analysis", "churn_risk_assessment", "improvement_recommendations"]
-    },
-    {
-      "category": "relationship_optimization",
-      "frequency": "daily", 
-      "tools": ["text_editor"],
-      "deliverables": ["interaction_analysis", "engagement_strategies", "follow_up_automation"]
-    }
-  ]
-}
-```
-
-### Month 2: Operations Excellence Expansion
-
-With foundation workflows operational, Mao expands into proactive business management through project-list and goal-assessment triggered workflows.
-
-**Market Intelligence Project Lists**
-```bash
-# Create recurring project-list workflow for market research
-mao triggered --project-list configs/reoccuring/project-list/market_001_2
-
-# Automatically manages projects like:
-# - Competitive analysis research
-# - Industry trend identification  
-# - Customer behavior pattern analysis
-# - Market opportunity assessment
-```
-
-**Goal-Assessment Workflow Example**
-```json
-{
-  "name": "business_growth_assessment.json",
+  "file_name": "self_assess_1_7_1",
+  "project_name": "Open-Ended Autonomous Work",
   "schema_version": "1.0",
-  "goal_assessment_workflow": [
+  "trigger_workflow": [
     {
-      "trigger_type": "goal-assessment",
-      "assessment_focus": "revenue_growth_opportunities",
-      "frequency": "monthly",
-      "deliverable": "Growth strategy implementation plan",
-      "assessment_areas": [
-        "current_performance_metrics",
-        "market_position_analysis", 
-        "competitive_advantage_evaluation",
-        "resource_optimization_opportunities"
-      ]
+    "trigger_type": "self-assessment",
+    "trigger_frequency": "weekly",
+    "frequency_code": "1",
+    "trigger_day": "Sunday",
+    "trigger_day_of_week_number": "7",
+    "trigger_time": "0000-0300",
+    "trigger_time_block": "1",
+    "start_date": "2025-07-23",
+    "end_date": "N/A",
+    "workflow_id": "uid-xoy-572",
+    "created_on": "2025-07-28",
+    "created_by_username": "Mao",
+    "created_by_user_id": "user-0919",
+    "notes": "none"
     }
   ]
 }
 ```
 
-### Month 3: Strategic Autonomy Achievement
+**Scheduling, File-Naming Conventions, and Directory Structure** 
 
-By month three, Mao operates through self-assessment workflows that continuously optimize business strategies without human intervention.
+Just like creating a normal workflow, you put the temporary directory path that contains the JSON objects in the command. If this is a new self-assessment it will have all four necesssary JSON object types. 
 
-**Autonomous Strategic Planning**
-```json
-{
-  "name": "strategic_autonomy_config.json",
-  "self_assessment_capabilities": [
-    {
-      "assessment_type": "business_performance_analysis",
-      "frequency": "weekly",
-      "autonomous_actions": [
-        "marketing_campaign_optimization",
-        "product_development_prioritization",
-        "financial_strategy_adjustments",
-        "operational_efficiency_improvements"
-      ]
-    },
-    {
-      "assessment_type": "market_opportunity_evaluation", 
-      "frequency": "daily",
-      "autonomous_actions": [
-        "competitive_response_strategies",
-        "customer_segment_targeting",
-        "pricing_strategy_optimization",
-        "partnership_opportunity_identification"
-      ]
-    }
-  ]
-}
-```
+However, if this is a sub-task of an existing self-assessment, you do not need to have the self-assessment trigger-workflow JSON object in the temporary directory. It will be copied over as indicated in the notes above.  
 
----
 
-## Complete Business Function Automation
-
-### The Subagent Ecosystem Architecture
-
-Mao spawns specialized subagents that operate continuously in the background, feeding intelligence back to the main system for increasingly sophisticated business operations.
-
-**Subagent Spawning Configuration**
-```json
-{
-  "name": "subagent_ecosystem_config.json",
-  "subagent_categories": [
-    {
-      "agent_type": "web_scraping_agents",
-      "purpose": "market_intelligence_gathering",
-      "tools": ["brave_search", "web_search"],
-      "schedule": "continuous",
-      "reporting_frequency": "daily"
-    },
-    {
-      "agent_type": "social_monitoring_agents", 
-      "purpose": "brand_mention_tracking",
-      "tools": ["perplexity_search", "brave_search"],
-      "schedule": "hourly",
-      "reporting_frequency": "real_time"
-    },
-    {
-      "agent_type": "competitive_analysis_agents",
-      "purpose": "industry_trend_watching", 
-      "tools": ["brave_search", "text_editor"],
-      "schedule": "daily",
-      "reporting_frequency": "weekly_summary"
-    }
-  ]
-}
-```
-
-### Real-World Implementation Examples
-
-**Business Enhancement Workflow Templates**
-
-Instead of hardcoded business systems, Mao provides modular workflow templates that adapt to any business context:
-
-```json
-{
-  "name": "business_enhancement_templates.json",
-  "template_categories": [
-    {
-      "category": "revenue_optimization",
-      "modular_workflows": [
-        "pricing_strategy_analysis",
-        "customer_lifetime_value_optimization", 
-        "upsell_opportunity_identification",
-        "market_expansion_planning"
-      ]
-    },
-    {
-      "category": "cost_reduction", 
-      "modular_workflows": [
-        "vendor_contract_optimization",
-        "process_automation_opportunities",
-        "resource_allocation_analysis",
-        "technology_consolidation_planning"
-      ]
-    },
-    {
-      "category": "customer_experience",
-      "modular_workflows": [
-        "satisfaction_improvement_planning",
-        "support_process_optimization",
-        "retention_strategy_development", 
-        "personalization_enhancement"
-      ]
-    }
-  ]
-}
-```
-
----
-
-## The Revolutionary Business Model: Complete Autonomy
-
-### Claude Code SDK Integration for Dynamic Tool Creation
-
-With the v4.2.0 Claude Code SDK integration, users can request new business automation tools in plain English:
-
-**Dynamic Tool Creation Examples**
 ```bash
-# Users can request custom business tools
-"Create me a compliance agent that checks our marketing copy against FTC guidelines"
-"Build a research agent that monitors patent filings in our industry"  
-"Make a business intelligence agent that tracks competitor pricing"
+# Create self-assessment trigger-workflow
+/triggered --self-assessment {{TEMP_DIR}}/self_assess_1_7_1/
+mao triggered --self-assessment {{TEMP_DIR}}/self_assess_1_7_1/
 
-# Mao automatically generates:
-# - Tool configuration JSON
-# - Workflow templates  
-# - Implementation phases
-# - Testing and validation procedures
-```
+# Directory structure automatically created:
+# configs/reoccuring/self-assessment/1_7_1/
+# ├── self_assessment_1_7_1.json                 # Calendaring JSON object
+# ├── self_assessment_1_7_1_workflow_config.json # Workflow definition  
+# ├── self_assessment_1_7_1_phase_config.json    # Phase implementation
+# ├── self_assessment_1_7_1_handoff_config.json  # Completion criteria
+# └── self_assessment_1_7_1_README.md            # README file 
 
-**SDK Integration Architecture**
-```json
-{
-  "name": "claude_code_sdk_integration.json",
-  "dynamic_tool_creation": {
-    "user_request_processing": "natural_language_to_workflow",
-    "tool_generation": "automated_json_configuration",
-    "implementation": "modular_component_assembly",
-    "testing": "automated_validation_workflows",
-    "deployment": "seamless_integration"
-  },
-  "supported_business_functions": [
-    "compliance_monitoring",
-    "competitive_intelligence", 
-    "financial_analysis",
-    "customer_research",
-    "market_analysis",
-    "process_optimization"
-  ]
-}
-```
+# Create sub-task of self-assessment trigger-workflow
+/triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
-### The Meta-Learning Business Enhancement Loop
-
-Mao creates a beautiful meta-loop where the system uses data for decision-making and subsequent workflow planning in an ever-improving cycle:
-
-**Meta-Learning Configuration**
-```json
-{
-  "name": "meta_learning_loop.json",
-  "enhancement_capabilities": [
-    {
-      "capability": "self_analyzing",
-      "focus": "performance_and_user_satisfaction",
-      "frequency": "continuous",
-      "metrics": ["efficiency_scores", "outcome_quality", "user_feedback"]
-    },
-    {
-      "capability": "self_optimizing", 
-      "focus": "code_and_workflows",
-      "frequency": "weekly",
-      "improvements": ["process_streamlining", "resource_optimization", "speed_enhancement"]
-    },
-    {
-      "capability": "self_expanding",
-      "focus": "capability_growth",
-      "frequency": "monthly", 
-      "expansions": ["new_tool_integration", "workflow_template_creation", "analysis_depth_improvement"]
-    },
-    {
-      "capability": "self_documenting",
-      "focus": "improvement_tracking",
-      "frequency": "continuous",
-      "documentation": ["change_logs", "performance_metrics", "learning_insights"]
-    },
-    {
-      "capability": "self_marketing",
-      "focus": "value_demonstration",
-      "frequency": "ongoing",
-      "demonstrations": ["roi_calculations", "efficiency_improvements", "business_impact_reports"]
-    }
-  ]
-}
+# Directory structure automatically created:
+# configs/reoccuring/self-assessment/1_7_1/sub_task_custom_command/
+# ├── sub_task_custom_command.json                 # Calendaring JSON object
+# ├── sub_task_custom_command_workflow_config.json # Workflow definition  
+# ├── sub_task_custom_command_phase_config.json    # Phase implementation
+# ├── sub_task_custom_command_handoff_config.json  # Completion criteria
+# └── sub_task_custom_command_README.md            # README file 
 ```
 
 ---
 
-## The Investment Case: Autonomous Business Operations
+### "Goal-Assessment" Type Trigger-Workflows 
+*trigger every X time period; goal-assessment made by user or Mao; state management*
 
-### Real-World Success Metrics
+**Calendaring JSON Object**
+*The calendaring JSON object is the same for all trigger-workflow types*
 
-Rather than theoretical projections, Mao's modular approach enables measurable business improvements through configurable analytics:
+* Only difference between Trigger-Workflow JSON objects
+  - Note the "trigger_type" is "goal-assessment" for all goal-assessment trigger-workflows 
+  - No other oddities  
 
-**ROI Measurement Configuration**
+* The "file_name" versus "project_name" 
+  - The "file_name" is the always just "goal_assessment" along with the calendar code 
+  - The "project_name" is the name of the goal 
+  - These can be rather open-ended 
+
+* If Mao determines there is a need for specific workflow task 
+  - They need only to create a new "workflow" JSON object, along with phases and handoffs 
+  - The "name" variable value will be the same as the "file_name" of the trigger-workflow 
+  - This will cause the script to identify that they are related 
+
+* Once identified and copied over the following changes will be made
+  - The "workflow" JSON object will have its name variable updated 
+  - The new "name" variable will reflect the "custom-command" 
+
+* The trigger workflow JSON object will be copied over with slight changes 
+  - The "custom-command" will replace the "project_name" variable 
+  - And the "workflow_id" will be updated to match the "workflow" JSON object 
+  - This ensures they're all tied together 
+
+ 
 ```json
 {
-  "name": "business_roi_measurement.json",
-  "measurement_categories": [
+  "file_name": "goal_assessment_2_3_7",
+  "project_name": "Investment Research",
+  "schema_version": "1.0",
+  "trigger_workflow": [
     {
-      "category": "operational_efficiency",
-      "metrics": [
-        "process_automation_percentage",
-        "manual_task_reduction", 
-        "error_rate_improvement",
-        "response_time_optimization"
-      ],
-      "measurement_frequency": "weekly",
-      "reporting": "automated_dashboard"
-    },
-    {
-      "category": "revenue_impact",
-      "metrics": [
-        "customer_acquisition_improvement",
-        "retention_rate_enhancement",
-        "upsell_success_optimization", 
-        "market_opportunity_capture"
-      ],
-      "measurement_frequency": "monthly",
-      "reporting": "comprehensive_analysis"
+    "trigger_type": "goal-assessment",
+    "trigger_frequency": "every other week",
+    "frequency_code": "2",
+    "trigger_day": "Wednesday",
+    "trigger_day_of_week_number": "3",
+    "trigger_time": "1800-2100",
+    "trigger_time_block": "7",
+    "start_date": "2025-07-23",
+    "end_date": "N/A",
+    "workflow_id": "uid-pjb-809",
+    "created_on": "2025-07-28",
+    "created_by_username": "Mao",
+    "created_by_user_id": "user-0919",
+    "notes": "none"
     }
   ]
 }
 ```
 
-**Business Transformation Timeline**
-```json
-{
-  "name": "transformation_timeline.json",
-  "milestones": [
-    {
-      "timeframe": "week_1-4",
-      "focus": "foundation_automation",
-      "expected_improvements": "15-25% efficiency gains",
-      "workflows_deployed": ["financial_tracking", "customer_monitoring", "basic_analytics"]
-    },
-    {
-      "timeframe": "month_2-3",
-      "focus": "intelligent_optimization", 
-      "expected_improvements": "35-50% productivity increases",
-      "workflows_deployed": ["market_intelligence", "competitive_analysis", "strategic_planning"]
-    },
-    {
-      "timeframe": "month_4-6",
-      "focus": "autonomous_operations",
-      "expected_improvements": "70-120% capability expansion", 
-      "workflows_deployed": ["self_enhancement", "predictive_analysis", "proactive_optimization"]
-    }
-  ]
-}
+**Scheduling, File-Naming Conventions, and Directory Structure** 
+
+Just like creating a normal workflow, you put the temporary directory path that contains the JSON objects in the command. If this is a new goal-assessment it will have all four necesssary JSON object types. 
+
+However, if this is a sub-task of an existing goal-assessment, you do not need to have the goal-assessment trigger-workflow JSON object in the temporary directory. It will be copied over as indicated in the notes above.  
+
+
+```bash
+# Create goal-assessment trigger-workflow
+/triggered --goal-assessment {{TEMP_DIR}}/goal_assessment_2_3_7/
+mao triggered --goal-assessment {{TEMP_DIR}}/goal_assessment_2_3_7/
+
+# Directory structure automatically created:
+# configs/reoccuring/goal-assessment/2_3_7/
+# ├── goal_assessment_2_3_7.json                 # Calendaring JSON object
+# ├── goal_assessment_2_3_7_workflow_config.json # Workflow definition  
+# ├── goal_assessment_2_3_7_phase_config.json    # Phase implementation
+# ├── goal_assessment_2_3_7_handoff_config.json  # Completion criteria
+# └── goal_assessment_2_3_7_README.md            # README file 
+
+# Create sub-task of goal-assessment trigger-workflow
+/triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+
+# Directory structure automatically created:
+# configs/reoccuring/goal-assessment/2_3_7/sub_task_custom_command/
+# ├── sub_task_custom_command.json                 # Calendaring JSON object
+# ├── sub_task_custom_command_workflow_config.json # Workflow definition  
+# ├── sub_task_custom_command_phase_config.json    # Phase implementation
+# ├── sub_task_custom_command_handoff_config.json  # Completion criteria
+# └── sub_task_custom_command_README.md            # README file 
 ```
 
-### Market Opportunity Analysis
+---
 
-The autonomous business systems market represents a $100+ billion opportunity, with Mao positioned as the first truly modular, intelligent platform:
+## Attention Just Significantly Reduced In Value 
 
-**Market Position Configuration**
-```json
-{
-  "name": "market_opportunity_analysis.json",
-  "competitive_advantages": [
-    {
-      "advantage": "modular_architecture",
-      "benefit": "zero_vendor_lock_in",
-      "market_differentiation": "adaptable_to_any_business_model"
-    },
-    {
-      "advantage": "conversation_driven_interface",
-      "benefit": "90_percent_learning_curve_reduction", 
-      "market_differentiation": "accessible_to_non_technical_users"
-    },
-    {
-      "advantage": "self_enhancement_capabilities",
-      "benefit": "exponential_value_creation",
-      "market_differentiation": "first_autonomous_business_platform"
-    }
-  ],
-  "addressable_markets": [
-    "small_business_automation",
-    "mid_market_intelligence",
-    "enterprise_optimization",
-    "autonomous_business_systems"
-  ]
-}
-```
+Your business can respond to opportunities and challenges even when you're not actively managing it. Mao analyzes your business situation and creates the appropriate response for current conditions. 
+
+You'll be notified of price changes in your market or customer behavior shifts, potentially even after action has been taken to adjust and turn this into an opportunity 
+
+This isn't about automating individual tasks. It is only tangentially about task automation. This is about Mao taking responsibility for entire business functions while you focus on strategy, creativity, and growth.
+
+
+
+
+---
+
+scheduling 
+rescheduling 
+canceling 
+updating 
+adding end date 
+
+
+---
+
+- Social media management 
+- Content creation 
+- Email management 
+- Project management 
+- Research 
+- Marketing 
+
+
 
 ---
 
