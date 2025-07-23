@@ -50,8 +50,20 @@ class QualityAuditSuite:
             "error_handling_audit": {
                 "script": "error_handling_audit.py",
                 "name": "Error Handling Patterns Audit",
-                "weight": 20,
+                "weight": 15,
                 "description": "Analyzes error handling consistency across codebase"
+            },
+            "cache_usage_audit": {
+                "script": "cache_usage_audit.py",
+                "name": "Cache Usage Patterns Audit",
+                "weight": 15,
+                "description": "Analyzes cache usage consistency and patterns"
+            },
+            "file_path_audit": {
+                "script": "file_path_audit.py",
+                "name": "File Path Handling Audit",
+                "weight": 10,
+                "description": "Analyzes file path handling consistency and cross-platform compatibility"
             }
         }
 
@@ -80,6 +92,10 @@ class QualityAuditSuite:
                 auditor = audit_module.FunctionNamingAuditor()
             elif hasattr(audit_module, 'ErrorHandlingAuditor'):
                 auditor = audit_module.ErrorHandlingAuditor()
+            elif hasattr(audit_module, 'CacheUsageAuditor'):
+                auditor = audit_module.CacheUsageAuditor()
+            elif hasattr(audit_module, 'FilePathAuditor'):
+                auditor = audit_module.FilePathAuditor()
             else:
                 print(f"❌ No auditor class found in {script_name}")
                 return None
@@ -136,6 +152,16 @@ class QualityAuditSuite:
                 # Use the score calculated by the error handling auditor
                 summary = results.get('summary', {})
                 score = summary.get('error_handling_score', 50)
+                
+            elif audit_key == "cache_usage_audit":
+                # Use the score calculated by the cache usage auditor
+                summary = results.get('summary', {})
+                score = summary.get('cache_usage_score', 50)
+                
+            elif audit_key == "file_path_audit":
+                # Use the score calculated by the file path auditor
+                summary = results.get('summary', {})
+                score = summary.get('path_handling_score', 50)
                 
             else:
                 score = 50  # Default score for unknown audits
