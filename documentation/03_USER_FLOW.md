@@ -1,9 +1,15 @@
 # Section III: Setting Up a Project for Mao 
-*User guide from start to finish; with tactfully placed architecture & analytics trigger points* 
+*Walkthrough of a first-time user's experience* 
 
 ---
 
-## Install Mao v4.0.0 
+You're ready to automate your life. Advanced agentic orchestration, delegating to subagents working in parallel, fully compatible with any LLM model, it all sounds great. But you know what sounds better? *No learning curve.* Mao is here. Not just to help you, but to totally take over for you ~(=^‥^)
+
+---
+
+## Install 'Mao' 
+
+This is the literal hardest part of using Mao. (It's not hard at all.)
 
 1. Install [Node.js 18+](https://nodejs.org/en/download/)
 2. Open the terminal on your computer
@@ -11,54 +17,65 @@
 
 ```bash
 npm install -g @seanivore/mao
+```
 #     │      │  │
 #     │      │  └── Scoped package name  
 #     │      └────── Install globally (system-wide)
 #     └───────────── Package manager
-```
 
-## Launch the application 
+---
 
-Use the `mao mao` command to launch the application. 
+## Launch Mao's Application  
 
-```bash
-mao mao # Proper startup command; launches the Mao application 
-mao --continue # Launches the app in the state of the last session 
-mao # Launches the app as if you're a new user 
-```
-
-## Login & Usernames 
-
-- If this is you first time using Mao, you'll need to login and choose a couple settings, all of which you'll be walked through when the application launches. 
-- If this isn't your first time using Mao and you want to make sure you're logging into your account, you can use the `--login` flag. 
+Execute the command `mao mao` to launch the application. 
 
 ```bash
-mao --login # Launches with the Username field available 
-mao --login --username seanivore # Launches with the Username field set to "seanivore" 
+    mao mao         # Launches Mao's application 
+```
+
+If you forget a second "mao" ~(=^‥^) you'll be treated as a new user. 
+
+```bash
+    mao              # Launches app for new user 
+```
+
+You've used Mao before on this device? Launch the app already logged in. 
+
+```bash
+    mao --login # Launches with the Username field available 
+    mao --login --username seanivore # Launches with the Username field set to "seanivore" 
+    mao --continue   # Launches Mao in the last session 
 ```
 
 ### UserID, Username, and Security 
 
+It's your first time with Mao ~(=^‥^) The app loads and:
+
+  1. You see two text fields, only the top is editable 
+  2. Enter your name, or a Username you won't forget, in that top text field 
+  3. The lower text field will automatically populate with a UserID 
+
 **You only need to remember your Username** 
 
-- The UserID is automatically generated from a Username 
-- It is used on the backend as an additinal layer of anonymity for the user and their data 
-- On the back end, your Username and its UserID are shown together only in one configuration file 
-- All other data, settings, and workflows are stored with the UserID 
+  - The UserID is a unique identifier for your account 
+  - It is used as an additional layer of anonymity for your data 
+  - On the backend, your Username and its UserID are shown together in only one configuration file 
+  - All other data, settings, and workflows are stored with the UserID 
 
 **Extra security?** 
 
-- We do not currently have any analytics that would require a UserID to be anonymous and you will be notified if we add any in the future. 
-- If you would ever like to know what data `Mao` has stored on your behalf, please email support. 
-- All data is stored in a secure, encrypted database. 
-- All user analytics are stored separately from all other analytics in the system 
-- Should you ever want to have your data deleted, please email support. 
+  - We do not currently have any analytics that would require a UserID 
+  - You will be notified if we add any in the future 
+  - If you would ever like to know what data `Mao` has stored on your behalf, email us 
+  - All data is stored in a secure, encrypted database. 
+  - User analytics are architecturally separate from system analytics 
+  - Should you ever want to have your data deleted, please email support 
 
 **Where do I set my password?** 
 
-- In Mao v4.0.0, due to the early states of development, we have not yet implemented a password system. 
-- We will be adding a password system in the future, and you will be notified when it is available. 
-- Should this concern you, please email support, and we will be happy to help you. 
+- Due to how young Mao v4.0.0 is, we have not yet implemented a password system 
+- You will be notified when a password system is available 
+- Should this concern you, please email support, and we will be happy to help you 
 
 ---
 
