@@ -1,8 +1,9 @@
 {
   "_metadata": {
     "config_type": "model_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
+    "schema_version": "2.0",
     "version": "1.0.0"
   },
   "capabilities": {
@@ -10,10 +11,27 @@
     "vision": true
   },
   "context_window": 200000,
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable model usage analytics",
+    "type": "boolean"
+  },
   "default": false,
   "display_name": "Claude Sonnet 4",
   "enabled": true,
+  "favorite_model": {
+    "default": "claude-sonnet-4",
+    "description": "Preferred model selection",
+    "source": "user_preference",
+    "type": "string",
+    "ui_metadata": {
+      "help_text": "Choose your preferred model",
+      "section": "Model"
+    }
+  },
   "input_price_per_million": 3.0,
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "max_output": 32000,
   "max_output_beta": 128000,
   "max_tokens": 0,

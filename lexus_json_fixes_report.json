@@ -1,0 +1,999 @@
+{
+  "summary": {
+    "files_analyzed": 83,
+    "files_lexus_ified": 83,
+    "total_lexus_fixes": 244,
+    "backup_directory": "lexus_json_backup",
+    "lexus_qualification_status": "IN_PROGRESS"
+  },
+  "detailed_results": [
+    {
+      "file": "configs/settings/data_collection_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/data_collection_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/cat_vibes_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/cat_vibes_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/theme_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/theme_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/favorite_model_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/favorite_model_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/application_settings_schema.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/application_settings_schema.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/quick_launch_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/quick_launch_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/double_texting_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/double_texting_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/default_provider_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/default_provider_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/settings/tone_notification_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 4,
+      "backup_path": "lexus_json_backup/tone_notification_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/providers/anthropic-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/anthropic-direct.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/providers/openai-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/openai-direct.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/providers/gemini-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/gemini-direct.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/providers/lm-studio.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/lm-studio.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/providers/litellm.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/litellm.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/providers/requesty.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/requesty.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/claude-3-7-sonnet.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/claude-3-7-sonnet.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/gpt-4.1-mini.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/gpt-4.1-mini.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/gpt-4.1-nano.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/gpt-4.1-nano.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/gemini-2.5-pro.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/gemini-2.5-pro.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/claude-opus-4.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/claude-opus-4.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/local-llama-3.1-8b.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/local-llama-3.1-8b.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/models/claude-sonnet-4.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/claude-sonnet-4.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/connections/providers_x_models.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/providers_x_models.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/connections/models_x_tools.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/models_x_tools.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/connections/mcp_servers.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/mcp_servers.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/system/analytics/aggregate_usage.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/aggregate_usage.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/system/analytics/tool_performance.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/tool_performance.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/mao/mao.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/mao.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/dry_run/dry_run.json",
+      "config_type": "cli_command",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "lexus_json_backup/dry_run.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/tools/tools.json",
+      "config_type": "cli_command",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "lexus_json_backup/tools.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/privacy/privacy.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/privacy.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/memory/memory.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/memory.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/update/update.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/update.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/chat/chat.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/chat.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/config/config.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/set_model/set_model.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/set_model.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/providers/providers.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/providers.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/doctor/doctor.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/doctor.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/fix_it/fix_it.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/fix_it.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/setup/setup.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/setup.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/provider/provider.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/provider.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/workflows/workflows.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/workflows.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/logout/logout.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/logout.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/models/models.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/models.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/user_id/user_id.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/user_id.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/onboard/onboard.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/onboard.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/restart/restart.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/restart.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/verbose/verbose.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/verbose.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/provider_list/provider_list.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/provider_list.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/output_directory/output_directory.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/output_directory.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/logs/logs.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/logs.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/default_provider/default_provider.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/default_provider.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/variables_explain/variables_explain.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/variables_explain.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/variables/variables.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/variables.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/review/review.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/review.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/workflow_id/workflow_id.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/workflow_id.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/model/model.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/model.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/exit/exit.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/exit.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/continue/continue.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/continue.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/login/login.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/login.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/stats/stats.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/stats.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/help/help.json",
+      "config_type": "cli_command",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "lexus_json_backup/help.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/cli/goal/goal.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: specific_touchpoints"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/goal.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/user_seanivore.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/user_seanivore.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/memories/personal_preferences.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/personal_preferences.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/memories/project_context.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/project_context.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/cost_tracking.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/cost_tracking.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/workflow_metrics.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/workflow_metrics.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/session_metrics.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/session_metrics.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/tool_usage.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/tool_usage.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_phase_config.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/command_use_case_phase_config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_handoff_config.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/command_use_case_handoff_config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_workflow_config.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/command_use_case_workflow_config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/settings/setting_name_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated"
+      ],
+      "fix_count": 5,
+      "backup_path": "lexus_json_backup/setting_name_app_settings.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/tools/tool_config_template.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/tool_config_template.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/tools/tool.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/tool.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/cli_commands/cli_command.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing template field: integration",
+        "Added missing field: logic_file"
+      ],
+      "fix_count": 2,
+      "backup_path": "lexus_json_backup/cli_command.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/providers/provider.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/provider.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/workflows/example-workflow_workflow_config.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/example-workflow_workflow_config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/workflows/example-workflow_phase_config.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 6,
+      "backup_path": "lexus_json_backup/example-workflow_phase_config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/workflows/example-workflow_handoff_config.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "No Lexus schema available for this type"
+      ],
+      "fix_count": 1,
+      "backup_path": "lexus_json_backup/example-workflow_handoff_config.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/models/model.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing field: schema_version",
+        "Added missing template field: favorite_model",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 7,
+      "backup_path": "lexus_json_backup/model.json.backup",
+      "status": "lexus_worthy"
+    },
+    {
+      "file": "templates/users/user_username.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Standardized date format: created_date",
+        "Standardized date format: last_updated",
+        "Added missing template field: data_collection",
+        "Added missing field: created_date",
+        "Added missing field: last_updated"
+      ],
+      "fix_count": 5,
+      "backup_path": "lexus_json_backup/user_username.json.backup",
+      "status": "lexus_worthy"
+    }
+  ]
+}

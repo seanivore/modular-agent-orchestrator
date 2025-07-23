@@ -1,0 +1,25 @@
+{
+  "_metadata": {
+    "config_type": "model_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
+  "capabilities": {
+    "tools": true,
+    "vision": true
+  },
+  "context_window": 1048576,
+  "default": false,
+  "display_name": "Gemini 2.5 Pro",
+  "enabled": true,
+  "input_price_per_million": 0.0,
+  "max_output": 65536,
+  "max_tokens": 0,
+  "model_id": "gemini-2.5-pro",
+  "name": "gemini-2.5-pro",
+  "output_price_per_million": 0.0,
+  "provider": "default_provider",
+  "safe_token_limit": 30000,
+  "temperature": 0.7
+}

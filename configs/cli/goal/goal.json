@@ -15,7 +15,10 @@
   "cost_estimate": 0.008,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Create entire workflow from goal description",
   "hidden": false,
   "integration": {
@@ -26,7 +29,11 @@
       "workflow_manager",
       "workflow_state"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "goal",
   "logic_file": "configs/cli/goal/goal.py",

@@ -1,8 +1,8 @@
 {
   "_metadata": {
     "config_type": "app_settings",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
     "schema_version": "1.0",
     "version": "1.0.0"
   },
@@ -34,7 +34,7 @@
       "section": "Interface & Experience"
     }
   },
-  "created_date": "2025-07-23T08:15:00.000000Z",
+  "created_date": "2025-07-23T08:26:00.000000Z",
   "data_collection": {
     "default": true,
     "description": "Enable data collection for analytics",
@@ -49,7 +49,7 @@
     }
   },
   "description": "Configure cat personality level and language style",
-  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "cat_vibes_app_settings",
   "version": "1.0"
 }

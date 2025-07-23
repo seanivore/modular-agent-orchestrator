@@ -1,0 +1,55 @@
+{
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
+    "ui_metadata": {
+      "help_text": "Control application data collection",
+      "preview_enabled": true,
+      "section": "Privacy"
+    }
+  },
+  "description": "Configure completion notification preferences",
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "tone_notification_app_settings",
+  "tone_notification": {
+    "default": true,
+    "description": "When a workflow is complete, a simple tone is played",
+    "options": [
+      {
+        "description": "Simple system tone when workflow completes, no push notification",
+        "label": "Once, no push",
+        "value": "once_no_push"
+      },
+      {
+        "description": "No sound, but send push notification with workflow results",
+        "label": "Silent, push",
+        "value": "silent_push"
+      },
+      {
+        "description": "Complete silence - no sounds or notifications",
+        "label": "No notifications",
+        "value": "no_notifications"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Controls how you're notified when workflows complete",
+      "preview_enabled": false,
+      "section": "Notifications & Privacy"
+    }
+  },
+  "version": "1.0"
+}

@@ -14,7 +14,10 @@
   "cost_estimate": 0.002,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/workflows/workflows.py",
   "help": "List all configured workflows with search and filtering capabilities",
   "hidden": false,
@@ -27,9 +30,14 @@
       "logs_command",
       "stats_command"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "list_workflows",
+  "logic_file": "default.py",
   "name": "workflows",
   "operations": {
     "filter": {

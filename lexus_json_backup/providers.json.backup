@@ -1,0 +1,49 @@
+{
+  "_metadata": {
+    "config_type": "provider_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
+  "api_base": "default_api_base",
+  "app_command": "/providers",
+  "cache_settings": {
+    "cache_key_includes": [
+      "providers_directory_state",
+      "provider_files_hash"
+    ],
+    "duration_seconds": 900,
+    "enabled": true
+  },
+  "command": "providers",
+  "cost_estimate": 0.001,
+  "default": false,
+  "enabled": true,
+  "file_path": "configs/cli/providers/providers.py",
+  "help": "List all available providers with metadata and capabilities",
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "manager_models"
+    ],
+    "memory_mcp": false
+  },
+  "interface_method": "list_providers",
+  "name": "providers",
+  "operations": {
+    "list": {
+      "description": "List all available providers with comprehensive metadata",
+      "optional_params": [
+        "format",
+        "filter"
+      ],
+      "required_params": true
+    }
+  },
+  "secure": true,
+  "terminal_flag": "--providers",
+  "timeout": 30,
+  "type": "standalone",
+  "ui_path": "configs/cli/providers/ui_providers.py"
+}

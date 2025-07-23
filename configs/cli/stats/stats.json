@@ -9,15 +9,26 @@
   "data_type": "real_time",
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Show real-time system performance metrics, workflow monitoring, and cost tracking with search/filter capabilities",
   "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
+  },
   "integration_points": [
     "SystemMetricsProvider",
     "WorkflowMonitor",
     "CostTracker"
   ],
   "interface_method": "stats",
+  "logic_file": "default.py",
   "name": "default_command",
   "required": false,
   "search_capabilities": [

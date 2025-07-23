@@ -16,7 +16,10 @@
   "cost_estimate": 0.003,
   "description": "User ID management with workflow state integration. Shows current session user ID or generates new user ID from username input. Part of NEW_USER_FLOW.md implementation.",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/user_id/user_id.py",
   "help": "Display current user ID or generate user ID from username. Integrates with workflow state management.",
   "hidden": false,
@@ -32,9 +35,14 @@
       "workflow_state",
       "memory_mcp"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "user_id",
+  "logic_file": "default.py",
   "name": "user_id",
   "operations": {
     "execute": {

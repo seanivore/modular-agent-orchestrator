@@ -1,0 +1,95 @@
+{
+  "app_command": "/variables",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "template_directory_state",
+      "template_files_mod_time"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "workflow",
+  "command": "default",
+  "complexity": "medium",
+  "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [
+    {
+      "command": "mao variables",
+      "description": "List all workflow variables"
+    },
+    {
+      "command": "mao variables --explain",
+      "description": "List variables with detailed explanations"
+    },
+    {
+      "command": "mao variables --template example-workflow",
+      "description": "Show variables for specific template"
+    },
+    {
+      "command": "/variables",
+      "description": "List variables (app command)"
+    }
+  ],
+  "file_path": "configs/cli/variables/variables.py",
+  "flags": {
+    "explain": {
+      "default": false,
+      "flag": "--explain",
+      "help": "Show detailed explanations of each workflow variable and their usage",
+      "type": "boolean"
+    },
+    "format": {
+      "choices": [
+        "table",
+        "json",
+        "compact"
+      ],
+      "default": true,
+      "flag": "--format",
+      "help": "Output format: table, json, compact",
+      "type": "string"
+    },
+    "template": {
+      "default": true,
+      "flag": "--template",
+      "help": "Specify a specific workflow template to analyze for variables",
+      "type": "string"
+    }
+  },
+  "help": "Discover and list all workflow template variables needed for workflow setup. Shows required fields for workflow JSON configuration.",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_templates"
+    ],
+    "memory_mcp": false
+  },
+  "integration_points": [
+    "workflow_manager",
+    "workflow_templates",
+    "memory_mcp"
+  ],
+  "interface_method": "list_variables",
+  "name": "variables",
+  "operations": {
+    "execute": {
+      "description": "Main variables discovery operation",
+      "optional_params": [
+        "explain",
+        "template",
+        "format"
+      ],
+      "required_params": true
+    }
+  },
+  "required": false,
+  "terminal_flag": "--variables",
+  "type": "standalone",
+  "ui_path": "configs/cli/variables/ui_variables.py"
+}

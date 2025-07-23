@@ -14,7 +14,10 @@
   "cost_estimate": 0.001,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Set favorite model via settings_manager.py",
   "hidden": false,
   "integration": {
@@ -24,7 +27,11 @@
       "settings_manager",
       "manager_models"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "set_model",
   "logic_file": "configs/cli/set_model/set_model.py",

@@ -15,20 +15,10 @@
   "cost_estimate": 0.002,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [
-    {
-      "command": "mao workflow_id",
-      "description": "Generate a new workflow ID"
-    },
-    {
-      "command": "mao workflow_id --explain",
-      "description": "Generate workflow ID with mathematical explanation"
-    },
-    {
-      "command": "/workflow_id",
-      "description": "Generate workflow ID (app command)"
-    }
-  ],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/workflow_id/workflow_id.py",
   "flags": {
     "explain": {
@@ -48,9 +38,14 @@
       "workflow_state",
       "memory_mcp"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "workflow_id",
+  "logic_file": "default.py",
   "name": "workflow_id",
   "operations": {
     "execute": {

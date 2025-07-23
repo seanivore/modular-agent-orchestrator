@@ -1,0 +1,724 @@
+{
+  "summary": {
+    "files_analyzed": 82,
+    "files_parsed": 34,
+    "classes_found": 4,
+    "total_functions": 224,
+    "total_methods": 55,
+    "similar_function_groups": 4,
+    "manager_inconsistencies": 0,
+    "parameter_inconsistencies": 1
+  },
+  "similar_functions": {
+    "user_operations": [
+      {
+        "name": "get_workflow_history",
+        "file": "orchestrator/agent_callback.py",
+        "line": 339,
+        "args": [
+          "self",
+          "workflow_id"
+        ],
+        "class": "AgentCallbackHandler",
+        "docstring": "Get complete workflow execution history",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_available_tools",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 194,
+        "args": [
+          "self"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Get all available MCP tools",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_tool_recommendations",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 198,
+        "args": [
+          "self",
+          "workflow_context"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Recommend tools based on workflow context",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_system_status",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 223,
+        "args": [
+          "self"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Get complete MCP Integration Hub status",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_workflow_insights",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 335,
+        "args": [
+          "self",
+          "workflow_id"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Get insights from workflow execution",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_hub_summary",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 391,
+        "args": [
+          "hub"
+        ],
+        "class": null,
+        "docstring": "Get human-readable summary of MCP Hub status",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_launch_help",
+        "file": "configs/cli/mao/ui_mao.py",
+        "line": 31,
+        "args": [],
+        "class": null,
+        "docstring": "Get help text for the terminal UI launch command",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/dry_run/ui_dry_run.py",
+        "line": 166,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/tools/ui_tools.py",
+        "line": 113,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 238,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know for memory command display.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/chat/ui_chat.py",
+        "line": 62,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know for chat command display.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/models/ui_models.py",
+        "line": 63,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 251,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know for user ID display.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_onboarding_help",
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 35,
+        "args": [],
+        "class": null,
+        "docstring": "Get help text for the onboarding command",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_variables_summary",
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 352,
+        "args": [
+          "result"
+        ],
+        "class": null,
+        "docstring": "Get summary data for UI widgets\" / \"components",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_required_variables",
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 369,
+        "args": [
+          "result"
+        ],
+        "class": null,
+        "docstring": "Get list of required variables with details",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_variables_display_title",
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 385,
+        "args": [
+          "result"
+        ],
+        "class": null,
+        "docstring": "Get display title for variables result",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/login/ui_login.py",
+        "line": 239,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation per NEW_USER_FLOW.md.\n\nReturns what a UI designer would need to know for login flow.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_theme_selection_display",
+        "file": "configs/cli/login/ui_login.py",
+        "line": 304,
+        "args": [],
+        "class": null,
+        "docstring": "Provide theme selection display structure for new users per NEW_USER_FLOW.md.\n\nThis is called after successful new user creation.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_user_list",
+        "file": "configs/cli/login/login.py",
+        "line": 297,
+        "args": [],
+        "class": null,
+        "docstring": "Get list of all users for selection (admin\" / \"debugging purposes)",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 332,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for real-time stats UI implementation.\n\nReturns what a UI designer would need to know for performance metrics.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_workflow_progress",
+        "file": "configs/cli/stats/stats.py",
+        "line": 202,
+        "args": [
+          "workflow_id"
+        ],
+        "class": null,
+        "docstring": "Get detailed progress for a specific workflow",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_live_metrics_snapshot",
+        "file": "configs/cli/stats/stats.py",
+        "line": 214,
+        "args": [],
+        "class": null,
+        "docstring": "Get simplified live metrics for frequent polling",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "get_display_requirements",
+        "file": "configs/cli/help/ui_help.py",
+        "line": 117,
+        "args": [],
+        "class": null,
+        "docstring": "Define essential display requirements for UI implementation.\n\nReturns what a UI designer would need to know.",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      }
+    ],
+    "data_storage": [
+      {
+        "name": "save_workflow_draft",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 92,
+        "args": [
+          "self",
+          "workflow_id",
+          "content",
+          "draft_type",
+          "phase"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Save draft with integrated tracking",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "restore_agent_context",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 107,
+        "args": [
+          "self",
+          "workflow_id",
+          "handoff_file_id"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Restore agent context with full workflow state",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      }
+    ],
+    "validation": [
+      {
+        "name": "health_check",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 260,
+        "args": [
+          "self"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Comprehensive health check",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "check_session_status",
+        "file": "configs/cli/login/login.py",
+        "line": 269,
+        "args": [],
+        "class": null,
+        "docstring": "Check current session status without login attempt",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      }
+    ],
+    "creation": [
+      {
+        "name": "create_workflow_from_conversation",
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 60,
+        "args": [
+          "self",
+          "user_goal"
+        ],
+        "class": "ConversationToWorkflowBridge",
+        "docstring": "Convert conversation to executable workflow following SFA pattern",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "create_workflow",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 75,
+        "args": [
+          "self",
+          "workflow_id",
+          "user_goal"
+        ],
+        "class": "MCPIntegrationHub",
+        "docstring": "Initialize complete workflow with all MCP components",
+        "is_method": true,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "create_agent_callback_handler",
+        "file": "orchestrator/agent_callback.py",
+        "line": 383,
+        "args": [],
+        "class": null,
+        "docstring": "Factory function for Agent Callback Handler",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "create_mcp_hub",
+        "file": "orchestrator/mcp_hub.py",
+        "line": 378,
+        "args": [],
+        "class": null,
+        "docstring": "Factory function to create configured MCP Integration Hub",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "create_launch_summary",
+        "file": "configs/cli/mao/ui_mao.py",
+        "line": 68,
+        "args": [
+          "result"
+        ],
+        "class": null,
+        "docstring": "Create a summary of the launch attempt",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      },
+      {
+        "name": "create_onboarding_summary",
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 68,
+        "args": [
+          "result"
+        ],
+        "class": null,
+        "docstring": "Create a summary of the onboarding experience",
+        "is_method": false,
+        "is_private": false,
+        "is_property": false
+      }
+    ]
+  },
+  "manager_inconsistencies": {},
+  "parameter_inconsistencies": {
+    "data_content": [
+      {
+        "param_name": "content",
+        "usage_count": 1,
+        "functions": [
+          {
+            "function": "save_workflow_draft",
+            "file": "orchestrator/mcp_hub.py",
+            "class": "MCPIntegrationHub"
+          }
+        ]
+      },
+      {
+        "param_name": "data",
+        "usage_count": 2,
+        "functions": [
+          {
+            "function": "execute_command",
+            "file": "configs/cli/mao/mao.py",
+            "class": null
+          },
+          {
+            "function": "execute_command",
+            "file": "configs/cli/onboard/onboard.py",
+            "class": null
+          }
+        ]
+      }
+    ]
+  },
+  "errors": [
+    {
+      "type": "parse_error",
+      "file": "orchestrator/user_memory_manager.py",
+      "error": "invalid syntax (user_memory_manager.py, line 35)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/username_manager.py",
+      "error": "invalid syntax (username_manager.py, line 28)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/manager_models.py",
+      "error": "invalid syntax (manager_models.py, line 95)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/system_analytics_manager.py",
+      "error": "invalid syntax (system_analytics_manager.py, line 73)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/real_time_metrics.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (real_time_metrics.py, line 32)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/manager_tools.py",
+      "error": "invalid syntax (manager_tools.py, line 50)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/__init__.py",
+      "error": "invalid syntax (__init__.py, line 11)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/core.py",
+      "error": "invalid syntax (core.py, line 117)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/cli_manager.py",
+      "error": "invalid syntax (cli_manager.py, line 32)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/workflow_manager.py",
+      "error": "invalid syntax (workflow_manager.py, line 34)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/error_handling.py",
+      "error": "invalid syntax (error_handling.py, line 384)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/manager_buttons.py",
+      "error": "unmatched ')' (manager_buttons.py, line 177)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/memory_mcp.py",
+      "error": "invalid syntax (memory_mcp.py, line 254)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/workflow_state.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (workflow_state.py, line 423)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/settings_manager.py",
+      "error": "invalid syntax (settings_manager.py, line 251)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/user_analytics_manager.py",
+      "error": "invalid syntax (user_analytics_manager.py, line 91)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/cache/__init__.py",
+      "error": "invalid syntax (__init__.py, line 7)"
+    },
+    {
+      "type": "parse_error",
+      "file": "orchestrator/cache/cache_system.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (cache_system.py, line 39)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/dry_run/dry_run.py",
+      "error": "invalid syntax (dry_run.py, line 74)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/tools/tools.py",
+      "error": "invalid syntax (tools.py, line 57)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/update/update.py",
+      "error": "invalid syntax (update.py, line 217)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/update/ui_update.py",
+      "error": "closing parenthesis ']' does not match opening parenthesis '(' on line 173 (ui_update.py, line 174)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/config/config.py",
+      "error": "invalid syntax (config.py, line 80)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/config/ui_config.py",
+      "error": "invalid syntax (ui_config.py, line 100)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/set_model/set_model.py",
+      "error": "invalid syntax (set_model.py, line 86)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/providers/providers.py",
+      "error": "invalid syntax (providers.py, line 58)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/doctor/doctor.py",
+      "error": "invalid syntax (doctor.py, line 62)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/fix_it/ui_fix_it.py",
+      "error": "'(' was never closed (ui_fix_it.py, line 121)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/fix_it/fix_it.py",
+      "error": "invalid syntax (fix_it.py, line 272)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/setup/ui_setup.py",
+      "error": "'(' was never closed (ui_setup.py, line 179)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/setup/setup.py",
+      "error": "invalid syntax (setup.py, line 187)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/workflows/ui_workflows.py",
+      "error": "expected 'except' or 'finally' block (ui_workflows.py, line 184)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/workflows/workflows.py",
+      "error": "invalid syntax (workflows.py, line 64)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/logout/logout.py",
+      "error": "expected 'except' or 'finally' block (logout.py, line 179)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/logout/ui_logout.py",
+      "error": "unmatched ')' (ui_logout.py, line 79)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/models/models.py",
+      "error": "invalid syntax (models.py, line 57)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/verbose/verbose.py",
+      "error": "invalid syntax (verbose.py, line 32)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/verbose/ui_verbose.py",
+      "error": "unmatched ')' (ui_verbose.py, line 64)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/logs/ui_logs.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (ui_logs.py, line 89)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/variables/variables.py",
+      "error": "invalid syntax (variables.py, line 85)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/review/review.py",
+      "error": "invalid syntax (review.py, line 77)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/review/ui_review.py",
+      "error": "invalid syntax (ui_review.py, line 68)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/workflow_id/ui_workflow_id.py",
+      "error": "unmatched ')' (ui_workflow_id.py, line 47)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/continue/continue.py",
+      "error": "invalid syntax (continue.py, line 91)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/help/help.py",
+      "error": "invalid syntax (help.py, line 104)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/goal/ui_goal.py",
+      "error": "invalid syntax (ui_goal.py, line 35)"
+    },
+    {
+      "type": "parse_error",
+      "file": "configs/cli/goal/goal.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (goal.py, line 94)"
+    },
+    {
+      "type": "parse_error",
+      "file": "interfaces/ui_terminal.py",
+      "error": "invalid syntax (ui_terminal.py, line 59)"
+    }
+  ],
+  "recommendations": [
+    "\ud83d\udd27 Standardize function naming across similar operations",
+    "\ud83d\udcdd Standardize parameter names across the codebase",
+    "\ud83d\udcda Create and document function naming guidelines",
+    "\ud83c\udfd7\ufe0f Consider refactoring to use common base classes for managers",
+    "\ud83e\uddea Add linting rules to enforce naming conventions",
+    "\ud83d\udd04 Review function families for consolidation opportunities"
+  ]
+}

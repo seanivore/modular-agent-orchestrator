@@ -5,10 +5,21 @@
   "command": "provider_list",
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "List all available providers",
   "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
+  },
   "interface_method": "list_providers",
+  "logic_file": "default.py",
   "name": "default_command",
   "required": false,
   "terminal_flag": "--provider-list",

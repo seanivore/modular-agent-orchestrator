@@ -1,8 +1,9 @@
 {
   "_metadata": {
     "config_type": "provider_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
+    "schema_version": "2.0",
     "version": "1.0.0"
   },
   "api_base": "default_api_base",
@@ -17,6 +18,12 @@
   },
   "command": "providers",
   "cost_estimate": 0.001,
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable provider analytics",
+    "type": "boolean"
+  },
   "default": false,
   "enabled": true,
   "file_path": "configs/cli/providers/providers.py",
@@ -30,6 +37,7 @@
     "memory_mcp": false
   },
   "interface_method": "list_providers",
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "providers",
   "operations": {
     "list": {

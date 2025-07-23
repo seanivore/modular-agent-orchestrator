@@ -16,7 +16,10 @@
   "cost_estimate": 0.003,
   "description": "Manage application settings, discover available configurations, and update user preferences with automatic JSON file management via User ID/Username",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/config/config.py",
   "help": "Application settings management with user configuration persistence",
   "hidden": false,
@@ -27,7 +30,11 @@
       "settings_manager",
       "username_manager"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "integration_requirements": {
     "operations": [
@@ -42,6 +49,7 @@
     ]
   },
   "interface_method": "open_config_management",
+  "logic_file": "default.py",
   "name": "config",
   "operations": {
     "execute": {

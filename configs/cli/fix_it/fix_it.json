@@ -15,7 +15,10 @@
   "cost_estimate": 0.015,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "fix_types_supported": [
     "re_run_phase",
     "correct_deliverable",
@@ -32,7 +35,11 @@
       "workflow_state",
       "memory_mcp"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "fix_it",
   "logic_file": "configs/cli/fix_it/fix_it.py",

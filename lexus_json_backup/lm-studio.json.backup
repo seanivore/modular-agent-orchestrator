@@ -1,0 +1,28 @@
+{
+  "_metadata": {
+    "config_type": "provider_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
+  "api_base": "default_api_base",
+  "api_type": "openai",
+  "auth_header": null,
+  "base_url": "http://localhost:1234/v1",
+  "default": false,
+  "description": "Local LLM server for privacy and offline operation",
+  "display_name": "LM Studio (Local)",
+  "enabled": true,
+  "env_var": null,
+  "name": "lm-studio",
+  "privacy_level": "maximum",
+  "rate_limits": {
+    "requests_per_minute": 999999,
+    "tokens_per_minute": 999999
+  },
+  "requires_local_setup": true,
+  "secure": true,
+  "supports_streaming": true,
+  "timeout": 30,
+  "type": "default_type"
+}

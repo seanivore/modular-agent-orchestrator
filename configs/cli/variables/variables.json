@@ -15,24 +15,10 @@
   "cost_estimate": 0.002,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [
-    {
-      "command": "mao variables",
-      "description": "List all workflow variables"
-    },
-    {
-      "command": "mao variables --explain",
-      "description": "List variables with detailed explanations"
-    },
-    {
-      "command": "mao variables --template example-workflow",
-      "description": "Show variables for specific template"
-    },
-    {
-      "command": "/variables",
-      "description": "List variables (app command)"
-    }
-  ],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/variables/variables.py",
   "flags": {
     "explain": {
@@ -68,7 +54,11 @@
       "workflow_manager",
       "workflow_templates"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "integration_points": [
     "workflow_manager",
@@ -76,6 +66,7 @@
     "memory_mcp"
   ],
   "interface_method": "list_variables",
+  "logic_file": "default.py",
   "name": "variables",
   "operations": {
     "execute": {

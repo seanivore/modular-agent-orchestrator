@@ -1,0 +1,16 @@
+{
+  "app_command": "/privacy",
+  "args": [],
+  "category": "GENERAL",
+  "command": "privacy",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Use privacy-focused models and providers only",
+  "hidden": false,
+  "interface_method": "enable_privacy_mode",
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "--privacy",
+  "type": "standalone"
+}

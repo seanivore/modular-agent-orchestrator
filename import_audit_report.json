@@ -1,9 +1,9 @@
 {
   "summary": {
-    "total_files_analyzed": 138,
+    "total_files_analyzed": 154,
     "sys_path_issues_found": 36,
-    "inconsistent_import_modules": 29,
-    "other_issues": 2
+    "inconsistent_import_modules": 30,
+    "other_issues": 12
   },
   "sys_path_issues": [
     {
@@ -72,189 +72,189 @@
     {
       "file": "tools/web_search/button_web_search.py",
       "line": 59,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.web_search.web_search import perform_web_search",
       "suggested_fix": "Review manually: from tools.web_search.web_search import perform_web_search"
     },
     {
       "file": "tools/web_search/button_web_search.py",
       "line": 151,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.web_search.web_search import perform_filtered_search",
       "suggested_fix": "Review manually: from tools.web_search.web_search import perform_filtered_search"
     },
     {
       "file": "tools/web_search/button_web_search.py",
       "line": 212,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.web_search.web_search import perform_content_search",
       "suggested_fix": "Review manually: from tools.web_search.web_search import perform_content_search"
     },
     {
       "file": "tools/web_search/button_web_search.py",
       "line": 236,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.web_search.web_search import validate_search_query",
       "suggested_fix": "Review manually: from tools.web_search.web_search import validate_search_query"
     },
     {
       "file": "tools/web_search/button_web_search.py",
       "line": 255,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.web_search.web_search import get_search_suggestions",
       "suggested_fix": "Review manually: from tools.web_search.web_search import get_search_suggestions"
     },
     {
       "file": "tools/web_search/button_web_search.py",
       "line": 272,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.web_search.web_search import get_search_capabilities",
       "suggested_fix": "Review manually: from tools.web_search.web_search import get_search_capabilities"
     },
     {
       "file": "tools/mcp_connector/button_mcp_connector.py",
       "line": 45,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.mcp_connector.mcp_connector import list_mcp_servers",
       "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import list_mcp_servers"
     },
     {
       "file": "tools/mcp_connector/button_mcp_connector.py",
       "line": 92,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.mcp_connector.mcp_connector import execute_mcp_tool",
       "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import execute_mcp_tool"
     },
     {
       "file": "tools/mcp_connector/button_mcp_connector.py",
       "line": 141,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.mcp_connector.mcp_connector import register_mcp_server",
       "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import register_mcp_server"
     },
     {
       "file": "tools/mcp_connector/button_mcp_connector.py",
       "line": 184,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.mcp_connector.mcp_connector import get_mcp_server_status",
       "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import get_mcp_server_status"
     },
     {
       "file": "tools/mcp_connector/button_mcp_connector.py",
       "line": 226,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.mcp_connector.mcp_connector import estimate_cost",
       "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import estimate_cost"
     },
     {
       "file": "tools/file_operations/button_file_operations.py",
       "line": 53,
-      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "sys_path_line": "sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))",
       "following_import": "from tools.file_operations.file_operations import read_file, estimate_cost",
       "suggested_fix": "Review manually: from tools.file_operations.file_operations import read_file, estimate_cost"
     },
     {
       "file": "tools/file_operations/button_file_operations.py",
       "line": 104,
-      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "sys_path_line": "sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))",
       "following_import": "from tools.file_operations.file_operations import list_directory, estimate_cost",
       "suggested_fix": "Review manually: from tools.file_operations.file_operations import list_directory, estimate_cost"
     },
     {
       "file": "tools/file_operations/button_file_operations.py",
       "line": 161,
-      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "sys_path_line": "sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))",
       "following_import": "from tools.file_operations.file_operations import estimate_cost",
       "suggested_fix": "Review manually: from tools.file_operations.file_operations import estimate_cost"
     },
     {
       "file": "tools/files_api/button_files_api.py",
       "line": 55,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.files_api.files_api import create_workflow_workspace",
       "suggested_fix": "Review manually: from tools.files_api.files_api import create_workflow_workspace"
     },
     {
       "file": "tools/files_api/button_files_api.py",
       "line": 90,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.files_api.files_api import save_workflow_draft",
       "suggested_fix": "Review manually: from tools.files_api.files_api import save_workflow_draft"
     },
     {
       "file": "tools/files_api/button_files_api.py",
       "line": 125,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.files_api.files_api import prepare_agent_handoff",
       "suggested_fix": "Review manually: from tools.files_api.files_api import prepare_agent_handoff"
     },
     {
       "file": "tools/files_api/button_files_api.py",
       "line": 162,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.files_api.files_api import save_agent_deliverables",
       "suggested_fix": "Review manually: from tools.files_api.files_api import save_agent_deliverables"
     },
     {
       "file": "tools/files_api/button_files_api.py",
       "line": 198,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.files_api.files_api import get_workflow_files",
       "suggested_fix": "Review manually: from tools.files_api.files_api import get_workflow_files"
     },
     {
       "file": "tools/files_api/button_files_api.py",
       "line": 224,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.files_api.files_api import estimate_cost",
       "suggested_fix": "Review manually: from tools.files_api.files_api import estimate_cost"
     },
     {
       "file": "tools/brave_search/button_brave_search.py",
       "line": 32,
-      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "sys_path_line": "sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))",
       "following_import": "from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key",
       "suggested_fix": "Review manually: from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key"
     },
     {
       "file": "tools/brave_search/button_brave_search.py",
       "line": 109,
-      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "sys_path_line": "sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))",
       "following_import": "from tools.brave_search.brave_search import validate_api_key, estimate_cost",
       "suggested_fix": "Review manually: from tools.brave_search.brave_search import validate_api_key, estimate_cost"
     },
     {
       "file": "tools/code_execution/button_code_execution.py",
       "line": 50,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.code_execution.code_execution import execute_python_code",
       "suggested_fix": "Review manually: from tools.code_execution.code_execution import execute_python_code"
     },
     {
       "file": "tools/code_execution/button_code_execution.py",
       "line": 105,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.code_execution.code_execution import execute_code_with_files",
       "suggested_fix": "Review manually: from tools.code_execution.code_execution import execute_code_with_files"
     },
     {
       "file": "tools/code_execution/button_code_execution.py",
       "line": 157,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.code_execution.code_execution import create_persistent_container",
       "suggested_fix": "Review manually: from tools.code_execution.code_execution import create_persistent_container"
     },
     {
       "file": "tools/code_execution/button_code_execution.py",
       "line": 197,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.code_execution.code_execution import download_execution_files",
       "suggested_fix": "Review manually: from tools.code_execution.code_execution import download_execution_files"
     },
     {
       "file": "tools/code_execution/button_code_execution.py",
       "line": 238,
-      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
       "following_import": "from tools.code_execution.code_execution import execute_python_code, estimate_cost",
       "suggested_fix": "Review manually: from tools.code_execution.code_execution import execute_python_code, estimate_cost"
     }
@@ -600,6 +600,12 @@
             "line": 19,
             "full_import": "from typing import Dict, List, Any",
             "imports": "Dict, List, Any"
+          },
+          {
+            "file": "scripts/quality_validator/quality_audit_suite.py",
+            "line": 22,
+            "full_import": "from typing import Dict, List, Any",
+            "imports": "Dict, List, Any"
           }
         ],
         "typing -> Optional, Dict, Any": [
@@ -868,6 +874,100 @@
             "imports": "Dict, Any, Tuple, List"
           }
         ],
+        "typing -> Dict, List, Any, Set, Optional, Tuple": [
+          {
+            "file": "scripts/quality_validator/file_path_fixer.py",
+            "line": 17,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_fixer_precision.py",
+            "line": 16,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/function_naming_audit.py",
+            "line": 17,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_fixer_v2.py",
+            "line": 16,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+            "line": 16,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/function_naming_perfector.py",
+            "line": 16,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_lexus_fixer.py",
+            "line": 15,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_normalizer.py",
+            "line": 17,
+            "full_import": "from typing import Dict, List, Any, Set, Optional, Tuple",
+            "imports": "Dict, List, Any, Set, Optional, Tuple"
+          }
+        ],
+        "typing -> Dict, List, Any, Set, Optional": [
+          {
+            "file": "scripts/quality_validator/error_handling_audit.py",
+            "line": 17,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_audit.py",
+            "line": 20,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_audit.py",
+            "line": 18,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+            "line": 16,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          },
+          {
+            "file": "scripts/quality_validator/cache_usage_audit.py",
+            "line": 18,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_audit_precision.py",
+            "line": 20,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_audit_precision.py",
+            "line": 16,
+            "full_import": "from typing import Dict, List, Any, Set, Optional",
+            "imports": "Dict, List, Any, Set, Optional"
+          }
+        ],
         "typing -> Dict, List, Tuple, Any": [
           {
             "file": "scripts/quality_validator/mao_validator.py",
@@ -1041,7 +1141,7 @@
           }
         ]
       },
-      "total_usages": 123
+      "total_usages": 139
     },
     "orchestrator.error_handling": {
       "patterns": {
@@ -1690,6 +1790,42 @@
             "imports": "datetime"
           },
           {
+            "file": "scripts/quality_validator/json_config_audit.py",
+            "line": 22,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_fixer_v2.py",
+            "line": 20,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_lexus_fixer.py",
+            "line": 19,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/quality_validator/quality_audit_suite.py",
+            "line": 23,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_audit_precision.py",
+            "line": 22,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_normalizer.py",
+            "line": 21,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
             "file": "configs/cli/dry_run/dry_run.py",
             "line": 9,
             "full_import": "from datetime import datetime",
@@ -2055,7 +2191,7 @@
           }
         ]
       },
-      "total_usages": 79
+      "total_usages": 85
     },
     "orchestrator.username_manager": {
       "patterns": {
@@ -2695,6 +2831,111 @@
         ]
       },
       "total_usages": 8
+    },
+    "collections": {
+      "patterns": {
+        "collections -> defaultdict": [
+          {
+            "file": "scripts/quality_validator/file_path_fixer.py",
+            "line": 18,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_fixer_precision.py",
+            "line": 17,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_fixer_v2.py",
+            "line": 17,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+            "line": 17,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          },
+          {
+            "file": "scripts/quality_validator/function_naming_perfector.py",
+            "line": 17,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_lexus_fixer.py",
+            "line": 16,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_normalizer.py",
+            "line": 18,
+            "full_import": "from collections import defaultdict",
+            "imports": "defaultdict"
+          }
+        ],
+        "collections -> defaultdict, Counter": [
+          {
+            "file": "scripts/quality_validator/error_handling_audit.py",
+            "line": 18,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_audit.py",
+            "line": 21,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_audit.py",
+            "line": 19,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/function_naming_audit.py",
+            "line": 18,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+            "line": 17,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/import_audit.py",
+            "line": 19,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/cache_usage_audit.py",
+            "line": 19,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/json_config_audit_precision.py",
+            "line": 21,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          },
+          {
+            "file": "scripts/quality_validator/file_path_audit_precision.py",
+            "line": 17,
+            "full_import": "from collections import defaultdict, Counter",
+            "imports": "defaultdict, Counter"
+          }
+        ]
+      },
+      "total_usages": 16
     },
     "orchestrator.workflow_state": {
       "patterns": {
@@ -3427,6 +3668,66 @@
       "file": "versioning/v3/v3_3_0/sfa_v3_3_0_main_updated.py",
       "line": 15,
       "import": "import sys",
+      "potentially_unused": true
+    },
+    {
+      "file": "scripts/quality_validator/json_config_audit.py",
+      "line": 17,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "scripts/quality_validator/function_naming_audit.py",
+      "line": 14,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "scripts/quality_validator/quality_audit_suite.py",
+      "line": 17,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "scripts/quality_validator/json_config_audit_precision.py",
+      "line": 17,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "tools/graphic_design/button_graphic_design.py",
+      "line": 117,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "line": 52,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "line": 103,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "line": 160,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "tools/brave_search/button_brave_search.py",
+      "line": 31,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "tools/brave_search/button_brave_search.py",
+      "line": 108,
+      "import": "import os",
       "potentially_unused": true
     }
   ],

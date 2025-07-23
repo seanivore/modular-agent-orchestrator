@@ -1,0 +1,39 @@
+{
+  "_metadata": {
+    "config_type": "provider_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "note": "Personal data (name, email, DOB) should be handled via secure consent flow",
+    "privacy_compliant": true,
+    "schema_version": "1.0",
+    "template_type": "user_profile",
+    "version": "1.0.0"
+  },
+  "api_base": "https://api.example.com",
+  "default": false,
+  "description": "Template for creating new user profiles",
+  "enabled": true,
+  "name": "user_template",
+  "privacy": {
+    "analytics_consent": false,
+    "contact_consent": false,
+    "data_collection_consent": false
+  },
+  "profile": {
+    "display_name": "User Display Name",
+    "preferences": {
+      "language": "en",
+      "theme": "default"
+    }
+  },
+  "secure": true,
+  "settings": {
+    "default_model": true,
+    "default_provider": true
+  },
+  "timeout": 30,
+  "type": "api_provider",
+  "user_id": "user-0000",
+  "username": "example_username",
+  "version": "1.0.0"
+}

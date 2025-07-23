@@ -1,14 +1,22 @@
 {
   "_metadata": {
     "config_type": "provider_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
     "notes": "Dynamic model-provider mapping for orchestrator. Shows which providers support each model",
+    "schema_version": "2.0",
     "version": "1.0.0"
   },
   "api_base": "https://api.example.com",
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable provider analytics",
+    "type": "boolean"
+  },
   "default": false,
   "enabled": true,
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "models": {
     "anthropic/claude_3_7_sonnet_latest": {
       "providers": [

@@ -1,0 +1,20 @@
+{
+  "args": [],
+  "category": "USER_SETTINGS",
+  "command": "onboard",
+  "description": "Start Mao terminal interface with complete new user flow - login screen, theme selection, and guided setup",
+  "enabled": true,
+  "examples": [
+    {
+      "description": "Always start with new user onboarding flow",
+      "usage": "mao --onboard"
+    }
+  ],
+  "help": "Launch Mao with full new user onboarding experience",
+  "hidden": false,
+  "interface_method": "launch_terminal_ui_onboarding",
+  "name": "onboard",
+  "required": false,
+  "terminal_flag": "--onboard",
+  "type": "standalone"
+}

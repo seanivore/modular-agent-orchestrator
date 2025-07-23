@@ -1,19 +1,27 @@
 {
   "_metadata": {
     "config_type": "provider_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
+    "schema_version": "2.0",
     "version": "1.0.0"
   },
   "api_base": "default_api_base",
   "api_type": "gemini",
   "auth_header": "authorization",
   "base_url": "https://generativelanguage.googleapis.com/v1beta",
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable provider analytics",
+    "type": "boolean"
+  },
   "default": false,
   "description": "Direct Google Gemini API for maximum context window and free usage",
   "display_name": "Google Gemini Direct",
   "enabled": true,
   "env_var": "GEMINI_API_KEY",
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "gemini-direct",
   "rate_limits": {
     "requests_per_minute": 300,

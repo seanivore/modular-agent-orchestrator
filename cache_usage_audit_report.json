@@ -1,0 +1,1267 @@
+{
+  "summary": {
+    "files_analyzed": 115,
+    "files_parsed": 51,
+    "cache_instantiations": 58,
+    "cache_operations": 38,
+    "cache_key_patterns": 2,
+    "inconsistency_types": 2,
+    "cache_usage_score": 76.97744360902257
+  },
+  "cache_instantiations": {
+    "method": [
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 77,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "handle_agent_return",
+        "class": "AgentCallbackHandler"
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 73,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_workflow_phase",
+        "class": "AgentOrchestrator"
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 66,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "create_workflow_from_conversation",
+        "class": "ConversationToWorkflowBridge"
+      },
+      {
+        "file": "orchestrator/mcp_hub.py",
+        "line": 181,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_mcp_tool",
+        "class": "MCPIntegrationHub"
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 46,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_memory",
+        "class": null
+      },
+      {
+        "file": "configs/cli/chat/chat.py",
+        "line": 41,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_chat",
+        "class": null
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 38,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_user_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 38,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_output",
+        "class": null
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 37,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_logs",
+        "class": null
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 38,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_default_provider",
+        "class": null
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 39,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_workflow_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 33,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "execute_stats",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 37,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "perform_web_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 76,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "perform_filtered_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 121,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "perform_content_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 38,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "perform_perplexity_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 96,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "perform_enhanced_research",
+        "class": null
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 44,
+        "variable": "cached_result",
+        "method": "get_cached_analysis",
+        "function": "search_web",
+        "class": null
+      }
+    ],
+    "direct": [
+      {
+        "file": "configs/cli/mao/mao.py",
+        "line": 17,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/mao/ui_mao.py",
+        "line": 13,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/tools/ui_tools.py",
+        "line": 14,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 17,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 45,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_memory",
+        "class": null
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 58,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_memory",
+        "class": null
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 14,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/chat/chat.py",
+        "line": 17,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/chat/chat.py",
+        "line": 40,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_chat",
+        "class": null
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 18,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 19,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/models/ui_models.py",
+        "line": 14,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 23,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 37,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_user_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/onboard/onboard.py",
+        "line": 17,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 14,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 19,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 20,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 37,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_output",
+        "class": null
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 17,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 36,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_logs",
+        "class": null
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 20,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 37,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_default_provider",
+        "class": null
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 20,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 38,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_workflow_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/login/ui_login.py",
+        "line": 14,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/login/login.py",
+        "line": 19,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/login/login.py",
+        "line": 45,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_login",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 13,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 18,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 32,
+        "variable": "cache_key",
+        "constructor": "_generate_cache_key",
+        "function": "execute_stats",
+        "class": null
+      },
+      {
+        "file": "configs/cli/help/ui_help.py",
+        "line": 14,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 35,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": "perform_web_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 74,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": "perform_filtered_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 119,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": "perform_content_search",
+        "class": null
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 20,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 18,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": null,
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 36,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": "perform_perplexity_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 94,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": "perform_enhanced_research",
+        "class": null
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 41,
+        "variable": "cache",
+        "constructor": "CacheManager",
+        "function": "search_web",
+        "class": null
+      }
+    ]
+  },
+  "cache_operations": {
+    "get_cached_analysis": [
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 46,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_memory",
+        "class": null
+      },
+      {
+        "file": "configs/cli/chat/chat.py",
+        "line": 41,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_chat",
+        "class": null
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 38,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_user_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 38,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_output",
+        "class": null
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 37,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_logs",
+        "class": null
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 38,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_default_provider",
+        "class": null
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 39,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_workflow_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 33,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "execute_stats",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 37,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "perform_web_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 76,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "perform_filtered_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 121,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "perform_content_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 38,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "perform_perplexity_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 96,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "perform_enhanced_research",
+        "class": null
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 44,
+        "method": "get_cached_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 2,
+        "function": "search_web",
+        "class": null
+      }
+    ],
+    "cache_content_analysis": [
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 59,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_memory",
+        "class": null
+      },
+      {
+        "file": "configs/cli/chat/chat.py",
+        "line": 54,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_chat",
+        "class": null
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 46,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_user_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 46,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_output",
+        "class": null
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 45,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_logs",
+        "class": null
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 46,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_default_provider",
+        "class": null
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 47,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_workflow_id",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 44,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "execute_stats",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 54,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "perform_web_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 101,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "perform_filtered_search",
+        "class": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 140,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "perform_content_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 66,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "perform_perplexity_search",
+        "class": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 115,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "perform_enhanced_research",
+        "class": null
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 156,
+        "method": "cache_content_analysis",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 3,
+        "function": "search_web",
+        "class": null
+      }
+    ],
+    "encode": [
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 144,
+        "method": "encode",
+        "cache_variable": "cache_key",
+        "cache_key": null,
+        "arg_count": 0,
+        "function": "_generate_cache_key",
+        "class": null
+      }
+    ],
+    "extend": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 283,
+        "method": "extend",
+        "cache_variable": "cache_keys",
+        "cache_key": null,
+        "arg_count": 1,
+        "function": "_clear_output_caches",
+        "class": null
+      }
+    ],
+    "clear_cache": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 289,
+        "method": "clear_cache",
+        "cache_variable": "cache",
+        "cache_key": null,
+        "arg_count": 1,
+        "function": "_clear_output_caches",
+        "class": null
+      }
+    ],
+    "get": [
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 211,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "status",
+        "arg_count": 1,
+        "function": "_build_cache_metrics",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 226,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "hit_rate",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 228,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "hit_rate",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 232,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "size_mb",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 238,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "total_hits",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 239,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "total_requests",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 70,
+        "method": "get",
+        "cache_variable": "cached_data",
+        "cache_key": "timestamp",
+        "arg_count": 2,
+        "function": "_is_cache_fresh",
+        "class": null
+      }
+    ]
+  },
+  "cache_key_patterns": {
+    "simple": [
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 211,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "status",
+        "arg_count": 1,
+        "function": "_build_cache_metrics",
+        "class": null,
+        "key_value": "status",
+        "key_length": 6,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 70,
+        "method": "get",
+        "cache_variable": "cached_data",
+        "cache_key": "timestamp",
+        "arg_count": 2,
+        "function": "_is_cache_fresh",
+        "class": null,
+        "key_value": "timestamp",
+        "key_length": 9,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      }
+    ],
+    "underscore_snake": [
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 226,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "hit_rate",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null,
+        "key_value": "hit_rate",
+        "key_length": 8,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 228,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "hit_rate",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null,
+        "key_value": "hit_rate",
+        "key_length": 8,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 232,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "size_mb",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null,
+        "key_value": "size_mb",
+        "key_length": 7,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 238,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "total_hits",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null,
+        "key_value": "total_hits",
+        "key_length": 10,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 239,
+        "method": "get",
+        "cache_variable": "cache_data",
+        "cache_key": "total_requests",
+        "arg_count": 2,
+        "function": "_build_cache_metrics",
+        "class": null,
+        "key_value": "total_requests",
+        "key_length": 14,
+        "patterns": [
+          "underscore",
+          "dot_separated"
+        ]
+      }
+    ]
+  },
+  "cache_imports": {
+    "from_import": [
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 12,
+        "module": "cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 17,
+        "module": "cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 15,
+        "module": "cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "orchestrator/mcp_hub.py",
+        "line": 12,
+        "module": "cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/mao/mao.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/mao/ui_mao.py",
+        "line": 8,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/tools/ui_tools.py",
+        "line": 9,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 9,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/chat/chat.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 14,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/models/ui_models.py",
+        "line": 9,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/onboard/onboard.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 10,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 15,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 14,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 14,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/login/ui_login.py",
+        "line": 9,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/login/login.py",
+        "line": 14,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 9,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/stats/stats.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "configs/cli/help/ui_help.py",
+        "line": 9,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/web_search/web_search.py",
+        "line": 10,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 25,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 15,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 11,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 43,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 13,
+        "module": "orchestrator.cache.cache_system",
+        "name": "CacheManager",
+        "alias": null
+      }
+    ]
+  },
+  "inconsistencies": {
+    "multiple_instantiation_patterns": {
+      "description": "Multiple ways of creating cache instances",
+      "patterns": {
+        "method": 18,
+        "direct": 40
+      },
+      "recommendation": "Standardize cache instantiation (prefer singleton pattern)"
+    },
+    "non_standard_operations": {
+      "description": "Non-standard cache operation methods",
+      "operations": [
+        "encode",
+        "get",
+        "extend"
+      ],
+      "standard_operations": [
+        "cache_content_analysis",
+        "get_cached_analysis",
+        "clear_cache"
+      ],
+      "recommendation": "Use standard MAO cache methods"
+    }
+  },
+  "recommendations": [
+    "\ud83d\udd27 Standardize cache instantiation (use singleton CacheManager pattern)",
+    "\ud83d\udcda Use standard MAO cache methods (cache_content_analysis, get_cached_analysis, clear_cache)",
+    "\u26a1 Consider cache performance monitoring and metrics",
+    "\ud83d\udd52 Review cache expiration strategies",
+    "\ud83e\uddea Add cache testing patterns",
+    "\ud83d\udccb Document cache key conventions and usage patterns"
+  ]
+}

@@ -1,0 +1,696 @@
+{
+  "summary": {
+    "total_files": 145,
+    "active_codebase_only": true,
+    "sys_path_issues": 2,
+    "import_inconsistencies": 11,
+    "other_issues": 71,
+    "precision_score": 40
+  },
+  "sys_path_issues": [
+    {
+      "file": "tests/cache/test_integrated_caching.py",
+      "line": 11,
+      "content": "sys.path.append(str(Path(__file__).parent.parent))",
+      "related_imports": [
+        "from interfaces.terminal import SFATerminalInterface"
+      ]
+    },
+    {
+      "file": "tests/cache/test_cache_coordinator.py",
+      "line": 10,
+      "content": "sys.path.append(os.path.join(os.path.dirname(__file__), 'utilities'))",
+      "related_imports": [
+        "from cache_coordinator import CacheCoordinator, get_cache_coordinator",
+        "from cache_coordinator import get_cache_coordinator"
+      ]
+    }
+  ],
+  "import_inconsistencies": {
+    "typing": [
+      {
+        "pattern": "typing -> Any, Dict",
+        "files": [
+          "mao_v4.py",
+          "configs/cli/mao/mao.py",
+          "configs/cli/mao/ui_mao.py",
+          "configs/cli/dry_run/ui_dry_run.py",
+          "configs/cli/tools/ui_tools.py",
+          "configs/cli/chat/ui_chat.py",
+          "configs/cli/models/ui_models.py",
+          "configs/cli/user_id/ui_user_id.py",
+          "configs/cli/onboard/onboard.py",
+          "configs/cli/onboard/ui_onboard.py",
+          "configs/cli/output_directory/ui_output_directory.py",
+          "configs/cli/default_provider/ui_default_provider.py",
+          "configs/cli/continue/ui_continue.py",
+          "configs/cli/login/ui_login.py",
+          "configs/cli/help/ui_help.py",
+          "tools/think/button_think.py",
+          "tools/mcp_connector/button_mcp_connector.py",
+          "tools/files_api/ui_files_api.py",
+          "tools/files_api/button_files_api.py",
+          "tools/text_editor/ui_text_editor.py",
+          "tools/code_execution/button_code_execution.py"
+        ],
+        "count": 21
+      },
+      {
+        "pattern": "typing -> Any, Dict, List, Optional",
+        "files": [
+          "orchestrator/agent_callback.py",
+          "orchestrator/agent_orchestrator.py",
+          "orchestrator/mcp_hub.py",
+          "templates/tools/ui_tool.py",
+          "configs/cli/memory/memory.py",
+          "configs/cli/logs/logs.py",
+          "configs/cli/default_provider/default_provider.py",
+          "configs/cli/login/login.py",
+          "configs/cli/stats/stats.py",
+          "tools/brave_search/brave_search.py"
+        ],
+        "count": 10
+      },
+      {
+        "pattern": "typing -> Any, Dict, List",
+        "files": [
+          "orchestrator/conversation_bridge.py",
+          "scripts/quality_validator/import_fixer.py",
+          "scripts/quality_validator/quality_audit_suite.py",
+          "configs/cli/memory/ui_memory.py",
+          "configs/cli/set_model/ui_set_model.py",
+          "configs/cli/providers/ui_providers.py",
+          "configs/cli/doctor/ui_doctor.py",
+          "configs/cli/variables/ui_variables.py",
+          "configs/cli/stats/ui_stats.py",
+          "tools/web_search/button_web_search.py",
+          "tools/web_search/ui_web_search.py",
+          "tools/dalle_generate/button_dalle_generate.py",
+          "tools/mcp_connector/ui_mcp_connector.py",
+          "tools/perplexity_search/button_perplexity_search.py",
+          "tools/perplexity_search/ui_perplexity_search.py",
+          "tools/text_editor/button_text_editor.py"
+        ],
+        "count": 16
+      },
+      {
+        "pattern": "typing -> Any, Dict, Optional",
+        "files": [
+          "templates/tools/tool.py",
+          "configs/cli/chat/chat.py",
+          "configs/cli/user_id/user_id.py",
+          "configs/cli/output_directory/output_directory.py",
+          "configs/cli/workflow_id/workflow_id.py",
+          "tools/web_search/web_search.py",
+          "tools/graphic_design/button_graphic_design.py",
+          "tools/perplexity_search/perplexity_search.py"
+        ],
+        "count": 8
+      },
+      {
+        "pattern": "typing -> Any, Dict, List, Optional, Set",
+        "files": [
+          "scripts/quality_validator/error_handling_audit.py",
+          "scripts/quality_validator/import_audit_precision.py",
+          "scripts/quality_validator/json_config_audit.py",
+          "scripts/quality_validator/file_path_audit.py",
+          "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+          "scripts/quality_validator/cache_usage_audit.py",
+          "scripts/quality_validator/json_config_audit_precision.py",
+          "scripts/quality_validator/file_path_audit_precision.py"
+        ],
+        "count": 8
+      },
+      {
+        "pattern": "typing -> Any, Dict, List, Optional, Set, Tuple",
+        "files": [
+          "scripts/quality_validator/file_path_fixer_precision.py",
+          "scripts/quality_validator/function_naming_audit.py",
+          "scripts/quality_validator/json_config_fixer_v2.py",
+          "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+          "scripts/quality_validator/function_naming_perfector.py",
+          "scripts/quality_validator/json_config_lexus_fixer.py",
+          "scripts/quality_validator/json_config_normalizer.py"
+        ],
+        "count": 7
+      },
+      {
+        "pattern": "typing -> Any, Dict, List, Set, Tuple",
+        "files": [
+          "scripts/quality_validator/import_audit.py"
+        ],
+        "count": 1
+      }
+    ],
+    "orchestrator.error_handling": [
+      {
+        "pattern": "orchestrator.error_handling -> handle_errors",
+        "files": [
+          "mao_v4.py",
+          "templates/tools/ui_tool.py",
+          "templates/tools/tool.py",
+          "configs/cli/mao/ui_mao.py",
+          "configs/cli/tools/ui_tools.py",
+          "configs/cli/memory/ui_memory.py",
+          "configs/cli/providers/ui_providers.py",
+          "configs/cli/doctor/ui_doctor.py",
+          "configs/cli/models/ui_models.py",
+          "configs/cli/user_id/ui_user_id.py",
+          "configs/cli/onboard/ui_onboard.py",
+          "configs/cli/login/ui_login.py",
+          "configs/cli/stats/ui_stats.py",
+          "configs/cli/help/ui_help.py",
+          "tools/web_search/ui_web_search.py",
+          "tools/mcp_connector/ui_mcp_connector.py",
+          "tools/files_api/ui_files_api.py",
+          "tools/perplexity_search/ui_perplexity_search.py"
+        ],
+        "count": 18
+      },
+      {
+        "pattern": "orchestrator.error_handling -> APIError, handle_errors, retry_with_backoff",
+        "files": [
+          "configs/cli/mao/mao.py",
+          "configs/cli/user_id/user_id.py",
+          "configs/cli/onboard/onboard.py",
+          "configs/cli/workflow_id/workflow_id.py",
+          "configs/cli/login/login.py",
+          "tools/brave_search/brave_search.py"
+        ],
+        "count": 6
+      },
+      {
+        "pattern": "orchestrator.error_handling -> ValidationError, handle_errors, retry_with_backoff",
+        "files": [
+          "configs/cli/memory/memory.py",
+          "configs/cli/chat/chat.py",
+          "configs/cli/logs/logs.py",
+          "configs/cli/default_provider/default_provider.py",
+          "configs/cli/stats/stats.py"
+        ],
+        "count": 5
+      },
+      {
+        "pattern": "orchestrator.error_handling -> ValidationError, handle_errors",
+        "files": [
+          "configs/cli/output_directory/output_directory.py",
+          "tools/web_search/web_search.py"
+        ],
+        "count": 2
+      },
+      {
+        "pattern": "orchestrator.error_handling -> APIError, ValidationError, handle_errors, retry_with_backoff",
+        "files": [
+          "tools/perplexity_search/perplexity_search.py"
+        ],
+        "count": 1
+      }
+    ],
+    "datetime": [
+      {
+        "pattern": "datetime -> datetime",
+        "files": [
+          "orchestrator/agent_callback.py",
+          "orchestrator/agent_orchestrator.py",
+          "orchestrator/conversation_bridge.py",
+          "scripts/quality_validator/json_config_audit.py",
+          "scripts/quality_validator/json_config_fixer_v2.py",
+          "scripts/quality_validator/json_config_lexus_fixer.py",
+          "scripts/quality_validator/quality_audit_suite.py",
+          "scripts/quality_validator/json_config_audit_precision.py",
+          "scripts/quality_validator/json_config_normalizer.py",
+          "configs/cli/memory/memory.py",
+          "configs/cli/chat/chat.py",
+          "configs/cli/user_id/user_id.py",
+          "configs/cli/output_directory/output_directory.py",
+          "configs/cli/default_provider/default_provider.py",
+          "configs/cli/variables/ui_variables.py",
+          "configs/cli/workflow_id/workflow_id.py",
+          "configs/cli/login/login.py",
+          "configs/cli/stats/ui_stats.py",
+          "tools/web_search/web_search.py",
+          "tools/perplexity_search/perplexity_search.py",
+          "tools/brave_search/brave_search.py"
+        ],
+        "count": 21
+      },
+      {
+        "pattern": "datetime -> datetime, timedelta",
+        "files": [
+          "configs/cli/logs/logs.py",
+          "configs/cli/stats/stats.py"
+        ],
+        "count": 2
+      }
+    ],
+    "tools.files_api.files_api": [
+      {
+        "pattern": "tools.files_api.files_api -> FilesAPIManager",
+        "files": [
+          "orchestrator/agent_callback.py",
+          "orchestrator/agent_orchestrator.py",
+          "orchestrator/mcp_hub.py"
+        ],
+        "count": 3
+      },
+      {
+        "pattern": "tools.files_api.files_api -> create_workflow_workspace, estimate_cost, get_workflow_files, prepare_agent_handoff, save_agent_deliverables, save_workflow_draft",
+        "files": [
+          "tools/files_api/button_files_api.py"
+        ],
+        "count": 1
+      }
+    ],
+    "tools.code_execution.code_execution": [
+      {
+        "pattern": "tools.code_execution.code_execution -> CodeExecutionTool",
+        "files": [
+          "orchestrator/agent_callback.py"
+        ],
+        "count": 1
+      },
+      {
+        "pattern": "tools.code_execution.code_execution -> create_persistent_container, download_execution_files, estimate_cost, execute_code_with_files, execute_python_code",
+        "files": [
+          "tools/code_execution/button_code_execution.py"
+        ],
+        "count": 1
+      }
+    ],
+    "tools.mcp_connector.mcp_connector": [
+      {
+        "pattern": "tools.mcp_connector.mcp_connector -> MCPConnector",
+        "files": [
+          "orchestrator/mcp_hub.py"
+        ],
+        "count": 1
+      },
+      {
+        "pattern": "tools.mcp_connector.mcp_connector -> estimate_cost, execute_mcp_tool, get_mcp_server_status, list_mcp_servers, register_mcp_server",
+        "files": [
+          "tools/mcp_connector/button_mcp_connector.py"
+        ],
+        "count": 1
+      }
+    ],
+    "collections": [
+      {
+        "pattern": "collections -> Counter, defaultdict",
+        "files": [
+          "scripts/quality_validator/error_handling_audit.py",
+          "scripts/quality_validator/import_audit_precision.py",
+          "scripts/quality_validator/json_config_audit.py",
+          "scripts/quality_validator/file_path_audit.py",
+          "scripts/quality_validator/function_naming_audit.py",
+          "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+          "scripts/quality_validator/import_audit.py",
+          "scripts/quality_validator/cache_usage_audit.py",
+          "scripts/quality_validator/json_config_audit_precision.py",
+          "scripts/quality_validator/file_path_audit_precision.py"
+        ],
+        "count": 10
+      },
+      {
+        "pattern": "collections -> defaultdict",
+        "files": [
+          "scripts/quality_validator/file_path_fixer_precision.py",
+          "scripts/quality_validator/json_config_fixer_v2.py",
+          "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+          "scripts/quality_validator/function_naming_perfector.py",
+          "scripts/quality_validator/json_config_lexus_fixer.py",
+          "scripts/quality_validator/json_config_normalizer.py"
+        ],
+        "count": 6
+      }
+    ],
+    "orchestrator.username_manager": [
+      {
+        "pattern": "orchestrator.username_manager -> get_session_user",
+        "files": [
+          "configs/cli/memory/memory.py",
+          "configs/cli/memory/memory.py",
+          "configs/cli/output_directory/output_directory.py",
+          "configs/cli/default_provider/default_provider.py"
+        ],
+        "count": 4
+      },
+      {
+        "pattern": "orchestrator.username_manager -> UsernameManager",
+        "files": [
+          "configs/cli/user_id/user_id.py",
+          "configs/cli/login/login.py"
+        ],
+        "count": 2
+      }
+    ],
+    "rich.progress": [
+      {
+        "pattern": "rich.progress -> BarColumn, Progress, TextColumn",
+        "files": [
+          "configs/cli/doctor/ui_doctor.py"
+        ],
+        "count": 1
+      },
+      {
+        "pattern": "rich.progress -> Progress, SpinnerColumn, TextColumn",
+        "files": [
+          "tools/web_search/ui_web_search.py",
+          "tools/perplexity_search/ui_perplexity_search.py",
+          "tools/text_editor/ui_text_editor.py"
+        ],
+        "count": 3
+      }
+    ],
+    "orchestrator.settings_manager": [
+      {
+        "pattern": "orchestrator.settings_manager -> ApplicationSettingsManager, get_user_settings, update_user_setting",
+        "files": [
+          "configs/cli/output_directory/output_directory.py"
+        ],
+        "count": 1
+      },
+      {
+        "pattern": "orchestrator.settings_manager -> ApplicationSettingsManager, discover_settings, get_user_settings, update_user_setting",
+        "files": [
+          "configs/cli/default_provider/default_provider.py"
+        ],
+        "count": 1
+      }
+    ],
+    "cache_coordinator": [
+      {
+        "pattern": "cache_coordinator -> CacheCoordinator, get_cache_coordinator",
+        "files": [
+          "tests/cache/test_cache_coordinator.py"
+        ],
+        "count": 1
+      },
+      {
+        "pattern": "cache_coordinator -> get_cache_coordinator",
+        "files": [
+          "tests/cache/test_cache_coordinator.py"
+        ],
+        "count": 1
+      },
+      {
+        "pattern": "cache_coordinator -> cache_tool_result, get_cached_tool_result",
+        "files": [
+          "tests/cache/test_cache_coordinator.py"
+        ],
+        "count": 1
+      }
+    ]
+  },
+  "other_issues": [
+    {
+      "file": "orchestrator/user_memory_manager.py",
+      "error": "invalid syntax (<unknown>, line 35)"
+    },
+    {
+      "file": "orchestrator/username_manager.py",
+      "error": "invalid syntax (<unknown>, line 28)"
+    },
+    {
+      "file": "orchestrator/manager_models.py",
+      "error": "invalid syntax (<unknown>, line 95)"
+    },
+    {
+      "file": "orchestrator/system_analytics_manager.py",
+      "error": "invalid syntax (<unknown>, line 73)"
+    },
+    {
+      "file": "orchestrator/real_time_metrics.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 32)"
+    },
+    {
+      "file": "orchestrator/manager_tools.py",
+      "error": "invalid syntax (<unknown>, line 50)"
+    },
+    {
+      "file": "orchestrator/__init__.py",
+      "error": "invalid syntax (<unknown>, line 11)"
+    },
+    {
+      "file": "orchestrator/core.py",
+      "error": "invalid syntax (<unknown>, line 117)"
+    },
+    {
+      "file": "orchestrator/cli_manager.py",
+      "error": "invalid syntax (<unknown>, line 32)"
+    },
+    {
+      "file": "orchestrator/workflow_manager.py",
+      "error": "invalid syntax (<unknown>, line 34)"
+    },
+    {
+      "file": "orchestrator/error_handling.py",
+      "error": "invalid syntax (<unknown>, line 384)"
+    },
+    {
+      "file": "orchestrator/manager_buttons.py",
+      "error": "unmatched ')' (<unknown>, line 177)"
+    },
+    {
+      "file": "orchestrator/memory_mcp.py",
+      "error": "invalid syntax (<unknown>, line 254)"
+    },
+    {
+      "file": "orchestrator/workflow_state.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 423)"
+    },
+    {
+      "file": "orchestrator/settings_manager.py",
+      "error": "invalid syntax (<unknown>, line 251)"
+    },
+    {
+      "file": "orchestrator/user_analytics_manager.py",
+      "error": "invalid syntax (<unknown>, line 91)"
+    },
+    {
+      "file": "interfaces/ui_terminal.py",
+      "error": "invalid syntax (<unknown>, line 59)"
+    },
+    {
+      "file": "orchestrator/cache/__init__.py",
+      "error": "invalid syntax (<unknown>, line 7)"
+    },
+    {
+      "file": "orchestrator/cache/cache_system.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 39)"
+    },
+    {
+      "file": "scripts/token_counter/token_standalone.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 19)"
+    },
+    {
+      "file": "scripts/auto_docs/config_documenter.py",
+      "error": "expected an indented block after 'try' statement on line 18 (<unknown>, line 21)"
+    },
+    {
+      "file": "scripts/github_integration/webhook_handler.py",
+      "error": "expected an indented block after 'try' statement on line 20 (<unknown>, line 23)"
+    },
+    {
+      "file": "scripts/user_id_generator/user_id_generator.py",
+      "error": "unmatched ')' (<unknown>, line 170)"
+    },
+    {
+      "file": "scripts/unique_id_generator/unique_id_generator.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 11)"
+    },
+    {
+      "file": "scripts/quality_validator/file_path_fixer.py",
+      "error": "closing parenthesis ']' does not match opening parenthesis '(' (<unknown>, line 119)"
+    },
+    {
+      "file": "scripts/quality_validator/mao_validator.py",
+      "error": "invalid syntax (<unknown>, line 60)"
+    },
+    {
+      "file": "configs/cli/dry_run/dry_run.py",
+      "error": "invalid syntax (<unknown>, line 74)"
+    },
+    {
+      "file": "configs/cli/tools/tools.py",
+      "error": "invalid syntax (<unknown>, line 57)"
+    },
+    {
+      "file": "configs/cli/update/update.py",
+      "error": "invalid syntax (<unknown>, line 217)"
+    },
+    {
+      "file": "configs/cli/update/ui_update.py",
+      "error": "closing parenthesis ']' does not match opening parenthesis '(' on line 173 (<unknown>, line 174)"
+    },
+    {
+      "file": "configs/cli/config/config.py",
+      "error": "invalid syntax (<unknown>, line 80)"
+    },
+    {
+      "file": "configs/cli/config/ui_config.py",
+      "error": "invalid syntax (<unknown>, line 100)"
+    },
+    {
+      "file": "configs/cli/set_model/set_model.py",
+      "error": "invalid syntax (<unknown>, line 86)"
+    },
+    {
+      "file": "configs/cli/providers/providers.py",
+      "error": "invalid syntax (<unknown>, line 58)"
+    },
+    {
+      "file": "configs/cli/doctor/doctor.py",
+      "error": "invalid syntax (<unknown>, line 62)"
+    },
+    {
+      "file": "configs/cli/fix_it/ui_fix_it.py",
+      "error": "'(' was never closed (<unknown>, line 121)"
+    },
+    {
+      "file": "configs/cli/fix_it/fix_it.py",
+      "error": "invalid syntax (<unknown>, line 272)"
+    },
+    {
+      "file": "configs/cli/setup/ui_setup.py",
+      "error": "'(' was never closed (<unknown>, line 179)"
+    },
+    {
+      "file": "configs/cli/setup/setup.py",
+      "error": "invalid syntax (<unknown>, line 187)"
+    },
+    {
+      "file": "configs/cli/workflows/ui_workflows.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 184)"
+    },
+    {
+      "file": "configs/cli/workflows/workflows.py",
+      "error": "invalid syntax (<unknown>, line 64)"
+    },
+    {
+      "file": "configs/cli/logout/logout.py",
+      "error": "expected 'except' or 'finally' block (<unknown>, line 179)"
+    },
+    {
+      "file": "configs/cli/logout/ui_logout.py",
+      "error": "unmatched ')' (<unknown>, line 79)"
+    },
+    {
+      "file": "configs/cli/models/models.py",
+      "error": "invalid syntax (<unknown>, line 57)"
+    },
+    {
+      "file": "configs/cli/verbose/verbose.py",
+      "error": "invalid syntax (<unknown>, line 32)"
+    },
+    {
+      "file": "configs/cli/verbose/ui_verbose.py",
+      "error": "unmatched ')' (<unknown>, line 64)"
+    },
+    {
+      "file": "configs/cli/logs/ui_logs.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 89)"
+    },
+    {
+      "file": "configs/cli/variables/variables.py",
+      "error": "invalid syntax (<unknown>, line 85)"
+    },
+    {
+      "file": "configs/cli/review/review.py",
+      "error": "invalid syntax (<unknown>, line 77)"
+    },
+    {
+      "file": "configs/cli/review/ui_review.py",
+      "error": "invalid syntax (<unknown>, line 68)"
+    },
+    {
+      "file": "configs/cli/workflow_id/ui_workflow_id.py",
+      "error": "unmatched ')' (<unknown>, line 47)"
+    },
+    {
+      "file": "configs/cli/continue/continue.py",
+      "error": "invalid syntax (<unknown>, line 91)"
+    },
+    {
+      "file": "configs/cli/help/help.py",
+      "error": "invalid syntax (<unknown>, line 104)"
+    },
+    {
+      "file": "configs/cli/goal/ui_goal.py",
+      "error": "invalid syntax (<unknown>, line 35)"
+    },
+    {
+      "file": "configs/cli/goal/goal.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 94)"
+    },
+    {
+      "file": "tools/think/think.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 37)"
+    },
+    {
+      "file": "tools/think/ui_think.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 96)"
+    },
+    {
+      "file": "tools/dalle_generate/ui_dalle_generate.py",
+      "error": "unmatched ')' (<unknown>, line 83)"
+    },
+    {
+      "file": "tools/dalle_generate/dalle_generate.py",
+      "error": "invalid syntax (<unknown>, line 201)"
+    },
+    {
+      "file": "tools/graphic_design/graphic_design.py",
+      "error": "invalid syntax (<unknown>, line 65)"
+    },
+    {
+      "file": "tools/graphic_design/ui_graphic_design.py",
+      "error": "'(' was never closed (<unknown>, line 151)"
+    },
+    {
+      "file": "tools/mcp_connector/mcp_connector.py",
+      "error": "unterminated string literal (detected at line 38) (<unknown>, line 38)"
+    },
+    {
+      "file": "tools/file_operations/ui_file_operations.py",
+      "error": "unmatched ')' (<unknown>, line 488)"
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "error": "unexpected indent (<unknown>, line 200)"
+    },
+    {
+      "file": "tools/file_operations/file_operations.py",
+      "error": "f-string: expecting '=', or '!', or ':', or '}' (<unknown>, line 60)"
+    },
+    {
+      "file": "tools/files_api/files_api.py",
+      "error": "invalid syntax (<unknown>, line 493)"
+    },
+    {
+      "file": "tools/brave_search/ui_brave_search.py",
+      "error": "closing parenthesis ')' does not match opening parenthesis '[' (<unknown>, line 240)"
+    },
+    {
+      "file": "tools/brave_search/button_brave_search.py",
+      "error": "unexpected indent (<unknown>, line 145)"
+    },
+    {
+      "file": "tools/text_editor/text_editor.py",
+      "error": "invalid syntax. Perhaps you forgot a comma? (<unknown>, line 237)"
+    },
+    {
+      "file": "tools/code_execution/ui_code_execution.py",
+      "error": "f-string: expecting '=', or '!', or ':', or '}' (<unknown>, line 127)"
+    },
+    {
+      "file": "tools/code_execution/code_execution.py",
+      "error": "unexpected indent (<unknown>, line 52)"
+    }
+  ],
+  "recommendations": [
+    "\ud83d\udd27 Replace remaining sys.path.append statements with clean dotted imports",
+    "\ud83e\uddf9 Remove unused 'import sys' statements after fixing sys.path.append",
+    "\ud83d\udce6 Standardize import patterns for commonly used modules",
+    "\ud83d\udd04 Run tests after import changes to ensure functionality"
+  ]
+}

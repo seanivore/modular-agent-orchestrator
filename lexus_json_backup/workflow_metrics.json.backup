@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "last_updated": "2025-01-15T10:30:00Z",
+    "schema_version": "1.0",
+    "total_workflows_tracked": 1,
+    "user_id": "user-1642"
+  },
+  "tag_analytics": {
+    "parallel": {
+      "avg_duration": 45,
+      "usage_count": 5
+    },
+    "research": {
+      "success_rate": 0.92,
+      "usage_count": 8
+    }
+  },
+  "workflows": [
+    {
+      "completion_time": "2025-01-15T10:30:00Z",
+      "start_time": "2025-01-15T09:00:00Z",
+      "success": true,
+      "workflow_command": "competitor_analysis",
+      "workflow_id": "wf_001",
+      "workflow_tags": [
+        "parallel",
+        "research",
+        "analysis"
+      ]
+    }
+  ]
+}

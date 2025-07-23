@@ -1,19 +1,27 @@
 {
   "_metadata": {
     "config_type": "provider_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
+    "schema_version": "2.0",
     "version": "1.0.0"
   },
   "api_base": "default_api_base",
   "api_type": "openai",
   "auth_header": null,
   "base_url": "http://localhost:1234/v1",
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable provider analytics",
+    "type": "boolean"
+  },
   "default": false,
   "description": "Local LLM server for privacy and offline operation",
   "display_name": "LM Studio (Local)",
   "enabled": true,
   "env_var": null,
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "lm-studio",
   "privacy_level": "maximum",
   "rate_limits": {

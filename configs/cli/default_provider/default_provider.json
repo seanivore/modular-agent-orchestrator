@@ -15,7 +15,10 @@
   "cost_estimate": 0.0001,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Set default provider for workflows",
   "hidden": false,
   "integration": {
@@ -25,7 +28,11 @@
       "settings_manager",
       "username_manager"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "default_provider",
   "logic_file": "configs/cli/default_provider/default_provider.py",

@@ -1,0 +1,105 @@
+{
+  "app_command": "/update",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "file_modification_time",
+      "directory_state",
+      "json_content"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "update",
+  "cost_estimate": 0.005,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Update workflow with multi-path support and secondary flags",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_state",
+      "memory_mcp"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "update_workflow",
+  "logic_file": "configs/cli/update/update.py",
+  "multi_path_support": {
+    "auto_copy_json": true,
+    "auto_detect_workflow_directory": true,
+    "enabled": true,
+    "supported_paths": [
+      "relative",
+      "absolute",
+      "workflow_directory",
+      "regular_directory"
+    ]
+  },
+  "name": "default_command",
+  "operations": {
+    "execute": {
+      "description": "Execute workflow update with JSON file",
+      "optional_params": [
+        "target_directory",
+        "add",
+        "remove",
+        "replace",
+        "rename",
+        "chat"
+      ],
+      "required_params": true
+    }
+  },
+  "required": false,
+  "secondary_flags": {
+    "add": {
+      "description": "Add new phases or agents to workflow",
+      "examples": [
+        "phase:testing",
+        "agent:validator"
+      ],
+      "format": "type:name"
+    },
+    "chat": {
+      "description": "Natural language workflow updates",
+      "examples": [
+        "add phase called validation",
+        "update goal to include testing"
+      ],
+      "format": "message"
+    },
+    "remove": {
+      "description": "Remove existing phases or agents",
+      "examples": [
+        "phase:outdated",
+        "agent:deprecated"
+      ],
+      "format": "type:name"
+    },
+    "rename": {
+      "description": "Rename workflow elements",
+      "examples": [
+        "old_name:new_name",
+        "test:testing"
+      ],
+      "format": "old:new"
+    },
+    "replace": {
+      "description": "Replace existing workflow elements",
+      "examples": [
+        "phase:dev:development",
+        "agent:old:new"
+      ],
+      "format": "type:old:new"
+    }
+  },
+  "terminal_flag": "--update",
+  "type": "needs_file_or_directory",
+  "ui_file": "configs/cli/update/ui_update.py"
+}

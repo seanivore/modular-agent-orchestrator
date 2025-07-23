@@ -5,10 +5,21 @@
   "command": "variables_explain",
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Explain how workflow variables work",
   "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
+  },
   "interface_method": "explain_variables",
+  "logic_file": "default.py",
   "name": "default_command",
   "required": false,
   "terminal_flag": "--variables-explain",

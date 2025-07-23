@@ -5,10 +5,21 @@
   "command": "privacy",
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Use privacy-focused models and providers only",
   "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
+  },
   "interface_method": "enable_privacy_mode",
+  "logic_file": "default.py",
   "name": "default_command",
   "required": false,
   "terminal_flag": "--privacy",

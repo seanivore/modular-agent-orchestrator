@@ -1,0 +1,39 @@
+{
+  "timestamp": "2025-07-23T08:31:56.523669",
+  "overall_score": 0.0,
+  "total_audits": 6,
+  "successful_audits": 0,
+  "audit_results": {
+    "import_patterns": {
+      "success": false,
+      "error": "Audit script not found: import_audit.py",
+      "score": 0.0
+    },
+    "function_naming": {
+      "success": false,
+      "error": "Audit script not found: function_naming_audit.py",
+      "score": 0.0
+    },
+    "json_configs": {
+      "success": false,
+      "error": "Audit script not found: json_config_audit_precision.py",
+      "score": 0.0
+    },
+    "error_handling": {
+      "success": false,
+      "error": "Audit script not found: error_handling_audit.py",
+      "score": 0.0
+    },
+    "cache_usage": {
+      "success": false,
+      "error": "Audit script not found: cache_usage_audit.py",
+      "score": 0.0
+    },
+    "file_paths": {
+      "success": false,
+      "error": "Audit script not found: file_path_audit_precision.py",
+      "score": 0.0
+    }
+  },
+  "quality_rating": "\ud83d\udea8 CRITICAL - Major quality problems need immediate attention!"
+}

@@ -1,0 +1,162 @@
+{
+  "category": "project_context",
+  "created_at": "2025-07-09T10:15:00.000Z",
+  "last_updated": "2025-07-09T10:15:00.000Z",
+  "memories": [
+    {
+      "access_count": 1,
+      "category": "project_context",
+      "content": "The MAO (Modular Agent Orchestrator) project uses a 4-file tool structure: logic.py, button_*.py, ui_*.py, and tool_*.json for consistency across all tools.",
+      "context_triggers": [
+        "mao_development",
+        "tool_creation",
+        "architecture",
+        "patterns"
+      ],
+      "created_at": "2025-07-09T10:15:00.000Z",
+      "last_accessed": "2025-07-09T10:15:00.000Z",
+      "memory_id": "mem_004",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.98,
+        "embedding_vector": null,
+        "related_memories": []
+      },
+      "priority": "high",
+      "relevance_score": 0.95,
+      "source": "project_documentation",
+      "tags": [
+        "mao",
+        "architecture",
+        "tool_structure",
+        "development_patterns"
+      ]
+    },
+    {
+      "access_count": 1,
+      "category": "project_context",
+      "content": "CLI commands in MAO need 3 files: command.py, ui_command.py, and command.json. All must follow MAO patterns with CacheManager, @handle_errors, and estimate_cost() functions.",
+      "context_triggers": [
+        "cli_development",
+        "mao_patterns",
+        "command_structure"
+      ],
+      "created_at": "2025-07-09T10:20:00.000Z",
+      "last_accessed": "2025-07-09T10:20:00.000Z",
+      "memory_id": "mem_005",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.94,
+        "embedding_vector": null,
+        "related_memories": [
+          "mem_004"
+        ]
+      },
+      "priority": "high",
+      "relevance_score": 0.92,
+      "source": "project_documentation",
+      "tags": [
+        "mao",
+        "cli_commands",
+        "development_patterns",
+        "cache_manager",
+        "error_handling"
+      ]
+    },
+    {
+      "access_count": 1,
+      "category": "project_context",
+      "content": "Memory MCP is the single source of truth for all workflow state in MAO. User data is stored in ./configs/user/[username]/memories/ with privacy-first architecture.",
+      "context_triggers": [
+        "memory_system",
+        "workflow_state",
+        "privacy",
+        "user_storage"
+      ],
+      "created_at": "2025-07-09T10:25:00.000Z",
+      "last_accessed": "2025-07-09T10:25:00.000Z",
+      "memory_id": "mem_006",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.91,
+        "embedding_vector": null,
+        "related_memories": [
+          "mem_004",
+          "mem_005"
+        ]
+      },
+      "priority": "high",
+      "relevance_score": 0.9,
+      "source": "project_documentation",
+      "tags": [
+        "mao",
+        "memory_mcp",
+        "workflow_state",
+        "privacy",
+        "user_data"
+      ]
+    },
+    {
+      "access_count": 1,
+      "category": "project_context",
+      "content": "The current implementation is Phase 2A of MAO Memory & Analytics Implementation, focusing on memory system integration with the user directory structure.",
+      "context_triggers": [
+        "current_phase",
+        "implementation_status",
+        "memory_system"
+      ],
+      "created_at": "2025-07-09T10:30:00.000Z",
+      "last_accessed": "2025-07-09T10:30:00.000Z",
+      "memory_id": "mem_007",
+      "metadata": {
+        "auto_categorized": true,
+        "confidence_score": 0.87,
+        "embedding_vector": null,
+        "related_memories": [
+          "mem_006"
+        ]
+      },
+      "priority": "medium",
+      "relevance_score": 0.85,
+      "source": "project_status",
+      "tags": [
+        "mao",
+        "phase_2a",
+        "memory_analytics",
+        "implementation",
+        "current_phase"
+      ]
+    }
+  ],
+  "metadata": {
+    "category_stats": {
+      "project_context": 4
+    },
+    "last_backup": "2025-07-09T10:30:00.000Z",
+    "mcp_integration": {
+      "enabled": true,
+      "last_sync": "2025-07-09T10:30:00.000Z",
+      "sync_status": "active"
+    },
+    "tag_frequency": {
+      "architecture": 1,
+      "cache_manager": 1,
+      "cli_commands": 1,
+      "current_phase": 1,
+      "development_patterns": 2,
+      "error_handling": 1,
+      "implementation": 1,
+      "mao": 4,
+      "memory_analytics": 1,
+      "memory_mcp": 1,
+      "phase_2a": 1,
+      "privacy": 1,
+      "tool_structure": 1,
+      "user_data": 1,
+      "workflow_state": 2
+    },
+    "total_memories": 4
+  },
+  "schema_version": "1.0",
+  "user_id": "user-1642"
+}

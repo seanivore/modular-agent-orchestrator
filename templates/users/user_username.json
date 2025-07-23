@@ -1,8 +1,8 @@
 {
   "_metadata": {
     "config_type": "provider_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
     "note": "Personal data (name, email, DOB) should be handled via secure consent flow",
     "privacy_compliant": true,
     "schema_version": "1.0",
@@ -10,9 +10,16 @@
     "version": "1.0.0"
   },
   "api_base": "https://api.example.com",
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable provider analytics",
+    "type": "boolean"
+  },
   "default": false,
   "description": "Template for creating new user profiles",
   "enabled": true,
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "user_template",
   "privacy": {
     "analytics_consent": false,

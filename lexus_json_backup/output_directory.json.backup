@@ -1,0 +1,48 @@
+{
+  "app_command": "/output",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "user_context",
+      "current_output_state"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "default",
+  "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Set output directory via settings_manager.py",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "settings_manager",
+      "username_manager"
+    ],
+    "memory_mcp": false
+  },
+  "interface_method": "output",
+  "logic_file": "configs/cli/output_directory/output_directory.py",
+  "name": "output_directory",
+  "operations": {
+    "get_current_output": {
+      "description": "Get current output directory setting",
+      "optional_params": [],
+      "required_params": true
+    },
+    "set_output": {
+      "description": "Set user output directory with path validation",
+      "optional_params": [],
+      "required_params": true
+    }
+  },
+  "required": false,
+  "terminal_flag": "--output",
+  "type": "needs_input",
+  "ui_file": "configs/cli/output_directory/ui_output_directory.py"
+}

@@ -20,7 +20,10 @@
   "cost_estimate": 0.003,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/login/login.py",
   "help": "User authentication via username_manager integration",
   "hidden": false,
@@ -30,9 +33,14 @@
     "manager_touchpoints": [
       "username_manager"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "login",
+  "logic_file": "default.py",
   "name": "login",
   "operations": {
     "execute": {

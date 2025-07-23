@@ -14,7 +14,10 @@
   "cost_estimate": 0.001,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "List all available tools",
   "hidden": false,
   "integration": {

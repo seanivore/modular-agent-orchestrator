@@ -4,15 +4,21 @@
   "command": "mao",
   "description": "Start the main Mao terminal application. Detects returning users for quick launch, new users get full onboarding experience",
   "enabled": true,
-  "examples": [
-    {
-      "description": "Smart launch - quick for returning users, onboarding for new users",
-      "usage": "mao --mao"
-    }
-  ],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Launch the beautiful Mao terminal interface with smart user detection",
   "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
+  },
   "interface_method": "launch_terminal_ui_smart",
+  "logic_file": "default.py",
   "name": "mao",
   "required": false,
   "terminal_flag": "--mao",

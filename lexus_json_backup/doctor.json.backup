@@ -1,0 +1,57 @@
+{
+  "app_command": "/doctor",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "system_state",
+      "component_status",
+      "directory_structure"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "doctor",
+  "cost_estimate": 0.005,
+  "description": "Default CLI command description",
+  "diagnostic_components": [
+    "system_info",
+    "directory_structure",
+    "workflow_manager",
+    "memory_mcp",
+    "workflow_state",
+    "cache_system",
+    "orchestrator_files"
+  ],
+  "enabled": true,
+  "examples": [],
+  "help": "System health checks and workflow diagnostics",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_state",
+      "memory_mcp"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "doctor",
+  "logic_file": "configs/cli/doctor/doctor.py",
+  "name": "default_command",
+  "operations": {
+    "execute": {
+      "description": "Comprehensive system health diagnostics",
+      "optional_params": [
+        "verbose",
+        "component_filter"
+      ],
+      "required_params": true
+    }
+  },
+  "required": false,
+  "terminal_flag": "--doctor",
+  "type": "standalone",
+  "ui_file": "configs/cli/doctor/ui_doctor.py"
+}

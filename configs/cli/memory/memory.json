@@ -15,7 +15,10 @@
   "cost_estimate": 0.001,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Store, retrieve, and manage user memories and contextual information",
   "hidden": false,
   "integration": {
@@ -25,7 +28,11 @@
       "user_memory_manager",
       "username_manager"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "memory",
   "logic_file": "configs/cli/memory/memory.py",

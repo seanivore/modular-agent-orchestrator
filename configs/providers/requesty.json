@@ -1,8 +1,9 @@
 {
   "_metadata": {
     "config_type": "provider_config",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
+    "schema_version": "2.0",
     "version": "1.0.0"
   },
   "api_base": "default_api_base",
@@ -10,11 +11,18 @@
   "auth_header": "authorization",
   "base_url": "https://router.requesty.ai/v1",
   "cost_optimization": "Routes to cheapest available model for task",
+  "created_date": "2025-07-23T08:26:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable provider analytics",
+    "type": "boolean"
+  },
   "default": false,
   "description": "Multi-model router supporting Anthropic, OpenAI, and Google models",
   "display_name": "Requesty Router",
   "enabled": true,
   "env_var": "REQUESTY_API_KEY",
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "requesty",
   "rate_limits": {
     "requests_per_minute": 500,

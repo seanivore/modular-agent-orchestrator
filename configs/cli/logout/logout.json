@@ -14,7 +14,10 @@
   "cost_estimate": 0.0035,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "file_path": "configs/cli/logout/logout.py",
   "help": "Logout current user and clear session data",
   "hidden": false,
@@ -25,9 +28,14 @@
       "username_manager",
       "workflow_manager"
     ],
-    "memory_mcp": false
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "logout",
+  "logic_file": "default.py",
   "name": "logout",
   "operations": {
     "execute": {

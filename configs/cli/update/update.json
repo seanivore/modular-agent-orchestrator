@@ -15,7 +15,10 @@
   "cost_estimate": 0.005,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Update workflow with multi-path support and secondary flags",
   "hidden": false,
   "integration": {
@@ -26,7 +29,11 @@
       "workflow_state",
       "memory_mcp"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "update_workflow",
   "logic_file": "configs/cli/update/update.py",

@@ -1,13 +1,13 @@
 {
   "_metadata": {
     "config_type": "app_settings",
-    "created_date": "2025-07-23T08:15:00.000000Z",
-    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "created_date": "2025-07-23T08:26:00.000000Z",
+    "last_updated": "2025-07-23T08:26:00.000000Z",
     "schema_version": "1.0",
     "version": "1.0.0"
   },
   "app_name": "default_app_name",
-  "created_date": "2025-07-23T08:15:00.000000Z",
+  "created_date": "2025-07-23T08:26:00.000000Z",
   "data_collection": {
     "default": true,
     "description": "Enable data collection for analytics",
@@ -23,7 +23,7 @@
   },
   "default_provider": true,
   "description": "Configure default API provider preferences",
-  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "last_updated": "2025-07-23T08:26:00.000000Z",
   "name": "default_provider_app_settings",
   "version": "1.0"
 }

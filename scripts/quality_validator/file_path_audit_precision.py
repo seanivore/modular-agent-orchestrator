@@ -302,6 +302,10 @@ class DesignerPrecisionFilePathAuditor:
         
         return results
 
+    def run_audit(self) -> Dict[str, Any]:
+        """Compatibility method for quality suite"""
+        return self.run_precision_audit()
+    
     def generate_precision_report(self, output_file: str = "designer_precision_path_audit.json") -> None:
         """Generate designer precision audit report"""
         import json

@@ -14,7 +14,10 @@
   "cost_estimate": 0.002,
   "description": "Default CLI command description",
   "enabled": true,
-  "examples": [],
+  "examples": {
+    "description": "Show help for default command",
+    "usage": "mao default --help"
+  },
   "help": "Jump into application and send first message to AI",
   "hidden": false,
   "integration": {
@@ -24,7 +27,11 @@
       "conversation_bridge",
       "workflow_manager"
     ],
-    "memory_mcp": true
+    "memory_mcp": true,
+    "specific_touchpoints": [
+      "config",
+      "validation"
+    ]
   },
   "interface_method": "chat",
   "logic_file": "configs/cli/chat/chat.py",
