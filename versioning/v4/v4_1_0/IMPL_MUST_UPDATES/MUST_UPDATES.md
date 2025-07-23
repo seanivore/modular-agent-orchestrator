@@ -1,42 +1,5 @@
 # V4.1 Must-Have Updates
 
-## Copywriting Styles Guide 
-
-* **We need this for ourselves for in the app, eventually in promo materials, and in docs** 
-
-  1. Never use "MAO" in all caps 
-     - It is a proper noun and name 
-     - It is just like "scuba" aka self-contained underwater breathing apparatus 
-  2. Never use an m-dash or regular dash in the middle of a sentence 
-     - Never do this - no matter what 
-     - Same things for the larger one — or medium one – not that they're accurate anyway 
-     - Use a semicolon instead 
-  3. In markdown, never put headings in bold or italic 
-     - Unless it is just a single word and not every heading 
-     - Save the bold and italic as a way to emphasize and differentiate other text 
-     - Graphic design 101: Only ever use ONE emphasis style at a time 
-     - Technically for this reason headings don't need colons unless the rest of the text is in-line 
-     - See how the "We need this..." is bold but doesn't have any "##" making it a heading 
-  4. We only use military time 
-     - Eastern timezone 
-     - Don't use AM or PM; it is redundant 
-  5. However rarely we write a date, we write it as 
-     - The EU long format  
-       - It is cleaner
-       - Today is: 20 July 2025 
-     - Then backwards for short format 
-       - Sorts files properly 
-       - Tomorrow is my birthday: 2025-07-21 
-     - The week starts on MONDAY 
-   6. From here forward all implementation files will be handled as follows 
-     - Create a new directory in the `./versioning/v4/v4_1_0/...` or other accurate directory 
-     - Name the directory according to the update 
-     - ABBREVIATION OF IMPLEMENTATION FROM NOW ON IS 'IMPL'
-     - Place abbreviation at start of the file name to keep them grouped together in the directory 
-     - For example, I just created `./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/...`
-     - Create the implementation file using the same name as the directory; as in the example `IMPL_TRIGGER_WORKFLOWS.md`
-     - Before the implementation document is created, you'll likely want a document that outlines all about the update with all the specifics and necessary logic, scripts to create, files it will need, etc. As in the example `TRIGGER_WORKFLOWS.md`
-
 ## Overview
 Post-v4.0 launch updates that require multiple app instances or build on v4.0 foundation. These are specific, actionable implementations ready for immediate development.
 

@@ -12,17 +12,17 @@
 
 Based on MMLU evaluation (professional human translations):
 
-| Language | Claude 3.7 Sonnet | Market Opportunity |
-|----------|-------------------|-------------------|
-| Spanish | 97.6% | 500M+ speakers (Latin America, Spain) |
-| Portuguese | 97.3% | 280M+ speakers (Brazil, Portugal) |
-| French | 96.9% | 280M+ speakers (France, Africa, Canada) |
-| German | 96.2% | 100M+ speakers (Germany, Austria, Switzerland) |
-| Italian | 97.2% | 65M+ speakers (Italy) |
-| Chinese | 95.3% | 1.4B+ speakers (China, Taiwan, Singapore) |
-| Japanese | 95.0% | 125M+ speakers (Japan) |
-| Korean | 95.2% | 77M+ speakers (South Korea) |
-| Arabic | 95.4% | 400M+ speakers (MENA region) |
+| Language   | Claude 3.7 Sonnet | Market Opportunity                             |
+| ---------- | ----------------- | ---------------------------------------------- |
+| Spanish    | 97.6%             | 500M+ speakers (Latin America, Spain)          |
+| Portuguese | 97.3%             | 280M+ speakers (Brazil, Portugal)              |
+| French     | 96.9%             | 280M+ speakers (France, Africa, Canada)        |
+| German     | 96.2%             | 100M+ speakers (Germany, Austria, Switzerland) |
+| Italian    | 97.2%             | 65M+ speakers (Italy)                          |
+| Chinese    | 95.3%             | 1.4B+ speakers (China, Taiwan, Singapore)      |
+| Japanese   | 95.0%             | 125M+ speakers (Japan)                         |
+| Korean     | 95.2%             | 77M+ speakers (South Korea)                    |
+| Arabic     | 95.4%             | 400M+ speakers (MENA region)                   |
 
 **Total Addressable Market**: 3+ billion non-English speakers with 95%+ Claude performance
 
