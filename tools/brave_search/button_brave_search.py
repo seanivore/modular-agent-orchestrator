@@ -81,7 +81,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Search {{\"completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
+    print(f"\\n🎯 Search {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
 '''
     
     return snippet
@@ -131,7 +131,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Validation {{\"passed\" if result['validPath(r'] else \")failed\"}}")
+    print(f"\\n🎯 Validation {{\"passed\" if result['valid'] else \"failed\"}}")
 '''
     
     return snippet
@@ -141,5 +141,5 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     """Estimate cost for executing this tool - standardized naming"""
     # Import from logic file for consistency
     from tools.brave_search.brave_search import estimate_cost as logic_estimate_cost
-from pathlib import Path
+    from pathlib import Path
     return logic_estimate_cost(params)

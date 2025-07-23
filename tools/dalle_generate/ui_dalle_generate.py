@@ -78,9 +78,9 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
         
         for i, image in enumerate(generated_images, 1):
             image_panel = Panel(
-                f"[bold white]{image['filename']}[" / Path(r"bold white]\n")
-                f"📁 {image['filepathPath(r']}\n")
-                f"📏 {image['size_bytes']:,} bytes ({image['size_bytes']/1024" / Path(r"1024:.1f} MB)\n")
+                f"[bold white]{image['filename']}[" / bold white]\n")
+                f"📁 {image['filepath']}\n")
+                f"📏 {image['size_bytes']:,} bytes ({image['size_bytes']/1024" / 1024:.1f} MB)\n")
                 f"🔗 {image['url'][:60]}..." if len(image['url']) > 60 else f"🔗 {image['url']}",
                 title=f"Image {i}",
                 border_style="green"
@@ -212,9 +212,9 @@ def _display_batch_result(result: Dict[str, Any], verbose: bool):
             status = "✅ Success" if item_result.get("status") == "success" else "❌ Failed"
             
             result_panel = Panel(
-                f"[bold white]Prompt {prompt_index + 1}:[" / Path(r"bold white] {prompt[:50]}...\n")
+                f"[bold white]Prompt {prompt_index + 1}:[" / bold white] {prompt[:50]}...\n")
                 f"Status: {status}\n"
-                f"Error: {item_result.get('error', 'None')}" if item_result.get('error') else f"Images: {len(item_result.get('generated_images', []))}",
+                f"Error: {item_result.get('error', 'None'}" if item_result.get('error' else f"Images: {len(item_result.get('generated_images', []))}",
                 border_style="green" if item_result.get("status") == "success" else "red"
             )
             console.print(result_panel)
@@ -275,8 +275,8 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
         console.print("[bold cyan]📋 Full Result:[ / bold cyan]")
         console.print(Panel(json.dumps(result, indent=2), border_style="blue"))
     else:
-        console.print(f"Status: {result.get('status', 'Unknown')}")
-        console.print(f"Operation: {result.get('operation', 'Unknown')}")
+        console.print(f"Status: {result.get('status', 'Unknown'}")
+        console.print(f"Operation: {result.get('operation', 'Unknown'}")
 
 def _display_verbose_generation_details(result: Dict[str, Any]):
     """Display verbose generation details"""
@@ -393,7 +393,7 @@ def display_dalle_capabilities(capabilities: Dict[str, Any], verbose: bool = Fal
     if limitations:
         console.print("[bold yellow]⚠️  Limitations:[ / bold yellow]")
         for key, value in limitations.items():
-            console.print(f"  • {key.replace('_', ' ').title()}: {value}")
+            console.print(f"  • {key.replace('_', ' '.title()}: {value}")
         console.print()
     
     # Verbose details
@@ -455,19 +455,19 @@ def display_agent_handoff_dalle(result: Dict[str, Any], target_agent: str = "OC"
         metadata = result.get("metadata", {})
         
         console.print(f"[bold cyan]🎨 Generated {len(generated_images)} image(s)[ / bold cyan]")
-        console.print(f"Model: {metadata.get('model', 'Unknown')}")
-        console.print(f"Size: {metadata.get('size', 'Unknown')}")
+        console.print(f"Model: {metadata.get('model', 'Unknown'}")
+        console.print(f"Size: {metadata.get('size', 'Unknown'}")
         console.print(f"Cost: ${metadata.get('actual_cost', 0):.3f}")
         
         if generated_images:
-            console.print(Path(r"\n[bold cyan]📁 Image Files:[") / "bold cyan]")
+            console.print(r"\n[bold cyan]📁 Image Files:[") / "bold cyan]")
             for i, image in enumerate(generated_images, 1):
                 console.print(f"  {i}. {image['filename']} ({image['size_bytes']:,} bytes)")
     
     elif operation == "dalle_prompt_enhancement":
         console.print(f"[bold cyan]✨ Enhanced prompt ready[ / bold cyan]")
-        console.print(f"Length: {len(result.get('enhanced_prompt', ''))} characters")
-        console.print(f"Approach: {result.get('enhancement_approach', 'Unknown')}")
+        console.print(f"Length: {len(result.get('enhanced_prompt', '')} characters")
+        console.print(f"Approach: {result.get('enhancement_approach', 'Unknown'}")
     
     elif operation == "dalle_batch_generation":
         summary = result.get("summary", {})

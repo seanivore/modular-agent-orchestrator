@@ -73,10 +73,10 @@ def main():
         metadata = result.get("metadata", {{}})
         content = result.get("content", "")
         
-        print(f"✅ Successfully read {{metadata.get('file_name', 'file')}}")
+        print(f"✅ Successfully read {{metadata.get('file_name', 'file'}}")
         print(f"📊 Size: {{metadata.get('file_size_kb', 0)}} KB ({{metadata.get('character_count', 0):,}} characters)")
-        print(f"🔤 Encoding: {{metadata.get('encoding_used', 'unknown')}}")
-        print(Path(r"\\n") + "="*50)
+        print(f"🔤 Encoding: {{metadata.get('encoding_used', 'unknown'}}")
+        print(\\n") + "="*50)
         print(content[:500] + "..." if len(content) > 500 else content)
     
     # Calculate cost
@@ -88,7 +88,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 File read {{\"completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
+    print(f"\\n🎯 File read {{\"completed\" if result.get('status' == 'success' else \")failed\"}}")
 '''
 
 
@@ -129,12 +129,12 @@ def main():
         print(f"📁 Directories: {{summary.get('directories', 0)}}")
         print(f"📄 Files: {{summary.get('files', 0)}}")
         
-        print(Path(r"\\n") + "="*50)
+        print(\\n") + "="*50)
         for item in items[:10]:  # Show first 10 items
             if "item_count" in item:  # Directory
-                print(f"📁 {{item.get('name', 'unknown')}} /  ({{item.get('item_count', 0)}} items)")
+                print(f"📁 {{item.get('name', 'unknown'}} /  ({{item.get('item_count', 0)}} items)")
             else:  # File
-                print(f"📄 {{item.get('name', 'unknown')}} ({{item.get('size_kb', 0)}} KB)")
+                print(f"📄 {{item.get('name', 'unknown'}} ({{item.get('size_kb', 0)}} KB)")
         
         if len(items) > 10:
             print(f"... and {{len(items) - 10}} more items")
@@ -148,7 +148,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Directory listing {{\"completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
+    print(f"\\n🎯 Directory listing {{\"completed\" if result.get('status' == 'success' else \")failed\"}}")
 '''
 
 

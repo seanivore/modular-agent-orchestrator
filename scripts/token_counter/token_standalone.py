@@ -178,10 +178,10 @@ def pretty_print_results(title, result):
         print(f"Status: {safe_status}")
     
     if "files_checked" in result:
-        print(f"\nChecked {result[')files_checked']} files"
+        print(f"\nChecked {result['files_checked']} files")
         print(f"Total tokens: {result['total_tokens']:,}")
         if result["risky_files"]:
-            print(f"\n⚠ {len(result[\')risky_files'])} files exceed the recommended limit:"
+            print(f"\n⚠ {len(result['risky_files'])} files exceed the recommended limit:")
             for file in result["risky_files"]:
                 print(f"  - {file['file']}: {file['token_count']:,} tokens")
         else:

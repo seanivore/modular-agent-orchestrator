@@ -263,7 +263,7 @@ def edit_image(
                     elif focus == "bottom":
                         y_val = current_height - new_height
                     else:  # center
-                        y_val = (current_height - new_height) / /  2
+                        y_val = (current_height - new_height) //   2
                     x_val = 0
                 
                 crop_box = (x_val, y_val, x_val + new_width, y_val + new_height)
@@ -334,9 +334,9 @@ def edit_image(
             
             if text_position == "center":
                 x_pos = (current_width - text_width) // 2
-                y_pos = (current_height - text_height) / /  2
+                y_pos = (current_height - text_height) //   2
             elif text_position == "top":
-                x_pos = (current_width - text_width) / /  2
+                x_pos = (current_width - text_width) //   2
                 y_pos = int(current_height * 0.1)
             elif text_position == "bottom":
                 x_pos = (current_width - text_width) // 2
@@ -344,7 +344,7 @@ def edit_image(
             else:
                 # Default center
                 x_pos = (current_width - text_width) // 2
-                y_pos = (current_height - text_height) / /  2
+                y_pos = (current_height - text_height) //   2
             
             # Draw text in white for maximum contrast
             draw.text((x_pos, y_pos), text, fill=(255, 255, 255, 255), font=pil_font)
