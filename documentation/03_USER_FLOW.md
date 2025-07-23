@@ -79,20 +79,59 @@ It's your first time with Mao ~(=^‥^) The app loads and:
 
 ---
 
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
+## Using Math to Create Unique UserIDs 
 
-## Setup & Login **ARCHITECTURE**  
+We needed a way to create a unique ID for every user, that is always the same for the username they use. 
 
-### `meid` UserID Creation 
-
-- The UserID is created using a simple script 
-- The script can also be run manually as a CLI command by using the command `meid` followed by the Username 
+- The system checks to see if the UserID already exists 
+- If not, it creates a new UserID using a script 
+- Run the script manually in the terminal 
 - A UserID will always be the same for a specific Username 
 
 ```bash
 meid seanivore # Run command with the Username 
-user-1642 # Response is that Username's User ID 
+> user-1642    # Response is that Username's User ID 
+```
+
+### `meid` Script Code 
+
+"What if the script changes certain characters into mathematical operations?" triggered rapid code development. If you're into math, you might find this interesting. 
+
+```python 
+        # Generate user_id using meid script
+        try:
+            user_id = generate_user_id(username)
+
+        self.operations = {
+            'add': lambda x, y: x + y,
+            'multiply': lambda x, y: (x * y) % 10000,
+            'fibonacci': lambda x, y: self._fib_mod(x + y),
+            'golden': lambda x, y: int((x + y) * 1.618) % 10000,
+            'spiral': lambda x, y: (x * 7 + y * 13) % 10000,
+            'mirror': lambda x, y: self._mirror_add(x, y),
+            'karmic': lambda x, y: (self._digit_sum(x) * 37 + self._digit_sum(y) * 23) % 10000,
+        }
+    
+    def _fib_mod(self, n):
+        """Fibonacci-like operation limited to 4 digits"""
+        if n <= 1:
+            return n % 10000
+        a, b = 0, 1
+        for _ in range(min(n % 15, 12)):  # Limit iterations
+            a, b = b, (a + b) % 10000
+        return b
+    
+    def _mirror_add(self, x, y):
+        """Add numbers with their digit reversals"""
+        x_str = str(x)
+        y_str = str(y)
+        x_rev = int(x_str[::-1]) if x_str[::-1].isdigit() else x
+        y_rev = int(y_str[::-1]) if y_str[::-1].isdigit() else y
+        return (x + x_rev + y + y_rev) % 10000
+    
+    def _digit_sum(self, n):
+        """Sum of digits in a number"""
+        return sum(int(d) for d in str(n))
 ```
 
 ### `meid` Help 
@@ -116,11 +155,15 @@ Mathematical Operations:
   Same username always produces the same user ID
 ```
 
+
+
 ### New UserID Application Background Setup 
 
 - When a new user logs in, the application will create a new `./configs/user/username/user_username.json` directory and file
 - "username" in the filename is the Username: `user_seanivore.json`
 - All user settings, memories, User analytics, and other data are saved to subdirectories in this directory 
+
+
 
 ### Workflows & UserID 
 
