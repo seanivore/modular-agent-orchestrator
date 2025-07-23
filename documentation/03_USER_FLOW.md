@@ -25,7 +25,7 @@ npm install -g @seanivore/mao
 
 ---
 
-## Launch Mao's Application  
+## Launch Mao's Application 
 
 Execute the command `mao mao` to launch the application. 
 

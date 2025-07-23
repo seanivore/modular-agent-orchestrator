@@ -176,7 +176,7 @@ client = openai.OpenAI(
         if provider.env_var:
             snippet += f'    api_key=os.getenv("{provider.env_var}"),\n'
         else:
-            snippet += '    api_key="not-neededPath(r"  # Local server\n'
+            snippet += '    api_key="not-needed"  # Local server\n'
         
         snippet += ''')
 
@@ -302,7 +302,7 @@ content = "{prompt}"
         if system_message:
             snippet += f'''
 # Add system instruction
-content = Path(r"{system_message}\\n\\n") + content
+content = f"{system_message}\\n\\n" + content
 '''
 
         snippet += f'''
@@ -387,9 +387,9 @@ async def execute_workflow():
     
     {self.create_api_call_snippet(model_name, prompt).replace("result", f"{phase_name}_result")}
     
-    workflow_results["{phase_name}"] = {phase_name}_result
-    if "usage" in {phase_name}_result:
-        total_cost += {phase_name}_result["usage"].get("total_cost", 0)
+    workflow_results["{phase_name}"] = {{phase_name}}_result
+    if "usage" in {{phase_name}}_result:
+        total_cost += {{phase_name}}_result["usage"].get("total_cost", 0)
     
     print(f"✅ {phase_name} completed")
 '''
@@ -398,7 +398,7 @@ async def execute_workflow():
     
     print("-" * 50)
     print(f"🎉 Workflow completed!")
-    print(f"💰 Total cost: ${total_cost:.6f}")
+    print(f"💰 Total cost: ${{{total_cost:.6f}}}")
     print(f"📅 Finished at: {{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}}")
     
     return workflow_results
@@ -510,8 +510,7 @@ Optimal for: {", ".join(model.optimal_use_cases)}
 
 # Example usage and testing
 if __name__ == "__main__":
-    from model_manager import ModelManager
-from pathlib import Path
+    from .manager_models import ModelManager
     
     # Initialize
     manager = ModelManager()
