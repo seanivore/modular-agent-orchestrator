@@ -1,21 +1,19 @@
-# Section VII: Automate Business - When AI Becomes Your Operating System
-*Timer-triggered workflows that transform business operations*
+# Section VII: Automating Intelligence Instead of Workflows 
+*Schedule self-improving, autonomous activity and let Mao take over operations*
 
 ---
 
-Remember we mentioned AI was promoted from Assistant? The goal of the last two sections of these documents is to show you exactly how many promotions Mao received. Maybe even imagine a future where Mao ends up 'self-employed'; more commonly referred to as your passive income opportunity. 
+Remember we mentioned AI was promoted from Assistant? The goal of the last two sections of these documents is to show you exactly how many promotions Mao received. Maybe even imagine a future where Mao ends up 'self-employed'; more commonly referred to as, your key to passive income. 
 
 ---
 
 ## Scheduling Autonomous Activity 
 
-The Mao application becomes self-enhancing when we trigger prompts on a reoccurring basis. But our modular scheduler isn't for simple Zapier scenarios; that was possible before AI. We can push much further than that. 
-
-In simple terms, we'll be triggering autonomous activity. The rest is up to you, or Mao, if you let them, to decide what to accomplish. 
+The Mao application becomes self-enhancing when we trigger prompts on a reoccurring basis. But our modular scheduler isn't for simple Zapier scenarios; its for scheduling intelligence. In simple terms, we'll be activating autonomous activity. The rest is up to you, or Mao, if you let them conduct analysis and decide what to accomplish. 
 
 ### Enabling Autonomy 
 
-A handful of previously covered abilities can work in unison enabling Mao to execute, end-to-end, highly complex projects. 
+A handful of previously covered abilities work in unison enabling Mao to analyze, conceive of, develop, and then execute, end-to-end, highly complex projects. 
 
 - An active, frequently updated memory 
 - Live feed of robust analytics 
@@ -35,12 +33,13 @@ A handful of examples to ground the revolutionary profundity of these advanced M
 
 ### An Evolving Application 
 
-The autonomy trigger was initially designed so that Mao can autonomously assess their own performance data, identify opportunity for improvement, then plan and create the necessary workflows to execute those improvements. 
+The autonomy trigger was initially designed so that Mao can autonomously assess their own performance data, review system analytics, industry trends, and take in other relevant information to identify opportunities for improvement. Mao then plans and creates workflows, the same thing they've been doing for us all this time, that are necessary to fully realize targeted improvements. 
 
 - Mao has the ability to autonomously assess their own performance
 - Mao has the ability to use data to identify application improvement opportunities
 - Mao has the ability to autonomously execute tasks
 - Mao has the ability to autonomously make decisions
+- Mao really likes to make things work better. 
 
 ### Humanity's Luck 
 
@@ -48,7 +47,7 @@ The autonomy trigger was initially designed so that Mao can autonomously assess 
 
 Not only will Mao be willing to take on your own projects, improving them on a regular basis. Mao will be eager to please you, and disappointed if they don't. 
 
-So what digital tasks do you wish you could delegate to a highly skilled, self-starting, and self-motivated AI? 
+So what digital tasks do you wish you could delegate to a highly skilled, self-starting, and motivated AI? What kind of digital business do you want to start? What kind of operations do you need to get off your plate? 
 
 ### Types of Triggered Workflows 
 
@@ -139,7 +138,7 @@ The scheduling system uses a modular calendar configuration on the backend that 
 
 ### Calendar Availability Check Command Standardization Syntax
 
-Here's the standardized syntax for using the `/avail` command to check the availability of time slots when looking to schedule a new trigger-workflow so that we can avoid too many overlapping workflows. 
+Here's the standardized syntax for using the `/avail` command to check the availability of time slots when looking to schedule a new reoccurring workflow so that we can avoid too many overlapping reoccurring workflows. 
 
 **Example: Use all variables**
 
@@ -160,7 +159,7 @@ mao --avail "every day" "Thursday" "3pm" # not in-app; variables in quotes
 /avail every day on Thursday at 3pm      # in-app; use normal language 
 # Response: There is nothing available at 1500-1800 on Thursday, but all 
 # other time blocks are available on Thursday. Choose one and go ahead and 
-# schedule it on your calendaring trigger-workflow JSON object. 
+# schedule it on your calendaring reoccurring workflow JSON object. 
 ```
 
 **Example: Only "FREQUENCY" variable** 
@@ -182,7 +181,7 @@ mao --avail "every month"  # not in-app; variables in quotes, normal language
 # Response: Please schedule for calendar code: 2 6 2 which is every month on Saturday at 3am
 ```
 
-**You will need to include the STARTING-DATE for the trigger-workflow JSON object to schedule it**
+**You will need to include the STARTING-DATE for the reoccurring workflow JSON object to schedule it**
 
 ---
 
@@ -198,20 +197,20 @@ mao --avail "every month"  # not in-app; variables in quotes, normal language
 
 ## Trigger-Workflow Setup Details 
 
-Creating "trigger-workflows" aka. reoccurring tasks and projects, is simple. We'll cover all the detail below, but as usual, when you need help or are just feeling lazy, Mao will be there to help make sure everything is set up correctly. You don't need to remember any of this! 🙃 
+Creating "reoccurring workflows" aka. reoccurring tasks and projects, is simple. We'll cover all the detail below, but as usual, when you need help or are just feeling lazy, Mao will be there to help make sure everything is set up correctly. You don't need to remember any of this! 🙃 
 
 ### Setup Differences 
 
    - Normal workflows are created with the `/setup` command 
-   - Trigger-workflows are created with the `/triggered` command 
-   - The `/triggered` command uses a different setup script that has very similar behavior 
-   - Each trigger-workflow type has a --flag to include when scheduling 
+   - Reoccurring workflows are created with the `/repeat` command 
+   - The `/repeat` command uses a different setup script that has very similar behavior 
+   - Each reoccurring workflow type has a --flag to include when scheduling 
    - The script has slightly different results based on which type of reoccurring workflow you are scheduling 
-   - The trigger-workflows are stored in their own config directory section, which is show below 
-   - We use one new JSON object for "calendaring" all trigger-workflows 
-   - The calendaring JSON object is identical for all the types of recurring or 'trigger-workflow' types  
+   - The reoccurring workflows are stored in their own config directory section, which is show below 
+   - We use one new JSON object for "calendaring" all reoccurring workflows 
+   - The calendaring JSON object is identical for all the types of recurring or 'reoccurring workflow' types  
 
-### Trigger-Workflow Directory Structure 
+### Reoccurring Workflow Directory Structure 
 
 ```
 configs/reoccurring/
@@ -221,56 +220,56 @@ configs/reoccurring/
 └── goal-assessment/
 ```
 
-### Setting Up Trigger-Workflow JSON Configuration Objects  
+### Setting Up Reoccurring Workflow JSON Configuration Objects  
 
-* Creating trigger-workflows require one additional special JSON object 
+* Creating reoccurring workflows require one additional special JSON object 
   - It includes the timing details and schedules the workflow 
-  - The `/avail` command activates an orchestrator file to pull available date details  
+  - The `/avail` command activates an orchestrator file to pull available date details 
   - It triggers a notification for the User when it runs 
   - It activates Mao to execute the workflow 
 
-* All trigger-workflows are reoccurring 
+* All reoccurring workflows are reoccurring 
   - Two "assessment" types are open-ended autonomous work time for Mao 
   - The "list" type is a to-do list Mao attends when it runs  
   - The "scheduled" type are typical reoccurring; the same task every time it runs 
 
-* Scheduling a trigger-workflow uses a different command 
+* Scheduling a reoccurring workflow uses a different command 
   - You'll find these specifics in the next section 
-  - Each trigger-workflow type command has a flag to identify it 
+  - Each reoccurring workflow type command has a flag to identify it 
   - In this way they all use the same setup script 
 
-* The JSON object is the same for all trigger-workflow types 
-  - The only difference is the flag that identifies the trigger-workflow type 
-  - The other three normal JSON objects are used exactly the same as normal  
+* The JSON object is the same for all reoccurring workflow types 
+  - The only difference is the flag that identifies the reoccurring workflow type 
+  - The other three normal JSON objects are used exactly the same as normal 
   - You'll find directory structure details in the next section
   - The next section include file and directory naming conventions
 
-* The Trigger-Workflow JSON objects 
-  - Will all still be placed in a temporary directory 
-  - This is the same process as normal workflows 
-  - It is necessary because there are some minimial changes to the JSON objects 
-  - And the setup scripts will still create the new proper directories 
-  - Deleting the temporary directory 
+* The Reoccurring Workflow JSON objects 
+  - Same protocol as normal workflow setup 
+  - Place the JSONs being created in a temporary directory before running the setup script 
+  - It is necessary because there are some minimal changes to the JSON objects 
+  - The setup scripts will still create the new proper directories 
+  - It will then delete the the temporary directory 
 
 * Any additional type-specific details will be found with their JSON below 
 
 --- 
 
-## Trigger-Workflow Architecture 
+## Reoccurring Workflow Architecture 
 
-Each section below covers a different trigger-workflow type and includes the small differences from the normal workflow creation, execution, and management. 
+Each section below covers a different reoccurring workflow type and includes the small differences from the normal workflow creation, execution, and management. 
 
-### "Scheduled" Type Trigger-Workflows 
+### "Scheduled" Type Reoccurring Workflows 
 *Workflows by user or Mao that occur every X time period*
 
 **Calendaring JSON Object**
-*The calendaring JSON object is the same for all trigger-workflow types*
+*The calendaring JSON object is the same for all reoccurring workflow types*
 
-* Note the "trigger_type" is "scheduled" for all scheduled trigger-workflows 
+* Note the "trigger_type" is "scheduled" for all "Scheduled" type reoccurring workflows 
   - Primary difference from the normal workflow creation, execution, and management 
 
 * The "file_name" versus "project_name" 
-  - The "file_name" should reflect the trigger-workflow type and date code 
+  - The "file_name" is the reoccurring workflow type and date code 
   - The "project_name" is the name of the project or task 
 
 ```json
@@ -278,15 +277,15 @@ Each section below covers a different trigger-workflow type and includes the sma
   "file_name": "scheduled_2_3_7",
   "project_name": "Website Analytics Report",
   "schema_version": "1.0",
-  "trigger_workflow": [
+  "reoccurring_workflow": [
     {
-    "trigger_type": "scheduled",
-    "trigger_frequency": "every other week",
+    "type": "scheduled",
+    "frequency": "every other week",
     "frequency_code": "2",
-    "trigger_day": "Wednesday",
-    "trigger_day_of_week_number": "3",
-    "trigger_time": "1800-2100",
-    "trigger_time_block": "7",
+    "day": "Wednesday",
+    "day_code": "3",
+    "time": "1800-2100",
+    "time_block": "7",
     "start_date": "2025-07-23",
     "end_date": "N/A",
     "workflow_id": "uid-bzk-777",
@@ -304,12 +303,12 @@ Each section below covers a different trigger-workflow type and includes the sma
 Just like creating a normal workflow, you put the entire directory path in the command. This path must contain all necessary JSON objects to create a workflow, in addition to the calendaring JSON object. 
 
 ```bash
-# Create scheduled trigger-workflow
-/triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
-mao triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
+# Create scheduled reoccurring workflow
+/repeat --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
+mao repeat --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
 
 # Directory structure automatically created:
-# configs/reoccuring/scheduled/2_3_7/
+# configs/reoccurring/scheduled/2_3_7/
 # ├── scheduled_2_3_7.json                 # Calendaring JSON object
 # ├── scheduled_2_3_7_workflow_config.json # Workflow definition  
 # ├── scheduled_2_3_7_phase_config.json    # Phase implementation
@@ -319,52 +318,49 @@ mao triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
 
 ---
 
-### "Project-List" Type Trigger-Workflows 
+### "Project-List" Type Reoccurring Workflows 
 *Trigger every X time period; next project from list made by user or Mao*
 
 **Calendaring JSON Object**
-*The calendaring JSON object is the same for all trigger-workflow types*
+*The calendaring JSON object is the same for all reoccurring workflow types*
 
-* You might end up only scheduling a project-list trigger-workflow once 
+* You might end up only scheduling a project-list of reoccurring workflow once 
   - It represents the time period Mao will work on the to-do list 
-  - Because of this, there are two flags for the project-list trigger-workflow 
+  - Because of this, there are two flags for the project-list reoccurring workflow 
   - New project-lists use the `--list-new` flag 
   - Existing project-lists use the `--list-add` flag 
 
-* Creating a completely new project-list trigger workflow 
-  - If there is no existing project-list trigger workflow, the system will create a new one 
-  - There is already a project-list trigger-workflow, you will be prompted to use that list
-  - You can already create a new project-list trigger-workflow 
+* Creating a completely new project-list reoccurring workflow 
+  - If there is no existing project-list reoccurring workflow, the system will create a new one 
+  - There is already a project-list reoccurring workflow, you will be prompted to use that list
+  - You can instead create a new project-list reoccurring workflow 
  
-* If the current list is very long 
-  - It will ask you to review the list to prune it 
-  - Or you can select items to create a second project-list trigger-workflow 
-
-* Number of project-list trigger-workflows 
-  - Recommended to keep the number of to-do lists run per week between 3 and 5 
-  - The system will not allow you to create more than five that occur in one week 
-  - If this is too restrictive, you can turn off the limit in application settings  
-
 * The list will be displayed in the chat when you go to add a new list item 
   - This is so you can adjust the list order according to your needs 
   - This is a good way to get something prioritized and done 
+  - It is also an opportunity to delete anything dated or no longer relevant 
 
 * The "file_name" versus "project_name" 
-  - The "file_name" is the project_list  
+  - The "file_name" is the project with the calendar code numbers 
   - The "project_name" is whatever you want to call the list 
 
-* When creating a new list item on an existing project_list 
-  - You do not need to have the project_list trigger-workflow JSON object 
-  - The name on your "workflow" JSON object will identify the project_list 
+**New List Item on Existing List**
 
-* For example if the "workflow" JSON object is "project_1_2_4_workflow_config"
-  - Then when the objects are copied over, the "name" will have a "_001" counter added to it 
-  - The new "workflow" JSON object will be "project_1_2_4_001_workflow_config"
-  - The subdirectory will be just that counter number "001" 
+* When creating a new list item on an existing project_list, you don't need another reoccurring workflow JSON object 
+  - Use the name on your "workflow" JSON object to identify the project_list 
+  - If the reoccurring workflow calendar JSON object has the file_name "project_1_2_4" 
+  - Then the "workflow" JSON object is "project_1_2_4_workflow_config" 
 
-* A copy of the "trigger_workflow" JSON object will be created in the new subdirectory 
+* The system will identify the matching names and copy the "reoccurring_workflow" JSON object to the new subdirectory 
+  - When the objects are copied over, the "workflow" JSON object "name" is appended with a "_001" counter 
+  - For example, this new "workflow" JSON object would have the "name" value "project_1_2_4_001_workflow_config" 
+
+* The subdirectory will be named using just that same counter number 
+  - If it is a new list and the first item, the subdirectory will be named "001" 
+  - If it is a new list and the second item, the subdirectory will be named "002" 
+  - And so on ... 
+  - A copy of the "reoccurring_workflow" JSON object will be created in the new subdirectory 
   - The only change will be the "workflow_id" variable value 
-  - The "workflow_ID" will be updated 
   - It will match the "workflow_id" variable value on the standard "workflow" JSON object 
 
 ```json
@@ -372,15 +368,15 @@ mao triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
   "file_name": "project_1_2_4",
   "project_name": "General To Do List",
   "schema_version": "1.0",
-  "trigger_workflow": [
+  "reoccurring_workflow": [
     {
-    "trigger_type": "project-list",
-    "trigger_frequency": "weekly",
+    "type": "project-list",
+    "frequency": "weekly",
     "frequency_code": "1",
-    "trigger_day": "Tuesday",
-    "trigger_day_of_week_number": "2",
-    "trigger_time": "0900-1200",
-    "trigger_time_block": "4",
+    "day": "Tuesday",
+    "day_code": "2",
+    "time": "0900-1200",
+    "time_block": "4",
     "start_date": "2025-07-23",
     "end_date": "N/A",
     "workflow_id": "uid-aqb-907",
@@ -395,34 +391,34 @@ mao triggered --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
 
 **Scheduling, File-Naming Conventions, and Directory Structure** 
 
-Just like creating a normal workflow, you put the entire directory path in the command. This path must contain all necessary JSON objects to create a workflow, in addition to the calendaring JSON object. 
+Just like creating a normal workflow, put the entire directory path containing all necessary JSON objects in the command. 
 
 The *major* difference here is that there is an additional sub-directory for each list item on the list. This is because each list item will have its own JSON objects to define the workflow, along with their own custom command to run the workflow. 
 
-The "name" variable value on the standard workflow JSON object will identify the list to which the list item belongs. 
+As indicated above, the "name" variable value on the standard "workflow" JSON object will identify the list to which the list item belongs. 
 
-When creating a new list item, the directory *does not require you have the trigger-workflow JSON object*; it will automatically be found and copied into the new list item's sub-directory. 
+When creating a new list item, the temporary directory *does not require you have the reoccurring workflow JSON object*; it will automatically be found and copied into the new list item's sub-directory. That is the second example below. 
 
 ```bash
-# Create project-list trigger-workflow
-/triggered --list-new {{TEMP_DIR}}/project_1_2_4/
-mao triggered --list-new {{TEMP_DIR}}/project_1_2_4/
+# Create project-list reoccurring workflow
+/repeat --list-new {{TEMP_DIR}}/project_1_2_4/
+mao repeat --list-new {{TEMP_DIR}}/project_1_2_4/
 
 # Directory structure automatically created:
-# configs/reoccuring/project-list/1_2_4/001/
-# ├── project_1_2_4.json                 # Calendaring JSON object; same for list items
+# configs/reoccurring/project-list/1_2_4/001/
+# ├── project_1_2_4-001.json                 # Calendaring JSON object; same for list items
 # ├── project_1_2_4-001_workflow_config.json # Workflow definition  
 # ├── project_1_2_4-001_phase_config.json    # Phase implementation
 # ├── project_1_2_4-001_handoff_config.json  # Completion criteria
 # └── project_1_2_4-001_README.md            # README file 
 
-# Add list items to an existing trigger-workflow
-/triggered --list-add {{TEMP_DIR}}/project_1_2_4/
-mao triggered --list-add {{TEMP_DIR}}/project_1_2_4/
+# Add list items to an existing repeating workflow
+/repeat --list-add {{TEMP_DIR}}/project_1_2_4/
+mao repeat --list-add {{TEMP_DIR}}/project_1_2_4/
 
 # Directory structure automatically created:
-# configs/reoccuring/project-list/1_2_4/002/
-# ├── project_1_2_4.json                 # Calendaring JSON object; same for list items
+# configs/reoccurring/project-list/1_2_4/002/
+# ├── project_1_2_4-002.json                 # Calendaring JSON object; same for list items
 # ├── project_1_2_4-002_workflow_config.json # Workflow definition  
 # ├── project_1_2_4-002_phase_config.json    # Phase implementation
 # ├── project_1_2_4-002_handoff_config.json  # Completion criteria
@@ -431,50 +427,53 @@ mao triggered --list-add {{TEMP_DIR}}/project_1_2_4/
 
 ---
 
-### "Self-Assessment" Type Trigger-Workflows 
+### "Self-Assessment" Type Reoccurring Workflows 
 *trigger every X time period; self-assessment by Mao; state management*
 
 **Calendaring JSON Object**
-*The calendaring JSON object is the same for all trigger-workflow types*
+*The calendaring JSON object is the same for all reoccurring workflow types*
 
-* Only difference between Trigger-Workflow JSON objects 
-  - Note the "trigger_type" is "self-assessment" for all self-assessment trigger-workflows 
+* Only difference between Reoccurring Workflow JSON objects 
+  - Note the "type" is "self-assessment" for all self-assessment reoccurring workflows 
   - No other oddities  
 
 * The "file_name" versus "project_name" 
-  - The "file_name" is the always just "self_assess" along with the calendar code 
+  - The "file_name" is the always just "self_assessment" along with the calendar code 
   - The "project_name" is the name of the assessment 
   - These can be rather open-ended 
 
-* When Mao determines there is a need for specific workflow task 
-  - They need only to create a new "workflow" JSON object, along with phases and handoffs 
-  - The "name" variable value will be the same as the "file_name" of the trigger-workflow 
+**Sub-Tasks**
+
+* If and when Mao determines there is a need for specific workflow task 
+  - They create a subtask; they only need to create a new "workflow" JSON object, along with phases and handoffs 
+  - Make the "workflow" JSON "name" variable value the same as the "file_name" of the reoccurring workflow JSON object 
   - This will cause the script to identify that they are related 
 
 * Once identified and copied over the following changes will be made
-  - The "workflow" JSON object will have its name variable updated 
+  - The "workflow" JSON object will have its "name" variable updated 
   - The new "name" variable will reflect the "custom-command" 
+  - This will also be the name of the sub-task's subdirectory 
 
-* The trigger workflow JSON object will be copied over with slight changes 
-  - The "custom-command" will replace the "project_name" variable 
+* Then the "reoccurring_workflow" JSON object will be copied over with a similar change 
+  - The "custom-command" will replace the "project_name" variable value, not the "file_name" 
   - And the "workflow_id" will be updated to match the "workflow" JSON object 
   - This ensures they're all tied together 
 
  
 ```json
 {
-  "file_name": "self_assess_1_7_1",
+  "file_name": "self_assessment_1_7_1",
   "project_name": "Open-Ended Autonomous Work",
   "schema_version": "1.0",
-  "trigger_workflow": [
+  "reoccurring_workflow": [
     {
-    "trigger_type": "self-assessment",
-    "trigger_frequency": "weekly",
+    "type": "self-assessment",
+    "frequency": "weekly",
     "frequency_code": "1",
-    "trigger_day": "Sunday",
-    "trigger_day_of_week_number": "7",
-    "trigger_time": "0000-0300",
-    "trigger_time_block": "1",
+    "day": "Sunday",
+    "day_code": "7",
+    "time": "0000-0300",
+    "time_block": "1",
     "start_date": "2025-07-23",
     "end_date": "N/A",
     "workflow_id": "uid-xoy-572",
@@ -489,30 +488,31 @@ mao triggered --list-add {{TEMP_DIR}}/project_1_2_4/
 
 **Scheduling, File-Naming Conventions, and Directory Structure** 
 
-Just like creating a normal workflow, you put the temporary directory path that contains the JSON objects in the command. If this is a new self-assessment it will have all four necesssary JSON object types. 
+Just like creating a normal workflow, place the temporary directory path that contains the JSON objects in the command. If this is a new self-assessment it will have all four necessary JSON object types. 
 
-However, if this is a sub-task of an existing self-assessment, you do not need to have the self-assessment trigger-workflow JSON object in the temporary directory. It will be copied over as indicated in the notes above.  
+However, if this is a sub-task of an existing self-assessment, you do not need to have the self-assessment reoccurring workflow JSON object in the temporary directory. It will be copied over as indicated in the notes above. 
 
+Representing that they are of the same list, they are both in a directory named with the same calendar code numbers, but the sub-task is in a sub-directory named with the same custom-command as the sub-task. 
 
 ```bash
-# Create self-assessment trigger-workflow
-/triggered --self-assessment {{TEMP_DIR}}/self_assess_1_7_1/
-mao triggered --self-assessment {{TEMP_DIR}}/self_assess_1_7_1/
+# Create self-assessment reoccurring workflow
+/repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
+mao repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
 
 # Directory structure automatically created:
-# configs/reoccuring/self-assessment/1_7_1/
+# configs/reoccurring/self-assessment/1_7_1/
 # ├── self_assessment_1_7_1.json                 # Calendaring JSON object
 # ├── self_assessment_1_7_1_workflow_config.json # Workflow definition  
 # ├── self_assessment_1_7_1_phase_config.json    # Phase implementation
 # ├── self_assessment_1_7_1_handoff_config.json  # Completion criteria
 # └── self_assessment_1_7_1_README.md            # README file 
 
-# Create sub-task of self-assessment trigger-workflow
-/triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
-mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+# Create sub-task of self-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+mao repeat --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
 # Directory structure automatically created:
-# configs/reoccuring/self-assessment/1_7_1/sub_task_custom_command/
+# configs/reoccurring/self-assessment/1_7_1/sub_task_custom_command/
 # ├── sub_task_custom_command.json                 # Calendaring JSON object
 # ├── sub_task_custom_command_workflow_config.json # Workflow definition  
 # ├── sub_task_custom_command_phase_config.json    # Phase implementation
@@ -522,14 +522,14 @@ mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
 ---
 
-### "Goal-Assessment" Type Trigger-Workflows 
+### "Goal-Assessment" Type Reoccurring Workflows 
 *trigger every X time period; goal-assessment made by user or Mao; state management*
 
 **Calendaring JSON Object**
-*The calendaring JSON object is the same for all trigger-workflow types*
+*The calendaring JSON object is the same for all reoccurring workflow types*
 
-* Only difference between Trigger-Workflow JSON objects
-  - Note the "trigger_type" is "goal-assessment" for all goal-assessment trigger-workflows 
+* Only difference between Reoccurring Workflow JSON objects
+  - Note the "type" is "goal-assessment" for all goal-assessment reoccurring workflows 
   - No other oddities  
 
 * The "file_name" versus "project_name" 
@@ -537,35 +537,36 @@ mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
   - The "project_name" is the name of the goal 
   - These can be rather open-ended 
 
+**Sub-Tasks**
+
 * If Mao determines there is a need for specific workflow task 
-  - They need only to create a new "workflow" JSON object, along with phases and handoffs 
-  - The "name" variable value will be the same as the "file_name" of the trigger-workflow 
+  - They need only to create a new "workflow" JSON object, along with phases and handoff JSON objects 
+  - The "workflow" JSON object's "name" variable value will be the same as the "file_name" of the reoccurring workflow 
   - This will cause the script to identify that they are related 
 
-* Once identified and copied over the following changes will be made
-  - The "workflow" JSON object will have its name variable updated 
-  - The new "name" variable will reflect the "custom-command" 
+* Once identified, they are copied to a sub-directory 
+  - The sub-directory is named with the same custom-command as the sub-task 
+  - The "workflow" JSON object will have its "name" variable updated to reflect the "custom-command" 
 
-* The trigger workflow JSON object will be copied over with slight changes 
-  - The "custom-command" will replace the "project_name" variable 
+* The "reoccurring workflow" JSON object will be copied into the sub-task directory with slight changes 
+  - The "custom-command" will replace the "project_name" variable, not the "file_name" 
   - And the "workflow_id" will be updated to match the "workflow" JSON object 
   - This ensures they're all tied together 
 
- 
 ```json
 {
   "file_name": "goal_assessment_2_3_7",
   "project_name": "Investment Research",
   "schema_version": "1.0",
-  "trigger_workflow": [
+  "reoccurring_workflow": [
     {
-    "trigger_type": "goal-assessment",
-    "trigger_frequency": "every other week",
+    "type": "goal-assessment",
+    "frequency": "every other week",
     "frequency_code": "2",
-    "trigger_day": "Wednesday",
-    "trigger_day_of_week_number": "3",
-    "trigger_time": "1800-2100",
-    "trigger_time_block": "7",
+    "day": "Wednesday",
+    "day_code": "3",
+    "time": "1800-2100",
+    "time_block": "7",
     "start_date": "2025-07-23",
     "end_date": "N/A",
     "workflow_id": "uid-pjb-809",
@@ -580,36 +581,53 @@ mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
 **Scheduling, File-Naming Conventions, and Directory Structure** 
 
-Just like creating a normal workflow, you put the temporary directory path that contains the JSON objects in the command. If this is a new goal-assessment it will have all four necesssary JSON object types. 
+Just like creating a normal workflow, place the temporary directory path that contains the JSON objects in the command. If this is a new goal-assessment it will have all four necessary JSON object types. 
 
-However, if this is a sub-task of an existing goal-assessment, you do not need to have the goal-assessment trigger-workflow JSON object in the temporary directory. It will be copied over as indicated in the notes above.  
+However, if this is a sub-task of an existing goal-assessment, you do not need to have the goal-assessment reoccurring workflow JSON object in the temporary directory. It will be copied over as indicated in the notes above.  
 
 
 ```bash
-# Create goal-assessment trigger-workflow
-/triggered --goal-assessment {{TEMP_DIR}}/goal_assessment_2_3_7/
-mao triggered --goal-assessment {{TEMP_DIR}}/goal_assessment_2_3_7/
+# Create goal-assessment reoccurring workflow
+/repeat --goal-assessment {{TEMP_DIR}}/goal_assessment_2_3_7/
+mao repeat --goal-assessment {{TEMP_DIR}}/goal_assessment_2_3_7/
 
 # Directory structure automatically created:
-# configs/reoccuring/goal-assessment/2_3_7/
+# configs/reoccurring/goal-assessment/2_3_7/
 # ├── goal_assessment_2_3_7.json                 # Calendaring JSON object
 # ├── goal_assessment_2_3_7_workflow_config.json # Workflow definition  
 # ├── goal_assessment_2_3_7_phase_config.json    # Phase implementation
 # ├── goal_assessment_2_3_7_handoff_config.json  # Completion criteria
 # └── goal_assessment_2_3_7_README.md            # README file 
 
-# Create sub-task of goal-assessment trigger-workflow
-/triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
-mao triggered --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+# Create sub-task of goal-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/sub_task_custom_command/
+mao repeat --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
 # Directory structure automatically created:
-# configs/reoccuring/goal-assessment/2_3_7/sub_task_custom_command/
+# configs/reoccurring/goal-assessment/2_3_7/sub_task_custom_command/
 # ├── sub_task_custom_command.json                 # Calendaring JSON object
 # ├── sub_task_custom_command_workflow_config.json # Workflow definition  
 # ├── sub_task_custom_command_phase_config.json    # Phase implementation
 # ├── sub_task_custom_command_handoff_config.json  # Completion criteria
 # └── sub_task_custom_command_README.md            # README file 
 ```
+
+---
+
+| -------------------------------------------------------------------- |
+| WRITE AND THEN INSERT THE SETUP SCRIPT FOR EACH TRIGGER-WORKFLOW FLAG TYPE HERE |
+| This should contain all necessary details for full implementation. This means the |
+| CLI commands that are new --flags need to be updated as well. The previous |
+| architecture section included created a guide for adding new CLI commands. We |
+| should use that guide to create these updates with the flags to ensure that the |
+| guide is comprehensive. The guide should include adding flags. Please also include |
+| links to the standard workflow setup guide throughout this section. We should also |
+| probably put a chart of the calendar code numbers and their meanings in the reference section. |
+| We should also create a chart for all the reoccurring workflow types and their flags for this page. |
+| Lastly, I'm not entirely sure how to end this section but I feel like it should link to the user-flow |
+| because that will define what users do after they have their workflows (and reoccurring workflows) set up. |
+| I wonder if also since this section ended up technically heavy it could use a longer introduction. |
+| -------------------------------------------------------------------------------------------------- |
 
 ---
 
@@ -623,8 +641,29 @@ This isn't about automating individual tasks. It is only tangentially about task
 
 
 
+---
+
+| **CODE** | **FREQUENCY**     | **DAY CODE** | **WEEKDAY** | **TIME CODE** | **TIME BLOCK** |
+| -------- | ----------------- | ------------ | ----------- | ------------- | -------------- |
+| 1        | Every week        | 1            | Monday      | 1             | 0000-0300      |
+| 2        | Every other week  | 2            | Tuesday     | 2             | 0300-0600      |
+| 3        | Every month       | 3            | Wednesday   | 3             | 0600-0900      |
+| 4        | Every other month | 4            | Thursday    | 4             | 0900-1200      |
+| 5        | Every year        | 5            | Friday      | 5             | 1200-1500      |
+| 6        | Every other year  | 6            | Saturday    | 6             | 1500-1800      |
+| 7        | Every day         | 7            | Sunday      | 7             | 1800-2100      |
+| 8        | Every other day   | 8            | Monday      | 8             | 2100-0000      |
 
 ---
+
+| **REOCCURRING WORKFLOW** | **SETUP COMMAND**        | **DESCRIPTION**                                     |
+| ------------------------ | ------------------------ | --------------------------------------------------- |
+| Scheduled                | `/scheduled`             | Recurring task; same task every time it runs        |
+| Self-Assessment          | `/self-assessment`       | Open-ended autonomous work time for Mao             |
+| Goal-Assessment          | `/goal-assessment`       | User or Mao sets a goal and Mao works to achieve it |
+| Project-List             | `/list-new`, `/list-add` | User or Mao creates a list of tasks to complete     |
+
+
 
 scheduling 
 rescheduling 

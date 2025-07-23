@@ -32,7 +32,7 @@
 For code architecture resources, see this file: `./documentation/doc_prep_guide.md` 
 
 
-- `./versioning/v4/v4_0_0/_SELF_ENHANCMENT.md`
+- `./versioning/v4/v4_0_0/_SELF_ENHANCEMENT.md`
 
 - I needed to take a break from the very detailed implementation details for the tigger workflows. But hopefully you can get a good idea of what to add to the documentation for this section. 
 
