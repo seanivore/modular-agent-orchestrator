@@ -53,7 +53,7 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
     
     # Header
     console.print(Panel.fit(
-        f"🎨 [bold green]DALL-E Image Generation Complete[" / "bold green]",
+        f"🎨 [bold green]DALL-E Image Generation Complete[ / bold green]",
         style="green"
     ))
     
@@ -74,7 +74,7 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
     
     # Generated images
     if generated_images:
-        console.print("[bold cyan]📸 Generated Images:[" / "bold cyan]")
+        console.print("[bold cyan]📸 Generated Images:[ / bold cyan]")
         
         for i, image in enumerate(generated_images, 1):
             image_panel = Panel(
@@ -91,7 +91,7 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
     
     # Download errors
     if download_errors:
-        console.print("[bold red]⚠️  Download Issues:[" / "bold red]")
+        console.print("[bold red]⚠️  Download Issues:[ / bold red]")
         for error in download_errors:
             console.print(f"  • {error}")
         console.print()
@@ -103,7 +103,7 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
 def _display_enhancement_result(result: Dict[str, Any], verbose: bool):
     """Display prompt enhancement results"""
     console.print(Panel.fit(
-        f"✨ [bold green]Prompt Enhancement Complete[" / "bold green]",
+        f"✨ [bold green]Prompt Enhancement Complete[ / bold green]",
         style="green"
     ))
     
@@ -121,10 +121,10 @@ def _display_enhancement_result(result: Dict[str, Any], verbose: bool):
     console.print()
     
     # Prompts comparison
-    console.print("[bold cyan]📝 Original Prompt:[" / "bold cyan]")
+    console.print("[bold cyan]📝 Original Prompt:[ / bold cyan]")
     console.print(Panel(result.get("original_prompt", ""), border_style="blue"))
     
-    console.print("[bold cyan]✨ Enhanced Prompt:[" / "bold cyan]")
+    console.print("[bold cyan]✨ Enhanced Prompt:[ / bold cyan]")
     console.print(Panel(result.get("enhanced_prompt", ""), border_style="green"))
     
     if verbose:
@@ -136,12 +136,12 @@ def _display_validation_result(result: Dict[str, Any], verbose: bool):
     
     if setup_complete:
         console.print(Panel.fit(
-            f"✅ [bold green]DALL-E Setup Valid[" / "bold green]",
+            f"✅ [bold green]DALL-E Setup Valid[ / bold green]",
             style="green"
         ))
     else:
         console.print(Panel.fit(
-            f"⚠️  [bold yellow]DALL-E Setup Issues Found[" / "bold yellow]",
+            f"⚠️  [bold yellow]DALL-E Setup Issues Found[ / bold yellow]",
             style="yellow"
         ))
     
@@ -162,13 +162,13 @@ def _display_validation_result(result: Dict[str, Any], verbose: bool):
     suggestions = result.get("suggestions", [])
     
     if issues:
-        console.print("[bold red]🚨 Issues Found:[" / "bold red]")
+        console.print("[bold red]🚨 Issues Found:[ / bold red]")
         for issue in issues:
             console.print(f"  • {issue}")
         console.print()
     
     if suggestions:
-        console.print("[bold cyan]💡 Suggestions:[" / "bold cyan]")
+        console.print("[bold cyan]💡 Suggestions:[ / bold cyan]")
         for suggestion in suggestions:
             console.print(f"  • {suggestion}")
         console.print()
@@ -182,7 +182,7 @@ def _display_batch_result(result: Dict[str, Any], verbose: bool):
     results = result.get("results", [])
     
     console.print(Panel.fit(
-        f"🎨 [bold green]Batch Generation Complete[" / "bold green]",
+        f"🎨 [bold green]Batch Generation Complete[ / bold green]",
         style="green"
     ))
     
@@ -195,14 +195,14 @@ def _display_batch_result(result: Dict[str, Any], verbose: bool):
     summary_table.add_row("Successful", f"✅ {summary.get('successful', 0)}")
     summary_table.add_row("Failed", f"❌ {summary.get('failed', 0)}")
     summary_table.add_row("Total Cost", f"${summary.get('total_cost', 0):.3f}")
-    summary_table.add_row("Avg Cost" / "Success", f"${summary.get('average_cost_per_success', 0):.3f}")
+    summary_table.add_row("Avg Cost / Success", f"${summary.get('average_cost_per_success', 0):.3f}")
     
     console.print(summary_table)
     console.print()
     
     # Individual results
     if verbose or summary.get("failed", 0) > 0:
-        console.print("[bold cyan]📋 Individual Results:[" / "bold cyan]")
+        console.print("[bold cyan]📋 Individual Results:[ / bold cyan]")
         
         for result_item in results:
             prompt_index = result_item.get("prompt_index", 0)
@@ -213,7 +213,7 @@ def _display_batch_result(result: Dict[str, Any], verbose: bool):
             
             result_panel = Panel(
                 f"[bold white]Prompt {prompt_index + 1}:[" / Path(r"bold white] {prompt[:50]}...\n")
-                fPath(r"Status: {status}\n")
+                f"Status: {status}\n"
                 f"Error: {item_result.get('error', 'None')}" if item_result.get('error') else f"Images: {len(item_result.get('generated_images', []))}",
                 border_style="green" if item_result.get("status") == "success" else "red"
             )
@@ -224,7 +224,7 @@ def _display_batch_result(result: Dict[str, Any], verbose: bool):
 def _display_image_info_result(result: Dict[str, Any], verbose: bool):
     """Display image information results"""
     console.print(Panel.fit(
-        f"📸 [bold green]Image Information[" / "bold green]",
+        f"📸 [bold green]Image Information[ / bold green]",
         style="green"
     ))
     
@@ -252,7 +252,7 @@ def _display_image_info_result(result: Dict[str, Any], verbose: bool):
     console.print()
     
     if verbose:
-        console.print("[bold cyan]📁 Full Path:[" / "bold cyan]")
+        console.print("[bold cyan]📁 Full Path:[ / bold cyan]")
         console.print(Panel(result.get("filepath", ""), border_style="blue"))
 
 def display_error(error_msg: str) -> None:
@@ -267,12 +267,12 @@ def display_error(error_msg: str) -> None:
 def _display_generic_result(result: Dict[str, Any], verbose: bool):
     """Display generic result information"""
     console.print(Panel.fit(
-        f"🎨 [bold green]DALL-E Operation Complete[" / "bold green]",
+        f"🎨 [bold green]DALL-E Operation Complete[ / bold green]",
         style="green"
     ))
     
     if verbose:
-        console.print("[bold cyan]📋 Full Result:[" / "bold cyan]")
+        console.print("[bold cyan]📋 Full Result:[ / bold cyan]")
         console.print(Panel(json.dumps(result, indent=2), border_style="blue"))
     else:
         console.print(f"Status: {result.get('status', 'Unknown')}")
@@ -280,7 +280,7 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
 
 def _display_verbose_generation_details(result: Dict[str, Any]):
     """Display verbose generation details"""
-    console.print("[bold cyan]🔍 Detailed Information:[" / "bold cyan]")
+    console.print("[bold cyan]🔍 Detailed Information:[ / bold cyan]")
     
     metadata = result.get("metadata", {})
     
@@ -298,12 +298,12 @@ def _display_verbose_generation_details(result: Dict[str, Any]):
     
     # Original prompt
     if metadata.get("prompt"):
-        console.print("[bold cyan]📝 Original Prompt:[" / "bold cyan]")
+        console.print("[bold cyan]📝 Original Prompt:[ / bold cyan]")
         console.print(Panel(metadata["prompt"], border_style="blue"))
 
 def _display_verbose_enhancement_details(result: Dict[str, Any]):
     """Display verbose enhancement details"""
-    console.print("[bold cyan]🔍 Enhancement Details:[" / "bold cyan]")
+    console.print("[bold cyan]🔍 Enhancement Details:[ / bold cyan]")
     
     enhancements = result.get("enhancements_applied", {})
     
@@ -320,7 +320,7 @@ def _display_verbose_enhancement_details(result: Dict[str, Any]):
 
 def _display_verbose_validation_details(result: Dict[str, Any]):
     """Display verbose validation details"""
-    console.print("[bold cyan]🔍 Validation Details:[" / "bold cyan]")
+    console.print("[bold cyan]🔍 Validation Details:[ / bold cyan]")
     
     # Full validation table
     validation_table = Table(title="Validation Results", show_header=True)
@@ -364,14 +364,14 @@ def display_dalle_capabilities(capabilities: Dict[str, Any], verbose: bool = Fal
         verbose: Whether to show detailed information
     """
     console.print(Panel.fit(
-        f"🎨 [bold green]DALL-E Capabilities[" / "bold green]",
+        f"🎨 [bold green]DALL-E Capabilities[ / bold green]",
         style="green"
     ))
     
     # Operations
     operations = capabilities.get("operations", [])
     if operations:
-        console.print("[bold cyan]🔧 Available Operations:[" / "bold cyan]")
+        console.print("[bold cyan]🔧 Available Operations:[ / bold cyan]")
         for op in operations:
             console.print(f"  • {op}")
         console.print()
@@ -381,24 +381,24 @@ def display_dalle_capabilities(capabilities: Dict[str, Any], verbose: bool = Fal
     features = capabilities.get("features", [])
     
     if models:
-        console.print(f"[bold cyan]🤖 Supported Models:[" / "bold cyan] {', '.join(models)}")
+        console.print(f"[bold cyan]🤖 Supported Models:[ / bold cyan] {', '.join(models)}")
     
     if features:
-        console.print(f"[bold cyan]✨ Features:[" / "bold cyan] {', '.join(features)}")
+        console.print(f"[bold cyan]✨ Features:[ / bold cyan] {', '.join(features)}")
     
     console.print()
     
     # Limitations
     limitations = capabilities.get("limitations", {})
     if limitations:
-        console.print("[bold yellow]⚠️  Limitations:[" / "bold yellow]")
+        console.print("[bold yellow]⚠️  Limitations:[ / bold yellow]")
         for key, value in limitations.items():
             console.print(f"  • {key.replace('_', ' ').title()}: {value}")
         console.print()
     
     # Verbose details
     if verbose:
-        console.print("[bold cyan]🔍 Detailed Specifications:[" / "bold cyan]")
+        console.print("[bold cyan]🔍 Detailed Specifications:[ / bold cyan]")
         
         # Sizes and qualities
         sizes = capabilities.get("supported_sizes", [])
@@ -419,7 +419,7 @@ def display_dalle_capabilities(capabilities: Dict[str, Any], verbose: bool = Fal
         # Cost structure
         cost_structure = capabilities.get("cost_structure", {})
         if cost_structure:
-            console.print("[bold cyan]💰 Cost Structure:[" / "bold cyan]")
+            console.print("[bold cyan]💰 Cost Structure:[ / bold cyan]")
             costs = cost_structure.get("size_quality_costs", {})
             
             cost_table = Table(show_header=True)
@@ -440,12 +440,12 @@ def display_agent_handoff_dalle(result: Dict[str, Any], target_agent: str = "OC"
         target_agent: Target agent receiving the handoff
     """
     console.print(Panel.fit(
-        f"🤝 [bold green]Handoff to {target_agent}[" / "bold green]",
+        f"🤝 [bold green]Handoff to {target_agent}[ / bold green]",
         style="green"
     ))
     
     if result.get("error"):
-        console.print(f"[red]❌ DALL-E Error:[" / "red] {result['error']}")
+        console.print(f"[red]❌ DALL-E Error:[ / red] {result['error']}")
         return
     
     operation = result.get("operation", "dalle_operation")
@@ -454,7 +454,7 @@ def display_agent_handoff_dalle(result: Dict[str, Any], target_agent: str = "OC"
         generated_images = result.get("generated_images", [])
         metadata = result.get("metadata", {})
         
-        console.print(f"[bold cyan]🎨 Generated {len(generated_images)} image(s)[" / "bold cyan]")
+        console.print(f"[bold cyan]🎨 Generated {len(generated_images)} image(s)[ / bold cyan]")
         console.print(f"Model: {metadata.get('model', 'Unknown')}")
         console.print(f"Size: {metadata.get('size', 'Unknown')}")
         console.print(f"Cost: ${metadata.get('actual_cost', 0):.3f}")
@@ -465,13 +465,13 @@ def display_agent_handoff_dalle(result: Dict[str, Any], target_agent: str = "OC"
                 console.print(f"  {i}. {image['filename']} ({image['size_bytes']:,} bytes)")
     
     elif operation == "dalle_prompt_enhancement":
-        console.print(f"[bold cyan]✨ Enhanced prompt ready[" / "bold cyan]")
+        console.print(f"[bold cyan]✨ Enhanced prompt ready[ / bold cyan]")
         console.print(f"Length: {len(result.get('enhanced_prompt', ''))} characters")
         console.print(f"Approach: {result.get('enhancement_approach', 'Unknown')}")
     
     elif operation == "dalle_batch_generation":
         summary = result.get("summary", {})
-        console.print(f"[bold cyan]🎨 Batch generation complete[" / "bold cyan]")
+        console.print(f"[bold cyan]🎨 Batch generation complete[ / bold cyan]")
         console.print(f"Successful: {summary.get('successful', 0)}")
         console.print(f"Failed: {summary.get('failed', 0)}")
         console.print(f"Total Cost: ${summary.get('total_cost', 0):.3f}")

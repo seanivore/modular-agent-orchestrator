@@ -62,7 +62,7 @@ def _display_verbose_toggle(result: Dict[str, Any]) -> None:
     
     panel_content = f"[bold]{message}[" / Path(r"bold]\n\n")
     panel_content += f"Previous State: {result.get('previous_state', 'unknownPath(r')}\n")
-    panel_content += fPath(r"New State: {new_state}\n")
+    panel_content += f"New State: {new_state}\n"
     panel_content += f"Changed At: {result.get('timestamp', 'unknown')}"
     
     console.print(Panel(
@@ -87,8 +87,8 @@ def _display_debug_toggle(result: Dict[str, Any]) -> None:
         message = "Debug mode and verbose output disabled"
     
     panel_content = f"[bold]{message}[" / Path(r"bold]\n\n")
-    panel_content += fPath(r"Debug Level: {debug_level}\n")
-    panel_content += fPath(r"Verbose Auto-Enabled: {new_state}\n")
+    panel_content += f"Debug Level: {debug_level}\n"
+    panel_content += f"Verbose Auto-Enabled: {new_state}\n"
     panel_content += f"Changed At: {result.get('timestamp', 'unknown')}"
     
     # Add workflow integration info if available
@@ -99,7 +99,7 @@ def _display_debug_toggle(result: Dict[str, Any]) -> None:
         panel_content += f"Session Tracking: {workflow_info.get('session_trackingPath(r', False)}\n")
         
         managers = workflow_info.get("managers_available", {})
-        panel_content += f"Managers Available: {sum(managers.values())}" / "{len(managers)}"
+        panel_content += f"Managers Available: {sum(managers.values())} / {len(managers)}"
     
     console.print(Panel(
         panel_content,
@@ -149,7 +149,7 @@ def _display_debug_status(result: Dict[str, Any]) -> None:
     
     # Add session info if available
     if result.get("session_start"):
-        session_info = fPath(r"\n[bold]Session Info:[") / Path(r"bold]\n")
+        session_info = f"\n[bold]Session Info:[" / Path(r"bold]\n")
         session_info += f"Started: {result.get('session_startPath(r')}\n")
         session_info += f"Last Toggled: {result.get('last_toggled', 'NeverPath(r')}\n")
         
@@ -166,7 +166,7 @@ def _display_debug_status(result: Dict[str, Any]) -> None:
         for manager, available in integration.items():
             status_icon = "✓" if available else "✗"
             manager_name = manager.replace("_", " ").title()
-            integration_info += fPath(r"{status_icon} {manager_name}\n")
+            integration_info += f"{status_icon} {manager_name}\n"
         
         console.print(Panel(integration_info, title="Integration Status", style="cyan"))
 
@@ -181,7 +181,7 @@ def _display_debug_info(result: Dict[str, Any]) -> None:
     # Debug session info
     if "debug_session" in result:
         session = result["debug_session"]
-        console.print("[bold cyan]Debug Session:[" / "bold cyan]")
+        console.print("[bold cyan]Debug Session:[ / bold cyan]")
         
         session_table = Table(show_header=False, box=None)
         session_table.add_column("Key", style="cyan")
@@ -213,7 +213,7 @@ def _display_debug_info(result: Dict[str, Any]) -> None:
         workflow_data = result["workflow_debug"]
         
         if "error" in workflow_data:
-            console.print(f"[red]Error: {workflow_data['error']}[" / "red]")
+            console.print(f"[red]Error: {workflow_data['error']}[ / red]")
         else:
             # Display workflow debug data as tree or table
             _display_nested_data("Workflow Debug", workflow_data)
@@ -224,31 +224,31 @@ def _display_debug_info(result: Dict[str, Any]) -> None:
         memory_data = result["memory_debug"]
         
         if "error" in memory_data:
-            console.print(f"[red]Error: {memory_data['error']}[" / "red]")
+            console.print(f"[red]Error: {memory_data['error']}[ / red]")
         else:
             _display_nested_data("Memory Debug", memory_data)
 
 def _display_nested_data(title: str, data: Dict[str, Any]) -> None:
     """Display nested data structure in readable format"""
     if not data:
-        console.print(f"[dim]No {title.lower()} data available[" / "dim]")
+        console.print(f"[dim]No {title.lower()} data available[ / dim]")
         return
     
-    tree = Tree(f"[bold]{title}[" / "bold]")
+    tree = Tree(f"[bold]{title}[ / bold]")
     
     for key, value in data.items():
         if isinstance(value, dict):
-            branch = tree.add(f"[cyan]{key}[" / "cyan]")
+            branch = tree.add(f"[cyan]{key}[ / cyan]")
             for subkey, subvalue in value.items():
                 branch.add(f"{subkey}: {subvalue}")
         elif isinstance(value, list):
-            branch = tree.add(f"[cyan]{key}[" / "cyan] ({len(value)} items)")
+            branch = tree.add(f"[cyan]{key}[ / cyan] ({len(value)} items)")
             for i, item in enumerate(value[:5]):  # Show first 5 items
                 branch.add(f"[{i}]: {item}")
             if len(value) > 5:
                 branch.add(f"... and {len(value) - 5} more")
         else:
-            tree.add(f"[cyan]{key}[" / "cyan]: {value}")
+            tree.add(f"[cyan]{key}[ / cyan]: {value}")
     
     console.print(tree)
 
@@ -257,8 +257,8 @@ def _display_generic_result(result: Dict[str, Any]) -> None:
     command = result.get("command", "verbose")
     executed_at = result.get("executed_at", "unknown")
     
-    panel_content = fPath(r"Command: {command}\n")
-    panel_content += fPath(r"Executed At: {executed_at}\n\n")
+    panel_content = f"Command: {command}\n"
+    panel_content += f"Executed At: {executed_at}\n\n"
     
     # Display all result data except metadata
     for key, value in result.items():
@@ -275,7 +275,7 @@ def _display_generic_result(result: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[" / "red] {error_message}",
+        f"[red]Error:[ / red] {error_message}",
         style="red",
         title="Verbose Command Error"
     ))
@@ -304,7 +304,7 @@ def display_verbose_help() -> None:
   detailed   - Enhanced debug with workflow tracking
   forensic   - Comprehensive debug with full system info
 
-[cyan]Features:[" / "cyan]
+[cyan]Features:[ / cyan]
   • Persistent debug state across sessions
   • Workflow integration for enhanced debugging
   • Session tracking and duration monitoring

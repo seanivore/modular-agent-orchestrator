@@ -19,8 +19,8 @@ console = Console()
 def display_error(error_message: str):
     """Display standardized error message with Panel formatting"""
     console.print(Panel(
-        f"[red]❌ {error_message}[" / "red]",
-        title="[bold red]Error[" / "bold red]",
+        f"[red]❌ {error_message}[ / red]",
+        title="[bold red]Error[ / bold red]",
         border_style="red"
     ))
 
@@ -62,7 +62,7 @@ def _display_document_creation(result: Dict[str, Any], verbose: bool):
     document_type = result.get("document_type", "general")
     
     # Main success message
-    console.print(f"[green]✅ Document created: {file_name}[" / "green]")
+    console.print(f"[green]✅ Document created: {file_name}[ / green]")
     
     if verbose:
         # Detailed information panel
@@ -75,9 +75,9 @@ def _display_document_creation(result: Dict[str, Any], verbose: bool):
         info_table.add_row("📊 Content Length", f"{content_length:,} characters")
         info_table.add_row("⏰ Created", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Document Details[" / "bold]", border_style="green"))
+        console.print(Panel(info_table, title="[bold]Document Details[ / bold]", border_style="green"))
     else:
-        console.print(f"[dim]📝 {document_type.title()} • {content_length:,} characters[" / "dim]")
+        console.print(f"[dim]📝 {document_type.title()} • {content_length:,} characters[ / dim]")
 
 def _display_content_edit(result: Dict[str, Any], verbose: bool):
     """Display content editing results"""
@@ -87,13 +87,13 @@ def _display_content_edit(result: Dict[str, Any], verbose: bool):
     
     # Main success message with change indicator
     if change_delta > 0:
-        change_text = f"[green]+{change_delta}[" / "green]"
+        change_text = f"[green]+{change_delta}[ / green]"
     elif change_delta < 0:
-        change_text = f"[red]{change_delta}[" / "red]"
+        change_text = f"[red]{change_delta}[ / red]"
     else:
-        change_text = "[yellow]±0[" / "yellow]"
+        change_text = "[yellow]±0[ / yellow]"
     
-    console.print(f"[green]✅ Content updated: {file_name}[" / "green] {change_text}")
+    console.print(f"[green]✅ Content updated: {file_name}[ / green] {change_text}")
     
     if verbose:
         # Detailed edit information
@@ -107,14 +107,14 @@ def _display_content_edit(result: Dict[str, Any], verbose: bool):
         info_table.add_row("📈 Change Delta", f"{change_delta:+,} characters")
         
         if backup_path:
-            info_table.add_row("💾 Backup Created", backup_path.split('" / "')[-1])
+            info_table.add_row("💾 Backup Created", backup_path.split(' / ')[-1])
         
         info_table.add_row("⏰ Modified", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Edit Details[" / "bold]", border_style="green"))
+        console.print(Panel(info_table, title="[bold]Edit Details[ / bold]", border_style="green"))
     else:
         if backup_path:
-            console.print(f"[dim]💾 Backup created • {result.get('updated_length', 0):,} characters total[" / "dim]")
+            console.print(f"[dim]💾 Backup created • {result.get('updated_length', 0):,} characters total[ / dim]")
 
 def _display_content_append(result: Dict[str, Any], verbose: bool):
     """Display content append results"""
@@ -122,7 +122,7 @@ def _display_content_append(result: Dict[str, Any], verbose: bool):
     appended_length = result.get("appended_length", 0)
     total_length = result.get("total_length", 0)
     
-    console.print(f"[green]✅ Content appended: {file_name}[/green] [green]+{appended_length}[" / "green]")
+    console.print(f"[green]✅ Content appended: {file_name}[/green] [green]+{appended_length}[ / green]")
     
     if verbose:
         info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -135,9 +135,9 @@ def _display_content_append(result: Dict[str, Any], verbose: bool):
         info_table.add_row("📊 Total Length", f"{total_length:,} characters")
         info_table.add_row("⏰ Modified", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Append Details[" / "bold]", border_style="green"))
+        console.print(Panel(info_table, title="[bold]Append Details[ / bold]", border_style="green"))
     else:
-        console.print(f"[dim]📊 Total: {total_length:,} characters[" / "dim]")
+        console.print(f"[dim]📊 Total: {total_length:,} characters[ / dim]")
 
 def _display_document_format(result: Dict[str, Any], verbose: bool):
     """Display document formatting preparation results"""
@@ -145,7 +145,7 @@ def _display_document_format(result: Dict[str, Any], verbose: bool):
     format_type = result.get("format_type", "unknown")
     content_length = result.get("content_length", 0)
     
-    console.print(f"[green]✅ Document ready for AI formatting: {file_name}[" / "green]")
+    console.print(f"[green]✅ Document ready for AI formatting: {file_name}[ / green]")
     
     if verbose:
         info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -158,20 +158,20 @@ def _display_document_format(result: Dict[str, Any], verbose: bool):
         
         backup_path = result.get("backup_path")
         if backup_path:
-            info_table.add_row("💾 Backup Created", backup_path.split('" / "')[-1])
+            info_table.add_row("💾 Backup Created", backup_path.split(' / ')[-1])
         
         info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Format Preparation[" / "bold]", border_style="blue"))
+        console.print(Panel(info_table, title="[bold]Format Preparation[ / bold]", border_style="blue"))
     else:
-        console.print(f"[dim]🎨 {format_type.title()} formatting • {content_length:,} characters[" / "dim]")
+        console.print(f"[dim]🎨 {format_type.title()} formatting • {content_length:,} characters[ / dim]")
 
 def _display_document_info(result: Dict[str, Any], verbose: bool):
     """Display comprehensive document information"""
     file_name = result.get("file_name", "Unknown")
     content_stats = result.get("content_stats", {})
     
-    console.print(f"[blue]📊 Document Analysis: {file_name}[" / "blue]")
+    console.print(f"[blue]📊 Document Analysis: {file_name}[ / blue]")
     
     if verbose:
         # File information
@@ -199,14 +199,14 @@ def _display_document_info(result: Dict[str, Any], verbose: bool):
         
         # Display in columns
         console.print(Columns([
-            Panel(file_table, title="[bold]File Information[" / "bold]", border_style="blue"),
-            Panel(stats_table, title="[bold]Content Statistics[" / "bold]", border_style="green")
+            Panel(file_table, title="[bold]File Information[ / bold]", border_style="blue"),
+            Panel(stats_table, title="[bold]Content Statistics[ / bold]", border_style="green")
         ]))
     else:
         # Compact display
         words = content_stats.get('words', 0)
         lines = content_stats.get('lines', 0)
-        console.print(f"[dim]📊 {words:,} words • {lines:,} lines • {result.get('file_size_kb', 0)} KB[" / "dim]")
+        console.print(f"[dim]📊 {words:,} words • {lines:,} lines • {result.get('file_size_kb', 0)} KB[ / dim]")
 
 def _display_path_validation(result: Dict[str, Any], verbose: bool):
     """Display path validation results"""
@@ -215,10 +215,10 @@ def _display_path_validation(result: Dict[str, Any], verbose: bool):
     is_writable = result.get("is_writable", False)
     
     if exists:
-        status_icon = "[green]✅[" / "green]"
+        status_icon = "[green]✅[ / green]"
         status_text = "exists"
     else:
-        status_icon = "[yellow]📝[" / "yellow]"
+        status_icon = "[yellow]📝[ / yellow]"
         status_text = "will be created"
     
     console.print(f"{status_icon} Path validation: {file_name} {status_text}")
@@ -234,7 +234,7 @@ def _display_path_validation(result: Dict[str, Any], verbose: bool):
         info_table.add_row("✅ Exists", "Yes" if exists else "No")
         info_table.add_row("✏️ Writable", "Yes" if is_writable else "No")
         
-        console.print(Panel(info_table, title="[bold]Path Details[" / "bold]", border_style="blue"))
+        console.print(Panel(info_table, title="[bold]Path Details[ / bold]", border_style="blue"))
 
 def _display_template_creation(result: Dict[str, Any], verbose: bool):
     """Display template-based document creation results"""
@@ -242,7 +242,7 @@ def _display_template_creation(result: Dict[str, Any], verbose: bool):
     document_type = result.get("document_type", "general")
     content_length = result.get("content_length", 0)
     
-    console.print(f"[green]✅ Document created from template: {file_name}[" / "green]")
+    console.print(f"[green]✅ Document created from template: {file_name}[ / green]")
     
     if verbose:
         info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -254,9 +254,9 @@ def _display_template_creation(result: Dict[str, Any], verbose: bool):
         info_table.add_row("📊 Content Length", f"{content_length:,} characters")
         info_table.add_row("⏰ Created", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Template Document[" / "bold]", border_style="green"))
+        console.print(Panel(info_table, title="[bold]Template Document[ / bold]", border_style="green"))
     else:
-        console.print(f"[dim]📋 {document_type.title()} template • {content_length:,} characters[" / "dim]")
+        console.print(f"[dim]📋 {document_type.title()} template • {content_length:,} characters[ / dim]")
 
 def _display_generic_result(result: Dict[str, Any], verbose: bool):
     """Display generic operation results"""
@@ -264,9 +264,9 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
     operation = result.get("operation", "operation")
     
     if status == "success":
-        console.print(f"[green]✅ {operation.replace('_', ' ').title()} completed successfully[" / "green]")
+        console.print(f"[green]✅ {operation.replace('_', ' ').title()} completed successfully[ / green]")
     else:
-        console.print(f"[yellow]⚠️ {operation.replace('_', ' ').title()}: {status}[" / "yellow]")
+        console.print(f"[yellow]⚠️ {operation.replace('_', ' ').title()}: {status}[ / yellow]")
     
     if verbose:
         # Display all available information
@@ -282,7 +282,7 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
                     display_value = display_value[:47] + "..."
                 info_table.add_row(display_key, display_value)
         
-        console.print(Panel(info_table, title="[bold]Operation Details[" / "bold]", border_style="blue"))
+        console.print(Panel(info_table, title="[bold]Operation Details[ / bold]", border_style="blue"))
 
 def display_autosave_status(file_path: str, operation: str = "saved"):
     """
@@ -292,10 +292,10 @@ def display_autosave_status(file_path: str, operation: str = "saved"):
         file_path: Path of the file being autosaved
         operation: Type of autosave operation
     """
-    file_name = file_path.split('" / "')[-1] if '" / "' in file_path else file_path
+    file_name = file_path.split(' / ')[-1] if ' / ' in file_path else file_path
     
     # Very subtle autosave indicator
-    console.print(f"[dim green]💾 {file_name}[" / "dim green]", end="")
+    console.print(f"[dim green]💾 {file_name}[ / dim green]", end="")
 
 def display_editing_session_start(file_path: str, document_type: str = "document"):
     """
@@ -305,10 +305,10 @@ def display_editing_session_start(file_path: str, document_type: str = "document
         file_path: Path of the document being edited
         document_type: Type of document
     """
-    file_name = file_path.split('" / "')[-1] if '" / "' in file_path else file_path
+    file_name = file_path.split(' / ')[-1] if ' / ' in file_path else file_path
     
-    console.print(f"[blue]📝 Editing: {file_name}[" / "blue]")
-    console.print(f"[dim]Document type: {document_type.title()}[" / "dim]")
+    console.print(f"[blue]📝 Editing: {file_name}[ / blue]")
+    console.print(f"[dim]Document type: {document_type.title()}[ / dim]")
 
 def display_editing_session_summary(results: list, total_time: float = None):
     """
@@ -324,11 +324,11 @@ def display_editing_session_summary(results: list, total_time: float = None):
     total_operations = len(results)
     successful_operations = len([r for r in results if r.get("status") == "success"])
     
-    console.print(fPath(r"\n[blue]📊 Editing Session Complete[") / "blue]")
-    console.print(f"[dim]Operations: {successful_operations}/{total_operations} successful[" / "dim]")
+    console.print(f"\n[blue]📊 Editing Session Complete[" / "blue]")
+    console.print(f"[dim]Operations: {successful_operations}/{total_operations} successful[ / dim]")
     
     if total_time:
-        console.print(f"[dim]Duration: {total_time:.1f} seconds[" / "dim]")
+        console.print(f"[dim]Duration: {total_time:.1f} seconds[ / dim]")
 
 def display_agent_handoff_format(result: Dict[str, Any]):
     """

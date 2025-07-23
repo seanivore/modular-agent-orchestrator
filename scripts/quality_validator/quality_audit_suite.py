@@ -25,7 +25,7 @@ from datetime import datetime
 class QualityAuditSuite:
     def __init__(self, project_root: str = "."):
         self.project_root = Path(project_root)
-        self.audit_dir = self.project_root / "scripts" / "quality_validator"
+        self.audit_dir = self.project_root / "scripts / quality_validator"
         self.results = {}
         self.overall_score = 0.0
         

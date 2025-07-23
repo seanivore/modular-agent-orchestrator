@@ -257,7 +257,7 @@ def get_display_requirements() -> Dict[str, Any]:
             "search_and_filter_controls"
         ],
         "interaction_requirements": {
-            "memory_cards": "clickable memory items with preview" / "expand",
+            "memory_cards": "clickable memory items with preview / expand",
             "search_interface": "query input with real-time suggestions",
             "category_filtering": "dropdown or tag-based filtering",
             "action_buttons": "store, search, delete, suggest operations",
@@ -309,36 +309,36 @@ def display_usage_help() -> Dict[str, Any]:
         "operations": [
             {
                 "operation": "store",
-                "usage": "" / "memory 'your content here'",
+                "usage": " / memory 'your content here'",
                 "description": "Store new memory with automatic categorization"
             },
             {
                 "operation": "retrieve",
-                "usage": "" / "memory --query 'search terms'",
+                "usage": " / memory --query 'search terms'",
                 "description": "Search through your memories"
             },
             {
                 "operation": "list",
-                "usage": "" / "memory --list",
+                "usage": " / memory --list",
                 "description": "List all your memories"
             },
             {
                 "operation": "delete",
-                "usage": "" / "memory --delete [memory_id]",
+                "usage": " / memory --delete [memory_id]",
                 "description": "Delete specific memory"
             },
             {
                 "operation": "suggest",
-                "usage": "" / "memory --suggest 'context'",
+                "usage": " / memory --suggest 'context'",
                 "description": "Get contextual memory suggestions"
             }
         ],
         "examples": [
-            "" / "memory 'I prefer working in the morning'",
-            "" / "memory --query 'preferences'",
-            "" / "memory --list",
-            "" / "memory --delete mem_123",
-            "" / "memory --suggest 'starting new project'"
+            " / memory 'I prefer working in the morning'",
+            " / memory --query 'preferences'",
+            " / memory --list",
+            " / memory --delete mem_123",
+            " / memory --suggest 'starting new project'"
         ]
     }
 

@@ -81,7 +81,7 @@ def execute_document_creation():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "created")
-            print(fPath(r"\\n✅ Document created successfully"))
+            print(f"\\n✅ Document created successfully")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Document creation failed")
@@ -140,7 +140,7 @@ def execute_content_editing():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "updated")
-            print(fPath(r"\\n✅ Content edited successfully"))
+            print(f"\\n✅ Content edited successfully")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Content editing failed")
@@ -196,7 +196,7 @@ def execute_content_appending():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "appended")
-            print(fPath(r"\\n✅ Content appended successfully"))
+            print(f"\\n✅ Content appended successfully")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Content appending failed")
@@ -247,7 +247,7 @@ def execute_document_formatting():
         display_text_editor_result(result, verbose=True)
         
         if result.get("status") == "ready_for_ai_formatting":
-            print(fPath(r"\\n✅ Document prepared for AI formatting"))
+            print(f"\\n✅ Document prepared for AI formatting")
             print(f"🎨 Format type: {{params['format_type']}}")
             print(f"📊 Content length: {{result.get('content_length', 0):,}} characters")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
@@ -294,7 +294,7 @@ def execute_document_info():
         display_text_editor_result(result, verbose=True)
         
         if result.get("status") == "success":
-            print(fPath(r"\\n✅ Document analysis complete"))
+            print(f"\\n✅ Document analysis complete")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Document analysis failed")
@@ -339,7 +339,7 @@ def execute_path_validation():
         display_text_editor_result(result, verbose=True)
         
         if result.get("status") == "success":
-            print(fPath(r"\\n✅ Path validation complete"))
+            print(f"\\n✅ Path validation complete")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Path validation failed")
@@ -396,7 +396,7 @@ def execute_template_creation():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "created")
-            print(fPath(r"\\n✅ Document created from template"))
+            print(f"\\n✅ Document created from template")
             print(f"📋 Template: {{params['template_type']}}")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:

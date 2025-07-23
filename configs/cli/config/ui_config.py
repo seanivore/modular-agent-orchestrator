@@ -51,7 +51,7 @@ def display_config_result(result: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[" / "red] {error_message}",
+        f"[red]Error:[ / red] {error_message}",
         style="red",
         title="Config Error"
     ))
@@ -79,7 +79,7 @@ def _display_settings_overview(result: Dict[str, Any]) -> None:
     
     # Settings by section
     for section_name, setting_names in sections.items():
-        console.print(fPath(r"\n[bold]{section_name}[") / "bold]")
+        console.print(f"\n[bold]{section_name}[" / "bold]")
         
         table = Table(show_header=True, header_style="bold magenta")
         table.add_column("Setting", style="cyan")
@@ -95,7 +95,7 @@ def _display_settings_overview(result: Dict[str, Any]) -> None:
         
         console.print(table)
     
-    console.print(fPath(r"\n[dim]Total settings: {result.get(')total_settings', 0)}[" / "dim]")
+    console.print(f"\n[dim]Total settings: {result.get(')total_settings', 0)}[ / dim]"
 
 def _display_settings_discovery(result: Dict[str, Any]) -> None:
     """Display settings discovery results"""
@@ -104,34 +104,34 @@ def _display_settings_discovery(result: Dict[str, Any]) -> None:
     total_settings = result.get("total_settings", 0)
     sections = result.get("sections", {})
     
-    console.print(f"Found [bold]{total_settings}[" / "bold] configurable settings")
+    console.print(f"Found [bold]{total_settings}[ / bold] configurable settings")
     console.print(f"Organized into [bold]{len(sections)}[" / Path(r"bold] sections:\n"))
     
     for section_name, setting_names in sections.items():
-        console.print(f"  [cyan]{section_name}[" / "cyan]: {len(setting_names)} settings")
+        console.print(f"  [cyan]{section_name}[ / cyan]: {len(setting_names)} settings")
 
 def _display_setting_action(result: Dict[str, Any]) -> None:
-    """Display setting update" / "reset confirmation"""
+    """Display setting update / reset confirmation"""
     operation = result.get("operation")
     setting_name = result.get("setting_name")
     
     if operation == "update_setting":
         new_value = result.get("new_value")
         console.print(Panel(
-            f"Setting '[cyan]{setting_name}[" / "cyan]' updated to '[green]{new_value}[" / "green]'",
+            f"Setting '[cyan]{setting_name}[ / cyan]' updated to '[green]{new_value}[ / green]'",
             title="Setting Updated",
             style="green"
         ))
     elif operation == "reset_setting":
         default_value = result.get("default_value")
         console.print(Panel(
-            f"Setting '[cyan]{setting_name}[" / "cyan]' reset to default '[yellow]{default_value}[" / "yellow]'",
+            f"Setting '[cyan]{setting_name}[ / cyan]' reset to default '[yellow]{default_value}[ / yellow]'",
             title="Setting Reset",
             style="yellow"
         ))
 
 def _display_config_transfer(result: Dict[str, Any]) -> None:
-    """Display config import" / "export results"""
+    """Display config import / export results"""
     operation = result.get("operation")
     
     if operation == "export_config":
@@ -148,7 +148,7 @@ def _display_config_transfer(result: Dict[str, Any]) -> None:
         failed_count = len(result.get("failed_settings", []))
         console.print(Panel(
             f"Imported: [green]{imported_count}[" / Path(r"green] settings\n") +
-            f"Failed: [red]{failed_count}[" / "red] settings",
+            f"Failed: [red]{failed_count}[ / red] settings",
             title="Config Import Complete",
             style="green" if failed_count == 0 else "yellow"
         ))
@@ -159,7 +159,7 @@ def _display_generic_result(result: Dict[str, Any]) -> None:
     message = result.get("message", "Operation completed")
     
     console.print(Panel(
-        fPath(r"Operation: {operation}\n{message}"),
+        f"Operation: {operation}\n{message}",
         title="Config Operation",
         style="blue"
     ))

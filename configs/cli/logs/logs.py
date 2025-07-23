@@ -22,7 +22,7 @@ def execute_logs(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main logs command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
             - workflow_id (optional): Filter logs for specific workflow
             - search_query (optional): Search term for log content
             - limit (optional): Number of log entries to return (default: 50)

@@ -82,13 +82,13 @@ def main():
     # Calculate cost
     cost_params = {{"operation": "read_file", "file_path": file_path}}
     cost = estimate_cost(cost_params)
-    print(fPath(r"\\n💰 Cost: ${{cost:.4f}}"))
+    print(f"\\n💰 Cost: ${{cost:.4f}}")
     
     return result
 
 if __name__ == "__main__":
     result = main()
-    print(fPath(r"\\n🎯 File read {{\")completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
+    print(f"\\n🎯 File read {{\"completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
 '''
 
 
@@ -132,7 +132,7 @@ def main():
         print(Path(r"\\n") + "="*50)
         for item in items[:10]:  # Show first 10 items
             if "item_count" in item:  # Directory
-                print(f"📁 {{item.get('name', 'unknown')}}" / " ({{item.get('item_count', 0)}} items)")
+                print(f"📁 {{item.get('name', 'unknown')}} /  ({{item.get('item_count', 0)}} items)")
             else:  # File
                 print(f"📄 {{item.get('name', 'unknown')}} ({{item.get('size_kb', 0)}} KB)")
         
@@ -142,13 +142,13 @@ def main():
     # Calculate cost
     cost_params = {{"operation": "list_directory", "directory": directory_path}}
     cost = estimate_cost(cost_params)
-    print(fPath(r"\\n💰 Cost: ${{cost:.4f}}"))
+    print(f"\\n💰 Cost: ${{cost:.4f}}")
     
     return result
 
 if __name__ == "__main__":
     result = main()
-    print(fPath(r"\\n🎯 Directory listing {{\")completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
+    print(f"\\n🎯 Directory listing {{\"completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
 '''
 
 
@@ -172,13 +172,13 @@ def main():
     print("  - list_directory: List directory contents")
     print("  - search_files: Search for files by pattern")
     print("  - get_file_info: Get comprehensive file metadata")
-    print("  - move_file: Move" / "rename files safely")
-    print("  - delete_file: Delete files" / "directories safely")
+    print("  - move_file: Move / rename files safely")
+    print("  - delete_file: Delete files / directories safely")
     print("  - validate_paths: Check if paths exist")
     
     # Calculate cost for basic operations
     cost = estimate_cost({{"operation": "general"}})
-    print(fPath(r"\\n💰 Cost: ${{cost:.4f}} (File operations are free!)"))
+    print(f"\\n💰 Cost: ${{cost:.4f}} (File operations are free!)")
     
     return {{
         "status": "ready",
@@ -188,7 +188,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(Path(r"\\n🚀 File Operations Tool ready for use"))
+    print(r"\\n🚀 File Operations Tool ready for use")
 '''
 
 

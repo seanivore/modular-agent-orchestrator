@@ -246,7 +246,7 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
         
         formatted_results.append(f"{i}. {title}")
         formatted_results.append(f"   {description}")
-        formatted_results.append(fPath(r"   URL: {url}\n"))
+        formatted_results.append(f"   URL: {url}\n")
     
     return Path(r"\n").join(formatted_results)
 

@@ -92,11 +92,11 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
         # Determine model and prepare request
         model = "dall-e-3" if size in ["1024x1024", "1792x1024", "1024x1792"] else "dall-e-2"
         
-        url = "https://api.openai.com/v1/images" / "generations"
+        url = "https://api.openai.com/v1/images / generations"
         headers = {
             "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application" / "json",
-            "User-Agent": "Mao-DALLE-Tool" / "1.0"
+            "Content-Type": "application / json",
+            "User-Agent": "Mao-DALLE-Tool / 1.0"
         }
         
         payload = {
@@ -198,7 +198,7 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
                 
                 # Save image
                 filename = f"dalle_image_{timestamp}_{i+1}.png"
-                filepath = Path(output_dir) " / " filename
+                filepath = Path(output_dir)  /  filename
                 
                 with open(filepath, 'wb') as f:
                     f.write(img_response.content)
@@ -237,7 +237,7 @@ def generate_dalle_image(prompt: str, size: str = "1024x1024", quality: str = "s
         
         # Save generation metadata
         try:
-            metadata_file = Path(output_dir) " / " f"generation_metadata_{timestamp}.json"
+            metadata_file = Path(output_dir)  /  f"generation_metadata_{timestamp}.json"
             with open(metadata_file, 'w', encoding='utf-8') as f:
                 json.dump(result_data, f, indent=2, ensure_ascii=False)
             
@@ -362,7 +362,7 @@ def validate_dalle_setup() -> Dict[str, Any]:
         if not api_key:
             validation_result["issues"].append("OPENAI_API_KEY environment variable not set")
             validation_result["suggestions"].append("Set OPENAI_API_KEY environment variable")
-            validation_result["suggestions"].append("Get your API key from https://platform.openai.com" / "api-keys")
+            validation_result["suggestions"].append("Get your API key from https://platform.openai.com / api-keys")
         else:
             validation_result["api_key_present"] = True
             validation_result["api_key_length"] = len(api_key)
@@ -455,7 +455,7 @@ def batch_generate_images(prompts: List[str], shared_params: Dict[str, Any] = No
                 "successful": successful,
                 "failed": failed,
                 "total_cost": total_cost,
-                "average_cost_per_success": total_cost " / " successful if successful > 0 else 0
+                "average_cost_per_success": total_cost  /  successful if successful > 0 else 0
             },
             "results": results,
             "timestamp": datetime.now().isoformat()
@@ -493,7 +493,7 @@ def get_dalle_image_info(image_path: str) -> Dict[str, Any]:
             "filepath": str(image_file.absolute()),
             "filename": image_file.name,
             "size_bytes": stat.st_size,
-            "size_mb": round(stat.st_size " / " (1024 * 1024), 2),
+            "size_mb": round(stat.st_size  /  (1024 * 1024), 2),
             "created": datetime.fromtimestamp(stat.st_ctime).isoformat(),
             "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
             "file_extension": image_file.suffix,

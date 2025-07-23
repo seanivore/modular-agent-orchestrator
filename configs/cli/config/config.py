@@ -27,7 +27,7 @@ def execute_config(params: Dict[str, Any] = None) -> Dict[str, Any]:
     automatic user config JSON file updates via User ID/Username.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary with settings data and user configuration
@@ -77,7 +77,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
         base_key += f"|user:{username}|id:{user_id}"
     
     # Add settings directory state fingerprint for cache invalidation
-    settings_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "settings"
+    settings_dir = Path(__file__).parent.parent.parent  /  "configs"  /  "settings"
     if settings_dir.exists():
         # Include directory modification time and settings count
         dir_stat = settings_dir.stat()
@@ -203,7 +203,7 @@ def _handle_update_setting(username: str, params: Dict[str, Any] = None) -> Dict
                 "timestamp": datetime.now().isoformat()
             }
         
-        # Update user setting (automatic JSON file management via User ID" / "Username)
+        # Update user setting (automatic JSON file management via User ID / Username)
         success = update_user_setting(username, setting_name, value)
         
         if success:

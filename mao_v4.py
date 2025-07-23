@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 def load_all_commands():
     """Load all command configs dynamically"""
     commands = {}
-    cli_dir = Path(__file__).parent / "configs" / "cli"
+    cli_dir = Path(__file__).parent / "configs / cli"
     
     for json_file in cli_dir.glob("*.json"):
         if json_file.name.endswith('.OLD'):

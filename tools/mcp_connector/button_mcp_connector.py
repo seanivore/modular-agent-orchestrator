@@ -42,7 +42,7 @@ def _create_list_servers_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # MCP Connector - List Available Servers
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.mcp_connector.mcp_connector import list_mcp_servers
 from tools.mcp_connector.ui_mcp_connector import display_server_status, display_available_tools, display_mcp_summary
@@ -89,7 +89,7 @@ def _create_execute_tool_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # MCP Connector - Execute Tool
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.mcp_connector.mcp_connector import execute_mcp_tool
 from tools.mcp_connector.ui_mcp_connector import display_execution_result
@@ -138,7 +138,7 @@ def _create_register_server_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # MCP Connector - Register New Server
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.mcp_connector.mcp_connector import register_mcp_server
 from tools.mcp_connector.ui_mcp_connector import display_registration_result
@@ -181,7 +181,7 @@ def _create_server_status_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # MCP Connector - Server Status Check
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.mcp_connector.mcp_connector import get_mcp_server_status
 from tools.mcp_connector.ui_mcp_connector import display_server_status
@@ -200,7 +200,7 @@ if result.get("status") == "success":
     online_count = sum(1 for s in servers.values() if s.get("status") == "online")
     total_count = len(servers)
     
-    print(f"📊 Status Summary: {{online_count}}" / "{{total_count}} servers online")
+    print(f"📊 Status Summary: {{online_count}} / {{total_count}} servers online")
 else:
     print(f"❌ Error: {{result.get('error', 'Unknown error')}}")
 
@@ -223,7 +223,7 @@ def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # MCP Connector - General Integration
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.mcp_connector.mcp_connector import estimate_cost
 from tools.mcp_connector.ui_mcp_connector import display_help
@@ -242,11 +242,11 @@ available_operations = [
     "get_server_status"
 ]
 
-print(Path(r"\\n📋 Available Operations:"))
+print(r"\\n📋 Available Operations:")
 for op in available_operations:
     print(f"  • {{op}}")
 
-print(fPath(r"\\n💰 Estimated cost: ${cost_estimate:.4f}"))
+print(f"\\n💰 Estimated cost: ${cost_estimate:.4f}")
 
 result = {{
     "error": f"Unknown operation: {operation}",

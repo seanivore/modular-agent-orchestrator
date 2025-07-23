@@ -79,7 +79,7 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
         console.print(Panel(header_text, style="blue"))
         console.print(f"📁 File: {image_path}", style="dim")
     else:
-        console.print(f"🖼️ Analyzed: {image_path.split('" / "')[-1]}", style="blue bold")
+        console.print(f"🖼️ Analyzed: {image_path.split(' / ')[-1]}", style="blue bold")
     
     # Technical specifications table
     if specs:
@@ -216,7 +216,7 @@ def display_optimization_results(result: Dict[str, Any], verbose: bool = False) 
         optimized_size = opt_results.get("optimized_size_bytes", 0)
         reduction = opt_results.get("size_reduction_percent", 0)
         
-        console.print(fPath(r"\n📊 Size Reduction: {reduction:.1f}%"), style="yellow bold")
+        console.print(f"\n📊 Size Reduction: {reduction:.1f}%", style="yellow bold")
         
         if verbose:
             table = Table(show_header=True, header_style="bold magenta", title="Optimization Details")
@@ -280,7 +280,7 @@ def display_font_collection(result: Dict[str, Any], verbose: bool = False) -> No
     fallback = result.get("fallback_available", False)
     
     if verbose:
-        console.print(fPath(r"\n📁 Font Directory: {fonts_dir}"), style="dim")
+        console.print(f"\n📁 Font Directory: {fonts_dir}", style="dim")
         console.print(f"🔄 System Fallback: {'Available' if fallback else 'Not available'}", style="dim")
 
 

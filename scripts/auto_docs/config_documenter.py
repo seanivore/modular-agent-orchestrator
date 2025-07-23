@@ -59,7 +59,7 @@ def estimate_cost(operation_params: Dict[str, Any] = None) -> Dict[str, float]:
     base_io_ops = config_count * 2  # Read config + write doc
     
     # File size affects processing time
-    size_multiplier = max(1.0, file_size_total " / " 10240)  # 10KB baseline
+    size_multiplier = max(1.0, file_size_total  /  10240)  # 10KB baseline
     
     # Apply operation multipliers
     total_time = base_time * config_count * size_multiplier
@@ -79,7 +79,7 @@ def estimate_cost(operation_params: Dict[str, Any] = None) -> Dict[str, float]:
         'estimated_time_seconds': round(total_time, 2),
         'estimated_memory_bytes': int(total_memory),
         'estimated_io_operations': total_io_ops,
-        'complexity_score': min(10, config_count " / " 5)  # 1-10 scale
+        'complexity_score': min(10, config_count  /  5)  # 1-10 scale
     }
 
 
@@ -88,9 +88,9 @@ class ConfigDocumenter:
     
     def __init__(self, repo_root: str = "."):
         self.repo_root = Path(repo_root)
-        self.configs_dir = self.repo_root " / " "configs"
-        self.docs_dir = self.repo_root " / " "versioning-docs"
-        self.templates_dir = self.repo_root " / " "templates"
+        self.configs_dir = self.repo_root  /  "configs"
+        self.docs_dir = self.repo_root  /  "versioning-docs"
+        self.templates_dir = self.repo_root  /  "templates"
         
         # Mao integrations
         self.cache = CacheManager() if CacheManager else None
@@ -98,27 +98,27 @@ class ConfigDocumenter:
         # Config type mappings
         self.config_types = {
             'tools': {
-                'path': 'configs/tools" / "',
-                'doc_file': 'versioning-docs/technical-documentation" / "TOOLS_REFERENCE.md',
-                'template_dir': 'templates/tools" / "',
+                'path': 'configs/tools / ',
+                'doc_file': 'versioning-docs/technical-documentation / TOOLS_REFERENCE.md',
+                'template_dir': 'templates/tools / ',
                 'required_files': ['tool.py', 'tool.json', 'ui_tool.py', 'button_snippet.py']
             },
             'models': {
-                'path': 'configs/models" / "',
-                'doc_file': 'versioning-docs/technical-documentation" / "MODELS_REFERENCE.md',
-                'template_dir': 'templates/models" / "',
+                'path': 'configs/models / ',
+                'doc_file': 'versioning-docs/technical-documentation / MODELS_REFERENCE.md',
+                'template_dir': 'templates/models / ',
                 'required_files': ['model.json']
             },
             'providers': {
-                'path': 'configs/providers" / "',
-                'doc_file': 'versioning-docs/technical-documentation" / "PROVIDERS_REFERENCE.md',
-                'template_dir': 'templates/providers" / "',
+                'path': 'configs/providers / ',
+                'doc_file': 'versioning-docs/technical-documentation / PROVIDERS_REFERENCE.md',
+                'template_dir': 'templates/providers / ',
                 'required_files': ['provider.json']
             },
             'cli': {
-                'path': 'configs/cli" / "',
-                'doc_file': 'versioning-docs/technical-documentation" / "CLI_COMMANDS_REFERENCE.md',
-                'template_dir': 'templates/cli" / "',
+                'path': 'configs/cli / ',
+                'doc_file': 'versioning-docs/technical-documentation / CLI_COMMANDS_REFERENCE.md',
+                'template_dir': 'templates/cli / ',
                 'required_files': ['command.py', 'command.json', 'ui_command.py']
             }
         }
@@ -129,7 +129,7 @@ class ConfigDocumenter:
         config_changes = []
         
         for file_path in changed_files:
-            if not file_path.startswith('configs" / "'):
+            if not file_path.startswith('configs / '):
                 continue
                 
             # Determine config type
@@ -152,7 +152,7 @@ class ConfigDocumenter:
         
     def analyze_config_change(self, file_path: str, config_type: str) -> Optional[Dict[str, Any]]:
         """Analyze a specific config file change"""
-        full_path = self.repo_root " / " file_path
+        full_path = self.repo_root  /  file_path
         
         if not full_path.exists():
             return {
@@ -200,7 +200,7 @@ class ConfigDocumenter:
         }
         
         for required_file in required_files:
-            file_path = config_dir " / " required_file
+            file_path = config_dir  /  required_file
             if file_path.exists():
                 completeness['present_files'].append(required_file)
             else:
@@ -233,7 +233,7 @@ class ConfigDocumenter:
     def update_config_type_docs(self, config_type: str, changes: List[Dict[str, Any]]) -> Optional[str]:
         """Update documentation for a specific config type"""
         config_info = self.config_types[config_type]
-        doc_file_path = self.repo_root " / " config_info['doc_file']
+        doc_file_path = self.repo_root  /  config_info['doc_file']
         
         # Ensure docs directory exists
         doc_file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -278,9 +278,9 @@ class ConfigDocumenter:
             "",
             f"To create a new {config_type} configuration:",
             "",
-            "1. Copy the template files from `templates/{}" / "`".format(config_type),
+            "1. Copy the template files from `templates/{} / `".format(config_type),
             "2. Modify the configuration values as needed",
-            "3. Place files in `configs/{}/your_config_name" / "`".format(config_type),
+            "3. Place files in `configs/{}/your_config_name / `".format(config_type),
             "4. Required files:"
         ])
         
@@ -294,7 +294,7 @@ class ConfigDocumenter:
             "",
             "## Template Files",
             "",
-            f"Template files are available in `templates/{config_type}" / "` directory.",
+            f"Template files are available in `templates/{config_type} / ` directory.",
             ""
         ])
         
@@ -372,7 +372,7 @@ class ConfigDocumenter:
         """Generate CLI command-specific documentation"""
         docs = [
             "**Usage:**",
-            f"- **Command:** `" / "{config_data.get('command', 'Unknown')}`",
+            f"- **Command:** ` / {config_data.get('command', 'Unknown')}`",
             f"- **Flag:** `{config_data.get('terminal_flag', 'Unknown')}`",
             f"- **Type:** {config_data.get('type', 'Unknown')}"
         ]
@@ -388,14 +388,14 @@ class ConfigDocumenter:
     def scan_all_configs_of_type(self, config_type: str) -> Dict[str, Dict[str, Any]]:
         """Scan all existing configs of a specific type"""
         configs = {}
-        config_path = self.repo_root " / " self.config_types[config_type]['path']
+        config_path = self.repo_root  /  self.config_types[config_type]['path']
         
         if not config_path.exists():
             return configs
             
         for config_dir in config_path.iterdir():
             if config_dir.is_dir():
-                json_file = config_dir " / " f"{config_dir.name}.json"
+                json_file = config_dir  /  f"{config_dir.name}.json"
                 if json_file.exists():
                     try:
                         with open(json_file) as f:
@@ -479,7 +479,7 @@ class ConfigDocumenter:
                 subprocess.run(['git', 'add', doc_file], check=True, cwd=self.repo_root)
                 
             # Commit changes
-            commit_message = fPath(r"Auto-update documentation for config changes\n\n{pr_description}")
+            commit_message = f"Auto-update documentation for config changes\n\n{pr_description}"
             subprocess.run(['git', 'commit', '-m', commit_message], check=True, cwd=self.repo_root)
             
             # Push branch
@@ -505,8 +505,8 @@ def main():
     
     # Example usage - simulate config changes
     example_changes = [
-        'configs/tools/web_search" / "web_search.json',
-        'configs/models/claude_sonnet_4" / "claude_sonnet_4.json'
+        'configs/tools/web_search / web_search.json',
+        'configs/models/claude_sonnet_4 / claude_sonnet_4.json'
     ]
     
     config_changes = documenter.scan_config_changes(example_changes)

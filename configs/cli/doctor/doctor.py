@@ -24,7 +24,7 @@ def execute_doctor(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main doctor command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary with system health diagnostics
@@ -59,8 +59,8 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"doctor|{str(params) if params else 'none'}"
     
     # Add system state fingerprints for system health caching
-    config_dir = Path(__file__).parent.parent.parent " / " "configs"
-    orchestrator_dir = Path(__file__).parent.parent.parent " / " "orchestrator"
+    config_dir = Path(__file__).parent.parent.parent  /  "configs"
+    orchestrator_dir = Path(__file__).parent.parent.parent  /  "orchestrator"
     
     fingerprints = []
     
@@ -156,8 +156,8 @@ def _check_directory_structure() -> Dict[str, Any]:
         base_path = Path(__file__).parent.parent.parent
         required_dirs = [
             "configs",
-            "configs" / "cli", 
-            "configs" / "workflows",
+            "configs / cli", 
+            "configs / workflows",
             "orchestrator",
             "tools",
             "scripts"
@@ -167,7 +167,7 @@ def _check_directory_structure() -> Dict[str, Any]:
         present_dirs = []
         
         for dir_name in required_dirs:
-            dir_path = base_path " / " dir_name
+            dir_path = base_path  /  dir_name
             if dir_path.exists() and dir_path.is_dir():
                 present_dirs.append(dir_name)
             else:
@@ -202,7 +202,7 @@ def _check_workflow_manager() -> Dict[str, Any]:
         id_result = manager.generate_workflow_id()
         
         # Check workflow directory
-        workflows_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "workflows"
+        workflows_dir = Path(__file__).parent.parent.parent  /  "configs"  /  "workflows"
         
         return {
             "status": "healthy",
@@ -210,7 +210,7 @@ def _check_workflow_manager() -> Dict[str, Any]:
             "id_generation_working": id_result.get("success", False),
             "workflow_directory_exists": workflows_dir.exists(),
             "manager_instance_created": True,
-            "last_test_id": id_result.get("workflow_id", "N" / "A")
+            "last_test_id": id_result.get("workflow_id", "N / A")
         }
         
     except ImportError as e:
@@ -333,7 +333,7 @@ def _check_cache_system() -> Dict[str, Any]:
 def _check_orchestrator_files() -> Dict[str, Any]:
     """Check critical orchestrator files availability"""
     try:
-        orchestrator_dir = Path(__file__).parent.parent.parent " / " "orchestrator"
+        orchestrator_dir = Path(__file__).parent.parent.parent  /  "orchestrator"
         critical_files = [
             "core.py",
             "cli_manager.py", 
@@ -341,7 +341,7 @@ def _check_orchestrator_files() -> Dict[str, Any]:
             "memory_mcp.py",
             "workflow_state.py",
             "error_handling.py",
-            "cache" / "cache_system.py"
+            "cache / cache_system.py"
         ]
         
         missing_files = []
@@ -383,7 +383,7 @@ def _analyze_overall_health(health_results: Dict[str, Dict[str, Any]]) -> Dict[s
     
     # Determine overall status
     if status_counts["error"] > 0:
-        overall_status = "critical" if status_counts["error"] > total_checks /" / " 2 else "degraded"
+        overall_status = "critical" if status_counts["error"] > total_checks / /  2 else "degraded"
     elif status_counts["warning"] > 0:
         overall_status = "warning"
     else:
@@ -391,7 +391,7 @@ def _analyze_overall_health(health_results: Dict[str, Dict[str, Any]]) -> Dict[s
     
     return {
         "overall_status": overall_status,
-        "health_score": (status_counts["healthy"] " / " total_checks) * 100,
+        "health_score": (status_counts["healthy"]  /  total_checks) * 100,
         "checks_passed": status_counts["healthy"],
         "checks_warning": status_counts["warning"],
         "checks_failed": status_counts["error"],

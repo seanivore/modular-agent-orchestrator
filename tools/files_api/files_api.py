@@ -31,7 +31,7 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     Returns:
         Estimated cost in USD (Files API operations are typically free)
     """
-    # Files API operations are typically low" / "no cost
+    # Files API operations are typically low / no cost
     operation = params.get("operation", "unknown")
     
     # Cost structure for different operations
@@ -250,9 +250,9 @@ class FilesAPIManager:
         """Create file structure for workflow"""
         workspace_structure = {
             "config": f"workflow-{workflow_id}-config.json",
-            "drafts_dir": f"workflow-{workflow_id}-drafts" / "",
-            "handoffs_dir": f"workflow-{workflow_id}-handoffs" / "",
-            "deliverables_dir": f"workflow-{workflow_id}-deliverables" / "",
+            "drafts_dir": f"workflow-{workflow_id}-drafts / ",
+            "handoffs_dir": f"workflow-{workflow_id}-handoffs / ",
+            "deliverables_dir": f"workflow-{workflow_id}-deliverables / ",
             "metadata": f"workflow-{workflow_id}-metadata.json"
         }
         
@@ -365,7 +365,7 @@ class FilesAPIManager:
             if self.memory_mcp:
                 self.memory_mcp.update_workflow_state(
                     workflow_id,
-                    f"Deliverable saved: {phase}" / "{deliverable_name} -> {file_id}"
+                    f"Deliverable saved: {phase} / {deliverable_name} -> {file_id}"
                 )
         
         return saved_files
@@ -438,7 +438,7 @@ class FilesAPIManager:
 
 
 class MockFilesAPI:
-    """Mock implementation for development" / "testing"""
+    """Mock implementation for development / testing"""
     
     def __init__(self):
         self.files = {}
@@ -490,11 +490,11 @@ class LocalFilesFallback:
     """Local file system fallback when Files API unavailable"""
     
     def __init__(self):
-        self.storage_dir = Path.cwd() " / " "configs" " / " "files_fallback"
+        self.storage_dir = Path.cwd()  /  "configs"  /  "files_fallback"
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         
         # Metadata tracking
-        self.metadata_file = self.storage_dir " / " "files_metadata.json"
+        self.metadata_file = self.storage_dir  /  "files_metadata.json"
         self.files_metadata = self._load_metadata()
         self.file_counter = len(self.files_metadata)
     
@@ -517,7 +517,7 @@ class LocalFilesFallback:
         file_id = f"local_file_{self.file_counter:04d}"
         
         # Save content to file
-        file_path = self.storage_dir " / " f"{file_id}_{filename}"
+        file_path = self.storage_dir  /  f"{file_id}_{filename}"
         with open(file_path, 'w') as f:
             f.write(content)
         

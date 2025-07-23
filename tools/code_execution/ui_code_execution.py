@@ -30,7 +30,7 @@ def display_code_execution_result(result: Dict[str, Any], verbose: bool = False)
         title = "❌ Code Execution Failed"
     
     content = []
-    content.append(f"🆔 Execution ID: {result.get('execution_id', 'N" / "A')}")
+    content.append(f"🆔 Execution ID: {result.get('execution_id', 'N / A')}")
     content.append(f"⏰ Time: {result['timestamp'].split('T')[1][:8] if 'T' in result['timestamp'] else result['timestamp']}")
     
     if result.get("container_id"):
@@ -50,7 +50,7 @@ def display_code_execution_result(result: Dict[str, Any], verbose: bool = False)
         if result.get("files"):
             content.append(f"📁 Files Generated: {len(result['files'])}")
             for file_info in result["files"]:
-                content.append(f"  • {file_info.get('filename', 'unknown')} (ID: {file_info.get('file_id', 'N" / "A')})")
+                content.append(f"  • {file_info.get('filename', 'unknown')} (ID: {file_info.get('file_id', 'N / A')})")
     else:
         if result.get("stderr"):
             content.append(f"⚠️ Error Output: {result['stderr']}")
@@ -116,17 +116,17 @@ def display_execution_files(files: List[Dict[str, Any]], verbose: bool = False) 
     
     for file_info in files:
         filename = file_info.get("filename", "unknown")
-        file_id = file_info.get("file_id", "N" / "A")
+        file_id = file_info.get("file_id", "N / A")
         file_type = file_info.get("type", "unknown")
-        size = str(file_info.get("size", "N" / "A"))
+        size = str(file_info.get("size", "N / A"))
         
-        if size != "N" / "A":
+        if size != "N / A":
             # Format file size
             size_bytes = int(size) if size.isdigit() else 0
             if size_bytes > 1024 * 1024:
-                size = f"{size_bytes " / " (1024 * 1024):.1f} MB"
+                size = f"{size_bytes  /  (1024 * 1024):.1f} MB"
             elif size_bytes > 1024:
-                size = f"{size_bytes " / " 1024:.1f} KB"
+                size = f"{size_bytes  /  1024:.1f} KB"
             else:
                 size = f"{size_bytes} B"
         
@@ -153,8 +153,8 @@ def display_container_info(container_info: Dict[str, Any]) -> None:
         panel_style = "green"
         title = "🔗 Container Created Successfully"
         content = [
-            f"🆔 Container ID: {container_info.get('container_id', 'N" / "A')}",
-            f"⏰ Expires At: {container_info.get('expires_at', 'N" / "A')}",
+            f"🆔 Container ID: {container_info.get('container_id', 'N / A')}",
+            f"⏰ Expires At: {container_info.get('expires_at', 'N / A')}",
             f"📅 Created: {container_info['timestamp'].split('T')[1][:8] if 'T' in container_info['timestamp'] else container_info['timestamp']}",
             "",
             "💡 This container will persist for 1 hour and can be reused",
@@ -185,7 +185,7 @@ def display_download_results(results: List[Dict[str, Any]], verbose: bool = Fals
     success_count = sum(1 for r in results if r.get("success", False))
     
     table = Table(
-        title=f"📥 File Downloads ({success_count}" / "{len(results)} successful)",
+        title=f"📥 File Downloads ({success_count} / {len(results)} successful)",
         box=box.ROUNDED,
         header_style="bold cyan"
     )
@@ -206,19 +206,19 @@ def display_download_results(results: List[Dict[str, Any]], verbose: bool = Fals
             status = Text("✅ Success", style="green")
             size = result.get("size", 0)
             if size > 1024 * 1024:
-                size_str = f"{size " / " (1024 * 1024):.1f} MB"
+                size_str = f"{size  /  (1024 * 1024):.1f} MB"
             elif size > 1024:
-                size_str = f"{size " / " 1024:.1f} KB"
+                size_str = f"{size  /  1024:.1f} KB"
             else:
                 size_str = f"{size} B"
         else:
             status = Text("❌ Failed", style="red")
-            size_str = "N" / "A"
+            size_str = "N / A"
         
         row = [filename, status, size_str]
         
         if verbose:
-            file_id = result.get("file_id", "N" / "A")
+            file_id = result.get("file_id", "N / A")
             error = result.get("error", "") if not success else ""
             row.extend([file_id[:20] + "..." if len(file_id) > 20 else file_id, error[:30] + "..." if len(error) > 30 else error])
         
@@ -290,7 +290,7 @@ def display_help() -> None:
         "💡 Features:",
         "  • Secure Python 3.11 sandbox environment",
         "  • Pre-installed data science libraries (pandas, numpy, matplotlib)",
-        "  • File upload" / "download integration",
+        "  • File upload / download integration",
         "  • Persistent containers for multi-step workflows",
         "  • 1GB RAM, 5GB storage per container",
         "",

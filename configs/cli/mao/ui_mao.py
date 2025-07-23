@@ -57,7 +57,7 @@ RETURNING USERS:
 KEYBOARD SHORTCUTS:
   • Ctrl+C or 'q' to quit
   • Tab to navigate
-  • '" / "' to trigger auto-complete
+  • ' / ' to trigger auto-complete
   • Esc to go back
 
 The terminal UI provides a complete environment for AI workflow

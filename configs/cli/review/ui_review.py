@@ -78,7 +78,7 @@ def _display_review_header(result: Dict[str, Any], search_params: Dict[str, Any]
 
 def _display_review_summary(summary: Dict[str, Any]) -> None:
     """Display review summary with actionable insights"""
-    console.print("[bold]Review Summary[" / "bold]")
+    console.print("[bold]Review Summary[ / bold]")
     
     # Quick stats
     total_reviewed = summary.get("total_reviewed", 0)
@@ -99,10 +99,10 @@ def _display_review_summary(summary: Dict[str, Any]) -> None:
     recently_active = categories.get("recently_active", 0)
     
     if needs_attention > 0:
-        console.print(f"  [yellow]Workflows needing attention: {needs_attention}[" / "yellow]")
+        console.print(f"  [yellow]Workflows needing attention: {needs_attention}[ / yellow]")
     
     if recently_active > 0:
-        console.print(f"  [green]Recently active workflows: {recently_active}[" / "green]")
+        console.print(f"  [green]Recently active workflows: {recently_active}[ / green]")
     
     # Recommendations
     recommendations = summary.get("recommendations", [])
@@ -134,21 +134,21 @@ def _display_workflows_for_review(workflows: List[Dict[str, Any]]) -> None:
     
     # Display high priority workflows first
     if prioritized_workflows.get("high_priority"):
-        console.print("[bold red]High Priority - Needs Immediate Attention[" / "bold red]")
+        console.print("[bold red]High Priority - Needs Immediate Attention[ / bold red]")
         for workflow in prioritized_workflows["high_priority"]:
             _display_workflow_review_item(workflow, priority="high")
         console.print()
     
     # Display medium priority workflows
     if prioritized_workflows.get("medium_priority"):
-        console.print("[bold yellow]Medium Priority - Recent Activity[" / "bold yellow]")
+        console.print("[bold yellow]Medium Priority - Recent Activity[ / bold yellow]")
         for workflow in prioritized_workflows["medium_priority"]:
             _display_workflow_review_item(workflow, priority="medium")
         console.print()
     
     # Display normal workflows
     if prioritized_workflows.get("normal"):
-        console.print("[bold]Standard Workflows[" / "bold]")
+        console.print("[bold]Standard Workflows[ / bold]")
         for workflow in prioritized_workflows["normal"]:
             _display_workflow_review_item(workflow, priority="normal")
 
@@ -201,7 +201,7 @@ def _display_workflow_review_item(workflow: Dict[str, Any], priority: str = "nor
     color = priority_colors.get(priority, "blue")
     
     # Main workflow line
-    console.print(f"  [{color}]{custom_command}[" / "{color}] ({workflow_id}) - Status: {status}")
+    console.print(f"  [{color}]{custom_command}[ / {color}] ({workflow_id}) - Status: {status}")
     
     # Goal or description
     goal = workflow.get("workflow_goal", "")
@@ -220,7 +220,7 @@ def _display_workflow_review_item(workflow: Dict[str, Any], priority: str = "nor
         health = workflow_status.get("health", "unknown")
         
         if phases_total > 0:
-            completion_rate = (phases_completed " / " phases_total) * 100
+            completion_rate = (phases_completed  /  phases_total) * 100
             console.print(f"    Progress: {phases_completed}/{phases_total} phases ({completion_rate:.1f}%) - Health: {health}")
     
     # Recovery options for interrupted workflows
@@ -230,7 +230,7 @@ def _display_workflow_review_item(workflow: Dict[str, Any], priority: str = "nor
         current_phase = recovery_options.get("current_phase", "")
         estimated_time = recovery_options.get("estimated_recovery_time", "")
         
-        console.print(f"    [yellow]Recovery Available:[" / "yellow] {recovery_type}")
+        console.print(f"    [yellow]Recovery Available:[ / yellow] {recovery_type}")
         if current_phase:
             console.print(f"    Current phase: {current_phase}")
         if estimated_time:
@@ -256,7 +256,7 @@ def _display_workflow_review_item(workflow: Dict[str, Any], priority: str = "nor
                 analysis_parts.append(f"Duration: {duration:.1f}h")
         
         if analysis_parts:
-            console.print(f"    [dim]Analysis: {' | '.join(analysis_parts)}[" / "dim]")
+            console.print(f"    [dim]Analysis: {' | '.join(analysis_parts)}[ / dim]")
     
     # User and timestamp information
     user_id = workflow.get("user_id", "unknown")
@@ -281,7 +281,7 @@ from pathlib import Path
         except:
             info_parts.append(f"Created: {created_at}")
     
-    console.print(f"    [dim]{' | '.join(info_parts)}[" / "dim]")
+    console.print(f"    [dim]{' | '.join(info_parts)}[ / dim]")
     console.print()  # Add spacing between workflows
 
 def _display_no_workflows_message(search_params: Dict[str, Any]) -> None:
@@ -300,7 +300,7 @@ def _display_no_workflows_message(search_params: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[" / "red] {error_message}",
+        f"[red]Error:[ / red] {error_message}",
         style="red",
         title="Review Command Error"
     ))

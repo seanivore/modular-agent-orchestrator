@@ -22,7 +22,7 @@ def execute_logout(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main logout command execution with comprehensive session cleanup.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary with logout status

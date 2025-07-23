@@ -52,7 +52,7 @@ def _create_workspace_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Files API - Create Workflow Workspace
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.files_api.files_api import create_workflow_workspace
 from tools.files_api.ui_files_api import display_files_api_result
@@ -87,7 +87,7 @@ def _create_draft_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Files API - Save Draft
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.files_api.files_api import save_workflow_draft
 from tools.files_api.ui_files_api import display_files_api_result
@@ -122,7 +122,7 @@ def _create_handoff_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Files API - Prepare Agent Handoff
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.files_api.files_api import prepare_agent_handoff
 from tools.files_api.ui_files_api import display_files_api_result
@@ -159,7 +159,7 @@ def _create_deliverables_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Files API - Save Deliverables
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.files_api.files_api import save_agent_deliverables
 from tools.files_api.ui_files_api import display_files_api_result
@@ -195,7 +195,7 @@ def _create_files_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Files API - Get Workflow Files
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.files_api.files_api import get_workflow_files
 from tools.files_api.ui_files_api import display_files_api_result
@@ -221,7 +221,7 @@ def _create_generic_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Files API - {operation.title()}
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.files_api.files_api import estimate_cost
 from pathlib import Path

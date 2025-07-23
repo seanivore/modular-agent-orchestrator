@@ -20,7 +20,7 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
     Perform AI-powered search using Perplexity API (returns structured data for human button execution)
     
     Args:
-        query: Search" / "research query
+        query: Search / research query
         model: Perplexity model to use
         search_context: Context or approach for the search
         
@@ -59,7 +59,7 @@ def perform_perplexity_search(query: str, model: str = "llama-3.1-sonar-large-12
             "timestamp": datetime.now().isoformat(),
             "estimated_cost": estimate_cost({"model": model}),
             "execution_method": "perplexity_api",
-            "api_endpoint": "https://api.perplexity.ai/chat" / "completions"
+            "api_endpoint": "https://api.perplexity.ai/chat / completions"
         }
         
         # Cache the result (fingerprinting)
@@ -108,7 +108,7 @@ def perform_enhanced_research(query: str, research_approach: str = "comprehensiv
             "timestamp": datetime.now().isoformat(),
             "estimated_cost": estimate_cost({"model": model, "enhanced": True}),
             "execution_method": "perplexity_api_enhanced",
-            "api_endpoint": "https://api.perplexity.ai/chat" / "completions"
+            "api_endpoint": "https://api.perplexity.ai/chat / completions"
         }
         
         # Cache the result (fingerprinting)
@@ -280,7 +280,7 @@ def check_api_configuration() -> Dict[str, Any]:
             "status": "success",
             "operation": "api_configuration_check",
             "api_key_present": False,
-            "api_endpoint": "https://api.perplexity.ai/chat" / "completions",
+            "api_endpoint": "https://api.perplexity.ai/chat / completions",
             "supported_models": [
                 "llama-3.1-sonar-small-128k-online",
                 "llama-3.1-sonar-large-128k-online", 

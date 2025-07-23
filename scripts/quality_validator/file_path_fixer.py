@@ -27,7 +27,7 @@ class FilePathFixer:
         
         # Conversion mappings
         self.os_path_to_pathlib = {
-            'os.path.join': 'Path() " / " ',
+            'os.path.join': 'Path()  /  ',
             'os.path.exists': '.exists()',
             'os.path.dirname': '.parent',
             'os.path.basename': '.name',
@@ -43,7 +43,7 @@ class FilePathFixer:
         if not self.backup_dir.exists():
             self.backup_dir.mkdir()
         
-        backup_path = self.backup_dir " / " f"{file_path.name}.backup"
+        backup_path = self.backup_dir  /  f"{file_path.name}.backup"
         shutil.copy2(file_path, backup_path)
         return backup_path
 
@@ -52,10 +52,10 @@ class FilePathFixer:
         python_files = []
         
         # Focus on directories likely to have file operations
-        priority_dirs = ["orchestrator", "configs" / "cli", "interfaces", "tools", "scripts"]
+        priority_dirs = ["orchestrator", "configs / cli", "interfaces", "tools", "scripts"]
         
         for priority_dir in priority_dirs:
-            dir_path = self.project_root " / " priority_dir
+            dir_path = self.project_root  /  priority_dir
             if dir_path.exists():
                 for py_file in dir_path.rglob("*.py"):
                     if not any(skip in str(py_file) for skip in ['.backup', '__pycache__', 'test_']):
@@ -97,7 +97,7 @@ class FilePathFixer:
         # Replace common hardcoded separator patterns
         patterns = [
             # Simple concatenation patterns
-            (r'([Path(r"\')][^Path(r"\')]*)" / "([^Path(r"\')]*[Path(r"\')])', rPath(r'\1") " / " Path(r"\2')),  # "path" / "to" -> "path" " / " "to"
+            (r'([Path(r"\')][^Path(r"\')]*) / ([^Path(r"\')]*[Path(r"\')])', rPath(r'\1")  /  Path(r"\2')),  # "path / to" -> "path"  /  "to"
             (r'([Path(r"\')][^Path(r"\')]*\\[^Path(r"\')]*[Path(r"\')])', rPath(r'Path(r\1)')),  # Windows paths
         ]
         
@@ -114,7 +114,7 @@ class FilePathFixer:
         """Fix string concatenation used for path building"""
         fixes = []
         
-        # Look for patterns like: variable + "" / "" + something
+        # Look for patterns like: variable + " / " + something
         patterns = [
             (rPath(r'(\w+)\s*\+\s*[")\'][" / Path(r"\\][")\Path(r']?\s*\+\s*(\w+)'), rPath(r'Path(\1) ") / Path(r" \2')),
             (r'([Path(r"\')][^Path(r"\')]*[Path(r"\')])\s*\+\s*[Path(r"\')][" / Path(r"\\][")\Path(r']?\s*\+\s*(\w+)'), rPath(r'Path(\1) ") / Path(r" \2')),
@@ -134,7 +134,7 @@ class FilePathFixer:
         
         # Convert common os.path patterns
         conversions = [
-            # Path(a) / b / c -> Path(a) / b " / " c
+            # Path(a) / b / c -> Path(a) / b  /  c
             (rPath(r'os\.path\.join\s*\(\s*([^)]+)\s*\)'), self._convert_os_path_join),
             
             # Path(path).exists() -> Path(path).exists()
@@ -169,7 +169,7 @@ class FilePathFixer:
         return content, fixes
 
     def _convert_os_path_join(self, match) -> str:
-        """Convert os.path.join arguments to Path() " / " syntax"""
+        """Convert os.path.join arguments to Path()  /  syntax"""
         args = match.group(1).split(',')
         args = [arg.strip() for arg in args]
         
@@ -177,8 +177,8 @@ class FilePathFixer:
             return f"Path({args[0]})"
         else:
             first_arg = args[0]
-            rest_args = ' " / " '.join(args[1:])
-            return f"Path({first_arg}) " / " {rest_args}"
+            rest_args = '  /  '.join(args[1:])
+            return f"Path({first_arg})  /  {rest_args}"
 
     def fix_file_operations(self, content: str) -> Tuple[str, List[str]]:
         """Fix file operation patterns"""
@@ -186,7 +186,7 @@ class FilePathFixer:
         
         # Convert open() with manual path building to pathlib
         patterns = [
-            # open(Path(path + "" / "" + file), ...) -> open(Path(path) / file, ...)
+            # open(Path(path + " / " + file), ...) -> open(Path(path) / file, ...)
             (rPath(r'open\s*\(\s*([^)]+\+[^)]+),\s*([^)]+)\)'), rPath(r'open(Path(\1), \2)')),
         ]
         
@@ -321,19 +321,19 @@ class FilePathFixer:
         
         # Show fix categories
         categories = summary['fix_categories']
-        print(fPath(r"\n🔧 FIX BREAKDOWN:"))
+        print(f"\n🔧 FIX BREAKDOWN:")
         print(f"  📦 Import fixes: {categories['import_fixes']}")
         print(f"  🛤️ Separator fixes: {categories['separator_fixes']}")
         print(f"  ➕ Concatenation fixes: {categories['concatenation_fixes']}")
         print(f"  🔄 os.path conversions: {categories['os_path_fixes']}")
         
         if summary['files_modified'] > 0:
-            print(fPath(r"\n✅ SUCCESS! Fixed {summary[')total_fixes_applied']} path handling issues!")
+            print(f"\n✅ SUCCESS! Fixed {summary[')total_fixes_applied']} path handling issues!"
             print(f"💡 Re-run the path audit to see improved scores")
         else:
-            print(fPath(r"\n📋 No path handling issues found to fix"))
+            print(f"\n📋 No path handling issues found to fix")
         
-        print(fPath(r"\n📄 Full report saved to: {output_file}"))
+        print(f"\n📄 Full report saved to: {output_file}")
         print("="*60)
 
 def main():

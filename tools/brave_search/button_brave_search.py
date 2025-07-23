@@ -68,20 +68,20 @@ def main():
         
         # Show top 3 results
         for i, item in enumerate(result.get(result_key, [])[:3], 1):
-            print(fPath(r"\\n{{i}}. {{item.get(')title', 'No title')}}")
+            print(f"\\n{{i}}. {{item.get(')title', 'No title')}}"
             print(f"   {{item.get('description', 'No description')[:100]}}...")
             print(f"   {{item.get('url', 'No URL')}}")
     
     # Calculate cost
     cost_params = {{"query": query, "count": count, "search_type": search_type}}
     cost = estimate_cost(cost_params)
-    print(fPath(r"\\n💰 Cost: ${{cost:.4f}}"))
+    print(f"\\n💰 Cost: ${{cost:.4f}}")
     
     return result
 
 if __name__ == "__main__":
     result = main()
-    print(fPath(r"\\n🎯 Search {{\")completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
+    print(f"\\n🎯 Search {{\"completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
 '''
     
     return snippet
@@ -131,7 +131,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(fPath(r"\\n🎯 Validation {{\")passed\" if result['validPath(r'] else \")failed\"}}")
+    print(f"\\n🎯 Validation {{\"passed\" if result['validPath(r'] else \")failed\"}}")
 '''
     
     return snippet

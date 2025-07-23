@@ -22,7 +22,7 @@ def execute_tools(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main tools command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary with organized tool data
@@ -54,7 +54,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"tools|{str(params) if params else 'none'}"
     
     # Add tools directory state fingerprint for cache invalidation
-    tools_dir = Path(__file__).parent.parent.parent " / " "tools"
+    tools_dir = Path(__file__).parent.parent.parent  /  "tools"
     if tools_dir.exists():
         # Include directory modification time and tool count
         dir_stat = tools_dir.stat()
@@ -64,7 +64,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
         # Include modification times of tool JSON files for granular invalidation
         json_mod_times = []
         for tool_dir in tool_dirs:
-            json_file = tool_dir " / " f"tool_{tool_dir.name}.json"
+            json_file = tool_dir  /  f"tool_{tool_dir.name}.json"
             if json_file.exists():
                 json_mod_times.append(json_file.stat().st_mtime)
         
@@ -124,13 +124,13 @@ def _discover_tools() -> Dict[str, Dict[str, Any]]:
     except Exception as e:
         # Fallback: Direct directory scanning if ToolManager fails
         tools = {}
-        tools_dir = Path(__file__).parent.parent.parent " / " "tools"
+        tools_dir = Path(__file__).parent.parent.parent  /  "tools"
         
         for tool_dir in tools_dir.iterdir():
             if not tool_dir.is_dir() or tool_dir.name.startswith('.'):
                 continue
                 
-            json_file = tool_dir " / " f"tool_{tool_dir.name}.json"
+            json_file = tool_dir  /  f"tool_{tool_dir.name}.json"
             if json_file.exists():
                 try:
                     with open(json_file, 'r') as f:

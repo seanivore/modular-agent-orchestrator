@@ -234,7 +234,7 @@ def get_document_info(file_path: str) -> Dict[str, Any]:
             "file_path": str(file_path),
             "file_name": file_path.name,
             "file_size_bytes": stat.st_size,
-            "file_size_kb": round(stat.st_size " / " 1024, 1),
+            "file_size_kb": round(stat.st_size  /  1024, 1),
             "created": datetime.fromtimestamp(stat.st_ctime).isoformat(),
             "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
             "content_stats": {

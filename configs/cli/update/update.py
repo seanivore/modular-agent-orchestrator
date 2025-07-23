@@ -27,7 +27,7 @@ def execute_update(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Supports multi-path and secondary flags for comprehensive workflow updates.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary
@@ -214,7 +214,7 @@ def _is_workflow_directory(directory: Path) -> bool:
     """Check if directory is a workflow directory"""
     try:
         # Look for workflow indicators
-        config_dir = directory " / " "config-files"
+        config_dir = directory / "config-files"
         if config_dir.exists():
             # Check for workflow config files
             workflow_configs = list(config_dir.glob("*_workflow_config.json"))
@@ -570,13 +570,13 @@ def _execute_workflow_update(json_data: Dict[str, Any],
         # Check if target is workflow directory
         if _is_workflow_directory(target_dir):
             # Save to config-files subdirectory
-            config_dir = target_dir " / " "config-files"
+            config_dir = target_dir / "config-files"
             config_dir.mkdir(exist_ok=True)
             
-            output_file = config_dir " / " f"updated_workflow_config_{timestamp}.json"
+            output_file = config_dir / f"updated_workflow_config_{timestamp}.json"
         else:
             # Save directly to target directory
-            output_file = target_dir " / " f"updated_workflow_{timestamp}.json"
+            output_file = target_dir / f"updated_workflow_{timestamp}.json"
         
         # Add update metadata
         json_data["update_metadata"] = {

@@ -32,7 +32,7 @@ def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0
         # Path validation and normalization
         path = Path(file_path).resolve()
         
-        # Check cache first (fingerprinting) - file I" / "O can be expensive
+        # Check cache first (fingerprinting) - file I / O can be expensive
         cache = CacheManager()
         # Include file modification time in cache key for freshness
         try:
@@ -57,7 +57,7 @@ def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0
         max_size_bytes = int(max_size_mb * 1024 * 1024)
         
         if file_size > max_size_bytes:
-            return {"error": f"File too large: {file_size " / " (1024*1024):.1f}MB > {max_size_mb}MB limit"}
+            return {"error": f"File too large: {file_size  /  (1024*1024):.1f}MB > {max_size_mb}MB limit"}
         
         # Read with encoding fallback
         encodings_to_try = [encoding, 'utf-8', 'latin-1', 'cp1252']
@@ -75,7 +75,7 @@ def read_file(file_path: str, encoding: str = "utf-8", max_size_mb: float = 10.0
                         "file_path": str(path),
                         "file_name": path.name,
                         "file_size_bytes": file_size,
-                        "file_size_kb": round(file_size " / " 1024, 1),
+                        "file_size_kb": round(file_size  /  1024, 1),
                         "encoding_used": enc,
                         "character_count": len(content),
                         "timestamp": datetime.now().isoformat()
@@ -176,7 +176,7 @@ def list_directory(directory_path: str, pattern: str = "*", include_hidden: bool
     Args:
         directory_path: Path to directory to list
         pattern: Glob pattern to match (defaults to "*")
-        include_hidden: Include hidden files" / "directories
+        include_hidden: Include hidden files / directories
         
     Returns:
         Dict with structured directory listing and metadata
@@ -233,8 +233,8 @@ def list_directory(directory_path: str, pattern: str = "*", include_hidden: bool
                     directories.append(item_data)
                 else:
                     item_data["size_bytes"] = size
-                    item_data["size_kb"] = round(size " / " 1024, 1)
-                    item_data["size_mb"] = round(size " / " (1024 * 1024), 2) if size > 1024 * 1024 else None
+                    item_data["size_kb"] = round(size  /  1024, 1)
+                    item_data["size_mb"] = round(size  /  (1024 * 1024), 2) if size > 1024 * 1024 else None
                     files.append(item_data)
                     
             except Exception as e:
@@ -291,8 +291,8 @@ def get_file_info(file_path: str) -> Dict[str, Any]:
             "name": path.name,
             "parent": str(path.parent),
             "size_bytes": stat.st_size,
-            "size_kb": round(stat.st_size " / " 1024, 1),
-            "size_mb": round(stat.st_size " / " (1024 * 1024), 2) if stat.st_size > 1024 * 1024 else None,
+            "size_kb": round(stat.st_size  /  1024, 1),
+            "size_mb": round(stat.st_size  /  (1024 * 1024), 2) if stat.st_size > 1024 * 1024 else None,
             "created": datetime.fromtimestamp(stat.st_ctime).isoformat(),
             "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
             "accessed": datetime.fromtimestamp(stat.st_atime).isoformat(),
@@ -370,7 +370,7 @@ def search_files(directory: str, pattern: str, recursive: bool = True, case_sens
                         if item.is_file():
                             stat = item.stat()
                             item_info["size_bytes"] = stat.st_size
-                            item_info["size_kb"] = round(stat.st_size " / " 1024, 1)
+                            item_info["size_kb"] = round(stat.st_size  /  1024, 1)
                             item_info["modified"] = datetime.fromtimestamp(stat.st_mtime).isoformat()
                             found_files.append(item_info)
                         elif item.is_dir():

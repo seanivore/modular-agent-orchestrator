@@ -54,14 +54,14 @@ def _display_fix_summary(result: Dict[str, Any]) -> None:
     # Add key metrics
     phases_count = len(result.get("phases_corrected", []))
     if phases_count > 0:
-        summary_text.append(fPath(r"\n• {phases_count} phase(s) corrected"), style="green")
+        summary_text.append(f"\n• {phases_count} phase(s) corrected", style="green")
     
     if result.get("json_copied"):
         summary_text.append(Path(r"\n• JSON configuration copied to workflow directory"), style="blue")
     
     timestamp = result.get("timestamp", "")
     if timestamp:
-        summary_text.append(fPath(r"\n• Completed at: {timestamp}"), style="dim")
+        summary_text.append(f"\n• Completed at: {timestamp}", style="dim")
     
     console.print(Panel(
         summary_text,
@@ -75,9 +75,9 @@ def _display_json_copying_details(result: Dict[str, Any]) -> None:
     copying_table.add_column("Operation", style="cyan")
     copying_table.add_column("Details", style="white")
     
-    copying_table.add_row("Source Path", result.get("source_path", "N" / "A"))
-    copying_table.add_row("Target Path", result.get("target_path", "N" / "A"))
-    copying_table.add_row("Target Directory", result.get("target_directory", "N" / "A"))
+    copying_table.add_row("Source Path", result.get("source_path", "N / A"))
+    copying_table.add_row("Target Path", result.get("target_path", "N / A"))
+    copying_table.add_row("Target Directory", result.get("target_directory", "N / A"))
     copying_table.add_row("Copy Status", "Completed" if result.get("json_copied") else "Not Required")
     
     console.print(copying_table)
@@ -221,7 +221,7 @@ def display_available_fix_types() -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[" / "red] {error_message}",
+        f"[red]Error:[ / red] {error_message}",
         style="red",
         title="Fix_it Command Error"
     ))

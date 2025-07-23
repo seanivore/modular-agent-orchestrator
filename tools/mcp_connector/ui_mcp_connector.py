@@ -244,8 +244,8 @@ def display_mcp_summary(servers: Dict[str, Any], tools: Dict[str, Any]) -> None:
     
     # Create summary text
     summary_text = [
-        f"🔌 Servers: {online_servers}" / "{total_servers} online",
-        f"🛠️ Tools: {available_tools}" / "{total_tools} available",
+        f"🔌 Servers: {online_servers} / {total_servers} online",
+        f"🛠️ Tools: {available_tools} / {total_tools} available",
         f"📊 Integration: {'✅ Ready' if online_servers > 0 else '❌ No servers online'}"
     ]
     
@@ -292,10 +292,10 @@ def format_operation_params(operation: str, params: Dict[str, Any]) -> str:
     """Format operation parameters for display"""
     
     if operation == "execute_tool":
-        return f"Server: {params.get('server_name', 'N" / "A')}, Tool: {params.get('tool_name', 'N" / "A')}"
+        return f"Server: {params.get('server_name', 'N / A')}, Tool: {params.get('tool_name', 'N / A')}"
     elif operation == "register_server":
         config = params.get('server_config', {})
-        return f"Server: {config.get('name', 'N" / "A')}, Command: {' '.join(config.get('command', []))}"
+        return f"Server: {config.get('name', 'N / A')}, Command: {' '.join(config.get('command', []))}"
     elif operation == "list_servers":
         return "Listing all registered servers and tools"
     elif operation == "get_server_status":

@@ -226,7 +226,7 @@ def _needs_json_copying(params: Dict[str, Any]) -> bool:
                 "workflow_config.json",
                 "workflow_state.json",
                 ".workflow_id",
-                "phases" / ""
+                "phases / "
             ]
             
             has_workflow_indicators = any(
@@ -269,12 +269,12 @@ def _handle_json_copying(json_path: str, fix_config: Dict[str, Any]) -> Dict[str
         
         if not workflow_dir:
             # Create workflow directory if it doesn't exist
-            workflows_base = Path(__file__).parent.parent.parent " / " "workflows"
+            workflows_base = Path(__file__).parent.parent.parent  /  "workflows"
             workflow_dir = workflows_base / workflow_id
             workflow_dir.mkdir(parents=True, exist_ok=True)
         
         # Copy JSON file to workflow directory
-        target_path = Path(workflow_dir) " / " json_file.name
+        target_path = Path(workflow_dir)  /  json_file.name
         shutil.copy2(json_file, target_path)
         
         return {

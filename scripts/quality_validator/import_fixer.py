@@ -27,25 +27,25 @@ class ImportFixer:
         # Known safe fixes (high confidence)
         self.safe_fixes = {
             # user_id_generator patterns
-            (rPath(r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?user_id_generator.*?\)\)"),
+            (r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?user_id_generator.*?\)\)",
              r"from user_id_generator import (.*?)"):
                 Path(r"from scripts.user_id_generator.user_id_generator import \\2"),
             
             # unique_id_generator patterns  
-            (rPath(r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?unique_id_generator.*?\)\)"),
+            (r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?unique_id_generator.*?\)\)",
              r"from unique_id_generator import (.*?)"):
                 Path(r"from scripts.unique_id_generator.unique_id_generator import \\2"),
             
             # Orchestrator imports from scripts
-            (rPath(r"sys\.path\.append\(str\(Path\(__file__\)\.parent\.parent\.parent\)\)"),
-             rPath(r"from orchestrator\.(.*?) import (.*?)")):
+            (r"sys\.path\.append\(str\(Path\(__file__\)\.parent\.parent\.parent\)\)",
+             r"from orchestrator\.(.*?) import (.*?)"):
                 Path(r"from orchestrator.\\1 import \\2")
         }
         
         # Files to skip (too risky or special cases)
         self.skip_files = [
-            "versioning/v3" / "",  # Legacy versions
-            "tests" / "typescript-",  # Non-Python
+            "versioning/v3 / ",  # Legacy versions
+            "tests / typescript-",  # Non-Python
             "button_",  # Generated code snippets
         ]
 
@@ -220,7 +220,7 @@ class ImportFixer:
             'individual_fixes': self.fixes_applied
         }
         
-        print(fPath(r"\n📊 FIXER RESULTS:"))
+        print(f"\n📊 FIXER RESULTS:")
         print(f"  📁 Files processed: {results['files_processed']}")
         print(f"  ✅ Files modified: {results['files_modified']}")
         print(f"  🔧 Individual fixes: {results['fixes_applied']}")
@@ -239,7 +239,7 @@ def main():
     print("⚠️  MAO Import Fixer - This will modify your files!")
     print("📄 Make sure you have committed your changes first.")
     
-    response = input("Continue? (y" / "N): ").strip().lower()
+    response = input("Continue? (y / N): ").strip().lower()
     if response != 'y':
         print("❌ Aborted")
         return
@@ -247,7 +247,7 @@ def main():
     fixer = ImportFixer(backup=True)
     results = fixer.run_fixer()
     
-    print(fPath(r"\n✅ Import fixing complete!"))
+    print(f"\n✅ Import fixing complete!")
     print(f"📄 Results saved to: import_fixes_applied.json")
     print(f"🔄 Run the audit script again to see remaining issues")
 

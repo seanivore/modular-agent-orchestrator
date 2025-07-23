@@ -51,29 +51,29 @@ def _display_successful_logout(result: Dict[str, Any]) -> None:
     """Display successful logout with cleanup status"""
     username = result.get("user_logged_out", "User")
     
-    console.print(fPath(r"\n[green]Successfully logged out: {username}[") / "green]")
+    console.print(f"\n[green]Successfully logged out: {username}[" / "green]")
     
     # Display cleanup status
     if result.get("session_cleaned"):
-        console.print("[dim]Session data cleared[" / "dim]")
+        console.print("[dim]Session data cleared[ / dim]")
     
     if result.get("cache_invalidated"):
-        console.print("[dim]User cache invalidated[" / "dim]")
+        console.print("[dim]User cache invalidated[ / dim]")
     
     if result.get("workflows_handled"):
-        console.print("[dim]Active workflows handled gracefully[" / "dim]")
+        console.print("[dim]Active workflows handled gracefully[ / dim]")
     
     # Display redirect notice
     if result.get("redirect_to_login"):
         console.print(Path(r"\n[yellow]Redirecting to login screen...[") / "yellow]")
-        console.print("[dim]Use 'mao --login' to login as a different user[" / "dim]")
+        console.print("[dim]Use 'mao --login' to login as a different user[ / dim]")
 
 def _display_active_workflows_warning(result: Dict[str, Any]) -> None:
     """Display warning when active workflows prevent logout"""
     console.print(Panel(
         "[yellow]Active workflows detected - logout blocked[" / Path(r"yellow]\n\n")
         "Use 'mao --logout --forcePath(r' to force logout\n")
-        "[red]Warning: Forced logout may interrupt running workflows[" / "red]",
+        "[red]Warning: Forced logout may interrupt running workflows[ / red]",
         title="Logout Warning",
         style="yellow"
     ))
@@ -93,45 +93,45 @@ def _display_active_workflows_warning(result: Dict[str, Any]) -> None:
         console.print(table)
         
         if len(active_workflows) > 5:
-            console.print(f"[dim]... and {len(active_workflows) - 5} more workflows[" / "dim]")
+            console.print(f"[dim]... and {len(active_workflows) - 5} more workflows[ / dim]")
 
 def _display_partial_logout(result: Dict[str, Any]) -> None:
     """Display partial success logout with issues"""
     username = result.get("user_logged_out", "User")
     
-    console.print(f"[yellow]Logout completed for {username} with issues:[" / "yellow]")
+    console.print(f"[yellow]Logout completed for {username} with issues:[ / yellow]")
     
     # Display issues
     issues = result.get("issues", [])
     if issues:
         for issue in issues:
-            console.print(f"[red]  - {issue}[" / "red]")
+            console.print(f"[red]  - {issue}[ / red]")
     
     # Display session status
     console.print(Path(r"\n[bold]Session Status:[") / "bold]")
-    console.print(f"  Session cleared: {'[green]Yes[" / "green]' if result.get('session_cleaned') else '[red]No[" / "red]'}")
-    console.print(f"  Cache cleared: {'[green]Yes[" / "green]' if result.get('cache_invalidated') else '[red]No[" / "red]'}")
-    console.print(f"  Workflows handled: {'[green]Yes[" / "green]' if result.get('workflows_handled') else '[red]No[" / "red]'}")
+    console.print(f"  Session cleared: {'[green]Yes[ / green]' if result.get('session_cleaned') else '[red]No[ / red]'}")
+    console.print(f"  Cache cleared: {'[green]Yes[ / green]' if result.get('cache_invalidated') else '[red]No[ / red]'}")
+    console.print(f"  Workflows handled: {'[green]Yes[ / green]' if result.get('workflows_handled') else '[red]No[ / red]'}")
     
     console.print(Path(r"\n[dim]You may need to restart the application for complete cleanup[") / "dim]")
 
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[" / "red] {error_message}",
+        f"[red]Error:[ / red] {error_message}",
         style="red",
         title="Logout Error"
     ))
     
     # Add suggestions based on error type
     if "No active session" in error_message:
-        console.print("[dim]No user is currently logged in[" / "dim]")
-        console.print("[dim]Use 'mao --login' to login[" / "dim]")
+        console.print("[dim]No user is currently logged in[ / dim]")
+        console.print("[dim]Use 'mao --login' to login[ / dim]")
     else:
         console.print(Path(r"\n[bold]Troubleshooting:[") / "bold]")
-        console.print("[dim]  1. Try restarting the application[" / "dim]")
-        console.print("[dim]  2. Check file permissions in configs/user/[" / "dim]")
-        console.print("[dim]  3. Use 'mao --doctor' to diagnose issues[" / "dim]")
+        console.print("[dim]  1. Try restarting the application[ / dim]")
+        console.print("[dim]  2. Check file permissions in configs/user/[ / dim]")
+        console.print("[dim]  3. Use 'mao --doctor' to diagnose issues[ / dim]")
 
 def display_logout_confirmation(username: str, active_workflows: List[Dict[str, Any]] = None) -> None:
     """
@@ -141,11 +141,11 @@ def display_logout_confirmation(username: str, active_workflows: List[Dict[str, 
         username: Username to logout
         active_workflows: List of active workflows (if any)
     """
-    console.print(fPath(r"\n[bold]Confirm logout for user: {username}[") / "bold]")
+    console.print(f"\n[bold]Confirm logout for user: {username}[" / "bold]")
     
     if active_workflows:
-        console.print(fPath(r"\n[yellow]Warning: {len(active_workflows)} active workflow(s) detected[") / "yellow]")
-        console.print("[dim]Logging out may interrupt these workflows[" / "dim]")
+        console.print(f"\n[yellow]Warning: {len(active_workflows)} active workflow(s) detected[" / "yellow]")
+        console.print("[dim]Logging out may interrupt these workflows[ / dim]")
         
         table = Table()
         table.add_column("Workflow ID", style="cyan")
@@ -157,19 +157,19 @@ def display_logout_confirmation(username: str, active_workflows: List[Dict[str, 
         console.print(table)
         
         if len(active_workflows) > 3:
-            console.print(f"[dim]... and {len(active_workflows) - 3} more[" / "dim]")
+            console.print(f"[dim]... and {len(active_workflows) - 3} more[ / dim]")
     
     console.print(Path(r"\n[bold]This will:[") / "bold]")
-    console.print("[dim]  - Clear your session data[" / "dim]")
-    console.print("[dim]  - Invalidate cached user information[" / "dim]") 
-    console.print("[dim]  - Return you to the login screen[" / "dim]")
+    console.print("[dim]  - Clear your session data[ / dim]")
+    console.print("[dim]  - Invalidate cached user information[ / dim]") 
+    console.print("[dim]  - Return you to the login screen[ / dim]")
 
 def display_logout_redirect() -> None:
     """Display message shown during redirect to login"""
     console.print(Panel(
         "[green]You have been logged out successfully[" / Path(r"green]\n")
         "[yellow]Redirecting to login screen...[" / Path(r"yellow]\n\n")
-        "[dim]Tip: Use 'mao --login username' for quick login[" / "dim]",
+        "[dim]Tip: Use 'mao --login username' for quick login[ / dim]",
         title="Logout Complete",
         style="green"
     ))

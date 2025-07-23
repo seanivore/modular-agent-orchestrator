@@ -31,7 +31,7 @@ def display_default_provider_result(result: Dict[str, Any]) -> None:
     _display_success_result(result)
 
 def _display_success_result(result: Dict[str, Any]) -> None:
-    """Display successful provider update with before" / "after comparison"""
+    """Display successful provider update with before / after comparison"""
     
     # Extract key information
     previous_provider = result.get("previous_provider", "Not set")
@@ -119,7 +119,7 @@ def _display_usage_help() -> None:
     usage_text = """Usage Examples:
   mao default-provider anthropic
   mao default-provider "openai direct"
-  " / "default-provider gemini
+   / default-provider gemini
   
 To see available providers:
   mao providers"""

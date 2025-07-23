@@ -31,7 +31,7 @@ def display_goal_result(result: Dict[str, Any]) -> None:
     if not result.get("success", True):
         display_error(result.get("error", "Unknown error occurred"))
         if result.get("details"):
-            console.print(fPath(r"\n[dim]Details: {result[')details']}[" / "dim]")
+            console.print(f"\n[dim]Details: {result[')details']}[ / dim]"
         return
     
     # Display successful workflow creation
@@ -43,7 +43,7 @@ def display_success_result(result: Dict[str, Any]) -> None:
     # Header panel with success message
     console.print(Panel(
         f"[green]Workflow Created Successfully[" / Path(r"green]\n")
-        f"[bold]{result.get('message', 'Workflow ready for execution')}[" / "bold]",
+        f"[bold]{result.get('message', 'Workflow ready for execution')}[ / bold]",
         title="Goal → Workflow",
         style="green"
     ))
@@ -57,7 +57,7 @@ def display_success_result(result: Dict[str, Any]) -> None:
         details_table.add_row("Workflow ID:", result["workflow_id"])
     
     if result.get("custom_command"):
-        details_table.add_row("Command:", f"[cyan]{result['custom_command']}[" / "cyan]")
+        details_table.add_row("Command:", f"[cyan]{result['custom_command']}[ / cyan]")
     
     if result.get("use_case_directory"):
         details_table.add_row("Directory:", result["use_case_directory"])
@@ -66,30 +66,30 @@ def display_success_result(result: Dict[str, Any]) -> None:
     
     # Next steps section
     if result.get("next_steps"):
-        console.print(fPath(r"\n[bold]Next Steps:[") / "bold]")
+        console.print(f"\n[bold]Next Steps:[" / "bold]")
         console.print(f"• {result['next_steps']}")
     
     # Show workflow ready status
     if result.get("ready_to_execute"):
-        console.print(fPath(r"\n[green]• Workflow is ready to execute[") / "green]")
+        console.print(f"\n[green]• Workflow is ready to execute[" / "green]")
     
     # Show cache status if applicable
     if result.get("from_cache"):
-        console.print(fPath(r"\n[dim]• Result retrieved from cache[") / "dim]")
+        console.print(f"\n[dim]• Result retrieved from cache[" / "dim]")
 
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[" / "red] {error_message}",
+        f"[red]Error:[ / red] {error_message}",
         style="red",
         title="Goal Command Error"
     ))
     
     # Show common troubleshooting tips
-    console.print(fPath(r"\n[dim]Common solutions:[") / "dim]")
-    console.print(f"[dim]• Ensure your goal is clear and specific[" / "dim]")
-    console.print(f"[dim]• Check that setup scripts are available[" / "dim]")
-    console.print(f"[dim]• Try with mao --verbose for more details[" / "dim]")
+    console.print(f"\n[dim]Common solutions:[" / "dim]")
+    console.print(f"[dim]• Ensure your goal is clear and specific[ / dim]")
+    console.print(f"[dim]• Check that setup scripts are available[ / dim]")
+    console.print(f"[dim]• Try with mao --verbose for more details[ / dim]")
 
 def display_goal_progress(stage: str) -> None:
     """Display progress indicator during workflow creation"""
@@ -101,16 +101,16 @@ def display_goal_progress(stage: str) -> None:
     }
     
     message = progress_messages.get(stage, f"Processing {stage}...")
-    console.print(f"[dim]• {message}[" / "dim]")
+    console.print(f"[dim]• {message}[ / dim]")
 
 def display_goal_help() -> None:
     """Display help information for goal command usage"""
     help_panel = Panel(
         "[bold]Goal Command Usage[" / Path(r"bold]\n\n")
-        "[cyan]Terminal:[" / "cyan] mao --goal 'create a marketing strategy for my startupPath(r'\n")
+        "[cyan]Terminal:[ / cyan] mao --goal 'create a marketing strategy for my startupPath(r'\n")
         "[cyan]In-App:[/cyan] " / Path(r"goal create a marketing strategy for my startup\n\n")
         Path(r"[dim]The goal command instantly creates a complete workflow from your description.\n")
-        "Be specific about what you want to accomplish for best results.[" / "dim]",
+        "Be specific about what you want to accomplish for best results.[ / dim]",
         title="mao --goal",
         style="blue"
     )

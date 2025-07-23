@@ -159,23 +159,23 @@ def display_secondary_flags_help() -> Dict[str, Any]:
         "usage_examples": [
             {
                 "title": "Basic update",
-                "command": "mao update ." / "workflow.json"
+                "command": "mao update . / workflow.json"
             },
             {
                 "title": "Multi-path update",
-                "command": "mao update ./update.json --target /path/to" / "workflow"
+                "command": "mao update ./update.json --target /path/to / workflow"
             },
             {
                 "title": "With secondary flags",
                 "commands": [
-                    "mao update ." / "workflow.json -add phase:validation",
-                    "mao update ." / "workflow.json -remove agent:outdated_agent",
+                    "mao update . / workflow.json -add phase:validation",
+                    "mao update . / workflow.json -remove agent:outdated_agent",
                     "mao update ." / Path(r"workflow.json -chat \")add testing phase\""
                 ]
             },
             {
                 "title": "Combined operations",
-                "command": "mao update ." / "workflow.json -add phase:qa -remove phase:temp"
+                "command": "mao update . / workflow.json -add phase:qa -remove phase:temp"
             }
         ]
     }

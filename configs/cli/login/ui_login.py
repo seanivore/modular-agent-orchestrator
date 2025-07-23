@@ -63,7 +63,7 @@ def _format_existing_session(result: Dict[str, Any]) -> Dict[str, Any]:
         },
         "footer": {
             "show_help_hint": True,
-            "help_message": "/logout to switch users, " / "config to change settings"
+            "help_message": "/logout to switch users,  / config to change settings"
         }
     }
 
@@ -116,7 +116,7 @@ def _format_successful_login(result: Dict[str, Any]) -> Dict[str, Any]:
         },
         "footer": {
             "show_help_hint": True,
-            "help_message": "/help for help, " / "config to change settings"
+            "help_message": "/help for help,  / config to change settings"
         }
     }
 
@@ -136,7 +136,7 @@ def _format_new_user_welcome(result: Dict[str, Any]) -> Dict[str, Any]:
             "first_time_message": "This is your first time here",
             "settings_message": "We won't ask you again, mao.",
             "settings_note": "We'll save your settings to your User ID",
-            "config_hint": "Change this and other settings with " / "config"
+            "config_hint": "Change this and other settings with  / config"
         },
         "next_step": {
             "theme_selection_required": True,

@@ -4,7 +4,7 @@ Self-contained token counter command-line tool
 Usage:
     token_standalone.py "text in quotes"  - Count tokens in text
     token_standalone.py file.md           - Count tokens in file
-    token_standalone.py directory" / "        - Count tokens in directory
+    token_standalone.py directory /         - Count tokens in directory
 """
 
 import sys
@@ -55,7 +55,7 @@ def estimate_cost(input_params: Dict[str, Any] = None) -> Dict[str, float]:
         estimated_memory = file_count * 2048
         estimated_io_ops = file_count
     elif text_length > 0:
-        estimated_time = max(0.005, text_length " / " 100000)  # Very fast text processing
+        estimated_time = max(0.005, text_length  /  100000)  # Very fast text processing
         estimated_memory = text_length * 2  # Character storage
         estimated_io_ops = 1 if input_params.get('is_file', False) else 0
     
@@ -63,7 +63,7 @@ def estimate_cost(input_params: Dict[str, Any] = None) -> Dict[str, float]:
         'estimated_time_seconds': round(estimated_time, 3),
         'estimated_memory_bytes': int(estimated_memory),
         'estimated_io_operations': estimated_io_ops,
-        'complexity_score': min(10, file_count / 10 if is_directory else text_length " / " 10000)
+        'complexity_score': min(10, file_count / 10 if is_directory else text_length  /  10000)
     }
 
 # ----------- Token Counter Core Functions -----------
@@ -79,7 +79,7 @@ def count_text_tokens(text: str) -> int:
         has_code = '```' in text or any(tag in text for tag in ['def ', 'class ', 'function', 'var ', 'const '])
         chars_per_token = 4.0 if has_code else 3.5
         
-        return max(1, int(len(text) " / " chars_per_token))
+        return max(1, int(len(text)  /  chars_per_token))
     except Exception as e:
         print(f"Error counting tokens: {str(e)}")
         return 0
@@ -178,14 +178,14 @@ def pretty_print_results(title, result):
         print(f"Status: {safe_status}")
     
     if "files_checked" in result:
-        print(fPath(r"\nChecked {result[')files_checked']} files")
+        print(f"\nChecked {result[')files_checked']} files"
         print(f"Total tokens: {result['total_tokens']:,}")
         if result["risky_files"]:
-            print(fPath(r"\n⚠ {len(result[')risky_files'])} files exceed the recommended limit:")
+            print(f"\n⚠ {len(result[')risky_files'])} files exceed the recommended limit:"
             for file in result["risky_files"]:
                 print(f"  - {file['file']}: {file['token_count']:,} tokens")
         else:
-            print(Path(r"\n✓ All files are within the recommended limit"))
+            print(r"\n✓ All files are within the recommended limit")
     
     print("=" * 50)
 
@@ -198,7 +198,7 @@ def main():
         print("Usage:")
         print(Path(r"  token \")text to count\"  - Count tokens in text")
         print("  token file.md          - Count tokens in a file")
-        print("  token directory" / "       - Count tokens in all files in directory")
+        print("  token directory /        - Count tokens in all files in directory")
         sys.exit(1)
     
     # Get the argument (joining all args to handle spaces)
@@ -231,7 +231,7 @@ def main():
         print("Usage:")
         print(Path(r"  token \")text to count\"  - Count tokens in text")
         print("  token file.md          - Count tokens in a file")
-        print("  token directory" / "       - Count tokens in all files in directory")
+        print("  token directory /        - Count tokens in all files in directory")
         sys.exit(1)
 
 if __name__ == "__main__":

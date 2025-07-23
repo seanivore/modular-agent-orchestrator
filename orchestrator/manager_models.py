@@ -371,22 +371,22 @@ if __name__ == "__main__":
     # Test the model manager
     manager = ModelManager()
     
-    print(Path(r"\n🎯 Dynamic Model Selection Examples:"))
+    print(r"\n🎯 Dynamic Model Selection Examples:")
     print(f"Balanced selection: {manager.get_best_model_for_task()}")
     print(f"Cheapest option: {manager.get_best_model_for_task(preferences={'selection_strategy': 'cheapest'})}")
     print(f"Highest quality: {manager.get_best_model_for_task(preferences={'selection_strategy': 'highest_quality'})}")
     print(f"Vision required: {manager.get_best_model_for_task(preferences={'requires_vision': True})}")
     
-    print(Path(r"\n💰 Cost Examples:"))
+    print(r"\n💰 Cost Examples:")
     balanced_model = manager.get_best_model_for_task()
     print(f"Cost for 1000 input, 500 output tokens with {balanced_model}: ${manager.estimate_cost(balanced_model, 1000, 500):.6f}")
     
-    print(Path(r"\n📊 Stats:"))
+    print(r"\n📊 Stats:")
     stats = manager.get_stats()
     for key, value in stats.items():
         print(f"{key}: {value}")
     
-    print(Path(r"\n🚀 Dynamic Goal Analysis:"))
+    print(r"\n🚀 Dynamic Goal Analysis:")
     goal = "Research renewable energy trends and create a marketing strategy with images"
     recommendation = manager.get_dynamic_model_recommendation(goal)
     print(f"Goal: {goal}")

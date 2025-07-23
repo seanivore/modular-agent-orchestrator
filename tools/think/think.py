@@ -34,7 +34,7 @@ def perform_thinking(topic: str, thinking_approach: str = "systematic analysis",
         
         # Calculate estimated cost (thinking operations are typically low-cost)
         estimated_tokens = len(topic) + len(context) + len(thinking_approach) + len(thinking_focus)
-        estimated_cost = (estimated_tokens " / " 1000) * 0.01  # Rough estimate
+        estimated_cost = (estimated_tokens  /  1000) * 0.01  # Rough estimate
         
         # Prepare thinking session metadata
         session_data = {

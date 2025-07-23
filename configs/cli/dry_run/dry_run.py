@@ -25,7 +25,7 @@ def execute_dry_run(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main dry run command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary with simulation results
@@ -71,7 +71,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"dry_run|{str(params) if params else 'none'}"
     
     # Add workflow directory state fingerprint for cache invalidation
-    workflows_dir = Path(__file__).parent.parent.parent " / " "workflows"
+    workflows_dir = Path(__file__).parent.parent.parent  /  "workflows"
     if workflows_dir.exists():
         # Include directory modification time and workflow count
         dir_stat = workflows_dir.stat()

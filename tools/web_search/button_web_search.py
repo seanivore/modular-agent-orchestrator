@@ -56,7 +56,7 @@ def _create_basic_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Basic Search
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.web_search.web_search import perform_web_search
 from tools.web_search.ui_web_search import display_web_search_result, display_search_execution_status
@@ -75,7 +75,7 @@ search_config = perform_web_search(
 display_web_search_result(search_config, verbose=True)
 
 if search_config.get("status") == "ready_for_execution":
-    print(Path(r"\\n🔍 Executing Anthropic Native Web Search..."))
+    print(r"\\n🔍 Executing Anthropic Native Web Search...")
     display_search_execution_status(search_config["query"], "executing")
     
     try:
@@ -90,7 +90,7 @@ if search_config.get("status") == "ready_for_execution":
         }}]
         
         # Create search prompt
-        search_prompt = fPath(r"Search for: {escaped_query}\\n\\nProvide comprehensive results with key findings, source URLs, and publication dates where available.")
+        search_prompt = f"Search for: {escaped_query}\\n\\nProvide comprehensive results with key findings, source URLs, and publication dates where available."
         
         # Perform search
         response = client.messages.create(
@@ -110,7 +110,7 @@ if search_config.get("status") == "ready_for_execution":
                 search_content += content.text
                 print(content.text)
             elif content.type == "tool_use":
-                print(fPath(r"\\n🔧 Tool Used: {{content.name}}"))
+                print(f"\\n🔧 Tool Used: {{content.name}}")
         
         # Save results
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -125,13 +125,13 @@ if search_config.get("status") == "ready_for_execution":
                 "estimated_cost": {cost_estimate:.3f}
             }}, f, indent=2, ensure_ascii=False)
         
-        print(fPath(r"\\n💾 Results saved: {{json_file}}"))
+        print(f"\\n💾 Results saved: {{json_file}}")
         print(f"💰 Estimated cost: ${cost_estimate:.3f}")
         
     except Exception as e:
         print(f"❌ Search failed: {{str(e)}}")
 
-print(Path(r"\\nWEB SEARCH OPERATION COMPLETE"))
+print(r"\\nWEB SEARCH OPERATION COMPLETE")
 '''
     
     return snippet.strip()
@@ -148,7 +148,7 @@ def _create_filtered_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Filtered Search  
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.web_search.web_search import perform_filtered_search
 from tools.web_search.ui_web_search import display_web_search_result
@@ -209,7 +209,7 @@ def _create_content_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Content Search
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.web_search.web_search import perform_content_search
 from tools.web_search.ui_web_search import display_web_search_result
@@ -233,7 +233,7 @@ def _create_validation_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Query Validation
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.web_search.web_search import validate_search_query
 from tools.web_search.ui_web_search import display_web_search_result
@@ -252,7 +252,7 @@ def _create_suggestions_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Web Search - Query Suggestions
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.web_search.web_search import get_search_suggestions
 from tools.web_search.ui_web_search import display_web_search_result
@@ -269,7 +269,7 @@ def _create_generic_search_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = '''
 # Web Search - Capabilities
 import sys
-sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development / modular-agent-orchestrator')
 
 from tools.web_search.web_search import get_search_capabilities
 from tools.web_search.ui_web_search import display_search_capabilities

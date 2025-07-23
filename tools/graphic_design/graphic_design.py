@@ -62,7 +62,7 @@ def analyze_image(image_path: str, analysis_approach: str = "comprehensive") -> 
                 
                 # Basic quality assessment
                 aspect_ratio = width / height
-                megapixels = (width * height) " / " 1000000
+                megapixels = (width * height)  /  1000000
                 
                 result = {
                     "status": "success",
@@ -197,7 +197,7 @@ def edit_image(
             else:
                 # Calculate height maintaining aspect ratio
                 if maintain_aspect_ratio:
-                    ratio = original_height " / " original_width
+                    ratio = original_height  /  original_width
                     height = int(width * ratio)
                 else:
                     height = original_height
@@ -235,11 +235,11 @@ def edit_image(
                     parts = aspect_ratio.split(":")
                     target_width_ratio = int(parts[0])
                     target_height_ratio = int(parts[1])
-                    target_ratio = target_width_ratio " / " target_height_ratio
+                    target_ratio = target_width_ratio  /  target_height_ratio
                 except:
                     return {"error": f"Invalid aspect ratio format: {aspect_ratio}"}
                 
-                current_ratio = current_width " / " current_height
+                current_ratio = current_width  /  current_height
                 
                 if current_ratio > target_ratio:
                     # Crop width
@@ -256,14 +256,14 @@ def edit_image(
                 else:
                     # Crop height
                     new_width = current_width
-                    new_height = int(current_width " / " target_ratio)
+                    new_height = int(current_width  /  target_ratio)
                     
                     if focus == "top":
                         y_val = 0
                     elif focus == "bottom":
                         y_val = current_height - new_height
                     else:  # center
-                        y_val = (current_height - new_height) /" / " 2
+                        y_val = (current_height - new_height) / /  2
                     x_val = 0
                 
                 crop_box = (x_val, y_val, x_val + new_width, y_val + new_height)
@@ -284,13 +284,13 @@ def edit_image(
             
             # Apply shade layer for text readability
             overlay = Image.new('RGBA', (current_width, current_height), 
-                               (0, 0, 0, int(255 * shade_opacity " / " 100)))
+                               (0, 0, 0, int(255 * shade_opacity  /  100)))
             current_img = Image.alpha_composite(current_img, overlay)
             
             # Load curated font
             fonts_dir = "tools/fonts"
             if not Path(fonts_dir).exists():
-                fonts_dir = "../tools" / "fonts"
+                fonts_dir = "../tools / fonts"
             
             font_files = {
                 "Bebas Neue": "BebasNeue-Regular.ttf",
@@ -334,9 +334,9 @@ def edit_image(
             
             if text_position == "center":
                 x_pos = (current_width - text_width) // 2
-                y_pos = (current_height - text_height) /" / " 2
+                y_pos = (current_height - text_height) / /  2
             elif text_position == "top":
-                x_pos = (current_width - text_width) /" / " 2
+                x_pos = (current_width - text_width) / /  2
                 y_pos = int(current_height * 0.1)
             elif text_position == "bottom":
                 x_pos = (current_width - text_width) // 2
@@ -344,7 +344,7 @@ def edit_image(
             else:
                 # Default center
                 x_pos = (current_width - text_width) // 2
-                y_pos = (current_height - text_height) /" / " 2
+                y_pos = (current_height - text_height) / /  2
             
             # Draw text in white for maximum contrast
             draw.text((x_pos, y_pos), text, fill=(255, 255, 255, 255), font=pil_font)
@@ -425,7 +425,7 @@ def edit_image(
 @handle_errors(operation_name="optimize_image", return_dict=True)
 def optimize_image(image_path: str, quality: int = 85, target_format: str = "webp") -> Dict[str, Any]:
     """
-    Optimize image for web" / "storage with professional settings
+    Optimize image for web / storage with professional settings
     
     Args:
         image_path: Source image file path
@@ -480,7 +480,7 @@ def optimize_image(image_path: str, quality: int = 85, target_format: str = "web
                 
                 # Calculate savings
                 optimized_size = os.path.getsize(output_path)
-                size_reduction = ((original_size - optimized_size) " / " original_size) * 100
+                size_reduction = ((original_size - optimized_size)  /  original_size) * 100
                 
                 return {
                     "status": "success",
@@ -551,7 +551,7 @@ def get_curated_fonts() -> Dict[str, Any]:
                 "file": "PlayfairDisplay-Regular.ttf"
             }
         },
-        "fonts_directory": "tools" / "fonts",
+        "fonts_directory": "tools / fonts",
         "fallback_available": True,
         "metadata": {
             "collection_curated": True,

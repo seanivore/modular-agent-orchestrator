@@ -22,7 +22,7 @@ def execute_models(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main models command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI" / "app input
+        params: Command parameters from CLI / app input
         
     Returns:
         Standardized result dictionary with model data
@@ -54,7 +54,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"models|{str(params) if params else 'none'}"
     
     # Add models directory state fingerprint for cache invalidation
-    models_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "models"
+    models_dir = Path(__file__).parent.parent.parent  /  "configs"  /  "models"
     if models_dir.exists():
         # Include directory modification time and model count
         dir_stat = models_dir.stat()
@@ -109,7 +109,7 @@ def _discover_models() -> Dict[str, Dict[str, Any]]:
     except Exception as e:
         # Fallback: Direct directory scanning if ModelManager fails
         models = {}
-        models_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "models"
+        models_dir = Path(__file__).parent.parent.parent  /  "configs"  /  "models"
         
         for model_file in models_dir.iterdir():
             if not model_file.is_file() or model_file.suffix != '.json':
