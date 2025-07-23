@@ -16,7 +16,7 @@ from typing import Dict, Union, Optional, Any, List
 try:
     from orchestrator.cache.cache_system import CacheManager
     from orchestrator.error_handling import handle_errors
-from pathlib import Path
+    from pathlib import Path
     MAO_AVAILABLE = True
 except ImportError:
     # Fallback for standalone usage outside Mao environment
@@ -55,7 +55,7 @@ def estimate_cost(input_params: Dict[str, Any] = None) -> Dict[str, float]:
         estimated_memory = file_count * 2048
         estimated_io_ops = file_count
     elif text_length > 0:
-        estimated_time = max(0.005, text_length  /  100000)  # Very fast text processing
+        estimated_time = max(0.005, text_length / 100000)  # Very fast text processing
         estimated_memory = text_length * 2  # Character storage
         estimated_io_ops = 1 if input_params.get('is_file', False) else 0
     
@@ -63,7 +63,7 @@ def estimate_cost(input_params: Dict[str, Any] = None) -> Dict[str, float]:
         'estimated_time_seconds': round(estimated_time, 3),
         'estimated_memory_bytes': int(estimated_memory),
         'estimated_io_operations': estimated_io_ops,
-        'complexity_score': min(10, file_count / 10 if is_directory else text_length  /  10000)
+        'complexity_score': min(10, file_count / 10 if is_directory else text_length / 10000)
     }
 
 # ----------- Token Counter Core Functions -----------
@@ -168,7 +168,7 @@ def count_directory_tokens(dir_path: str) -> Dict[str, Union[List, int, bool]]:
 
 def pretty_print_results(title, result):
     """Print token count results in a more readable format."""
-    print(Path(r"\n") + "=" * 50)
+    print(r"\n" + "=" * 50)
     print(f" {title} ".center(50, "="))
     print("=" * 50)
     
@@ -181,7 +181,7 @@ def pretty_print_results(title, result):
         print(f"\nChecked {result[')files_checked']} files"
         print(f"Total tokens: {result['total_tokens']:,}")
         if result["risky_files"]:
-            print(f"\n⚠ {len(result[')risky_files'])} files exceed the recommended limit:"
+            print(f"\n⚠ {len(result[\')risky_files'])} files exceed the recommended limit:"
             for file in result["risky_files"]:
                 print(f"  - {file['file']}: {file['token_count']:,} tokens")
         else:
@@ -196,7 +196,7 @@ def main():
     # Check for arguments
     if len(sys.argv) < 2:
         print("Usage:")
-        print(Path(r"  token \")text to count\"  - Count tokens in text")
+        print(r"  token \"text to count\"  - Count tokens in text")
         print("  token file.md          - Count tokens in a file")
         print("  token directory /        - Count tokens in all files in directory")
         sys.exit(1)
@@ -229,7 +229,7 @@ def main():
         print(f"Error: '{arg}' is not valid text in quotes, a file, or a directory")
         print("")
         print("Usage:")
-        print(Path(r"  token \")text to count\"  - Count tokens in text")
+        print(r"  token \"text to count\"  - Count tokens in text")
         print("  token file.md          - Count tokens in a file")
         print("  token directory /        - Count tokens in all files in directory")
         sys.exit(1)

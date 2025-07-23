@@ -5,7 +5,7 @@ from typing import Dict, Any, Tuple
 try:
     from orchestrator.cache.cache_system import CacheManager
     from orchestrator.error_handling import handle_errors
-from pathlib import Path
+    from pathlib import Path
     MAO_AVAILABLE = True
 except ImportError:
     # Fallback for standalone usage outside Mao environment
@@ -38,7 +38,7 @@ def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]:
     math_operations_per_id = 5  # ASCII sum + 2 mathematical operations + formatting
     
     # Username length affects processing time
-    length_multiplier = max(0.5, username_length  /  20)  # Longer usernames take more time
+    length_multiplier = max(0.5, username_length / 20)  # Longer usernames take more time
     
     # Apply batch and complexity multipliers
     total_time = (base_time_per_id * length_multiplier) * batch_size
@@ -163,7 +163,7 @@ class UserIDGenerator:
         user_id, details = self.generate_user_id(username)
         
         explanation = (
-            f"Username '{details['username']}Path(r' -> {user_id}\n")
+            f"Username '{details['username']}' -> {user_id}\n"
             f"Steps: {details['char_count']} chars -> doubled to {details['doubled_count']} -> "
             f"ASCII sum {details['ascii_sum']} -> {details['primary_operation']}+{details['secondary_operation']} -> "
             f"{details['final_number']:04d}"
@@ -197,9 +197,9 @@ if __name__ == "__main__":
             user_id, explanation = generator.generate_with_explanation(username)
             print(f"\n{explanation}")
         except ValueError as e:
-            print(f"\nError for '){username}': {e}"
+            print(f"\nError for '{username}': {e}")
     
-    print(Path(r"\n") + "="*50)
+    print(r"\n" + "="*50)
     print("Testing consistency (same username should give same ID):")
     for username in ["seanivore", "alice"]:
         ids = [generate_user_id(username) for _ in range(3)]
