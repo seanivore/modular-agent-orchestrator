@@ -1,8 +1,0 @@
-{
-  "command": "restart",
-  "type": "app_only",
-  "terminal_flag": "! mao restart",
-  "app_command": "/restart",
-  "interface_method": "restart_application",
-  "help": "Restart the Mao application"
-}
