@@ -48,7 +48,7 @@ class QualityAuditSuite:
                 "description": "Analyzes function/method naming consistency"
             },
             "error_handling_audit": {
-                "script": None,  # Will create this
+                "script": "error_handling_audit.py",
                 "name": "Error Handling Patterns Audit",
                 "weight": 20,
                 "description": "Analyzes error handling consistency across codebase"
@@ -78,6 +78,8 @@ class QualityAuditSuite:
                 auditor = audit_module.JSONConfigAuditor()
             elif hasattr(audit_module, 'FunctionNamingAuditor'):
                 auditor = audit_module.FunctionNamingAuditor()
+            elif hasattr(audit_module, 'ErrorHandlingAuditor'):
+                auditor = audit_module.ErrorHandlingAuditor()
             else:
                 print(f"❌ No auditor class found in {script_name}")
                 return None
@@ -129,6 +131,11 @@ class QualityAuditSuite:
                 # Score decreases with inconsistencies
                 inconsistency_ratio = inconsistencies / max(1, total_functions / 10)  # Scale by function count
                 score = max(0, 100 - (inconsistency_ratio * 50))
+                
+            elif audit_key == "error_handling_audit":
+                # Use the score calculated by the error handling auditor
+                summary = results.get('summary', {})
+                score = summary.get('error_handling_score', 50)
                 
             else:
                 score = 50  # Default score for unknown audits
