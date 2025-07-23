@@ -1,0 +1,3385 @@
+{
+  "summary": {
+    "files_analyzed": 130,
+    "files_parsed": 53,
+    "pathlib_operations": 68,
+    "string_path_operations": 1,
+    "file_existence_checks": 6,
+    "hardcoded_separators": 520,
+    "inconsistency_types": 2,
+    "path_handling_score": 0
+  },
+  "pathlib_operations": {
+    "Path": [
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 165,
+        "function": "_process_execution_file",
+        "class": "AgentCallbackHandler",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 169,
+        "function": "_process_execution_file",
+        "class": "AgentCallbackHandler",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 178,
+        "function": "_process_execution_file",
+        "class": "AgentCallbackHandler",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 210,
+        "function": "_format_tool_list",
+        "class": "AgentOrchestrator",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 220,
+        "function": "_format_deliverables_list",
+        "class": "AgentOrchestrator",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 83,
+        "function": "display_available_models",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 39,
+        "function": "display_providers_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 51,
+        "function": "_display_provider_summary",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 61,
+        "function": "_display_existing_user_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 75,
+        "function": "_display_new_user_id_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 83,
+        "function": "_display_new_user_id_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 89,
+        "function": "_display_current_user_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 231,
+        "function": "display_generation_explanation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 63,
+        "function": "display_set_output_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 73,
+        "function": "display_set_output_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 124,
+        "function": "display_generic_output_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 151,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 238,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 248,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 71,
+        "function": "_generate_cache_key",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 203,
+        "function": "_get_available_providers",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 61,
+        "function": "_display_success_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "function": "display_error",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "function": "display_error",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 154,
+        "function": "display_provider_status",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 65,
+        "function": "format_variables_table",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 184,
+        "function": "format_variables_table",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 318,
+        "function": "format_variables_summary_table",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 349,
+        "function": "_format_error_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 221,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 227,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 248,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 253,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 294,
+        "function": "_display_search_suggestions",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 345,
+        "function": "_display_generic_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 424,
+        "function": "display_search_capabilities",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 428,
+        "function": "display_search_capabilities",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 189,
+        "function": "display_execution_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 223,
+        "function": "display_registration_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 253,
+        "function": "display_mcp_summary",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 281,
+        "function": "display_help",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 156,
+        "function": "display_deliverables_save",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 190,
+        "function": "display_workflow_files",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 281,
+        "function": "display_operation_summary",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 206,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 212,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 287,
+        "function": "_display_api_configuration",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 292,
+        "function": "_display_api_configuration",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 164,
+        "function": "_append_content_snippet",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "FilePathAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 32,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 37,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 42,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 68,
+        "function": "fix_sys_path_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 108,
+        "function": "fix_sys_path_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 130,
+        "function": "remove_unused_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 156,
+        "function": "remove_unused_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 195,
+        "function": "run_fixer",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      }
+    ],
+    "Path.exists": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 152,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 57,
+        "function": "find_python_files",
+        "class": "FilePathAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      }
+    ],
+    "Path.mkdir": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 156,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "Path.mkdir",
+        "args_count": 0
+      }
+    ],
+    "Path.split": [
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 110,
+        "function": "_display_content_edit",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 161,
+        "function": "_display_document_format",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 295,
+        "function": "display_autosave_status",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 308,
+        "function": "display_editing_session_start",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      }
+    ],
+    "Path.rglob": [
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 58,
+        "function": "find_python_files",
+        "class": "FilePathAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      }
+    ],
+    "Path.with_suffix": [
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 63,
+        "function": "backup_file",
+        "class": "ImportFixer",
+        "method": "Path.with_suffix",
+        "args_count": 1
+      }
+    ]
+  },
+  "string_path_operations": {
+    "os.path.expanduser": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 235,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "os.path.expanduser",
+        "args_count": 1
+      }
+    ]
+  },
+  "file_checks": {
+    "exists": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 152,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 249,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 72,
+        "function": "_generate_cache_key",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 205,
+        "function": "_get_available_providers",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 57,
+        "function": "find_python_files",
+        "class": "FilePathAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 195,
+        "function": "run_fixer",
+        "class": "ImportFixer",
+        "method": "exists"
+      }
+    ]
+  },
+  "path_separators": {
+    "hardcoded": [
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 53,
+        "content": "# Agent callback operations are typically free (memory\" / \"file operations)"
+      },
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 260,
+        "content": "recommendations.append(\"Proceed to creative\" / \"implementation phase\")"
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 210,
+        "content": "return Path(r\"\\n\").join(formatted)"
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 220,
+        "content": "return Path(r\"\\n\").join(formatted)"
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 29,
+        "content": "self.setup_script_path = \"scripts\" / \"setup_workflow.sh\"  # ONE setup script"
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 30,
+        "content": "self.use_case_base = \"configs\" / \"use_case\""
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 92,
+        "content": "use_case_dir = f\"{self.use_case_base}\" / \"{command_name}\""
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 95,
+        "content": "config_path = f\"{use_case_dir}\" / \"config.json\""
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 213,
+        "content": "rPath(r\"(marketing|content|business|competitive?)\\s+(strategy|plan|analysis)\"),"
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 270,
+        "content": "# Analysis\" / \"Strategy phase"
+      },
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 382,
+        "content": "print(fPath(r\"\\n\ud83c\udfaf Testing goal: {goal}\"))"
+      },
+      {
+        "file": "orchestrator/mcp_hub.py",
+        "line": 398,
+        "content": "f\"\ud83d\udd0c Servers: {status['tools']['servers_online']}\" / \"{status['tools']['servers_total']} online\","
+      },
+      {
+        "file": "configs/cli/mao/ui_mao.py",
+        "line": 60,
+        "content": "\u2022 '\" / \"' to trigger auto-complete"
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 36,
+        "content": "\"usage\": \"Use: \" / \"memory 'text' to store, /memory --list to view, \" / \"memory --delete [ID] to remove\","
+      },
+      {
+        "file": "configs/cli/memory/memory.py",
+        "line": 242,
+        "content": "\"usage\": \"Use: \" / \"memory --delete [memory_id]\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 260,
+        "content": "\"memory_cards\": \"clickable memory items with preview\" / \"expand\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 312,
+        "content": "\"usage\": \"\" / \"memory 'your content here'\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 317,
+        "content": "\"usage\": \"\" / \"memory --query 'search terms'\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 322,
+        "content": "\"usage\": \"\" / \"memory --list\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 327,
+        "content": "\"usage\": \"\" / \"memory --delete [memory_id]\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 332,
+        "content": "\"usage\": \"\" / \"memory --suggest 'context'\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 337,
+        "content": "\"\" / \"memory 'I prefer working in the morning'\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 338,
+        "content": "\"\" / \"memory --query 'preferences'\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 339,
+        "content": "\"\" / \"memory --list\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 340,
+        "content": "\"\" / \"memory --delete mem_123\","
+      },
+      {
+        "file": "configs/cli/memory/ui_memory.py",
+        "line": 341,
+        "content": "\"\" / \"memory --suggest 'starting new project'\""
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 30,
+        "content": "\"\"\"Display successful model update with before\" / \"after comparison\"\"\""
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 34,
+        "content": "f\"[green]Success:[\" / \"green] {result.get('message', 'Model preference updated')}\","
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 39,
+        "content": "# Show before\" / \"after comparison"
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 56,
+        "content": "console.print(fPath(r\"\\n[dim]Updated settings for user: {username}[\") / \"dim]\")"
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 65,
+        "content": "f\"[red]Error:[\" / \"red] {error_message}\","
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 73,
+        "content": "console.print(fPath(r\"\\n[dim]Current favorite model: {current_model}[\") / \"dim]\")"
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 83,
+        "content": "console.print(Path(r\"\\n[bold blue]Available Models:[\") / \"bold blue]\")"
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 102,
+        "content": "[bold blue]Model Name Help:[\" / \"bold blue]"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 39,
+        "content": "\"[yellow]No providers found[\" / Path(r\"yellow]\\nCheck your provider configuration files\"),"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 51,
+        "content": "console.print(fPath(r\"\\n[bold]Found {total_count} configured providers[\") / Path(r\"bold]\\n\"))"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 80,
+        "content": "console.print(fPath(r\"\\n[bold cyan]{api_type.upper()} Providers[\") / \"bold cyan]\")"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 92,
+        "content": "console.print(f\"  [bold]{display_name}[\" / \"bold] ({name})\")"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 115,
+        "content": "limits_text.append(f\"{rate_limits['requests_per_minute']} req\" / \"min\")"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 117,
+        "content": "limits_text.append(f\"{rate_limits['tokens_per_minute']} tokens\" / \"min\")"
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 133,
+        "content": "f\"[red]Error:[\" / \"red] {error_message}\","
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 64,
+        "content": "status_text = f\"[{status_color}]{status.upper()}[\" / \"{status_color}] - Health Score: {health_score:.1f}%\""
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 83,
+        "content": "summary_table.add_row(\"[green]Passed[\" / \"green]\", str(checks_passed))"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 85,
+        "content": "summary_table.add_row(\"[yellow]Warnings[\" / \"yellow]\", str(checks_warning))"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 87,
+        "content": "summary_table.add_row(\"[red]Failed[\" / \"red]\", str(checks_failed))"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 88,
+        "content": "summary_table.add_row(\"[white]Total[\" / \"white]\", str(total_checks))"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 95,
+        "content": "console.print(\"[bold]Detailed Health Checks:[\" / \"bold]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 105,
+        "content": "\"healthy\": \"[green]\u2713[\" / \"green]\","
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 106,
+        "content": "\"warning\": \"[yellow]\u26a0[\" / \"yellow]\","
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 107,
+        "content": "\"error\": \"[red]\u2717[\" / \"red]\","
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 108,
+        "content": "\"unknown\": \"[white]?[\" / \"white]\""
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 111,
+        "content": "icon = status_display.get(status, \"[white]?[\" / \"white]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 129,
+        "content": "node.add(f\"[red]Error: {check_result['error']}[\" / \"red]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 138,
+        "content": "node.add(f\"Directories: {present_count}\" / \"{total_count} present\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 147,
+        "content": "node.add(f\"Files: {present_count}\" / \"{total_count} present\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 157,
+        "content": "console.print(\"[bold]Insights and Recommendations:[\" / \"bold]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 166,
+        "content": "console.print(\"[red]Critical Issues:[\" / \"red]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 173,
+        "content": "console.print(\"[yellow]Warnings:[\" / \"yellow]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 189,
+        "content": "console.print(f\"[{color}]\u2022 {message}[\" / \"{color}]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 211,
+        "content": "console.print(\"[yellow]No system metrics available[\" / \"yellow]\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 222,
+        "content": "value = metric_data.get(\"value\", \"N\" / \"A\")"
+      },
+      {
+        "file": "configs/cli/doctor/ui_doctor.py",
+        "line": 251,
+        "content": "f\"[red]Error:[\" / \"red] {error_message}\","
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 31,
+        "content": "params: Command parameters from CLI\" / \"app input"
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 141,
+        "content": "\"suggestion\": \"Use 'mao --login' or '\" / \"login' to log in\","
+      },
+      {
+        "file": "configs/cli/user_id/user_id.py",
+        "line": 211,
+        "content": "\"Or use '\" / \"login' in the app to create and login\""
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 47,
+        "content": "console.print(fPath(r\"\\n[bold]User ID:[\") / \"bold] {user_id}\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 49,
+        "content": "console.print(f\"[bold]Username:[\" / \"bold] {username}\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 61,
+        "content": "console.print(Path(r\"\\n[green]Status:[\") / \"green] Existing User\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 71,
+        "content": "console.print(fPath(r\"\\n[dim]Generation Method:[\") / \"dim] {explanation}\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 75,
+        "content": "console.print(Path(r\"\\n[yellow]Status:[\") / \"yellow] New User ID Generated\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 79,
+        "content": "console.print(f\"[dim]Generation Method:[\" / \"dim] {explanation}\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 83,
+        "content": "console.print(Path(r\"\\n[bold]Next Steps:[\") / \"bold]\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 89,
+        "content": "console.print(Path(r\"\\n[blue]Status:[\") / \"blue] Current Session User\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 100,
+        "content": "console.print(\"[dim]No active workflows[\" / \"dim]\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 104,
+        "content": "console.print(fPath(r\"\\n[bold]Active Workflows:[\") / \"bold] {active_count}\")"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 115,
+        "content": "f\"[red]Error:[\" / \"red] {error_message}\","
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 231,
+        "content": "lines = explanation.split(Path(r'\\n'))"
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 317,
+        "content": "\"Check if you are logged in with '\" / \"login'\","
+      },
+      {
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 83,
+        "content": "\"Use '\" / \"' to see available commands\","
+      },
+      {
+        "file": "configs/cli/onboard/ui_onboard.py",
+        "line": 84,
+        "content": "\"Check out \" / \"help for more information\""
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 44,
+        "content": "info_lines.append(f\"[dim]Previous:[\" / \"dim] {previous_output}\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 46,
+        "content": "info_lines.append(\"[dim]Previous:[/dim] [italic]Not set (using default)[\" / \"italic]\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 50,
+        "content": "info_lines.append(f\"[bold green]New:[\" / \"bold green] {new_output}\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 55,
+        "content": "info_lines.append(\"[dim]Status:[/dim] [green]Directory created[\" / \"green]\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 57,
+        "content": "info_lines.append(\"[dim]Status:[\" / \"dim] Directory already exists\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 61,
+        "content": "info_lines.append(f\"[dim]User:[\" / \"dim] {user}\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 63,
+        "content": "panel_content = Path(r\"\\n\").join(info_lines)"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 67,
+        "content": "title=\"[bold green]Output Directory Updated[\" / \"bold green]\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 73,
+        "content": "console.print(f\"[green]{message}[\" / Path(r\"green]\\n\"))"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 90,
+        "content": "table.add_row(\"Current Output:\", f\"{current_output} [dim](default)[\" / \"dim]\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 92,
+        "content": "table.add_row(\"Current Output:\", f\"[bold]{current_output}[\" / \"bold]\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 94,
+        "content": "table.add_row(\"Current Output:\", \"[dim italic]Not set[\" / \"dim italic]\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 98,
+        "content": "table.add_row(\"Default Output:\", f\"[dim]{default_output}[\" / \"dim]\")"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 105,
+        "content": "title=\"[bold]Current Output Directory[\" / \"bold]\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 118,
+        "content": "f\"[dim]Operation:[\" / \"dim] {operation}\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 119,
+        "content": "f\"[dim]User:[\" / \"dim] {user}\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 120,
+        "content": "f\"[dim]Result:[\" / \"dim] {message}\""
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 124,
+        "content": "Path(r\"\\n\").join(info_lines),"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 125,
+        "content": "title=\"[bold]Output Command Result[\" / \"bold]\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 132,
+        "content": "f\"[red]Error:[\" / \"red] {error_message}\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 150,
+        "content": "[dim]Notes:[\" / \"dim]"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 158,
+        "content": "title=\"[bold blue]Output Directory Help[\" / \"bold blue]\","
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 169,
+        "content": "[dim]Common Issues:[\" / \"dim]"
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 177,
+        "content": "title=\"[bold red]Invalid Path[\" / \"bold red]\","
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 28,
+        "content": "user config JSON file updates via User ID\" / \"Username."
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 128,
+        "content": "\"help\": \"Usage: mao --output /path/to/directory or /output /path/to\" / \"directory\","
+      },
+      {
+        "file": "configs/cli/logs/logs.py",
+        "line": 25,
+        "content": "params: Command parameters from CLI\" / \"app input"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 71,
+        "content": "providers_dir = Path(\"./configs/providers\" / \"\")"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 203,
+        "content": "providers_dir = Path(\"./configs/providers\" / \"\")"
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 34,
+        "content": "\"\"\"Display successful provider update with before\" / \"after comparison\"\"\""
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 61,
+        "content": "Path(r\"\\n\").join(comparison_lines),"
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "content": "error_content = error_message + Path(r\"\\n\\n\") + Path(r\"\\n\").join(context_lines)"
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 122,
+        "content": "\" / \"default-provider gemini"
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 154,
+        "content": "Path(r\"\\n\").join(status_lines),"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 19,
+        "content": "Formatted string for terminal\" / \"UI display"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 65,
+        "content": "return Path(r\"\\n\").join(output_lines)"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 184,
+        "content": "return Path(r\"\\n\").join(output_lines)"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 188,
+        "content": "Format variables result in compact form for logs\" / \"automation"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 221,
+        "content": "Format variables result as JSON for API\" / \"integration use"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 318,
+        "content": "return Path(r\"\\n\").join(output_lines)"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 349,
+        "content": "return Path(r\"\\n\").join(output_lines)"
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 353,
+        "content": "\"\"\"Get summary data for UI widgets\" / \"components\"\"\""
+      },
+      {
+        "file": "configs/cli/workflow_id/workflow_id.py",
+        "line": 29,
+        "content": "params: Command parameters from CLI\" / \"app input"
+      },
+      {
+        "file": "configs/cli/login/ui_login.py",
+        "line": 66,
+        "content": "\"help_message\": \"/logout to switch users, \" / \"config to change settings\""
+      },
+      {
+        "file": "configs/cli/login/ui_login.py",
+        "line": 119,
+        "content": "\"help_message\": \"/help for help, \" / \"config to change settings\""
+      },
+      {
+        "file": "configs/cli/login/ui_login.py",
+        "line": 139,
+        "content": "\"config_hint\": \"Change this and other settings with \" / \"config\""
+      },
+      {
+        "file": "configs/cli/login/login.py",
+        "line": 30,
+        "content": "- search_mode: Boolean flag to enable username search\" / \"recovery"
+      },
+      {
+        "file": "configs/cli/login/login.py",
+        "line": 206,
+        "content": "\"\"\"Handle username search\" / \"recovery functionality\"\"\""
+      },
+      {
+        "file": "configs/cli/login/login.py",
+        "line": 298,
+        "content": "\"\"\"Get list of all users for selection (admin\" / \"debugging purposes)\"\"\""
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 354,
+        "content": "\"search_filters\": \"user/workflow/model\" / \"provider filtering\","
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 59,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 78,
+        "content": "print(Path(r\"\\\\n\ud83d\udd0d Executing Anthropic Native Web Search...\"))"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 93,
+        "content": "search_prompt = fPath(r\"Search for: {escaped_query}\\\\n\\\\nProvide comprehensive results with key findings, source URLs, and publication dates where available.\")"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 113,
+        "content": "print(fPath(r\"\\\\n\ud83d\udd27 Tool Used: {{content.name}}\"))"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 128,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcbe Results saved: {{json_file}}\"))"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 134,
+        "content": "print(Path(r\"\\\\nWEB SEARCH OPERATION COMPLETE\"))"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 151,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 212,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 236,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 255,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 272,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 35,
+        "content": "f\"[red]\u274c {error_message}[\" / \"red]\","
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 36,
+        "content": "title=\"[bold red]Error[\" / \"bold red]\","
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 80,
+        "content": "console.print(f\"[blue]\ud83d\udd0d Web Search Ready: {query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 95,
+        "content": "console.print(Panel(info_table, title=\"[bold]Search Configuration[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 97,
+        "content": "console.print(f\"[dim]\ud83d\udcca {max_results} results \u2022 ${estimated_cost:.3f} estimated[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 117,
+        "content": "console.print(f\"[blue]\ud83d\udd0d Filtered Search Ready: {original_query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 122,
+        "content": "filter_parts.append(f\"[green]\ud83c\udf10 {filters['domain']}[\" / \"green]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 124,
+        "content": "filter_parts.append(f\"[yellow]\ud83d\udcc5 {filters['date_range']}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 127,
+        "content": "console.print(f\"[dim]Filters: {' \u2022 '.join(filter_parts)}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 146,
+        "content": "console.print(Panel(info_table, title=\"[bold]Filtered Search Configuration[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 179,
+        "content": "console.print(f\"[blue]{icon} Content Search Ready: {original_query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 180,
+        "content": "console.print(f\"[dim]Content Type: {content_type.title()}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 194,
+        "content": "console.print(Panel(info_table, title=\"[bold]Content Search Configuration[\" / \"bold]\", border_style=\"purple\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 216,
+        "content": "console.print(f\"[{'green' if is_valid else 'red'}]{status_icon}[\" / \"{'green' if is_valid else 'red'}] Query Validation: {status_text}\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 217,
+        "content": "console.print(f\"[dim]Query: {query}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 221,
+        "content": "console.print(Path(r\"\\n[yellow]\u26a0\ufe0f Issues Found:[\") / \"yellow]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 227,
+        "content": "console.print(Path(r\"\\n[blue]\ud83d\udca1 Suggestions:[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 242,
+        "content": "console.print(Panel(info_table, title=\"[bold]Validation Details[\" / \"bold]\", border_style=\"yellow\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 248,
+        "content": "print(Path(r\"\\n\u26a0\ufe0f Issues Found:\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 253,
+        "content": "print(Path(r\"\\n\ud83d\udca1 Suggestions:\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 269,
+        "content": "console.print(f\"[blue]\ud83d\udca1 Search Suggestions for: {original_query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 270,
+        "content": "console.print(f\"[dim]Type: {suggestion_type.title()}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 273,
+        "content": "console.print(fPath(r\"\\n[green]\ud83d\udcdd Suggested Queries:[\") / \"green]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 277,
+        "content": "console.print(\"[yellow]No suggestions available[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 289,
+        "content": "console.print(Panel(info_table, title=\"[bold]Suggestion Details[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 294,
+        "content": "print(Path(r\"\\n\ud83d\udcdd Suggested Queries:\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 314,
+        "content": "console.print(f\"[green]\u2705 {operation.replace('_', ' ').title()} ready for execution[\" / \"green]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 319,
+        "content": "console.print(f\"[green]\u2705 {operation.replace('_', ' ').title()} completed successfully[\" / \"green]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 324,
+        "content": "console.print(f\"[yellow]\u26a0\ufe0f {operation.replace('_', ' ').title()}: {status}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 343,
+        "content": "console.print(Panel(info_table, title=\"[bold]Operation Details[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 345,
+        "content": "print(Path(r\"\\nOperation Details:\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 381,
+        "content": "console.print(\"[blue]\ud83d\udd0d Web Search Capabilities[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 416,
+        "content": "console.print(fPath(r\"\\n[green]\ud83d\udcb0 Cost Structure:[\") / \"green]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 420,
+        "content": "print(\"[blue]\ud83d\udd0d Web Search Capabilities[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 424,
+        "content": "print(Path(r\"\\nLimitations:\"))"
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 428,
+        "content": "print(Path(r\"\\nCost Structure:\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 108,
+        "content": "thinking_prompt = Path(r\"\\\\n\").join(prompt_parts)"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 111,
+        "content": "print(Path(r\"\\\\n\ud83e\udd16 Executing AI thinking...\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 126,
+        "content": "print(Path(r\"\\\\n\ud83c\udfaf THINKING RESULTS\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 129,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 156,
+        "content": "f.write(fPath(r\"# Thinking Session Report\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 157,
+        "content": "f.write(f\"**Topic:** {{session_data.get('topicPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 158,
+        "content": "f.write(f\"**Approach:** {{session_data.get('thinking_approachPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 159,
+        "content": "f.write(f\"**Focus:** {{session_data.get('thinking_focusPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 160,
+        "content": "f.write(f\"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%SPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 162,
+        "content": "f.write(f\"**Context:** {{session_data.get('contextPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 163,
+        "content": "f.write(fPath(r\"**Model:** {model}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 164,
+        "content": "f.write(f\"**Session ID:** {{session_data.get('session_idPath(r')}}\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 165,
+        "content": "f.write(Path(r\"## Thinking Results\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 227,
+        "content": "print(Path(r\"\\\\n\ud83e\udd16 Executing AI enhancement...\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 256,
+        "content": "print(Path(r\"\\\\n\u2728 PROMPT ENHANCEMENT RESULTS\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 259,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 267,
+        "content": "f.write(fPath(r\"# Prompt Enhancement\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 268,
+        "content": "f.write(f\"**Original:** {{enhancement_data.get('original_topicPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 269,
+        "content": "f.write(f\"**Enhancement Approach:** {{enhancement_data.get('enhancement_approachPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 270,
+        "content": "f.write(f\"**Enhancement Focus:** {{enhancement_data.get('enhancement_focusPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 271,
+        "content": "f.write(f\"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%SPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 272,
+        "content": "f.write(fPath(r\"**Model:** {model}\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 273,
+        "content": "f.write(Path(r\"## Enhancement Results\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 317,
+        "content": "print(Path(r\"\\\\n\ud83c\udf10 Testing API Connection...\"))"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 350,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 117,
+        "content": "url = \"https://api.openai.com/v1/images\" / \"generations\""
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 120,
+        "content": "\"Content-Type\": \"application\" / \"json\","
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 121,
+        "content": "\"User-Agent\": \"Mao-DALLE-Tool\" / \"1.0\""
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 138,
+        "content": "console.print(f\"[blue]\ud83c\udfa8 Generating {{n}} image(s) with DALL-E...[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 139,
+        "content": "console.print(f\"[cyan]\ud83d\udcd0 Size:[/cyan] {{size}} | [cyan]Quality:[/cyan] {{quality}} | [cyan]Style:[\" / \"cyan] {{style}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 140,
+        "content": "console.print(f\"[yellow]\ud83d\udcb0 Estimated cost:[\" / \"yellow] ${{estimated_cost:.3f}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 161,
+        "content": "console.print(f\"[yellow]\u23f3 Rate limited, waiting {{wait_time}} seconds...[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 180,
+        "content": "console.print(f\"[yellow]\u26a0\ufe0f  Request failed (HTTP {{response.status_code}}), retrying...[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 189,
+        "content": "console.print(f\"[yellow]\u23f3 Request timeout, retrying...[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 197,
+        "content": "console.print(f\"[red]\ud83c\udf10 Network error, retrying...[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 234,
+        "content": "console.print(f\"[blue]\ud83d\udce5 Downloading {{len(data['data'])}} image(s)...[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 247,
+        "content": "console.print(f\"[blue]\ud83d\udce5 Downloading image {{i+1}}\" / \"{{len(data['data'])}}...[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 249,
+        "content": "print(f\"\ud83d\udce5 Downloading image {{i+1}}\" / \"{{len(data['data'])}}...\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 257,
+        "content": "filepath = Path(output_dir) \" / \" filename"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 271,
+        "content": "console.print(f\"[green]\u2705 Saved: {{filename}} ({{len(img_response.content):,}} bytes)[\" / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 301,
+        "content": "metadata_file = Path(output_dir) \" / \" f\"generation_metadata_{{timestamp}}.json\""
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 307,
+        "content": "console.print(f\"[blue]\ud83d\udcc4 Metadata saved: {{metadata_file.name}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 315,
+        "content": "console.print(fPath(r\"[green]\\\\n\ud83c\udfa8 Generation complete![\") / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 316,
+        "content": "console.print(f\"[green]\u2705 Generated {{len(generated_images)}} image(s)[\" / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 317,
+        "content": "console.print(f\"[yellow]\ud83d\udcb0 Total cost: ${{estimated_cost:.3f}}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 318,
+        "content": "console.print(f\"[blue]\ud83d\udcc1 Output directory: {{output_dir}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 320,
+        "content": "print(fPath(r\"\\\\n\ud83c\udfa8 Generation complete!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 327,
+        "content": "console.print(f\"[yellow]\u26a0\ufe0f  {{len(download_errors)}} download error(s):[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 332,
+        "content": "console.print(f\"   \u2022 [red]{{error}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 350,
+        "content": "console.print(fPath(r\"[red]\\\\n\u274c Error: {{result[')error']}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 352,
+        "content": "print(fPath(r\"\\\\n\u274c Error: {{result[')error']}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 355,
+        "content": "console.print(f\"[yellow]\ud83d\udca1 Setup: {{result['setup_required']}}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 360,
+        "content": "console.print(fPath(r\"[green]\\\\n\ud83c\udf89 DALL-E generation successful![\") / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 362,
+        "content": "print(fPath(r\"\\n\ud83c\udf89 DALL-E generation successful!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 364,
+        "content": "console.print(f\"[blue]\ud83d\udcca Result: {{json.dumps(result, indent=2)}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 413,
+        "content": "console.print(f\"[blue]\u2728 Enhancing prompt with approach: {{enhancement_approach}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 414,
+        "content": "console.print(f\"[cyan]\ud83c\udfaf Focus area: {{enhancement_focus}}[\" / \"cyan]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 466,
+        "content": "console.print(fPath(r\"[blue]\\\\n\ud83d\udcdd Original prompt ({{len(basic_prompt)}} chars):[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 467,
+        "content": "console.print(f\"   [cyan]{{basic_prompt}}[\" / \"cyan]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 468,
+        "content": "console.print(fPath(r\"[blue]\\\\n\u2728 Enhanced prompt ({{len(enhanced_prompt)}} chars):[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 469,
+        "content": "console.print(f\"   [cyan]{{enhanced_prompt}}[\" / \"cyan]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 470,
+        "content": "console.print(fPath(r\"[blue]\\\\n\ud83d\udcca Enhancement complete![\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 472,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcdd Original prompt ({{len(basic_prompt)}} chars):\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 474,
+        "content": "print(fPath(r\"\\\\n\u2728 Enhanced prompt ({{len(enhanced_prompt)}} chars):\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 476,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcca Enhancement complete!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 489,
+        "content": "console.print(fPath(r\"[red]\\\\n\u274c Error: {{result[')error']}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 491,
+        "content": "print(fPath(r\"\\\\n\u274c Error: {{result[')error']}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 494,
+        "content": "console.print(fPath(r\"[green]\\\\n\ud83c\udf89 Prompt enhancement successful![\") / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 496,
+        "content": "print(fPath(r\"\\\\n\ud83c\udf89 Prompt enhancement successful!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 498,
+        "content": "console.print(f\"[blue]\ud83d\udcca Result: {{json.dumps(result, indent=2)}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 554,
+        "content": "validation_result[\"suggestions\"].append(\"Get your API key from https://platform.openai.com\" / \"api-keys\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 600,
+        "content": "console.print(fPath(r\"[blue]\\\\n\ud83d\udcca Validation Summary:[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 601,
+        "content": "console.print(f\"   [cyan]API Key Present:[\" / \"cyan] {{'\u2705' if validation_result['api_key_present'] else '\u274c'}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 602,
+        "content": "console.print(f\"   [cyan]Format Valid:[\" / \"cyan] {{'\u2705' if validation_result['api_key_valid_format'] else '\u274c'}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 603,
+        "content": "console.print(f\"   [cyan]Setup Complete:[\" / \"cyan] {{'\u2705' if validation_result['setup_complete'] else '\u274c'}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 605,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcca Validation Summary:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 612,
+        "content": "console.print(fPath(r\"[red]\\\\n\ud83d\udea8 Issues found:[\") / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 614,
+        "content": "print(fPath(r\"\\\\n\ud83d\udea8 Issues found:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 617,
+        "content": "console.print(f\"   \u2022 [red]{{issue}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 623,
+        "content": "console.print(fPath(r\"[yellow]\\\\n\ud83d\udca1 Suggestions:[\") / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 625,
+        "content": "print(fPath(r\"\\\\n\ud83d\udca1 Suggestions:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 628,
+        "content": "console.print(f\"   \u2022 [yellow]{{suggestion}}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 643,
+        "content": "console.print(fPath(r\"[red]\\\\n\u274c Error: {{result[')error']}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 645,
+        "content": "print(fPath(r\"\\\\n\u274c Error: {{result[')error']}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 648,
+        "content": "console.print(fPath(r\"[green]\\\\n\ud83c\udf89 Validation complete![\") / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 650,
+        "content": "print(fPath(r\"\\\\n\ud83c\udf89 Validation complete!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 652,
+        "content": "console.print(f\"[blue]\ud83d\udcca Result: {{json.dumps(result, indent=2)}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 707,
+        "content": "console.print(f\"[blue]\ud83c\udfa8 Starting batch generation for {{len(prompts)}} prompts...[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 719,
+        "content": "console.print(fPath(r\"[blue]\\\\n\ud83d\udcdd Processing prompt {{i+1}}/{{len(prompts)}}: {{prompt[:50]}}...[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 721,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcdd Processing prompt {{i+1}}\") / \"{{len(prompts)}}: {{prompt[:50]}}...\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 737,
+        "content": "console.print(f\"[green]\u2705 Success: {{len(result.get('generated_images', []))}} image(s)[\" / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 743,
+        "content": "console.print(f\"[red]\u274c Failed: {{result.get('error', 'Unknown error')}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 756,
+        "content": "console.print(\"[yellow]\u23f3 Waiting 1 second to avoid rate limits...[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 764,
+        "content": "console.print(f\"[red]\u274c Exception: {{str(e)}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 781,
+        "content": "\"average_cost_per_success\": total_cost \" / \" successful if successful > 0 else 0"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 789,
+        "content": "console.print(fPath(r\"[green]\\\\n\ud83c\udf89 Batch generation complete![\") / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 791,
+        "content": "print(fPath(r\"\\\\n\ud83c\udf89 Batch generation complete!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 793,
+        "content": "console.print(f\"[blue]\ufffd\ufffd Summary:[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 795,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcca Summary:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 797,
+        "content": "console.print(f\"   [cyan]Total prompts:[\" / \"cyan] {{len(prompts)}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 801,
+        "content": "console.print(f\"   [green]Successful:[\" / \"green] {{successful}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 805,
+        "content": "console.print(f\"   [red]Failed:[\" / \"red] {{failed}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 809,
+        "content": "console.print(f\"[yellow]Total cost:[\" / \"yellow] ${{total_cost:.3f}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 814,
+        "content": "console.print(f\"   [yellow]Average cost per success:[/yellow] ${{total_cost \" / \" successful:.3f}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 816,
+        "content": "print(f\"   Average cost per success: ${{total_cost \" / \" successful:.3f}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 848,
+        "content": "url = \"https://api.openai.com/v1/images\" / \"generations\""
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 851,
+        "content": "\"Content-Type\": \"application\" / \"json\""
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 886,
+        "content": "filepath = Path(output_dir) \" / \" filename"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 912,
+        "content": "console.print(fPath(r\"[red]\\\\n\u274c Error: {{result[')error']}}[\" / \"red]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 914,
+        "content": "print(fPath(r\"\\\\n\u274c Error: {{result[')error']}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 917,
+        "content": "console.print(fPath(r\"[green]\\\\n\ud83c\udf89 Batch generation successful![\") / \"green]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 919,
+        "content": "print(fPath(r\"\\\\n\ud83c\udf89 Batch generation successful!\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 921,
+        "content": "console.print(f\"[blue]\ud83d\udcca Result: {{json.dumps(result, indent=2)}}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1023,
+        "content": "console.print(Path(r\"\\\\n\ud83d\udd27 Available Operations:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1025,
+        "content": "print(Path(r\"\\\\n\ud83d\udd27 Available Operations:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1028,
+        "content": "console.print(f\"   \u2022 [cyan]{{op}}[\" / \"cyan]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1033,
+        "content": "console.print(fPath(r\"\\\\n\ud83e\udd16 Supported Models: {{'), '.join(capabilities['supported_models'])}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1035,
+        "content": "print(fPath(r\"\\\\n\ud83e\udd16 Supported Models: {{'), '.join(capabilities['supported_models'])}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1042,
+        "content": "console.print(Path(r\"\\\\n\ud83d\udcd0 Supported Sizes:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1044,
+        "content": "print(Path(r\"\\\\n\ud83d\udcd0 Supported Sizes:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1047,
+        "content": "console.print(f\"   \u2022 [cyan]{{size}}[\" / \"cyan]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1052,
+        "content": "console.print(fPath(r\"\\\\n\ud83c\udfad Quality Levels: {{'), '.join(capabilities['supported_qualities'])}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1054,
+        "content": "print(fPath(r\"\\\\n\ud83c\udfad Quality Levels: {{'), '.join(capabilities['supported_qualities'])}}\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1061,
+        "content": "console.print(Path(r\"\\\\n\u26a0\ufe0f  Limitations:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1063,
+        "content": "print(Path(r\"\\\\n\u26a0\ufe0f  Limitations:\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1066,
+        "content": "console.print(f\"   \u2022 [yellow]{{key.replace('_', ' ').title()}}:[/yellow] [cyan]{{value}}[\" / \"cyan]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1071,
+        "content": "console.print(Path(r\"\\\\n\ud83d\udcb0 Cost Structure (USD):\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1073,
+        "content": "print(Path(r\"\\\\n\ud83d\udcb0 Cost Structure (USD):\"))"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1077,
+        "content": "console.print(f\"   \u2022 [cyan]{{size_quality.replace('_', ' ')}}:[/cyan] [yellow]${{cost:.3f}}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1086,
+        "content": "console.print(fPath(r\"\\\\n\ud83d\udcca Full capabilities data: [blue]{{json.dumps(result, indent=2)}}[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 1088,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcca Full capabilities data: {{json.dumps(result, indent=2)}}\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 54,
+        "content": "\"media_type\": \"image\" / \"jpeg\","
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 77,
+        "content": "\"url\": f\"data:image\" / \"jpeg;base64,{image_data}\""
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 101,
+        "content": "\"media_type\": \"image\" / \"jpeg\","
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 160,
+        "content": "- Background\" / \"foreground relationship"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 198,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 208,
+        "content": "f.write(fPath(r\"# Professional Image Analysis\\\\n\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 209,
+        "content": "f.write(fPath(r\"**File:** {{image_path}}\\\\n\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 210,
+        "content": "f.write(fPath(r\"**Analysis Approach:** {{analysis_approach}}\\\\n\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 211,
+        "content": "f.write(f\"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%SPath(r')}}\\\\n\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 212,
+        "content": "f.write(fPath(r\"**Model:** {model}\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 213,
+        "content": "f.write(Path(r\"## Analysis Results\\\\n\\\\n\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 215,
+        "content": "f.write(Path(r\"\\\\n\\\\n---\\\\n*Generated by MAO Graphic Design Tool*\"))"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 217,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 300,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 375,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 45,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 92,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 141,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 184,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 203,
+        "content": "print(f\"\ud83d\udcca Status Summary: {{online_count}}\" / \"{{total_count}} servers online\")"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 226,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 245,
+        "content": "print(Path(r\"\\\\n\ud83d\udccb Available Operations:\"))"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 249,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcb0 Estimated cost: ${cost_estimate:.4f}\"))"
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 189,
+        "content": "Path(r\"\\n\").join(content),"
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 223,
+        "content": "Path(r\"\\n\").join(content),"
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 247,
+        "content": "f\"\ud83d\udd0c Servers: {online_servers}\" / \"{total_servers} online\","
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 248,
+        "content": "f\"\ud83d\udee0\ufe0f Tools: {available_tools}\" / \"{total_tools} available\","
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 253,
+        "content": "Path(r\"\\n\").join(summary_text),"
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 281,
+        "content": "Path(r\"\\n\").join(help_content),"
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 295,
+        "content": "return f\"Server: {params.get('server_name', 'N\" / \"A')}, Tool: {params.get('tool_name', 'N\" / \"A')}\""
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 298,
+        "content": "return f\"Server: {config.get('name', 'N\" / \"A')}, Command: {' '.join(config.get('command', []))}\""
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 156,
+        "content": "console.print(Path(r\"\\n\ud83d\udcc1 Saved Files:\"), style=\"bold\")"
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 190,
+        "content": "console.print(Path(r\"\\n\ud83d\udccb Files by Category:\"), style=\"bold\")"
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 281,
+        "content": "console.print(Path(r\"\\n\ud83d\udccb Operation Details:\"), style=\"bold\")"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 55,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 90,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 125,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 162,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 198,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 224,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 23,
+        "content": "query: Search\" / \"research query"
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 62,
+        "content": "\"api_endpoint\": \"https://api.perplexity.ai/chat\" / \"completions\""
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 111,
+        "content": "\"api_endpoint\": \"https://api.perplexity.ai/chat\" / \"completions\""
+      },
+      {
+        "file": "tools/perplexity_search/perplexity_search.py",
+        "line": 283,
+        "content": "\"api_endpoint\": \"https://api.perplexity.ai/chat\" / \"completions\","
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 83,
+        "content": "console.print(\"[blue]\ud83e\udde0 Perplexity AI Search[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 84,
+        "content": "console.print(f\"[cyan]\ud83d\udcdd Query:[\" / \"cyan] {{params['query']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 85,
+        "content": "console.print(f\"[cyan]\ud83e\udd16 Model:[\" / \"cyan] {{params['model']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 99,
+        "content": "console.print(\"[green]\u2705 Search configuration ready[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 100,
+        "content": "console.print(f\"[yellow]\ud83d\udcb0 Estimated cost:[\" / \"yellow] ${{estimate_cost(params):.4f}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 101,
+        "content": "console.print(\"[dim]\ud83d\udca1 Now execute with Perplexity API using the configuration above[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 108,
+        "content": "console.print(\"[red]\u274c Search preparation failed[\" / \"red]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 150,
+        "content": "console.print(\"[blue]\ud83e\udde0 Enhanced Perplexity Research[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 151,
+        "content": "console.print(f\"[cyan]\ud83d\udcdd Query:[\" / \"cyan] {{params['query']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 152,
+        "content": "console.print(f\"[cyan]\ud83d\udcca Approach:[\" / \"cyan] {{params['research_approach']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 153,
+        "content": "console.print(f\"[cyan]\ud83c\udfaf Focus:[\" / \"cyan] {{params['analysis_focus']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 168,
+        "content": "console.print(\"[green]\u2705 Enhanced research configuration ready[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 169,
+        "content": "console.print(f\"[yellow]\ud83d\udcb0 Estimated cost:[\" / \"yellow] ${{estimate_cost(params):.4f}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 170,
+        "content": "console.print(\"[dim]\ud83d\udca1 Now execute with Perplexity API using the enhanced configuration above[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 177,
+        "content": "console.print(\"[red]\u274c Research preparation failed[\" / \"red]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 210,
+        "content": "console.print(\"[blue]\ud83e\udde0 Perplexity Query Validation[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 211,
+        "content": "console.print(f\"[cyan]\ud83d\udcdd Query:[\" / \"cyan] {{query}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 224,
+        "content": "console.print(\"[green]\u2705 Query is optimized for Perplexity AI[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 229,
+        "content": "console.print(\"[yellow]\u26a0\ufe0f Query could be improved for better results[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 267,
+        "content": "console.print(\"[blue]\ud83e\udde0 Perplexity Research Suggestions[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 268,
+        "content": "console.print(f\"[cyan]\ud83d\udcdd Query:[\" / \"cyan] {{params['query']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 269,
+        "content": "console.print(f\"[cyan]\ud83c\udfaf Type:[\" / \"cyan] {{params['suggestion_type']}}\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 283,
+        "content": "console.print(f\"[green]\u2705 Generated {{len(result['suggestions'])}} research suggestions[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 288,
+        "content": "console.print(\"[yellow]\u26a0\ufe0f No suggestions could be generated[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 318,
+        "content": "console.print(\"[blue]\ud83e\udde0 Perplexity API Configuration Check[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 330,
+        "content": "console.print(\"[green]\u2705 Perplexity API is properly configured[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/button_perplexity_search.py",
+        "line": 335,
+        "content": "console.print(\"[red]\u274c API configuration needs attention[\" / \"red]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 122,
+        "content": "console.print(f\"[blue]\ud83e\udde0 Perplexity Search Ready: {query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 141,
+        "content": "console.print(Panel(info_table, title=\"[bold]Perplexity Search Configuration[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 152,
+        "content": "console.print(f\"[dim]\ud83e\udd16 {model} \u2022 ${estimated_cost:.3f} estimated[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 165,
+        "content": "console.print(f\"[blue]\ud83e\udde0 Enhanced Research Ready: {query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 166,
+        "content": "console.print(f\"[dim]Approach: {research_approach.title()} \u2022 Focus: {analysis_focus.title()}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 181,
+        "content": "console.print(Panel(info_table, title=\"[bold]Enhanced Research Configuration[\" / \"bold]\", border_style=\"purple\"))"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 194,
+        "content": "status_icon = \"[green]\u2705[\" / \"green]\""
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 197,
+        "content": "status_icon = \"[red]\u274c[\" / \"red]\""
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 201,
+        "content": "console.print(f\"[dim]Query: {query}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 202,
+        "content": "console.print(f\"[dim]Estimated Quality: {estimated_quality.title()}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 206,
+        "content": "console.print(Path(r\"\\n[yellow]\u26a0\ufe0f Issues Found:[\") / \"yellow]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 212,
+        "content": "console.print(Path(r\"\\n[blue]\ud83d\udca1 Suggestions:[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 217,
+        "content": "console.print(f\"  [dim]... and {len(suggestions) - 3} more (use verbose mode)[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 231,
+        "content": "console.print(Panel(info_table, title=\"[bold]Validation Details[\" / \"bold]\", border_style=\"yellow\"))"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 240,
+        "content": "console.print(f\"[blue]\ud83d\udca1 Research Suggestions for: {original_query}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 241,
+        "content": "console.print(f\"[dim]Type: {suggestion_type.title()}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 244,
+        "content": "console.print(fPath(r\"\\n[green]\ud83d\udcdd Suggested Research Queries:[\") / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 251,
+        "content": "console.print(f\"  [dim]... and {len(suggestions) - 5} more (use verbose mode)[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 253,
+        "content": "console.print(\"[yellow]No suggestions available[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 265,
+        "content": "console.print(Panel(info_table, title=\"[bold]Suggestion Details[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 278,
+        "content": "status_icon = \"[green]\u2705[\" / \"green]\""
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 281,
+        "content": "status_icon = \"[red]\u274c[\" / \"red]\""
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 287,
+        "content": "console.print(Path(r\"\\n[yellow]\u26a0\ufe0f Configuration Issues:[\") / \"yellow]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 292,
+        "content": "console.print(Path(r\"\\n[blue]\ud83d\udca1 Setup Instructions:[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 311,
+        "content": "console.print(Panel(info_table, title=\"[bold]API Configuration Details[\" / \"bold]\", border_style=\"cyan\"))"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 340,
+        "content": "console.print(f\"[green]\u2705 {operation.replace('_', ' ').title()} ready for execution[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 342,
+        "content": "console.print(f\"[green]\u2705 {operation.replace('_', ' ').title()} completed successfully[\" / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 344,
+        "content": "console.print(f\"[yellow]\u26a0\ufe0f {operation.replace('_', ' ').title()}: {status}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 360,
+        "content": "console.print(Panel(info_table, title=\"[bold]Operation Details[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 390,
+        "content": "console.print(\"[blue]\ud83e\udde0 Perplexity AI Capabilities[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 433,
+        "content": "console.print(fPath(r\"\\n[green]\ud83e\udd16 Supported Models:[\") / \"green]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 436,
+        "content": "console.print(f\"  \u2022 {model} [dim](Fast, Lower Cost)[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 438,
+        "content": "console.print(f\"  \u2022 {model} [dim](Balanced Performance)[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 440,
+        "content": "console.print(f\"  \u2022 {model} [dim](Most Capable)[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 445,
+        "content": "console.print(fPath(r\"\\n[green]\ud83d\udcb0 Cost Structure:[\") / \"green]\")"
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 55,
+        "content": "\"web\": \"https://api.search.brave.com/res/v1/web\" / \"search\","
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 56,
+        "content": "\"news\": \"https://api.search.brave.com/res/v1/news\" / \"search\","
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 57,
+        "content": "\"local\": \"https://api.search.brave.com/res/v1/web\" / \"search\""
+      },
+      {
+        "file": "tools/brave_search/brave_search.py",
+        "line": 64,
+        "content": "\"Accept\": \"application\" / \"json\","
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 84,
+        "content": "print(fPath(r\"\\\\n\u2705 Document created successfully\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 93,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 143,
+        "content": "print(fPath(r\"\\\\n\u2705 Content edited successfully\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 152,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 164,
+        "content": "separator = params.get(\"separator\", Path(r\"\\\\n\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 199,
+        "content": "print(fPath(r\"\\\\n\u2705 Content appended successfully\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 208,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 250,
+        "content": "print(fPath(r\"\\\\n\u2705 Document prepared for AI formatting\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 261,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 297,
+        "content": "print(fPath(r\"\\\\n\u2705 Document analysis complete\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 306,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 342,
+        "content": "print(fPath(r\"\\\\n\u2705 Path validation complete\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 351,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 399,
+        "content": "print(fPath(r\"\\\\n\u2705 Document created from template\"))"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 409,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 22,
+        "content": "f\"[red]\u274c {error_message}[\" / \"red]\","
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 23,
+        "content": "title=\"[bold red]Error[\" / \"bold red]\","
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 65,
+        "content": "console.print(f\"[green]\u2705 Document created: {file_name}[\" / \"green]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 78,
+        "content": "console.print(Panel(info_table, title=\"[bold]Document Details[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 80,
+        "content": "console.print(f\"[dim]\ud83d\udcdd {document_type.title()} \u2022 {content_length:,} characters[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 90,
+        "content": "change_text = f\"[green]+{change_delta}[\" / \"green]\""
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 92,
+        "content": "change_text = f\"[red]{change_delta}[\" / \"red]\""
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 94,
+        "content": "change_text = \"[yellow]\u00b10[\" / \"yellow]\""
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 96,
+        "content": "console.print(f\"[green]\u2705 Content updated: {file_name}[\" / \"green] {change_text}\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 110,
+        "content": "info_table.add_row(\"\ud83d\udcbe Backup Created\", backup_path.split('\" / \"')[-1])"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 114,
+        "content": "console.print(Panel(info_table, title=\"[bold]Edit Details[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 117,
+        "content": "console.print(f\"[dim]\ud83d\udcbe Backup created \u2022 {result.get('updated_length', 0):,} characters total[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 125,
+        "content": "console.print(f\"[green]\u2705 Content appended: {file_name}[/green] [green]+{appended_length}[\" / \"green]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 138,
+        "content": "console.print(Panel(info_table, title=\"[bold]Append Details[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 140,
+        "content": "console.print(f\"[dim]\ud83d\udcca Total: {total_length:,} characters[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 148,
+        "content": "console.print(f\"[green]\u2705 Document ready for AI formatting: {file_name}[\" / \"green]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 161,
+        "content": "info_table.add_row(\"\ud83d\udcbe Backup Created\", backup_path.split('\" / \"')[-1])"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 165,
+        "content": "console.print(Panel(info_table, title=\"[bold]Format Preparation[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 167,
+        "content": "console.print(f\"[dim]\ud83c\udfa8 {format_type.title()} formatting \u2022 {content_length:,} characters[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 174,
+        "content": "console.print(f\"[blue]\ud83d\udcca Document Analysis: {file_name}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 202,
+        "content": "Panel(file_table, title=\"[bold]File Information[\" / \"bold]\", border_style=\"blue\"),"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 203,
+        "content": "Panel(stats_table, title=\"[bold]Content Statistics[\" / \"bold]\", border_style=\"green\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 209,
+        "content": "console.print(f\"[dim]\ud83d\udcca {words:,} words \u2022 {lines:,} lines \u2022 {result.get('file_size_kb', 0)} KB[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 218,
+        "content": "status_icon = \"[green]\u2705[\" / \"green]\""
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 221,
+        "content": "status_icon = \"[yellow]\ud83d\udcdd[\" / \"yellow]\""
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 237,
+        "content": "console.print(Panel(info_table, title=\"[bold]Path Details[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 245,
+        "content": "console.print(f\"[green]\u2705 Document created from template: {file_name}[\" / \"green]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 257,
+        "content": "console.print(Panel(info_table, title=\"[bold]Template Document[\" / \"bold]\", border_style=\"green\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 259,
+        "content": "console.print(f\"[dim]\ud83d\udccb {document_type.title()} template \u2022 {content_length:,} characters[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 267,
+        "content": "console.print(f\"[green]\u2705 {operation.replace('_', ' ').title()} completed successfully[\" / \"green]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 269,
+        "content": "console.print(f\"[yellow]\u26a0\ufe0f {operation.replace('_', ' ').title()}: {status}[\" / \"yellow]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 285,
+        "content": "console.print(Panel(info_table, title=\"[bold]Operation Details[\" / \"bold]\", border_style=\"blue\"))"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 295,
+        "content": "file_name = file_path.split('\" / \"')[-1] if '\" / \"' in file_path else file_path"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 298,
+        "content": "console.print(f\"[dim green]\ud83d\udcbe {file_name}[\" / \"dim green]\", end=\"\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 308,
+        "content": "file_name = file_path.split('\" / \"')[-1] if '\" / \"' in file_path else file_path"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 310,
+        "content": "console.print(f\"[blue]\ud83d\udcdd Editing: {file_name}[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 311,
+        "content": "console.print(f\"[dim]Document type: {document_type.title()}[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 327,
+        "content": "console.print(fPath(r\"\\n[blue]\ud83d\udcca Editing Session Complete[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 328,
+        "content": "console.print(f\"[dim]Operations: {successful_operations}/{total_operations} successful[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 331,
+        "content": "console.print(f\"[dim]Duration: {total_time:.1f} seconds[\" / \"dim]\")"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 50,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 105,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 157,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 197,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 217,
+        "content": "print(f\"\ud83d\udcca Download Results: {{success_count}}\" / \"{{len(results)}} successful\")"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 238,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 248,
+        "content": "print(Path(r\"\\\\n\ud83d\udccb Available Operations:\"))"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 261,
+        "content": "print(fPath(r\"\\\\n\u26a0\ufe0f Unknown operation: {operation}\"))"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 262,
+        "content": "print(Path(r\"\\\\n\ud83e\uddea Running example code...\"))"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 303,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcb0 Estimated cost: ${cost_estimate:.4f}\"))"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 42,
+        "content": "'hardcoded_separators': r'[\"\\'][^\"\\']*[/\\\\][^\"\\']*[\"\\']',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 43,
+        "content": "'concatenated_paths': r'\\+.*[\"\\'][^\"\\']*[/\\\\]',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 44,
+        "content": "'format_paths': r'\\.format\\(.*[/\\\\]',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 45,
+        "content": "'fstring_paths': r'f[\"\\'][^\"\\']*\\{.*\\}[^\"\\']*[/\\\\]'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 53,
+        "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\", \"tools\", \"scripts\"]"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 179,
+        "content": "# Look for patterns like string + \"/\" + string"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 183,
+        "content": "if (left_str and ('/' in left_str or '\\\\' in left_str)) or \\"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 184,
+        "content": "(right_str and ('/' in right_str or '\\\\' in right_str)):"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 207,
+        "content": "lines = content.split('\\n')"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 211,
+        "content": "if re.search(r'[\"\\'][^\"\\']*[/\\\\][^\"\\']*[\"\\']', line):"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 219,
+        "content": "if '+' in line and ('/' in line or '\\\\' in line):"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 257,
+        "content": "'recommendation': 'Use pathlib.Path / operator or os.path.join'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 266,
+        "content": "'recommendation': 'Standardize on pathlib.Path.exists() or Path.is_file()/is_dir()'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 315,
+        "content": "recommendations.append(\"\ud83d\udee4\ufe0f Replace hardcoded path separators with pathlib.Path / operator\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 389,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 401,
+        "content": "print(f\"\ud83d\udcca Path Handling Score: {summary['path_handling_score']:.1f}/100\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 405,
+        "content": "print(f\"\\n\ud83d\udc0d PATHLIB OPERATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 411,
+        "content": "print(f\"\\n\ud83d\udcdd STRING PATH OPERATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 417,
+        "content": "print(f\"\\n\u26a0\ufe0f INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 421,
+        "content": "print(f\"\\n\ud83d\udca1 RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 425,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 30,
+        "content": "(rPath(r\"sys\\.path\\.append\\(os\\.path\\.join\\(os\\.path\\.dirname\\(__file__\\).*?user_id_generator.*?\\)\\)\"),"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 32,
+        "content": "Path(r\"from scripts.user_id_generator.user_id_generator import \\\\2\"),"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 35,
+        "content": "(rPath(r\"sys\\.path\\.append\\(os\\.path\\.join\\(os\\.path\\.dirname\\(__file__\\).*?unique_id_generator.*?\\)\\)\"),"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 37,
+        "content": "Path(r\"from scripts.unique_id_generator.unique_id_generator import \\\\2\"),"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 40,
+        "content": "(rPath(r\"sys\\.path\\.append\\(str\\(Path\\(__file__\\)\\.parent\\.parent\\.parent\\)\\)\"),"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 41,
+        "content": "rPath(r\"from orchestrator\\.(.*?) import (.*?)\")):"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 42,
+        "content": "Path(r\"from orchestrator.\\\\1 import \\\\2\")"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 47,
+        "content": "\"versioning/v3\" / \"\",  # Legacy versions"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 48,
+        "content": "\"tests\" / \"typescript-\",  # Non-Python"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 68,
+        "content": "lines = content.split(Path(r'\\n'))"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 108,
+        "content": "return Path(r'\\n').join(fixed_lines)"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 130,
+        "content": "lines = content.split(Path(r'\\n'))"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 156,
+        "content": "return Path(r'\\n').join(fixed_lines)"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 223,
+        "content": "print(fPath(r\"\\n\ud83d\udcca FIXER RESULTS:\"))"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 242,
+        "content": "response = input(\"Continue? (y\" / \"N): \").strip().lower()"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 250,
+        "content": "print(fPath(r\"\\n\u2705 Import fixing complete!\"))"
+      }
+    ],
+    "concatenated": [
+      {
+        "file": "orchestrator/conversation_bridge.py",
+        "line": 213,
+        "content": "rPath(r\"(marketing|content|business|competitive?)\\s+(strategy|plan|analysis)\"),"
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "content": "error_content = error_message + Path(r\"\\n\\n\") + Path(r\"\\n\").join(context_lines)"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 129,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 259,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 350,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 247,
+        "content": "console.print(f\"[blue]\ud83d\udce5 Downloading image {{i+1}}\" / \"{{len(data['data'])}}...[\" / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 249,
+        "content": "print(f\"\ud83d\udce5 Downloading image {{i+1}}\" / \"{{len(data['data'])}}...\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 719,
+        "content": "console.print(fPath(r\"[blue]\\\\n\ud83d\udcdd Processing prompt {{i+1}}/{{len(prompts)}}: {{prompt[:50]}}...[\") / \"blue]\")"
+      },
+      {
+        "file": "tools/dalle_generate/button_dalle_generate.py",
+        "line": 721,
+        "content": "print(fPath(r\"\\\\n\ud83d\udcdd Processing prompt {{i+1}}\") / \"{{len(prompts)}}: {{prompt[:50]}}...\")"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 198,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 217,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 300,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 375,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*60)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 93,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 152,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 208,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 261,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 306,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 351,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 409,
+        "content": "print(Path(r\"\\\\n\") + \"=\"*50)"
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 90,
+        "content": "change_text = f\"[green]+{change_delta}[\" / \"green]\""
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 125,
+        "content": "console.print(f\"[green]\u2705 Content appended: {file_name}[/green] [green]+{appended_length}[\" / \"green]\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 43,
+        "content": "'concatenated_paths': r'\\+.*[\"\\'][^\"\\']*[/\\\\]',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 179,
+        "content": "# Look for patterns like string + \"/\" + string"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 219,
+        "content": "if '+' in line and ('/' in line or '\\\\' in line):"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 389,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      }
+    ]
+  },
+  "inconsistencies": {
+    "mixed_path_apis": {
+      "description": "Mixed usage of pathlib and os.path",
+      "pathlib_operations": 68,
+      "string_path_operations": 1,
+      "recommendation": "Standardize on pathlib.Path for consistency and cross-platform compatibility"
+    },
+    "hardcoded_separators": {
+      "description": "Hardcoded path separators found",
+      "count": 520,
+      "recommendation": "Use pathlib.Path or os.path.join for cross-platform compatibility"
+    }
+  },
+  "recommendations": [
+    "\ud83d\udd27 Standardize on pathlib.Path for all file operations",
+    "\ud83d\udee4\ufe0f Replace hardcoded path separators with pathlib.Path / operator",
+    "\ud83c\udf0d Ensure cross-platform compatibility in path handling",
+    "\ud83d\udcc1 Use relative paths where appropriate for portability",
+    "\ud83e\uddea Add path handling tests for different operating systems",
+    "\ud83d\udcda Document path handling conventions and standards"
+  ]
+}

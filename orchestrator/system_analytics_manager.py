@@ -47,7 +47,7 @@ class SystemAnalyticsManager:
     4. Performance and health monitoring focus
     """
     
-    def __init__(self, system_dir: str = "./configs/system/"):
+    def __init__(self, system_dir: str = "./configs/system" / ""):
         self.system_dir = Path(system_dir)
         self.analytics_dir = self.system_dir / "analytics"
         self.user_analytics_manager = UserAnalyticsManager()
@@ -70,7 +70,7 @@ class SystemAnalyticsManager:
     @handle_errors
     def _read_system_analytics_file(self, filename: str) -> Dict:
         """Read system analytics file with error handling"""
-        file_path = self.analytics_dir / filename
+        file_path = self.analytics_dir " / " filename
         
         if not file_path.exists():
             return self._create_default_system_analytics_file(filename)
@@ -85,7 +85,7 @@ class SystemAnalyticsManager:
     @handle_errors
     def _write_system_analytics_file(self, filename: str, data: Dict) -> bool:
         """Write system analytics file with error handling"""
-        file_path = self.analytics_dir / filename
+        file_path = self.analytics_dir " / " filename
         
         try:
             with open(file_path, 'w') as f:
@@ -199,18 +199,18 @@ class SystemAnalyticsManager:
                                 if workflow.get("completion_time") and workflow.get("start_time"):
                                     start_time = datetime.fromisoformat(workflow["start_time"].replace('Z', '+00:00'))
                                     end_time = datetime.fromisoformat(workflow["completion_time"].replace('Z', '+00:00'))
-                                    duration = (end_time - start_time).total_seconds() / 60
+                                    duration = (end_time - start_time).total_seconds() " / " 60
                                     
                                     current_avg = workflow_types[tag]["avg_duration_minutes"]
                                     count = workflow_types[tag]["usage_count"]
-                                    workflow_types[tag]["avg_duration_minutes"] = (current_avg * (count - 1) + duration) / count
+                                    workflow_types[tag]["avg_duration_minutes"] = (current_avg * (count - 1) + duration) " / " count
                                 
                                 # Update success rate
                                 if workflow.get("success", False):
                                     current_success_rate = workflow_types[tag]["success_rate"]
                                     count = workflow_types[tag]["usage_count"]
                                     current_successes = current_success_rate * (count - 1)
-                                    workflow_types[tag]["success_rate"] = (current_successes + 1) / count
+                                    workflow_types[tag]["success_rate"] = (current_successes + 1) " / " count
                 
                 # Process tool usage
                 if "tools" in user_data and "tool_usage" in user_data["tools"]:
@@ -229,7 +229,7 @@ class SystemAnalyticsManager:
                             if current_avg == 0:
                                 tool_popularity[tool_name]["avg_success_rate"] = tool_data["success_rate"]
                             else:
-                                tool_popularity[tool_name]["avg_success_rate"] = (current_avg + tool_data["success_rate"]) / 2
+                                tool_popularity[tool_name]["avg_success_rate"] = (current_avg + tool_data["success_rate"]) " / " 2
                 
                 # Count sessions
                 if "sessions" in user_data and "aggregates" in user_data["sessions"]:
@@ -273,7 +273,7 @@ class SystemAnalyticsManager:
                 tool_data["avg_response_time"] = response_time
             else:
                 current_avg = tool_data["avg_response_time"]
-                tool_data["avg_response_time"] = (current_avg * old_total + response_time) / tool_data["total_executions"]
+                tool_data["avg_response_time"] = (current_avg * old_total + response_time) " / " tool_data["total_executions"]
             
             # Update success rate
             if old_total == 0:
@@ -281,7 +281,7 @@ class SystemAnalyticsManager:
             else:
                 current_successes = tool_data["success_rate"] * old_total
                 new_successes = current_successes + (1 if success else 0)
-                tool_data["success_rate"] = new_successes / tool_data["total_executions"]
+                tool_data["success_rate"] = new_successes " / " tool_data["total_executions"]
             
             # Track error patterns
             if error_type and not success:
@@ -292,7 +292,7 @@ class SystemAnalyticsManager:
                 # Convert to rates
                 total_errors = sum(tool_data["error_patterns"].values())
                 for error, count in tool_data["error_patterns"].items():
-                    tool_data["error_patterns"][error] = count / tool_data["total_executions"]
+                    tool_data["error_patterns"][error] = count " / " tool_data["total_executions"]
             
             # Update system health metrics
             all_tools = data["tool_metrics"].values()
@@ -302,9 +302,9 @@ class SystemAnalyticsManager:
                 weighted_response_time = sum(tool.get("avg_response_time", 0) * tool.get("total_executions", 0) for tool in all_tools)
                 
                 if total_executions > 0:
-                    data["system_health"]["overall_success_rate"] = weighted_success_rate / total_executions
-                    data["system_health"]["avg_response_time"] = weighted_response_time / total_executions
-                    data["system_health"]["error_rate"] = 1.0 - (weighted_success_rate / total_executions)
+                    data["system_health"]["overall_success_rate"] = weighted_success_rate " / " total_executions
+                    data["system_health"]["avg_response_time"] = weighted_response_time " / " total_executions
+                    data["system_health"]["error_rate"] = 1.0 - (weighted_success_rate " / " total_executions)
                     data["system_health"]["uptime_percentage"] = 99.5  # Placeholder - would be calculated from actual uptime
             
             data["metadata"]["total_executions_analyzed"] = sum(tool.get("total_executions", 0) for tool in all_tools)
@@ -362,7 +362,7 @@ class SystemAnalyticsManager:
             if total_hours > 0:
                 peak_hours = {k: v / total_hours for k, v in peak_hours.items()}
             if total_days > 0:
-                peak_days = {k: v / total_days for k, v in peak_days.items()}
+                peak_days = {k: v " / " total_days for k, v in peak_days.items()}
             
             return {
                 "peak_hours": peak_hours,

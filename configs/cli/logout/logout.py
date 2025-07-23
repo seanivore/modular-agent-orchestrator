@@ -22,7 +22,7 @@ def execute_logout(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main logout command execution with comprehensive session cleanup.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with logout status
@@ -176,6 +176,7 @@ def _perform_session_cleanup(user_data: Dict[str, Any], username_manager: Userna
             user_id = user_data.get("user_id")
             # Import workflow manager for graceful shutdown
             from orchestrator.workflow_manager import WorkflowManager
+from pathlib import Path
             workflow_manager = WorkflowManager()
             
             # Note: graceful_user_logout method not implemented yet

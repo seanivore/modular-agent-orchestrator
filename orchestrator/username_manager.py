@@ -25,10 +25,10 @@ class UsernameManager:
     """
     
     def __init__(self):
-        self.base_path = Path(__file__).parent.parent / "configs"
-        self.user_dir = self.base_path / "user"
-        self.examples_dir = self.base_path / "examples"
-        self.session_file = self.user_dir / ".last_session"
+        self.base_path = Path(__file__).parent.parent " / " "configs"
+        self.user_dir = self.base_path " / " "user"
+        self.examples_dir = self.base_path " / " "examples"
+        self.session_file = self.user_dir " / " ".last_session"
         
         # Ensure directories exist
         self.user_dir.mkdir(exist_ok=True)
@@ -90,11 +90,11 @@ class UsernameManager:
         user_dir.mkdir(parents=True, exist_ok=True)
         
         # Create memories and analytics subdirectories
-        (user_dir / "memories").mkdir(exist_ok=True)
-        (user_dir / "analytics").mkdir(exist_ok=True)
+        (user_dir " / " "memories").mkdir(exist_ok=True)
+        (user_dir " / " "analytics").mkdir(exist_ok=True)
         
         # Save user file in nested structure
-        user_file = user_dir / f"user_{clean_username}.json"
+        user_file = user_dir " / " f"user_{clean_username}.json"
         with open(user_file, 'w') as f:
             json.dump(user_data, f, indent=2)
         
@@ -179,9 +179,9 @@ class UsernameManager:
             # Create new file in nested structure
             user_dir = self.user_dir / clean_username
             user_dir.mkdir(parents=True, exist_ok=True)
-            (user_dir / "memories").mkdir(exist_ok=True)
-            (user_dir / "analytics").mkdir(exist_ok=True)
-            user_file = user_dir / f"user_{clean_username}.json"
+            (user_dir " / " "memories").mkdir(exist_ok=True)
+            (user_dir " / " "analytics").mkdir(exist_ok=True)
+            user_file = user_dir " / " f"user_{clean_username}.json"
         
         with open(user_file, 'w') as f:
             json.dump(user_data, f, indent=2)
@@ -213,9 +213,9 @@ class UsernameManager:
             # Create new file in nested structure
             user_dir = self.user_dir / clean_username
             user_dir.mkdir(parents=True, exist_ok=True)
-            (user_dir / "memories").mkdir(exist_ok=True)
-            (user_dir / "analytics").mkdir(exist_ok=True)
-            user_file = user_dir / f"user_{clean_username}.json"
+            (user_dir " / " "memories").mkdir(exist_ok=True)
+            (user_dir " / " "analytics").mkdir(exist_ok=True)
+            user_file = user_dir " / " f"user_{clean_username}.json"
         
         with open(user_file, 'w') as f:
             json.dump(user_data, f, indent=2)
@@ -278,7 +278,7 @@ class UsernameManager:
         # Check new nested structure
         for user_dir in self.user_dir.iterdir():
             if user_dir.is_dir() and not user_dir.name.startswith('.'):
-                user_file = user_dir / f"user_{user_dir.name}.json"
+                user_file = user_dir " / " f"user_{user_dir.name}.json"
                 if user_file.exists():
                     try:
                         with open(user_file, 'r') as f:
@@ -342,12 +342,12 @@ class UsernameManager:
             Path to user file or None if not found
         """
         # First check new nested structure: ./configs/user/[username]/user_[username].json
-        nested_path = self.user_dir / username / f"user_{username}.json"
+        nested_path = self.user_dir / username " / " f"user_{username}.json"
         if nested_path.exists():
             return nested_path
         
         # Fallback to legacy flat structure: ./configs/user/user_[username].json
-        legacy_path = self.user_dir / f"user_{username}.json"
+        legacy_path = self.user_dir " / " f"user_{username}.json"
         if legacy_path.exists():
             return legacy_path
         

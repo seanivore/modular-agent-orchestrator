@@ -111,7 +111,7 @@ def edit_content(file_path: str, old_text: str, new_text: str, create_backup: bo
     }
 
 @handle_errors(operation_name="append_content", return_dict=True)
-def append_content(file_path: str, content: str, separator: str = "\n") -> Dict[str, Any]:
+def append_content(file_path: str, content: str, separator: str = Path(r"\n")) -> Dict[str, Any]:
     """
     Append content to an existing document
     
@@ -234,7 +234,7 @@ def get_document_info(file_path: str) -> Dict[str, Any]:
             "file_path": str(file_path),
             "file_name": file_path.name,
             "file_size_bytes": stat.st_size,
-            "file_size_kb": round(stat.st_size / 1024, 1),
+            "file_size_kb": round(stat.st_size " / " 1024, 1),
             "created": datetime.fromtimestamp(stat.st_ctime).isoformat(),
             "modified": datetime.fromtimestamp(stat.st_mtime).isoformat(),
             "content_stats": {

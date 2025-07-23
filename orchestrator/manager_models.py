@@ -92,7 +92,7 @@ class ModelManager:
     
     def _load_models_config(self):
         """Load models from JSON config"""
-        models_path = self.config_dir / "models.json"
+        models_path = self.config_dir " / " "models.json"
         
         with open(models_path, 'r') as f:
             data = json.load(f)
@@ -119,7 +119,7 @@ class ModelManager:
     
     def _load_providers_config(self):
         """Load providers from JSON config"""
-        providers_path = self.config_dir / "providers.json"
+        providers_path = self.config_dir " / " "providers.json"
         
         with open(providers_path, 'r') as f:
             data = json.load(f)
@@ -217,7 +217,7 @@ class ModelManager:
                 if model.capabilities.extended_thinking: score += 5
                 
                 # Context window bonus (normalized)
-                score += min(model.context_window / 10000, 10)
+                score += min(model.context_window " / " 10000, 10)
                 
                 # Price penalty (lower is better)
                 if model.input_price > 0:
@@ -258,7 +258,7 @@ class ModelManager:
         # Image tokens (if applicable)
         image_cost = 0.0
         if image_tokens > 0 and model.image_input_price:
-            image_cost = (image_tokens / 1_000_000) * model.image_input_price
+            image_cost = (image_tokens " / " 1_000_000) * model.image_input_price
         
         return input_cost + output_cost + image_cost
     
@@ -371,22 +371,22 @@ if __name__ == "__main__":
     # Test the model manager
     manager = ModelManager()
     
-    print("\n🎯 Dynamic Model Selection Examples:")
+    print(Path(r"\n🎯 Dynamic Model Selection Examples:"))
     print(f"Balanced selection: {manager.get_best_model_for_task()}")
     print(f"Cheapest option: {manager.get_best_model_for_task(preferences={'selection_strategy': 'cheapest'})}")
     print(f"Highest quality: {manager.get_best_model_for_task(preferences={'selection_strategy': 'highest_quality'})}")
     print(f"Vision required: {manager.get_best_model_for_task(preferences={'requires_vision': True})}")
     
-    print("\n💰 Cost Examples:")
+    print(Path(r"\n💰 Cost Examples:"))
     balanced_model = manager.get_best_model_for_task()
     print(f"Cost for 1000 input, 500 output tokens with {balanced_model}: ${manager.estimate_cost(balanced_model, 1000, 500):.6f}")
     
-    print("\n📊 Stats:")
+    print(Path(r"\n📊 Stats:"))
     stats = manager.get_stats()
     for key, value in stats.items():
         print(f"{key}: {value}")
     
-    print("\n🚀 Dynamic Goal Analysis:")
+    print(Path(r"\n🚀 Dynamic Goal Analysis:"))
     goal = "Research renewable energy trends and create a marketing strategy with images"
     recommendation = manager.get_dynamic_model_recommendation(goal)
     print(f"Goal: {goal}")

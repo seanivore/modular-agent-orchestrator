@@ -27,7 +27,7 @@ def execute_login(params: Dict[str, Any] = None) -> Dict[str, Any]:
         params: Command parameters from CLI/app input
         - username: Username for authentication
         - create_new: Boolean flag to create new user if not found
-        - search_mode: Boolean flag to enable username search/recovery
+        - search_mode: Boolean flag to enable username search" / "recovery
         - search_term: Search term for username recovery
         
     Returns:
@@ -203,7 +203,7 @@ def _handle_direct_authentication(username: str, create_new: bool = False) -> Di
         }
 
 def _handle_username_search(search_term: str) -> Dict[str, Any]:
-    """Handle username search/recovery functionality"""
+    """Handle username search" / "recovery functionality"""
     try:
         if not search_term:
             return {
@@ -295,7 +295,7 @@ def check_session_status() -> Dict[str, Any]:
         }
 
 def get_user_list() -> Dict[str, Any]:
-    """Get list of all users for selection (admin/debugging purposes)"""
+    """Get list of all users for selection (admin" / "debugging purposes)"""
     try:
         manager = UsernameManager()
         users = manager.list_users()

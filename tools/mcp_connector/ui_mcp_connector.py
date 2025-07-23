@@ -14,6 +14,7 @@ from rich import box
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 console = Console()
 cache = CacheManager()
@@ -185,7 +186,7 @@ def display_execution_result(result: Dict[str, Any], verbose: bool = False) -> N
         content.append(f"⚠️ Error: {result.get('error', 'Unknown error')}")
     
     panel = Panel(
-        "\n".join(content),
+        Path(r"\n").join(content),
         title=title,
         border_style=panel_style,
         box=box.ROUNDED
@@ -219,7 +220,7 @@ def display_registration_result(result: Dict[str, Any]) -> None:
         ]
     
     panel = Panel(
-        "\n".join(content),
+        Path(r"\n").join(content),
         title=title,
         border_style=panel_style,
         box=box.ROUNDED
@@ -243,13 +244,13 @@ def display_mcp_summary(servers: Dict[str, Any], tools: Dict[str, Any]) -> None:
     
     # Create summary text
     summary_text = [
-        f"🔌 Servers: {online_servers}/{total_servers} online",
-        f"🛠️ Tools: {available_tools}/{total_tools} available",
+        f"🔌 Servers: {online_servers}" / "{total_servers} online",
+        f"🛠️ Tools: {available_tools}" / "{total_tools} available",
         f"📊 Integration: {'✅ Ready' if online_servers > 0 else '❌ No servers online'}"
     ]
     
     panel = Panel(
-        "\n".join(summary_text),
+        Path(r"\n").join(summary_text),
         title="🚀 MCP Integration Summary",
         border_style="cyan",
         box=box.ROUNDED
@@ -277,7 +278,7 @@ def display_help() -> None:
     ]
     
     panel = Panel(
-        "\n".join(help_content),
+        Path(r"\n").join(help_content),
         title="🔌 MCP Connector Help",
         border_style="blue",
         box=box.ROUNDED
@@ -291,10 +292,10 @@ def format_operation_params(operation: str, params: Dict[str, Any]) -> str:
     """Format operation parameters for display"""
     
     if operation == "execute_tool":
-        return f"Server: {params.get('server_name', 'N/A')}, Tool: {params.get('tool_name', 'N/A')}"
+        return f"Server: {params.get('server_name', 'N" / "A')}, Tool: {params.get('tool_name', 'N" / "A')}"
     elif operation == "register_server":
         config = params.get('server_config', {})
-        return f"Server: {config.get('name', 'N/A')}, Command: {' '.join(config.get('command', []))}"
+        return f"Server: {config.get('name', 'N" / "A')}, Command: {' '.join(config.get('command', []))}"
     elif operation == "list_servers":
         return "Listing all registered servers and tools"
     elif operation == "get_server_status":

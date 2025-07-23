@@ -13,6 +13,7 @@ from orchestrator.error_handling import handle_errors
 # Standard cache instance
 cache = CacheManager()
 from orchestrator.cache.cache_system import CacheManager
+from pathlib import Path
 
 # Standard cache instance
 cache = CacheManager()
@@ -79,8 +80,8 @@ def create_onboarding_summary(result: Dict[str, Any]) -> Dict[str, Any]:
         "next_steps": [
             "Explore the conversation interface",
             "Try creating your first workflow",
-            "Use '/' to see available commands",
-            "Check out /help for more information"
+            "Use '" / "' to see available commands",
+            "Check out " / "help for more information"
         ] if result.get("success") else []
     }
 

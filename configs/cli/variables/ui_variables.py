@@ -6,6 +6,7 @@ Provides consistent display formatting for workflow variables discovery results
 import json
 from typing import Dict, Any, List
 from datetime import datetime
+from pathlib import Path
 
 def format_variables_result(result: Dict[str, Any]) -> str:
     """
@@ -15,7 +16,7 @@ def format_variables_result(result: Dict[str, Any]) -> str:
         result: Result dictionary from variables command
         
     Returns:
-        Formatted string for terminal/UI display
+        Formatted string for terminal" / "UI display
     """
     if not result.get("success"):
         return _format_error_result(result)
@@ -61,7 +62,7 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     
     if not variables:
         output_lines.append("ERROR: No variables found")
-        return "\n".join(output_lines)
+        return Path(r"\n").join(output_lines)
     
     # Required vs Optional sections
     setup_guidance = result.get("setup_guidance", {})
@@ -180,11 +181,11 @@ def format_variables_table(result: Dict[str, Any]) -> str:
     output_lines.append("3. Get detailed variable explanations:")
     output_lines.append("   mao variables --explain")
     
-    return "\n".join(output_lines)
+    return Path(r"\n").join(output_lines)
 
 def format_variables_compact(result: Dict[str, Any]) -> str:
     """
-    Format variables result in compact form for logs/automation
+    Format variables result in compact form for logs" / "automation
     
     Args:
         result: Result dictionary from variables command
@@ -217,7 +218,7 @@ def format_variables_compact(result: Dict[str, Any]) -> str:
 
 def format_variables_json(result: Dict[str, Any]) -> str:
     """
-    Format variables result as JSON for API/integration use
+    Format variables result as JSON for API" / "integration use
     
     Args:
         result: Result dictionary from variables command
@@ -314,7 +315,7 @@ def format_variables_summary_table(result: Dict[str, Any]) -> str:
         data_row = " | ".join(str(cell).ljust(col_widths[i]) for i, cell in enumerate(row))
         output_lines.append(data_row)
     
-    return "\n".join(output_lines)
+    return Path(r"\n").join(output_lines)
 
 def _format_error_result(result: Dict[str, Any]) -> str:
     """Format error result for variables discovery"""
@@ -345,11 +346,11 @@ def _format_error_result(result: Dict[str, Any]) -> str:
         output_lines.append("3. Ensure proper permissions for template files")
         output_lines.append("4. Try running with a specific template: --template example-workflow")
     
-    return "\n".join(output_lines)
+    return Path(r"\n").join(output_lines)
 
 # Helper functions for UI integration
 def get_variables_summary(result: Dict[str, Any]) -> Dict[str, Any]:
-    """Get summary data for UI widgets/components"""
+    """Get summary data for UI widgets" / "components"""
     variables = result.get("variables", {}).get("common_variables", {})
     setup_guidance = result.get("setup_guidance", {})
     categorized = setup_guidance.get("required_vs_optional", {})

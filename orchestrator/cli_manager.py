@@ -1,6 +1,6 @@
 """
 CLI Commands Manager 
-Dynamic CLI command discovery and interface integration connecting CLI/slash commands to orchestrator functionality
+Dynamic CLI command discovery and interface integration connecting CLI" / "slash commands to orchestrator functionality
 """
 
 import json
@@ -29,7 +29,7 @@ class CLICommandsManager:
     """
     
     def __init__(self, orchestrator=None):
-        self.cli_dir = Path(__file__).parent.parent / "configs" / "cli"
+        self.cli_dir = Path(__file__).parent.parent " / " "configs" " / " "cli"
         self.orchestrator = orchestrator
         
         # Initialize available orchestrator managers
@@ -81,7 +81,7 @@ class CLICommandsManager:
         commands = {}
         
         # Scan all .json files in CLI directory and subdirectories
-        for cli_file in self.cli_dir.glob("**/*.json"):
+        for cli_file in self.cli_dir.glob("**" / "*.json"):
             if cli_file.name.startswith('.'):
                 continue
                 
@@ -347,7 +347,7 @@ class CLICommandsManager:
         except Exception as e:
             # Fallback - scan tools directory only if ToolManager fails
             try:
-                tools_dir = Path(__file__).parent.parent / "tools"
+                tools_dir = Path(__file__).parent.parent " / " "tools"
                 tool_dirs = [d.name for d in tools_dir.iterdir() if d.is_dir() and not d.name.startswith('.')]
                 
                 return {
@@ -649,7 +649,7 @@ class CLICommandsManager:
             
             # Handle different input formats
             if isinstance(data, str):
-                # Parse string input for action/level
+                # Parse string input for action" / "level
                 params = {"action": data}
             elif isinstance(data, dict):
                 # Already structured params
@@ -902,28 +902,28 @@ class CLICommandsManager:
         # Add system state fingerprints for commands that depend on file system
         if command == "workflows":
             # Include workflow directory state
-            workflows_dir = Path(__file__).parent.parent / "configs" / "workflows"
+            workflows_dir = Path(__file__).parent.parent " / " "configs" " / " "workflows"
             if workflows_dir.exists():
                 workflow_files = sorted([f.name for f in workflows_dir.iterdir() if f.is_dir()])
                 base_key += f"|workflows:{hashlib.md5(str(workflow_files).encode()).hexdigest()[:8]}"
                 
         elif command == "list_tools":
             # Include tools directory state  
-            tools_dir = Path(__file__).parent.parent / "tools"
+            tools_dir = Path(__file__).parent.parent " / " "tools"
             if tools_dir.exists():
                 tool_dirs = sorted([d.name for d in tools_dir.iterdir() if d.is_dir()])
                 base_key += f"|tools:{hashlib.md5(str(tool_dirs).encode()).hexdigest()[:8]}"
                 
         elif command == "models":
             # Include models directory state
-            models_dir = Path(__file__).parent.parent / "configs" / "models"
+            models_dir = Path(__file__).parent.parent " / " "configs" " / " "models"
             if models_dir.exists():
                 model_files = sorted([f.name for f in models_dir.glob("*.json")])
                 base_key += f"|models:{hashlib.md5(str(model_files).encode()).hexdigest()[:8]}"
                 
         elif command == "providers":
             # Include providers directory state
-            providers_dir = Path(__file__).parent.parent / "configs" / "providers"
+            providers_dir = Path(__file__).parent.parent " / " "configs" " / " "providers"
             if providers_dir.exists():
                 provider_files = sorted([f.name for f in providers_dir.glob("*.json")])
                 base_key += f"|providers:{hashlib.md5(str(provider_files).encode()).hexdigest()[:8]}"
@@ -936,7 +936,7 @@ class CLICommandsManager:
                 if user:
                     user_id = user.get("user_id", "anonymous")
                     username = user.get("username", "anonymous")
-                    memories_dir = Path(__file__).parent.parent / "configs" / "user" / username / "memories"
+                    memories_dir = Path(__file__).parent.parent " / " "configs" " / " "user" / username " / " "memories"
                     if memories_dir.exists():
                         memory_files = sorted([f.name for f in memories_dir.glob("*.json")])
                         base_key += f"|memories:{hashlib.md5(str(memory_files).encode()).hexdigest()[:8]}"

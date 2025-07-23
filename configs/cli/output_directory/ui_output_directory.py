@@ -41,36 +41,36 @@ def display_set_output_result(result: Dict[str, Any]) -> None:
     # Previous output directory
     previous_output = result.get("previous_output")
     if previous_output:
-        info_lines.append(f"[dim]Previous:[/dim] {previous_output}")
+        info_lines.append(f"[dim]Previous:[" / "dim] {previous_output}")
     else:
-        info_lines.append("[dim]Previous:[/dim] [italic]Not set (using default)[/italic]")
+        info_lines.append("[dim]Previous:[/dim] [italic]Not set (using default)[" / "italic]")
     
     # New output directory
     new_output = result.get("new_output", "Unknown")
-    info_lines.append(f"[bold green]New:[/bold green] {new_output}")
+    info_lines.append(f"[bold green]New:[" / "bold green] {new_output}")
     
     # Directory creation status
     directory_created = result.get("directory_created", False)
     if directory_created:
-        info_lines.append("[dim]Status:[/dim] [green]Directory created[/green]")
+        info_lines.append("[dim]Status:[/dim] [green]Directory created[" / "green]")
     else:
-        info_lines.append("[dim]Status:[/dim] Directory already exists")
+        info_lines.append("[dim]Status:[" / "dim] Directory already exists")
     
     # User context
     user = result.get("user", "Unknown")
-    info_lines.append(f"[dim]User:[/dim] {user}")
+    info_lines.append(f"[dim]User:[" / "dim] {user}")
     
-    panel_content = "\n".join(info_lines)
+    panel_content = Path(r"\n").join(info_lines)
     
     console.print(Panel(
         panel_content,
-        title="[bold green]Output Directory Updated[/bold green]",
+        title="[bold green]Output Directory Updated[" / "bold green]",
         border_style="green"
     ))
     
     # Success message
     message = result.get("message", "Output directory updated successfully")
-    console.print(f"[green]{message}[/green]\n")
+    console.print(f"[green]{message}[" / Path(r"green]\n"))
 
 def display_current_output_result(result: Dict[str, Any]) -> None:
     """Display current output directory information"""
@@ -87,22 +87,22 @@ def display_current_output_result(result: Dict[str, Any]) -> None:
     # Current output directory
     if current_output:
         if using_default:
-            table.add_row("Current Output:", f"{current_output} [dim](default)[/dim]")
+            table.add_row("Current Output:", f"{current_output} [dim](default)[" / "dim]")
         else:
-            table.add_row("Current Output:", f"[bold]{current_output}[/bold]")
+            table.add_row("Current Output:", f"[bold]{current_output}[" / "bold]")
     else:
-        table.add_row("Current Output:", "[dim italic]Not set[/dim italic]")
+        table.add_row("Current Output:", "[dim italic]Not set[" / "dim italic]")
     
     # Default output directory
     if default_output:
-        table.add_row("Default Output:", f"[dim]{default_output}[/dim]")
+        table.add_row("Default Output:", f"[dim]{default_output}[" / "dim]")
     
     # User context
     table.add_row("User:", user)
     
     console.print(Panel(
         table,
-        title="[bold]Current Output Directory[/bold]",
+        title="[bold]Current Output Directory[" / "bold]",
         border_style="blue"
     ))
 
@@ -115,21 +115,21 @@ def display_generic_output_result(result: Dict[str, Any]) -> None:
     
     # Create basic information display
     info_lines = [
-        f"[dim]Operation:[/dim] {operation}",
-        f"[dim]User:[/dim] {user}",
-        f"[dim]Result:[/dim] {message}"
+        f"[dim]Operation:[" / "dim] {operation}",
+        f"[dim]User:[" / "dim] {user}",
+        f"[dim]Result:[" / "dim] {message}"
     ]
     
     console.print(Panel(
-        "\n".join(info_lines),
-        title="[bold]Output Command Result[/bold]",
+        Path(r"\n").join(info_lines),
+        title="[bold]Output Command Result[" / "bold]",
         border_style="green"
     ))
 
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[/red] {error_message}",
+        f"[red]Error:[" / "red] {error_message}",
         style="red",
         title="Output Command Error"
     ))
@@ -147,7 +147,7 @@ def display_output_help() -> None:
   mao --output /Users/username/Projects/output
   /output ./results
 
-[dim]Notes:[/dim]
+[dim]Notes:[" / "dim]
 • Directory will be created if it doesn't exist
 • Uses absolute paths for consistency
 • Updates user configuration file automatically
@@ -155,7 +155,7 @@ def display_output_help() -> None:
     
     console.print(Panel(
         help_text,
-        title="[bold blue]Output Directory Help[/bold blue]",
+        title="[bold blue]Output Directory Help[" / "bold blue]",
         border_style="blue"
     ))
 
@@ -166,7 +166,7 @@ def display_path_validation_error(path: str, error: str) -> None:
 [dim]Path:[/dim] {path}
 [dim]Error:[/dim] {error}
 
-[dim]Common Issues:[/dim]
+[dim]Common Issues:[" / "dim]
 • Parent directory doesn't exist
 • No write permissions
 • Invalid path format
@@ -174,6 +174,6 @@ def display_path_validation_error(path: str, error: str) -> None:
     
     console.print(Panel(
         error_text,
-        title="[bold red]Invalid Path[/bold red]",
+        title="[bold red]Invalid Path[" / "bold red]",
         border_style="red"
     ))

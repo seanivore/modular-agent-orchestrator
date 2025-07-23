@@ -48,6 +48,7 @@ class CodeExecutionTool:
         """Lazy load Files API manager"""
         if self._files_api is None:
             from tools.files_api.files_api import FilesAPIManager
+from pathlib import Path
             self._files_api = FilesAPIManager()
         return self._files_api
     
@@ -74,7 +75,7 @@ class CodeExecutionTool:
                 "max_tokens": 4096,
                 "messages": [{
                     "role": "user", 
-                    "content": f"Execute this Python code:\n\n```python\n{code}\n```"
+                    "content": fPath(r"Execute this Python code:\n\n```python\n{code}\n```")
                 }],
                 "tools": [{
                     "type": "code_execution_20250522",
@@ -183,7 +184,7 @@ class CodeExecutionTool:
             )
             
             # Prepare message content with file references
-            content = [{"type": "text", "text": f"Execute this Python code:\n\n```python\n{code}\n```"}]
+            content = [{"type": "text", "text": fPath(r"Execute this Python code:\n\n```python\n{code}\n```")}]
             
             # Add file uploads to content
             for file_id in file_ids:
@@ -320,7 +321,7 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     
     # Code execution pricing: $0.05 per session-hour (minimum 5 minutes)
     execution_time_minutes = params.get("execution_time_minutes", 5)  # Minimum 5 minutes
-    session_hours = max(execution_time_minutes / 60, 5/60)  # At least 5 minutes
+    session_hours = max(execution_time_minutes / 60, 5" / "60)  # At least 5 minutes
     
     execution_cost = session_hours * 0.05
     

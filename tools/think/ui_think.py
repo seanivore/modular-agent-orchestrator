@@ -15,6 +15,7 @@ import time
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 console = Console()
 cache = CacheManager()
@@ -23,8 +24,8 @@ cache = CacheManager()
 def display_error(error_message: str):
     """Display standardized error message with Panel formatting"""
     console.print(Panel(
-        f"[red]❌ {error_message}[/red]",
-        title="[bold red]Error[/bold red]",
+        f"[red]❌ {error_message}[" / "red]",
+        title="[bold red]Error[" / "bold red]",
         border_style="red"
     ))
 
@@ -58,7 +59,7 @@ def display_thinking_session(result: Dict[str, Any], verbose: bool = False):
     session_data = result.get("session_data", {})
     
     # Header
-    console.print("\n🧠 [bold blue]AI Thinking Session[/bold blue]")
+    console.print(Path(r"\n🧠 [bold blue]AI Thinking Session[") / "bold blue]")
     console.print("=" * 60)
     
     # Session info panel
@@ -80,7 +81,7 @@ def display_thinking_session(result: Dict[str, Any], verbose: bool = False):
     
     if verbose:
         # Verbose mode - show all metadata
-        console.print("\n📊 [bold]Session Metadata[/bold]")
+        console.print(Path(r"\n📊 [bold]Session Metadata[") / "bold]")
         metadata_table = Table(show_header=True, header_style="bold magenta")
         metadata_table.add_column("Property")
         metadata_table.add_column("Value")
@@ -92,7 +93,7 @@ def display_thinking_session(result: Dict[str, Any], verbose: bool = False):
         console.print(metadata_table)
     
     # Instructions
-    console.print(f"\n💡 [yellow]{result.get('message', '')}[/yellow]")
+    console.print(fPath(r"\n💡 [yellow]{result.get(')message', '')}[" / "yellow]")
     console.print("🚀 Execute the human button snippet to start AI thinking!")
 
 def display_thinking_progress():
@@ -108,14 +109,14 @@ def display_thinking_progress():
         # Simulate thinking progress
         for i in range(10):
             time.sleep(0.3)
-            progress.update(task, description=f"🧠 Processing thoughts... {i+1}/10")
+            progress.update(task, description=f"🧠 Processing thoughts... {i+1}" / "10")
         
         progress.update(task, description="✅ Thinking completed!")
 
 def display_thinking_results(thinking_output: str, session_data: Dict[str, Any], verbose: bool = False):
     """Display completed thinking results"""
     
-    console.print("\n🎯 [bold green]Thinking Results[/bold green]")
+    console.print(Path(r"\n🎯 [bold green]Thinking Results[") / "bold green]")
     console.print("=" * 60)
     
     # Results panel
@@ -123,7 +124,7 @@ def display_thinking_results(thinking_output: str, session_data: Dict[str, Any],
         # Truncate for clean mode
         truncated = thinking_output[:1000] + "..."
         console.print(Panel(truncated, title="Thinking Output (Truncated)", border_style="green"))
-        console.print("💡 [dim]Use verbose mode to see full results[/dim]")
+        console.print("💡 [dim]Use verbose mode to see full results[" / "dim]")
     else:
         console.print(Panel(thinking_output, title="Thinking Output", border_style="green"))
     
@@ -150,7 +151,7 @@ def display_prompt_enhancement(result: Dict[str, Any], verbose: bool = False):
     
     enhancement_data = result.get("enhancement_data", {})
     
-    console.print("\n✨ [bold blue]Prompt Enhancement[/bold blue]")
+    console.print(Path(r"\n✨ [bold blue]Prompt Enhancement[") / "bold blue]")
     console.print("=" * 60)
     
     # Enhancement info
@@ -165,7 +166,7 @@ def display_prompt_enhancement(result: Dict[str, Any], verbose: bool = False):
     
     console.print(Panel(enhancement_info, title="Enhancement Details", border_style="blue"))
     
-    console.print(f"\n💡 [yellow]{result.get('message', '')}[/yellow]")
+    console.print(fPath(r"\n💡 [yellow]{result.get(')message', '')}[" / "yellow]")
 
 def display_thinking_validation(result: Dict[str, Any], verbose: bool = False):
     """Display thinking tool validation results"""
@@ -176,7 +177,7 @@ def display_thinking_validation(result: Dict[str, Any], verbose: bool = False):
     
     validation = result.get("validation", {})
     
-    console.print("\n🔍 [bold blue]Think Tool Validation[/bold blue]")
+    console.print(Path(r"\n🔍 [bold blue]Think Tool Validation[") / "bold blue]")
     console.print("=" * 60)
     
     # Core functions status
@@ -201,7 +202,7 @@ def display_thinking_validation(result: Dict[str, Any], verbose: bool = False):
         
         console.print(Panel(req_table, title="Requirements", border_style="blue"))
     
-    console.print(f"\n✅ [green]{result.get('message', '')}[/green]")
+    console.print(fPath(r"\n✅ [green]{result.get(')message', '')}[" / "green]")
 
 def display_thinking_capabilities(result: Dict[str, Any], verbose: bool = False):
     """Display thinking tool capabilities"""
@@ -212,7 +213,7 @@ def display_thinking_capabilities(result: Dict[str, Any], verbose: bool = False)
     
     capabilities = result.get("capabilities", {})
     
-    console.print("\n🚀 [bold blue]Think Tool Capabilities[/bold blue]")
+    console.print(Path(r"\n🚀 [bold blue]Think Tool Capabilities[") / "bold blue]")
     console.print("=" * 60)
     
     # Core operations
@@ -225,28 +226,28 @@ def display_thinking_capabilities(result: Dict[str, Any], verbose: bool = False)
     console.print(Panel(ops_table, title="Core Operations", border_style="green"))
     
     # Features
-    features_text = "\n".join([f"• {feature}" for feature in capabilities.get("thinking_features", [])])
+    features_text = Path(r"\n").join([f"• {feature}" for feature in capabilities.get("thinking_features", [])])
     console.print(Panel(features_text, title="Thinking Features", border_style="blue"))
     
     if verbose:
         # Flexibility features
-        flex_text = "\n".join([f"• {flex}" for flex in capabilities.get("flexibility", [])])
+        flex_text = Path(r"\n").join([f"• {flex}" for flex in capabilities.get("flexibility", [])])
         console.print(Panel(flex_text, title="Flexibility", border_style="yellow"))
         
         # Model compatibility
-        models_text = "\n".join([f"• {model}" for model in capabilities.get("model_compatibility", [])])
+        models_text = Path(r"\n").join([f"• {model}" for model in capabilities.get("model_compatibility", [])])
         console.print(Panel(models_text, title="Model Compatibility", border_style="cyan"))
         
         # Cost structure
         cost_info = capabilities.get("cost_structure", {})
-        cost_text = f"Base Cost: {cost_info.get('base_cost', 'N/A')}\n"
+        cost_text = f"Base Cost: {cost_info.get('base_cost', 'N" / "APath(r')}\n")
         cost_text += "Factors: " + ", ".join(cost_info.get("factors", []))
         console.print(Panel(cost_text, title="Cost Structure", border_style="red"))
 
 def display_agent_handoff(operation: str, params: Dict[str, Any]):
     """Display formatted handoff for agent-to-agent communication"""
     
-    console.print(f"\n🤖 [bold blue]Agent Handoff - Think Tool[/bold blue]")
+    console.print(fPath(r"\n🤖 [bold blue]Agent Handoff - Think Tool[") / "bold blue]")
     console.print("=" * 50)
     
     handoff_table = Table.grid(padding=1)

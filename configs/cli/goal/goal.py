@@ -91,7 +91,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"goal|{goal_text}|{user_context}"
     
     # Add system state fingerprint
-    current_time_rounded = int(datetime.now().timestamp() // 300) * 300  # 5-minute blocks
+    current_time_rounded = int(datetime.now().timestamp() /" / " 300) * 300  # 5-minute blocks
     
     cache_input = f"{base_key}|{current_time_rounded}"
     return hashlib.md5(cache_input.encode()).hexdigest()[:16]

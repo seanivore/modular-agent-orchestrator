@@ -22,7 +22,7 @@ def execute_set_model(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main set-model command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         Expected params:
         - model_name: Target model name to set as favorite
         - username: User's username (for settings update)
@@ -83,7 +83,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"set_model|{str(params) if params else 'none'}"
     
     # Add models directory state fingerprint for validation accuracy
-    models_dir = Path(__file__).parent.parent.parent / "configs" / "models"
+    models_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "models"
     if models_dir.exists():
         dir_stat = models_dir.stat()
         model_count = len([f for f in models_dir.iterdir() if f.is_file() and f.suffix == '.json'])
@@ -98,7 +98,7 @@ def _execute_command_logic(params: Dict[str, Any] = None) -> Dict[str, Any]:
         model_name = params.get("model_name")
         username = params.get("username")
         
-        # Get current user settings to show before/after
+        # Get current user settings to show before" / "after
         current_settings = _get_current_user_settings(username)
         current_model = current_settings.get("favorite_model", "Not set")
         
@@ -163,7 +163,7 @@ def _validate_model_exists(model_name: str) -> bool:
         
     except Exception:
         # Fallback: Direct directory check
-        models_dir = Path(__file__).parent.parent.parent / "configs" / "models"
+        models_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "models"
         for model_file in models_dir.iterdir():
             if model_file.is_file() and model_file.suffix == '.json':
                 try:
@@ -184,7 +184,7 @@ def _get_available_models() -> Dict[str, Dict[str, Any]]:
     except Exception:
         # Fallback: Direct directory scanning
         models = {}
-        models_dir = Path(__file__).parent.parent.parent / "configs" / "models"
+        models_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "models"
         for model_file in models_dir.iterdir():
             if model_file.is_file() and model_file.suffix == '.json':
                 try:

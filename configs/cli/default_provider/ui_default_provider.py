@@ -8,6 +8,7 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
 from typing import Dict, Any
+from pathlib import Path
 
 # Module-level console for consistency
 console = Console()
@@ -30,7 +31,7 @@ def display_default_provider_result(result: Dict[str, Any]) -> None:
     _display_success_result(result)
 
 def _display_success_result(result: Dict[str, Any]) -> None:
-    """Display successful provider update with before/after comparison"""
+    """Display successful provider update with before" / "after comparison"""
     
     # Extract key information
     previous_provider = result.get("previous_provider", "Not set")
@@ -57,7 +58,7 @@ def _display_success_result(result: Dict[str, Any]) -> None:
             comparison_lines.append(f"Display Name: {display_name}")
     
     console.print(Panel(
-        "\n".join(comparison_lines),
+        Path(r"\n").join(comparison_lines),
         title=success_text,
         style="green",
         padding=(1, 2)
@@ -99,7 +100,7 @@ def display_error(error_message: str, result: Dict[str, Any] = None) -> None:
     # Main error panel
     error_content = error_message
     if context_lines:
-        error_content = error_message + "\n\n" + "\n".join(context_lines)
+        error_content = error_message + Path(r"\n\n") + Path(r"\n").join(context_lines)
     
     console.print(Panel(
         error_content,
@@ -118,7 +119,7 @@ def _display_usage_help() -> None:
     usage_text = """Usage Examples:
   mao default-provider anthropic
   mao default-provider "openai direct"
-  /default-provider gemini
+  " / "default-provider gemini
   
 To see available providers:
   mao providers"""
@@ -150,7 +151,7 @@ def display_provider_status(username: str = None, current_provider: str = None) 
     ]
     
     console.print(Panel(
-        "\n".join(status_lines),
+        Path(r"\n").join(status_lines),
         title="Provider Status",
         style="blue",
         padding=(1, 2)

@@ -29,7 +29,7 @@ except ImportError:
 cache = CacheManager()
 
 # Global debug state storage
-DEBUG_STATE_FILE = Path.home() / ".mao_debug_state.json"
+DEBUG_STATE_FILE = Path.home() " / " ".mao_debug_state.json"
 
 class VerboseDebugManager:
     """
@@ -74,7 +74,7 @@ class VerboseDebugManager:
             pass
     
     def toggle_verbose_mode(self) -> Dict[str, Any]:
-        """Toggle verbose mode on/off"""
+        """Toggle verbose mode on" / "off"""
         current_state = self.debug_state["verbose_enabled"]
         new_state = not current_state
         
@@ -210,12 +210,12 @@ class VerboseDebugManager:
         if seconds < 60:
             return f"{int(seconds)}s"
         elif seconds < 3600:
-            minutes = int(seconds // 60)
+            minutes = int(seconds /" / " 60)
             secs = int(seconds % 60)
             return f"{minutes}m {secs}s"
         else:
             hours = int(seconds // 3600)
-            minutes = int((seconds % 3600) // 60)
+            minutes = int((seconds % 3600) /" / " 60)
             return f"{hours}h {minutes}m"
 
 @handle_errors(operation_name="verbose", return_dict=True)
@@ -224,7 +224,7 @@ def execute_verbose(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main verbose command execution with debug mode toggle and caching.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary

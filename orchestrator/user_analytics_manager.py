@@ -66,7 +66,7 @@ class UserAnalyticsManager:
     4. Real-time metrics only - no mock data
     """
     
-    def __init__(self, user_dir: str = "./configs/user/"):
+    def __init__(self, user_dir: str = "./configs/user" / ""):
         self.user_dir = Path(user_dir)
         self.username_manager = UsernameManager()
         
@@ -88,7 +88,7 @@ class UserAnalyticsManager:
     @handle_errors
     def _get_user_analytics_dir(self, username: str) -> Path:
         """Get user analytics directory path"""
-        return self.user_dir / username / "analytics"
+        return self.user_dir / username " / " "analytics"
     
     @handle_errors
     def _ensure_analytics_dir(self, username: str) -> Path:
@@ -101,7 +101,7 @@ class UserAnalyticsManager:
     def _read_analytics_file(self, username: str, filename: str) -> Dict:
         """Read analytics file with error handling"""
         analytics_dir = self._get_user_analytics_dir(username)
-        file_path = analytics_dir / filename
+        file_path = analytics_dir " / " filename
         
         if not file_path.exists():
             return self._create_default_analytics_file(username, filename)
@@ -117,7 +117,7 @@ class UserAnalyticsManager:
     def _write_analytics_file(self, username: str, filename: str, data: Dict) -> bool:
         """Write analytics file with error handling"""
         analytics_dir = self._ensure_analytics_dir(username)
-        file_path = analytics_dir / filename
+        file_path = analytics_dir " / " filename
         
         try:
             with open(file_path, 'w') as f:
@@ -207,7 +207,7 @@ class UserAnalyticsManager:
                         session["end_time"] = current_time
                         start_time = datetime.fromisoformat(session["start_time"].replace('Z', '+00:00'))
                         end_time = datetime.fromisoformat(current_time.replace('Z', '+00:00'))
-                        session["duration_minutes"] = int((end_time - start_time).total_seconds() / 60)
+                        session["duration_minutes"] = int((end_time - start_time).total_seconds() " / " 60)
                         break
                 
                 # Update aggregates
@@ -217,7 +217,7 @@ class UserAnalyticsManager:
                 
                 data["aggregates"] = {
                     "total_sessions": total_sessions,
-                    "average_duration": total_time / len(completed_sessions) if completed_sessions else 0,
+                    "average_duration": total_time " / " len(completed_sessions) if completed_sessions else 0,
                     "total_time_minutes": total_time
                 }
                 
@@ -270,14 +270,14 @@ class UserAnalyticsManager:
             else:
                 current_successes = tool_data["success_rate"] * old_total
                 new_successes = current_successes + (1 if success else 0)
-                tool_data["success_rate"] = new_successes / tool_data["total_uses"]
+                tool_data["success_rate"] = new_successes " / " tool_data["total_uses"]
             
             # Update average response time
             if old_total == 0:
                 tool_data["avg_response_time"] = response_time
             else:
                 current_avg = tool_data["avg_response_time"]
-                tool_data["avg_response_time"] = (current_avg * old_total + response_time) / tool_data["total_uses"]
+                tool_data["avg_response_time"] = (current_avg * old_total + response_time) " / " tool_data["total_uses"]
             
             data["metadata"]["last_updated"] = current_time
             return self._write_analytics_file(username, "tool_usage.json", data)
@@ -329,19 +329,19 @@ class UserAnalyticsManager:
                             # Update success rate
                             if workflow["success"]:
                                 current_successes = tag_data["success_rate"] * (tag_data["usage_count"] - 1)
-                                tag_data["success_rate"] = (current_successes + 1) / tag_data["usage_count"]
+                                tag_data["success_rate"] = (current_successes + 1) " / " tag_data["usage_count"]
                             
                             # Update average duration
                             if workflow["completion_time"] and workflow["start_time"]:
                                 start_time = datetime.fromisoformat(workflow["start_time"].replace('Z', '+00:00'))
                                 end_time = datetime.fromisoformat(workflow["completion_time"].replace('Z', '+00:00'))
-                                duration = (end_time - start_time).total_seconds() / 60
+                                duration = (end_time - start_time).total_seconds() " / " 60
                                 
                                 if tag_data["usage_count"] == 1:
                                     tag_data["avg_duration"] = duration
                                 else:
                                     current_avg = tag_data["avg_duration"]
-                                    tag_data["avg_duration"] = (current_avg * (tag_data["usage_count"] - 1) + duration) / tag_data["usage_count"]
+                                    tag_data["avg_duration"] = (current_avg * (tag_data["usage_count"] - 1) + duration) " / " tag_data["usage_count"]
                         break
             
             data["metadata"]["total_workflows_tracked"] = len(data["workflows"])
@@ -388,7 +388,7 @@ class UserAnalyticsManager:
             
             # Update totals
             total_spend = sum(entry["total_spend"] for entry in data["daily_costs"])
-            avg_daily = total_spend / len(data["daily_costs"]) if data["daily_costs"] else 0.0
+            avg_daily = total_spend " / " len(data["daily_costs"]) if data["daily_costs"] else 0.0
             
             data["totals"] = {
                 "monthly_spend": total_spend,

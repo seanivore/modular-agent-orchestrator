@@ -26,7 +26,7 @@ def execute_workflow_id(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Generates unique workflow IDs as part of workflow setup flow.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with workflow ID data

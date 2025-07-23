@@ -24,7 +24,7 @@ def execute_workflows(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main workflows command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         - search: Optional search term to filter workflows
         - status: Optional status filter (active, completed, created, temp)
         - user_id: Optional user ID filter
@@ -61,7 +61,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"workflows|{str(params) if params else 'none'}"
     
     # Add workflow directory fingerprint
-    workflows_dir = Path(__file__).parent.parent.parent / "workflows"
+    workflows_dir = Path(__file__).parent.parent.parent " / " "workflows"
     
     # Include directory modification time and file count
     directory_state = ""

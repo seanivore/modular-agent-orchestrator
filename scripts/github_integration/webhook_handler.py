@@ -69,7 +69,7 @@ def estimate_cost(webhook_params: Dict[str, Any] = None) -> Dict[str, float]:
     base_network_ops = 1  # Webhook receive
     
     # Processing complexity based on changes
-    processing_multiplier = max(1.0, (commit_count + changed_files) / 10)
+    processing_multiplier = max(1.0, (commit_count + changed_files) " / " 10)
     
     # Apply operation multipliers
     total_time = base_time * processing_multiplier
@@ -90,7 +90,7 @@ def estimate_cost(webhook_params: Dict[str, Any] = None) -> Dict[str, float]:
         'estimated_time_seconds': round(total_time, 2),
         'estimated_memory_bytes': int(total_memory),
         'estimated_network_operations': total_network_ops,
-        'complexity_score': min(10, (commit_count + config_files) / 5)  # 1-10 scale
+        'complexity_score': min(10, (commit_count + config_files) " / " 5)  # 1-10 scale
     }
 
 
@@ -112,7 +112,7 @@ class GitHubWebhookHandler:
     def setup_routes(self):
         """Setup Flask routes for webhook handling"""
         
-        @self.app.route('/webhook/github', methods=['POST'])
+        @self.app.route('/webhook" / "github', methods=['POST'])
         def handle_webhook():
             """Main webhook handler endpoint"""
             
@@ -129,7 +129,7 @@ class GitHubWebhookHandler:
             result = self.process_webhook_event(payload)
             return jsonify(result)
             
-        @self.app.route('/webhook/status', methods=['GET'])
+        @self.app.route('/webhook" / "status', methods=['GET'])
         def webhook_status():
             """Health check endpoint"""
             return jsonify({
@@ -195,7 +195,7 @@ class GitHubWebhookHandler:
             # Note: we might want to handle 'removed' files differently
             
         # Filter for config files
-        config_files = [f for f in changed_files if f.startswith('configs/') and f.endswith('.json')]
+        config_files = [f for f in changed_files if f.startswith('configs" / "') and f.endswith('.json')]
         
         if not config_files:
             return {
@@ -213,7 +213,7 @@ class GitHubWebhookHandler:
         action = payload.get('action')
         pr = payload.get('pull_request', {})
         
-        # Handle PR opened/updated - check for Claude Code mentions
+        # Handle PR opened" / "updated - check for Claude Code mentions
         if action in ['opened', 'synchronize']:
             body = pr.get('body', '')
             
@@ -292,7 +292,7 @@ class GitHubWebhookHandler:
                 {
                     'step': 1,
                     'title': 'Install Claude Code GitHub App',
-                    'command': '/install-github-app',
+                    'command': '" / "install-github-app',
                     'description': 'Run this command in Claude Code to install the GitHub app'
                 },
                 {
@@ -303,7 +303,7 @@ class GitHubWebhookHandler:
                 {
                     'step': 3,
                     'title': 'Set Up Webhook',
-                    'webhook_url': 'https://your-domain.com/webhook/github',
+                    'webhook_url': 'https://your-domain.com/webhook" / "github',
                     'events': ['push', 'pull_request'],
                     'description': 'Configure GitHub webhook to notify this handler'
                 },
@@ -332,8 +332,8 @@ class GitHubWebhookHandler:
     def start_webhook_server(self, host: str = '0.0.0.0', port: int = 5000, debug: bool = False):
         """Start the webhook server"""
         logger.info("STARTING: Mao GitHub webhook handler on %s:%s", host, port)
-        logger.info("WEBHOOK: Endpoint: http://%s:%s/webhook/github", host, port)
-        logger.info("STATUS: Endpoint: http://%s:%s/webhook/status", host, port)
+        logger.info("WEBHOOK: Endpoint: http://%s:%s/webhook" / "github", host, port)
+        logger.info("STATUS: Endpoint: http://%s:%s/webhook" / "status", host, port)
         
         self.app.run(host=host, port=port, debug=debug)
 

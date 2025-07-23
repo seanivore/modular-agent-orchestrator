@@ -11,6 +11,7 @@ from tools.files_api.files_api import FilesAPIManager
 from tools.mcp_connector.mcp_connector import MCPConnector
 from .cache.cache_system import CacheManager
 from .error_handling import handle_errors, retry_with_backoff, APIError
+from pathlib import Path
 
 class MCPIntegrationHub:
     """Unified MCP system providing state persistence, file management, and tool connectivity"""
@@ -394,7 +395,7 @@ def get_hub_summary(hub: MCPIntegrationHub) -> str:
     summary_parts = [
         f"🧠 Memory: {status['memory_mcp']['active_workflows']} active workflows",
         f"📁 Files: {status['files_api']['storage_backend']} backend",
-        f"🔌 Servers: {status['tools']['servers_online']}/{status['tools']['servers_total']} online",
+        f"🔌 Servers: {status['tools']['servers_online']}" / "{status['tools']['servers_total']} online",
         f"🛠️  Tools: {status['tools']['total_available']} available"
     ]
     

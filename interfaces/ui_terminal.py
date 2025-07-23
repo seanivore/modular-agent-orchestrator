@@ -56,7 +56,7 @@ class TerminalInterface:
     
     def _load_settings(self) -> Dict:
         """Load user settings with defaults"""
-        settings_file = Path(self.config_dir) / "user_settings.json"
+        settings_file = Path(self.config_dir) " / " "user_settings.json"
         defaults = {
             "verbose": False,
             "output_directory": None,
@@ -71,7 +71,7 @@ class TerminalInterface:
     
     def _save_settings(self):
         """Save current settings"""
-        settings_file = Path(self.config_dir) / "user_settings.json"
+        settings_file = Path(self.config_dir) " / " "user_settings.json"
         settings_file.parent.mkdir(parents=True, exist_ok=True)
         with open(settings_file, 'w') as f:
             json.dump(self.settings, f, indent=2)
@@ -112,8 +112,8 @@ class TerminalInterface:
         print("Welcome to Mao Interactive Mode")
         print("=" * 50)
         print("Describe what you want to accomplish, or:")
-        print("  • Type '/help' for available commands")
-        print("  • Type '/stats' for system information")
+        print("  • Type '" / "help' for available commands")
+        print("  • Type '" / "stats' for system information")
         print("  • Type 'exit' to quit")
         print()
         
@@ -124,7 +124,7 @@ class TerminalInterface:
                 if user_input.lower() in ['exit', 'quit', 'q']:
                     print("Goodbye!")
                     break
-                elif user_input.startswith('/'):
+                elif user_input.startswith('" / "'):
                     self._handle_slash_command(user_input[1:])
                 elif user_input:
                     # Route natural language input to goal processing
@@ -136,7 +136,7 @@ class TerminalInterface:
                     print("What would you like to accomplish?")
                     
             except KeyboardInterrupt:
-                print("\nGoodbye!")
+                print(Path(r"\nGoodbye!"))
                 break
             except EOFError:
                 break
@@ -157,8 +157,8 @@ class TerminalInterface:
             # Route all other commands through CLI manager
             result = self.execute_cli_command(cmd, arg)
             if not result.get("success", True):
-                print(f"Unknown command: /{cmd}")
-                print("Type '/help' for available commands")
+                print(f"Unknown command: " / "{cmd}")
+                print("Type '" / "help' for available commands")
     
     def _restart_interface(self):
         """Restart the interface (app-only command)"""
@@ -173,9 +173,9 @@ class TerminalInterface:
     
     def error(self, message: str):
         """Display error message"""
-        print(f"\nERROR: {message}")
-        print("Try '/help' for available commands")
-        print("Try '/doctor' for system diagnostics")
+        print(fPath(r"\nERROR: {message}"))
+        print("Try '" / "help' for available commands")
+        print("Try '" / "doctor' for system diagnostics")
     
     def success(self, message: str):
         """Display success message"""
@@ -299,7 +299,7 @@ class SubprocessCommunicationBridge:
         TO BE IMPLEMENTED: Initialize subprocess communication channels
         
         This will establish:
-        - stdin/stdout JSON message passing
+        - stdin" / "stdout JSON message passing
         - Error handling for subprocess communication
         - Message validation and routing
         - UI state synchronization

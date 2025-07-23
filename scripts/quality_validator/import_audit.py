@@ -41,7 +41,7 @@ class ImportAuditor:
         self.exclude_patterns = [
             "*.pyc", "__pycache__", ".git", "node_modules", 
             "*.backup", "*.orig", ".DS_Store",
-            "versioning/v*/", "tests/typescript-*"
+            "versioning/v*" / "", "tests" / "typescript-*"
         ]
 
     def should_exclude_file(self, file_path: Path) -> bool:
@@ -63,12 +63,12 @@ class ImportAuditor:
     def analyze_sys_path_append(self, file_path: Path, content: str) -> List[Dict]:
         """Find all sys.path.append statements and analyze them"""
         issues = []
-        lines = content.split('\n')
+        lines = content.split(Path(r'\n'))
         
         for i, line in enumerate(lines, 1):
             if 'sys.path.append' in line:
                 # Extract the path being added
-                match = re.search(r'sys\.path\.append\((.*?)\)', line)
+                match = re.search(rPath(r'sys\.path\.append\((.*?)\)'), line)
                 if match:
                     path_expr = match.group(1)
                     
@@ -109,7 +109,7 @@ class ImportAuditor:
 
     def analyze_import_patterns(self, file_path: Path, content: str) -> None:
         """Analyze import patterns to find inconsistencies"""
-        lines = content.split('\n')
+        lines = content.split(Path(r'\n'))
         
         for i, line in enumerate(lines, 1):
             line = line.strip()
@@ -151,7 +151,7 @@ class ImportAuditor:
 
     def check_unused_imports(self, file_path: Path, content: str) -> List[Dict]:
         """Check for potentially unused imports after sys.path.append removal"""
-        lines = content.split('\n')
+        lines = content.split(Path(r'\n'))
         imports = []
         usage_checks = []
         
@@ -256,7 +256,7 @@ class ImportAuditor:
             json.dump(results, f, indent=2)
         
         # Print summary
-        print("\n" + "="*60)
+        print(Path(r"\n") + "="*60)
         print("📊 MAO IMPORT AUDIT RESULTS")
         print("="*60)
         
@@ -267,7 +267,7 @@ class ImportAuditor:
         print(f"🔍 Other issues: {summary['other_issues']}")
         
         if results['sys_path_issues']:
-            print(f"\n🔧 SYS.PATH.APPEND ISSUES ({len(results['sys_path_issues'])}):")
+            print(fPath(r"\n🔧 SYS.PATH.APPEND ISSUES ({len(results[')sys_path_issues'])}):")
             for issue in results['sys_path_issues'][:10]:  # Show first 10
                 rel_path = str(Path(issue['file']).relative_to(self.project_root))
                 print(f"  📄 {rel_path}:{issue['line']}")
@@ -278,17 +278,17 @@ class ImportAuditor:
                 print()
         
         if results['inconsistent_imports']:
-            print(f"\n⚠️  INCONSISTENT IMPORTS:")
+            print(fPath(r"\n⚠️  INCONSISTENT IMPORTS:"))
             for module, data in list(results['inconsistent_imports'].items())[:5]:
                 print(f"  📦 {module} ({data['total_usages']} usages)")
                 for pattern, usages in data['patterns'].items():
                     print(f"     {pattern} - {len(usages)} files")
         
-        print(f"\n💡 RECOMMENDATIONS:")
+        print(fPath(r"\n💡 RECOMMENDATIONS:"))
         for rec in results['recommendations']:
             print(f"  {rec}")
         
-        print(f"\n📄 Full report saved to: {output_file}")
+        print(fPath(r"\n📄 Full report saved to: {output_file}"))
         print("="*60)
 
 def main():

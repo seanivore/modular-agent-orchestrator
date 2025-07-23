@@ -42,6 +42,7 @@ from typing import Dict, Any, List
 # Standardization imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 def estimate_cost(params: Dict[str, Any]) -> float:
     """
@@ -118,7 +119,7 @@ def _display_basic_search(result: Dict[str, Any], verbose: bool):
     
     # Main search message
     if HAS_RICH:
-        console.print(f"[blue]🧠 Perplexity Search Ready: {query}[/blue]")
+        console.print(f"[blue]🧠 Perplexity Search Ready: {query}[" / "blue]")
     else:
         print(f"🧠 Perplexity Search Ready: {query}")
     
@@ -137,7 +138,7 @@ def _display_basic_search(result: Dict[str, Any], verbose: bool):
             info_table.add_row("🌐 Endpoint", result.get("api_endpoint", "unknown"))
             info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
             
-            console.print(Panel(info_table, title="[bold]Perplexity Search Configuration[/bold]", border_style="blue"))
+            console.print(Panel(info_table, title="[bold]Perplexity Search Configuration[" / "bold]", border_style="blue"))
         else:
             print(f"🧠 Query: {query}")
             print(f"🤖 Model: {model}")
@@ -148,7 +149,7 @@ def _display_basic_search(result: Dict[str, Any], verbose: bool):
             print(f"⏰ Prepared: {result.get('timestamp', 'Unknown')}")
     else:
         if HAS_RICH:
-            console.print(f"[dim]🤖 {model} • ${estimated_cost:.3f} estimated[/dim]")
+            console.print(f"[dim]🤖 {model} • ${estimated_cost:.3f} estimated[" / "dim]")
         else:
             print(f"🤖 {model} • ${estimated_cost:.3f} estimated")
 
@@ -161,8 +162,8 @@ def _display_enhanced_research(result: Dict[str, Any], verbose: bool):
     model = result.get("model", "Unknown")
     estimated_cost = result.get("estimated_cost", 0.025)
     
-    console.print(f"[blue]🧠 Enhanced Research Ready: {query}[/blue]")
-    console.print(f"[dim]Approach: {research_approach.title()} • Focus: {analysis_focus.title()}[/dim]")
+    console.print(f"[blue]🧠 Enhanced Research Ready: {query}[" / "blue]")
+    console.print(f"[dim]Approach: {research_approach.title()} • Focus: {analysis_focus.title()}[" / "dim]")
     
     if verbose:
         info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -177,7 +178,7 @@ def _display_enhanced_research(result: Dict[str, Any], verbose: bool):
         info_table.add_row("🔧 Method", result.get("execution_method", "unknown"))
         info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Enhanced Research Configuration[/bold]", border_style="purple"))
+        console.print(Panel(info_table, title="[bold]Enhanced Research Configuration[" / "bold]", border_style="purple"))
 
 @handle_errors(operation_name="_display_query_validation", return_dict=False)
 def _display_query_validation(result: Dict[str, Any], verbose: bool):
@@ -190,30 +191,30 @@ def _display_query_validation(result: Dict[str, Any], verbose: bool):
     
     # Validation status
     if is_valid:
-        status_icon = "[green]✅[/green]"
+        status_icon = "[green]✅[" / "green]"
         status_text = "Valid"
     else:
-        status_icon = "[red]❌[/red]"
+        status_icon = "[red]❌[" / "red]"
         status_text = "Invalid"
     
     console.print(f"{status_icon} Query Validation: {status_text}")
-    console.print(f"[dim]Query: {query}[/dim]")
-    console.print(f"[dim]Estimated Quality: {estimated_quality.title()}[/dim]")
+    console.print(f"[dim]Query: {query}[" / "dim]")
+    console.print(f"[dim]Estimated Quality: {estimated_quality.title()}[" / "dim]")
     
     # Show issues if any
     if issues:
-        console.print("\n[yellow]⚠️ Issues Found:[/yellow]")
+        console.print(Path(r"\n[yellow]⚠️ Issues Found:[") / "yellow]")
         for issue in issues:
             console.print(f"  • {issue}")
     
     # Show suggestions if any
     if suggestions:
-        console.print("\n[blue]💡 Suggestions:[/blue]")
+        console.print(Path(r"\n[blue]💡 Suggestions:[") / "blue]")
         for suggestion in suggestions[:3 if not verbose else len(suggestions)]:
             console.print(f"  • {suggestion}")
         
         if not verbose and len(suggestions) > 3:
-            console.print(f"  [dim]... and {len(suggestions) - 3} more (use verbose mode)[/dim]")
+            console.print(f"  [dim]... and {len(suggestions) - 3} more (use verbose mode)[" / "dim]")
     
     if verbose:
         # Detailed validation info
@@ -227,7 +228,7 @@ def _display_query_validation(result: Dict[str, Any], verbose: bool):
         info_table.add_row("Estimated Quality", estimated_quality.title())
         info_table.add_row("Validation Time", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Validation Details[/bold]", border_style="yellow"))
+        console.print(Panel(info_table, title="[bold]Validation Details[" / "bold]", border_style="yellow"))
 
 @handle_errors(operation_name="_display_research_suggestions", return_dict=False)
 def _display_research_suggestions(result: Dict[str, Any], verbose: bool):
@@ -236,20 +237,20 @@ def _display_research_suggestions(result: Dict[str, Any], verbose: bool):
     suggestion_type = result.get("suggestion_type", "enhancement")
     suggestions = result.get("suggestions", [])
     
-    console.print(f"[blue]💡 Research Suggestions for: {original_query}[/blue]")
-    console.print(f"[dim]Type: {suggestion_type.title()}[/dim]")
+    console.print(f"[blue]💡 Research Suggestions for: {original_query}[" / "blue]")
+    console.print(f"[dim]Type: {suggestion_type.title()}[" / "dim]")
     
     if suggestions:
-        console.print(f"\n[green]📝 Suggested Research Queries:[/green]")
+        console.print(fPath(r"\n[green]📝 Suggested Research Queries:[") / "green]")
         display_count = len(suggestions) if verbose else min(5, len(suggestions))
         
         for i, suggestion in enumerate(suggestions[:display_count], 1):
             console.print(f"  {i}. {suggestion}")
         
         if not verbose and len(suggestions) > 5:
-            console.print(f"  [dim]... and {len(suggestions) - 5} more (use verbose mode)[/dim]")
+            console.print(f"  [dim]... and {len(suggestions) - 5} more (use verbose mode)[" / "dim]")
     else:
-        console.print("[yellow]No suggestions available[/yellow]")
+        console.print("[yellow]No suggestions available[" / "yellow]")
     
     if verbose:
         info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -261,7 +262,7 @@ def _display_research_suggestions(result: Dict[str, Any], verbose: bool):
         info_table.add_row("Suggestions Count", str(len(suggestions)))
         info_table.add_row("Generated", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]Suggestion Details[/bold]", border_style="green"))
+        console.print(Panel(info_table, title="[bold]Suggestion Details[" / "bold]", border_style="green"))
 
 @handle_errors(operation_name="_display_api_configuration", return_dict=False)
 def _display_api_configuration(result: Dict[str, Any], verbose: bool):
@@ -274,21 +275,21 @@ def _display_api_configuration(result: Dict[str, Any], verbose: bool):
     
     # API status
     if api_key_present:
-        status_icon = "[green]✅[/green]"
+        status_icon = "[green]✅[" / "green]"
         status_text = "API Key Present"
     else:
-        status_icon = "[red]❌[/red]"
+        status_icon = "[red]❌[" / "red]"
         status_text = "API Key Missing"
     
     console.print(f"{status_icon} Perplexity API Configuration: {status_text}")
     
     if issues:
-        console.print("\n[yellow]⚠️ Configuration Issues:[/yellow]")
+        console.print(Path(r"\n[yellow]⚠️ Configuration Issues:[") / "yellow]")
         for issue in issues:
             console.print(f"  • {issue}")
     
     if suggestions:
-        console.print("\n[blue]💡 Setup Instructions:[/blue]")
+        console.print(Path(r"\n[blue]💡 Setup Instructions:[") / "blue]")
         for suggestion in suggestions:
             console.print(f"  • {suggestion}")
     
@@ -307,7 +308,7 @@ def _display_api_configuration(result: Dict[str, Any], verbose: bool):
         info_table.add_row("Supported Models", str(len(supported_models)))
         info_table.add_row("Check Time", result.get("timestamp", "Unknown"))
         
-        console.print(Panel(info_table, title="[bold]API Configuration Details[/bold]", border_style="cyan"))
+        console.print(Panel(info_table, title="[bold]API Configuration Details[" / "bold]", border_style="cyan"))
         
         # Models table
         if supported_models:
@@ -336,11 +337,11 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
     operation = result.get("operation", "operation")
     
     if status == "ready_for_execution":
-        console.print(f"[green]✅ {operation.replace('_', ' ').title()} ready for execution[/green]")
+        console.print(f"[green]✅ {operation.replace('_', ' ').title()} ready for execution[" / "green]")
     elif status == "success":
-        console.print(f"[green]✅ {operation.replace('_', ' ').title()} completed successfully[/green]")
+        console.print(f"[green]✅ {operation.replace('_', ' ').title()} completed successfully[" / "green]")
     else:
-        console.print(f"[yellow]⚠️ {operation.replace('_', ' ').title()}: {status}[/yellow]")
+        console.print(f"[yellow]⚠️ {operation.replace('_', ' ').title()}: {status}[" / "yellow]")
     
     if verbose:
         # Display all available information
@@ -356,7 +357,7 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
                     display_value = display_value[:47] + "..."
                 info_table.add_row(display_key, display_value)
         
-        console.print(Panel(info_table, title="[bold]Operation Details[/bold]", border_style="blue"))
+        console.print(Panel(info_table, title="[bold]Operation Details[" / "bold]", border_style="blue"))
 
 @handle_errors(operation_name="display_search_execution_status", return_dict=False)
 def display_search_execution_status(query: str, status: str = "executing"):
@@ -386,7 +387,7 @@ def display_perplexity_capabilities(capabilities: Dict[str, Any]):
     Args:
         capabilities: Capabilities dictionary from get_perplexity_capabilities()
     """
-    console.print("[blue]🧠 Perplexity AI Capabilities[/blue]")
+    console.print("[blue]🧠 Perplexity AI Capabilities[" / "blue]")
     
     # Operations table
     ops_table = Table(title="Available Operations", show_header=True)
@@ -429,19 +430,19 @@ def display_perplexity_capabilities(capabilities: Dict[str, Any]):
     # Models and cost information
     models = capabilities.get("supported_models", [])
     if models:
-        console.print(f"\n[green]🤖 Supported Models:[/green]")
+        console.print(fPath(r"\n[green]🤖 Supported Models:[") / "green]")
         for model in models:
             if "small" in model:
-                console.print(f"  • {model} [dim](Fast, Lower Cost)[/dim]")
+                console.print(f"  • {model} [dim](Fast, Lower Cost)[" / "dim]")
             elif "large" in model:
-                console.print(f"  • {model} [dim](Balanced Performance)[/dim]")
+                console.print(f"  • {model} [dim](Balanced Performance)[" / "dim]")
             elif "huge" in model:
-                console.print(f"  • {model} [dim](Most Capable)[/dim]")
+                console.print(f"  • {model} [dim](Most Capable)[" / "dim]")
     
     # Cost information
     cost_info = capabilities.get("cost_structure", {})
     if cost_info:
-        console.print(f"\n[green]💰 Cost Structure:[/green]")
+        console.print(fPath(r"\n[green]💰 Cost Structure:[") / "green]")
         console.print(f"  Small Model: ${cost_info.get('small_model', 0.015):.3f}")
         console.print(f"  Large Model: ${cost_info.get('large_model', 0.025):.3f}")
         console.print(f"  Huge Model: ${cost_info.get('huge_model', 0.040):.3f}")

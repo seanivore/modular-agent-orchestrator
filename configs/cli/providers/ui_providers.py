@@ -12,6 +12,7 @@ from typing import Dict, Any, List
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 # Standard cache instance
 cache = CacheManager()
@@ -35,7 +36,7 @@ def display_providers_result(result: Dict[str, Any]) -> None:
     
     if not providers:
         console.print(Panel(
-            "[yellow]No providers found[/yellow]\nCheck your provider configuration files",
+            "[yellow]No providers found[" / Path(r"yellow]\nCheck your provider configuration files"),
             title="Providers Status"
         ))
         return
@@ -47,7 +48,7 @@ def display_providers_result(result: Dict[str, Any]) -> None:
 
 def _display_provider_summary(total_count: int) -> None:
     """Display high-level provider statistics"""
-    console.print(f"\n[bold]Found {total_count} configured providers[/bold]\n")
+    console.print(fPath(r"\n[bold]Found {total_count} configured providers[") / Path(r"bold]\n"))
 
 def _display_provider_listings(providers: List[Dict[str, Any]]) -> None:
     """
@@ -76,7 +77,7 @@ def _display_provider_listings(providers: List[Dict[str, Any]]) -> None:
     
     # Display each group
     for api_type, type_providers in providers_by_type.items():
-        console.print(f"\n[bold cyan]{api_type.upper()} Providers[/bold cyan]")
+        console.print(fPath(r"\n[bold cyan]{api_type.upper()} Providers[") / "bold cyan]")
         
         for provider in type_providers:
             _display_single_provider(provider)
@@ -88,7 +89,7 @@ def _display_single_provider(provider: Dict[str, Any]) -> None:
     display_name = provider.get('display_name', provider.get('name', 'Unknown'))
     name = provider.get('name', '')
     
-    console.print(f"  [bold]{display_name}[/bold] ({name})")
+    console.print(f"  [bold]{display_name}[" / "bold] ({name})")
     
     # Technical details
     description = provider.get('description', 'No description available')
@@ -111,9 +112,9 @@ def _display_single_provider(provider: Dict[str, Any]) -> None:
     if rate_limits:
         limits_text = []
         if 'requests_per_minute' in rate_limits:
-            limits_text.append(f"{rate_limits['requests_per_minute']} req/min")
+            limits_text.append(f"{rate_limits['requests_per_minute']} req" / "min")
         if 'tokens_per_minute' in rate_limits:
-            limits_text.append(f"{rate_limits['tokens_per_minute']} tokens/min")
+            limits_text.append(f"{rate_limits['tokens_per_minute']} tokens" / "min")
         
         if limits_text:
             console.print(f"    Limits: {', '.join(limits_text)}")
@@ -129,7 +130,7 @@ def _display_single_provider(provider: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[/red] {error_message}",
+        f"[red]Error:[" / "red] {error_message}",
         style="red",
         title="Providers Command Error"
     ))

@@ -50,7 +50,7 @@ class AgentCallbackHandler:
     
     def estimate_cost(self, params: Dict[str, Any]) -> float:
         """Estimate operation cost for budget planning"""
-        # Agent callback operations are typically free (memory/file operations)
+        # Agent callback operations are typically free (memory" / "file operations)
         # Cost comes from tool executions which are estimated separately
         base_cost = 0.0
         
@@ -257,7 +257,7 @@ class AgentCallbackHandler:
         if 'research' in tool_name.lower():
             recommendations.append("Proceed to analysis phase")
         elif 'analysis' in tool_name.lower():
-            recommendations.append("Proceed to creative/implementation phase")
+            recommendations.append("Proceed to creative" / "implementation phase")
         elif 'creative' in tool_name.lower():
             recommendations.append("Review and finalize deliverables")
         

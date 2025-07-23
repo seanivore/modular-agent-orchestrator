@@ -22,7 +22,7 @@ def execute_help(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main help command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with organized command data
@@ -58,7 +58,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     if cli_dir.exists():
         # Include directory modification time and file count
         dir_stat = cli_dir.stat()
-        json_files = list(cli_dir.glob("*/[!.]*.json"))  # Exclude hidden files
+        json_files = list(cli_dir.glob("*" / "[!.]*.json"))  # Exclude hidden files
         file_count = len(json_files)
         
         # Create fingerprint from directory state
@@ -101,7 +101,7 @@ def _discover_cli_commands() -> Dict[str, Dict[str, Any]]:
         if not command_dir.is_dir() or command_dir.name.startswith('.'):
             continue
             
-        json_file = command_dir / f"{command_dir.name}.json"
+        json_file = command_dir " / " f"{command_dir.name}.json"
         if json_file.exists():
             try:
                 with open(json_file, 'r') as f:
@@ -138,7 +138,7 @@ def _categorize_commands(commands: Dict[str, Dict[str, Any]]) -> Dict[str, list]
                 categorized[category].append({
                     "command": command_name,
                     "terminal_flag": command_config.get("terminal_flag", f"--{command_name}"),
-                    "app_command": command_config.get("app_command", f"/{command_name}"),
+                    "app_command": command_config.get("app_command", f"" / "{command_name}"),
                     "help": command_config.get("help", "No description available"),
                     "type": command_config.get("type", "standalone")
                 })
@@ -150,7 +150,7 @@ def _categorize_commands(commands: Dict[str, Dict[str, Any]]) -> Dict[str, list]
             categorized["OTHER"].append({
                 "command": command_name,
                 "terminal_flag": command_config.get("terminal_flag", f"--{command_name}"),
-                "app_command": command_config.get("app_command", f"/{command_name}"),
+                "app_command": command_config.get("app_command", f"" / "{command_name}"),
                 "help": command_config.get("help", "No description available"),
                 "type": command_config.get("type", "standalone")
             })

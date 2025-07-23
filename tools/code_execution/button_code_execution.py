@@ -47,7 +47,7 @@ def _create_execute_code_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Code Execution Tool - Execute Python Code
 import sys
-sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
 
 from tools.code_execution.code_execution import execute_python_code
 from tools.code_execution.ui_code_execution import display_execution_result, display_code_with_syntax
@@ -102,7 +102,7 @@ def _create_execute_with_files_snippet(params: Dict[str, Any], model: str) -> st
     snippet = f'''
 # Code Execution Tool - Execute with Files
 import sys
-sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
 
 from tools.code_execution.code_execution import execute_code_with_files
 from tools.code_execution.ui_code_execution import display_execution_result, display_code_with_syntax
@@ -154,7 +154,7 @@ def _create_container_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Code Execution Tool - Create Persistent Container
 import sys
-sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
 
 from tools.code_execution.code_execution import create_persistent_container
 from tools.code_execution.ui_code_execution import display_container_info
@@ -194,7 +194,7 @@ def _create_download_files_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Code Execution Tool - Download Generated Files
 import sys
-sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
 
 from tools.code_execution.code_execution import download_execution_files
 from tools.code_execution.ui_code_execution import display_download_results
@@ -214,7 +214,7 @@ results = download_execution_files(
 display_download_results(results, verbose=True)
 
 success_count = sum(1 for r in results if r.get("success", False))
-print(f"📊 Download Results: {{success_count}}/{{len(results)}} successful")
+print(f"📊 Download Results: {{success_count}}" / "{{len(results)}} successful")
 
 print(f"💰 Estimated cost: ${cost_estimate:.4f}")
 
@@ -235,7 +235,7 @@ def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     snippet = f'''
 # Code Execution Tool - General Usage
 import sys
-sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')
+sys.path.append('/Users/seanivore/Development" / "modular-agent-orchestrator')
 
 from tools.code_execution.code_execution import execute_python_code, estimate_cost
 from tools.code_execution.ui_code_execution import display_help, display_execution_result
@@ -245,7 +245,7 @@ print("🐍 Code Execution Tool Ready!")
 # Display help information
 display_help()
 
-print("\\n📋 Available Operations:")
+print(Path(r"\\n📋 Available Operations:"))
 available_operations = [
     "execute_code",
     "execute_with_files",
@@ -258,12 +258,13 @@ for op in available_operations:
 
 # Run example if operation is unknown
 if "{operation}" not in available_operations:
-    print(f"\\n⚠️ Unknown operation: {operation}")
-    print("\\n🧪 Running example code...")
+    print(fPath(r"\\n⚠️ Unknown operation: {operation}"))
+    print(Path(r"\\n🧪 Running example code..."))
     
     example_code = """
 import pandas as pd
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 # Create sample data
 data = {{'x': [1, 2, 3, 4, 5], 'y': [2, 4, 6, 8, 10]}}
@@ -299,7 +300,7 @@ print("Plot saved as sample_plot.png")
     else:
         print("❌ Example execution failed")
 
-print(f"\\n💰 Estimated cost: ${cost_estimate:.4f}")
+print(fPath(r"\\n💰 Estimated cost: ${cost_estimate:.4f}"))
 
 result = {{
     "tool_ready": True,

@@ -1,0 +1,393 @@
+"""
+Variables CLI Command - Core Logic
+Discovers and lists workflow template variables for workflow setup
+"""
+
+import json
+import hashlib
+# import os  # Removed - was only used for sys.path.append
+from typing import Dict, Any, List, Optional
+from datetime import datetime
+from pathlib import Path
+
+# Standard MAO imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError
+from orchestrator.workflow_manager import WorkflowManager
+from orchestrator.memory_mcp import MemoryMCPManager
+
+# Standard cache instance
+cache = CacheManager()
+
+@handle_errors(operation_name="variables", return_dict=True)
+def execute_variables(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """
+    Main variables command execution with caching and error handling.
+    Discovers workflow template variables for workflow setup.
+    
+    Args:
+        params: Command parameters from CLI/app input
+        
+    Returns:
+        Standardized result dictionary with workflow variables data
+    """
+    # Parse parameters
+    with_explanation = params.get("explain", False) if params else False
+    template_name = params.get("template") if params else None
+    output_format = params.get("format", "table") if params else "table"
+    
+    # Check cache first
+    cache_key = _generate_cache_key(params)
+    cached_result = cache.get_cached_analysis(cache_key, "variables")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # Execute command logic
+    result = _execute_command_logic(params, with_explanation, template_name, output_format)
+    
+    # Cache result (template variables change less frequently)
+    cache.cache_content_analysis(cache_key, json.dumps(result), "variables")
+    
+    return result
+
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """
+    Estimate operation cost for budget planning.
+    Medium complexity workflow template analysis operation.
+    """
+    base_cost = 0.001  # Base template analysis cost
+    
+    # Add cost for template file parsing
+    base_cost += 0.0005  # File I/O and JSON parsing cost
+    
+    # Add cost for explanation if requested
+    if params and params.get("explain", False):
+        base_cost += 0.001  # Additional cost for detailed explanations
+    
+    # Add cost for workflow manager integration
+    base_cost += 0.0003  # WorkflowManager interaction cost
+    
+    # Add cost for multiple template analysis
+    template_count = 1
+    if params and not params.get("template"):
+        # Analyzing all templates
+        template_count = 3  # Estimated number of templates
+    
+    base_cost += template_count * 0.0002  # Per-template analysis cost
+    
+    return base_cost
+
+def _generate_cache_key(params: Dict[str, Any] = None) -> str:
+    """Generate fingerprinted cache key including template directory state"""
+    base_key = f"variables|{str(params) if params else 'none'}"
+    
+    # Add templates directory state fingerprint for cache invalidation
+    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    if templates_dir.exists():
+        # Include directory modification time and template count
+        dir_stat = templates_dir.stat()
+        template_files = list(templates_dir.rglob("*.json"))
+        template_count = len(template_files)
+        
+        # Include modification times of template JSON files
+        json_mod_times = []
+        for template_file in template_files:
+            if template_file.exists():
+                json_mod_times.append(template_file.stat().st_mtime)
+        
+        # Create fingerprint from directory and file state
+        dir_fingerprint = f"{dir_stat.st_mtime}|{template_count}|{sorted(json_mod_times)}"
+        base_key += f"|templates:{hashlib.md5(dir_fingerprint.encode()).hexdigest()[:8]}"
+    
+    return hashlib.md5(base_key.encode()).hexdigest()[:16]
+
+def _execute_command_logic(params: Dict[str, Any] = None, with_explanation: bool = False, 
+                          template_name: Optional[str] = None, output_format: str = "table") -> Dict[str, Any]:
+    """Core variables command logic implementation"""
+    try:
+        # Discover workflow template variables
+        if template_name:
+            variables_data = _analyze_specific_template(template_name, with_explanation)
+        else:
+            variables_data = _analyze_all_templates(with_explanation)
+        
+        if not variables_data:
+            return {
+                "success": False,
+                "error": "No workflow templates found or no variables discovered",
+                "timestamp": datetime.now().isoformat()
+            }
+        
+        # Prepare result data
+        result_data = {
+            "success": True,
+            "variables": variables_data,
+            "total_variables": len(variables_data.get("common_variables", [])),
+            "analysis_scope": template_name if template_name else "all_templates",
+            "with_explanations": with_explanation,
+            "output_format": output_format,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        # Add workflow setup guidance
+        result_data["setup_guidance"] = {
+            "workflow_json_structure": _get_workflow_json_structure(),
+            "required_vs_optional": _categorize_variables(variables_data),
+            "placeholder_patterns": _get_placeholder_patterns()
+        }
+        
+        # Add template analysis details
+        if "template_analysis" in variables_data:
+            result_data["template_analysis"] = variables_data["template_analysis"]
+        
+        return result_data
+        
+    except Exception as e:
+        return {
+            "success": False,
+            "error": f"Failed to analyze workflow variables: {str(e)}",
+            "timestamp": datetime.now().isoformat(),
+            "troubleshooting": [
+                "Check that workflow templates directory exists",
+                "Verify template JSON files are valid",
+                "Ensure proper permissions for template files"
+            ]
+        }
+
+def _analyze_all_templates(with_explanation: bool = False) -> Dict[str, Any]:
+    """Analyze all workflow templates for variables"""
+    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    
+    if not templates_dir.exists():
+        return {}
+    
+    all_variables = {}
+    template_analysis = {}
+    
+    # Find all template directories
+    for template_dir in templates_dir.iterdir():
+        if template_dir.is_dir() and not template_dir.name.startswith('.'):
+            template_name = template_dir.name
+            
+            # Look for workflow config files
+            workflow_configs = list(template_dir.glob("*_workflow_config.json"))
+            
+            for config_file in workflow_configs:
+                try:
+                    with open(config_file, 'r') as f:
+                        config_data = json.load(f)
+                    
+                    # Extract variables from template
+                    variables = _extract_variables_from_config(config_data, with_explanation)
+                    
+                    # Merge variables
+                    for var_name, var_info in variables.items():
+                        if var_name not in all_variables:
+                            all_variables[var_name] = var_info
+                        else:
+                            # Merge examples and sources
+                            all_variables[var_name]["examples"].extend(var_info.get("examples", []))
+                            all_variables[var_name]["sources"].extend(var_info.get("sources", []))
+                    
+                    # Store template analysis
+                    template_analysis[template_name] = {
+                        "config_file": str(config_file),
+                        "variables_found": len(variables),
+                        "variables": list(variables.keys())
+                    }
+                    
+                except (json.JSONDecodeError, IOError) as e:
+                    template_analysis[template_name] = {
+                        "error": f"Failed to parse template: {str(e)}"
+                    }
+    
+    return {
+        "common_variables": all_variables,
+        "template_analysis": template_analysis,
+        "total_templates_analyzed": len(template_analysis)
+    }
+
+def _analyze_specific_template(template_name: str, with_explanation: bool = False) -> Dict[str, Any]:
+    """Analyze a specific workflow template for variables"""
+    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    template_dir = templates_dir / template_name
+    
+    if not template_dir.exists():
+        return {"error": f"Template '{template_name}' not found"}
+    
+    variables = {}
+    
+    # Look for workflow config files
+    workflow_configs = list(template_dir.glob("*_workflow_config.json"))
+    
+    for config_file in workflow_configs:
+        try:
+            with open(config_file, 'r') as f:
+                config_data = json.load(f)
+            
+            # Extract variables from template
+            template_variables = _extract_variables_from_config(config_data, with_explanation)
+            variables.update(template_variables)
+            
+        except (json.JSONDecodeError, IOError) as e:
+            return {"error": f"Failed to parse template config: {str(e)}"}
+    
+    return {
+        "common_variables": variables,
+        "template_name": template_name,
+        "template_path": str(template_dir),
+        "config_files_analyzed": len(workflow_configs)
+    }
+
+def _extract_variables_from_config(config_data: Dict[str, Any], with_explanation: bool = False) -> Dict[str, Any]:
+    """Extract variables from workflow configuration data"""
+    variables = {}
+    
+    # Look for workflow array
+    workflows = config_data.get("workflow", [])
+    if not workflows:
+        return variables
+    
+    # Analyze first workflow object (template structure)
+    workflow_obj = workflows[0] if workflows else {}
+    
+    # Define known workflow variables
+    known_variables = {
+        "user_id": {
+            "type": "string",
+            "required": True,
+            "description": "Unique identifier for the user creating the workflow",
+            "pattern": "user-[identifier]",
+            "placeholder_pattern": "user-REPLACE_WITH_YOUR_USER_ID"
+        },
+        "workflow_id": {
+            "type": "string", 
+            "required": True,
+            "description": "Unique identifier for the workflow instance",
+            "pattern": "uid-[generated_id]",
+            "placeholder_pattern": "uid-REPLACE_WITH_GENERATED_ID"
+        },
+        "custom_command": {
+            "type": "string",
+            "required": True,
+            "description": "Custom command name for the workflow",
+            "pattern": "[descriptive-name]"
+        },
+        "workflow_goal": {
+            "type": "string",
+            "required": True,
+            "description": "Primary objective or goal of the workflow"
+        },
+        "workflow_deliverable": {
+            "type": "string",
+            "required": True,
+            "description": "Expected output or deliverable from the workflow"
+        },
+        "workflow_description": {
+            "type": "string",
+            "required": True,
+            "description": "Detailed description of the workflow process and steps"
+        },
+        "temp_directory": {
+            "type": "string",
+            "required": False,
+            "description": "Temporary directory path for workflow processing",
+            "pattern": "configs/workflows/.temp/[workflow-name]/"
+        },
+        "created_at": {
+            "type": "string",
+            "required": False,
+            "description": "Timestamp when the workflow was created",
+            "pattern": "ISO 8601 format",
+            "placeholder_pattern": "REPLACE_WITH_CURRENT_TIMESTAMP"
+        }
+    }
+    
+    # Extract variables found in the template
+    for var_name, var_info in known_variables.items():
+        if var_name in workflow_obj:
+            var_value = workflow_obj[var_name]
+            
+            # Create variable entry
+            variable_entry = {
+                "name": var_name,
+                "type": var_info["type"],
+                "required": var_info["required"],
+                "description": var_info["description"],
+                "examples": [var_value] if var_value else [],
+                "sources": ["workflow_template"]
+            }
+            
+            # Add additional info for explanations
+            if with_explanation:
+                variable_entry["explanation"] = var_info.get("description", "")
+                variable_entry["usage_pattern"] = var_info.get("pattern", "")
+                variable_entry["placeholder_pattern"] = var_info.get("placeholder_pattern", "")
+                
+                # Add specific usage guidance
+                if var_name == "user_id":
+                    variable_entry["generation_command"] = "mao user_id"
+                elif var_name == "workflow_id":
+                    variable_entry["generation_command"] = "mao workflow_id"
+                elif var_name == "created_at":
+                    variable_entry["generation_note"] = "Use current ISO timestamp"
+            
+            variables[var_name] = variable_entry
+    
+    return variables
+
+def _get_workflow_json_structure() -> Dict[str, Any]:
+    """Get the standard workflow JSON structure"""
+    return {
+        "structure": {
+            "workflow": [
+                {
+                    "user_id": "Generated via 'mao user_id'",
+                    "workflow_id": "Generated via 'mao workflow_id'", 
+                    "custom_command": "Your workflow command name",
+                    "workflow_goal": "Primary objective description",
+                    "workflow_deliverable": "Expected output description",
+                    "workflow_description": "Detailed workflow process description",
+                    "temp_directory": "Optional: configs/workflows/.temp/[name]/",
+                    "created_at": "Optional: ISO 8601 timestamp"
+                }
+            ]
+        },
+        "notes": [
+            "user_id and workflow_id should be generated using MAO commands",
+            "custom_command should be unique and descriptive",
+            "temp_directory follows standard MAO workflow path convention"
+        ]
+    }
+
+def _categorize_variables(variables_data: Dict[str, Any]) -> Dict[str, List[str]]:
+    """Categorize variables as required vs optional"""
+    required_vars = []
+    optional_vars = []
+    
+    common_vars = variables_data.get("common_variables", {})
+    
+    for var_name, var_info in common_vars.items():
+        if var_info.get("required", False):
+            required_vars.append(var_name)
+        else:
+            optional_vars.append(var_name)
+    
+    return {
+        "required": required_vars,
+        "optional": optional_vars
+    }
+
+def _get_placeholder_patterns() -> Dict[str, str]:
+    """Get common placeholder patterns used in templates"""
+    return {
+        "user_id": "user-REPLACE_WITH_YOUR_USER_ID",
+        "workflow_id": "uid-REPLACE_WITH_GENERATED_ID",
+        "created_at": "REPLACE_WITH_CURRENT_TIMESTAMP",
+        "temp_directory": "configs/workflows/.temp/[workflow-name]/"
+    }
+
+# Standalone function for CLI manager import
+def execute_command(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Standalone function for CLI manager routing"""
+    return execute_variables(params)

@@ -33,7 +33,7 @@ def execute_memory(params: Dict[str, Any] = None) -> Dict[str, Any]:
         return {
             "success": False,
             "error": "Memory command requires parameters",
-            "usage": "Use: /memory 'text' to store, /memory --list to view, /memory --delete [ID] to remove",
+            "usage": "Use: " / "memory 'text' to store, /memory --list to view, " / "memory --delete [ID] to remove",
             "timestamp": datetime.now().isoformat()
         }
     
@@ -239,7 +239,7 @@ def _execute_command_logic(params: Dict[str, Any], operation_type: str) -> Dict[
                 return {
                     "success": False,
                     "error": "Memory delete requires a memory ID",
-                    "usage": "Use: /memory --delete [memory_id]",
+                    "usage": "Use: " / "memory --delete [memory_id]",
                     "timestamp": datetime.now().isoformat()
                 }
             

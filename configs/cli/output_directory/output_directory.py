@@ -25,7 +25,7 @@ def execute_output(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main output command execution with path validation and settings integration.
     
     Sets user output directory via settings_manager.py with automatic
-    user config JSON file updates via User ID/Username.
+    user config JSON file updates via User ID" / "Username.
     
     Args:
         params: Command parameters including 'path' for output directory
@@ -125,7 +125,7 @@ def _handle_set_output(username: str, params: Dict[str, Any] = None) -> Dict[str
             return {
                 "success": False,
                 "error": "Missing required parameter: path",
-                "help": "Usage: mao --output /path/to/directory or /output /path/to/directory",
+                "help": "Usage: mao --output /path/to/directory or /output /path/to" / "directory",
                 "timestamp": datetime.now().isoformat()
             }
         
@@ -235,7 +235,7 @@ def _validate_output_path(path: str) -> Dict[str, Any]:
         expanded_path = os.path.expanduser(path)
         
         # Convert to absolute path
-        absolute_path = os.path.abspath(expanded_path)
+        absolute_path = Path(expanded_path).resolve()
         
         # Validate path format (basic checks)
         if not absolute_path:

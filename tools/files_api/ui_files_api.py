@@ -12,6 +12,7 @@ from typing import Dict, Any
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 console = Console()
 cache = CacheManager()
@@ -152,7 +153,7 @@ def display_deliverables_save(result: Dict[str, Any]) -> None:
     
     # Individual files
     if saved_files:
-        console.print("\n📁 Saved Files:", style="bold")
+        console.print(Path(r"\n📁 Saved Files:"), style="bold")
         files_table = Table(show_header=True, header_style="bold magenta")
         files_table.add_column("Deliverable", style="cyan")
         files_table.add_column("Filename", style="white")
@@ -186,7 +187,7 @@ def display_workflow_files(result: Dict[str, Any]) -> None:
     
     # Files by category
     if workflow_files:
-        console.print("\n📋 Files by Category:", style="bold")
+        console.print(Path(r"\n📋 Files by Category:"), style="bold")
         category_table = Table(show_header=True, header_style="bold magenta")
         category_table.add_column("Category", style="cyan")
         category_table.add_column("Count", style="yellow", justify="right")
@@ -277,7 +278,7 @@ def display_operation_summary(results: Dict[str, Any], verbose: bool = False) ->
     console.print(f"✅ {operation} completed successfully", style="green bold")
     
     if verbose and results:
-        console.print("\n📋 Operation Details:", style="bold")
+        console.print(Path(r"\n📋 Operation Details:"), style="bold")
         for key, value in results.items():
             if key not in ["status", "error", "cost"]:
                 console.print(f"   {key}: {value}", style="dim")

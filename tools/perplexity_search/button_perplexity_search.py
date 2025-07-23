@@ -80,9 +80,9 @@ def execute_search():
     }}
     
     if HAS_RICH and console:
-        console.print("[blue]🧠 Perplexity AI Search[/blue]")
-        console.print(f"[cyan]📝 Query:[/cyan] {{params['query']}}")
-        console.print(f"[cyan]🤖 Model:[/cyan] {{params['model']}}")
+        console.print("[blue]🧠 Perplexity AI Search[" / "blue]")
+        console.print(f"[cyan]📝 Query:[" / "cyan] {{params['query']}}")
+        console.print(f"[cyan]🤖 Model:[" / "cyan] {{params['model']}}")
         console.print("=" * 60)
     else:
         print("🧠 Perplexity AI Search")
@@ -96,16 +96,16 @@ def execute_search():
     
     if result.get("status") == "ready_for_execution":
         if HAS_RICH and console:
-            console.print("[green]✅ Search configuration ready[/green]")
-            console.print(f"[yellow]💰 Estimated cost:[/yellow] ${{estimate_cost(params):.4f}}")
-            console.print("[dim]💡 Now execute with Perplexity API using the configuration above[/dim]")
+            console.print("[green]✅ Search configuration ready[" / "green]")
+            console.print(f"[yellow]💰 Estimated cost:[" / "yellow] ${{estimate_cost(params):.4f}}")
+            console.print("[dim]💡 Now execute with Perplexity API using the configuration above[" / "dim]")
         else:
             print("✅ Search configuration ready")
             print(f"💰 Estimated cost: ${{estimate_cost(params):.4f}}")
             print("💡 Now execute with Perplexity API using the configuration above")
     else:
         if HAS_RICH and console:
-            console.print("[red]❌ Search preparation failed[/red]")
+            console.print("[red]❌ Search preparation failed[" / "red]")
         else:
             print("❌ Search preparation failed")
 
@@ -147,10 +147,10 @@ def execute_enhanced_research():
     }}
     
     if HAS_RICH and console:
-        console.print("[blue]🧠 Enhanced Perplexity Research[/blue]")
-        console.print(f"[cyan]📝 Query:[/cyan] {{params['query']}}")
-        console.print(f"[cyan]📊 Approach:[/cyan] {{params['research_approach']}}")
-        console.print(f"[cyan]🎯 Focus:[/cyan] {{params['analysis_focus']}}")
+        console.print("[blue]🧠 Enhanced Perplexity Research[" / "blue]")
+        console.print(f"[cyan]📝 Query:[" / "cyan] {{params['query']}}")
+        console.print(f"[cyan]📊 Approach:[" / "cyan] {{params['research_approach']}}")
+        console.print(f"[cyan]🎯 Focus:[" / "cyan] {{params['analysis_focus']}}")
         console.print("=" * 80)
     else:
         print("🧠 Enhanced Perplexity Research")
@@ -165,16 +165,16 @@ def execute_enhanced_research():
     
     if result.get("status") == "ready_for_execution":
         if HAS_RICH and console:
-            console.print("[green]✅ Enhanced research configuration ready[/green]")
-            console.print(f"[yellow]💰 Estimated cost:[/yellow] ${{estimate_cost(params):.4f}}")
-            console.print("[dim]💡 Now execute with Perplexity API using the enhanced configuration above[/dim]")
+            console.print("[green]✅ Enhanced research configuration ready[" / "green]")
+            console.print(f"[yellow]💰 Estimated cost:[" / "yellow] ${{estimate_cost(params):.4f}}")
+            console.print("[dim]💡 Now execute with Perplexity API using the enhanced configuration above[" / "dim]")
         else:
             print("✅ Enhanced research configuration ready")
             print(f"💰 Estimated cost: ${{estimate_cost(params):.4f}}")
             print("💡 Now execute with Perplexity API using the enhanced configuration above")
     else:
         if HAS_RICH and console:
-            console.print("[red]❌ Research preparation failed[/red]")
+            console.print("[red]❌ Research preparation failed[" / "red]")
         else:
             print("❌ Research preparation failed")
 
@@ -207,8 +207,8 @@ def validate_query():
     query = {escaped_query}
     
     if HAS_RICH and console:
-        console.print("[blue]🧠 Perplexity Query Validation[/blue]")
-        console.print(f"[cyan]📝 Query:[/cyan] {{query}}")
+        console.print("[blue]🧠 Perplexity Query Validation[" / "blue]")
+        console.print(f"[cyan]📝 Query:[" / "cyan] {{query}}")
         console.print("=" * 60)
     else:
         print("🧠 Perplexity Query Validation")
@@ -221,12 +221,12 @@ def validate_query():
     
     if result.get("is_valid"):
         if HAS_RICH and console:
-            console.print("[green]✅ Query is optimized for Perplexity AI[/green]")
+            console.print("[green]✅ Query is optimized for Perplexity AI[" / "green]")
         else:
             print("✅ Query is optimized for Perplexity AI")
     else:
         if HAS_RICH and console:
-            console.print("[yellow]⚠️ Query could be improved for better results[/yellow]")
+            console.print("[yellow]⚠️ Query could be improved for better results[" / "yellow]")
         else:
             print("⚠️ Query could be improved for better results")
 
@@ -264,9 +264,9 @@ def generate_suggestions():
     }}
     
     if HAS_RICH and console:
-        console.print("[blue]🧠 Perplexity Research Suggestions[/blue]")
-        console.print(f"[cyan]📝 Query:[/cyan] {{params['query']}}")
-        console.print(f"[cyan]🎯 Type:[/cyan] {{params['suggestion_type']}}")
+        console.print("[blue]🧠 Perplexity Research Suggestions[" / "blue]")
+        console.print(f"[cyan]📝 Query:[" / "cyan] {{params['query']}}")
+        console.print(f"[cyan]🎯 Type:[" / "cyan] {{params['suggestion_type']}}")
         console.print("=" * 60)
     else:
         print("🧠 Perplexity Research Suggestions")
@@ -280,12 +280,12 @@ def generate_suggestions():
     
     if result.get("suggestions"):
         if HAS_RICH and console:
-            console.print(f"[green]✅ Generated {{len(result['suggestions'])}} research suggestions[/green]")
+            console.print(f"[green]✅ Generated {{len(result['suggestions'])}} research suggestions[" / "green]")
         else:
             print(f"✅ Generated {{len(result['suggestions'])}} research suggestions")
     else:
         if HAS_RICH and console:
-            console.print("[yellow]⚠️ No suggestions could be generated[/yellow]")
+            console.print("[yellow]⚠️ No suggestions could be generated[" / "yellow]")
         else:
             print("⚠️ No suggestions could be generated")
 
@@ -309,12 +309,13 @@ except ImportError:
 
 from tools.perplexity_search.perplexity_search import check_api_configuration
 from tools.perplexity_search.ui_perplexity_search import display_perplexity_result
+from pathlib import Path
 
 def check_api():
     """Check Perplexity API configuration using MAO functions"""
     
     if HAS_RICH and console:
-        console.print("[blue]🧠 Perplexity API Configuration Check[/blue]")
+        console.print("[blue]🧠 Perplexity API Configuration Check[" / "blue]")
         console.print("=" * 60)
     else:
         print("🧠 Perplexity API Configuration Check")
@@ -326,12 +327,12 @@ def check_api():
     
     if result.get("is_configured"):
         if HAS_RICH and console:
-            console.print("[green]✅ Perplexity API is properly configured[/green]")
+            console.print("[green]✅ Perplexity API is properly configured[" / "green]")
         else:
             print("✅ Perplexity API is properly configured")
     else:
         if HAS_RICH and console:
-            console.print("[red]❌ API configuration needs attention[/red]")
+            console.print("[red]❌ API configuration needs attention[" / "red]")
         else:
             print("❌ API configuration needs attention")
 

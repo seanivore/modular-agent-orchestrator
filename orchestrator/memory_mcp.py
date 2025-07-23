@@ -195,7 +195,7 @@ class MemoryMCPManager:
 
 
 class MockMemoryMCP:
-    """Mock implementation for development/testing"""
+    """Mock implementation for development" / "testing"""
     
     def __init__(self):
         self.entities = {}
@@ -251,12 +251,12 @@ class LocalMemoryFallback:
     
     def __init__(self):
         from pathlib import Path
-        self.storage_dir = Path.cwd() / "configs" / "memory_fallback"
+        self.storage_dir = Path.cwd() " / " "configs" " / " "memory_fallback"
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         
         # Load existing data
-        self.entities_file = self.storage_dir / "entities.json"
-        self.observations_file = self.storage_dir / "observations.json"
+        self.entities_file = self.storage_dir " / " "entities.json"
+        self.observations_file = self.storage_dir " / " "observations.json"
         
         self.entities = self._load_json(self.entities_file, {})
         self.observations = self._load_json(self.observations_file, {})

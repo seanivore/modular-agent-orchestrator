@@ -38,15 +38,15 @@ class ValidationResult:
     
 class Colors:
     """ANSI color codes for pretty output"""
-    GREEN = '\033[92m'
-    RED = '\033[91m'
-    YELLOW = '\033[93m'
-    BLUE = '\033[94m'
-    PURPLE = '\033[95m'
-    CYAN = '\033[96m'
-    WHITE = '\033[97m'
-    BOLD = '\033[1m'
-    END = '\033[0m'
+    GREEN = Path(r'\033[92m')
+    RED = Path(r'\033[91m')
+    YELLOW = Path(r'\033[93m')
+    BLUE = Path(r'\033[94m')
+    PURPLE = Path(r'\033[95m')
+    CYAN = Path(r'\033[96m')
+    WHITE = Path(r'\033[97m')
+    BOLD = Path(r'\033[1m')
+    END = Path(r'\033[0m')
 
 
 class MAOQualityValidator:
@@ -57,8 +57,8 @@ class MAOQualityValidator:
     
     def __init__(self, project_root: str = "."):
         self.project_root = Path(project_root)
-        self.tools_dir = self.project_root / "tools"
-        self.orchestrator_dir = self.project_root / "orchestrator"
+        self.tools_dir = self.project_root " / " "tools"
+        self.orchestrator_dir = self.project_root " / " "orchestrator"
         self.results: List[ValidationResult] = []
         
         # Mao integrations
@@ -98,14 +98,14 @@ class MAOQualityValidator:
             'estimated_time_seconds': round(estimated_time, 2),
             'estimated_memory_bytes': int(estimated_memory),
             'estimated_io_operations': estimated_io_ops,
-            'complexity_score': min(10, tools_count / 2)  # 1-10 scale
+            'complexity_score': min(10, tools_count " / " 2)  # 1-10 scale
         }
         
     @handle_errors(operation_name="quality_validation", return_dict=False)
     def run_all_validations(self) -> bool:
-        """Run all validation checks and return overall pass/fail"""
-        print(f"{Colors.BOLD}{Colors.CYAN}🎯 MAO v4 Quality Control Validator{Colors.END}\n")
-        print(f"{Colors.BLUE}Validating project at: {self.project_root.absolute()}{Colors.END}\n")
+        """Run all validation checks and return overall pass" / "fail"""
+        print(fPath(r"{Colors.BOLD}{Colors.CYAN}🎯 MAO v4 Quality Control Validator{Colors.END}\n"))
+        print(fPath(r"{Colors.BLUE}Validating project at: {self.project_root.absolute()}{Colors.END}\n"))
         
         # Run all validators
         validators = [
@@ -147,7 +147,7 @@ class MAOQualityValidator:
         # Print detailed results
         self.print_detailed_results()
         
-        # Return overall pass/fail
+        # Return overall pass" / "fail
         return all(result.passed for result in self.results)
     
     def validate_tool_structure(self) -> ValidationResult:
@@ -175,10 +175,10 @@ class MAOQualityValidator:
             
             # Required files for each tool
             required_files = {
-                "logic": tool_dir / f"{tool_name}.py",
-                "button": tool_dir / f"button_{tool_name}.py",
-                "ui": tool_dir / f"ui_{tool_name}.py",
-                "config": tool_dir / f"tool_{tool_name}.json"
+                "logic": tool_dir " / " f"{tool_name}.py",
+                "button": tool_dir " / " f"button_{tool_name}.py",
+                "ui": tool_dir " / " f"ui_{tool_name}.py",
+                "config": tool_dir " / " f"tool_{tool_name}.json"
             }
             
             # Check if all required files exist
@@ -258,7 +258,7 @@ class MAOQualityValidator:
                         elif "_cost" in node.name and node.name != "estimate_cost":
                             has_old_cost_functions.append(node.name)
                 
-                # Check if main logic/orchestrator files have estimate_cost
+                # Check if main logic" / "orchestrator files have estimate_cost
                 file_needs_cost = (
                     py_file.parent.name != "__pycache__" and
                     py_file.name not in ["__init__.py", "protocol.md"] and
@@ -369,7 +369,7 @@ class MAOQualityValidator:
                 with open(py_file, 'r', encoding='utf-8') as f:
                     content = f.read()
                 
-                lines = content.split('\n')
+                lines = content.split(Path(r'\n'))
                 for line_num, line in enumerate(lines, 1):
                     line = line.strip()
                     
@@ -500,7 +500,7 @@ class MAOQualityValidator:
     
     def print_detailed_results(self):
         """Print detailed validation results"""
-        print(f"\n{Colors.BOLD}{Colors.WHITE}📊 DETAILED VALIDATION RESULTS{Colors.END}")
+        print(fPath(r"\n{Colors.BOLD}{Colors.WHITE}📊 DETAILED VALIDATION RESULTS{Colors.END}"))
         print("=" * 60)
         
         total_issues = sum(len(r.issues) for r in self.results)
@@ -508,23 +508,23 @@ class MAOQualityValidator:
         passed_validators = sum(1 for r in self.results if r.passed)
         
         # Summary
-        print(f"\n{Colors.BOLD}Summary:{Colors.END}")
-        print(f"  Validators: {passed_validators}/{len(self.results)} passed")
+        print(fPath(r"\n{Colors.BOLD}Summary:{Colors.END}"))
+        print(f"  Validators: {passed_validators}" / "{len(self.results)} passed")
         print(f"  Issues: {total_issues}")
         print(f"  Warnings: {total_warnings}")
         
         # Overall status
         if total_issues == 0:
-            print(f"\n{Colors.BOLD}{Colors.GREEN}🎉 ALL VALIDATIONS PASSED!{Colors.END}")
+            print(fPath(r"\n{Colors.BOLD}{Colors.GREEN}🎉 ALL VALIDATIONS PASSED!{Colors.END}"))
             print(f"{Colors.GREEN}MAO v4 meets all quality standards!{Colors.END}")
         else:
-            print(f"\n{Colors.BOLD}{Colors.RED}❌ VALIDATION FAILED{Colors.END}")
+            print(fPath(r"\n{Colors.BOLD}{Colors.RED}❌ VALIDATION FAILED{Colors.END}"))
             print(f"{Colors.RED}Please fix {total_issues} issues before proceeding{Colors.END}")
         
         # Detailed breakdown
         for result in self.results:
             if result.issues or result.warnings:
-                print(f"\n{Colors.BOLD}{result.validator}:{Colors.END}")
+                print(fPath(r"\n{Colors.BOLD}{result.validator}:{Colors.END}"))
                 
                 for issue in result.issues:
                     print(f"  {Colors.RED}❌ {issue}{Colors.END}")
@@ -604,10 +604,10 @@ def main():
     success = validator.run_all_validations()
     
     if success:
-        print(f"\n{Colors.BOLD}{Colors.GREEN}✅ Quality validation PASSED! MAO v4 is ready for production!{Colors.END}")
+        print(fPath(r"\n{Colors.BOLD}{Colors.GREEN}✅ Quality validation PASSED! MAO v4 is ready for production!{Colors.END}"))
         sys.exit(0)
     else:
-        print(f"\n{Colors.BOLD}{Colors.RED}❌ Quality validation FAILED! Please fix issues before proceeding.{Colors.END}")
+        print(fPath(r"\n{Colors.BOLD}{Colors.RED}❌ Quality validation FAILED! Please fix issues before proceeding.{Colors.END}"))
         sys.exit(1)
 
 

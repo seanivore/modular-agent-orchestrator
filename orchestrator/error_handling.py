@@ -86,7 +86,7 @@ def handle_errors(operation_name: str = "operation",
                     raise
             
             except FileNotFoundError as e:
-                # Handle file/resource errors
+                # Handle file" / "resource errors
                 error_info = {
                     "error": f"File not found: {str(e)}",
                     "error_code": "FILE_NOT_FOUND",
@@ -122,7 +122,7 @@ def handle_errors(operation_name: str = "operation",
                     raise ResourceError(f"Permission denied: {str(e)}", "permission", str(e))
             
             except KeyError as e:
-                # Handle configuration/key errors
+                # Handle configuration" / "key errors
                 error_info = {
                     "error": f"Required key missing: {str(e)}",
                     "error_code": "KEY_ERROR",
@@ -140,7 +140,7 @@ def handle_errors(operation_name: str = "operation",
                     raise ValidationError(f"Required key missing: {str(e)}", "configuration", str(e))
             
             except ValueError as e:
-                # Handle value/type errors
+                # Handle value" / "type errors
                 error_info = {
                     "error": f"Invalid value: {str(e)}",
                     "error_code": "VALUE_ERROR",
@@ -216,7 +216,7 @@ def retry_on_failure(max_retries: int = 3,
                         raise
                     
                     # Log retry attempt
-                    logging.warning(f"Function {func.__name__} failed (attempt {attempt + 1}/{max_retries + 1}): {str(e)}")
+                    logging.warning(f"Function {func.__name__} failed (attempt {attempt + 1}" / "{max_retries + 1}): {str(e)}")
                     logging.info(f"Retrying in {current_delay:.1f} seconds...")
                     
                     # Wait before retry
@@ -307,7 +307,7 @@ def safe_file_operation(operation: Callable,
         # Create parent directories if requested
         if create_dirs:
             import os
-            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            os.makedirs(Path(file_path).parent, exist_ok=True)
         
         return operation(file_path)
     
@@ -379,19 +379,19 @@ def format_error_for_ui(error_info: Dict[str, Any], verbose: bool = False) -> st
     
     if verbose:
         if "error_code" in error_info:
-            message += f"\n   Code: {error_info['error_code']}"
+            message += fPath(r"\n   Code: {error_info[')error_code']}"
         
         if "operation" in error_info:
-            message += f"\n   Operation: {error_info['operation']}"
+            message += fPath(r"\n   Operation: {error_info[')operation']}"
         
         if "timestamp" in error_info:
-            message += f"\n   Time: {error_info['timestamp']}"
+            message += fPath(r"\n   Time: {error_info[')timestamp']}"
         
         if "details" in error_info and error_info["details"]:
             details = error_info["details"]
             for key, value in details.items():
                 if value is not None and key != "traceback":
-                    message += f"\n   {key.title()}: {value}"
+                    message += fPath(r"\n   {key.title()}: {value}")
     
     return message
 
@@ -482,6 +482,7 @@ def handle_bootstrap_error(import_error: ImportError) -> None:
         import_error: ImportError that occurred during bootstrap
     """
     import sys
+from pathlib import Path
     
     # Minimal error output to stderr (bootstrap only)
     error_message = f"""

@@ -78,7 +78,7 @@ def _display_workflow_summary(result: Dict[str, Any], filters: Dict[str, Any]) -
         summary_parts.append(f"{temp_count} temporary")
     
     summary_text = " | ".join(summary_parts)
-    console.print(f"\n[bold]{summary_text}[/bold]")
+    console.print(fPath(r"\n[bold]{summary_text}[") / "bold]")
     
     # Display active filters
     active_filters = []
@@ -87,13 +87,13 @@ def _display_workflow_summary(result: Dict[str, Any], filters: Dict[str, Any]) -
             active_filters.append(f"{filter_name}: {filter_value}")
     
     if active_filters:
-        console.print(f"[dim]Filters: {', '.join(active_filters)}[/dim]")
+        console.print(f"[dim]Filters: {', '.join(active_filters)}[" / "dim]")
     
     console.print()
 
 def _display_active_workflows(active_workflows: List[Dict[str, Any]]) -> None:
     """Display currently active workflows"""
-    console.print("[bold green]Active Workflows[/bold green]")
+    console.print("[bold green]Active Workflows[" / "bold green]")
     
     for workflow in active_workflows:
         _display_single_workflow(workflow, highlight_active=True)
@@ -102,7 +102,7 @@ def _display_active_workflows(active_workflows: List[Dict[str, Any]]) -> None:
 
 def _display_temp_workflows(temp_workflows: List[Dict[str, Any]]) -> None:
     """Display temporary workflows in creation"""
-    console.print("[bold yellow]Temporary Workflows (In Creation)[/bold yellow]")
+    console.print("[bold yellow]Temporary Workflows (In Creation)[" / "bold yellow]")
     
     for workflow in temp_workflows:
         _display_single_workflow(workflow, highlight_temp=True)
@@ -140,7 +140,7 @@ def _display_workflow_listings(workflows: List[Dict[str, Any]]) -> None:
     for status in status_order:
         if status in workflows_by_status:
             status_workflows = workflows_by_status[status]
-            console.print(f"\n[bold cyan]{status.upper()} Workflows ({len(status_workflows)})[/bold cyan]")
+            console.print(fPath(r"\n[bold cyan]{status.upper()} Workflows ({len(status_workflows)})[") / "bold cyan]")
             
             for workflow in status_workflows:
                 _display_single_workflow(workflow)
@@ -155,9 +155,9 @@ def _display_single_workflow(workflow: Dict[str, Any], highlight_active: bool = 
     
     # Status styling
     status_color = "green" if highlight_active else ("yellow" if highlight_temp else "blue")
-    status_text = f"[{status_color}]{status}[/{status_color}]"
+    status_text = f"[{status_color}]{status}[" / "{status_color}]"
     
-    console.print(f"  [bold]{custom_command}[/bold] ({workflow_id}) - {status_text}")
+    console.print(f"  [bold]{custom_command}[" / "bold] ({workflow_id}) - {status_text}")
     
     # Goal and description
     goal = workflow.get("workflow_goal", "")
@@ -168,7 +168,7 @@ def _display_single_workflow(workflow: Dict[str, Any], highlight_active: bool = 
     elif description:
         console.print(f"    Description: {description}")
     else:
-        console.print(f"    [dim]No description available[/dim]")
+        console.print(f"    [dim]No description available[" / "dim]")
     
     # User and timestamp information
     user_id = workflow.get("user_id", "unknown")
@@ -181,12 +181,13 @@ def _display_single_workflow(workflow: Dict[str, Any], highlight_active: bool = 
         try:
             # Format timestamp for display
             from datetime import datetime
+from pathlib import Path
             created_dt = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
             info_parts.append(f"Created: {created_dt.strftime('%Y-%m-%d %H:%M')}")
         except:
             info_parts.append(f"Created: {created_at}")
     
-    console.print(f"    [dim]{' | '.join(info_parts)}[/dim]")
+    console.print(f"    [dim]{' | '.join(info_parts)}[" / "dim]")
     
     # Directory and deliverable status
     directory_name = workflow.get("directory_name", "")
@@ -197,9 +198,9 @@ def _display_single_workflow(workflow: Dict[str, Any], highlight_active: bool = 
     if directory_name:
         status_indicators.append(f"Directory: {directory_name}")
     if has_deliverables:
-        status_indicators.append("[green]Has deliverables[/green]")
+        status_indicators.append("[green]Has deliverables[" / "green]")
     if has_metadata:
-        status_indicators.append("[blue]Has metadata[/blue]")
+        status_indicators.append("[blue]Has metadata[" / "blue]")
     
     if status_indicators:
         console.print(f"    {' | '.join(status_indicators)}")
@@ -211,27 +212,27 @@ def _display_no_workflows_message(filters: Dict[str, Any]) -> None:
     has_filters = any(filters.values())
     
     if has_filters:
-        message = "[yellow]No workflows match the specified filters[/yellow]\nTry adjusting your search criteria or removing filters"
+        message = "[yellow]No workflows match the specified filters[" / Path(r"yellow]\nTry adjusting your search criteria or removing filters")
     else:
-        message = "[yellow]No workflows found[/yellow]\nCreate your first workflow to get started"
+        message = "[yellow]No workflows found[" / Path(r"yellow]\nCreate your first workflow to get started")
     
     console.print(Panel(message, title="Workflows Status"))
 
 def _display_workflow_statistics(stats: Dict[str, Any]) -> None:
     """Display workflow statistics and insights"""
-    console.print("\n[bold]Workflow Statistics[/bold]")
+    console.print(Path(r"\n[bold]Workflow Statistics[") / "bold]")
     
     # Status distribution
     status_dist = stats.get("status_distribution", {})
     if status_dist:
-        console.print("\n[bold cyan]Status Distribution:[/bold cyan]")
+        console.print(Path(r"\n[bold cyan]Status Distribution:[") / "bold cyan]")
         for status, count in sorted(status_dist.items()):
             console.print(f"  {status}: {count}")
     
     # User distribution (top 5)
     user_dist = stats.get("user_distribution", {})
     if user_dist and len(user_dist) > 1:
-        console.print("\n[bold cyan]Top Users:[/bold cyan]")
+        console.print(Path(r"\n[bold cyan]Top Users:[") / "bold cyan]")
         sorted_users = sorted(user_dist.items(), key=lambda x: x[1], reverse=True)[:5]
         for user, count in sorted_users:
             console.print(f"  {user}: {count} workflows")
@@ -239,14 +240,14 @@ def _display_workflow_statistics(stats: Dict[str, Any]) -> None:
     # Recent activity
     recent_count = stats.get("recent_activity_count", 0)
     if recent_count > 0:
-        console.print(f"\n[bold cyan]Recent Activity:[/bold cyan] {recent_count} workflows modified in last 7 days")
+        console.print(fPath(r"\n[bold cyan]Recent Activity:[") / "bold cyan] {recent_count} workflows modified in last 7 days")
     
     # Deliverables and metadata
     deliverables_count = stats.get("has_deliverables_count", 0)
     metadata_count = stats.get("has_metadata_count", 0)
     
     if deliverables_count > 0 or metadata_count > 0:
-        console.print(f"\n[bold cyan]Completion Status:[/bold cyan]")
+        console.print(fPath(r"\n[bold cyan]Completion Status:[") / "bold cyan]")
         if deliverables_count > 0:
             console.print(f"  {deliverables_count} workflows with deliverables")
         if metadata_count > 0:
@@ -255,7 +256,7 @@ def _display_workflow_statistics(stats: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[/red] {error_message}",
+        f"[red]Error:[" / "red] {error_message}",
         style="red",
         title="Workflows Command Error"
     ))

@@ -24,6 +24,7 @@ except ImportError:
 # Standardization imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 
 @handle_errors(operation_name="display_error", return_dict=False)
@@ -31,8 +32,8 @@ def display_error(error_message: str):
     """Display standardized error message with Panel formatting"""
     if HAS_RICH:
         console.print(Panel(
-            f"[red]❌ {error_message}[/red]",
-            title="[bold red]Error[/bold red]",
+            f"[red]❌ {error_message}[" / "red]",
+            title="[bold red]Error[" / "bold red]",
             border_style="red"
         ))
     else:
@@ -76,7 +77,7 @@ def _display_basic_search(result: Dict[str, Any], verbose: bool):
     
     if HAS_RICH:
         # Main search message
-        console.print(f"[blue]🔍 Web Search Ready: {query}[/blue]")
+        console.print(f"[blue]🔍 Web Search Ready: {query}[" / "blue]")
         
         if verbose:
             # Detailed search configuration
@@ -91,9 +92,9 @@ def _display_basic_search(result: Dict[str, Any], verbose: bool):
             info_table.add_row("🔧 Method", result.get("execution_method", "unknown"))
             info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
             
-            console.print(Panel(info_table, title="[bold]Search Configuration[/bold]", border_style="blue"))
+            console.print(Panel(info_table, title="[bold]Search Configuration[" / "bold]", border_style="blue"))
         else:
-            console.print(f"[dim]📊 {max_results} results • ${estimated_cost:.3f} estimated[/dim]")
+            console.print(f"[dim]📊 {max_results} results • ${estimated_cost:.3f} estimated[" / "dim]")
     else:
         print(f"🔍 Web Search Ready: {query}")
         if verbose:
@@ -113,17 +114,17 @@ def _display_filtered_search(result: Dict[str, Any], verbose: bool):
     filters = result.get("applied_filters", {})
     
     if HAS_RICH:
-        console.print(f"[blue]🔍 Filtered Search Ready: {original_query}[/blue]")
+        console.print(f"[blue]🔍 Filtered Search Ready: {original_query}[" / "blue]")
         
         # Show applied filters
         filter_parts = []
         if filters.get("domain"):
-            filter_parts.append(f"[green]🌐 {filters['domain']}[/green]")
+            filter_parts.append(f"[green]🌐 {filters['domain']}[" / "green]")
         if filters.get("date_range"):
-            filter_parts.append(f"[yellow]📅 {filters['date_range']}[/yellow]")
+            filter_parts.append(f"[yellow]📅 {filters['date_range']}[" / "yellow]")
         
         if filter_parts:
-            console.print(f"[dim]Filters: {' • '.join(filter_parts)}[/dim]")
+            console.print(f"[dim]Filters: {' • '.join(filter_parts)}[" / "dim]")
         
         if verbose:
             info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -142,7 +143,7 @@ def _display_filtered_search(result: Dict[str, Any], verbose: bool):
             info_table.add_row("💰 Estimated Cost", f"${result.get('estimated_cost', 0.01):.3f}")
             info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
             
-            console.print(Panel(info_table, title="[bold]Filtered Search Configuration[/bold]", border_style="green"))
+            console.print(Panel(info_table, title="[bold]Filtered Search Configuration[" / "bold]", border_style="green"))
     else:
         print(f"🔍 Filtered Search Ready: {original_query}")
         if filters.get("domain"):
@@ -175,8 +176,8 @@ def _display_content_search(result: Dict[str, Any], verbose: bool):
     icon = content_icons.get(content_type.lower(), "📄")
     
     if HAS_RICH:
-        console.print(f"[blue]{icon} Content Search Ready: {original_query}[/blue]")
-        console.print(f"[dim]Content Type: {content_type.title()}[/dim]")
+        console.print(f"[blue]{icon} Content Search Ready: {original_query}[" / "blue]")
+        console.print(f"[dim]Content Type: {content_type.title()}[" / "dim]")
         
         if verbose:
             info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -190,7 +191,7 @@ def _display_content_search(result: Dict[str, Any], verbose: bool):
             info_table.add_row("💰 Estimated Cost", f"${result.get('estimated_cost', 0.01):.3f}")
             info_table.add_row("⏰ Prepared", result.get("timestamp", "Unknown"))
             
-            console.print(Panel(info_table, title="[bold]Content Search Configuration[/bold]", border_style="purple"))
+            console.print(Panel(info_table, title="[bold]Content Search Configuration[" / "bold]", border_style="purple"))
     else:
         print(f"{icon} Content Search Ready: {original_query}")
         print(f"Content Type: {content_type.title()}")
@@ -212,18 +213,18 @@ def _display_query_validation(result: Dict[str, Any], verbose: bool):
     status_text = "Valid" if is_valid else "Invalid"
     
     if HAS_RICH:
-        console.print(f"[{'green' if is_valid else 'red'}]{status_icon}[/{'green' if is_valid else 'red'}] Query Validation: {status_text}")
-        console.print(f"[dim]Query: {query}[/dim]")
+        console.print(f"[{'green' if is_valid else 'red'}]{status_icon}[" / "{'green' if is_valid else 'red'}] Query Validation: {status_text}")
+        console.print(f"[dim]Query: {query}[" / "dim]")
         
         # Show issues if any
         if issues:
-            console.print("\n[yellow]⚠️ Issues Found:[/yellow]")
+            console.print(Path(r"\n[yellow]⚠️ Issues Found:[") / "yellow]")
             for issue in issues:
                 console.print(f"  • {issue}")
         
         # Show suggestions if any
         if suggestions and verbose:
-            console.print("\n[blue]💡 Suggestions:[/blue]")
+            console.print(Path(r"\n[blue]💡 Suggestions:[") / "blue]")
             for suggestion in suggestions:
                 console.print(f"  • {suggestion}")
         
@@ -238,18 +239,18 @@ def _display_query_validation(result: Dict[str, Any], verbose: bool):
             info_table.add_row("Estimated Results", result.get("estimated_results", "unknown").title())
             info_table.add_row("Validation Time", result.get("timestamp", "Unknown"))
             
-            console.print(Panel(info_table, title="[bold]Validation Details[/bold]", border_style="yellow"))
+            console.print(Panel(info_table, title="[bold]Validation Details[" / "bold]", border_style="yellow"))
     else:
         print(f"{status_icon} Query Validation: {status_text}")
         print(f"Query: {query}")
         
         if issues:
-            print("\n⚠️ Issues Found:")
+            print(Path(r"\n⚠️ Issues Found:"))
             for issue in issues:
                 print(f"  • {issue}")
         
         if suggestions and verbose:
-            print("\n💡 Suggestions:")
+            print(Path(r"\n💡 Suggestions:"))
             for suggestion in suggestions:
                 print(f"  • {suggestion}")
         
@@ -265,15 +266,15 @@ def _display_search_suggestions(result: Dict[str, Any], verbose: bool):
     suggestions = result.get("suggestions", [])
     
     if HAS_RICH:
-        console.print(f"[blue]💡 Search Suggestions for: {original_query}[/blue]")
-        console.print(f"[dim]Type: {suggestion_type.title()}[/dim]")
+        console.print(f"[blue]💡 Search Suggestions for: {original_query}[" / "blue]")
+        console.print(f"[dim]Type: {suggestion_type.title()}[" / "dim]")
         
         if suggestions:
-            console.print(f"\n[green]📝 Suggested Queries:[/green]")
+            console.print(fPath(r"\n[green]📝 Suggested Queries:[") / "green]")
             for i, suggestion in enumerate(suggestions, 1):
                 console.print(f"  {i}. {suggestion}")
         else:
-            console.print("[yellow]No suggestions available[/yellow]")
+            console.print("[yellow]No suggestions available[" / "yellow]")
         
         if verbose:
             info_table = Table(show_header=False, box=None, padding=(0, 1))
@@ -285,12 +286,12 @@ def _display_search_suggestions(result: Dict[str, Any], verbose: bool):
             info_table.add_row("Suggestions Count", str(len(suggestions)))
             info_table.add_row("Generated", result.get("timestamp", "Unknown"))
             
-            console.print(Panel(info_table, title="[bold]Suggestion Details[/bold]", border_style="green"))
+            console.print(Panel(info_table, title="[bold]Suggestion Details[" / "bold]", border_style="green"))
     else:
         print(f"💡 Search Suggestions for: {original_query}")
         print(f"Type: {suggestion_type.title()}")
         if suggestions:
-            print("\n📝 Suggested Queries:")
+            print(Path(r"\n📝 Suggested Queries:"))
             for i, suggestion in enumerate(suggestions, 1):
                 print(f"  {i}. {suggestion}")
         else:
@@ -310,17 +311,17 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
     
     if status == "ready_for_execution":
         if HAS_RICH:
-            console.print(f"[green]✅ {operation.replace('_', ' ').title()} ready for execution[/green]")
+            console.print(f"[green]✅ {operation.replace('_', ' ').title()} ready for execution[" / "green]")
         else:
             print(f"✅ {operation.replace('_', ' ').title()} ready for execution")
     elif status == "success":
         if HAS_RICH:
-            console.print(f"[green]✅ {operation.replace('_', ' ').title()} completed successfully[/green]")
+            console.print(f"[green]✅ {operation.replace('_', ' ').title()} completed successfully[" / "green]")
         else:
             print(f"✅ {operation.replace('_', ' ').title()} completed successfully")
     else:
         if HAS_RICH:
-            console.print(f"[yellow]⚠️ {operation.replace('_', ' ').title()}: {status}[/yellow]")
+            console.print(f"[yellow]⚠️ {operation.replace('_', ' ').title()}: {status}[" / "yellow]")
         else:
             print(f"⚠️ {operation.replace('_', ' ').title()}: {status}")
     
@@ -339,9 +340,9 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
                 info_table.add_row(display_key, display_value)
         
         if HAS_RICH:
-            console.print(Panel(info_table, title="[bold]Operation Details[/bold]", border_style="blue"))
+            console.print(Panel(info_table, title="[bold]Operation Details[" / "bold]", border_style="blue"))
         else:
-            print("\nOperation Details:")
+            print(Path(r"\nOperation Details:"))
             for key, value in result.items():
                 if key not in ["status", "operation"]:
                     print(f"  {key.replace('_', ' ').title()}: {value}")
@@ -377,7 +378,7 @@ def display_search_capabilities(capabilities: Dict[str, Any]):
         capabilities: Capabilities dictionary from get_search_capabilities()
     """
     if HAS_RICH:
-        console.print("[blue]🔍 Web Search Capabilities[/blue]")
+        console.print("[blue]🔍 Web Search Capabilities[" / "blue]")
         
         # Operations table
         ops_table = Table(title="Available Operations", show_header=True)
@@ -412,19 +413,19 @@ def display_search_capabilities(capabilities: Dict[str, Any]):
         # Cost information
         cost_info = capabilities.get("cost_structure", {})
         if cost_info:
-            console.print(f"\n[green]💰 Cost Structure:[/green]")
+            console.print(fPath(r"\n[green]💰 Cost Structure:[") / "green]")
             console.print(f"  Base Cost: ${cost_info.get('base_cost', 0.01):.3f}")
             console.print(f"  Per Result: ${cost_info.get('per_result_cost', 0.002):.3f}")
     else:
-        print("[blue]🔍 Web Search Capabilities[/blue]")
+        print("[blue]🔍 Web Search Capabilities[" / "blue]")
         print("Available Operations:")
         for op in capabilities.get("operations", []):
             print(f"  - {op}")
-        print("\nLimitations:")
+        print(Path(r"\nLimitations:"))
         for limit, value in capabilities.get("limitations", {}).items():
             print(f"  - {limit.replace('_', ' ').title()}: {value}")
         if capabilities.get("cost_structure"):
-            print("\nCost Structure:")
+            print(Path(r"\nCost Structure:"))
             print(f"  - Base Cost: ${capabilities['cost_structure'].get('base_cost', 0.01):.3f}")
             print(f"  - Per Result: ${capabilities['cost_structure'].get('per_result_cost', 0.002):.3f}")
 

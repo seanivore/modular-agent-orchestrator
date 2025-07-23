@@ -16,6 +16,7 @@ from tools.files_api.files_api import FilesAPIManager
 from .manager_tools import ToolManager
 from .cache.cache_system import CacheManager
 from .error_handling import handle_errors, retry_with_backoff, APIError
+from pathlib import Path
 
 
 @dataclass
@@ -206,7 +207,7 @@ class AgentOrchestrator:
         formatted = []
         for tool in tools:
             formatted.append(f"- {tool}")
-        return "\n".join(formatted)
+        return Path(r"\n").join(formatted)
     
     def _format_deliverables_list(self, deliverables: List[str]) -> str:
         """Format deliverables list for agent instructions"""
@@ -216,7 +217,7 @@ class AgentOrchestrator:
         formatted = []
         for deliverable in deliverables:
             formatted.append(f"- {deliverable}")
-        return "\n".join(formatted)
+        return Path(r"\n").join(formatted)
     
     def _create_context_summary(self, context: dict) -> str:
         """Create concise context summary for agent"""

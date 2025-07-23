@@ -9,6 +9,7 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.text import Text
 from rich.columns import Columns
+from pathlib import Path
 
 console = Console()
 
@@ -78,7 +79,7 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
         console.print(Panel(header_text, style="blue"))
         console.print(f"📁 File: {image_path}", style="dim")
     else:
-        console.print(f"🖼️ Analyzed: {image_path.split('/')[-1]}", style="blue bold")
+        console.print(f"🖼️ Analyzed: {image_path.split('" / "')[-1]}", style="blue bold")
     
     # Technical specifications table
     if specs:
@@ -100,7 +101,7 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
     
     # Optimization recommendations
     if optimization and verbose:
-        console.print("\n📊 Optimization Recommendations:", style="bold yellow")
+        console.print(Path(r"\n📊 Optimization Recommendations:"), style="bold yellow")
         
         if optimization.get("resize_recommended"):
             console.print("   📐 Resize recommended (large dimensions)", style="yellow")
@@ -114,7 +115,7 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
     # AI analysis note
     metadata = result.get("metadata", {})
     if metadata.get("requires_ai_analysis"):
-        console.print("\n💡 For detailed composition analysis, use the AI-powered human button", style="green")
+        console.print(Path(r"\n💡 For detailed composition analysis, use the AI-powered human button"), style="green")
 
 
 def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> None:
@@ -147,7 +148,7 @@ def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> No
     
     # Operations performed
     if operations:
-        console.print(f"\n🛠️ Operations: {', '.join(operations)}", style="blue")
+        console.print(fPath(r"\n🛠️ Operations: {'), '.join(operations)}", style="blue")
     
     # Technical specifications
     specs = result.get("technical_specs", {})
@@ -176,7 +177,7 @@ def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> No
     # Text overlay details
     text_info = result.get("text_overlay", {})
     if text_info.get("applied") and verbose:
-        console.print("\n✨ Text Overlay Details:", style="bold")
+        console.print(Path(r"\n✨ Text Overlay Details:"), style="bold")
         console.print(f"   Text: '{text_info.get('text', 'Unknown')}'", style="white")
         console.print(f"   Font: {text_info.get('font_used', 'Unknown')}", style="cyan")
         console.print(f"   Position: {text_info.get('position', 'Unknown')}", style="dim")
@@ -184,7 +185,7 @@ def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> No
     # Professional quality indicator
     metadata = result.get("metadata", {})
     if metadata.get("professional_quality"):
-        console.print("\n✅ Professional quality workflow completed", style="green")
+        console.print(Path(r"\n✅ Professional quality workflow completed"), style="green")
 
 
 def display_optimization_results(result: Dict[str, Any], verbose: bool = False) -> None:
@@ -215,7 +216,7 @@ def display_optimization_results(result: Dict[str, Any], verbose: bool = False) 
         optimized_size = opt_results.get("optimized_size_bytes", 0)
         reduction = opt_results.get("size_reduction_percent", 0)
         
-        console.print(f"\n📊 Size Reduction: {reduction:.1f}%", style="yellow bold")
+        console.print(fPath(r"\n📊 Size Reduction: {reduction:.1f}%"), style="yellow bold")
         
         if verbose:
             table = Table(show_header=True, header_style="bold magenta", title="Optimization Details")
@@ -279,7 +280,7 @@ def display_font_collection(result: Dict[str, Any], verbose: bool = False) -> No
     fallback = result.get("fallback_available", False)
     
     if verbose:
-        console.print(f"\n📁 Font Directory: {fonts_dir}", style="dim")
+        console.print(fPath(r"\n📁 Font Directory: {fonts_dir}"), style="dim")
         console.print(f"🔄 System Fallback: {'Available' if fallback else 'Not available'}", style="dim")
 
 
@@ -326,7 +327,7 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
         if text_info.get("applied"):
             formatted_results.append(f"Text added: '{text_info.get('text')}' using {text_info.get('font_used')}")
         
-        return "\n".join(formatted_results)
+        return Path(r"\n").join(formatted_results)
     
     elif "optimization_results" in results:
         # Optimization results
@@ -345,7 +346,7 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
             if format_conversion:
                 formatted_results.append(f"Format: {format_conversion}")
         
-        return "\n".join(formatted_results)
+        return Path(r"\n").join(formatted_results)
     
     elif "technical_specs" in results:
         # Analysis results
@@ -362,7 +363,7 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
             formatted_results.append(f"Format: {specs.get('format', 'Unknown')}")
             formatted_results.append(f"File size: {specs.get('file_size_bytes', 0):,} bytes")
         
-        return "\n".join(formatted_results)
+        return Path(r"\n").join(formatted_results)
     
     else:
         return "Graphic design operation completed successfully"
@@ -391,7 +392,7 @@ def display_workflow_guide(verbose: bool = False) -> None:
         
         console.print(table)
         
-        console.print("\n💡 Pro Tip: Always analyze before and after editing to assess composition and readability", style="green")
+        console.print(Path(r"\n💡 Pro Tip: Always analyze before and after editing to assess composition and readability"), style="green")
     else:
         console.print("📋 5-Step Process: Assess → Resize → Crop → Text → Save", style="cyan")
         console.print("💡 Use analyze_image before and after editing for best results", style="green") 

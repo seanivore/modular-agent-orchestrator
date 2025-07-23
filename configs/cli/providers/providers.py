@@ -23,7 +23,7 @@ def execute_providers(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main providers command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with provider information
@@ -55,8 +55,8 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"providers|{str(params) if params else 'none'}"
     
     # Add provider directory fingerprint
-    providers_dir = Path(__file__).parent.parent.parent / "providers"
-    connections_file = Path(__file__).parent.parent / "connections" / "providers_x_models.json"
+    providers_dir = Path(__file__).parent.parent.parent " / " "providers"
+    connections_file = Path(__file__).parent.parent " / " "connections" " / " "providers_x_models.json"
     
     # Include directory modification time and file count
     directory_state = ""
@@ -77,7 +77,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
 def _discover_providers(params: Dict[str, Any] = None) -> Dict[str, Any]:
     """Core provider discovery implementation"""
     try:
-        providers_dir = Path(__file__).parent.parent.parent / "providers"
+        providers_dir = Path(__file__).parent.parent.parent " / " "providers"
         
         if not providers_dir.exists():
             return {
@@ -132,7 +132,7 @@ def _discover_providers(params: Dict[str, Any] = None) -> Dict[str, Any]:
 def _load_provider_connections() -> Dict[str, List[str]]:
     """Load provider-model connections from connections file"""
     try:
-        connections_file = Path(__file__).parent.parent / "connections" / "providers_x_models.json"
+        connections_file = Path(__file__).parent.parent " / " "connections" " / " "providers_x_models.json"
         
         if not connections_file.exists():
             return {}

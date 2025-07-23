@@ -81,31 +81,31 @@ def display_file_read_result(result: Dict[str, Any], verbose: bool = False):
         content = result.get("content", "")
         
         # Create info panel
-        info_text = f"""📁 [bold blue]{metadata.get('file_name', 'Unknown')}[/bold blue]
+        info_text = f"""📁 [bold blue]{metadata.get('file_name', 'Unknown')}[" / "bold blue]
 📊 Size: {metadata.get('file_size_kb', 0)} KB ({metadata.get('character_count', 0):,} chars)
 🔤 Encoding: {metadata.get('encoding_used', 'unknown')}
 📍 Path: {metadata.get('file_path', 'unknown')}"""
         
         if verbose:
-            info_text += f"\n⏰ Read at: {metadata.get('timestamp', 'unknown')}"
+            info_text += fPath(r"\n⏰ Read at: {metadata.get(')timestamp', 'unknown')}"
         
         console.print(Panel(info_text, title="📄 File Information", border_style="blue"))
         
         if verbose:
             # Show content with syntax highlighting if possible
-            console.print("\n📝 [bold]File Content:[/bold]")
+            console.print(Path(r"\n📝 [bold]File Content:[") / "bold]")
             console.print("─" * 50)
             console.print(content)
         else:
             # Show truncated content
             preview = content[:200] + "..." if len(content) > 200 else content
-            console.print(f"\n📝 [bold]Content Preview:[/bold]\n{preview}")
+            console.print(fPath(r"\n📝 [bold]Content Preview:[") / Path(r"bold]\n{preview}"))
 
 def display_directory_listing(result: Dict[str, Any], verbose: bool = False):
     """Display directory listing with tree structure"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        console.print(f"❌ [red]Error:[" / "red] {result['error']}")
         return
     
     directory = result.get("directory", "unknown")
@@ -114,14 +114,14 @@ def display_directory_listing(result: Dict[str, Any], verbose: bool = False):
     summary = result.get("summary", {})
     
     # Header panel
-    header_text = f"""📂 Directory: [bold blue]{directory}[/bold blue]
+    header_text = f"""📂 Directory: [bold blue]{directory}[" / "bold blue]
 🔍 Pattern: {pattern}
 📊 Total Items: {summary.get('total_items', 0)} ({summary.get('directories', 0)} dirs, {summary.get('files', 0)} files)"""
     
     console.print(Panel(header_text, title="📁 Directory Listing", border_style="blue"))
     
     if not items:
-        console.print("📭 [yellow]No items found matching pattern[/yellow]")
+        console.print("📭 [yellow]No items found matching pattern[" / "yellow]")
         return
     
     if verbose:
@@ -165,7 +165,7 @@ def display_directory_listing(result: Dict[str, Any], verbose: bool = False):
         for directory_item in directories:
             name = directory_item.get("name", "unknown")
             count = directory_item.get("item_count", 0)
-            tree.add(f"📁 {name}/ ({count} items)")
+            tree.add(f"📁 {name}" / " ({count} items)")
         
         # Add files
         for file_item in files:
@@ -179,7 +179,7 @@ def display_file_info(result: Dict[str, Any], verbose: bool = False):
     """Display comprehensive file information"""
     
     if result.get("error"):
-        console.print(f"❌ [red]Error:[/red] {result['error']}")
+        console.print(f"❌ [red]Error:[" / "red] {result['error']}")
         return
     
     # Basic info panel
@@ -187,7 +187,7 @@ def display_file_info(result: Dict[str, Any], verbose: bool = False):
     path = result.get("path", "unknown")
     file_type = "📁 Directory" if result.get("is_directory") else f"📄 {result.get('file_type', 'File').title()}"
     
-    basic_info = f"""📛 Name: [bold blue]{name}[/bold blue]
+    basic_info = f"""📛 Name: [bold blue]{name}[" / "bold blue]
 🏷️ Type: {file_type}
 📍 Path: {path}"""
     
@@ -195,9 +195,9 @@ def display_file_info(result: Dict[str, Any], verbose: bool = False):
         size_kb = result.get("size_kb", 0)
         size_mb = result.get("size_mb")
         if size_mb:
-            basic_info += f"\n📊 Size: {size_mb} MB ({size_kb} KB)"
+            basic_info += fPath(r"\n📊 Size: {size_mb} MB ({size_kb} KB)")
         else:
-            basic_info += f"\n📊 Size: {size_kb} KB"
+            basic_info += fPath(r"\n📊 Size: {size_kb} KB")
     
     console.print(Panel(basic_info, title="📋 File Information", border_style="blue"))
     
@@ -241,7 +241,7 @@ def display_search_results(result: Dict[str, Any], verbose: bool = False):
     results_data = result.get("results", {})
     
     # Search summary
-    summary_text = f"""🔍 Search Directory: [bold blue]{search_dir}[/bold blue]
+    summary_text = f"""🔍 Search Directory: [bold blue]{search_dir}[" / "bold blue]
 🎯 Pattern: "{pattern}"
 📊 Total Found: {summary.get('total_found', 0)} ({summary.get('files_found', 0)} files, {summary.get('directories_found', 0)} dirs)
 🔄 Recursive: {"Yes" if result.get('recursive') else "No"}
@@ -253,13 +253,13 @@ def display_search_results(result: Dict[str, Any], verbose: bool = False):
     directories = results_data.get("directories", [])
     
     if not files and not directories:
-        console.print("📭 [yellow]No matches found[/yellow]")
+        console.print("📭 [yellow]No matches found[" / "yellow]")
         return
     
     if verbose:
         # Detailed results with full paths
         if directories:
-            console.print("\n📁 [bold]Directories Found:[/bold]")
+            console.print(Path(r"\n📁 [bold]Directories Found:[") / "bold]")
             dir_table = Table()
             dir_table.add_column("Name", style="cyan")
             dir_table.add_column("Path", style="blue")
@@ -274,7 +274,7 @@ def display_search_results(result: Dict[str, Any], verbose: bool = False):
             console.print(dir_table)
         
         if files:
-            console.print("\n📄 [bold]Files Found:[/bold]")
+            console.print(Path(r"\n📄 [bold]Files Found:[") / "bold]")
             file_table = Table()
             file_table.add_column("Name", style="cyan")
             file_table.add_column("Path", style="blue")
@@ -296,12 +296,12 @@ def display_search_results(result: Dict[str, Any], verbose: bool = False):
     else:
         # Simple list view
         if directories:
-            console.print("\n📁 [bold]Directories:[/bold]")
+            console.print(Path(r"\n📁 [bold]Directories:[") / "bold]")
             for directory in directories:
                 console.print(f"  📁 {directory.get('relative_path', 'unknown')}")
         
         if files:
-            console.print("\n📄 [bold]Files:[/bold]")
+            console.print(Path(r"\n📄 [bold]Files:[") / "bold]")
             for file_item in files:
                 size = f"{file_item.get('size_kb', 0)} KB"
                 console.print(f"  📄 {file_item.get('relative_path', 'unknown')} ({size})")
@@ -330,11 +330,11 @@ def display_multiple_files_result(result: Dict[str, Any], verbose: bool = False)
             file_path = file_result.get("file_path", "unknown")
             file_data = file_result.get("result", {})
             
-            console.print(f"\n📄 [bold]{file_path}[/bold]")
+            console.print(fPath(r"\n📄 [bold]{file_path}[") / "bold]")
             console.print("─" * 40)
             
             if file_data.get("error"):
-                console.print(f"❌ [red]{file_data['error']}[/red]")
+                console.print(f"❌ [red]{file_data['error']}[" / "red]")
             else:
                 metadata = file_data.get("metadata", {})
                 console.print(f"✅ {metadata.get('file_size_kb', 0)} KB, {metadata.get('character_count', 0):,} chars")
@@ -350,7 +350,7 @@ def display_multiple_files_result(result: Dict[str, Any], verbose: bool = False)
             file_data = file_result.get("result", {})
             
             if file_data.get("error"):
-                table.add_row(file_path, "❌ Error", "N/A")
+                table.add_row(file_path, "❌ Error", "N" / "A")
             else:
                 metadata = file_data.get("metadata", {})
                 size = f"{metadata.get('file_size_kb', 0)} KB"
@@ -361,7 +361,7 @@ def display_multiple_files_result(result: Dict[str, Any], verbose: bool = False)
 def display_file_operations_progress(message: str, step: int = None, total: int = None):
     """Display file operations progress"""
     if step and total:
-        progress = f"[{step}/{total}] "
+        progress = f"[{step}" / "{total}] "
     else:
         progress = ""
     
@@ -373,20 +373,20 @@ def display_file_tool_info(verbose: bool = False):
     console.print("📝 Safe, efficient file and directory operations with comprehensive error handling")
     console.print("💰 Cost: Free")
     
-    console.print("\n🎯 Capabilities:")
+    console.print(Path(r"\n🎯 Capabilities:"))
     console.print("   • File Management")
     console.print("   • Data Access")
     console.print("   • Directory Navigation")
     console.print("   • File Safety")
     
-    console.print("\n📋 Use Cases:")
+    console.print(Path(r"\n📋 Use Cases:"))
     console.print("   • Reading Resources")
     console.print("   • Organizing Work")
     console.print("   • File Discovery")
     console.print("   • Safe File Operations")
     
     if verbose:
-        console.print("\n🏷️ Tags: core, files, essential, enhanced")
+        console.print(Path(r"\n🏷️ Tags: core, files, essential, enhanced"))
         console.print("🤖 Model compatibility: all")
         console.print("🔧 Functions: read_file, read_multiple_files, list_directory, get_file_info, move_file, search_files")
 
@@ -403,16 +403,16 @@ def display_operation_result(result: Dict[str, Any], operation_name: str, verbos
         if operation == "move":
             source = result.get("source", "unknown")
             destination = result.get("destination", "unknown")
-            console.print(f"✅ [green]Successfully moved:[/green]")
+            console.print(f"✅ [green]Successfully moved:[" / "green]")
             console.print(f"   📤 From: {source}")
             console.print(f"   📥 To: {destination}")
         
         elif operation in ["delete_file", "delete_directory", "delete_empty_directory"]:
             path = result.get("path", "unknown")
-            console.print(f"✅ [green]Successfully deleted:[/green] {path}")
+            console.print(f"✅ [green]Successfully deleted:[" / "green] {path}")
         
         else:
-            console.print(f"✅ [green]Operation '{operation}' completed successfully[/green]")
+            console.print(f"✅ [green]Operation '{operation}' completed successfully[" / "green]")
         
         if verbose:
             timestamp = result.get("timestamp", "unknown")
@@ -455,7 +455,7 @@ def display_validation_results(result: Dict[str, Any], verbose: bool = False):
                 else:
                     file_type = "❓ Unknown"
             else:
-                file_type = "N/A"
+                file_type = "N" / "A"
             
             abs_path = validation.get("absolute_path", "unknown")
             table.add_row(path, exists, file_type, abs_path)
@@ -479,19 +479,19 @@ def display_agent_handoff_format(result: Dict[str, Any], operation: str):
     if operation == "read_file" and result.get("status") == "success":
         metadata = result.get("metadata", {})
         content = result.get("content", "")
-        return f"✅ Read {metadata.get('file_name', 'file')} ({metadata.get('file_size_kb', 0)} KB)\n\n{content}"
+        return f"✅ Read {metadata.get('file_name', 'file')} ({metadata.get('file_size_kbPath(r', 0)} KB)\n\n{content}")
     
     elif operation == "list_directory" and result.get("status") == "success":
         summary = result.get("summary", {})
         items = result.get("items", [])
         
-        output = f"✅ Listed {summary.get('total_items', 0)} items in {result.get('directory', 'directory')}\n\n"
+        output = f"✅ Listed {summary.get('total_items', 0)} items in {result.get('directory', 'directoryPath(r')}\n\n")
         
         for item in items:
             if "item_count" in item:  # Directory
-                output += f"📁 {item.get('name', 'unknown')}/ ({item.get('item_count', 0)} items)\n"
+                output += f"📁 {item.get('name', 'unknown')}" / " ({item.get('item_countPath(r', 0)} items)\n")
             else:  # File
-                output += f"📄 {item.get('name', 'unknown')} ({item.get('size_kb', 0)} KB)\n"
+                output += f"📄 {item.get('name', 'unknown')} ({item.get('size_kbPath(r', 0)} KB)\n")
         
         return output
     
@@ -499,13 +499,13 @@ def display_agent_handoff_format(result: Dict[str, Any], operation: str):
         summary = result.get("summary", {})
         results_data = result.get("results", {})
         
-        output = f"✅ Found {summary.get('total_found', 0)} matches for '{result.get('pattern', 'pattern')}'\n\n"
+        output = f"✅ Found {summary.get('total_found', 0)} matches for '{result.get('pattern', 'pattern')}Path(r'\n\n")
         
         for file_item in results_data.get("files", []):
-            output += f"📄 {file_item.get('relative_path', 'unknown')} ({file_item.get('size_kb', 0)} KB)\n"
+            output += f"📄 {file_item.get('relative_path', 'unknown')} ({file_item.get('size_kbPath(r', 0)} KB)\n")
         
         for directory in results_data.get("directories", []):
-            output += f"📁 {directory.get('relative_path', 'unknown')}/\n"
+            output += f"📁 {directory.get('relative_path', 'unknown')}" / Path(r"\n")
         
         return output
     

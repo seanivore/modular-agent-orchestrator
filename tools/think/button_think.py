@@ -105,10 +105,10 @@ def execute_thinking_session():
                 "Be thorough, clear, and practical in your thinking."
             ])
             
-            thinking_prompt = "\\n".join(prompt_parts)
+            thinking_prompt = Path(r"\\n").join(prompt_parts)
             
             # Execute AI thinking
-            print("\\n🤖 Executing AI thinking...")
+            print(Path(r"\\n🤖 Executing AI thinking..."))
             client = anthropic.Anthropic()
             
             response = client.messages.create(
@@ -123,10 +123,10 @@ def execute_thinking_session():
             thinking_output = response.content[0].text
             
             # Display results
-            print("\\n🎯 THINKING RESULTS")
+            print(Path(r"\\n🎯 THINKING RESULTS"))
             print("="*60)
             print(thinking_output)
-            print("\\n" + "="*60)
+            print(Path(r"\\n") + "="*60)
             print("✅ Thinking session completed")
             
             # Save results if requested
@@ -153,16 +153,16 @@ def execute_thinking_session():
                 # Save formatted report
                 report_file = f"thinking_report_{{timestamp}}.md"
                 with open(report_file, 'w', encoding='utf-8') as f:
-                    f.write(f"# Thinking Session Report\\n\\n")
-                    f.write(f"**Topic:** {{session_data.get('topic')}}\\n")
-                    f.write(f"**Approach:** {{session_data.get('thinking_approach')}}\\n")
-                    f.write(f"**Focus:** {{session_data.get('thinking_focus')}}\\n")
-                    f.write(f"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}}\\n")
+                    f.write(fPath(r"# Thinking Session Report\\n\\n"))
+                    f.write(f"**Topic:** {{session_data.get('topicPath(r')}}\\n"))
+                    f.write(f"**Approach:** {{session_data.get('thinking_approachPath(r')}}\\n"))
+                    f.write(f"**Focus:** {{session_data.get('thinking_focusPath(r')}}\\n"))
+                    f.write(f"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%SPath(r')}}\\n"))
                     if session_data.get("context"):
-                        f.write(f"**Context:** {{session_data.get('context')}}\\n")
-                    f.write(f"**Model:** {model}\\n")
-                    f.write(f"**Session ID:** {{session_data.get('session_id')}}\\n\\n")
-                    f.write("## Thinking Results\\n\\n")
+                        f.write(f"**Context:** {{session_data.get('contextPath(r')}}\\n"))
+                    f.write(fPath(r"**Model:** {model}\\n"))
+                    f.write(f"**Session ID:** {{session_data.get('session_idPath(r')}}\\n\\n"))
+                    f.write(Path(r"## Thinking Results\\n\\n"))
                     f.write(thinking_output)
                 
                 print(f"💾 Data saved: {{json_file}}")
@@ -224,7 +224,7 @@ def execute_prompt_enhancement():
             enhancement_data = enhancement_result.get("enhancement_data", {{}})
             
             # Execute AI enhancement
-            print("\\n🤖 Executing AI enhancement...")
+            print(Path(r"\\n🤖 Executing AI enhancement..."))
             client = anthropic.Anthropic()
             
             enhancement_prompt = f"""Please enhance this thinking prompt to make it more effective:
@@ -253,10 +253,10 @@ Make the enhanced prompt clear, structured, and likely to produce better thinkin
             enhancement_output = response.content[0].text
             
             # Display results
-            print("\\n✨ PROMPT ENHANCEMENT RESULTS")
+            print(Path(r"\\n✨ PROMPT ENHANCEMENT RESULTS"))
             print("="*60)
             print(enhancement_output)
-            print("\\n" + "="*60)
+            print(Path(r"\\n") + "="*60)
             print("✅ Prompt enhancement completed")
             
             # Save enhancement
@@ -264,13 +264,13 @@ Make the enhanced prompt clear, structured, and likely to produce better thinkin
             filename = f"prompt_enhancement_{{timestamp}}.md"
             
             with open(filename, 'w', encoding='utf-8') as f:
-                f.write(f"# Prompt Enhancement\\n\\n")
-                f.write(f"**Original:** {{enhancement_data.get('original_topic')}}\\n")
-                f.write(f"**Enhancement Approach:** {{enhancement_data.get('enhancement_approach')}}\\n")
-                f.write(f"**Enhancement Focus:** {{enhancement_data.get('enhancement_focus')}}\\n")
-                f.write(f"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}}\\n")
-                f.write(f"**Model:** {model}\\n\\n")
-                f.write("## Enhancement Results\\n\\n")
+                f.write(fPath(r"# Prompt Enhancement\\n\\n"))
+                f.write(f"**Original:** {{enhancement_data.get('original_topicPath(r')}}\\n"))
+                f.write(f"**Enhancement Approach:** {{enhancement_data.get('enhancement_approachPath(r')}}\\n"))
+                f.write(f"**Enhancement Focus:** {{enhancement_data.get('enhancement_focusPath(r')}}\\n"))
+                f.write(f"**Date:** {{datetime.now().strftime('%Y-%m-%d %H:%M:%SPath(r')}}\\n"))
+                f.write(fPath(r"**Model:** {model}\\n\\n"))
+                f.write(Path(r"## Enhancement Results\\n\\n"))
                 f.write(enhancement_output)
             
             print(f"💾 Enhancement saved: {{filename}}")
@@ -297,6 +297,7 @@ import os
 from datetime import datetime
 from tools.think.think import validate_thinking_setup, estimate_cost
 from tools.think.ui_think import display_thinking_validation
+from pathlib import Path
 
 def execute_thinking_validation():
     """Execute thinking tool validation using MAO logic functions"""
@@ -313,7 +314,7 @@ def execute_thinking_validation():
         
         if validation_result.get("status") == "success":
             # Additional API tests
-            print("\\n🌐 Testing API Connection...")
+            print(Path(r"\\n🌐 Testing API Connection..."))
             
             # Check API key
             api_key_status = "✅ Available" if os.getenv("ANTHROPIC_API_KEY") else "❌ Missing"
@@ -346,7 +347,7 @@ def execute_thinking_validation():
                 api_connection_status = f"❌ Failed: {{str(e)}}"
                 print(f"🌐 API Connection: {{api_connection_status}}")
             
-            print("\\n" + "="*60)
+            print(Path(r"\\n") + "="*60)
             
             # Overall status
             if "✅" in api_key_status and "✅" in api_connection_status:

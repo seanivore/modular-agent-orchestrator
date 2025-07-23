@@ -9,6 +9,7 @@ from typing import Dict, Any, Optional
 from datetime import datetime
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, ValidationError
+from pathlib import Path
 
 @handle_errors(operation_name="web_search", return_dict=True)
 def perform_web_search(query: str, max_results: int = 5, search_context: str = "general") -> Dict[str, Any]:

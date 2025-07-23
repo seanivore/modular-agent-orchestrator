@@ -4,6 +4,7 @@ Provides essential data structure for chat command results and workflow transiti
 """
 
 from typing import Dict, Any
+from pathlib import Path
 
 def display_chat_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """

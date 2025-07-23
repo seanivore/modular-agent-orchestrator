@@ -28,7 +28,7 @@ def execute_user_id(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main user_id command execution with caching and workflow state integration.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with user ID data and workflow context
@@ -138,7 +138,7 @@ def _display_current_user_id(username_manager: UsernameManager,
             return {
                 "success": False,
                 "error": "No user currently logged in",
-                "suggestion": "Use 'mao --login' or '/login' to log in",
+                "suggestion": "Use 'mao --login' or '" / "login' to log in",
                 "timestamp": datetime.now().isoformat()
             }
         
@@ -208,7 +208,7 @@ def _generate_user_id_from_username(username: str,
                 "next_steps": [
                     "This user ID will be assigned if you create this user",
                     "Use 'mao --login' to create and login as this user",
-                    "Or use '/login' in the app to create and login"
+                    "Or use '" / "login' in the app to create and login"
                 ],
                 "timestamp": datetime.now().isoformat()
             }

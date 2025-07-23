@@ -26,7 +26,7 @@ def execute_review(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main review command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         - workflow_id: Optional workflow ID to review
         - command: Optional custom command to search for
         - user_id: Optional user ID filter
@@ -74,7 +74,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"review|{str(params) if params else 'none'}"
     
     # Add workflow directory fingerprint
-    workflows_dir = Path(__file__).parent.parent.parent / "workflows"
+    workflows_dir = Path(__file__).parent.parent.parent " / " "workflows"
     
     # Include directory modification time and workflow state
     directory_state = ""
@@ -255,7 +255,7 @@ def _analyze_workflow_details(workflow: Dict[str, Any]) -> Dict[str, Any]:
         
         # Calculate completion rate
         completed_phases = len([p for p in phases if p.get("status") == "completed"])
-        analysis["completion_rate"] = completed_phases / len(phases) if phases else 0.0
+        analysis["completion_rate"] = completed_phases " / " len(phases) if phases else 0.0
         
         # Phase breakdown
         phase_statuses = {}
@@ -281,7 +281,7 @@ def _analyze_workflow_details(workflow: Dict[str, Any]) -> Dict[str, Any]:
             
             analysis["timeline_analysis"] = {
                 "duration_seconds": duration,
-                "duration_hours": duration / 3600,
+                "duration_hours": duration " / " 3600,
                 "is_recent": duration < 86400,  # Less than 24 hours
                 "is_active": (datetime.now() - modified_dt).total_seconds() < 3600  # Modified within 1 hour
             }

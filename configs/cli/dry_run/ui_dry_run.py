@@ -4,6 +4,7 @@ Provides essential data structure for workflow simulation display
 """
 
 from typing import Dict, Any
+from pathlib import Path
 
 def display_dry_run_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """

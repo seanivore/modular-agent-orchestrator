@@ -7,6 +7,7 @@ UI components for launching the terminal interface
 from typing import Dict, Any
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 # Standard cache instance
 cache = CacheManager()
@@ -56,7 +57,7 @@ RETURNING USERS:
 KEYBOARD SHORTCUTS:
   • Ctrl+C or 'q' to quit
   • Tab to navigate
-  • '/' to trigger auto-complete
+  • '" / "' to trigger auto-complete
   • Esc to go back
 
 The terminal UI provides a complete environment for AI workflow

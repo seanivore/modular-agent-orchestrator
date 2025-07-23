@@ -75,7 +75,7 @@ def _display_logs_header(total_logs: int, statistics: Dict[str, Any], filters_ap
     # Create header panel
     header_content = summary_text
     if stats_text:
-        header_content += f"\n{stats_text}"
+        header_content += fPath(r"\n{stats_text}")
     
     console.print(Panel(
         header_content,
@@ -86,11 +86,11 @@ def _display_logs_header(total_logs: int, statistics: Dict[str, Any], filters_ap
 def _display_empty_logs() -> None:
     """Display message when no logs are found"""
     console.print(Panel(
-        "No workflow logs found matching the specified criteria.\n\n"
-        "Tips:\n"
-        "- Remove filters to see all logs: /logs\n"
-        "- Check for active workflows: /workflows\n"
-        "- View system stats: /stats",
+        Path(r"No workflow logs found matching the specified criteria.\n\n")
+        Path(r"Tips:\n")
+        "- Remove filters to see all logs: " / Path(r"logs\n")
+        "- Check for active workflows: " / Path(r"workflows\n")
+        "- View system stats: " / "stats",
         title="No Logs Found",
         style="yellow"
     ))
@@ -107,7 +107,7 @@ def _display_single_log_details(log: Dict[str, Any]) -> None:
     ]
     
     console.print(Panel(
-        "\n".join(log_info),
+        Path(r"\n").join(log_info),
         title=f"Log Entry Details",
         style="green"
     ))
@@ -165,6 +165,7 @@ def _display_logs_table(logs: List[Dict[str, Any]]) -> None:
         if timestamp:
             try:
                 from datetime import datetime
+from pathlib import Path
                 dt = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
                 display_time = dt.strftime("%Y-%m-%d %H:%M")
             except:
@@ -180,11 +181,11 @@ def _display_logs_table(logs: List[Dict[str, Any]]) -> None:
         # Style status based on content
         status = log.get("status", "unknown")
         if status == "error":
-            status_style = "[red]" + status + "[/red]"
+            status_style = "[red]" + status + "[" / "red]"
         elif status == "completed":
-            status_style = "[green]" + status + "[/green]"
+            status_style = "[green]" + status + "[" / "green]"
         elif status == "active":
-            status_style = "[yellow]" + status + "[/yellow]"
+            status_style = "[yellow]" + status + "[" / "yellow]"
         else:
             status_style = status
         
@@ -207,28 +208,28 @@ def _display_logs_footer(filters_applied: Dict[str, Any]) -> None:
     if not filters_applied:
         footer_lines.extend([
             "Filter options:",
-            "  /logs --workflow-id <id>     Show logs for specific workflow",
-            "  /logs --search <term>        Search log content",
-            "  /logs --status <status>      Filter by status (active, completed, error)",
-            "  /logs --date-range <range>   Filter by time (1d, 7d, 30d, 1h, 24h)"
+            "  " / "logs --workflow-id <id>     Show logs for specific workflow",
+            "  " / "logs --search <term>        Search log content",
+            "  " / "logs --status <status>      Filter by status (active, completed, error)",
+            "  " / "logs --date-range <range>   Filter by time (1d, 7d, 30d, 1h, 24h)"
         ])
     else:
         footer_lines.extend([
-            "Clear filters: /logs",
-            "Combine filters: /logs --search error --date-range 1d"
+            "Clear filters: " / "logs",
+            "Combine filters: " / "logs --search error --date-range 1d"
         ])
     
     # Add related commands
     footer_lines.extend([
         "",
         "Related commands:",
-        "  /workflows    List all workflows",
-        "  /stats        System performance metrics", 
-        "  /review       Review workflow details"
+        "  " / "workflows    List all workflows",
+        "  " / "stats        System performance metrics", 
+        "  " / "review       Review workflow details"
     ])
     
     console.print(Panel(
-        "\n".join(footer_lines),
+        Path(r"\n").join(footer_lines),
         title="Usage",
         style="dim"
     ))
@@ -236,11 +237,11 @@ def _display_logs_footer(filters_applied: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[/red] {error_message}\n\n"
-        "Troubleshooting:\n"
-        "- Check if workflow managers are available\n"
-        "- Verify workflow directory permissions\n"
-        "- Try /doctor for system diagnostics",
+        f"[red]Error:[" / Path(r"red] {error_message}\n\n")
+        Path(r"Troubleshooting:\n")
+        Path(r"- Check if workflow managers are available\n")
+        Path(r"- Verify workflow directory permissions\n")
+        "- Try " / "doctor for system diagnostics",
         style="red",
         title="Logs Command Error"
     ))
@@ -248,17 +249,17 @@ def display_error(error_message: str) -> None:
 def display_logs_search_help() -> None:
     """Display help for log search functionality"""
     console.print(Panel(
-        "Log Search Guide:\n\n"
-        "Search Examples:\n"
-        "  /logs --search 'error'           Find logs containing 'error'\n"
-        "  /logs --search 'workflow_123'    Find logs for specific workflow\n"
-        "  /logs --search 'completed'       Find completion logs\n\n"
-        "Filter Combinations:\n"
-        "  /logs --search 'error' --date-range 1d\n"
-        "  /logs --status active --limit 10\n"
-        "  /logs --workflow-id abc123 --search 'phase'\n\n"
-        "Date Range Formats:\n"
-        "  1d, 7d, 30d    (days)\n"
+        Path(r"Log Search Guide:\n\n")
+        Path(r"Search Examples:\n")
+        "  " / "logs --search 'error'           Find logs containing 'errorPath(r'\n")
+        "  " / "logs --search 'workflow_123Path(r'    Find logs for specific workflow\n")
+        "  " / "logs --search 'completedPath(r'       Find completion logs\n\n")
+        Path(r"Filter Combinations:\n")
+        "  " / "logs --search 'errorPath(r' --date-range 1d\n")
+        "  " / Path(r"logs --status active --limit 10\n")
+        "  " / "logs --workflow-id abc123 --search 'phasePath(r'\n\n")
+        Path(r"Date Range Formats:\n")
+        Path(r"  1d, 7d, 30d    (days)\n")
         "  1h, 12h, 24h   (hours)",
         title="Search Help",
         style="blue"

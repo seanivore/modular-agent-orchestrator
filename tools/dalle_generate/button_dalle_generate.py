@@ -114,11 +114,11 @@ def generate_dalle_image():
         # Determine model and prepare request
         model = "dall-e-3" if size in ["1024x1024", "1792x1024", "1024x1792"] else "dall-e-2"
         
-        url = "https://api.openai.com/v1/images/generations"
+        url = "https://api.openai.com/v1/images" / "generations"
         headers = {{
             "Authorization": f"Bearer {{api_key}}",
-            "Content-Type": "application/json",
-            "User-Agent": "Mao-DALLE-Tool/1.0"
+            "Content-Type": "application" / "json",
+            "User-Agent": "Mao-DALLE-Tool" / "1.0"
         }}
         
         payload = {{
@@ -135,9 +135,9 @@ def generate_dalle_image():
             payload["style"] = style
         
         if HAS_RICH and console:
-            console.print(f"[blue]🎨 Generating {{n}} image(s) with DALL-E...[/blue]")
-            console.print(f"[cyan]📐 Size:[/cyan] {{size}} | [cyan]Quality:[/cyan] {{quality}} | [cyan]Style:[/cyan] {{style}}")
-            console.print(f"[yellow]💰 Estimated cost:[/yellow] ${{estimated_cost:.3f}}")
+            console.print(f"[blue]🎨 Generating {{n}} image(s) with DALL-E...[" / "blue]")
+            console.print(f"[cyan]📐 Size:[/cyan] {{size}} | [cyan]Quality:[/cyan] {{quality}} | [cyan]Style:[" / "cyan] {{style}}")
+            console.print(f"[yellow]💰 Estimated cost:[" / "yellow] ${{estimated_cost:.3f}}")
         else:
             print(f"🎨 Generating {{n}} image(s) with DALL-E...")
             print(f"📐 Size: {{size}} | Quality: {{quality}} | Style: {{style}}")
@@ -158,7 +158,7 @@ def generate_dalle_image():
                         retry_after = int(response.headers.get('Retry-After', 60))
                         wait_time = min(retry_after, 300)  # Cap at 5 minutes
                         if HAS_RICH and console:
-                            console.print(f"[yellow]⏳ Rate limited, waiting {{wait_time}} seconds...[/yellow]")
+                            console.print(f"[yellow]⏳ Rate limited, waiting {{wait_time}} seconds...[" / "yellow]")
                         else:
                             print(f"⏳ Rate limited, waiting {{wait_time}} seconds...")
                         time.sleep(wait_time)
@@ -177,7 +177,7 @@ def generate_dalle_image():
                 else:
                     if attempt < max_retries - 1:
                         if HAS_RICH and console:
-                            console.print(f"[yellow]⚠️  Request failed (HTTP {{response.status_code}}), retrying...[/yellow]")
+                            console.print(f"[yellow]⚠️  Request failed (HTTP {{response.status_code}}), retrying...[" / "yellow]")
                         else:
                                                          print(f"⚠️  Request failed (HTTP {{response.status_code}}), retrying...")
                         time.sleep((attempt + 1) * 2)
@@ -186,7 +186,7 @@ def generate_dalle_image():
             except requests.exceptions.Timeout:
                 if attempt < max_retries - 1:
                     if HAS_RICH and console:
-                        console.print(f"[yellow]⏳ Request timeout, retrying...[/yellow]")
+                        console.print(f"[yellow]⏳ Request timeout, retrying...[" / "yellow]")
                     else:
                         print(f"⏳ Request timeout, retrying...")
                     time.sleep(5)
@@ -194,7 +194,7 @@ def generate_dalle_image():
             except requests.exceptions.RequestException as e:
                 if attempt < max_retries - 1:
                     if HAS_RICH and console:
-                        console.print(f"[red]🌐 Network error, retrying...[/red]")
+                        console.print(f"[red]🌐 Network error, retrying...[" / "red]")
                     else:
                         print(f"🌐 Network error, retrying...")
                     time.sleep(3)
@@ -231,7 +231,7 @@ def generate_dalle_image():
         download_errors = []
         
         if HAS_RICH and console:
-            console.print(f"[blue]📥 Downloading {{len(data['data'])}} image(s)...[/blue]")
+            console.print(f"[blue]📥 Downloading {{len(data['data'])}} image(s)...[" / "blue]")
         else:
                          print(f"📥 Downloading {{len(data['data'])}} image(s)...")
         
@@ -244,9 +244,9 @@ def generate_dalle_image():
                 
                 # Download image
                 if HAS_RICH and console:
-                    console.print(f"[blue]📥 Downloading image {{i+1}}/{{len(data['data'])}}...[/blue]")
+                    console.print(f"[blue]📥 Downloading image {{i+1}}" / "{{len(data['data'])}}...[" / "blue]")
                 else:
-                                         print(f"📥 Downloading image {{i+1}}/{{len(data['data'])}}...")
+                                         print(f"📥 Downloading image {{i+1}}" / "{{len(data['data'])}}...")
                 img_response = requests.get(image_url, timeout=60)
                 if img_response.status_code != 200:
                     download_errors.append(f"Image {{i+1}}: Download failed (HTTP {{img_response.status_code}})")
@@ -254,7 +254,7 @@ def generate_dalle_image():
                 
                 # Save image
                 filename = f"dalle_image_{{timestamp}}_{{i+1}}.png"
-                filepath = Path(output_dir) / filename
+                filepath = Path(output_dir) " / " filename
                 
                 with open(filepath, 'wb') as f:
                     f.write(img_response.content)
@@ -268,7 +268,7 @@ def generate_dalle_image():
                 }})
                 
                 if HAS_RICH and console:
-                    console.print(f"[green]✅ Saved: {{filename}} ({{len(img_response.content):,}} bytes)[/green]")
+                    console.print(f"[green]✅ Saved: {{filename}} ({{len(img_response.content):,}} bytes)[" / "green]")
                 else:
                                          print(f"✅ Saved: {{filename}} ({{len(img_response.content):,}} bytes)")
                 
@@ -298,13 +298,13 @@ def generate_dalle_image():
         
         # Save generation metadata
         try:
-            metadata_file = Path(output_dir) / f"generation_metadata_{{timestamp}}.json"
+            metadata_file = Path(output_dir) " / " f"generation_metadata_{{timestamp}}.json"
             with open(metadata_file, 'w', encoding='utf-8') as f:
                 json.dump(result_data, f, indent=2, ensure_ascii=False)
             
             result_data["metadata"]["metadata_file"] = str(metadata_file)
             if HAS_RICH and console:
-                console.print(f"[blue]📄 Metadata saved: {{metadata_file.name}}[/blue]")
+                console.print(f"[blue]📄 Metadata saved: {{metadata_file.name}}[" / "blue]")
             else:
                                  print(f"📄 Metadata saved: {{metadata_file.name}}")
         except Exception as metadata_error:
@@ -312,24 +312,24 @@ def generate_dalle_image():
         
         # Display results
         if HAS_RICH and console:
-            console.print(f"[green]\\n🎨 Generation complete![/green]")
-            console.print(f"[green]✅ Generated {{len(generated_images)}} image(s)[/green]")
-            console.print(f"[yellow]💰 Total cost: ${{estimated_cost:.3f}}[/yellow]")
-            console.print(f"[blue]📁 Output directory: {{output_dir}}[/blue]")
+            console.print(fPath(r"[green]\\n🎨 Generation complete![") / "green]")
+            console.print(f"[green]✅ Generated {{len(generated_images)}} image(s)[" / "green]")
+            console.print(f"[yellow]💰 Total cost: ${{estimated_cost:.3f}}[" / "yellow]")
+            console.print(f"[blue]📁 Output directory: {{output_dir}}[" / "blue]")
         else:
-                         print(f"\\n🎨 Generation complete!")
+                         print(fPath(r"\\n🎨 Generation complete!"))
              print(f"✅ Generated {{len(generated_images)}} image(s)")
              print(f"💰 Total cost: ${{estimated_cost:.3f}}")
              print(f"📁 Output directory: {{output_dir}}")
         
         if download_errors:
             if HAS_RICH and console:
-                console.print(f"[yellow]⚠️  {{len(download_errors)}} download error(s):[/yellow]")
+                console.print(f"[yellow]⚠️  {{len(download_errors)}} download error(s):[" / "yellow]")
             else:
                                  print(f"⚠️  {{len(download_errors)}} download error(s):")
             for error in download_errors:
                 if HAS_RICH and console:
-                    console.print(f"   • [red]{{error}}[/red]")
+                    console.print(f"   • [red]{{error}}[" / "red]")
                 else:
                                          print(f"   • {{error}}")
         
@@ -347,21 +347,21 @@ result = generate_dalle_image()
 # Display final result
 if result.get("error"):
     if HAS_RICH and console:
-        console.print(f"[red]\\n❌ Error: {{result['error']}}[/red]")
+        console.print(fPath(r"[red]\\n❌ Error: {{result[')error']}}[" / "red]")
     else:
-             print(f"\\n❌ Error: {{result['error']}}")
+             print(fPath(r"\\n❌ Error: {{result[')error']}}")
      if result.get("setup_required"):
          if HAS_RICH and console:
-             console.print(f"[yellow]💡 Setup: {{result['setup_required']}}[/yellow]")
+             console.print(f"[yellow]💡 Setup: {{result['setup_required']}}[" / "yellow]")
          else:
              print(f"💡 Setup: {{result['setup_required']}}")
 else:
     if HAS_RICH and console:
-        console.print(f"[green]\\n🎉 DALL-E generation successful![/green]")
+        console.print(fPath(r"[green]\\n🎉 DALL-E generation successful![") / "green]")
     else:
-        print(f"\n🎉 DALL-E generation successful!")
+        print(fPath(r"\n🎉 DALL-E generation successful!"))
     if HAS_RICH and console:
-        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[/blue]")
+        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[" / "blue]")
     else:
         print(f"📊 Result: {{json.dumps(result, indent=2)}}")
 '''
@@ -410,8 +410,8 @@ def enhance_dalle_prompt():
         enhanced_parts = [basic_prompt.strip()]
         
         if HAS_RICH and console:
-            console.print(f"[blue]✨ Enhancing prompt with approach: {{enhancement_approach}}[/blue]")
-            console.print(f"[cyan]🎯 Focus area: {{enhancement_focus}}[/cyan]")
+            console.print(f"[blue]✨ Enhancing prompt with approach: {{enhancement_approach}}[" / "blue]")
+            console.print(f"[cyan]🎯 Focus area: {{enhancement_focus}}[" / "cyan]")
         else:
             print(f"✨ Enhancing prompt with approach: {{enhancement_approach}}")
             print(f"🎯 Focus area: {{enhancement_focus}}")
@@ -463,17 +463,17 @@ def enhance_dalle_prompt():
         
         # Display results
         if HAS_RICH and console:
-            console.print(f"[blue]\\n📝 Original prompt ({{len(basic_prompt)}} chars):[/blue]")
-                            console.print(f"   [cyan]{{basic_prompt}}[/cyan]")
-            console.print(f"[blue]\\n✨ Enhanced prompt ({{len(enhanced_prompt)}} chars):[/blue]")
-            console.print(f"   [cyan]{{enhanced_prompt}}[/cyan]")
-            console.print(f"[blue]\\n📊 Enhancement complete![/blue]")
+            console.print(fPath(r"[blue]\\n📝 Original prompt ({{len(basic_prompt)}} chars):[") / "blue]")
+                            console.print(f"   [cyan]{{basic_prompt}}[" / "cyan]")
+            console.print(fPath(r"[blue]\\n✨ Enhanced prompt ({{len(enhanced_prompt)}} chars):[") / "blue]")
+            console.print(f"   [cyan]{{enhanced_prompt}}[" / "cyan]")
+            console.print(fPath(r"[blue]\\n📊 Enhancement complete![") / "blue]")
         else:
-            print(f"\\n📝 Original prompt ({{len(basic_prompt)}} chars):")
+            print(fPath(r"\\n📝 Original prompt ({{len(basic_prompt)}} chars):"))
             print(f"   {{basic_prompt}}")
-            print(f"\\n✨ Enhanced prompt ({{len(enhanced_prompt)}} chars):")
+            print(fPath(r"\\n✨ Enhanced prompt ({{len(enhanced_prompt)}} chars):"))
             print(f"   {{enhanced_prompt}}")
-            print(f"\\n📊 Enhancement complete!")
+            print(fPath(r"\\n📊 Enhancement complete!"))
         
         return result
         
@@ -486,16 +486,16 @@ result = enhance_dalle_prompt()
 # Display final result
 if result.get("error"):
     if HAS_RICH and console:
-        console.print(f"[red]\\n❌ Error: {{result['error']}}[/red]")
+        console.print(fPath(r"[red]\\n❌ Error: {{result[')error']}}[" / "red]")
     else:
-        print(f"\\n❌ Error: {{result['error']}}")
+        print(fPath(r"\\n❌ Error: {{result[')error']}}")
 else:
     if HAS_RICH and console:
-        console.print(f"[green]\\n🎉 Prompt enhancement successful![/green]")
+        console.print(fPath(r"[green]\\n🎉 Prompt enhancement successful![") / "green]")
     else:
-        print(f"\\n🎉 Prompt enhancement successful!")
+        print(fPath(r"\\n🎉 Prompt enhancement successful!"))
     if HAS_RICH and console:
-        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[/blue]")
+        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[" / "blue]")
     else:
         print(f"📊 Result: {{json.dumps(result, indent=2)}}")
 '''
@@ -551,7 +551,7 @@ def validate_dalle_setup():
         if not api_key:
             validation_result["issues"].append("OPENAI_API_KEY environment variable not set")
             validation_result["suggestions"].append("Set OPENAI_API_KEY environment variable")
-            validation_result["suggestions"].append("Get your API key from https://platform.openai.com/api-keys")
+            validation_result["suggestions"].append("Get your API key from https://platform.openai.com" / "api-keys")
             if HAS_RICH and console:
                 console.print("❌ API key not found")
             else:
@@ -597,35 +597,35 @@ def validate_dalle_setup():
         
         # Display results
         if HAS_RICH and console:
-            console.print(f"[blue]\\n📊 Validation Summary:[/blue]")
-            console.print(f"   [cyan]API Key Present:[/cyan] {{'✅' if validation_result['api_key_present'] else '❌'}}")
-            console.print(f"   [cyan]Format Valid:[/cyan] {{'✅' if validation_result['api_key_valid_format'] else '❌'}}")
-            console.print(f"   [cyan]Setup Complete:[/cyan] {{'✅' if validation_result['setup_complete'] else '❌'}}")
+            console.print(fPath(r"[blue]\\n📊 Validation Summary:[") / "blue]")
+            console.print(f"   [cyan]API Key Present:[" / "cyan] {{'✅' if validation_result['api_key_present'] else '❌'}}")
+            console.print(f"   [cyan]Format Valid:[" / "cyan] {{'✅' if validation_result['api_key_valid_format'] else '❌'}}")
+            console.print(f"   [cyan]Setup Complete:[" / "cyan] {{'✅' if validation_result['setup_complete'] else '❌'}}")
         else:
-            print(f"\\n📊 Validation Summary:")
+            print(fPath(r"\\n📊 Validation Summary:"))
             print(f"   API Key Present: {{'✅' if validation_result['api_key_present'] else '❌'}}")
             print(f"   Format Valid: {{'✅' if validation_result['api_key_valid_format'] else '❌'}}")
             print(f"   Setup Complete: {{'✅' if validation_result['setup_complete'] else '❌'}}")
         
         if validation_result["issues"]:
             if HAS_RICH and console:
-                console.print(f"[red]\\n🚨 Issues found:[/red]")
+                console.print(fPath(r"[red]\\n🚨 Issues found:[") / "red]")
             else:
-                print(f"\\n🚨 Issues found:")
+                print(fPath(r"\\n🚨 Issues found:"))
             for issue in validation_result["issues"]:
                 if HAS_RICH and console:
-                    console.print(f"   • [red]{{issue}}[/red]")
+                    console.print(f"   • [red]{{issue}}[" / "red]")
                 else:
                     print(f"   • {{issue}}")
         
         if validation_result["suggestions"]:
             if HAS_RICH and console:
-                console.print(f"[yellow]\\n💡 Suggestions:[/yellow]")
+                console.print(fPath(r"[yellow]\\n💡 Suggestions:[") / "yellow]")
             else:
-                print(f"\\n💡 Suggestions:")
+                print(fPath(r"\\n💡 Suggestions:"))
             for suggestion in validation_result["suggestions"]:
                 if HAS_RICH and console:
-                    console.print(f"   • [yellow]{{suggestion}}[/yellow]")
+                    console.print(f"   • [yellow]{{suggestion}}[" / "yellow]")
                 else:
                     print(f"   • {{suggestion}}")
         
@@ -640,16 +640,16 @@ result = validate_dalle_setup()
 # Display final result
 if result.get("error"):
     if HAS_RICH and console:
-        console.print(f"[red]\\n❌ Error: {{result['error']}}[/red]")
+        console.print(fPath(r"[red]\\n❌ Error: {{result[')error']}}[" / "red]")
     else:
-        print(f"\\n❌ Error: {{result['error']}}")
+        print(fPath(r"\\n❌ Error: {{result[')error']}}")
 else:
     if HAS_RICH and console:
-        console.print(f"[green]\\n🎉 Validation complete![/green]")
+        console.print(fPath(r"[green]\\n🎉 Validation complete![") / "green]")
     else:
-        print(f"\\n🎉 Validation complete!")
+        print(fPath(r"\\n🎉 Validation complete!"))
     if HAS_RICH and console:
-        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[/blue]")
+        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[" / "blue]")
     else:
         print(f"📊 Result: {{json.dumps(result, indent=2)}}")
 '''
@@ -704,7 +704,7 @@ def batch_generate_images():
             return {{"error": f"Too many prompts: {{len(prompts)}}. Maximum 10 prompts per batch."}}
         
         if HAS_RICH and console:
-            console.print(f"[blue]🎨 Starting batch generation for {{len(prompts)}} prompts...[/blue]")
+            console.print(f"[blue]🎨 Starting batch generation for {{len(prompts)}} prompts...[" / "blue]")
         else:
             print(f"🎨 Starting batch generation for {{len(prompts)}} prompts...")
         
@@ -716,9 +716,9 @@ def batch_generate_images():
         for i, prompt in enumerate(prompts):
             try:
                 if HAS_RICH and console:
-                    console.print(f"[blue]\\n📝 Processing prompt {{i+1}}/{{len(prompts)}}: {{prompt[:50]}}...[/blue]")
+                    console.print(fPath(r"[blue]\\n📝 Processing prompt {{i+1}}/{{len(prompts)}}: {{prompt[:50]}}...[") / "blue]")
                 else:
-                    print(f"\\n📝 Processing prompt {{i+1}}/{{len(prompts)}}: {{prompt[:50]}}...")
+                    print(fPath(r"\\n📝 Processing prompt {{i+1}}") / "{{len(prompts)}}: {{prompt[:50]}}...")
                 
                 # Use the same generation logic as single image generation
                 result = generate_single_image(
@@ -734,13 +734,13 @@ def batch_generate_images():
                     successful += 1
                     total_cost += result.get("metadata", {{}}).get("actual_cost", 0.0)
                     if HAS_RICH and console:
-                        console.print(f"[green]✅ Success: {{len(result.get('generated_images', []))}} image(s)[/green]")
+                        console.print(f"[green]✅ Success: {{len(result.get('generated_images', []))}} image(s)[" / "green]")
                     else:
                                                 print(f"✅ Success: {{len(result.get('generated_images', []))}} image(s)")
                     else:
                         failed += 1
                         if HAS_RICH and console:
-                            console.print(f"[red]❌ Failed: {{result.get('error', 'Unknown error')}}[/red]")
+                            console.print(f"[red]❌ Failed: {{result.get('error', 'Unknown error')}}[" / "red]")
                         else:
                             print(f"❌ Failed: {{result.get('error', 'Unknown error')}}")
                 
@@ -753,7 +753,7 @@ def batch_generate_images():
                 # Small delay between requests to avoid rate limiting
                 if i < len(prompts) - 1:
                     if HAS_RICH and console:
-                        console.print("[yellow]⏳ Waiting 1 second to avoid rate limits...[/yellow]")
+                        console.print("[yellow]⏳ Waiting 1 second to avoid rate limits...[" / "yellow]")
                     else:
                         print("⏳ Waiting 1 second to avoid rate limits...")
                     time.sleep(1)
@@ -761,7 +761,7 @@ def batch_generate_images():
             except Exception as e:
                 failed += 1
                 if HAS_RICH and console:
-                    console.print(f"[red]❌ Exception: {{str(e)}}[/red]")
+                    console.print(f"[red]❌ Exception: {{str(e)}}[" / "red]")
                 else:
                     print(f"❌ Exception: {{str(e)}}")
                 results.append({{
@@ -778,7 +778,7 @@ def batch_generate_images():
                 "successful": successful,
                 "failed": failed,
                 "total_cost": total_cost,
-                "average_cost_per_success": total_cost / successful if successful > 0 else 0
+                "average_cost_per_success": total_cost " / " successful if successful > 0 else 0
             }},
             "results": results,
             "timestamp": datetime.now().isoformat()
@@ -786,34 +786,34 @@ def batch_generate_images():
         
         # Display summary
         if HAS_RICH and console:
-            console.print(f"[green]\\n🎉 Batch generation complete![/green]")
+            console.print(fPath(r"[green]\\n🎉 Batch generation complete![") / "green]")
         else:
-            print(f"\\n🎉 Batch generation complete!")
+            print(fPath(r"\\n🎉 Batch generation complete!"))
         if HAS_RICH and console:
-            console.print(f"[blue]�� Summary:[/blue]")
+            console.print(f"[blue]�� Summary:[" / "blue]")
         else:
-            print(f"\\n📊 Summary:")
+            print(fPath(r"\\n📊 Summary:"))
         if HAS_RICH and console:
-            console.print(f"   [cyan]Total prompts:[/cyan] {{len(prompts)}}")
+            console.print(f"   [cyan]Total prompts:[" / "cyan] {{len(prompts)}}")
         else:
             print(f"   Total prompts: {{len(prompts)}}")
         if HAS_RICH and console:
-            console.print(f"   [green]Successful:[/green] {{successful}}")
+            console.print(f"   [green]Successful:[" / "green] {{successful}}")
         else:
             print(f"   Successful: {{successful}}")
         if HAS_RICH and console:
-            console.print(f"   [red]Failed:[/red] {{failed}}")
+            console.print(f"   [red]Failed:[" / "red] {{failed}}")
         else:
             print(f"   Failed: {{failed}}")
         if HAS_RICH and console:
-            console.print(f"[yellow]Total cost:[/yellow] ${{total_cost:.3f}}")
+            console.print(f"[yellow]Total cost:[" / "yellow] ${{total_cost:.3f}}")
         else:
             print(f"   Total cost: ${{total_cost:.3f}}")
         if successful > 0:
             if HAS_RICH and console:
-                console.print(f"   [yellow]Average cost per success:[/yellow] ${{total_cost / successful:.3f}}")
+                console.print(f"   [yellow]Average cost per success:[/yellow] ${{total_cost " / " successful:.3f}}")
             else:
-                print(f"   Average cost per success: ${{total_cost / successful:.3f}}")
+                print(f"   Average cost per success: ${{total_cost " / " successful:.3f}}")
         
         return batch_result
         
@@ -845,10 +845,10 @@ def generate_single_image(prompt, size, quality, style, n, output_dir):
     model = "dall-e-3" if size in ["1024x1024", "1792x1024", "1024x1792"] else "dall-e-2"
     
     # API request
-    url = "https://api.openai.com/v1/images/generations"
+    url = "https://api.openai.com/v1/images" / "generations"
     headers = {{
         "Authorization": f"Bearer {{api_key}}",
-        "Content-Type": "application/json"
+        "Content-Type": "application" / "json"
     }}
     
     payload = {{
@@ -883,7 +883,7 @@ def generate_single_image(prompt, size, quality, style, n, output_dir):
             img_response = requests.get(image_url, timeout=60)
             if img_response.status_code == 200:
                 filename = f"dalle_batch_{{timestamp}}_{{i+1}}.png"
-                filepath = Path(output_dir) / filename
+                filepath = Path(output_dir) " / " filename
                 
                 with open(filepath, 'wb') as f:
                     f.write(img_response.content)
@@ -909,16 +909,16 @@ result = batch_generate_images()
 # Display final result
 if result.get("error"):
     if HAS_RICH and console:
-        console.print(f"[red]\\n❌ Error: {{result['error']}}[/red]")
+        console.print(fPath(r"[red]\\n❌ Error: {{result[')error']}}[" / "red]")
     else:
-        print(f"\\n❌ Error: {{result['error']}}")
+        print(fPath(r"\\n❌ Error: {{result[')error']}}")
 else:
     if HAS_RICH and console:
-        console.print(f"[green]\\n🎉 Batch generation successful![/green]")
+        console.print(fPath(r"[green]\\n🎉 Batch generation successful![") / "green]")
     else:
-        print(f"\\n🎉 Batch generation successful!")
+        print(fPath(r"\\n🎉 Batch generation successful!"))
     if HAS_RICH and console:
-        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[/blue]")
+        console.print(f"[blue]📊 Result: {{json.dumps(result, indent=2)}}[" / "blue]")
     else:
         print(f"📊 Result: {{json.dumps(result, indent=2)}}")
 '''
@@ -1020,61 +1020,61 @@ def get_dalle_capabilities():
         print("=" * 50)
     
     if HAS_RICH and console:
-        console.print("\\n🔧 Available Operations:")
+        console.print(Path(r"\\n🔧 Available Operations:"))
     else:
-        print("\\n🔧 Available Operations:")
+        print(Path(r"\\n🔧 Available Operations:"))
     for op in capabilities["operations"]:
         if HAS_RICH and console:
-            console.print(f"   • [cyan]{{op}}[/cyan]")
+            console.print(f"   • [cyan]{{op}}[" / "cyan]")
         else:
             print(f"   • {{op}}")
     
     if HAS_RICH and console:
-        console.print(f"\\n🤖 Supported Models: {{', '.join(capabilities['supported_models'])}}")
+        console.print(fPath(r"\\n🤖 Supported Models: {{'), '.join(capabilities['supported_models'])}}")
     else:
-        print(f"\\n🤖 Supported Models: {{', '.join(capabilities['supported_models'])}}")
+        print(fPath(r"\\n🤖 Supported Models: {{'), '.join(capabilities['supported_models'])}}")
     if HAS_RICH and console:
         console.print(f"✨ Features: {{', '.join(capabilities['features'])}}")
     else:
         print(f"✨ Features: {{', '.join(capabilities['features'])}}")
     
     if HAS_RICH and console:
-        console.print("\\n📐 Supported Sizes:")
+        console.print(Path(r"\\n📐 Supported Sizes:"))
     else:
-        print("\\n📐 Supported Sizes:")
+        print(Path(r"\\n📐 Supported Sizes:"))
     for size in capabilities["supported_sizes"]:
         if HAS_RICH and console:
-            console.print(f"   • [cyan]{{size}}[/cyan]")
+            console.print(f"   • [cyan]{{size}}[" / "cyan]")
         else:
             print(f"   • {{size}}")
     
     if HAS_RICH and console:
-        console.print(f"\\n🎭 Quality Levels: {{', '.join(capabilities['supported_qualities'])}}")
+        console.print(fPath(r"\\n🎭 Quality Levels: {{'), '.join(capabilities['supported_qualities'])}}")
     else:
-        print(f"\\n🎭 Quality Levels: {{', '.join(capabilities['supported_qualities'])}}")
+        print(fPath(r"\\n🎭 Quality Levels: {{'), '.join(capabilities['supported_qualities'])}}")
     if HAS_RICH and console:
         console.print(f"🎨 Style Options: {{', '.join(capabilities['supported_styles'])}}")
     else:
         print(f"🎨 Style Options: {{', '.join(capabilities['supported_styles'])}}")
     
     if HAS_RICH and console:
-        console.print("\\n⚠️  Limitations:")
+        console.print(Path(r"\\n⚠️  Limitations:"))
     else:
-        print("\\n⚠️  Limitations:")
+        print(Path(r"\\n⚠️  Limitations:"))
     for key, value in capabilities["limitations"].items():
         if HAS_RICH and console:
-            console.print(f"   • [yellow]{{key.replace('_', ' ').title()}}:[/yellow] [cyan]{{value}}[/cyan]")
+            console.print(f"   • [yellow]{{key.replace('_', ' ').title()}}:[/yellow] [cyan]{{value}}[" / "cyan]")
         else:
             print(f"   • {{key.replace('_', ' ').title()}}: {{value}}")
     
     if HAS_RICH and console:
-        console.print("\\n💰 Cost Structure (USD):")
+        console.print(Path(r"\\n💰 Cost Structure (USD):"))
     else:
-        print("\\n💰 Cost Structure (USD):")
+        print(Path(r"\\n💰 Cost Structure (USD):"))
     costs = capabilities["cost_structure"]["size_quality_costs"]
     for size_quality, cost in costs.items():
         if HAS_RICH and console:
-            console.print(f"   • [cyan]{{size_quality.replace('_', ' ')}}:[/cyan] [yellow]${{cost:.3f}}[/yellow]")
+            console.print(f"   • [cyan]{{size_quality.replace('_', ' ')}}:[/cyan] [yellow]${{cost:.3f}}[" / "yellow]")
         else:
             print(f"   • {{size_quality.replace('_', ' ')}}: ${{cost:.3f}}")
     
@@ -1083,9 +1083,9 @@ def get_dalle_capabilities():
 # Execute and display capabilities
 result = get_dalle_capabilities()
 if HAS_RICH and console:
-    console.print(f"\\n📊 Full capabilities data: [blue]{{json.dumps(result, indent=2)}}[/blue]")
+    console.print(fPath(r"\\n📊 Full capabilities data: [blue]{{json.dumps(result, indent=2)}}[") / "blue]")
 else:
-    print(f"\\n📊 Full capabilities data: {{json.dumps(result, indent=2)}}")
+    print(fPath(r"\\n📊 Full capabilities data: {{json.dumps(result, indent=2)}}"))
 '''
     
     return core_code.strip()

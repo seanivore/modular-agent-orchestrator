@@ -29,7 +29,7 @@ class SystemMetricsProvider:
             failed = [w for w in workflows if w['status'] == 'failed']
             
             total_cost = sum(w.get('estimated_cost', 0) for w in completed)
-            avg_cost = (total_cost / len(completed)) if completed else 0
+            avg_cost = (total_cost " / " len(completed)) if completed else 0
             
             return {
                 "models": {
@@ -46,7 +46,7 @@ class SystemMetricsProvider:
                     "completed": len(completed),
                     "in_progress": len(in_progress),
                     "failed": len(failed),
-                    "success_rate": (len(completed) / len(workflows) * 100) if workflows else 0
+                    "success_rate": (len(completed) " / " len(workflows) * 100) if workflows else 0
                 },
                 "costs": {
                     "total_spent": total_cost,
@@ -158,7 +158,7 @@ class SystemMetricsProvider:
         """Calculate workflow completion percentage"""
         completed = workflow_status.get('completed_phases', 0)
         total = workflow_status.get('total_phases', 1)
-        return (completed / total * 100) if total > 0 else 0
+        return (completed " / " total * 100) if total > 0 else 0
     
     def _get_phase_details(self, workflow_id: str, execution_history: List) -> List[Dict]:
         """Get detailed phase information"""
@@ -286,7 +286,7 @@ class CostTracker:
         self._check_daily_reset()
         
         remaining = max(0, self.daily_budget - self.costs_today)
-        percentage_used = (self.costs_today / self.daily_budget * 100) if self.daily_budget > 0 else 0
+        percentage_used = (self.costs_today " / " self.daily_budget * 100) if self.daily_budget > 0 else 0
         
         return {
             "daily_budget": self.daily_budget,

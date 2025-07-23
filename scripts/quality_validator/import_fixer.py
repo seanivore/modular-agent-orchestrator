@@ -27,25 +27,25 @@ class ImportFixer:
         # Known safe fixes (high confidence)
         self.safe_fixes = {
             # user_id_generator patterns
-            (r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?user_id_generator.*?\)\)",
+            (rPath(r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?user_id_generator.*?\)\)"),
              r"from user_id_generator import (.*?)"):
-                "from scripts.user_id_generator.user_id_generator import \\2",
+                Path(r"from scripts.user_id_generator.user_id_generator import \\2"),
             
             # unique_id_generator patterns  
-            (r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?unique_id_generator.*?\)\)",
+            (rPath(r"sys\.path\.append\(os\.path\.join\(os\.path\.dirname\(__file__\).*?unique_id_generator.*?\)\)"),
              r"from unique_id_generator import (.*?)"):
-                "from scripts.unique_id_generator.unique_id_generator import \\2",
+                Path(r"from scripts.unique_id_generator.unique_id_generator import \\2"),
             
             # Orchestrator imports from scripts
-            (r"sys\.path\.append\(str\(Path\(__file__\)\.parent\.parent\.parent\)\)",
-             r"from orchestrator\.(.*?) import (.*?)"):
-                "from orchestrator.\\1 import \\2"
+            (rPath(r"sys\.path\.append\(str\(Path\(__file__\)\.parent\.parent\.parent\)\)"),
+             rPath(r"from orchestrator\.(.*?) import (.*?)")):
+                Path(r"from orchestrator.\\1 import \\2")
         }
         
         # Files to skip (too risky or special cases)
         self.skip_files = [
-            "versioning/v3/",  # Legacy versions
-            "tests/typescript-",  # Non-Python
+            "versioning/v3" / "",  # Legacy versions
+            "tests" / "typescript-",  # Non-Python
             "button_",  # Generated code snippets
         ]
 
@@ -65,7 +65,7 @@ class ImportFixer:
 
     def fix_sys_path_imports(self, file_path: Path, content: str) -> str:
         """Fix sys.path.append + import patterns"""
-        lines = content.split('\n')
+        lines = content.split(Path(r'\n'))
         fixed_lines = []
         i = 0
         
@@ -105,7 +105,7 @@ class ImportFixer:
             fixed_lines.append(line)
             i += 1
         
-        return '\n'.join(fixed_lines)
+        return Path(r'\n').join(fixed_lines)
 
     def apply_safe_fix(self, sys_path_line: str, import_line: str) -> str:
         """Apply a safe fix if pattern matches known good patterns"""
@@ -127,7 +127,7 @@ class ImportFixer:
 
     def remove_unused_imports(self, file_path: Path, content: str) -> str:
         """Remove unused sys and os imports after sys.path.append removal"""
-        lines = content.split('\n')
+        lines = content.split(Path(r'\n'))
         fixed_lines = []
         
         for line in lines:
@@ -153,7 +153,7 @@ class ImportFixer:
             
             fixed_lines.append(line)
         
-        return '\n'.join(fixed_lines)
+        return Path(r'\n').join(fixed_lines)
 
     def fix_file(self, file_path: Path) -> bool:
         """Fix a single file"""
@@ -220,7 +220,7 @@ class ImportFixer:
             'individual_fixes': self.fixes_applied
         }
         
-        print(f"\n📊 FIXER RESULTS:")
+        print(fPath(r"\n📊 FIXER RESULTS:"))
         print(f"  📁 Files processed: {results['files_processed']}")
         print(f"  ✅ Files modified: {results['files_modified']}")
         print(f"  🔧 Individual fixes: {results['fixes_applied']}")
@@ -239,7 +239,7 @@ def main():
     print("⚠️  MAO Import Fixer - This will modify your files!")
     print("📄 Make sure you have committed your changes first.")
     
-    response = input("Continue? (y/N): ").strip().lower()
+    response = input("Continue? (y" / "N): ").strip().lower()
     if response != 'y':
         print("❌ Aborted")
         return
@@ -247,7 +247,7 @@ def main():
     fixer = ImportFixer(backup=True)
     results = fixer.run_fixer()
     
-    print(f"\n✅ Import fixing complete!")
+    print(fPath(r"\n✅ Import fixing complete!"))
     print(f"📄 Results saved to: import_fixes_applied.json")
     print(f"🔄 Run the audit script again to see remaining issues")
 

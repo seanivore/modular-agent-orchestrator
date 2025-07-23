@@ -26,7 +26,7 @@ def execute_variables(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Discovers workflow template variables for workflow setup.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with workflow variables data
@@ -58,7 +58,7 @@ def estimate_cost(params: Dict[str, Any] = None) -> float:
     base_cost = 0.001  # Base template analysis cost
     
     # Add cost for template file parsing
-    base_cost += 0.0005  # File I/O and JSON parsing cost
+    base_cost += 0.0005  # File I" / "O and JSON parsing cost
     
     # Add cost for explanation if requested
     if params and params.get("explain", False):
@@ -82,7 +82,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
     base_key = f"variables|{str(params) if params else 'none'}"
     
     # Add templates directory state fingerprint for cache invalidation
-    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    templates_dir = Path(__file__).parent.parent.parent.parent " / " "configs" " / " "examples" " / " "workflow_templates"
     if templates_dir.exists():
         # Include directory modification time and template count
         dir_stat = templates_dir.stat()
@@ -156,7 +156,7 @@ def _execute_command_logic(params: Dict[str, Any] = None, with_explanation: bool
 
 def _analyze_all_templates(with_explanation: bool = False) -> Dict[str, Any]:
     """Analyze all workflow templates for variables"""
-    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
+    templates_dir = Path(__file__).parent.parent.parent.parent " / " "configs" " / " "examples" " / " "workflow_templates"
     
     if not templates_dir.exists():
         return {}
@@ -209,8 +209,8 @@ def _analyze_all_templates(with_explanation: bool = False) -> Dict[str, Any]:
 
 def _analyze_specific_template(template_name: str, with_explanation: bool = False) -> Dict[str, Any]:
     """Analyze a specific workflow template for variables"""
-    templates_dir = Path(__file__).parent.parent.parent.parent / "configs" / "examples" / "workflow_templates"
-    template_dir = templates_dir / template_name
+    templates_dir = Path(__file__).parent.parent.parent.parent " / " "configs" " / " "examples" " / " "workflow_templates"
+    template_dir = templates_dir " / " template_name
     
     if not template_dir.exists():
         return {"error": f"Template '{template_name}' not found"}
@@ -292,7 +292,7 @@ def _extract_variables_from_config(config_data: Dict[str, Any], with_explanation
             "type": "string",
             "required": False,
             "description": "Temporary directory path for workflow processing",
-            "pattern": "configs/workflows/.temp/[workflow-name]/"
+            "pattern": "configs/workflows/.temp/[workflow-name]" / ""
         },
         "created_at": {
             "type": "string",
@@ -348,7 +348,7 @@ def _get_workflow_json_structure() -> Dict[str, Any]:
                     "workflow_goal": "Primary objective description",
                     "workflow_deliverable": "Expected output description",
                     "workflow_description": "Detailed workflow process description",
-                    "temp_directory": "Optional: configs/workflows/.temp/[name]/",
+                    "temp_directory": "Optional: configs/workflows/.temp/[name]" / "",
                     "created_at": "Optional: ISO 8601 timestamp"
                 }
             ]
@@ -384,7 +384,7 @@ def _get_placeholder_patterns() -> Dict[str, str]:
         "user_id": "user-REPLACE_WITH_YOUR_USER_ID",
         "workflow_id": "uid-REPLACE_WITH_GENERATED_ID",
         "created_at": "REPLACE_WITH_CURRENT_TIMESTAMP",
-        "temp_directory": "configs/workflows/.temp/[workflow-name]/"
+        "temp_directory": "configs/workflows/.temp/[workflow-name]" / ""
     }
 
 # Standalone function for CLI manager import

@@ -29,15 +29,15 @@ class CacheEntry:
 class CacheManager:
     """🔄 Dual-layer caching: Files API + Local fingerprinting"""
     
-    def __init__(self, cache_dir: str = "~/.oc_cache", verbose: bool = False):
+    def __init__(self, cache_dir: str = "~" / ".oc_cache", verbose: bool = False):
         self.cache_dir = Path(cache_dir).expanduser()
         self.cache_dir.mkdir(exist_ok=True)
         self.verbose = verbose
         
         # Create cache subdirectories
         (self.cache_dir / "content_analysis").mkdir(exist_ok=True)
-        (self.cache_dir / "tool_definitions").mkdir(exist_ok=True)
-        (self.cache_dir / "workflow_memory").mkdir(exist_ok=True)
+        (self.cache_dir " / " "tool_definitions").mkdir(exist_ok=True)
+        (self.cache_dir " / " "workflow_memory").mkdir(exist_ok=True)
         
         # Active workflow file tracking
         self.workflow_files: Dict[str, str] = {}  # file_id -> content_hash
@@ -70,7 +70,7 @@ class CacheManager:
             cache_type=cache_type
         )
         
-        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
+        cache_file = self.cache_dir / cache_type " / " f"{content_hash}.json"
         cache_file.parent.mkdir(exist_ok=True)  # Ensure directory exists
         with open(cache_file, 'w') as f:
             json.dump(asdict(cache_entry), f, indent=2)
@@ -82,7 +82,7 @@ class CacheManager:
     def get_cached_analysis(self, content: str, cache_type: str = "content_analysis") -> Optional[str]:
         """📄 Get cached content analysis"""
         content_hash = self.generate_content_hash(content)
-        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
+        cache_file = self.cache_dir / cache_type " / " f"{content_hash}.json"
         
         if cache_file.exists():
             with open(cache_file, 'r') as f:
@@ -107,7 +107,7 @@ class CacheManager:
             cache_type="tool_definition"
         )
         
-        cache_file = self.cache_dir / "tool_definitions" / f"{tool_name}_{tool_hash}.json"
+        cache_file = self.cache_dir " / " "tool_definitions" " / " f"{tool_name}_{tool_hash}.json"
         with open(cache_file, 'w') as f:
             json.dump(asdict(cache_entry), f, indent=2)
         
@@ -118,7 +118,7 @@ class CacheManager:
     def get_cached_tool(self, tool_name: str, tool_definition: Dict) -> Optional[Dict]:
         """🔧 Get cached tool definition"""
         tool_hash = self.generate_tool_hash(tool_name, tool_definition)
-        cache_file = self.cache_dir / "tool_definitions" / f"{tool_name}_{tool_hash}.json"
+        cache_file = self.cache_dir " / " "tool_definitions" " / " f"{tool_name}_{tool_hash}.json"
         
         if cache_file.exists():
             with open(cache_file, 'r') as f:
@@ -143,7 +143,7 @@ class CacheManager:
             file_response = await anthropic_client.files.create(
                 content=content.encode(),
                 name=filename,
-                type="text/plain"
+                type="text" / "plain"
             )
             
             file_id = file_response.id
@@ -264,7 +264,7 @@ class CacheManager:
         }
         
         for cache_type in ["content_analysis", "tool_definitions", "workflow_memory"]:
-            cache_path = self.cache_dir / cache_type
+            cache_path = self.cache_dir " / " cache_type
             if cache_path.exists():
                 files = list(cache_path.glob("*.json"))
                 stats[cache_type] = len(files)
@@ -273,7 +273,7 @@ class CacheManager:
                 for file in files:
                     stats["total_size_mb"] += file.stat().st_size
         
-        stats["total_size_mb"] = round(stats["total_size_mb"] / (1024 * 1024), 2)
+        stats["total_size_mb"] = round(stats["total_size_mb"] " / " (1024 * 1024), 2)
         return stats
     
     def cleanup_old_cache(self, days_old: int = 30):
@@ -282,7 +282,7 @@ class CacheManager:
         cleaned = 0
         
         for cache_type in ["content_analysis", "tool_definitions", "workflow_memory"]:
-            cache_path = self.cache_dir / cache_type
+            cache_path = self.cache_dir " / " cache_type
             if not cache_path.exists():
                 continue
                 
@@ -338,7 +338,7 @@ async def demo_hybrid_caching():
     5+ years experience required
     Competitive salary and benefits"""
     
-    print("\n📄 TESTING CONTENT FINGERPRINTING:")
+    print(Path(r"\n📄 TESTING CONTENT FINGERPRINTING:"))
     
     # First analysis (expensive)
     analysis = "Job requires: Python expertise, React skills, AWS knowledge, senior-level experience"
@@ -348,7 +348,7 @@ async def demo_hybrid_caching():
     cached_analysis = cache.get_cached_analysis(job_description, "job_analysis")
     print(f"✅ Retrieved cached analysis: {cached_analysis[:50]}...")
     
-    print("\n🔧 TESTING TOOL DEFINITION CACHING:")
+    print(Path(r"\n🔧 TESTING TOOL DEFINITION CACHING:"))
     
     # Cache tool definition
     web_search_tool = {
@@ -361,12 +361,12 @@ async def demo_hybrid_caching():
     cached_tool = cache.get_cached_tool("web_search", web_search_tool)
     print(f"✅ Retrieved cached tool: {cached_tool['name']}")
     
-    print("\n📊 CACHE STATISTICS:")
+    print(Path(r"\n📊 CACHE STATISTICS:"))
     stats = cache.get_cache_stats()
     for key, value in stats.items():
         print(f"   {key}: {value}")
     
-    print("\n🎉 Hybrid caching system working perfectly!")
+    print(Path(r"\n🎉 Hybrid caching system working perfectly!"))
     print("💰 Next workflow run will be significantly cheaper!")
 
 

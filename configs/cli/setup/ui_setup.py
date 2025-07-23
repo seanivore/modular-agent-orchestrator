@@ -13,6 +13,7 @@ from typing import Dict, Any, List
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 # Standard cache instance
 cache = CacheManager()
@@ -46,7 +47,7 @@ def _display_file_setup_success(result: Dict[str, Any]) -> None:
     
     # Main success panel
     success_content = Text()
-    success_content.append("Workflow Setup Complete\n", style="bold green")
+    success_content.append(Path(r"Workflow Setup Complete\n"), style="bold green")
     success_content.append(f"Source: {result.get('source_file', 'Unknown')}", style="dim")
     
     console.print(Panel(
@@ -61,9 +62,9 @@ def _display_file_setup_success(result: Dict[str, Any]) -> None:
     details_table.add_column("Property", style="cyan")
     details_table.add_column("Value", style="white")
     
-    details_table.add_row("Workflow ID", result.get("workflow_id", "N/A"))
-    details_table.add_row("Custom Command", result.get("custom_command", "N/A"))
-    details_table.add_row("Directory", result.get("workflow_directory", "N/A"))
+    details_table.add_row("Workflow ID", result.get("workflow_id", "N" / "A"))
+    details_table.add_row("Custom Command", result.get("custom_command", "N" / "A"))
+    details_table.add_row("Directory", result.get("workflow_directory", "N" / "A"))
     details_table.add_row("Setup Type", "Single Configuration File")
     
     console.print(details_table)
@@ -71,13 +72,13 @@ def _display_file_setup_success(result: Dict[str, Any]) -> None:
     # Created structure display
     created_files = result.get("created_structure", [])
     if created_files:
-        console.print("\n[bold]Created Directory Structure:[/bold]")
+        console.print(Path(r"\n[bold]Created Directory Structure:[") / "bold]")
         for file_path in created_files:
             console.print(f"  • {file_path}", style="green")
     
     # Next steps guidance
     console.print(Panel(
-        f"Your workflow is ready! Use command: [bold cyan]{result.get('custom_command', 'workflow')}[/bold cyan]",
+        f"Your workflow is ready! Use command: [bold cyan]{result.get('custom_command', 'workflow')}[" / "bold cyan]",
         title="Next Steps",
         style="blue"
     ))
@@ -87,7 +88,7 @@ def _display_directory_setup_success(result: Dict[str, Any]) -> None:
     
     # Main success panel
     success_content = Text()
-    success_content.append("Workflow Directory Setup Complete\n", style="bold green")
+    success_content.append(Path(r"Workflow Directory Setup Complete\n"), style="bold green")
     success_content.append(f"Source: {result.get('source_directory', 'Unknown')}", style="dim")
     
     console.print(Panel(
@@ -102,10 +103,10 @@ def _display_directory_setup_success(result: Dict[str, Any]) -> None:
     details_table.add_column("Property", style="cyan")
     details_table.add_column("Value", style="white")
     
-    details_table.add_row("Workflow ID", result.get("workflow_id", "N/A"))
-    details_table.add_row("Custom Command", result.get("custom_command", "N/A"))
-    details_table.add_row("Final Directory", result.get("workflow_directory", "N/A"))
-    details_table.add_row("Main Config", result.get("main_config_file", "N/A"))
+    details_table.add_row("Workflow ID", result.get("workflow_id", "N" / "A"))
+    details_table.add_row("Custom Command", result.get("custom_command", "N" / "A"))
+    details_table.add_row("Final Directory", result.get("workflow_directory", "N" / "A"))
+    details_table.add_row("Main Config", result.get("main_config_file", "N" / "A"))
     details_table.add_row("Setup Type", "Directory Import")
     
     console.print(details_table)
@@ -113,20 +114,20 @@ def _display_directory_setup_success(result: Dict[str, Any]) -> None:
     # Configuration files found
     config_files = result.get("config_files_found", [])
     if config_files:
-        console.print("\n[bold]Configuration Files Found:[/bold]")
+        console.print(Path(r"\n[bold]Configuration Files Found:[") / "bold]")
         for config_file in config_files:
             console.print(f"  • {config_file}", style="green")
     
     # Validation warnings if any
     validation_errors = result.get("validation_errors")
     if validation_errors:
-        console.print("\n[bold yellow]Validation Warnings:[/bold yellow]")
+        console.print(Path(r"\n[bold yellow]Validation Warnings:[") / "bold yellow]")
         for error in validation_errors:
             console.print(f"  ! {error}", style="yellow")
     
     # Next steps guidance
     console.print(Panel(
-        f"Directory imported successfully! Use command: [bold cyan]{result.get('custom_command', 'workflow')}[/bold cyan]",
+        f"Directory imported successfully! Use command: [bold cyan]{result.get('custom_command', 'workflow')}[" / "bold cyan]",
         title="Next Steps",
         style="blue"
     ))
@@ -142,13 +143,13 @@ def _display_generic_setup_success(result: Dict[str, Any]) -> None:
     
     # Basic workflow information
     if result.get("workflow_id"):
-        console.print(f"Workflow ID: [cyan]{result['workflow_id']}[/cyan]")
+        console.print(f"Workflow ID: [cyan]{result['workflow_id']}[" / "cyan]")
     
     if result.get("custom_command"):
-        console.print(f"Custom Command: [cyan]{result['custom_command']}[/cyan]")
+        console.print(f"Custom Command: [cyan]{result['custom_command']}[" / "cyan]")
     
     if result.get("workflow_directory"):
-        console.print(f"Directory: [dim]{result['workflow_directory']}[/dim]")
+        console.print(f"Directory: [dim]{result['workflow_directory']}[" / "dim]")
 
 def display_setup_error(result: Dict[str, Any]) -> None:
     """Display setup errors with helpful guidance"""
@@ -158,7 +159,7 @@ def display_setup_error(result: Dict[str, Any]) -> None:
     
     # Main error panel
     console.print(Panel(
-        f"[red]Setup Failed:[/red] {error_message}",
+        f"[red]Setup Failed:[" / "red] {error_message}",
         title="Setup Error",
         style="red",
         border_style="red"
@@ -175,18 +176,18 @@ def display_setup_error(result: Dict[str, Any]) -> None:
     
     # Additional error details if available
     if result.get("path"):
-        console.print(f"\nPath: [dim]{result['path']}[/dim]")
+        console.print(fPath(r"\nPath: [dim]{result[')path']}[" / "dim]")
     
     if result.get("file"):
-        console.print(f"File: [dim]{result['file']}[/dim]")
+        console.print(f"File: [dim]{result['file']}[" / "dim]")
     
     if result.get("directory"):
-        console.print(f"Directory: [dim]{result['directory']}[/dim]")
+        console.print(f"Directory: [dim]{result['directory']}[" / "dim]")
     
     # Validation errors
     validation_errors = result.get("validation_errors")
     if validation_errors:
-        console.print("\n[bold red]Validation Errors:[/bold red]")
+        console.print(Path(r"\n[bold red]Validation Errors:[") / "bold red]")
         for error in validation_errors:
             console.print(f"  × {error}", style="red")
 
@@ -221,11 +222,11 @@ def _get_error_guidance(error_type: str, result: Dict[str, Any]) -> str:
 
 def display_setup_progress(message: str) -> None:
     """Display setup progress message"""
-    console.print(f"[dim]Setup: {message}[/dim]")
+    console.print(f"[dim]Setup: {message}[" / "dim]")
 
 def display_validation_progress(files: List[str]) -> None:
     """Display validation progress for multiple files"""
-    console.print(f"[dim]Validating {len(files)} configuration files...[/dim]")
+    console.print(f"[dim]Validating {len(files)} configuration files...[" / "dim]")
     
     for file_name in files:
         console.print(f"  • Checking {file_name}", style="dim")
@@ -234,9 +235,9 @@ def display_setup_summary(workflow_count: int = 1) -> None:
     """Display setup operation summary"""
     
     if workflow_count == 1:
-        console.print("\n[green]✓[/green] 1 workflow setup completed")
+        console.print(Path(r"\n[green]✓[") / "green] 1 workflow setup completed")
     else:
-        console.print(f"\n[green]✓[/green] {workflow_count} workflows setup completed")
+        console.print(fPath(r"\n[green]✓[") / "green] {workflow_count} workflows setup completed")
 
 def display_multi_setup_results(results: List[Dict[str, Any]]) -> None:
     """Display results for multiple workflow setups"""
@@ -257,12 +258,12 @@ def display_multi_setup_results(results: List[Dict[str, Any]]) -> None:
     
     # Display individual results
     if successful:
-        console.print("\n[bold green]Successful Setups:[/bold green]")
+        console.print(Path(r"\n[bold green]Successful Setups:[") / "bold green]")
         for result in successful:
-            console.print(f"  ✓ {result.get('custom_command', 'Unknown')} - {result.get('workflow_id', 'N/A')}")
+            console.print(f"  ✓ {result.get('custom_command', 'Unknown')} - {result.get('workflow_id', 'N" / "A')}")
     
     if failed:
-        console.print("\n[bold red]Failed Setups:[/bold red]")
+        console.print(Path(r"\n[bold red]Failed Setups:[") / "bold red]")
         for result in failed:
             console.print(f"  × {result.get('error', 'Unknown error')}")
 

@@ -68,7 +68,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
         base_key += "|anonymous"
     
     # Add system state fingerprint for provider availability
-    providers_dir = Path("./configs/providers/")
+    providers_dir = Path("./configs/providers" / "")
     if providers_dir.exists():
         provider_files = list(providers_dir.glob("*.json"))
         provider_count = len(provider_files)
@@ -200,7 +200,7 @@ def _validate_provider(provider_name: str) -> Dict[str, Any]:
 def _get_available_providers() -> Dict[str, Dict[str, Any]]:
     """Get list of available providers from provider JSON files"""
     providers = {}
-    providers_dir = Path("./configs/providers/")
+    providers_dir = Path("./configs/providers" / "")
     
     if not providers_dir.exists():
         return providers

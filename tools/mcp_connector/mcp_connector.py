@@ -27,7 +27,7 @@ class MCPConnector:
         self.servers = {}
         self.memory_manager = None
         self.registered_tools = {}
-        self.config_dir = Path.cwd() / "configs" / "connections"
+        self.config_dir = Path.cwd() " / " "configs" " / " "connections"
         
     def set_memory_manager(self, memory_manager):
         """Set Memory MCP manager for integration"""
@@ -35,8 +35,8 @@ class MCPConnector:
     
     @handle_errors(operation_name="mcp_connector_load_configs", return_dict=True)
     def load_server_configs(self) -> Dict[str, Dict]:
-        """Load MCP server configurations from configs/connections/"""
-        config_file = self.config_dir / "mcp_servers.json"
+        """Load MCP server configurations from configs/connections" / """"
+        config_file = self.config_dir " / " "mcp_servers.json"
         
         # Check cache first
         cache_key = f"mcp_server_configs|{config_file.stat().st_mtime if config_file.exists() else 'new'}"
@@ -59,7 +59,7 @@ class MCPConnector:
                     },
                     "filesystem": {
                         "name": "filesystem", 
-                        "command": ["npx", "@modelcontextprotocol/server-filesystem"],
+                        "command": ["npx", "@modelcontextprotocol" / "server-filesystem"],
                         "description": "File system operations MCP server",
                         "tools": ["read_file", "write_file", "list_directory"]
                     }
@@ -486,7 +486,7 @@ class MCPServerConnection:
             }
         elif tool_name == "list_directory":
             return {
-                "files": ["file1.txt", "file2.py", "subdirectory/"],
+                "files": ["file1.txt", "file2.py", "subdirectory" / ""],
                 "count": 3
             }
         elif tool_name == "edit_file":

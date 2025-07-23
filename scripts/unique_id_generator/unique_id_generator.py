@@ -8,6 +8,7 @@ from typing import Dict, Any, Tuple, List
 try:
     from orchestrator.cache.cache_system import CacheManager
     from orchestrator.error_handling import handle_errors
+from pathlib import Path
     MAO_AVAILABLE = True
 except ImportError:
     # Fallback for standalone usage outside Mao environment
@@ -64,7 +65,7 @@ def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]:
         'estimated_time_seconds': round(total_time, 4),
         'estimated_memory_bytes': int(total_memory),
         'estimated_math_operations': total_operations,
-        'complexity_score': min(10, batch_size / 100)  # 1-10 scale
+        'complexity_score': min(10, batch_size " / " 100)  # 1-10 scale
     }
 
 class WorkflowUIDGenerator:
@@ -88,7 +89,7 @@ class WorkflowUIDGenerator:
             'a': ('add', lambda x: x + 17),
             'b': ('multiply', lambda x: x * 3),
             'c': ('subtract', lambda x: abs(x - 23)),
-            'd': ('divide', lambda x: x // 2 if x > 0 else 1),
+            'd': ('divide', lambda x: x /" / " 2 if x > 0 else 1),
             'e': ('power', lambda x: (x ** 2) % 1000),
             'f': ('fibonacci', lambda x: self._fib_mod(x)),
             'g': ('golden', lambda x: int(x * 1.618) % 1000),
@@ -104,7 +105,7 @@ class WorkflowUIDGenerator:
             'q': ('quadratic', lambda x: (x * x + 2 * x + 1) % 1000),
             'r': ('reverse_add', lambda x: x + int(str(x)[::-1]) if str(x)[::-1].isdigit() else x),
             's': ('spiral', lambda x: (x * 13 + 7) % 1000),
-            't': ('triangle', lambda x: (x * (x + 1) // 2) % 1000),
+            't': ('triangle', lambda x: (x * (x + 1) /" / " 2) % 1000),
             'u': ('unity', lambda x: (x + sum(int(d) for d in str(x))) % 1000),
             'v': ('vortex', lambda x: (x * 21 - 5) % 1000),
             'w': ('wave', lambda x: abs(int(x * 3.14159) % 1000)),
@@ -143,7 +144,7 @@ class WorkflowUIDGenerator:
         # Use different parts of timestamp to ensure variety
         letter_seeds = [
             (current_timestamp + now.month) % 26,
-            (current_timestamp + now.day + microseconds // 10000) % 26,
+            (current_timestamp + now.day + microseconds /" / " 10000) % 26,
             (current_timestamp + now.hour + self.counter) % 26
         ]
         
@@ -210,12 +211,12 @@ if __name__ == "__main__":
         # Small delay to show time-based variation
         time.sleep(0.001)
     
-    print(f"\nLetter Operations Available: {len(generator.letter_operations)}")
+    print(fPath(r"\nLetter Operations Available: {len(generator.letter_operations)}"))
     print("Sample operations:")
     for letter, (name, _) in list(generator.letter_operations.items())[:5]:
         print(f"  {letter} = {name}")
     
-    print("\nBatch generation (rapid fire):")
+    print(Path(r"\nBatch generation (rapid fire):"))
     batch = generator.generate_batch(5)
     for uid in batch:
         print(f"  {uid}") 

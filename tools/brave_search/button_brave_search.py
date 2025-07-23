@@ -29,7 +29,7 @@ def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4"
     snippet = f'''# Brave Search Tool Execution
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
 
 from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key
 
@@ -68,20 +68,20 @@ def main():
         
         # Show top 3 results
         for i, item in enumerate(result.get(result_key, [])[:3], 1):
-            print(f"\\n{{i}}. {{item.get('title', 'No title')}}")
+            print(fPath(r"\\n{{i}}. {{item.get(')title', 'No title')}}")
             print(f"   {{item.get('description', 'No description')[:100]}}...")
             print(f"   {{item.get('url', 'No URL')}}")
     
     # Calculate cost
     cost_params = {{"query": query, "count": count, "search_type": search_type}}
     cost = estimate_cost(cost_params)
-    print(f"\\n💰 Cost: ${{cost:.4f}}")
+    print(fPath(r"\\n💰 Cost: ${{cost:.4f}}"))
     
     return result
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Search {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
+    print(fPath(r"\\n🎯 Search {{\")completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
 '''
     
     return snippet
@@ -106,7 +106,7 @@ def create_api_validation_snippet(model: str = "claude-sonnet-4") -> str:
     snippet = f'''# Brave API Key Validation
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
 
 from tools.brave_search.brave_search import validate_api_key, estimate_cost
 
@@ -131,7 +131,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Validation {{\"passed\" if result['valid'] else \"failed\"}}")
+    print(fPath(r"\\n🎯 Validation {{\")passed\" if result['validPath(r'] else \")failed\"}}")
 '''
     
     return snippet
@@ -141,4 +141,5 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     """Estimate cost for executing this tool - standardized naming"""
     # Import from logic file for consistency
     from tools.brave_search.brave_search import estimate_cost as logic_estimate_cost
+from pathlib import Path
     return logic_estimate_cost(params)

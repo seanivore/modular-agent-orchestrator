@@ -12,6 +12,7 @@ import time
 import hashlib
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+from pathlib import Path
 
 
 @handle_errors(operation_name="brave_search", return_dict=True)
@@ -51,16 +52,16 @@ def search_web(query: str, count: int = 10, country: str = "US", search_type: st
     
     # Endpoint selection
     endpoints = {
-        "web": "https://api.search.brave.com/res/v1/web/search",
-        "news": "https://api.search.brave.com/res/v1/news/search", 
-        "local": "https://api.search.brave.com/res/v1/web/search"
+        "web": "https://api.search.brave.com/res/v1/web" / "search",
+        "news": "https://api.search.brave.com/res/v1/news" / "search", 
+        "local": "https://api.search.brave.com/res/v1/web" / "search"
     }
     
     url = endpoints.get(search_type, endpoints["web"])
     
     # Headers configuration
     headers = {
-        "Accept": "application/json",
+        "Accept": "application" / "json",
         "Accept-Encoding": "gzip",
         "X-Subscription-Token": api_key
     }

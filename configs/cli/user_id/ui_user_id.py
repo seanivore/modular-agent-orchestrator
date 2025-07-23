@@ -12,6 +12,7 @@ from typing import Dict, Any
 # Standard MAO imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 # Standard cache instance
 cache = CacheManager(), List
@@ -43,9 +44,9 @@ def _display_user_id_info(result: Dict[str, Any]) -> None:
     status = result.get("status", "current_user")
     
     # Main user ID display
-    console.print(f"\n[bold]User ID:[/bold] {user_id}")
+    console.print(fPath(r"\n[bold]User ID:[") / "bold] {user_id}")
     if username:
-        console.print(f"[bold]Username:[/bold] {username}")
+        console.print(f"[bold]Username:[" / "bold] {username}")
     
     # Status-specific display
     if status == "existing_user":
@@ -57,7 +58,7 @@ def _display_user_id_info(result: Dict[str, Any]) -> None:
 
 def _display_existing_user_info(result: Dict[str, Any]) -> None:
     """Display existing user information"""
-    console.print("\n[green]Status:[/green] Existing User")
+    console.print(Path(r"\n[green]Status:[") / "green] Existing User")
     
     user_info = result.get("user_info", {})
     if user_info.get("created_at"):
@@ -67,25 +68,25 @@ def _display_existing_user_info(result: Dict[str, Any]) -> None:
     
     explanation = result.get("generation_explanation", "")
     if explanation:
-        console.print(f"\n[dim]Generation Method:[/dim] {explanation}")
+        console.print(fPath(r"\n[dim]Generation Method:[") / "dim] {explanation}")
 
 def _display_new_user_id_info(result: Dict[str, Any]) -> None:
     """Display new user ID generation information"""
-    console.print("\n[yellow]Status:[/yellow] New User ID Generated")
+    console.print(Path(r"\n[yellow]Status:[") / "yellow] New User ID Generated")
     
     explanation = result.get("generation_explanation", "")
     if explanation:
-        console.print(f"[dim]Generation Method:[/dim] {explanation}")
+        console.print(f"[dim]Generation Method:[" / "dim] {explanation}")
     
     next_steps = result.get("next_steps", [])
     if next_steps:
-        console.print("\n[bold]Next Steps:[/bold]")
+        console.print(Path(r"\n[bold]Next Steps:[") / "bold]")
         for step in next_steps:
             console.print(f"  - {step}")
 
 def _display_current_user_info(result: Dict[str, Any]) -> None:
     """Display current session user information"""
-    console.print("\n[blue]Status:[/blue] Current Session User")
+    console.print(Path(r"\n[blue]Status:[") / "blue] Current Session User")
     
     user_info = result.get("user_info", {})
     if user_info.get("last_login"):
@@ -96,11 +97,11 @@ def _display_current_user_info(result: Dict[str, Any]) -> None:
 def _display_workflow_context_info(workflow_context: Dict[str, Any]) -> None:
     """Display workflow context information"""
     if not workflow_context.get("context_available", False):
-        console.print("[dim]No active workflows[/dim]")
+        console.print("[dim]No active workflows[" / "dim]")
         return
     
     active_count = workflow_context.get("active_workflows", 0)
-    console.print(f"\n[bold]Active Workflows:[/bold] {active_count}")
+    console.print(fPath(r"\n[bold]Active Workflows:[") / "bold] {active_count}")
     
     recent_workflows = workflow_context.get("recent_workflows", [])
     if recent_workflows:
@@ -111,7 +112,7 @@ def _display_workflow_context_info(workflow_context: Dict[str, Any]) -> None:
 def display_error(error_message: str) -> None:
     """Display error with consistent Panel formatting"""
     console.print(Panel(
-        f"[red]Error:[/red] {error_message}",
+        f"[red]Error:[" / "red] {error_message}",
         style="red",
         title="User ID Error"
     ))
@@ -227,7 +228,7 @@ def display_generation_explanation(explanation: str) -> Dict[str, Any]:
         return {"show_explanation": False}
     
     # Parse explanation for structured display
-    lines = explanation.split('\n')
+    lines = explanation.split(Path(r'\n'))
     main_line = lines[0] if lines else explanation
     
     # Extract components
@@ -313,7 +314,7 @@ def display_error(error_message: str, suggestion: str = "") -> Dict[str, Any]:
         "error_message": error_message,
         "suggestion": suggestion,
         "help_actions": [
-            "Check if you are logged in with '/login'",
+            "Check if you are logged in with '" / "login'",
             "Verify username format (6-20 alphanumeric characters)",
             "Try running the command again"
         ],

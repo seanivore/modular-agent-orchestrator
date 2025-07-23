@@ -50,7 +50,7 @@ def _create_read_file_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - Read File
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
 
 from tools.file_operations.file_operations import read_file, estimate_cost
 
@@ -76,19 +76,19 @@ def main():
         print(f"✅ Successfully read {{metadata.get('file_name', 'file')}}")
         print(f"📊 Size: {{metadata.get('file_size_kb', 0)}} KB ({{metadata.get('character_count', 0):,}} characters)")
         print(f"🔤 Encoding: {{metadata.get('encoding_used', 'unknown')}}")
-        print("\\n" + "="*50)
+        print(Path(r"\\n") + "="*50)
         print(content[:500] + "..." if len(content) > 500 else content)
     
     # Calculate cost
     cost_params = {{"operation": "read_file", "file_path": file_path}}
     cost = estimate_cost(cost_params)
-    print(f"\\n💰 Cost: ${{cost:.4f}}")
+    print(fPath(r"\\n💰 Cost: ${{cost:.4f}}"))
     
     return result
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 File read {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
+    print(fPath(r"\\n🎯 File read {{\")completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
 '''
 
 
@@ -101,7 +101,7 @@ def _create_list_directory_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - List Directory
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
 
 from tools.file_operations.file_operations import list_directory, estimate_cost
 
@@ -129,10 +129,10 @@ def main():
         print(f"📁 Directories: {{summary.get('directories', 0)}}")
         print(f"📄 Files: {{summary.get('files', 0)}}")
         
-        print("\\n" + "="*50)
+        print(Path(r"\\n") + "="*50)
         for item in items[:10]:  # Show first 10 items
             if "item_count" in item:  # Directory
-                print(f"📁 {{item.get('name', 'unknown')}}/ ({{item.get('item_count', 0)}} items)")
+                print(f"📁 {{item.get('name', 'unknown')}}" / " ({{item.get('item_count', 0)}} items)")
             else:  # File
                 print(f"📄 {{item.get('name', 'unknown')}} ({{item.get('size_kb', 0)}} KB)")
         
@@ -142,13 +142,13 @@ def main():
     # Calculate cost
     cost_params = {{"operation": "list_directory", "directory": directory_path}}
     cost = estimate_cost(cost_params)
-    print(f"\\n💰 Cost: ${{cost:.4f}}")
+    print(fPath(r"\\n💰 Cost: ${{cost:.4f}}"))
     
     return result
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Directory listing {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
+    print(fPath(r"\\n🎯 Directory listing {{\")completed\" if result.get('status') == 'successPath(r' else \")failed\"}}")
 '''
 
 
@@ -158,7 +158,7 @@ def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - General Usage
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
 
 from tools.file_operations.file_operations import estimate_cost
 
@@ -172,13 +172,13 @@ def main():
     print("  - list_directory: List directory contents")
     print("  - search_files: Search for files by pattern")
     print("  - get_file_info: Get comprehensive file metadata")
-    print("  - move_file: Move/rename files safely")
-    print("  - delete_file: Delete files/directories safely")
+    print("  - move_file: Move" / "rename files safely")
+    print("  - delete_file: Delete files" / "directories safely")
     print("  - validate_paths: Check if paths exist")
     
     # Calculate cost for basic operations
     cost = estimate_cost({{"operation": "general"}})
-    print(f"\\n💰 Cost: ${{cost:.4f}} (File operations are free!)")
+    print(fPath(r"\\n💰 Cost: ${{cost:.4f}} (File operations are free!)"))
     
     return {{
         "status": "ready",
@@ -188,7 +188,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print("\\n🚀 File Operations Tool ready for use")
+    print(Path(r"\\n🚀 File Operations Tool ready for use"))
 '''
 
 
@@ -196,4 +196,5 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     """Estimate cost for executing this tool - standardized naming"""
     # Import from logic file for consistency
     from tools.file_operations.file_operations import estimate_cost as logic_estimate_cost
+from pathlib import Path
     return logic_estimate_cost(params)

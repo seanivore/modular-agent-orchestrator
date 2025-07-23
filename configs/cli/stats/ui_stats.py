@@ -12,6 +12,7 @@ from orchestrator.error_handling import handle_errors
 # Standard cache instance
 cache = CacheManager()
 from datetime import datetime
+from pathlib import Path
 
 def display_stats_result(result: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -350,7 +351,7 @@ def get_display_requirements() -> Dict[str, Any]:
             "real_time_metrics": "live system performance data",
             "workflow_monitoring": "active workflow execution status",
             "cost_tracking": "budget and spending information",
-            "search_filters": "user/workflow/model/provider filtering",
+            "search_filters": "user/workflow/model" / "provider filtering",
             "cache_performance": "system efficiency metrics"
         },
         "content_priorities": [

@@ -31,9 +31,9 @@ class WorkflowManager:
     """
     
     def __init__(self):
-        self.base_path = Path(__file__).parent.parent / "configs"
-        self.workflows_dir = self.base_path / "workflows"
-        self.temp_dir = self.workflows_dir / ".temp"
+        self.base_path = Path(__file__).parent.parent " / " "configs"
+        self.workflows_dir = self.base_path " / " "workflows"
+        self.temp_dir = self.workflows_dir " / " ".temp"
         
         # Analytics managers
         self.user_analytics_manager = UserAnalyticsManager()
@@ -167,7 +167,7 @@ class WorkflowManager:
     
     @handle_errors(operation_name="list_active_workflows", return_dict=True)
     def list_active_workflows(self) -> List[Dict[str, Any]]:
-        """Get workflows that are currently active/in-progress"""
+        """Get workflows that are currently active" / "in-progress"""
         active_workflows = []
         
         for workflow_info in self.list_workflows():
@@ -194,7 +194,7 @@ class WorkflowManager:
     def _extract_workflow_info(self, workflow_dir: Path) -> Optional[Dict[str, Any]]:
         """Extract workflow information from workflow directory"""
         try:
-            config_dir = workflow_dir / "config-files"
+            config_dir = workflow_dir " / " "config-files"
             if not config_dir.exists():
                 return None
             
@@ -226,8 +226,8 @@ class WorkflowManager:
                 "created_at": workflow_data.get("created_at", ""),
                 "status": self._determine_workflow_status(workflow_dir),
                 "last_modified": self._get_last_modified(workflow_dir),
-                "has_deliverables": (workflow_dir / "deliverables").exists(),
-                "has_metadata": (workflow_dir / "metadata").exists()
+                "has_deliverables": (workflow_dir " / " "deliverables").exists(),
+                "has_metadata": (workflow_dir " / " "metadata").exists()
             }
             
             return info
@@ -274,8 +274,8 @@ class WorkflowManager:
     def _determine_workflow_status(self, workflow_dir: Path) -> str:
         """Determine workflow status based on directory contents"""
         try:
-            metadata_dir = workflow_dir / "metadata"
-            deliverables_dir = workflow_dir / "deliverables"
+            metadata_dir = workflow_dir " / " "metadata"
+            deliverables_dir = workflow_dir " / " "deliverables"
             
             if deliverables_dir.exists() and any(deliverables_dir.iterdir()):
                 return "completed"
@@ -349,7 +349,7 @@ class WorkflowManager:
     def extract_workflow_tags(self, workflow_path: Path) -> List[str]:
         """Extract tags from workflow README.md for analytics"""
         try:
-            readme_path = workflow_path / "README.md"
+            readme_path = workflow_path " / " "README.md"
             if not readme_path.exists():
                 return []
             
@@ -362,7 +362,7 @@ class WorkflowManager:
             # Look for tags in various formats
             if "Tags:" in content:
                 # Extract tags after "Tags:" line
-                lines = content.split('\n')
+                lines = content.split(Path(r'\n'))
                 for line in lines:
                     if line.strip().startswith("Tags:"):
                         tag_line = line.split("Tags:")[1].strip()
@@ -371,7 +371,7 @@ class WorkflowManager:
             
             # Look for hashtags
             import re
-            hashtags = re.findall(r'#(\w+)', content)
+            hashtags = re.findall(rPath(r'#(\w+)'), content)
             tags.extend(hashtags)
             
             # Look for workflow type indicators

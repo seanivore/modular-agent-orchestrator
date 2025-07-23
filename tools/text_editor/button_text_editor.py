@@ -81,7 +81,7 @@ def execute_document_creation():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "created")
-            print(f"\\n✅ Document created successfully")
+            print(fPath(r"\\n✅ Document created successfully"))
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Document creation failed")
@@ -90,7 +90,7 @@ def execute_document_creation():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Ensure file path is valid and MAO modules are installed")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 
@@ -140,7 +140,7 @@ def execute_content_editing():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "updated")
-            print(f"\\n✅ Content edited successfully")
+            print(fPath(r"\\n✅ Content edited successfully"))
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Content editing failed")
@@ -149,7 +149,7 @@ def execute_content_editing():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Ensure file exists and text to replace is found")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 
@@ -161,7 +161,7 @@ def _append_content_snippet(params: Dict[str, Any], model: str) -> str:
     """Generate content appending snippet using MAO logic functions"""
     file_path = params.get("file_path", "")
     content = params.get("content", "")
-    separator = params.get("separator", "\\n")
+    separator = params.get("separator", Path(r"\\n"))
     
     escaped_content = json.dumps(content)
     escaped_separator = json.dumps(separator)
@@ -196,7 +196,7 @@ def execute_content_appending():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "appended")
-            print(f"\\n✅ Content appended successfully")
+            print(fPath(r"\\n✅ Content appended successfully"))
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Content appending failed")
@@ -205,7 +205,7 @@ def execute_content_appending():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Ensure file exists and is writable")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 
@@ -247,7 +247,7 @@ def execute_document_formatting():
         display_text_editor_result(result, verbose=True)
         
         if result.get("status") == "ready_for_ai_formatting":
-            print(f"\\n✅ Document prepared for AI formatting")
+            print(fPath(r"\\n✅ Document prepared for AI formatting"))
             print(f"🎨 Format type: {{params['format_type']}}")
             print(f"📊 Content length: {{result.get('content_length', 0):,}} characters")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
@@ -258,7 +258,7 @@ def execute_document_formatting():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Ensure file exists and is readable")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 
@@ -294,7 +294,7 @@ def execute_document_info():
         display_text_editor_result(result, verbose=True)
         
         if result.get("status") == "success":
-            print(f"\\n✅ Document analysis complete")
+            print(fPath(r"\\n✅ Document analysis complete"))
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Document analysis failed")
@@ -303,7 +303,7 @@ def execute_document_info():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Ensure file exists and is readable")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 
@@ -339,7 +339,7 @@ def execute_path_validation():
         display_text_editor_result(result, verbose=True)
         
         if result.get("status") == "success":
-            print(f"\\n✅ Path validation complete")
+            print(fPath(r"\\n✅ Path validation complete"))
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
             print("❌ Path validation failed")
@@ -348,7 +348,7 @@ def execute_path_validation():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Check path format and permissions")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 
@@ -368,6 +368,7 @@ def _create_from_template_snippet(params: Dict[str, Any], model: str) -> str:
 import json
 from tools.text_editor.text_editor import create_document_from_template, estimate_cost
 from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status
+from pathlib import Path
 
 def execute_template_creation():
     """Execute template-based document creation using MAO logic functions"""
@@ -395,7 +396,7 @@ def execute_template_creation():
         if result.get("status") == "success":
             # Seamless autosave indicator
             display_autosave_status(result.get("file_path", ""), "created")
-            print(f"\\n✅ Document created from template")
+            print(fPath(r"\\n✅ Document created from template"))
             print(f"📋 Template: {{params['template_type']}}")
             print(f"💰 Estimated cost: ${estimate_cost(params):.4f}")
         else:
@@ -405,7 +406,7 @@ def execute_template_creation():
         print(f"❌ Error: {{str(e)}}")
         print("💡 Ensure template type is valid and path is writable")
 
-    print("\\n" + "="*50)
+    print(Path(r"\\n") + "="*50)
     print("TEXT EDITOR OPERATION COMPLETE")
     print("="*50)
 

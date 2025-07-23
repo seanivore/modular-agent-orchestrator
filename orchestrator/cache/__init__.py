@@ -4,6 +4,7 @@ Universal caching infrastructure for modular tools
 """
 
 from .cache_system import (
+from pathlib import Path
     CacheManager,
     CacheEntry
 )

@@ -20,6 +20,7 @@ except ImportError:
 # Standardization imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors
+from pathlib import Path
 
 
 @handle_errors(operation_name="display_brave_search", return_dict=False)
@@ -88,7 +89,7 @@ def display_brave_search_result(result: Dict[str, Any], verbose: bool = False) -
     if verbose:
         metadata = result.get("metadata", {})
         if metadata:
-            console.print("\n📊 Search Metadata:", style="bold")
+            console.print(Path(r"\n📊 Search Metadata:"), style="bold")
             
             if "api_response_time" in metadata and metadata["api_response_time"]:
                 console.print(f"   Response Time: {metadata['api_response_time']:.2f}s")
@@ -236,7 +237,7 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
     result_key = "articles" if search_type == "news" else "results"
     results_list = results.get(result_key, [])
     
-    formatted_results = [f"Brave {search_type} search for '{query}' found {count} results:\n"]
+    formatted_results = [f"Brave {search_type} search for '{query}Path(r' found {count} results:\n")]
     
     for i, item in enumerate(results_list[:5], 1):  # Top 5 for handoff
         title = item.get("title", "No title")
@@ -245,9 +246,9 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
         
         formatted_results.append(f"{i}. {title}")
         formatted_results.append(f"   {description}")
-        formatted_results.append(f"   URL: {url}\n")
+        formatted_results.append(fPath(r"   URL: {url}\n"))
     
-    return "\n".join(formatted_results)
+    return Path(r"\n").join(formatted_results)
 
 
 def estimate_cost(params: Dict[str, Any]) -> float:

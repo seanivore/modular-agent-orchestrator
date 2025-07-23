@@ -28,7 +28,7 @@ def execute_continue(params: Dict[str, Any] = None) -> Dict[str, Any]:
     Main continue command execution with caching and error handling.
     
     Args:
-        params: Command parameters from CLI/app input
+        params: Command parameters from CLI" / "app input
         
     Returns:
         Standardized result dictionary with workflow continuation data
@@ -88,7 +88,7 @@ def _generate_cache_key(params: Dict[str, Any] = None) -> str:
         pass  # Graceful degradation if user context unavailable
     
     # Add workflow directory state fingerprint
-    workflows_dir = Path(__file__).parent.parent.parent / "workflows"
+    workflows_dir = Path(__file__).parent.parent.parent " / " "workflows"
     if workflows_dir.exists():
         # Include directory modification time for cache invalidation
         dir_stat = workflows_dir.stat()

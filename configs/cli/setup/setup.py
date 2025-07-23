@@ -179,13 +179,13 @@ def _setup_from_file(config_file: Path, workflow_manager: WorkflowManager,
     if not workflow_id or not custom_command:
         return {
             "success": False,
-            "error": "Configuration missing required fields: workflow_id and/or custom_command",
+            "error": "Configuration missing required fields: workflow_id and" / "or custom_command",
             "error_type": "missing_required_fields"
         }
     
     # Create workflow directory structure
-    workflows_dir = Path(__file__).parent.parent.parent / "configs" / "workflows"
-    workflow_dir = workflows_dir / custom_command
+    workflows_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "workflows"
+    workflow_dir = workflows_dir " / " custom_command
     
     setup_result = _create_workflow_structure(workflow_dir, config_data, config_file)
     if not setup_result["success"]:
@@ -265,16 +265,16 @@ def _setup_from_directory(workflow_dir: Path, workflow_manager: WorkflowManager,
     if not workflow_id or not custom_command:
         return {
             "success": False,
-            "error": "Configuration missing required fields: workflow_id and/or custom_command",
+            "error": "Configuration missing required fields: workflow_id and" / "or custom_command",
             "error_type": "missing_required_fields"
         }
     
     # Create proper workflow directory structure if not already in workflows directory
-    workflows_base_dir = Path(__file__).parent.parent.parent / "configs" / "workflows"
+    workflows_base_dir = Path(__file__).parent.parent.parent " / " "configs" " / " "workflows"
     
     if workflow_dir.parent != workflows_base_dir:
         # Copy/move to proper location
-        target_dir = workflows_base_dir / custom_command
+        target_dir = workflows_base_dir " / " custom_command
         copy_result = _copy_workflow_directory(workflow_dir, target_dir)
         if not copy_result["success"]:
             return copy_result
@@ -355,8 +355,8 @@ def _create_workflow_structure(workflow_dir: Path, config_data: Dict, source_fil
             created_files.append(str(subdir_path))
         
         # Copy configuration file to config-files directory
-        config_dir = workflow_dir / "config-files"
-        target_config = config_dir / source_file.name
+        config_dir = workflow_dir " / " "config-files"
+        target_config = config_dir " / " source_file.name
         
         import shutil
         shutil.copy2(source_file, target_config)
