@@ -105,6 +105,11 @@
   - `./tests/FULL_CODEBASE_AUDIT/05_DUPLICATE_CODE_REPORT.md`
   - `./tests/FULL_CODEBASE_AUDIT/07_UPDATED_DOCUMENTATION.md`
 
+* And the rest of those full codebase audit docs are in here, since presumably if we were able to audit them here then somewhere we must have the rules for auditing them now, too: `./tests/FULL_CODEBASE_AUDIT` 
+
+* Audit file rules guide: `./versioning/v4/v4_0_0/_RULES_FILE_AUDIT_GUIDE.md` 
+
+
 ---
 
 AYE, this stuff makes me so freaking anxious. 
