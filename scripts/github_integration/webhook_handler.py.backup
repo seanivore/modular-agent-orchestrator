@@ -19,8 +19,8 @@ import logging
 # Standard Mao imports (with fallback for standalone usage)
 try:
     # Add parent directories to path for Mao imports
-# sys.path.append(str(Path(__file__).parent.parent.parent))
-from orchestrator.cache.cache_system import CacheManager
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from orchestrator.cache.cache_system import CacheManager
     from orchestrator.error_handling import handle_errors
     MAO_AVAILABLE = True
 except ImportError:

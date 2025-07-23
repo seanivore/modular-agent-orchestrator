@@ -4,7 +4,7 @@ Mao Terminal UI Onboarding Command
 Always launches with full NEW_USER_FLOW.md experience
 """
 
-# import sys  # Removed - was only used for sys.path.append
+import sys
 import asyncio
 from pathlib import Path
 from typing import Dict, Any

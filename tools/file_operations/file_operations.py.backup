@@ -3,7 +3,7 @@ File Operations Tool - Core Logic
 Independent file operation logic with enhanced error handling
 """
 
-# import os  # Removed - was only used for sys.path.append
+import os
 import json
 import glob
 import shutil

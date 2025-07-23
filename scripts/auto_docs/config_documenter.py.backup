@@ -6,7 +6,7 @@ Integrates with GitHub webhooks and Claude Code for seamless updates
 """
 
 import json
-# import os  # Removed - was only used for sys.path.append
+import os
 import sys
 from pathlib import Path
 from typing import Dict, List, Any, Optional
@@ -17,8 +17,8 @@ import logging
 # Standard Mao imports (with fallback for standalone usage)
 try:
     # Add parent directories to path for Mao imports
-# sys.path.append(str(Path(__file__).parent.parent.parent))
-from orchestrator.cache.cache_system import CacheManager
+    sys.path.append(str(Path(__file__).parent.parent.parent))
+    from orchestrator.cache.cache_system import CacheManager
     from orchestrator.error_handling import handle_errors
     MAO_AVAILABLE = True
 except ImportError:

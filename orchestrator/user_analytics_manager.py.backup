@@ -4,7 +4,7 @@ Tracks user-specific analytics with GDPR compliance and dynamic tool discovery
 """
 
 import json
-# import os  # Removed - was only used for sys.path.append
+import os
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime, timezone

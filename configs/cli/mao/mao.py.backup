@@ -4,7 +4,7 @@ Mao Terminal UI Launch Command
 Launches the beautiful terminal interface with conversation system
 """
 
-# import sys  # Removed - was only used for sys.path.append
+import sys
 import asyncio
 from pathlib import Path
 from typing import Dict, Any

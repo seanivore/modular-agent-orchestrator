@@ -5,7 +5,7 @@ Lists all configured workflows with comprehensive search and filtering capabilit
 
 import json
 import hashlib
-# import os  # Removed - was only used for sys.path.append
+import os
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 from pathlib import Path

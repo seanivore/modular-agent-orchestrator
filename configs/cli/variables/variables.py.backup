@@ -5,7 +5,7 @@ Discovers and lists workflow template variables for workflow setup
 
 import json
 import hashlib
-# import os  # Removed - was only used for sys.path.append
+import os
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 from pathlib import Path

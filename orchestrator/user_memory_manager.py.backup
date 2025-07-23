@@ -4,7 +4,7 @@ Handles user-specific memory storage, retrieval, and management with Memory MCP 
 """
 
 import json
-# import os  # Removed - was only used for sys.path.append
+import os
 import hashlib
 from pathlib import Path
 from typing import Dict, List, Optional, Any

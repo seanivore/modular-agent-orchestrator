@@ -4,7 +4,7 @@ Dynamic settings discovery and management using directory-based scanning of indi
 """
 
 import json
-# import os  # Removed - was only used for sys.path.append
+import os
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass

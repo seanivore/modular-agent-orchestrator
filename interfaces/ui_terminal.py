@@ -7,7 +7,7 @@ Routes CLI commands through standardized CLI manager system
 
 import json
 import sys
-import os
+# import os  # Removed - was only used for sys.path.append
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any

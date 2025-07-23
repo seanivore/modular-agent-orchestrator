@@ -1,0 +1,3441 @@
+{
+  "summary": {
+    "total_files_analyzed": 138,
+    "sys_path_issues_found": 36,
+    "inconsistent_import_modules": 29,
+    "other_issues": 2
+  },
+  "sys_path_issues": [
+    {
+      "file": "versioning/v3/sfa_v3_3_0_main.py",
+      "line": 78,
+      "sys_path_line": "sys.path.append(tools_dir)",
+      "following_import": "from tools.image_editing import edit_image",
+      "suggested_fix": "Review manually: from tools.image_editing import edit_image"
+    },
+    {
+      "file": "versioning/v3/v3_2_0/sfa_v3_2_0_agent.py",
+      "line": 69,
+      "sys_path_line": "sys.path.append(tools_dir)",
+      "following_import": "from tools.image_editing import edit_image",
+      "suggested_fix": "Review manually: from tools.image_editing import edit_image"
+    },
+    {
+      "file": "versioning/v3/v3_2_2/sfa_v3_2_2_main.py",
+      "line": 61,
+      "sys_path_line": "sys.path.append(tools_dir)",
+      "following_import": "from tools.image_editing import edit_image",
+      "suggested_fix": "Review manually: from tools.image_editing import edit_image"
+    },
+    {
+      "file": "versioning/v3/v3_0_0/sfa_v3_0_0_agent.py",
+      "line": 46,
+      "sys_path_line": "sys.path.append(tools_dir)",
+      "following_import": "from token_counter import count_text_tokens, count_file_tokens",
+      "suggested_fix": "Review manually: from token_counter import count_text_tokens, count_file_tokens"
+    },
+    {
+      "file": "scripts/auto_docs/config_documenter.py",
+      "line": 20,
+      "sys_path_line": "# sys.path.append(str(Path(__file__).parent.parent.parent))",
+      "following_import": "from orchestrator.cache.cache_system import CacheManager",
+      "suggested_fix": "from orchestrator.cache.cache_system import CacheManager"
+    },
+    {
+      "file": "scripts/github_integration/webhook_handler.py",
+      "line": 22,
+      "sys_path_line": "# sys.path.append(str(Path(__file__).parent.parent.parent))",
+      "following_import": "from orchestrator.cache.cache_system import CacheManager",
+      "suggested_fix": "from orchestrator.cache.cache_system import CacheManager"
+    },
+    {
+      "file": "scripts/github_integration/webhook_handler.py",
+      "line": 45,
+      "sys_path_line": "sys.path.append(str(Path(__file__).parent.parent))",
+      "following_import": "from auto_docs.config_documenter import ConfigDocumenter",
+      "suggested_fix": "Review manually: from auto_docs.config_documenter import ConfigDocumenter"
+    },
+    {
+      "file": "tests/cache/test_integrated_caching.py",
+      "line": 11,
+      "sys_path_line": "sys.path.append(str(Path(__file__).parent.parent))",
+      "following_import": "from interfaces.terminal import SFATerminalInterface",
+      "suggested_fix": "Review manually: from interfaces.terminal import SFATerminalInterface"
+    },
+    {
+      "file": "tests/cache/test_cache_coordinator.py",
+      "line": 10,
+      "sys_path_line": "sys.path.append(os.path.join(os.path.dirname(__file__), 'utilities'))",
+      "following_import": "from cache_coordinator import CacheCoordinator, get_cache_coordinator",
+      "suggested_fix": "Review manually: from cache_coordinator import CacheCoordinator, get_cache_coordinator"
+    },
+    {
+      "file": "tools/web_search/button_web_search.py",
+      "line": 59,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.web_search.web_search import perform_web_search",
+      "suggested_fix": "Review manually: from tools.web_search.web_search import perform_web_search"
+    },
+    {
+      "file": "tools/web_search/button_web_search.py",
+      "line": 151,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.web_search.web_search import perform_filtered_search",
+      "suggested_fix": "Review manually: from tools.web_search.web_search import perform_filtered_search"
+    },
+    {
+      "file": "tools/web_search/button_web_search.py",
+      "line": 212,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.web_search.web_search import perform_content_search",
+      "suggested_fix": "Review manually: from tools.web_search.web_search import perform_content_search"
+    },
+    {
+      "file": "tools/web_search/button_web_search.py",
+      "line": 236,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.web_search.web_search import validate_search_query",
+      "suggested_fix": "Review manually: from tools.web_search.web_search import validate_search_query"
+    },
+    {
+      "file": "tools/web_search/button_web_search.py",
+      "line": 255,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.web_search.web_search import get_search_suggestions",
+      "suggested_fix": "Review manually: from tools.web_search.web_search import get_search_suggestions"
+    },
+    {
+      "file": "tools/web_search/button_web_search.py",
+      "line": 272,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.web_search.web_search import get_search_capabilities",
+      "suggested_fix": "Review manually: from tools.web_search.web_search import get_search_capabilities"
+    },
+    {
+      "file": "tools/mcp_connector/button_mcp_connector.py",
+      "line": 45,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.mcp_connector.mcp_connector import list_mcp_servers",
+      "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import list_mcp_servers"
+    },
+    {
+      "file": "tools/mcp_connector/button_mcp_connector.py",
+      "line": 92,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.mcp_connector.mcp_connector import execute_mcp_tool",
+      "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import execute_mcp_tool"
+    },
+    {
+      "file": "tools/mcp_connector/button_mcp_connector.py",
+      "line": 141,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.mcp_connector.mcp_connector import register_mcp_server",
+      "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import register_mcp_server"
+    },
+    {
+      "file": "tools/mcp_connector/button_mcp_connector.py",
+      "line": 184,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.mcp_connector.mcp_connector import get_mcp_server_status",
+      "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import get_mcp_server_status"
+    },
+    {
+      "file": "tools/mcp_connector/button_mcp_connector.py",
+      "line": 226,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.mcp_connector.mcp_connector import estimate_cost",
+      "suggested_fix": "Review manually: from tools.mcp_connector.mcp_connector import estimate_cost"
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "line": 53,
+      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "following_import": "from tools.file_operations.file_operations import read_file, estimate_cost",
+      "suggested_fix": "Review manually: from tools.file_operations.file_operations import read_file, estimate_cost"
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "line": 104,
+      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "following_import": "from tools.file_operations.file_operations import list_directory, estimate_cost",
+      "suggested_fix": "Review manually: from tools.file_operations.file_operations import list_directory, estimate_cost"
+    },
+    {
+      "file": "tools/file_operations/button_file_operations.py",
+      "line": 161,
+      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "following_import": "from tools.file_operations.file_operations import estimate_cost",
+      "suggested_fix": "Review manually: from tools.file_operations.file_operations import estimate_cost"
+    },
+    {
+      "file": "tools/files_api/button_files_api.py",
+      "line": 55,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.files_api.files_api import create_workflow_workspace",
+      "suggested_fix": "Review manually: from tools.files_api.files_api import create_workflow_workspace"
+    },
+    {
+      "file": "tools/files_api/button_files_api.py",
+      "line": 90,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.files_api.files_api import save_workflow_draft",
+      "suggested_fix": "Review manually: from tools.files_api.files_api import save_workflow_draft"
+    },
+    {
+      "file": "tools/files_api/button_files_api.py",
+      "line": 125,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.files_api.files_api import prepare_agent_handoff",
+      "suggested_fix": "Review manually: from tools.files_api.files_api import prepare_agent_handoff"
+    },
+    {
+      "file": "tools/files_api/button_files_api.py",
+      "line": 162,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.files_api.files_api import save_agent_deliverables",
+      "suggested_fix": "Review manually: from tools.files_api.files_api import save_agent_deliverables"
+    },
+    {
+      "file": "tools/files_api/button_files_api.py",
+      "line": 198,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.files_api.files_api import get_workflow_files",
+      "suggested_fix": "Review manually: from tools.files_api.files_api import get_workflow_files"
+    },
+    {
+      "file": "tools/files_api/button_files_api.py",
+      "line": 224,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.files_api.files_api import estimate_cost",
+      "suggested_fix": "Review manually: from tools.files_api.files_api import estimate_cost"
+    },
+    {
+      "file": "tools/brave_search/button_brave_search.py",
+      "line": 32,
+      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "following_import": "from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key",
+      "suggested_fix": "Review manually: from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key"
+    },
+    {
+      "file": "tools/brave_search/button_brave_search.py",
+      "line": 109,
+      "sys_path_line": "sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))",
+      "following_import": "from tools.brave_search.brave_search import validate_api_key, estimate_cost",
+      "suggested_fix": "Review manually: from tools.brave_search.brave_search import validate_api_key, estimate_cost"
+    },
+    {
+      "file": "tools/code_execution/button_code_execution.py",
+      "line": 50,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.code_execution.code_execution import execute_python_code",
+      "suggested_fix": "Review manually: from tools.code_execution.code_execution import execute_python_code"
+    },
+    {
+      "file": "tools/code_execution/button_code_execution.py",
+      "line": 105,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.code_execution.code_execution import execute_code_with_files",
+      "suggested_fix": "Review manually: from tools.code_execution.code_execution import execute_code_with_files"
+    },
+    {
+      "file": "tools/code_execution/button_code_execution.py",
+      "line": 157,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.code_execution.code_execution import create_persistent_container",
+      "suggested_fix": "Review manually: from tools.code_execution.code_execution import create_persistent_container"
+    },
+    {
+      "file": "tools/code_execution/button_code_execution.py",
+      "line": 197,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.code_execution.code_execution import download_execution_files",
+      "suggested_fix": "Review manually: from tools.code_execution.code_execution import download_execution_files"
+    },
+    {
+      "file": "tools/code_execution/button_code_execution.py",
+      "line": 238,
+      "sys_path_line": "sys.path.append('/Users/seanivore/Development/modular-agent-orchestrator')",
+      "following_import": "from tools.code_execution.code_execution import execute_python_code, estimate_cost",
+      "suggested_fix": "Review manually: from tools.code_execution.code_execution import execute_python_code, estimate_cost"
+    }
+  ],
+  "inconsistent_imports": {
+    "typing": {
+      "patterns": {
+        "typing -> Dict, Any": [
+          {
+            "file": "mao_v4.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/mao/mao.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/mao/ui_mao.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/dry_run/ui_dry_run.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/tools/ui_tools.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/chat/ui_chat.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/config/ui_config.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/logout/ui_logout.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/models/ui_models.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/user_id/ui_user_id.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/onboard/onboard.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/onboard/ui_onboard.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/verbose/ui_verbose.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/output_directory/ui_output_directory.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/default_provider/ui_default_provider.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/workflow_id/ui_workflow_id.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/continue/ui_continue.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/login/ui_login.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/help/ui_help.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "configs/cli/goal/ui_goal.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/think/button_think.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/think/ui_think.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/graphic_design/ui_graphic_design.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/files_api/ui_files_api.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/brave_search/ui_brave_search.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/brave_search/button_brave_search.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/text_editor/ui_text_editor.py",
+            "line": 14,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          },
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any",
+            "imports": "Dict, Any"
+          }
+        ],
+        "typing -> Dict, List, Optional, Any": [
+          {
+            "file": "orchestrator/user_memory_manager.py",
+            "line": 10,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/manager_models.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/agent_callback.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/manager_tools.py",
+            "line": 8,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/workflow_manager.py",
+            "line": 8,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/manager_buttons.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/memory_mcp.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "orchestrator/mcp_hub.py",
+            "line": 8,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "tools/mcp_connector/mcp_connector.py",
+            "line": 10,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "tools/files_api/files_api.py",
+            "line": 11,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          },
+          {
+            "file": "tools/code_execution/code_execution.py",
+            "line": 10,
+            "full_import": "from typing import Dict, List, Optional, Any",
+            "imports": "Dict, List, Optional, Any"
+          }
+        ],
+        "typing -> Dict, List, Optional, Tuple, Any": [
+          {
+            "file": "orchestrator/username_manager.py",
+            "line": 8,
+            "full_import": "from typing import Dict, List, Optional, Tuple, Any",
+            "imports": "Dict, List, Optional, Tuple, Any"
+          }
+        ],
+        "typing -> Dict, List, Any, Optional": [
+          {
+            "file": "orchestrator/system_analytics_manager.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          },
+          {
+            "file": "orchestrator/real_time_metrics.py",
+            "line": 7,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          },
+          {
+            "file": "orchestrator/agent_orchestrator.py",
+            "line": 10,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          },
+          {
+            "file": "orchestrator/workflow_state.py",
+            "line": 8,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          },
+          {
+            "file": "orchestrator/settings_manager.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          },
+          {
+            "file": "orchestrator/user_analytics_manager.py",
+            "line": 9,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          },
+          {
+            "file": "scripts/auto_docs/config_documenter.py",
+            "line": 12,
+            "full_import": "from typing import Dict, List, Any, Optional",
+            "imports": "Dict, List, Any, Optional"
+          }
+        ],
+        "typing -> Dict, List, Optional, Any, Tuple": [
+          {
+            "file": "orchestrator/core.py",
+            "line": 13,
+            "full_import": "from typing import Dict, List, Optional, Any, Tuple",
+            "imports": "Dict, List, Optional, Any, Tuple"
+          }
+        ],
+        "typing -> Dict, List, Any, Optional, Callable": [
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 10,
+            "full_import": "from typing import Dict, List, Any, Optional, Callable",
+            "imports": "Dict, List, Any, Optional, Callable"
+          }
+        ],
+        "typing -> Dict, Any, Optional, Callable, List": [
+          {
+            "file": "orchestrator/error_handling.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional, Callable, List",
+            "imports": "Dict, Any, Optional, Callable, List"
+          }
+        ],
+        "typing -> Dict, List, Any": [
+          {
+            "file": "orchestrator/conversation_bridge.py",
+            "line": 13,
+            "full_import": "from typing import Dict, List, Any",
+            "imports": "Dict, List, Any"
+          },
+          {
+            "file": "scripts/quality_validator/import_fixer.py",
+            "line": 19,
+            "full_import": "from typing import Dict, List, Any",
+            "imports": "Dict, List, Any"
+          }
+        ],
+        "typing -> Optional, Dict, Any": [
+          {
+            "file": "interfaces/ui_terminal.py",
+            "line": 13,
+            "full_import": "from typing import Optional, Dict, Any",
+            "imports": "Optional, Dict, Any"
+          }
+        ],
+        "typing -> Dict, Any, Optional, List": [
+          {
+            "file": "orchestrator/cache/cache_system.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "templates/tools/ui_tool.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/dry_run/dry_run.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/memory/memory.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/update/update.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/providers/providers.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/doctor/doctor.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/fix_it/fix_it.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/setup/setup.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/workflows/workflows.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/logs/logs.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/default_provider/default_provider.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/review/review.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/continue/continue.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/login/login.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          },
+          {
+            "file": "configs/cli/stats/stats.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional, List",
+            "imports": "Dict, Any, Optional, List"
+          }
+        ],
+        "typing -> Dict, Any, Optional": [
+          {
+            "file": "templates/tools/tool.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/tools/tools.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/chat/chat.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/config/config.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/set_model/set_model.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/logout/logout.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/models/models.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/user_id/user_id.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/verbose/verbose.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/output_directory/output_directory.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/workflow_id/workflow_id.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/help/help.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "configs/cli/goal/goal.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "tools/web_search/web_search.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "tools/graphic_design/button_graphic_design.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          },
+          {
+            "file": "tools/perplexity_search/perplexity_search.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, Optional",
+            "imports": "Dict, Any, Optional"
+          }
+        ],
+        "typing -> Dict, Union, Optional, Any, List": [
+          {
+            "file": "scripts/token_counter/token_standalone.py",
+            "line": 13,
+            "full_import": "from typing import Dict, Union, Optional, Any, List",
+            "imports": "Dict, Union, Optional, Any, List"
+          }
+        ],
+        "typing -> Dict, Any, List, Optional": [
+          {
+            "file": "scripts/github_integration/webhook_handler.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any, List, Optional",
+            "imports": "Dict, Any, List, Optional"
+          },
+          {
+            "file": "configs/cli/variables/variables.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, List, Optional",
+            "imports": "Dict, Any, List, Optional"
+          },
+          {
+            "file": "tools/think/think.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, List, Optional",
+            "imports": "Dict, Any, List, Optional"
+          },
+          {
+            "file": "tools/dalle_generate/dalle_generate.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any, List, Optional",
+            "imports": "Dict, Any, List, Optional"
+          },
+          {
+            "file": "tools/brave_search/brave_search.py",
+            "line": 8,
+            "full_import": "from typing import Dict, Any, List, Optional",
+            "imports": "Dict, Any, List, Optional"
+          },
+          {
+            "file": "tools/text_editor/text_editor.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any, List, Optional",
+            "imports": "Dict, Any, List, Optional"
+          }
+        ],
+        "typing -> Dict, Any, Tuple": [
+          {
+            "file": "scripts/user_id_generator/user_id_generator.py",
+            "line": 2,
+            "full_import": "from typing import Dict, Any, Tuple",
+            "imports": "Dict, Any, Tuple"
+          }
+        ],
+        "typing -> Dict, Any, Tuple, List": [
+          {
+            "file": "scripts/unique_id_generator/unique_id_generator.py",
+            "line": 5,
+            "full_import": "from typing import Dict, Any, Tuple, List",
+            "imports": "Dict, Any, Tuple, List"
+          }
+        ],
+        "typing -> Dict, List, Tuple, Any": [
+          {
+            "file": "scripts/quality_validator/mao_validator.py",
+            "line": 13,
+            "full_import": "from typing import Dict, List, Tuple, Any",
+            "imports": "Dict, List, Tuple, Any"
+          }
+        ],
+        "typing -> Dict, List, Tuple, Set, Any": [
+          {
+            "file": "scripts/quality_validator/import_audit.py",
+            "line": 18,
+            "full_import": "from typing import Dict, List, Tuple, Set, Any",
+            "imports": "Dict, List, Tuple, Set, Any"
+          }
+        ],
+        "typing -> Dict, Any, List": [
+          {
+            "file": "configs/cli/memory/ui_memory.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/update/ui_update.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/set_model/ui_set_model.py",
+            "line": 9,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/providers/ui_providers.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/doctor/ui_doctor.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/fix_it/ui_fix_it.py",
+            "line": 10,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/setup/ui_setup.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/workflows/ui_workflows.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/logs/ui_logs.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/variables/ui_variables.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/review/ui_review.py",
+            "line": 11,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "configs/cli/stats/ui_stats.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/web_search/ui_web_search.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/dalle_generate/ui_dalle_generate.py",
+            "line": 14,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/dalle_generate/button_dalle_generate.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/mcp_connector/ui_mcp_connector.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/file_operations/ui_file_operations.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/file_operations/button_file_operations.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/perplexity_search/ui_perplexity_search.py",
+            "line": 40,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 6,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          },
+          {
+            "file": "tools/code_execution/ui_code_execution.py",
+            "line": 7,
+            "full_import": "from typing import Dict, Any, List",
+            "imports": "Dict, Any, List"
+          }
+        ],
+        "typing -> Dict, Any, List, Optional, Union": [
+          {
+            "file": "tools/graphic_design/graphic_design.py",
+            "line": 12,
+            "full_import": "from typing import Dict, Any, List, Optional, Union",
+            "imports": "Dict, Any, List, Optional, Union"
+          }
+        ],
+        "typing -> List, Dict, Any, Union, Optional": [
+          {
+            "file": "tools/file_operations/file_operations.py",
+            "line": 13,
+            "full_import": "from typing import List, Dict, Any, Union, Optional",
+            "imports": "List, Dict, Any, Union, Optional"
+          }
+        ]
+      },
+      "total_usages": 123
+    },
+    "orchestrator.error_handling": {
+      "patterns": {
+        "orchestrator.error_handling -> handle_errors": [
+          {
+            "file": "mao_v4.py",
+            "line": 19,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "orchestrator/manager_tools.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "templates/tools/ui_tool.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "templates/tools/tool.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "scripts/token_counter/token_standalone.py",
+            "line": 18,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "scripts/auto_docs/config_documenter.py",
+            "line": 22,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "scripts/github_integration/webhook_handler.py",
+            "line": 24,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "scripts/user_id_generator/user_id_generator.py",
+            "line": 7,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "scripts/unique_id_generator/unique_id_generator.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "scripts/quality_validator/mao_validator.py",
+            "line": 20,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/mao/ui_mao.py",
+            "line": 9,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/tools/ui_tools.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/memory/ui_memory.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/update/ui_update.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/config/ui_config.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/providers/ui_providers.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/doctor/ui_doctor.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/fix_it/ui_fix_it.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/setup/ui_setup.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/workflows/ui_workflows.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/logout/ui_logout.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/models/ui_models.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/user_id/ui_user_id.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/onboard/ui_onboard.py",
+            "line": 11,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/verbose/ui_verbose.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/review/ui_review.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/workflow_id/ui_workflow_id.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/login/ui_login.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/stats/ui_stats.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/help/ui_help.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "configs/cli/goal/ui_goal.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "tools/web_search/ui_web_search.py",
+            "line": 26,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "tools/think/ui_think.py",
+            "line": 17,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "tools/mcp_connector/ui_mcp_connector.py",
+            "line": 16,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "tools/files_api/ui_files_api.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "tools/perplexity_search/ui_perplexity_search.py",
+            "line": 44,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          },
+          {
+            "file": "tools/brave_search/ui_brave_search.py",
+            "line": 22,
+            "full_import": "from orchestrator.error_handling import handle_errors",
+            "imports": "handle_errors"
+          }
+        ],
+        "orchestrator.error_handling -> handle_errors, retry_with_backoff, APIError": [
+          {
+            "file": "orchestrator/user_memory_manager.py",
+            "line": 16,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/username_manager.py",
+            "line": 13,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/system_analytics_manager.py",
+            "line": 16,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/workflow_manager.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/settings_manager.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/user_analytics_manager.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/mao/mao.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/providers/providers.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/workflows/workflows.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/logout/logout.py",
+            "line": 13,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/user_id/user_id.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/onboard/onboard.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/review/review.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/workflow_id/workflow_id.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "configs/cli/login/login.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "tools/mcp_connector/mcp_connector.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "tools/files_api/files_api.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "tools/brave_search/brave_search.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "tools/code_execution/code_execution.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          }
+        ],
+        "orchestrator.error_handling -> handle_errors, retry_with_backoff, ValidationError": [
+          {
+            "file": "interfaces/ui_terminal.py",
+            "line": 17,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/dry_run/dry_run.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/tools/tools.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/memory/memory.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/update/update.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/chat/chat.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/config/config.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/doctor/doctor.py",
+            "line": 16,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/models/models.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/logs/logs.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/default_provider/default_provider.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/variables/variables.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/stats/stats.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          },
+          {
+            "file": "configs/cli/help/help.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, ValidationError"
+          }
+        ],
+        "orchestrator.error_handling -> handle_errors, ValidationError": [
+          {
+            "file": "configs/cli/set_model/set_model.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "configs/cli/fix_it/fix_it.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "configs/cli/setup/setup.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "configs/cli/verbose/verbose.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "configs/cli/output_directory/output_directory.py",
+            "line": 15,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "configs/cli/continue/continue.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "configs/cli/goal/goal.py",
+            "line": 14,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "tools/web_search/web_search.py",
+            "line": 11,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          },
+          {
+            "file": "tools/think/think.py",
+            "line": 10,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError",
+            "imports": "handle_errors, ValidationError"
+          }
+        ],
+        "orchestrator.error_handling -> handle_errors, retry_with_backoff, APIError, ValidationError": [
+          {
+            "file": "tools/dalle_generate/dalle_generate.py",
+            "line": 16,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, APIError, ValidationError"
+          },
+          {
+            "file": "tools/perplexity_search/perplexity_search.py",
+            "line": 12,
+            "full_import": "from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError, ValidationError",
+            "imports": "handle_errors, retry_with_backoff, APIError, ValidationError"
+          }
+        ],
+        "orchestrator.error_handling -> handle_errors, ValidationError, ResourceError": [
+          {
+            "file": "tools/graphic_design/graphic_design.py",
+            "line": 18,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError, ResourceError",
+            "imports": "handle_errors, ValidationError, ResourceError"
+          },
+          {
+            "file": "tools/file_operations/file_operations.py",
+            "line": 16,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError, ResourceError",
+            "imports": "handle_errors, ValidationError, ResourceError"
+          },
+          {
+            "file": "tools/text_editor/text_editor.py",
+            "line": 13,
+            "full_import": "from orchestrator.error_handling import handle_errors, ValidationError, ResourceError",
+            "imports": "handle_errors, ValidationError, ResourceError"
+          }
+        ]
+      },
+      "total_usages": 85
+    },
+    "datetime": {
+      "patterns": {
+        "datetime -> datetime, timedelta": [
+          {
+            "file": "orchestrator/user_memory_manager.py",
+            "line": 11,
+            "full_import": "from datetime import datetime, timedelta",
+            "imports": "datetime, timedelta"
+          },
+          {
+            "file": "orchestrator/real_time_metrics.py",
+            "line": 8,
+            "full_import": "from datetime import datetime, timedelta",
+            "imports": "datetime, timedelta"
+          },
+          {
+            "file": "orchestrator/cache/cache_system.py",
+            "line": 11,
+            "full_import": "from datetime import datetime, timedelta",
+            "imports": "datetime, timedelta"
+          },
+          {
+            "file": "configs/cli/logs/logs.py",
+            "line": 9,
+            "full_import": "from datetime import datetime, timedelta",
+            "imports": "datetime, timedelta"
+          },
+          {
+            "file": "configs/cli/stats/stats.py",
+            "line": 9,
+            "full_import": "from datetime import datetime, timedelta",
+            "imports": "datetime, timedelta"
+          }
+        ],
+        "datetime -> datetime": [
+          {
+            "file": "orchestrator/username_manager.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/agent_callback.py",
+            "line": 8,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/manager_tools.py",
+            "line": 419,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/core.py",
+            "line": 12,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 11,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/error_handling.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/manager_buttons.py",
+            "line": 366,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/memory_mcp.py",
+            "line": 8,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/agent_orchestrator.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/conversation_bridge.py",
+            "line": 11,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "orchestrator/workflow_state.py",
+            "line": 7,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "interfaces/ui_terminal.py",
+            "line": 11,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/auto_docs/config_documenter.py",
+            "line": 13,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "scripts/unique_id_generator/unique_id_generator.py",
+            "line": 2,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/dry_run/dry_run.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/tools/tools.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/memory/memory.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/update/update.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/chat/chat.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/config/config.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/set_model/set_model.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/providers/providers.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/doctor/doctor.py",
+            "line": 11,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/fix_it/fix_it.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/setup/setup.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/workflows/ui_workflows.py",
+            "line": 183,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/workflows/workflows.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/logout/logout.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/models/models.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/user_id/user_id.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/verbose/verbose.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/output_directory/output_directory.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/logs/ui_logs.py",
+            "line": 167,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/default_provider/default_provider.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/variables/variables.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/variables/ui_variables.py",
+            "line": 8,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/review/review.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/review/ui_review.py",
+            "line": 70,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/review/ui_review.py",
+            "line": 270,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/review/ui_review.py",
+            "line": 277,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/workflow_id/workflow_id.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/continue/continue.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/login/login.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/stats/ui_stats.py",
+            "line": 14,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/help/help.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "configs/cli/goal/goal.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 64,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 156,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/web_search/web_search.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/think/button_think.py",
+            "line": 51,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/think/button_think.py",
+            "line": 197,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/think/button_think.py",
+            "line": 297,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/think/think.py",
+            "line": 8,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/dalle_generate/ui_dalle_generate.py",
+            "line": 16,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/dalle_generate/button_dalle_generate.py",
+            "line": 34,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/dalle_generate/button_dalle_generate.py",
+            "line": 388,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/dalle_generate/button_dalle_generate.py",
+            "line": 519,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/dalle_generate/button_dalle_generate.py",
+            "line": 682,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/dalle_generate/dalle_generate.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/graphic_design/graphic_design.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/graphic_design/button_graphic_design.py",
+            "line": 118,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/mcp_connector/mcp_connector.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/file_operations/ui_file_operations.py",
+            "line": 13,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/file_operations/file_operations.py",
+            "line": 14,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/files_api/files_api.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/perplexity_search/perplexity_search.py",
+            "line": 10,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/brave_search/brave_search.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/text_editor/text_editor.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          },
+          {
+            "file": "tools/code_execution/code_execution.py",
+            "line": 9,
+            "full_import": "from datetime import datetime",
+            "imports": "datetime"
+          }
+        ],
+        "datetime -> datetime, timezone": [
+          {
+            "file": "orchestrator/system_analytics_manager.py",
+            "line": 10,
+            "full_import": "from datetime import datetime, timezone",
+            "imports": "datetime, timezone"
+          },
+          {
+            "file": "orchestrator/manager_tools.py",
+            "line": 11,
+            "full_import": "from datetime import datetime, timezone",
+            "imports": "datetime, timezone"
+          },
+          {
+            "file": "orchestrator/workflow_manager.py",
+            "line": 9,
+            "full_import": "from datetime import datetime, timezone",
+            "imports": "datetime, timezone"
+          },
+          {
+            "file": "orchestrator/user_analytics_manager.py",
+            "line": 10,
+            "full_import": "from datetime import datetime, timezone",
+            "imports": "datetime, timezone"
+          }
+        ],
+        "datetime -> timedelta": [
+          {
+            "file": "configs/cli/doctor/doctor.py",
+            "line": 90,
+            "full_import": "from datetime import timedelta",
+            "imports": "timedelta"
+          }
+        ]
+      },
+      "total_usages": 79
+    },
+    "orchestrator.username_manager": {
+      "patterns": {
+        "orchestrator.username_manager -> list_users": [
+          {
+            "file": "orchestrator/user_memory_manager.py",
+            "line": 337,
+            "full_import": "from orchestrator.username_manager import list_users",
+            "imports": "list_users"
+          }
+        ],
+        "orchestrator.username_manager -> UsernameManager": [
+          {
+            "file": "orchestrator/manager_tools.py",
+            "line": 20,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 42,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "orchestrator/workflow_manager.py",
+            "line": 19,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "orchestrator/user_analytics_manager.py",
+            "line": 16,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "configs/cli/logout/logout.py",
+            "line": 14,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "configs/cli/user_id/user_id.py",
+            "line": 15,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "configs/cli/continue/continue.py",
+            "line": 20,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          },
+          {
+            "file": "configs/cli/login/login.py",
+            "line": 16,
+            "full_import": "from orchestrator.username_manager import UsernameManager",
+            "imports": "UsernameManager"
+          }
+        ],
+        "orchestrator.username_manager -> get_session_user": [
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 712,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          },
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 934,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          },
+          {
+            "file": "configs/cli/memory/memory.py",
+            "line": 123,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          },
+          {
+            "file": "configs/cli/memory/memory.py",
+            "line": 154,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          },
+          {
+            "file": "configs/cli/config/config.py",
+            "line": 16,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          },
+          {
+            "file": "configs/cli/output_directory/output_directory.py",
+            "line": 17,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          },
+          {
+            "file": "configs/cli/default_provider/default_provider.py",
+            "line": 17,
+            "full_import": "from orchestrator.username_manager import get_session_user",
+            "imports": "get_session_user"
+          }
+        ]
+      },
+      "total_usages": 16
+    },
+    "scripts.user_id_generator.user_id_generator": {
+      "patterns": {
+        "scripts.user_id_generator.user_id_generator -> generate_user_id": [
+          {
+            "file": "orchestrator/username_manager.py",
+            "line": 16,
+            "full_import": "from scripts.user_id_generator.user_id_generator import generate_user_id",
+            "imports": "generate_user_id"
+          }
+        ],
+        "scripts.user_id_generator.user_id_generator -> UserIDGenerator": [
+          {
+            "file": "orchestrator/settings_manager.py",
+            "line": 238,
+            "full_import": "from scripts.user_id_generator.user_id_generator import UserIDGenerator",
+            "imports": "UserIDGenerator"
+          }
+        ],
+        "scripts.user_id_generator.user_id_generator -> generate_user_id, generate_user_id_with_explanation": [
+          {
+            "file": "configs/cli/user_id/user_id.py",
+            "line": 20,
+            "full_import": "from scripts.user_id_generator.user_id_generator import generate_user_id, generate_user_id_with_explanation",
+            "imports": "generate_user_id, generate_user_id_with_explanation"
+          }
+        ]
+      },
+      "total_usages": 3
+    },
+    "orchestrator.settings_manager": {
+      "patterns": {
+        "orchestrator.settings_manager -> get_default_settings": [
+          {
+            "file": "orchestrator/username_manager.py",
+            "line": 43,
+            "full_import": "from orchestrator.settings_manager import get_default_settings",
+            "imports": "get_default_settings"
+          }
+        ],
+        "orchestrator.settings_manager -> ApplicationSettingsManager": [
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 43,
+            "full_import": "from orchestrator.settings_manager import ApplicationSettingsManager",
+            "imports": "ApplicationSettingsManager"
+          },
+          {
+            "file": "configs/cli/set_model/set_model.py",
+            "line": 147,
+            "full_import": "from orchestrator.settings_manager import ApplicationSettingsManager",
+            "imports": "ApplicationSettingsManager"
+          },
+          {
+            "file": "configs/cli/set_model/set_model.py",
+            "line": 202,
+            "full_import": "from orchestrator.settings_manager import ApplicationSettingsManager",
+            "imports": "ApplicationSettingsManager"
+          }
+        ],
+        "orchestrator.settings_manager -> ApplicationSettingsManager, get_user_settings, update_user_setting": [
+          {
+            "file": "configs/cli/config/config.py",
+            "line": 15,
+            "full_import": "from orchestrator.settings_manager import ApplicationSettingsManager, get_user_settings, update_user_setting",
+            "imports": "ApplicationSettingsManager, get_user_settings, update_user_setting"
+          },
+          {
+            "file": "configs/cli/output_directory/output_directory.py",
+            "line": 16,
+            "full_import": "from orchestrator.settings_manager import ApplicationSettingsManager, get_user_settings, update_user_setting",
+            "imports": "ApplicationSettingsManager, get_user_settings, update_user_setting"
+          }
+        ],
+        "orchestrator.settings_manager -> ApplicationSettingsManager, get_user_settings, update_user_setting, discover_settings": [
+          {
+            "file": "configs/cli/default_provider/default_provider.py",
+            "line": 16,
+            "full_import": "from orchestrator.settings_manager import ApplicationSettingsManager, get_user_settings, update_user_setting, discover_settings",
+            "imports": "ApplicationSettingsManager, get_user_settings, update_user_setting, discover_settings"
+          }
+        ]
+      },
+      "total_usages": 7
+    },
+    "dataclasses": {
+      "patterns": {
+        "dataclasses -> dataclass": [
+          {
+            "file": "orchestrator/manager_models.py",
+            "line": 10,
+            "full_import": "from dataclasses import dataclass",
+            "imports": "dataclass"
+          },
+          {
+            "file": "orchestrator/system_analytics_manager.py",
+            "line": 11,
+            "full_import": "from dataclasses import dataclass",
+            "imports": "dataclass"
+          },
+          {
+            "file": "orchestrator/agent_orchestrator.py",
+            "line": 11,
+            "full_import": "from dataclasses import dataclass",
+            "imports": "dataclass"
+          },
+          {
+            "file": "orchestrator/settings_manager.py",
+            "line": 10,
+            "full_import": "from dataclasses import dataclass",
+            "imports": "dataclass"
+          },
+          {
+            "file": "orchestrator/user_analytics_manager.py",
+            "line": 11,
+            "full_import": "from dataclasses import dataclass",
+            "imports": "dataclass"
+          },
+          {
+            "file": "scripts/quality_validator/mao_validator.py",
+            "line": 14,
+            "full_import": "from dataclasses import dataclass",
+            "imports": "dataclass"
+          }
+        ],
+        "dataclasses -> dataclass, asdict": [
+          {
+            "file": "orchestrator/core.py",
+            "line": 14,
+            "full_import": "from dataclasses import dataclass, asdict",
+            "imports": "dataclass, asdict"
+          },
+          {
+            "file": "orchestrator/workflow_state.py",
+            "line": 9,
+            "full_import": "from dataclasses import dataclass, asdict",
+            "imports": "dataclass, asdict"
+          },
+          {
+            "file": "orchestrator/cache/cache_system.py",
+            "line": 13,
+            "full_import": "from dataclasses import dataclass, asdict",
+            "imports": "dataclass, asdict"
+          }
+        ]
+      },
+      "total_usages": 9
+    },
+    ".error_handling": {
+      "patterns": {
+        ".error_handling -> handle_errors, retry_with_backoff, APIError": [
+          {
+            "file": "orchestrator/agent_callback.py",
+            "line": 13,
+            "full_import": "from .error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/memory_mcp.py",
+            "line": 13,
+            "full_import": "from .error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/agent_orchestrator.py",
+            "line": 18,
+            "full_import": "from .error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/conversation_bridge.py",
+            "line": 16,
+            "full_import": "from .error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/workflow_state.py",
+            "line": 15,
+            "full_import": "from .error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          },
+          {
+            "file": "orchestrator/mcp_hub.py",
+            "line": 13,
+            "full_import": "from .error_handling import handle_errors, retry_with_backoff, APIError",
+            "imports": "handle_errors, retry_with_backoff, APIError"
+          }
+        ],
+        ".error_handling -> (": [
+          {
+            "file": "orchestrator/__init__.py",
+            "line": 10,
+            "full_import": "from .error_handling import (",
+            "imports": "("
+          }
+        ],
+        ".error_handling -> handle_errors": [
+          {
+            "file": "orchestrator/core.py",
+            "line": 18,
+            "full_import": "from .error_handling import handle_errors",
+            "imports": "handle_errors"
+          }
+        ]
+      },
+      "total_usages": 8
+    },
+    "tools.files_api.files_api": {
+      "patterns": {
+        "tools.files_api.files_api -> FilesAPIManager": [
+          {
+            "file": "orchestrator/agent_callback.py",
+            "line": 39,
+            "full_import": "from tools.files_api.files_api import FilesAPIManager",
+            "imports": "FilesAPIManager"
+          },
+          {
+            "file": "orchestrator/agent_orchestrator.py",
+            "line": 15,
+            "full_import": "from tools.files_api.files_api import FilesAPIManager",
+            "imports": "FilesAPIManager"
+          },
+          {
+            "file": "orchestrator/workflow_state.py",
+            "line": 13,
+            "full_import": "from tools.files_api.files_api import FilesAPIManager",
+            "imports": "FilesAPIManager"
+          },
+          {
+            "file": "orchestrator/mcp_hub.py",
+            "line": 10,
+            "full_import": "from tools.files_api.files_api import FilesAPIManager",
+            "imports": "FilesAPIManager"
+          },
+          {
+            "file": "tools/code_execution/code_execution.py",
+            "line": 50,
+            "full_import": "from tools.files_api.files_api import FilesAPIManager",
+            "imports": "FilesAPIManager"
+          }
+        ],
+        "tools.files_api.files_api -> (": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 8,
+            "full_import": "from tools.files_api.files_api import (",
+            "imports": "("
+          }
+        ],
+        "tools.files_api.files_api -> create_workflow_workspace": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 57,
+            "full_import": "from tools.files_api.files_api import create_workflow_workspace",
+            "imports": "create_workflow_workspace"
+          }
+        ],
+        "tools.files_api.files_api -> save_workflow_draft": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 92,
+            "full_import": "from tools.files_api.files_api import save_workflow_draft",
+            "imports": "save_workflow_draft"
+          }
+        ],
+        "tools.files_api.files_api -> prepare_agent_handoff": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 127,
+            "full_import": "from tools.files_api.files_api import prepare_agent_handoff",
+            "imports": "prepare_agent_handoff"
+          }
+        ],
+        "tools.files_api.files_api -> save_agent_deliverables": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 164,
+            "full_import": "from tools.files_api.files_api import save_agent_deliverables",
+            "imports": "save_agent_deliverables"
+          }
+        ],
+        "tools.files_api.files_api -> get_workflow_files": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 200,
+            "full_import": "from tools.files_api.files_api import get_workflow_files",
+            "imports": "get_workflow_files"
+          }
+        ],
+        "tools.files_api.files_api -> estimate_cost": [
+          {
+            "file": "tools/files_api/button_files_api.py",
+            "line": 226,
+            "full_import": "from tools.files_api.files_api import estimate_cost",
+            "imports": "estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 12
+    },
+    "tools.code_execution.code_execution": {
+      "patterns": {
+        "tools.code_execution.code_execution -> CodeExecutionTool": [
+          {
+            "file": "orchestrator/agent_callback.py",
+            "line": 47,
+            "full_import": "from tools.code_execution.code_execution import CodeExecutionTool",
+            "imports": "CodeExecutionTool"
+          },
+          {
+            "file": "orchestrator/core.py",
+            "line": 37,
+            "full_import": "from tools.code_execution.code_execution import CodeExecutionTool",
+            "imports": "CodeExecutionTool"
+          }
+        ],
+        "tools.code_execution.code_execution -> (": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 9,
+            "full_import": "from tools.code_execution.code_execution import (",
+            "imports": "("
+          }
+        ],
+        "tools.code_execution.code_execution -> execute_python_code": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 52,
+            "full_import": "from tools.code_execution.code_execution import execute_python_code",
+            "imports": "execute_python_code"
+          }
+        ],
+        "tools.code_execution.code_execution -> execute_code_with_files": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 107,
+            "full_import": "from tools.code_execution.code_execution import execute_code_with_files",
+            "imports": "execute_code_with_files"
+          }
+        ],
+        "tools.code_execution.code_execution -> create_persistent_container": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 159,
+            "full_import": "from tools.code_execution.code_execution import create_persistent_container",
+            "imports": "create_persistent_container"
+          }
+        ],
+        "tools.code_execution.code_execution -> download_execution_files": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 199,
+            "full_import": "from tools.code_execution.code_execution import download_execution_files",
+            "imports": "download_execution_files"
+          }
+        ],
+        "tools.code_execution.code_execution -> execute_python_code, estimate_cost": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 240,
+            "full_import": "from tools.code_execution.code_execution import execute_python_code, estimate_cost",
+            "imports": "execute_python_code, estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 8
+    },
+    "tools.mcp_connector.mcp_connector": {
+      "patterns": {
+        "tools.mcp_connector.mcp_connector -> MCPConnector": [
+          {
+            "file": "orchestrator/manager_tools.py",
+            "line": 348,
+            "full_import": "from tools.mcp_connector.mcp_connector import MCPConnector",
+            "imports": "MCPConnector"
+          },
+          {
+            "file": "orchestrator/mcp_hub.py",
+            "line": 11,
+            "full_import": "from tools.mcp_connector.mcp_connector import MCPConnector",
+            "imports": "MCPConnector"
+          }
+        ],
+        "tools.mcp_connector.mcp_connector -> (": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 9,
+            "full_import": "from tools.mcp_connector.mcp_connector import (",
+            "imports": "("
+          }
+        ],
+        "tools.mcp_connector.mcp_connector -> list_mcp_servers": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 47,
+            "full_import": "from tools.mcp_connector.mcp_connector import list_mcp_servers",
+            "imports": "list_mcp_servers"
+          }
+        ],
+        "tools.mcp_connector.mcp_connector -> execute_mcp_tool": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 94,
+            "full_import": "from tools.mcp_connector.mcp_connector import execute_mcp_tool",
+            "imports": "execute_mcp_tool"
+          }
+        ],
+        "tools.mcp_connector.mcp_connector -> register_mcp_server": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 143,
+            "full_import": "from tools.mcp_connector.mcp_connector import register_mcp_server",
+            "imports": "register_mcp_server"
+          }
+        ],
+        "tools.mcp_connector.mcp_connector -> get_mcp_server_status": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 186,
+            "full_import": "from tools.mcp_connector.mcp_connector import get_mcp_server_status",
+            "imports": "get_mcp_server_status"
+          }
+        ],
+        "tools.mcp_connector.mcp_connector -> estimate_cost": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 228,
+            "full_import": "from tools.mcp_connector.mcp_connector import estimate_cost",
+            "imports": "estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 8
+    },
+    "orchestrator.real_time_metrics": {
+      "patterns": {
+        "orchestrator.real_time_metrics -> SystemMetricsProvider": [
+          {
+            "file": "orchestrator/cli_manager.py",
+            "line": 45,
+            "full_import": "from orchestrator.real_time_metrics import SystemMetricsProvider",
+            "imports": "SystemMetricsProvider"
+          }
+        ],
+        "orchestrator.real_time_metrics -> SystemMetricsProvider, WorkflowMonitor, CostTracker": [
+          {
+            "file": "configs/cli/stats/stats.py",
+            "line": 15,
+            "full_import": "from orchestrator.real_time_metrics import SystemMetricsProvider, WorkflowMonitor, CostTracker",
+            "imports": "SystemMetricsProvider, WorkflowMonitor, CostTracker"
+          }
+        ]
+      },
+      "total_usages": 2
+    },
+    "orchestrator.core": {
+      "patterns": {
+        "orchestrator.core -> WorkflowOrchestrator": [
+          {
+            "file": "interfaces/ui_terminal.py",
+            "line": 38,
+            "full_import": "from orchestrator.core import WorkflowOrchestrator",
+            "imports": "WorkflowOrchestrator"
+          }
+        ],
+        "orchestrator.core -> get_orchestrator_instance": [
+          {
+            "file": "configs/cli/stats/stats.py",
+            "line": 123,
+            "full_import": "from orchestrator.core import get_orchestrator_instance",
+            "imports": "get_orchestrator_instance"
+          }
+        ]
+      },
+      "total_usages": 2
+    },
+    "PIL": {
+      "patterns": {
+        "PIL -> Image": [
+          {
+            "file": "versioning/v1/sfa_decision_research_agent.py",
+            "line": 27,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          },
+          {
+            "file": "versioning/v3/sfa_v3_3_0_main.py",
+            "line": 28,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          },
+          {
+            "file": "versioning/v3/v3_2_0/sfa_v3_2_0_agent.py",
+            "line": 29,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          },
+          {
+            "file": "versioning/v3/v3_2_2/sfa_v3_2_2_main.py",
+            "line": 27,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          },
+          {
+            "file": "versioning/v3/v3_0_0/sfa_v3_0_0_agent.py",
+            "line": 27,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          },
+          {
+            "file": "versioning/v3/v3_3_0/sfa_v3_3_0_main_updated.py",
+            "line": 28,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          },
+          {
+            "file": "tools/dalle_generate/dalle_generate.py",
+            "line": 505,
+            "full_import": "from PIL import Image",
+            "imports": "Image"
+          }
+        ],
+        "PIL -> Image, ImageDraw, ImageFont, ImageEnhance": [
+          {
+            "file": "tools/graphic_design/graphic_design.py",
+            "line": 13,
+            "full_import": "from PIL import Image, ImageDraw, ImageFont, ImageEnhance",
+            "imports": "Image, ImageDraw, ImageFont, ImageEnhance"
+          }
+        ]
+      },
+      "total_usages": 8
+    },
+    "orchestrator.workflow_state": {
+      "patterns": {
+        "orchestrator.workflow_state -> WorkflowStateManager": [
+          {
+            "file": "configs/cli/dry_run/dry_run.py",
+            "line": 16,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/update/update.py",
+            "line": 17,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/fix_it/fix_it.py",
+            "line": 19,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/setup/setup.py",
+            "line": 19,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/user_id/user_id.py",
+            "line": 16,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/verbose/verbose.py",
+            "line": 20,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/logs/logs.py",
+            "line": 134,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/review/review.py",
+            "line": 17,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/workflow_id/workflow_id.py",
+            "line": 16,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          },
+          {
+            "file": "configs/cli/continue/continue.py",
+            "line": 18,
+            "full_import": "from orchestrator.workflow_state import WorkflowStateManager",
+            "imports": "WorkflowStateManager"
+          }
+        ],
+        "orchestrator.workflow_state -> WorkflowState": [
+          {
+            "file": "configs/cli/doctor/doctor.py",
+            "line": 271,
+            "full_import": "from orchestrator.workflow_state import WorkflowState",
+            "imports": "WorkflowState"
+          }
+        ]
+      },
+      "total_usages": 11
+    },
+    "rich.progress": {
+      "patterns": {
+        "rich.progress -> Progress, BarColumn, TextColumn": [
+          {
+            "file": "configs/cli/doctor/ui_doctor.py",
+            "line": 10,
+            "full_import": "from rich.progress import Progress, BarColumn, TextColumn",
+            "imports": "Progress, BarColumn, TextColumn"
+          }
+        ],
+        "rich.progress -> Progress, SpinnerColumn, TextColumn": [
+          {
+            "file": "configs/cli/fix_it/ui_fix_it.py",
+            "line": 9,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "configs/cli/setup/ui_setup.py",
+            "line": 10,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "configs/cli/workflows/ui_workflows.py",
+            "line": 10,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "configs/cli/review/ui_review.py",
+            "line": 10,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "tools/web_search/ui_web_search.py",
+            "line": 14,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "tools/think/ui_think.py",
+            "line": 9,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "tools/file_operations/ui_file_operations.py",
+            "line": 9,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "tools/perplexity_search/ui_perplexity_search.py",
+            "line": 12,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          },
+          {
+            "file": "tools/text_editor/ui_text_editor.py",
+            "line": 10,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn"
+          }
+        ],
+        "rich.progress -> Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn": [
+          {
+            "file": "tools/dalle_generate/ui_dalle_generate.py",
+            "line": 9,
+            "full_import": "from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn",
+            "imports": "Progress, SpinnerColumn, TextColumn, BarColumn, TimeElapsedColumn"
+          }
+        ]
+      },
+      "total_usages": 11
+    },
+    "cache_coordinator": {
+      "patterns": {
+        "cache_coordinator -> CacheCoordinator, get_cache_coordinator": [
+          {
+            "file": "tests/cache/test_cache_coordinator.py",
+            "line": 15,
+            "full_import": "from cache_coordinator import CacheCoordinator, get_cache_coordinator",
+            "imports": "CacheCoordinator, get_cache_coordinator"
+          }
+        ],
+        "cache_coordinator -> get_cache_coordinator": [
+          {
+            "file": "tests/cache/test_cache_coordinator.py",
+            "line": 25,
+            "full_import": "from cache_coordinator import get_cache_coordinator",
+            "imports": "get_cache_coordinator"
+          }
+        ],
+        "cache_coordinator -> cache_tool_result, get_cached_tool_result": [
+          {
+            "file": "tests/cache/test_cache_coordinator.py",
+            "line": 41,
+            "full_import": "from cache_coordinator import cache_tool_result, get_cached_tool_result",
+            "imports": "cache_tool_result, get_cached_tool_result"
+          }
+        ]
+      },
+      "total_usages": 3
+    },
+    "tools.web_search.web_search": {
+      "patterns": {
+        "tools.web_search.web_search -> (": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 8,
+            "full_import": "from tools.web_search.web_search import (",
+            "imports": "("
+          }
+        ],
+        "tools.web_search.web_search -> perform_web_search": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 61,
+            "full_import": "from tools.web_search.web_search import perform_web_search",
+            "imports": "perform_web_search"
+          }
+        ],
+        "tools.web_search.web_search -> perform_filtered_search": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 153,
+            "full_import": "from tools.web_search.web_search import perform_filtered_search",
+            "imports": "perform_filtered_search"
+          }
+        ],
+        "tools.web_search.web_search -> perform_content_search": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 214,
+            "full_import": "from tools.web_search.web_search import perform_content_search",
+            "imports": "perform_content_search"
+          }
+        ],
+        "tools.web_search.web_search -> validate_search_query": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 238,
+            "full_import": "from tools.web_search.web_search import validate_search_query",
+            "imports": "validate_search_query"
+          }
+        ],
+        "tools.web_search.web_search -> get_search_suggestions": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 257,
+            "full_import": "from tools.web_search.web_search import get_search_suggestions",
+            "imports": "get_search_suggestions"
+          }
+        ],
+        "tools.web_search.web_search -> get_search_capabilities": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 274,
+            "full_import": "from tools.web_search.web_search import get_search_capabilities",
+            "imports": "get_search_capabilities"
+          }
+        ]
+      },
+      "total_usages": 7
+    },
+    "tools.web_search.ui_web_search": {
+      "patterns": {
+        "tools.web_search.ui_web_search -> display_web_search_result, display_search_execution_status": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 62,
+            "full_import": "from tools.web_search.ui_web_search import display_web_search_result, display_search_execution_status",
+            "imports": "display_web_search_result, display_search_execution_status"
+          }
+        ],
+        "tools.web_search.ui_web_search -> display_web_search_result": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 154,
+            "full_import": "from tools.web_search.ui_web_search import display_web_search_result",
+            "imports": "display_web_search_result"
+          },
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 215,
+            "full_import": "from tools.web_search.ui_web_search import display_web_search_result",
+            "imports": "display_web_search_result"
+          },
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 239,
+            "full_import": "from tools.web_search.ui_web_search import display_web_search_result",
+            "imports": "display_web_search_result"
+          },
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 258,
+            "full_import": "from tools.web_search.ui_web_search import display_web_search_result",
+            "imports": "display_web_search_result"
+          }
+        ],
+        "tools.web_search.ui_web_search -> display_search_capabilities": [
+          {
+            "file": "tools/web_search/button_web_search.py",
+            "line": 275,
+            "full_import": "from tools.web_search.ui_web_search import display_search_capabilities",
+            "imports": "display_search_capabilities"
+          }
+        ]
+      },
+      "total_usages": 6
+    },
+    "tools.think.think": {
+      "patterns": {
+        "tools.think.think -> (": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 8,
+            "full_import": "from tools.think.think import (",
+            "imports": "("
+          }
+        ],
+        "tools.think.think -> perform_thinking, estimate_cost": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 52,
+            "full_import": "from tools.think.think import perform_thinking, estimate_cost",
+            "imports": "perform_thinking, estimate_cost"
+          }
+        ],
+        "tools.think.think -> enhance_thinking_prompt, estimate_cost": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 198,
+            "full_import": "from tools.think.think import enhance_thinking_prompt, estimate_cost",
+            "imports": "enhance_thinking_prompt, estimate_cost"
+          }
+        ],
+        "tools.think.think -> validate_thinking_setup, estimate_cost": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 298,
+            "full_import": "from tools.think.think import validate_thinking_setup, estimate_cost",
+            "imports": "validate_thinking_setup, estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 4
+    },
+    "tools.think.ui_think": {
+      "patterns": {
+        "tools.think.ui_think -> display_thinking_session": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 53,
+            "full_import": "from tools.think.ui_think import display_thinking_session",
+            "imports": "display_thinking_session"
+          }
+        ],
+        "tools.think.ui_think -> display_prompt_enhancement": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 199,
+            "full_import": "from tools.think.ui_think import display_prompt_enhancement",
+            "imports": "display_prompt_enhancement"
+          }
+        ],
+        "tools.think.ui_think -> display_thinking_validation": [
+          {
+            "file": "tools/think/button_think.py",
+            "line": 299,
+            "full_import": "from tools.think.ui_think import display_thinking_validation",
+            "imports": "display_thinking_validation"
+          }
+        ]
+      },
+      "total_usages": 3
+    },
+    "tools.graphic_design.graphic_design": {
+      "patterns": {
+        "tools.graphic_design.graphic_design -> (": [
+          {
+            "file": "tools/graphic_design/button_graphic_design.py",
+            "line": 7,
+            "full_import": "from tools.graphic_design.graphic_design import (",
+            "imports": "("
+          }
+        ],
+        "tools.graphic_design.graphic_design -> edit_image, estimate_cost": [
+          {
+            "file": "tools/graphic_design/button_graphic_design.py",
+            "line": 257,
+            "full_import": "from tools.graphic_design.graphic_design import edit_image, estimate_cost",
+            "imports": "edit_image, estimate_cost"
+          }
+        ],
+        "tools.graphic_design.graphic_design -> optimize_image, estimate_cost": [
+          {
+            "file": "tools/graphic_design/button_graphic_design.py",
+            "line": 348,
+            "full_import": "from tools.graphic_design.graphic_design import optimize_image, estimate_cost",
+            "imports": "optimize_image, estimate_cost"
+          }
+        ],
+        "tools.graphic_design.graphic_design -> get_curated_fonts, estimate_cost": [
+          {
+            "file": "tools/graphic_design/button_graphic_design.py",
+            "line": 415,
+            "full_import": "from tools.graphic_design.graphic_design import get_curated_fonts, estimate_cost",
+            "imports": "get_curated_fonts, estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 4
+    },
+    "tools.mcp_connector.ui_mcp_connector": {
+      "patterns": {
+        "tools.mcp_connector.ui_mcp_connector -> display_server_status, display_available_tools, display_mcp_summary": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 48,
+            "full_import": "from tools.mcp_connector.ui_mcp_connector import display_server_status, display_available_tools, display_mcp_summary",
+            "imports": "display_server_status, display_available_tools, display_mcp_summary"
+          }
+        ],
+        "tools.mcp_connector.ui_mcp_connector -> display_execution_result": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 95,
+            "full_import": "from tools.mcp_connector.ui_mcp_connector import display_execution_result",
+            "imports": "display_execution_result"
+          }
+        ],
+        "tools.mcp_connector.ui_mcp_connector -> display_registration_result": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 144,
+            "full_import": "from tools.mcp_connector.ui_mcp_connector import display_registration_result",
+            "imports": "display_registration_result"
+          }
+        ],
+        "tools.mcp_connector.ui_mcp_connector -> display_server_status": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 187,
+            "full_import": "from tools.mcp_connector.ui_mcp_connector import display_server_status",
+            "imports": "display_server_status"
+          }
+        ],
+        "tools.mcp_connector.ui_mcp_connector -> display_help": [
+          {
+            "file": "tools/mcp_connector/button_mcp_connector.py",
+            "line": 229,
+            "full_import": "from tools.mcp_connector.ui_mcp_connector import display_help",
+            "imports": "display_help"
+          }
+        ]
+      },
+      "total_usages": 5
+    },
+    "tools.file_operations.file_operations": {
+      "patterns": {
+        "tools.file_operations.file_operations -> read_file, estimate_cost": [
+          {
+            "file": "tools/file_operations/button_file_operations.py",
+            "line": 55,
+            "full_import": "from tools.file_operations.file_operations import read_file, estimate_cost",
+            "imports": "read_file, estimate_cost"
+          }
+        ],
+        "tools.file_operations.file_operations -> list_directory, estimate_cost": [
+          {
+            "file": "tools/file_operations/button_file_operations.py",
+            "line": 106,
+            "full_import": "from tools.file_operations.file_operations import list_directory, estimate_cost",
+            "imports": "list_directory, estimate_cost"
+          }
+        ],
+        "tools.file_operations.file_operations -> estimate_cost": [
+          {
+            "file": "tools/file_operations/button_file_operations.py",
+            "line": 163,
+            "full_import": "from tools.file_operations.file_operations import estimate_cost",
+            "imports": "estimate_cost"
+          }
+        ],
+        "tools.file_operations.file_operations -> estimate_cost as logic_estimate_cost": [
+          {
+            "file": "tools/file_operations/button_file_operations.py",
+            "line": 198,
+            "full_import": "from tools.file_operations.file_operations import estimate_cost as logic_estimate_cost",
+            "imports": "estimate_cost as logic_estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 4
+    },
+    "tools.perplexity_search.perplexity_search": {
+      "patterns": {
+        "tools.perplexity_search.perplexity_search -> (": [
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 18,
+            "full_import": "from tools.perplexity_search.perplexity_search import (",
+            "imports": "("
+          }
+        ],
+        "tools.perplexity_search.perplexity_search -> perform_perplexity_search, estimate_cost": [
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 70,
+            "full_import": "from tools.perplexity_search.perplexity_search import perform_perplexity_search, estimate_cost",
+            "imports": "perform_perplexity_search, estimate_cost"
+          }
+        ],
+        "tools.perplexity_search.perplexity_search -> perform_enhanced_research, estimate_cost": [
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 136,
+            "full_import": "from tools.perplexity_search.perplexity_search import perform_enhanced_research, estimate_cost",
+            "imports": "perform_enhanced_research, estimate_cost"
+          }
+        ],
+        "tools.perplexity_search.perplexity_search -> validate_perplexity_query": [
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 201,
+            "full_import": "from tools.perplexity_search.perplexity_search import validate_perplexity_query",
+            "imports": "validate_perplexity_query"
+          }
+        ],
+        "tools.perplexity_search.perplexity_search -> get_research_suggestions": [
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 255,
+            "full_import": "from tools.perplexity_search.perplexity_search import get_research_suggestions",
+            "imports": "get_research_suggestions"
+          }
+        ],
+        "tools.perplexity_search.perplexity_search -> check_api_configuration": [
+          {
+            "file": "tools/perplexity_search/button_perplexity_search.py",
+            "line": 310,
+            "full_import": "from tools.perplexity_search.perplexity_search import check_api_configuration",
+            "imports": "check_api_configuration"
+          }
+        ]
+      },
+      "total_usages": 6
+    },
+    "tools.brave_search.brave_search": {
+      "patterns": {
+        "tools.brave_search.brave_search -> search_web, search_news, search_local, estimate_cost, validate_api_key": [
+          {
+            "file": "tools/brave_search/button_brave_search.py",
+            "line": 34,
+            "full_import": "from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key",
+            "imports": "search_web, search_news, search_local, estimate_cost, validate_api_key"
+          }
+        ],
+        "tools.brave_search.brave_search -> validate_api_key, estimate_cost": [
+          {
+            "file": "tools/brave_search/button_brave_search.py",
+            "line": 111,
+            "full_import": "from tools.brave_search.brave_search import validate_api_key, estimate_cost",
+            "imports": "validate_api_key, estimate_cost"
+          }
+        ],
+        "tools.brave_search.brave_search -> estimate_cost as logic_estimate_cost": [
+          {
+            "file": "tools/brave_search/button_brave_search.py",
+            "line": 143,
+            "full_import": "from tools.brave_search.brave_search import estimate_cost as logic_estimate_cost",
+            "imports": "estimate_cost as logic_estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 3
+    },
+    "tools.text_editor.text_editor": {
+      "patterns": {
+        "tools.text_editor.text_editor -> (": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 8,
+            "full_import": "from tools.text_editor.text_editor import (",
+            "imports": "("
+          }
+        ],
+        "tools.text_editor.text_editor -> create_document, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 56,
+            "full_import": "from tools.text_editor.text_editor import create_document, estimate_cost",
+            "imports": "create_document, estimate_cost"
+          }
+        ],
+        "tools.text_editor.text_editor -> edit_content, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 114,
+            "full_import": "from tools.text_editor.text_editor import edit_content, estimate_cost",
+            "imports": "edit_content, estimate_cost"
+          }
+        ],
+        "tools.text_editor.text_editor -> append_content, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 172,
+            "full_import": "from tools.text_editor.text_editor import append_content, estimate_cost",
+            "imports": "append_content, estimate_cost"
+          }
+        ],
+        "tools.text_editor.text_editor -> format_document, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 225,
+            "full_import": "from tools.text_editor.text_editor import format_document, estimate_cost",
+            "imports": "format_document, estimate_cost"
+          }
+        ],
+        "tools.text_editor.text_editor -> get_document_info, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 275,
+            "full_import": "from tools.text_editor.text_editor import get_document_info, estimate_cost",
+            "imports": "get_document_info, estimate_cost"
+          }
+        ],
+        "tools.text_editor.text_editor -> validate_document_path, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 320,
+            "full_import": "from tools.text_editor.text_editor import validate_document_path, estimate_cost",
+            "imports": "validate_document_path, estimate_cost"
+          }
+        ],
+        "tools.text_editor.text_editor -> create_document_from_template, estimate_cost": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 369,
+            "full_import": "from tools.text_editor.text_editor import create_document_from_template, estimate_cost",
+            "imports": "create_document_from_template, estimate_cost"
+          }
+        ]
+      },
+      "total_usages": 8
+    },
+    "tools.text_editor.ui_text_editor": {
+      "patterns": {
+        "tools.text_editor.ui_text_editor -> display_text_editor_result, display_autosave_status": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 57,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status",
+            "imports": "display_text_editor_result, display_autosave_status"
+          },
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 115,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status",
+            "imports": "display_text_editor_result, display_autosave_status"
+          },
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 173,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status",
+            "imports": "display_text_editor_result, display_autosave_status"
+          },
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 370,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result, display_autosave_status",
+            "imports": "display_text_editor_result, display_autosave_status"
+          }
+        ],
+        "tools.text_editor.ui_text_editor -> display_text_editor_result": [
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 226,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result",
+            "imports": "display_text_editor_result"
+          },
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 276,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result",
+            "imports": "display_text_editor_result"
+          },
+          {
+            "file": "tools/text_editor/button_text_editor.py",
+            "line": 321,
+            "full_import": "from tools.text_editor.ui_text_editor import display_text_editor_result",
+            "imports": "display_text_editor_result"
+          }
+        ]
+      },
+      "total_usages": 7
+    },
+    "tools.code_execution.ui_code_execution": {
+      "patterns": {
+        "tools.code_execution.ui_code_execution -> display_execution_result, display_code_with_syntax": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 53,
+            "full_import": "from tools.code_execution.ui_code_execution import display_execution_result, display_code_with_syntax",
+            "imports": "display_execution_result, display_code_with_syntax"
+          },
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 108,
+            "full_import": "from tools.code_execution.ui_code_execution import display_execution_result, display_code_with_syntax",
+            "imports": "display_execution_result, display_code_with_syntax"
+          }
+        ],
+        "tools.code_execution.ui_code_execution -> display_container_info": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 160,
+            "full_import": "from tools.code_execution.ui_code_execution import display_container_info",
+            "imports": "display_container_info"
+          }
+        ],
+        "tools.code_execution.ui_code_execution -> display_download_results": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 200,
+            "full_import": "from tools.code_execution.ui_code_execution import display_download_results",
+            "imports": "display_download_results"
+          }
+        ],
+        "tools.code_execution.ui_code_execution -> display_help, display_execution_result": [
+          {
+            "file": "tools/code_execution/button_code_execution.py",
+            "line": 241,
+            "full_import": "from tools.code_execution.ui_code_execution import display_help, display_execution_result",
+            "imports": "display_help, display_execution_result"
+          }
+        ]
+      },
+      "total_usages": 5
+    }
+  },
+  "other_issues": [
+    {
+      "file": "orchestrator/error_handling.py",
+      "line": 309,
+      "import": "import os",
+      "potentially_unused": true
+    },
+    {
+      "file": "versioning/v3/v3_3_0/sfa_v3_3_0_main_updated.py",
+      "line": 15,
+      "import": "import sys",
+      "potentially_unused": true
+    }
+  ],
+  "recommendations": [
+    "\ud83d\udd27 Replace all sys.path.append statements with clean dotted imports",
+    "\ud83e\uddf9 Remove unused 'import sys' and 'import os' statements after fixing sys.path.append",
+    "\ud83d\udce6 Standardize user_id_generator imports to use: from scripts.user_id_generator.user_id_generator import ...",
+    "\ud83d\udce6 Standardize unique_id_generator imports to use: from scripts.unique_id_generator.unique_id_generator import ...",
+    "\u2705 Run tests after each fix to ensure functionality",
+    "\ud83d\udd04 Re-run this audit script after fixes to verify all issues resolved"
+  ]
+}

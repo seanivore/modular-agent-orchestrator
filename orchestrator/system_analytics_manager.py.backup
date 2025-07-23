@@ -4,7 +4,7 @@ Tracks system-wide performance metrics with full anonymization and privacy compl
 """
 
 import json
-# import os  # Removed - was only used for sys.path.append
+import os
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from datetime import datetime, timezone
