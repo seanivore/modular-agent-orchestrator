@@ -21,22 +21,93 @@
     3. Context, general understanding needs; save tokens with GitHub full codebase extended Project Knowledge retrieval 
     4. Please use `sequential_thinking` before, during, and after for review to assure excellence 
 
+* **We need to focus on TASK 1 first** 
+  - It ties into setup scripts and slash commands though so if you're doing architecture implementation for it in one place you  might as well do for the other. 
+  - I mentioned the one document that I think we should add the code architecture to: `./documentation/03_USER_FLOW.md` 
+  - I'm not sure where CLI is... I think we should add it to the `./documentation/04_INTERFACE.md` file or could be in `./documentation/05_ORCHESTRATION.md` 
+
+* **We wrote some brilliant realizations to a new copy of TASK 2** 
+  - And there are details down below 
+  - But lord I'm gathering docs and its making me anxious
+  - `./documentation/08_FUTURE_THINKING_old-outline.md`
+  - `./documentation/08_FUTURE_THINKING_original.md`
+  - `./documentation/08_FUTURE_THINKING_semi-recent-never-reviewed.md`
+  - `./documentation/08_FUTURE_THINKING.md`
+  - The last one is our most recent. We need to condense. I looked in the "semi-recent-never-reviewed" just now though and saw parallel tool use in there and well I have a small list of items that we already can / will be doing and haven't documented yet, and that is one it, which means "future thinking" is NOT the right place for it. 
+
+* Anyway, let's see how far we get 💃
+
+
 ---
 
-## TASK 1: `07_AUTOMATE_BUSINESS.md` update 
+## TASK 1: `07_AUTOMATE_INTELLIGENCE.md` update 
+
+* Progress update; I've completed the logic for the rest of the reoccurring workflows 
+  - The rest of the logic necessary for implementation is polished as well 
+  - It was quite long so it lost a bit of the "just imagine" vibe to it 
+  - If you can think of any way to improve that, please do so probably after current contents 
+  - Or maybe we'll just have to make the "FUTURE THINKING" section contain most of the inspirational content 
+  - While I did like the vibe before, it honestly feels really good to have everything so thought out and organized 
+
+* Please review it in full 
+  - Provide any feedback or suggestions 
+  - Make sure that the logic is sound and clearly understood
+
+* Then there are two locations where I've indicated our need to plan the implementation 
+  - Line 188 = we need to plan the implementation for the `/avail` commands 
+  - Line 654 = we need to plan the implementation for the reoccurring workflow setup scripts 
+
+* I have added a lot of details about each right on the document at those lines for you. 
+
+* Also, I went to look for the original setup script documentation and realized we didn't get that far yet. 
+  - So maybe it makes sense to do them together? Not to have on the same page/section 
+  - But if we do one then we might as well do the other 
+  - That other one is here where we need a a bunch of code architecture added: `./documentation/03_USER_FLOW.md` 
+
+* And of course, there are the actual scripts themselves 
+  - `./scripts/workflow_setup/install-workflow-commands.sh`
+  - `./scripts/workflow_setup/workflow_setup.sh`
+
+* Also in the CLI configs here: 
+  - `./configs/cli/setup/setup.json`
+  - `./configs/cli/setup/setup.py`
+  - `./configs/cli/setup/ui_setup.py`
+  - `./configs/cli/update/ui_update.py`
+  - `./configs/cli/update/update.json`
+  - `./configs/cli/update/update.py`
+  - `./configs/cli/fix_it/fix_it.json`
+  - `./configs/cli/fix_it/fix_it.py`
+  - `./configs/cli/fix_it/ui_fix_it.py`
+
+* I'm not sure if we need to add the actual code for the scripts themselves. 
+  - I think we can just reference the files and say that they are in the `./scripts/workflow_setup/` directory 
+  - And that we can reference the `./scripts/workflow_setup/workflow_setup.sh` script for the actual workflow setup 
+  - And that we can reference the `./scripts/workflow_setup/install-workflow-commands.sh` script for the actual workflow setup 
 
 
+* Is this code helpful? Other than a few hardcoded "business" things, it seems like it might be. 
+  - `./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/timer_architecture.md` 
+
+* I wonder if any of these might be helpful: 
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/CLI_COMMAND_SYSTEM.md`
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/CONFIGURATION_MANAGEMENT.md`
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/CORE_SYSTEM_ARCHITECTURE.md`
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/TEMPLATES_AND_SCRIPTS.md`
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/TOOLS_ECOSYSTEM.md`
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS/UI_TYPESCRIPT_INTEGRATION.md`
+
+* Full codebase audit docs: 
+  - `./tests/FULL_CODEBASE_AUDIT/00_EXECUTIVE_SUMMARY.md`
+  - `./tests/FULL_CODEBASE_AUDIT/01_CRITICAL_VIOLATIONS.md`
+  - `./tests/FULL_CODEBASE_AUDIT/02_UI_INTEGRATION_MAP.md`
+  - `./tests/FULL_CODEBASE_AUDIT/03_DEPENDENCY_MATRIX.md`
+  - `./tests/FULL_CODEBASE_AUDIT/04_STANDARDIZATION_REPORT.md`
+  - `./tests/FULL_CODEBASE_AUDIT/05_DUPLICATE_CODE_REPORT.md`
+  - `./tests/FULL_CODEBASE_AUDIT/07_UPDATED_DOCUMENTATION.md`
 
 ---
 
-For code architecture resources, see this file: `./documentation/doc_prep_guide.md` 
-
-
-- `./versioning/v4/v4_0_0/_SELF_ENHANCEMENT.md`
-
-- I needed to take a break from the very detailed implementation details for the tigger workflows. But hopefully you can get a good idea of what to add to the documentation for this section. 
-
-- `./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/TRIGGER_WORKFLOWS.md`
+AYE, this stuff makes me so freaking anxious. 
 
 ---
 

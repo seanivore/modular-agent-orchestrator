@@ -38,7 +38,7 @@ Mao modular agent orchestration let's you plug-and-play the newest models or too
   * [Section VIII: Conceptual Semantic Visual Identity](documentation/04_INTERFACE.md)
     - Mao's visual identity is designed to be easy on the eyes and cognitive load 
     - Word and concept grouping by color, icons, and white space are the only design elements 
-  * [Section IX: Mao's 10-Year Plan](documentation/08_FUTURE_THINKING.md)
+  * [Section IX: Mao's 10-Year Plan](documentation/08_FUTURE_THINKING_original.md)
     - What's your 10-year plan? Mao will be around, and they've got a lot planned 
     - Suggested expansion can actually be pushed any direction you need 
 

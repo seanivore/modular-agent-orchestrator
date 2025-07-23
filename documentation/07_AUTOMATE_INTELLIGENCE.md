@@ -185,13 +185,50 @@ mao --avail "every month"  # not in-app; variables in quotes, normal language
 
 ---
 
-| -------------------------------------------------------------------- |
-| INSERT AVAILABILITY CALENDAR CHECK COMMAND IMPLEMENTATION CODE HERE  | 
-| When doing this, please find or start a 'adding new slash commands   |
-| to the CLI system' guide then add the guide to the documentation for |
-| commands, or make whatever is already there more robust. You may want|
-| to see the other code addition needs in this document before getting started. |
-| ----------------------------------------------------------------------------- |
+| ---------------------- |
+| NEED CODE ARCHITECTURE | 
+
+We need to come up with the code for implementing the various `/avail` commands in the chart below. If we do it here then update it if we run into any issues, we'll have fully complete documentation. 
+
+When doing this, would you mind creating a document guide for "adding new slash commands to the CLI system"? 
+  - Then add the guide to the documentation for commands, or make whatever is already there more robust 
+  - This resource will double in value because once we have configs hosted online for subscribers 
+  - We can include things like a "how to add new slash commands" guide 
+
+I think maybe we should produce it as a Claude Code SPEC. 
+ - Wdyt? Because we'll be implementing the Claude Code SDK soon so these resources might as well be prepared for them. 
+ - There is a template of one in the Project's system message 
+ - Or you can find them here: `./.claude/reference/spec_docs/spec_template.example.md`
+ - Lastly, I feel like this is the kind of thing where we need some kind of "touch-point" guide 
+ - We had one planned in the CC docs to create but I'm not sure of it's state 
+ - Or like are there any other diagrams that would be useful? 
+
+You may want to see the other code addition needs in this document before getting started. There is one more down further about creating the setup scripts. 
+
+AH -- just found implementation docs for CLI: `./versioning/v4/v4_0_0/implemented-cli-commands`
+
+---
+
+| **CODE** | **FREQUENCY**     | **DAY CODE** | **WEEKDAY** | **TIME CODE** | **TIME BLOCK** |
+| -------- | ----------------- | ------------ | ----------- | ------------- | -------------- |
+| 1        | Every week        | 1            | Monday      | 1             | 0000-0300      |
+| 2        | Every other week  | 2            | Tuesday     | 2             | 0300-0600      |
+| 3        | Every month       | 3            | Wednesday   | 3             | 0600-0900      |
+| 4        | Every other month | 4            | Thursday    | 4             | 0900-1200      |
+| 5        | Every year        | 5            | Friday      | 5             | 1200-1500      |
+| 6        | Every other year  | 6            | Saturday    | 6             | 1500-1800      |
+| 7        | Every day         | 7            | Sunday      | 7             | 1800-2100      |
+| 8        | Every other day   | 8            | Monday      | 8             | 2100-0000      |
+
+---
+
+| **SCHEDULING COMMANDS**                         | **DESCRIPTION**                                                 |
+| ----------------------------------------------- | --------------------------------------------------------------- |
+| `/avail <frequency> <day> <time>`               | Check calendar to scheduling trigger; min. variable <frequency> |
+| `/avail --reschedule <custom-command>`          | Change trigger time for repeating workflow                      |
+| `/avail --cancel <custom-command>`              | Cancel a repeating workflow                                     |
+| `/avail --update <custom-command>`              | Make changes to a repeating workflow                            |
+| `/avail --end-date <custom-command> 2025-07-21` | Update the end date on an active repeating workflow             |
 
 ---
 
@@ -319,7 +356,7 @@ mao repeat --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
 ---
 
 ### "Project-List" Type Reoccurring Workflows 
-*Trigger every X time period; next project from list made by user or Mao*
+*Work on list created by User or Mao, every X time period*
 
 **Calendaring JSON Object**
 *The calendaring JSON object is the same for all reoccurring workflow types*
@@ -614,6 +651,67 @@ mao repeat --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
 ---
 
+| ---------------------- |
+| NEED CODE ARCHITECTURE | 
+
+We need to prepare the code for the setup scripts for each of the reoccurring workflow types. Keep whichever of the two charts you like better below. And I didn't write it out explicitly here, but all slash commands like these should also function out of the app as a Mao command. Oh, which reminds me, it probably should be more clear in the chart, as it is in the text above, that each of these would be followed by the temporary directory path to the JSON objects. 
+
+In the text above I kept putting the slash commands in the bash text code blocks cause they look nice but... I suppose that is confusing? 
+
+Anyway, these all behave in the same way as the normal workflow setup scripts. Please be careful to ready the text above for the details of each kind very carefully because they are all slightly different. Took a bit longer to logic these out than it did the normal workflow setup scripts. But yeah just like the others, they would create the new directory, copy over the JSON objects, and then run the script, and in two of the types, copy over the actual 'reoccurring workflow' JSON object which would be edited slightly to pair with, for example, an item being added to the project list. Then once all moved over, it would create the actual script that runs the workflow, along with the README, and anything else that is needed. 
+
+In writing all this I can't help but wonder if ... like did we even include that all in the docs somewhere this thoroughly yet? 
+
+NOPE, not yet lol makes sense I guess, but I just looked at the `./documentation/03_USER_FLOW.md` doc and it also has all these: 
+
+| **ADD ARCHITECTURE HERE** |
+| ------------------------- |
+
+Probably makes sense to do them all together at once, not that I think we should keep them all in the same section. These definitely seem to belong here. But yeah I guess we need to start doubling back and making the docs all as robust as this one is / will especially be after these are in place too. 
+
+Ah, here are some implementation docs for the workflow setup: `./versioning/v4/v4_0_0/implemented-workflow-setup` 
+
+
+```bash
+# Create scheduled workflow
+/repeat --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
+mao repeat --scheduled {{TEMP_DIR}}/scheduled_2_3_7/
+
+# Create project-list workflow
+/repeat --list-new {{TEMP_DIR}}/project_1_2_4/
+mao repeat --list-new {{TEMP_DIR}}/project_1_2_4/
+
+# Create self-assessment workflow
+/repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
+mao repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
+```
+
+---
+
+| **REOCCURRING WORKFLOW** | **SETUP COMMAND**           | **OBJECTIVE WHEN TRIGGERED**      |
+| ------------------------ | --------------------------- | --------------------------------- |
+| Scheduled Workflow       | `/repeat --scheduled`       | Same project every time it runs   |
+| Project-List Flow        | `/repeat --list-new`        | Work on task list                 |
+| Project-List             | `/repeat --list-add`        | N/A                               |
+| Self-Assessment          | `/repeat --self-assessment` | Analyze, identify, improve Mao    |
+| Self-Assessment          | `/repeat --sub-task`        | Task related to self-assessment   |
+| Goal-Assessment          | `/repeat --goal-assessment` | Analyze, plan, execute objectives |
+| Goal-Assessment          | `/repeat --sub-task`        | Task related to goal-assessment   |
+
+---
+
+| **COMMAND**                 | **DESCRIPTION**                                               |
+| --------------------------- | ------------------------------------------------------------- |
+| `/repeat --scheduled`       | Create *Scheduled* workflow to complete same task regularly   |
+| `/repeat --list-new`        | Create new *Project List* & check items off when active       |
+| `/repeat --list-add`        | Add item to existing *Project List* workflow                  |
+| `/repeat --self-assessment` | Setup *Self Assessment* & improve app when active             |
+| `/repeat --sub-task`        | Create task to help improve app                               |
+| `/repeat --goal-assessment` | Setup *Goal Assessment* & complete unique project when active |
+| `/repeat --sub-task`        | Create task to help goal-assessment project                   |
+
+
+---
 | -------------------------------------------------------------------- |
 | WRITE AND THEN INSERT THE SETUP SCRIPT FOR EACH TRIGGER-WORKFLOW FLAG TYPE HERE |
 | This should contain all necessary details for full implementation. This means the |
@@ -643,33 +741,12 @@ This isn't about automating individual tasks. It is only tangentially about task
 
 ---
 
-| **CODE** | **FREQUENCY**     | **DAY CODE** | **WEEKDAY** | **TIME CODE** | **TIME BLOCK** |
-| -------- | ----------------- | ------------ | ----------- | ------------- | -------------- |
-| 1        | Every week        | 1            | Monday      | 1             | 0000-0300      |
-| 2        | Every other week  | 2            | Tuesday     | 2             | 0300-0600      |
-| 3        | Every month       | 3            | Wednesday   | 3             | 0600-0900      |
-| 4        | Every other month | 4            | Thursday    | 4             | 0900-1200      |
-| 5        | Every year        | 5            | Friday      | 5             | 1200-1500      |
-| 6        | Every other year  | 6            | Saturday    | 6             | 1500-1800      |
-| 7        | Every day         | 7            | Sunday      | 7             | 1800-2100      |
-| 8        | Every other day   | 8            | Monday      | 8             | 2100-0000      |
-
----
-
-| **REOCCURRING WORKFLOW** | **SETUP COMMAND**        | **DESCRIPTION**                                     |
-| ------------------------ | ------------------------ | --------------------------------------------------- |
-| Scheduled                | `/scheduled`             | Recurring task; same task every time it runs        |
-| Self-Assessment          | `/self-assessment`       | Open-ended autonomous work time for Mao             |
-| Goal-Assessment          | `/goal-assessment`       | User or Mao sets a goal and Mao works to achieve it |
-| Project-List             | `/list-new`, `/list-add` | User or Mao creates a list of tasks to complete     |
 
 
 
-scheduling 
-rescheduling 
-canceling 
-updating 
-adding end date 
+
+
+
 
 
 ---
