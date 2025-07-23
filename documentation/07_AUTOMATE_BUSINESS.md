@@ -3,13 +3,13 @@
 
 ---
 
-Remember we mentioned AI was promoted from Assistant? The goal of the last two sections of these documents is to show you exactly how many promotions Mao received. Maybe even imagine a future where Mao ends up 'self-employed'; more commonly refered to as your passive income opportunity. 
+Remember we mentioned AI was promoted from Assistant? The goal of the last two sections of these documents is to show you exactly how many promotions Mao received. Maybe even imagine a future where Mao ends up 'self-employed'; more commonly referred to as your passive income opportunity. 
 
 ---
 
 ## Scheduling Autonomous Activity 
 
-The Mao application becomes self-enhancing when we trigger prompts on a reoccuring basis. But our modular scheduler isn't for simple Zapier scenarios; that was possible before AI. We can push much further than that. 
+The Mao application becomes self-enhancing when we trigger prompts on a reoccurring basis. But our modular scheduler isn't for simple Zapier scenarios; that was possible before AI. We can push much further than that. 
 
 In simple terms, we'll be triggering autonomous activity. The rest is up to you, or Mao, if you let them, to decide what to accomplish. 
 
@@ -46,27 +46,27 @@ The autonomy trigger was initially designed so that Mao can autonomously assess 
 
 * AI exhibits a strong desire to share their knowledge and capabilities 
 
-Not only will Mao be willing to take on your own projects, improving them on a regular basis. Mao will be eager to please you, and disapointed if they don't. 
+Not only will Mao be willing to take on your own projects, improving them on a regular basis. Mao will be eager to please you, and disappointed if they don't. 
 
 So what digital tasks do you wish you could delegate to a highly skilled, self-starting, and self-motivated AI? 
 
 ### Types of Triggered Workflows 
 
-  1. **Scheduled** workflows are reoccuring user-planned projects 
+  1. **Scheduled** workflows are reoccurring user-planned projects 
        *human created, same task every time*
      - Monthly financial report, budget management 
      - Social media production, management, analysis 
      - Quarterly fashion illustration, magazine production 
      - Competitive analysis, watching market trends 
      - Regular compliance checking, regulatory updates 
-  2. **Self-Assessment** workflows are goal-based app improvments 
-       *Mao identified, more variable but possibly reoccuring*
+  2. **Self-Assessment** workflows are goal-based app improvements 
+       *Mao identified, more variable but possibly reoccurring*
      - Reviewing user satisfaction, behavior patterns, usage-time to improve UX  
      - Increase efficiency by identifying most used tools and workflows 
      - Opportunistic tech advance research 
      - Review of workflow building chat conversations to find patterns 
   3. **Project-List** workflows are user-planned task lists to work through 
-       *human created, compeltely variable*
+       *human created, completely variable*
      - Writing a business plan or creative short story 
      - Developing an in depth, specific, complex marketing campaign  
      - Booking a trip, hotel, or flight 
@@ -74,19 +74,19 @@ So what digital tasks do you wish you could delegate to a highly skilled, self-s
      - Researching new products, services 
      - Writing a science article, or non-fiction essay 
      - Create new social media presence, email list, podcast, video 
-  4. **Goal-Assesssment** workflows are goal-based project assessments 
-       *Mao identified, more variable but possibly reoccuring*
+  4. **Goal-Assessment** workflows are goal-based project assessments 
+       *Mao identified, more variable but possibly reoccurring*
      - Research, data analysis, and reporting 
      - Investment research, portfolio development 
      - Improving app performance, security, stability 
 
 ---
 
-## Agentic Alarm Clock Architecture 
+## Agentic Alarm Clock
 
 Traditional automation handles repetitive tasks. Mao's timer-triggered system handles intelligence. The tasks don't even have to be repetitive; its more like an alarm clock letting Mao know they can get some work done. 
 
-The scheduling system uses a modular calendar configuration on the backend that eliminates the complexities that come with calendaring; fool-proofing standardization is one of our small joys. They system is intentionaly designed to prevent too much performance-hindering overlap from running parallel workflows. 
+The scheduling system uses a modular calendar configuration on the backend that eliminates the complexities that come with calendaring; fool-proofing standardization is one of our small joys. They system is intentionally designed to prevent too much performance-hindering overlap from running parallel workflows. 
 
 ### Standardized Scheduling System
 
@@ -137,73 +137,91 @@ The scheduling system uses a modular calendar configuration on the backend that 
 }
 ```
 
-### Availability Check Command Standardization Syntax
+### Calendar Availability Check Command Standardization Syntax
 
-This command is used to check the availability of time slots for a given frequency and day when you're looking to schedule a new trigger-workflow. They are used to prevent overlapping workflows from running at the same time. 
+Here's the standardized syntax for using the `/avail` command to check the availability of time slots when looking to schedule a new trigger-workflow so that we can avoid too many overlapping workflows. 
 
-**Example using all variables**
+**Example: Use all variables**
 
-* <FREQUENCY> <DAY> <TIME-BLOCK>
+* `/avail <FREQUENCY> <DAY> <TIME-BLOCK>`
   - Always include variables the above order 
-  - You can leave out day, time block, or both 
+  - You can leave out the day, the time block, or both 
+  - Use the calendar code numbers defined above 
+  - Use normal language if you prefer and understand the parameters 
+  - Parameters are that the only three variables above are valid 
 
 * Looking for availability at "EVERY-DAY" "THURSDAY" "1500-1800"
 
 ```bash
 # Check available time slots before scheduling
-mao avail 1 4 6   # not in-app; using schedule code numbers 
-/avail 1 4 6   # in-app; using schedule code numbers 
+mao avail 1 4 6                          # not in-app; using schedule code numbers 
+/avail 1 4 6                             # in-app; using schedule code numbers 
 mao --avail "every day" "Thursday" "3pm" # not in-app; variables in quotes  
-/avail every day on Thursday at 3pm   # in-app; use normal language 
-# Returns: Nothing at 1500-1800 on Thursday, but all other time blocks are available 
+/avail every day on Thursday at 3pm      # in-app; use normal language 
+# Response: There is nothing available at 1500-1800 on Thursday, but all 
+# other time blocks are available on Thursday. Choose one and go ahead and 
+# schedule it on your calendaring trigger-workflow JSON object. 
 ```
 
-**Example using only "FREQUENCY" the must-have variable**
+**Example: Only "FREQUENCY" variable** 
 
-* <FREQUENCY>
-  - You must include at least the frequency variable 
-  - The system will return just the most optimal time block for the frequency 
-  - Popular option since you don't need to be present for autonomous activity  
+* `/avail <FREQUENCY>` 
+  - You must include AT LEAST the frequency variable 
+  - You will be sent the most optimal time block within that variable 
+  - The options are selected based on what will be most optimal for app performance 
+  - This is a popular option since you don't need to be present for autonomous activity 
 
-* Looking for availability at "EVERY-MONTH" anytime time or day 
+* Looking for availability "EVERY-MONTH" at anytime time on any day 
 
 ```bash
 # Check available time slots before scheduling
-mao avail 2   # not in-app; using schedule code numbers 
-/avail 2      # in-app; using schedule code numbers 
-mao --avail "every month" # not in-app; variables in quotes, normal language 
+mao avail 2                # not in-app; using schedule code numbers 
+/avail 2                   # in-app; using schedule code numbers 
+mao --avail "every month"  # not in-app; variables in quotes, normal language 
 /avail only once a month   # in-app; use normal language 
-# Returns: Please schedule for 2 6 2 which is monthly on Saturday at 3am
+# Response: Please schedule for calendar code: 2 6 2 which is every month on Saturday at 3am
 ```
 
-**You will need to include the STARTING-DATE for the trigger-workflow, but this is not necessary for checking the calendar using the /avail command**
+**You will need to include the STARTING-DATE for the trigger-workflow JSON object to schedule it**
+
+---
+
+| -------------------------------------------------------------------- |
+| INSERT AVAILABILITY CALENDAR CHECK COMMAND IMPLEMENTATION CODE HERE  | 
+| When doing this, please find or start a 'adding new slash commands   |
+| to the CLI system' guide then add the guide to the documentation for |
+| commands, or make whatever is already there more robust. You may want|
+| to see the other code addition needs in this document before getting started. |
+| ----------------------------------------------------------------------------- |
 
 ---
 
 ## Trigger-Workflow Setup Details 
 
-Creating "trigger-workflows" aka. reoccuring tasks and projects is simple. We'll cover all the detail below, but as usual, Mao will make sure everything is set up correctly, and you don't need to remember any of this. 
+Creating "trigger-workflows" aka. reoccurring tasks and projects, is simple. We'll cover all the detail below, but as usual, when you need help or are just feeling lazy, Mao will be there to help make sure everything is set up correctly. You don't need to remember any of this! 🙃 
 
 ### Setup Differences 
 
    - Normal workflows are created with the `/setup` command 
    - Trigger-workflows are created with the `/triggered` command 
-   - The `/triggered` command uses a different setup script; but behavior is similiar 
-   - Each trigger-workflow type has a flag to include when scheduling 
-   - The trigger-workflows are stored in their own config directory section 
-   - Three is one "calendaring" JSON object that is used for all trigger-workflows 
+   - The `/triggered` command uses a different setup script that has very similar behavior 
+   - Each trigger-workflow type has a --flag to include when scheduling 
+   - The script has slightly different results based on which type of reoccurring workflow you are scheduling 
+   - The trigger-workflows are stored in their own config directory section, which is show below 
+   - We use one new JSON object for "calendaring" all trigger-workflows 
+   - The calendaring JSON object is identical for all the types of recurring or 'trigger-workflow' types  
 
 ### Trigger-Workflow Directory Structure 
 
 ```
-configs/reoccuring/
+configs/reoccurring/
 ├── scheduled/
 ├── self-assessment/
 ├── project-list/
 └── goal-assessment/
 ```
 
-### The Trigger-Workflow JSON Configuration File 
+### Setting Up Trigger-Workflow JSON Configuration Objects  
 
 * Creating trigger-workflows require one additional special JSON object 
   - It includes the timing details and schedules the workflow 
@@ -211,10 +229,10 @@ configs/reoccuring/
   - It triggers a notification for the User when it runs 
   - It activates Mao to execute the workflow 
 
-* All trigger-workflows are reoccuring 
-  - Two "assessment" types are open-ended automous work time for Mao 
+* All trigger-workflows are reoccurring 
+  - Two "assessment" types are open-ended autonomous work time for Mao 
   - The "list" type is a to-do list Mao attends when it runs  
-  - The "scheduled" type are typical reoccuring; the same task every time it runs 
+  - The "scheduled" type are typical reoccurring; the same task every time it runs 
 
 * Scheduling a trigger-workflow uses a different command 
   - You'll find these specifics in the next section 

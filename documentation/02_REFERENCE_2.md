@@ -52,33 +52,33 @@ mao --variables --explain         # Detailed variable explanations
 ## Workflow Variables Reference
 
 ### Required Variables for All Workflows
-| Variable | Description | Format | Example |
-|----------|-------------|---------|---------|
-| `user_id` | Your unique user identifier | `user-[identifier]` | `user-john_doe_2024` |
-| `workflow_id` | Generated workflow identifier | `uid-[generated]` | `uid-wf_abc123def456` |
-| `custom_command` | Your workflow command name | `[descriptive-name]` | `marketing-analysis` |
-| `workflow_goal` | Primary objective | Free text | `Create comprehensive marketing strategy` |
-| `workflow_deliverable` | Expected output | Free text | `Marketing plan with budget and timeline` |
-| `workflow_description` | Detailed process description | Free text | `Multi-phase analysis including competitor research...` |
+| Variable               | Description                   | Format               | Example                                                 |
+| ---------------------- | ----------------------------- | -------------------- | ------------------------------------------------------- |
+| `user_id`              | Your unique user identifier   | `user-[identifier]`  | `user-john_doe_2024`                                    |
+| `workflow_id`          | Generated workflow identifier | `uid-[generated]`    | `uid-wf_abc123def456`                                   |
+| `custom_command`       | Your workflow command name    | `[descriptive-name]` | `marketing-analysis`                                    |
+| `workflow_goal`        | Primary objective             | Free text            | `Create comprehensive marketing strategy`               |
+| `workflow_deliverable` | Expected output               | Free text            | `Marketing plan with budget and timeline`               |
+| `workflow_description` | Detailed process description  | Free text            | `Multi-phase analysis including competitor research...` |
 
 ### Optional Variables for Enhanced Workflows
-| Variable | Description | Default | Usage |
-|----------|-------------|---------|--------|
-| `temp_directory` | Processing workspace | `configs/workflows/.temp/[name]/` | During workflow creation |
-| `created_at` | Creation timestamp | Current time | Automatic tracking |
-| `phase_number` | Phase sequence | `01, 02, 03...` | Multi-phase workflows |
-| `resources` | External resources | `[]` | URLs, files, data sources |
-| `tools` | Specific tools required | Auto-detected | Tool preferences |
+| Variable         | Description             | Default                           | Usage                     |
+| ---------------- | ----------------------- | --------------------------------- | ------------------------- |
+| `temp_directory` | Processing workspace    | `configs/workflows/.temp/[name]/` | During workflow creation  |
+| `created_at`     | Creation timestamp      | Current time                      | Automatic tracking        |
+| `phase_number`   | Phase sequence          | `01, 02, 03...`                   | Multi-phase workflows     |
+| `resources`      | External resources      | `[]`                              | URLs, files, data sources |
+| `tools`          | Specific tools required | Auto-detected                     | Tool preferences          |
 
 ### Model and Provider Variables
-| Variable | Purpose | Examples | Fallback Behavior |
-|----------|---------|----------|-------------------|
-| `model_1` | Primary model choice | `claude-sonnet-4`, `gpt-4.1` | Intelligent selection |
-| `model_2` | Backup model | Alternative model | Auto-fallback |
-| `model_3` | Final fallback | Reliable model | Emergency option |
-| `provider_1` | Primary provider | `anthropic-direct`, `openai-direct` | Provider switching |
-| `provider_2` | Secondary provider | Alternative provider | Seamless handoff |
-| `provider_3` | Tertiary provider | Fallback provider | Reliability guarantee |
+| Variable     | Purpose              | Examples                            | Fallback Behavior     |
+| ------------ | -------------------- | ----------------------------------- | --------------------- |
+| `model_1`    | Primary model choice | `claude-sonnet-4`, `gpt-4.1`        | Intelligent selection |
+| `model_2`    | Backup model         | Alternative model                   | Auto-fallback         |
+| `model_3`    | Final fallback       | Reliable model                      | Emergency option      |
+| `provider_1` | Primary provider     | `anthropic-direct`, `openai-direct` | Provider switching    |
+| `provider_2` | Secondary provider   | Alternative provider                | Seamless handoff      |
+| `provider_3` | Tertiary provider    | Fallback provider                   | Reliability guarantee |
 
 ---
 
@@ -100,16 +100,16 @@ mao --config tone-notification subtle
 ```
 
 ### Settings Descriptions
-| Setting | Options | Purpose | Default |
-|---------|---------|---------|---------|
-| `theme` | `light`, `dark`, `auto` | Interface appearance | `auto` |
-| `default-provider` | Provider names | Primary AI service | Based on setup |
-| `favorite-model` | Model names | Preferred AI model | Intelligent default |
-| `double-texting` | `true`, `false` | Interrupt workflows | `false` |
-| `cat-vibes` | `true`, `false` | Friendly communication | `true` |
-| `quick-launch` | `true`, `false` | Fast startup mode | `false` |
-| `tone-notification` | `subtle`, `clear`, `off` | Status indicators | `subtle` |
-| `data-collection` | Privacy levels | Analytics participation | `privacy-first` |
+| Setting             | Options                  | Purpose                 | Default             |
+| ------------------- | ------------------------ | ----------------------- | ------------------- |
+| `theme`             | `light`, `dark`, `auto`  | Interface appearance    | `auto`              |
+| `default-provider`  | Provider names           | Primary AI service      | Based on setup      |
+| `favorite-model`    | Model names              | Preferred AI model      | Intelligent default |
+| `double-texting`    | `true`, `false`          | Interrupt workflows     | `false`             |
+| `cat-vibes`         | `true`, `false`          | Friendly communication  | `true`              |
+| `quick-launch`      | `true`, `false`          | Fast startup mode       | `false`             |
+| `tone-notification` | `subtle`, `clear`, `off` | Status indicators       | `subtle`            |
+| `data-collection`   | Privacy levels           | Analytics participation | `privacy-first`     |
 
 ---
 
@@ -136,28 +136,28 @@ mao-v4/
 ```
 
 ### Key System Components
-| Component | Purpose | Location | Integration Points |
-|-----------|---------|----------|-------------------|
-| **Core Orchestrator** | Main intelligence engine | `orchestrator/core.py` | All system components |
-| **CLI Manager** | Command routing | `orchestrator/cli_manager.py` | Interface layer |
-| **Memory System** | Persistent learning | `orchestrator/memory_mcp.py` | User data, workflows |
-| **Workflow Manager** | Project lifecycle | `orchestrator/workflow_manager.py` | User goals, execution |
-| **Tool Discovery** | Capability detection | `orchestrator/manager_tools.py` | Dynamic tool loading |
-| **Model Selection** | AI service routing | `orchestrator/manager_models.py` | Provider management |
+| Component             | Purpose                  | Location                           | Integration Points    |
+| --------------------- | ------------------------ | ---------------------------------- | --------------------- |
+| **Core Orchestrator** | Main intelligence engine | `orchestrator/core.py`             | All system components |
+| **CLI Manager**       | Command routing          | `orchestrator/cli_manager.py`      | Interface layer       |
+| **Memory System**     | Persistent learning      | `orchestrator/memory_mcp.py`       | User data, workflows  |
+| **Workflow Manager**  | Project lifecycle        | `orchestrator/workflow_manager.py` | User goals, execution |
+| **Tool Discovery**    | Capability detection     | `orchestrator/manager_tools.py`    | Dynamic tool loading  |
+| **Model Selection**   | AI service routing       | `orchestrator/manager_models.py`   | Provider management   |
 
 ---
 
 ## Troubleshooting Quick Fixes
 
 ### Common Issues and Solutions
-| Problem | Quick Solution | Command |
-|---------|----------------|---------|
-| Command not found | Update command discovery | `mao --doctor` |
-| Workflow won't start | Check user session | `mao --login [username]` |
-| Model unavailable | List available models | `mao --models` |
-| Slow performance | Clear cache | `mao --doctor --clear-cache` |
-| Memory issues | Restart with fresh state | `mao --restart` |
-| Configuration problems | Reset to defaults | `mao --config --reset` |
+| Problem                | Quick Solution           | Command                      |
+| ---------------------- | ------------------------ | ---------------------------- |
+| Command not found      | Update command discovery | `mao --doctor`               |
+| Workflow won't start   | Check user session       | `mao --login [username]`     |
+| Model unavailable      | List available models    | `mao --models`               |
+| Slow performance       | Clear cache              | `mao --doctor --clear-cache` |
+| Memory issues          | Restart with fresh state | `mao --restart`              |
+| Configuration problems | Reset to defaults        | `mao --config --reset`       |
 
 ### Diagnostic Commands
 ```bash
@@ -178,13 +178,13 @@ mao --config --import [file]     # Restore settings
 ```
 
 ### Error Code Reference
-| Code | Meaning | Common Causes | Solution |
-|------|---------|---------------|----------|
-| `ERR_001` | Authentication failure | Invalid user session | `mao --login` |
-| `ERR_002` | Workflow configuration | JSON syntax error | Validate JSON syntax |
-| `ERR_003` | Model unavailable | Provider issues | `mao --models --refresh` |
-| `ERR_004` | Tool not found | Missing dependencies | `mao --tools --update` |
-| `ERR_005` | Memory system | MCP connection | `mao --doctor --memory` |
+| Code      | Meaning                | Common Causes        | Solution                 |
+| --------- | ---------------------- | -------------------- | ------------------------ |
+| `ERR_001` | Authentication failure | Invalid user session | `mao --login`            |
+| `ERR_002` | Workflow configuration | JSON syntax error    | Validate JSON syntax     |
+| `ERR_003` | Model unavailable      | Provider issues      | `mao --models --refresh` |
+| `ERR_004` | Tool not found         | Missing dependencies | `mao --tools --update`   |
+| `ERR_005` | Memory system          | MCP connection       | `mao --doctor --memory`  |
 
 ---
 

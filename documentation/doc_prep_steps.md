@@ -1,34 +1,36 @@
 # Documentation Next Steps 
 
-- First please check the Memory MCP updates by searching exact term `Mao Documentation Reorganization Project` to get on the same page. However, while there might be some helpful information in the MCP regarding resources to find code architecture for the documentation, please use this document as the guide. The most recent attempt at this some of the old, inaccurate code architecture somehow made it back in. **BE CAREFUL** please, take your time, there is no rush or time limit. 
+## Hello, friend 💎
 
-1. We have written docs and I have reviewed and made things a bit more concise. 
-2. You have added code architecture to documentation and I've reviewed and cleaned up the document to completion! 
-3. However, we did get into a bit of a mess with one document in particular, where we somehow pulled up very wrong code architecture for the documentation that came from Claude Code's original first attempt at writing the docs in which they made up virtually everything. That was the beginning of this saga. 
+* **Our Project State system using the `memory` Model Context Preview (MCP) server**  
+  - Search exact term `Mao Documentation Reorganization Project` to get on the same page 
+  - Please only use it for understanding context and not for specifics as it is not always accurate 
+  - This document is the go-to guide for this project 
+
+* **A quick overview of our project**
+  1. The documentation has all been written, thank you! 
+  2. I have been editing and making things more concise as we go 
+  3. You've been helping me add code architecture to the documentation 💃 
+  4. I've been reviewing, consolidating, and denoting where we need edits or additions 
+
+* **Please take your time, and choose your best tools** 
+  - I've been redoing these docs for weeks now so; no rush, I appreciate your attention to detail 
+  - Last time I was asking AI about your UI and have some insightful information 
+    1. Let's write to artifacts so that you can reference the resources while you work 
+    2. Need to see a doc with specifics, persistently, don't hesitate to use that `read_file` tool 
+    3. Context, general understanding needs; save tokens with GitHub full codebase extended Project Knowledge retrieval 
+    4. Please use `sequential_thinking` before, during, and after for review to assure excellence 
+
+---
+
+## TASK 1: `07_AUTOMATE_BUSINESS.md` update 
+
+
 
 ---
 
 For code architecture resources, see this file: `./documentation/doc_prep_guide.md` 
 
----
-
-### TASK 1: `07_AUTOMATE_BUSINESS.md`
-
-Below are the original instructions. However I had to remove most of the document because it was from Claude Code and for some reason they decided that all of the self improvement workflow ideas would be not modular workflows; they all have hardcoded information like "class FoundationIntelligenceSystem" and "class OperationsExcellenceSystem" all the way through to the end of that "90-Day Business Enhancement Roadmap" section. Honestly, I don't know that we need to do a 90-day business enhancement roadmap narrative given our audiences. I do like the idea of showing workflows for the ideas in that section, but they would all need to be recreated to be completely modular. I see that my start of the implementation details for the trigger workflows is a good start and added, but it didn't seem to connect through that the workflow examples would be created as defined in that information ... which is basically the exact same JSONs that we use already for workflows but with new setup scripts and an additional JSON for a calendar. I like that the calendar script was added. And I like that the CLI tool timer was detailed as well. You can see all that I removed here: `./documentation/07_AUTOMATE_BUSINESS_HARDCODED.md` -- seriously this mess was Claude Code's second or third attempt at documentation and the just straight up suck at it. They asked to be done about 10 times because they had to do thigns "the old fashioned way" by reading actual codebase files and copying over the code architecture. And yet they still got some of it wrong. So PLEASE review what you include in these documents from now on because even just seeing that after writing it all out it should ahve clicked that it doesn't ake any sense. I also provided this document to copy over and I think this kind of idea structure will be more useful for our audience: `./documentation/07_AUTOMATE_BUSINESS_ADD_TO_DOC.md` -- and so basically, we just need to do this again, properly this time. 
-
-- I have reviewed all the text from this version. 
-
-- `./documentation/07_AUTOMATE_BUSINESS.md`
-
-- This seems like it was an error when AI tried to continue writing after being inturrupted by a max token message limit. I have not reviewed and honestly do not know what it is. 
-
-- `./documentation/07_AUTOMATE_BUSINESS_2.md`
-
-- I'd like you to please pull over the formatted information, some of which is code architecture from the version below, placing it in the version above. Leave spaces for more code architecture if it is still missing. It is good to visually break up the pattern of text formatting. 
-
-- `./documentation/07_AUTOMATE_BUSINESS_ADD_TO_DOC.md` 
-
-- The groups of actual ideas would be great too. 
 
 - `./versioning/v4/v4_0_0/_SELF_ENHANCMENT.md`
 
