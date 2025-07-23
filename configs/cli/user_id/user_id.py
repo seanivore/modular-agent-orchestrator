@@ -17,10 +17,7 @@ from orchestrator.workflow_state import WorkflowStateManager
 from orchestrator.memory_mcp import MemoryMCPManager
 
 # Import user ID generator
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'scripts', 'user_id_generator'))
-from user_id_generator import generate_user_id, generate_user_id_with_explanation
+from scripts.user_id_generator.user_id_generator import generate_user_id, generate_user_id_with_explanation
 
 # Standard cache instance
 cache = CacheManager()

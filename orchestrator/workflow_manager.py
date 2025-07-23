@@ -4,8 +4,6 @@ Handles workflow ID generation, discovery, and tracking
 """
 
 import json
-import os
-import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
@@ -21,8 +19,7 @@ from orchestrator.system_analytics_manager import SystemAnalyticsManager
 from orchestrator.username_manager import UsernameManager
 
 # Import workflow ID generator
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'unique_id_generator'))
-from unique_id_generator import generate_workflow_uid, generate_workflow_uid_with_explanation
+from scripts.unique_id_generator.unique_id_generator import generate_workflow_uid, generate_workflow_uid_with_explanation
 
 # Standard cache instance
 cache = CacheManager()

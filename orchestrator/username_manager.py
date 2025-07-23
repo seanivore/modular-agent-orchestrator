@@ -4,8 +4,6 @@ Handles user creation, session persistence, and settings integration
 """
 
 import json
-import os
-import sys
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime
@@ -15,8 +13,7 @@ from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
 
 # Import user ID generator
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'scripts', 'user_id_generator'))
-from user_id_generator import generate_user_id
+from scripts.user_id_generator.user_id_generator import generate_user_id
 
 # Standard cache instance
 cache = CacheManager()
