@@ -31,8 +31,8 @@
    6. From here forward all implementation files will be handled as follows 
      - Create a new directory in the `./versioning/v4/v4_1_0/...` or other accurate directory 
      - Name the directory according to the update 
-     - APPREVATION OF IMPLEMENTATION FROM NOW ON IS 'IMPL'
-     - Place appreviation at start of the file name to keep them grouped together in the directory 
+     - ABBREVIATION OF IMPLEMENTATION FROM NOW ON IS 'IMPL'
+     - Place abbreviation at start of the file name to keep them grouped together in the directory 
      - For example, I just created `./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/...`
      - Create the implementation file using the same name as the directory; as in the example `IMPL_TRIGGER_WORKFLOWS.md`
      - Before the implementation document is created, you'll likely want a document that outlines all about the update with all the specifics and necessary logic, scripts to create, files it will need, etc. As in the example `TRIGGER_WORKFLOWS.md`
@@ -56,7 +56,7 @@ CREATE: ./orchestrator/data_aggregation_manager.py
 - Functions: scan_all_user_analytics(), aggregate_system_metrics(), provide_dashboard_data()
 - Integration: Scans ./configs/user/*/analytics/ and ./configs/system/analytics/
 - Privacy: Maintains user anonymization while providing aggregate insights
-- Touchpoints: Real-time metrics, dashboard components, system health monitoring
+- touch-points: Real-time metrics, dashboard components, system health monitoring
 - Standard patterns: CacheManager, @handle_errors, estimate_cost()
 ```
 
@@ -76,12 +76,6 @@ CREATE: ./orchestrator/data_aggregation_manager.py
 
 - I feel like they might not be able to 
 - We need to make sure they can 
-
-## 3. Built In Timer / Alarm Clock to Trigger Workflows 
-
-## 4. Implementation of Trigger Types and Workflows 
-
-`./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/...`
 
 ## 5. Anthropic Tools To Add  
 
@@ -121,7 +115,7 @@ CREATE: ./orchestrator/data_aggregation_manager.py
 
 I'm curious about this since it doesn't have an API to call the way we do with other tools. Or, since it is also anthropic, will it just be easier to add to the app? Maybe they can change the model in the app settings? 
 
-At the very least let's ouline the first implementation plan. 
+At the very least let's outline the first implementation plan. 
 
   - Users can ask the Orchestrator in the chat UI for new tools 
   - They shouldn't need any technical knowledge 
