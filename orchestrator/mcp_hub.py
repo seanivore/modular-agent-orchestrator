@@ -395,7 +395,7 @@ def get_hub_summary(hub: MCPIntegrationHub) -> str:
     summary_parts = [
         f"🧠 Memory: {status['memory_mcp']['active_workflows']} active workflows",
         f"📁 Files: {status['files_api']['storage_backend']} backend",
-        f"🔌 Servers: {status['tools']['servers_online']}" / "{status['tools']['servers_total']} online",
+        f"🔌 Servers: {status['tools']['servers_online']} / {status['tools']['servers_total']} online",
         f"🛠️  Tools: {status['tools']['total_available']} available"
     ]
     

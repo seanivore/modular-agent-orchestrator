@@ -114,7 +114,7 @@ class WorkflowOrchestrator:
     
     def _load_protocol(self) -> Dict[str, Any]:
         """Load orchestration protocol from JSON config with fallback defaults"""
-        protocol_path = self.config_dir " / " "orchestrator_protocol.json"
+        protocol_path = self.config_dir / "orchestrator_protocol.json"
         
         # Try to load from JSON config first
         if protocol_path.exists():
@@ -195,7 +195,7 @@ class WorkflowOrchestrator:
             phases=phases,
             total_estimated_cost=total_phase_cost + total_tool_cost,
             estimated_duration_minutes=len(phases) * 3,  # Rough estimate
-            workspace_dir=f"projects" / "{self._sanitize_name(user_goal)}"
+            workspace_dir=f"projects/{self._sanitize_name(user_goal)}"
         )
         
         # 5. Store for execution
@@ -317,7 +317,7 @@ class WorkflowOrchestrator:
                     output_files=["research_findings.md", "key_data.json"]
                 ))
             
-            # Analysis" / "reasoning phase
+            # Analysis / reasoning phase
             if "reasoning" in task_types:
                 input_sources = ["research_findings.md"] if "research" in task_types else []
                 phases.append(WorkflowPhase(
@@ -329,7 +329,7 @@ class WorkflowOrchestrator:
                     output_files=["analysis_report.md", "recommendations.md"]
                 ))
             
-            # Creative" / "implementation phase
+            # Creative / implementation phase
             if "creative" in task_types:
                 input_sources = []
                 if "research" in task_types:
@@ -540,15 +540,15 @@ class WorkflowOrchestrator:
     def _generate_workflow_name(self, goal: str) -> str:
         """Generate a clean workflow name"""
         # Extract key words and create a name
-        words = re.findall(rPath(r'\b\w+\b'), goal.lower())
+        words = re.findall(r'\b\w+\b', goal.lower())
         key_words = [w for w in words if len(w) > 3 and w not in ["and", "the", "for", "with", "that", "this"]]
         return "-".join(key_words[:4])  # Max 4 words
     
     def _sanitize_name(self, name: str) -> str:
         """🧹 Create filesystem-safe name"""
         # Remove special characters and spaces
-        clean = re.sub(rPath(r'[^\w\s-]'), '', name)
-        clean = re.sub(rPath(r'[-\s]+'), '-', clean)
+        clean = re.sub(r'[^\w\s-]', '', name)
+        clean = re.sub(r'[-\s]+', '-', clean)
         return clean.lower().strip('-')
     
     def _generate_phase_hash(self, phase: WorkflowPhase, goal: str) -> str:
@@ -581,12 +581,12 @@ class WorkflowOrchestrator:
                         anthropic_client
                     )
                     if file_content:
-                        context_content += fPath(r"\n\n# {input_file}:\n{file_content}")
+                        context_content += f"\n\n# {input_file}:\n{file_content}"
         
         # Generate execution snippet with context
         full_instructions = phase.task_instructions
         if context_content:
-            full_instructions += fPath(r"\n\nContext from previous phases:{context_content}")
+            full_instructions += f"\n\nContext from previous phases:{context_content}"
         
         snippet = self.buttons.create_api_call_snippet(
             phase.model,
@@ -597,7 +597,7 @@ class WorkflowOrchestrator:
         # For now, simulate execution (in real version, Claude 4 would execute it)
         content = f"[Phase {phase.name} executed with context from {len(phase.input_sources)} sources]"
         if context_content:
-            content += fPath(r"\n\nGenerated response based on: {'), '.join(phase.input_sources)}"
+            content += f"\n\nGenerated response based on: {', '.join(phase.input_sources)}"
         
         return ExecutionResult(
             phase_name=phase.name,

@@ -26,8 +26,8 @@ class ConversationToWorkflowBridge:
         self.cache = CacheManager()
         
         self.memory_mcp = MemoryMCPManager()
-        self.setup_script_path = "scripts" / "setup_workflow.sh"  # ONE setup script
-        self.use_case_base = "configs" / "use_case"
+        self.setup_script_path = "scripts / setup_workflow.sh"  # ONE setup script
+        self.use_case_base = "configs / use_case"
         
         # Ensure use-case directory exists
         os.makedirs(self.use_case_base, exist_ok=True)
@@ -89,10 +89,10 @@ class ConversationToWorkflowBridge:
             
             # Save config to use-case directory
             command_name = config["custom_command"].replace(" ", "-")
-            use_case_dir = f"{self.use_case_base}" / "{command_name}"
+            use_case_dir = f"{self.use_case_base} / {command_name}"
             os.makedirs(use_case_dir, exist_ok=True)
             
-            config_path = f"{use_case_dir}" / "config.json"
+            config_path = f"{use_case_dir} / config.json"
             with open(config_path, 'w') as f:
                 json.dump(config, f, indent=2)
             
@@ -210,7 +210,7 @@ class ConversationToWorkflowBridge:
         
         # Look for subject matter
         subject_patterns = [
-            rPath(r"(marketing|content|business|competitive?)\s+(strategy|plan|analysis)"),
+            r"(marketing|content|business|competitive?)\s+(strategy|plan|analysis)",
             r"(website|app|software|tool|platform)",
             r"(logo|brand|design|visual)",
             r"(research|analysis|study)",
@@ -267,7 +267,7 @@ class ConversationToWorkflowBridge:
                     "model": "claude-sonnet-4"
                 })
             
-            # Analysis" / "Strategy phase
+            # Analysis / Strategy phase
             phases.append({
                 "name": "analysis",
                 "description": "Analyze information and develop approach",
@@ -379,7 +379,7 @@ def test_conversation_bridge():
     ]
     
     for goal in test_goals:
-        print(fPath(r"\n🎯 Testing goal: {goal}"))
+        print(f"\n🎯 Testing goal: {goal}")
         result = bridge.create_workflow_from_conversation(goal)
         
         if result["success"]:

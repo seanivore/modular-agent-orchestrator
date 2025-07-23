@@ -32,7 +32,7 @@ class UserMemoryManager:
     """
     
     def __init__(self):
-        self.base_path = Path(__file__).parent.parent " / " "configs" " / " "user"
+        self.base_path = Path(__file__).parent.parent / "configs"  /  "user"
         self.memory_mcp = MemoryMCPManager()
         
         # Ensure base directory exists
@@ -348,14 +348,14 @@ class UserMemoryManager:
     def _load_user_memories(self, username: str, category: str = None) -> List[Dict[str, Any]]:
         """Load user memories from file system"""
         memories = []
-        user_memories_dir = self.base_path / username " / " "memories"
+        user_memories_dir = self.base_path / username / "memories"
         
         if not user_memories_dir.exists():
             return memories
         
         # Load from specific category file if specified
         if category:
-            category_file = user_memories_dir " / " f"{category}.json"
+            category_file = user_memories_dir / f"{category}.json"
             if category_file.exists():
                 try:
                     with open(category_file, 'r') as f:
@@ -377,10 +377,10 @@ class UserMemoryManager:
     
     def _store_memory_to_file(self, username: str, memory: Dict[str, Any], category: str):
         """Store memory to appropriate category file"""
-        user_memories_dir = self.base_path / username " / " "memories"
+        user_memories_dir = self.base_path / username / "memories"
         user_memories_dir.mkdir(parents=True, exist_ok=True)
         
-        category_file = user_memories_dir " / " f"{category}.json"
+        category_file = user_memories_dir / f"{category}.json"
         
         # Load existing data or create new
         if category_file.exists():
@@ -625,7 +625,7 @@ class UserMemoryManager:
     
     def _delete_memory_from_files(self, username: str, memory_id: str) -> bool:
         """Delete memory from file system"""
-        user_memories_dir = self.base_path / username " / " "memories"
+        user_memories_dir = self.base_path / username / "memories"
         
         if not user_memories_dir.exists():
             return False

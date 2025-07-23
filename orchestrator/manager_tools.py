@@ -47,7 +47,7 @@ class ToolManager:
         registry = {}
         
         # Load all tool registry files
-        registry_dir = self.config_dir " / " "tool_registry"
+        registry_dir = self.config_dir / "tool_registry"
         if registry_dir.exists():
             for tool_file in registry_dir.glob("*.json"):
                 try:
@@ -245,7 +245,7 @@ class ToolManager:
     
     def _discover_local_tools(self) -> Dict[str, Any]:
         """Discover MAO local tools with 6-file validation"""
-        tools_dir = Path.cwd() " / " "tools"
+        tools_dir = Path.cwd()  /  "tools"
         local_tools = {}
         
         if not tools_dir.exists():
@@ -265,10 +265,10 @@ class ToolManager:
     def _validate_tool_structure(self, tool_dir: Path) -> Optional[Dict[str, Any]]:
         """Validate 6-file tool architecture"""
         required_files = {
-            "main": tool_dir " / " f"{tool_dir.name}.py",
-            "config": tool_dir " / " f"tool_{tool_dir.name}.json",
-            "button": tool_dir " / " f"button_{tool_dir.name}.py", 
-            "ui": tool_dir " / " f"ui_{tool_dir.name}.py"
+            "main": tool_dir / f"{tool_dir.name}.py",
+            "config": tool_dir / f"tool_{tool_dir.name}.json",
+            "button": tool_dir / f"button_{tool_dir.name}.py", 
+            "ui": tool_dir / f"ui_{tool_dir.name}.py"
         }
         
         # Check if core files exist

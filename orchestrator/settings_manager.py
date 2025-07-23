@@ -39,10 +39,10 @@ class ApplicationSettingsManager:
     4. Template-based validation
     """
     
-    def __init__(self, settings_dir: str = "./configs/settings" / ""):
+    def __init__(self, settings_dir: str = "./configs/settings / "):
         self.settings_dir = Path(settings_dir)
-        self.user_dir = Path("./configs/user" / "")
-        self.examples_dir = Path("./configs/examples" / "")
+        self.user_dir = Path("./configs/user / ")
+        self.examples_dir = Path("./configs/examples / ")
         
         # Ensure directories exist
         self.settings_dir.mkdir(parents=True, exist_ok=True)
@@ -132,7 +132,7 @@ class ApplicationSettingsManager:
         if operation in ['discover_settings', 'get_default_settings']:
             return 0.0001  # Minimal cost for file scanning
         elif operation in ['get_user_settings', 'update_user_setting']:
-            return 0.0001  # Minimal cost for file read" / "write
+            return 0.0001  # Minimal cost for file read / write
         else:
             return 0.0001  # Default minimal cost
     
@@ -248,8 +248,8 @@ class ApplicationSettingsManager:
                 if not nested_dir.exists():
                     nested_dir.mkdir(parents=True, exist_ok=True)
                     # Create memories and analytics subdirectories
-                    (nested_dir " / " "memories").mkdir(exist_ok=True)
-                    (nested_dir " / " "analytics").mkdir(exist_ok=True)
+                    (nested_dir / "memories").mkdir(exist_ok=True)
+                    (nested_dir / "analytics").mkdir(exist_ok=True)
             
             # Update setting (delta-only - only store if different from default)
             default_value = settings[setting_name].default
@@ -262,10 +262,10 @@ class ApplicationSettingsManager:
             # Save updated user file
             if not user_file:
                 # Default to new nested structure if no existing file
-                user_file = self.user_dir / username " / " f"user_{username}.json"
+                user_file = self.user_dir / username / f"user_{username}.json"
                 user_file.parent.mkdir(parents=True, exist_ok=True)
-                (user_file.parent " / " "memories").mkdir(exist_ok=True)
-                (user_file.parent " / " "analytics").mkdir(exist_ok=True)
+                (user_file.parent / "memories").mkdir(exist_ok=True)
+                (user_file.parent / "analytics").mkdir(exist_ok=True)
             
             with open(user_file, 'w') as f:
                 json.dump(user_data, f, indent=2)
@@ -356,8 +356,8 @@ class ApplicationSettingsManager:
         Returns:
             Path to created file or None if failed
         """
-        template_file = self.examples_dir " / " "setting_name_app_settings.json"
-        new_file = self.settings_dir " / " f"{setting_name}_app_settings.json"
+        template_file = self.examples_dir / "setting_name_app_settings.json"
+        new_file = self.settings_dir / f"{setting_name}_app_settings.json"
         
         if template_file.exists():
             try:
@@ -392,12 +392,12 @@ class ApplicationSettingsManager:
             Path to user file or None if not found
         """
         # First check new nested structure: ./configs/user/[username]/user_[username].json
-        nested_path = self.user_dir / username " / " f"user_{username}.json"
+        nested_path = self.user_dir / username / f"user_{username}.json"
         if nested_path.exists():
             return nested_path
         
         # Fallback to legacy flat structure: ./configs/user/user_[username].json
-        legacy_path = self.user_dir " / " f"user_{username}.json"
+        legacy_path = self.user_dir / f"user_{username}.json"
         if legacy_path.exists():
             return legacy_path
         

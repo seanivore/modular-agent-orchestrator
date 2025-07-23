@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Button Snippet Generator
-Creates executable code snippets for any model" / "provider combo to avoid SDK hell
+Creates executable code snippets for any model / provider combo to avoid SDK hell
 """
 
 import json
@@ -30,7 +30,7 @@ class ButtonManager:
     ) -> str:
         """
         🎯 HUMAN BUTTON MAGIC!
-        Generate executable code snippet for ANY model" / "provider combo
+        Generate executable code snippet for ANY model / provider combo
         """
         model = self.models.get_model_config(model_name)
         provider = self.models.get_provider_for_model(model_name)
@@ -110,7 +110,7 @@ try:
     input_tokens = response.usage.input_tokens if hasattr(response.usage, 'input_tokens') else 0
     output_tokens = response.usage.output_tokens if hasattr(response.usage, 'output_tokens') else 0
     input_cost = (input_tokens / 1_000_000) * {model.input_price}
-    output_cost = (output_tokens " / " 1_000_000) * {model.output_price}
+    output_cost = (output_tokens / 1_000_000) * {model.output_price}
     total_cost = input_cost + output_cost
     
     # Print results
@@ -174,9 +174,9 @@ client = openai.OpenAI(
 '''
         
         if provider.env_var:
-            snippet += f'    api_key=os.getenv("{provider.env_var}Path(r")\n')
+            snippet += f'    api_key=os.getenv("{provider.env_var}"),\n'
         else:
-            snippet += '    api_key="not-neededPath(r"  # Local server\n')
+            snippet += '    api_key="not-neededPath(r"  # Local server\n'
         
         snippet += ''')
 
@@ -229,7 +229,7 @@ try:
     input_tokens = response.usage.prompt_tokens if hasattr(response.usage, 'prompt_tokens') else 0
     output_tokens = response.usage.completion_tokens if hasattr(response.usage, 'completion_tokens') else 0
     input_cost = (input_tokens / 1_000_000) * {model.input_price}
-    output_cost = (output_tokens " / " 1_000_000) * {model.output_price}
+    output_cost = (output_tokens / 1_000_000) * {model.output_price}
     total_cost = input_cost + output_cost
     
     # Print results
@@ -324,7 +324,7 @@ try:
     estimated_input_tokens = len(content.split()) * 1.3  # Rough estimate
     estimated_output_tokens = len(result_text.split()) * 1.3
     input_cost = (estimated_input_tokens / 1_000_000) * {model.input_price}
-    output_cost = (estimated_output_tokens " / " 1_000_000) * {model.output_price}
+    output_cost = (estimated_output_tokens / 1_000_000) * {model.output_price}
     total_cost = input_cost + output_cost
     
     # Print results
@@ -383,7 +383,7 @@ async def execute_workflow():
             snippet += f'''
     
     # 📋 Phase: {phase_name}
-    print(fPath(r"\\n🎯 Executing {phase_name} with {model_name}"))
+    print(f"\\n🎯 Executing {phase_name} with {model_name}")
     
     {self.create_api_call_snippet(model_name, prompt).replace("result", f"{phase_name}_result")}
     
@@ -429,7 +429,7 @@ def execute_{tool_name}():
         if "{tool_name}" == "web_search":
             import requests
             query = params.get("query", "")
-            response = requests.get("https://api.brave.com" / "search", 
+            response = requests.get("https://api.brave.com / search", 
                                   params={{"q": query}})
             result = response.json()
             
@@ -491,7 +491,7 @@ tool_result
 Provider: {provider.display_name} ({provider.api_type})
 Context Window: {model.context_window:,} tokens
 Max Output: {model.max_output:,} tokens
-Cost: ${model.input_price}/M input, ${model.output_price}" / "M output
+Cost: ${model.input_price}/M input, ${model.output_price} / M output
 
 Capabilities:
 {"✅" if model.capabilities.tools else "❌"} Tools
@@ -503,7 +503,7 @@ Optimal for: {", ".join(model.optimal_use_cases)}
 """
         
         if model.privacy_note:
-            summary += fPath(r"\n🔒 Privacy: {model.privacy_note}")
+            summary += f"\n🔒 Privacy: {model.privacy_note}"
         
         return summary.strip()
 
@@ -522,7 +522,7 @@ from pathlib import Path
     
     # Example 1: Research with free model
     research_model = manager.get_best_model_for_task("research")
-    print(fPath(r"\\n📚 Research Button ({research_model}):"))
+    print(f"\\n📚 Research Button ({research_model}):")
     snippet = buttons.create_api_call_snippet(
         research_model, 
         "Research the latest trends in renewable energy"
@@ -531,7 +531,7 @@ from pathlib import Path
     
     # Example 2: Reasoning with Claude
     reasoning_model = manager.get_best_model_for_task("reasoning")
-    print(fPath(r"\\n🧠 Reasoning Button ({reasoning_model}):"))
+    print(f"\\n🧠 Reasoning Button ({reasoning_model}):")
     snippet = buttons.create_api_call_snippet(
         reasoning_model,
         "Analyze this data and provide strategic recommendations"
@@ -539,5 +539,5 @@ from pathlib import Path
     print(snippet[:200] + "...")
     
     # Example 3: Execution summary
-    print(fPath(r"\\n📊 Execution Summary:"))
+    print(f"\\n📊 Execution Summary:")
     print(buttons.get_execution_summary(research_model))

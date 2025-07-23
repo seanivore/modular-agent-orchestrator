@@ -223,7 +223,7 @@ class WorkflowStateManager:
                     context_available=False,
                     files_accessible=False,
                     recovery_actions=["Workflow not found - may need to recreate"],
-                    estimated_recovery_time="N" / "A"
+                    estimated_recovery_time="N / A"
                 )
             
             # Analyze context to determine recovery strategy
@@ -420,7 +420,7 @@ class WorkflowStateManager:
                 "summary": {
                     "total_phases": status.phases_total,
                     "completed_phases": status.phases_completed,
-                    "success_rate": (status.phases_completed " / " status.phases_total * 100) if status.phases_total > 0 else 0,
+                    "success_rate": (status.phases_completed / status.phases_total * 100) if status.phases_total > 0 else 0,
                     "health_status": status.health
                 }
             }
@@ -441,7 +441,7 @@ class WorkflowStateManager:
         }
     
     def get_all_workflow_summaries(self) -> List[Dict[str, Any]]:
-        """Get summaries of all workflows (for dashboard" / "overview)"""
+        """Get summaries of all workflows (for dashboard/overview)"""
         
         try:
             # This would search Memory MCP for all workflow entities

@@ -8,7 +8,6 @@ from .manager_models import ModelManager
 from .manager_tools import ToolManager  
 from .manager_buttons import ButtonManager
 from .error_handling import (
-from pathlib import Path
     OrchestrationError,
     ValidationError,
     ProcessingError, 
