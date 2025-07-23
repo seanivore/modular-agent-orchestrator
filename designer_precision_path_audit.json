@@ -1,0 +1,1323 @@
+{
+  "summary": {
+    "files_analyzed": 135,
+    "files_parsed": 64,
+    "pathlib_operations": 108,
+    "string_path_operations": 1,
+    "file_existence_checks": 19,
+    "confirmed_hardcoded_paths": 44,
+    "inconsistency_types": 2,
+    "path_handling_score": 71.78899082568807,
+    "precision_level": "DESIGNER_LUXURY_BRAND"
+  },
+  "pathlib_operations": {
+    "Path": [
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 165,
+        "function": "_process_execution_file",
+        "class": "AgentCallbackHandler",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 169,
+        "function": "_process_execution_file",
+        "class": "AgentCallbackHandler",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_callback.py",
+        "line": 178,
+        "function": "_process_execution_file",
+        "class": "AgentCallbackHandler",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 210,
+        "function": "_format_tool_list",
+        "class": "AgentOrchestrator",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "orchestrator/agent_orchestrator.py",
+        "line": 220,
+        "function": "_format_deliverables_list",
+        "class": "AgentOrchestrator",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/set_model/ui_set_model.py",
+        "line": 83,
+        "function": "display_available_models",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 39,
+        "function": "display_providers_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/providers/ui_providers.py",
+        "line": 51,
+        "function": "_display_provider_summary",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 61,
+        "function": "_display_existing_user_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 75,
+        "function": "_display_new_user_id_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 83,
+        "function": "_display_new_user_id_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 89,
+        "function": "_display_current_user_info",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/user_id/ui_user_id.py",
+        "line": 231,
+        "function": "display_generation_explanation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 63,
+        "function": "display_set_output_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 73,
+        "function": "display_set_output_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/ui_output_directory.py",
+        "line": 124,
+        "function": "display_generic_output_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 151,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 238,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 248,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 71,
+        "function": "_generate_cache_key",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 203,
+        "function": "_get_available_providers",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 61,
+        "function": "_display_success_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "function": "display_error",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "function": "display_error",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 154,
+        "function": "display_provider_status",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 65,
+        "function": "format_variables_table",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 184,
+        "function": "format_variables_table",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 318,
+        "function": "format_variables_summary_table",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "configs/cli/variables/ui_variables.py",
+        "line": 349,
+        "function": "_format_error_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 221,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 227,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 248,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 253,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 294,
+        "function": "_display_search_suggestions",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 345,
+        "function": "_display_generic_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 424,
+        "function": "display_search_capabilities",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/web_search/ui_web_search.py",
+        "line": 428,
+        "function": "display_search_capabilities",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 189,
+        "function": "display_execution_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 223,
+        "function": "display_registration_result",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 253,
+        "function": "display_mcp_summary",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/mcp_connector/ui_mcp_connector.py",
+        "line": 281,
+        "function": "display_help",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 156,
+        "function": "display_deliverables_save",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 190,
+        "function": "display_workflow_files",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/files_api/ui_files_api.py",
+        "line": 281,
+        "function": "display_operation_summary",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 206,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 212,
+        "function": "_display_query_validation",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 287,
+        "function": "_display_api_configuration",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/perplexity_search/ui_perplexity_search.py",
+        "line": 292,
+        "function": "_display_api_configuration",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/button_text_editor.py",
+        "line": 164,
+        "function": "_append_content_snippet",
+        "class": null,
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "ErrorHandlingAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 26,
+        "function": "__init__",
+        "class": "JSONConfigAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 408,
+        "function": "generate_report",
+        "class": "JSONConfigAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 417,
+        "function": "generate_report",
+        "class": "JSONConfigAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "FilePathAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "FunctionNamingAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 342,
+        "function": "generate_report",
+        "class": "FunctionNamingAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 24,
+        "function": "__init__",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 25,
+        "function": "__init__",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 32,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 37,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 42,
+        "function": "__init__",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 68,
+        "function": "fix_sys_path_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 108,
+        "function": "fix_sys_path_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 130,
+        "function": "remove_unused_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 156,
+        "function": "remove_unused_imports",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 195,
+        "function": "run_fixer",
+        "class": "ImportFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 21,
+        "function": "__init__",
+        "class": "DesignerPrecisionFilePathAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "FunctionNamingPerfector",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "FunctionNamingPerfector",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "ImportAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 272,
+        "function": "generate_report",
+        "class": "ImportAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 25,
+        "function": "__init__",
+        "class": "QualityAuditSuite",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "CacheUsageAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 25,
+        "function": "__init__",
+        "class": "JSONConfigNormalizer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 26,
+        "function": "__init__",
+        "class": "JSONConfigNormalizer",
+        "method": "Path",
+        "args_count": 1
+      }
+    ],
+    "Path.exists": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 152,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 50,
+        "function": "find_python_files",
+        "class": "ErrorHandlingAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 57,
+        "function": "find_python_files",
+        "class": "FilePathAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 53,
+        "function": "find_python_files",
+        "class": "FunctionNamingAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 111,
+        "function": "find_json_files",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 227,
+        "function": "find_files_needing_precision",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 114,
+        "function": "find_python_files",
+        "class": "DesignerPrecisionFilePathAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 112,
+        "function": "find_python_files",
+        "class": "FunctionNamingPerfector",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 74,
+        "function": "run_audit_script",
+        "class": "QualityAuditSuite",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 55,
+        "function": "find_python_files",
+        "class": "CacheUsageAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 108,
+        "function": "find_json_files",
+        "class": "JSONConfigNormalizer",
+        "method": "Path.exists",
+        "args_count": 0
+      }
+    ],
+    "Path.mkdir": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 156,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "Path.mkdir",
+        "args_count": 0
+      }
+    ],
+    "Path.split": [
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 110,
+        "function": "_display_content_edit",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 161,
+        "function": "_display_document_format",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 295,
+        "function": "display_autosave_status",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      },
+      {
+        "file": "tools/text_editor/ui_text_editor.py",
+        "line": 308,
+        "function": "display_editing_session_start",
+        "class": null,
+        "method": "Path.split",
+        "args_count": 1
+      }
+    ],
+    "Path.rglob": [
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 51,
+        "function": "find_python_files",
+        "class": "ErrorHandlingAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 58,
+        "function": "find_python_files",
+        "class": "FilePathAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 54,
+        "function": "find_python_files",
+        "class": "FunctionNamingAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 112,
+        "function": "find_json_files",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 228,
+        "function": "find_files_needing_precision",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 115,
+        "function": "find_python_files",
+        "class": "DesignerPrecisionFilePathAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 113,
+        "function": "find_python_files",
+        "class": "FunctionNamingPerfector",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 56,
+        "function": "find_python_files",
+        "class": "CacheUsageAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 109,
+        "function": "find_json_files",
+        "class": "JSONConfigNormalizer",
+        "method": "Path.rglob",
+        "args_count": 1
+      }
+    ],
+    "Path.relative_to": [
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 51,
+        "function": "create_backup",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 195,
+        "function": "designer_precision_file_fix",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 203,
+        "function": "designer_precision_file_fix",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 211,
+        "function": "designer_precision_file_fix",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      }
+    ],
+    "Path.with_suffix": [
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 63,
+        "function": "backup_file",
+        "class": "ImportFixer",
+        "method": "Path.with_suffix",
+        "args_count": 1
+      }
+    ]
+  },
+  "string_path_operations": {
+    "os.path.expanduser": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 235,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "os.path.expanduser",
+        "args_count": 1
+      }
+    ]
+  },
+  "file_checks": {
+    "exists": [
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 152,
+        "function": "_handle_set_output",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "configs/cli/output_directory/output_directory.py",
+        "line": 249,
+        "function": "_validate_output_path",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 72,
+        "function": "_generate_cache_key",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 205,
+        "function": "_get_available_providers",
+        "class": null,
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 50,
+        "function": "find_python_files",
+        "class": "ErrorHandlingAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 57,
+        "function": "find_python_files",
+        "class": "FilePathAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 53,
+        "function": "find_python_files",
+        "class": "FunctionNamingAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 95,
+        "function": "create_backup",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 111,
+        "function": "find_json_files",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 47,
+        "function": "create_backup",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 227,
+        "function": "find_files_needing_precision",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 195,
+        "function": "run_fixer",
+        "class": "ImportFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 114,
+        "function": "find_python_files",
+        "class": "DesignerPrecisionFilePathAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 96,
+        "function": "create_backup",
+        "class": "FunctionNamingPerfector",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 112,
+        "function": "find_python_files",
+        "class": "FunctionNamingPerfector",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 74,
+        "function": "run_audit_script",
+        "class": "QualityAuditSuite",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 55,
+        "function": "find_python_files",
+        "class": "CacheUsageAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 92,
+        "function": "create_backup",
+        "class": "JSONConfigNormalizer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 108,
+        "function": "find_json_files",
+        "class": "JSONConfigNormalizer",
+        "method": "exists"
+      }
+    ]
+  },
+  "confirmed_path_issues": {
+    "confirmed_paths": [
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 71,
+        "content": "providers_dir = Path(\"./configs/providers\" / \"\")",
+        "path_string": "./configs/providers"
+      },
+      {
+        "file": "configs/cli/default_provider/default_provider.py",
+        "line": 203,
+        "content": "providers_dir = Path(\"./configs/providers\" / \"\")",
+        "path_string": "./configs/providers"
+      },
+      {
+        "file": "configs/cli/default_provider/ui_default_provider.py",
+        "line": 103,
+        "content": "error_content = error_message + Path(r\"\\n\\n\") + Path(r\"\\n\").join(context_lines)",
+        "path_string": "\\n\\n"
+      },
+      {
+        "file": "configs/cli/stats/ui_stats.py",
+        "line": 354,
+        "content": "\"search_filters\": \"user/workflow/model\" / \"provider filtering\",",
+        "path_string": "user/workflow/model"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 59,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 151,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 212,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 236,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 255,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/web_search/button_web_search.py",
+        "line": 272,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/think/button_think.py",
+        "line": 164,
+        "content": "f.write(f\"**Session ID:** {{session_data.get('session_idPath(r')}}\\\\n\\\\n\"))",
+        "path_string": ")}}\\\\n\\\\n"
+      },
+      {
+        "file": "tools/graphic_design/button_graphic_design.py",
+        "line": 215,
+        "content": "f.write(Path(r\"\\\\n\\\\n---\\\\n*Generated by MAO Graphic Design Tool*\"))",
+        "path_string": "\\\\n\\\\n---\\\\n*Generated by MAO Graphic Design Tool*"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 45,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 92,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 141,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 184,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/mcp_connector/button_mcp_connector.py",
+        "line": 226,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 55,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 90,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 125,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 162,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 198,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/files_api/button_files_api.py",
+        "line": 224,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 50,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 105,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 157,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 197,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "tools/code_execution/button_code_execution.py",
+        "line": 238,
+        "content": "sys.path.append('/Users/seanivore/Development\" / \"modular-agent-orchestrator')",
+        "path_string": "/Users/seanivore/Development"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit.py",
+        "line": 44,
+        "content": "'format_paths': r'\\.format\\(.*[/\\\\]',",
+        "path_string": "\\.format\\(.*[/\\\\]"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 126,
+        "content": "elif '/providers/' in path_parts:",
+        "path_string": "/providers/"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 128,
+        "content": "elif '/models/' in path_parts:",
+        "path_string": "/models/"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 130,
+        "content": "elif '/cli/' in path_parts:",
+        "path_string": "/cli/"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 133,
+        "content": "content = re.sub(concat_pattern, r'Path(\\1) / \\2', content)",
+        "path_string": "Path(\\1) / \\2"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 30,
+        "content": "(rPath(r\"sys\\.path\\.append\\(os\\.path\\.join\\(os\\.path\\.dirname\\(__file__\\).*?user_id_generator.*?\\)\\)\"),",
+        "path_string": "sys\\.path\\.append\\(os\\.path\\.join\\(os\\.path\\.dirname\\(__file__\\).*?user_id_generator.*?\\)\\)"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 35,
+        "content": "(rPath(r\"sys\\.path\\.append\\(os\\.path\\.join\\(os\\.path\\.dirname\\(__file__\\).*?unique_id_generator.*?\\)\\)\"),",
+        "path_string": "sys\\.path\\.append\\(os\\.path\\.join\\(os\\.path\\.dirname\\(__file__\\).*?unique_id_generator.*?\\)\\)"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 40,
+        "content": "(rPath(r\"sys\\.path\\.append\\(str\\(Path\\(__file__\\)\\.parent\\.parent\\.parent\\)\\)\"),",
+        "path_string": "sys\\.path\\.append\\(str\\(Path\\(__file__\\)\\.parent\\.parent\\.parent\\)\\)"
+      },
+      {
+        "file": "scripts/quality_validator/import_fixer.py",
+        "line": 42,
+        "content": "Path(r\"from orchestrator.\\\\1 import \\\\2\")",
+        "path_string": "from orchestrator.\\\\1 import \\\\2"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 30,
+        "content": "'known_directories': r'/(configs|scripts|tools|orchestrator|interfaces|templates)',",
+        "path_string": "/(configs|scripts|tools|orchestrator|interfaces|templates)"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 33,
+        "content": "'path_with_separators': r'/[^/]+/',",
+        "path_string": "/[^/]+/"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_audit_v2_designer_precision.py",
+        "line": 34,
+        "content": "'windows_paths': r'\\\\[^\\\\]+\\\\'",
+        "path_string": "\\\\[^\\\\]+\\\\"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 316,
+        "content": "print(\"\ud83d\udcaf TARGET: 98.2/100 \u2192 100/100 (Final 1.8% elimination)\")",
+        "path_string": "\ud83d\udcaf TARGET: 98.2/100 \u2192 100/100 (Final 1.8% elimination)"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 44,
+        "content": "\"versioning/v*/\", \"tests/typescript-*\"",
+        "path_string": "versioning/v*/"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 71,
+        "content": "match = re.search(r'sys\\.path\\.append\\((.*?)\\)', line)",
+        "path_string": "sys\\.path\\.append\\((.*?)\\)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 187,
+        "content": "new_key = re.sub('([a-z0-9])([A-Z])', r'\\1_\\2', key).lower()",
+        "path_string": "\\1_\\2"
+      }
+    ]
+  },
+  "inconsistencies": {
+    "mixed_path_apis": {
+      "description": "Mixed usage of pathlib and os.path",
+      "pathlib_operations": 108,
+      "string_path_operations": 1,
+      "recommendation": "Standardize on pathlib.Path for consistency"
+    },
+    "actual_hardcoded_paths": {
+      "description": "Confirmed hardcoded file paths found",
+      "count": 44,
+      "recommendation": "Use pathlib.Path for confirmed file paths"
+    }
+  }
+}

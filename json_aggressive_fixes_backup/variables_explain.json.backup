@@ -1,0 +1,8 @@
+{
+  "command": "variables_explain",
+  "type": "standalone",
+  "terminal_flag": "--variables-explain",
+  "app_command": "/variables-explain",
+  "interface_method": "explain_variables",
+  "help": "Explain how workflow variables work"
+}

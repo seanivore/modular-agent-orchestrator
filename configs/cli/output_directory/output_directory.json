@@ -1,34 +1,48 @@
 {
-  "name": "output_directory",
-  "type": "needs_input",
-  "terminal_flag": "--output",
   "app_command": "/output",
-  "interface_method": "output",
-  "help": "Set output directory via settings_manager.py",
-  "cost_estimate": 0.002,
-  "logic_file": "configs/cli/output_directory/output_directory.py",
-  "ui_file": "configs/cli/output_directory/ui_output_directory.py",
-  "operations": {
-    "set_output": {
-      "description": "Set user output directory with path validation",
-      "required_params": ["path"],
-      "optional_params": []
-    },
-    "get_current_output": {
-      "description": "Get current output directory setting",
-      "required_params": [],
-      "optional_params": []
-    }
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "user_context",
+      "current_output_state"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
   },
+  "category": "GENERAL",
+  "command": "default",
+  "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Set output directory via settings_manager.py",
+  "hidden": false,
   "integration": {
-    "memory_mcp": false,
     "cache_system": true,
     "error_handling": true,
-    "manager_touchpoints": ["settings_manager", "username_manager"]
+    "manager_touchpoints": [
+      "settings_manager",
+      "username_manager"
+    ],
+    "memory_mcp": false
   },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 300,
-    "cache_key_includes": ["user_context", "current_output_state"]
-  }
+  "interface_method": "output",
+  "logic_file": "configs/cli/output_directory/output_directory.py",
+  "name": "output_directory",
+  "operations": {
+    "get_current_output": {
+      "description": "Get current output directory setting",
+      "optional_params": [],
+      "required_params": true
+    },
+    "set_output": {
+      "description": "Set user output directory with path validation",
+      "optional_params": [],
+      "required_params": true
+    }
+  },
+  "required": false,
+  "terminal_flag": "--output",
+  "type": "needs_input",
+  "ui_file": "configs/cli/output_directory/ui_output_directory.py"
 }

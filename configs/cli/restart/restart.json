@@ -1,8 +1,16 @@
 {
-  "command": "restart",
-  "type": "app_only",
-  "terminal_flag": "! mao restart",
   "app_command": "/restart",
+  "args": [],
+  "category": "GENERAL",
+  "command": "restart",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Restart the Mao application",
+  "hidden": false,
   "interface_method": "restart_application",
-  "help": "Restart the Mao application"
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "! mao restart",
+  "type": "app_only"
 }

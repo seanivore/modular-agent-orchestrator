@@ -1,0 +1,36 @@
+{
+  "name": "login",
+  "command": "login",
+  "type": "standalone",
+  "terminal_flag": "--login",
+  "app_command": "/login",
+  "interface_method": "login",
+  "help": "User authentication via username_manager integration",
+  "cost_estimate": 0.003,
+  "file_path": "configs/cli/login/login.py",
+  "ui_path": "configs/cli/login/ui_login.py",
+  "operations": {
+    "execute": {
+      "description": "Main login operation with username_manager integration",
+      "required_params": [],
+      "optional_params": ["username", "create_new", "search_mode", "search_term"]
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["username_manager"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 3600,
+    "cache_key_includes": ["session_timestamp", "username_hash"]
+  },
+  "authentication_flow": {
+    "new_user_flow_compliant": true,
+    "session_management": true,
+    "interactive_mode": true,
+    "username_recovery": true
+  }
+}

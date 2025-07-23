@@ -1,0 +1,16 @@
+{
+  "api_base": "default_api_base",
+  "api_type": "anthropic",
+  "auth_header": "x-api-key",
+  "base_url": "https://api.anthropic.com",
+  "description": "Official Anthropic API with full Claude 4 feature support",
+  "display_name": "Anthropic Direct API",
+  "env_var": "ANTHROPIC_API_KEY",
+  "name": "anthropic-direct",
+  "rate_limits": {
+    "requests_per_minute": 1000,
+    "tokens_per_minute": 200000
+  },
+  "supports_streaming": true,
+  "type": "default_type"
+}

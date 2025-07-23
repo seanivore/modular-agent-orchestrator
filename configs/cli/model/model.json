@@ -1,8 +1,16 @@
 {
-  "command": "set_model",
-  "type": "needs_input",
-  "terminal_flag": "--set-model",
   "app_command": "/set-model",
+  "args": [],
+  "category": "GENERAL",
+  "command": "set_model",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Set favorite model for workflows",
+  "hidden": false,
   "interface_method": "set_model",
-  "help": "Set favorite model for workflows"
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "--set-model",
+  "type": "needs_input"
 }

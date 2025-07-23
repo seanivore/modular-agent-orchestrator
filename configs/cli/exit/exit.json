@@ -1,8 +1,16 @@
 {
-  "command": "exit",
-  "type": "app_only",
-  "terminal_flag": "! mao exit",
   "app_command": "/exit",
+  "args": [],
+  "category": "GENERAL",
+  "command": "exit",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Exit the Mao application",
+  "hidden": false,
   "interface_method": "exit_application",
-  "help": "Exit the Mao application"
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "! mao exit",
+  "type": "app_only"
 }

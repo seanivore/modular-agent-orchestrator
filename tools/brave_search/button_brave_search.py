@@ -29,7 +29,7 @@ def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4"
     snippet = f'''# Brave Search Tool Execution
 import sys
 import os
-sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
+sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
 
 from tools.brave_search.brave_search import search_web, search_news, search_local, estimate_cost, validate_api_key
 
@@ -106,7 +106,7 @@ def create_api_validation_snippet(model: str = "claude-sonnet-4") -> str:
     snippet = f'''# Brave API Key Validation
 import sys
 import os
-sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
+sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
 
 from tools.brave_search.brave_search import validate_api_key, estimate_cost
 

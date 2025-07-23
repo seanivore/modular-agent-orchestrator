@@ -1,36 +1,55 @@
 {
-  "command": "setup",
-  "type": "needs_file_or_directory",
-  "terminal_flag": "--setup",
   "app_command": "/setup",
-  "interface_method": "setup",
-  "help": "Setup workflow from JSON configuration file or directory",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "file_modification_time",
+      "directory_contents",
+      "config_validation"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "setup",
   "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Setup workflow from JSON configuration file or directory",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_state",
+      "memory_mcp"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "setup",
   "logic_file": "configs/cli/setup/setup.py",
-  "ui_file": "configs/cli/setup/ui_setup.py",
+  "multi_path_support": {
+    "directory": "Setup from directory containing workflow configurations",
+    "recovery": "Graceful handling of partial setups and rollback capabilities",
+    "relative_paths": "Support both absolute and relative path resolution",
+    "single_file": "Setup from individual JSON configuration file",
+    "validation": "Comprehensive JSON structure validation before setup"
+  },
+  "name": "default_command",
   "operations": {
     "execute": {
       "description": "Setup workflow from configuration file or directory",
-      "required_params": ["path"],
-      "optional_params": ["validate_only", "force_overwrite"]
+      "optional_params": [
+        "validate_only",
+        "force_overwrite"
+      ],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 300,
-    "cache_key_includes": ["file_modification_time", "directory_contents", "config_validation"]
-  },
-  "multi_path_support": {
-    "single_file": "Setup from individual JSON configuration file",
-    "directory": "Setup from directory containing workflow configurations",
-    "relative_paths": "Support both absolute and relative path resolution",
-    "validation": "Comprehensive JSON structure validation before setup",
-    "recovery": "Graceful handling of partial setups and rollback capabilities"
-  }
+  "required": false,
+  "terminal_flag": "--setup",
+  "type": "needs_file_or_directory",
+  "ui_file": "configs/cli/setup/ui_setup.py"
 }

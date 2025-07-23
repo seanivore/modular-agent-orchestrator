@@ -1,0 +1,44 @@
+{
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:11:57.489479Z",
+  "data_collection": {
+    "default": "full_insights",
+    "description": "What data we can collect to improve your experience",
+    "options": [
+      {
+        "description": "Track all metrics for personal dashboard and community benchmarks",
+        "label": "Full insights",
+        "value": "full_insights"
+      },
+      {
+        "description": "Track personal metrics only - no anonymous community data",
+        "label": "Personal only",
+        "value": "personal_only"
+      },
+      {
+        "description": "Basic usage tracking for app functionality - minimal data collection",
+        "label": "Essential only",
+        "value": "essential_only"
+      },
+      {
+        "description": "Disable all analytics and metrics - purely local usage",
+        "label": "No tracking",
+        "value": "no_tracking"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Controls data collection for analytics and personal insights",
+      "preview_enabled": true,
+      "section": "Notifications & Privacy"
+    }
+  },
+  "description": "Configure data collection and analytics preferences",
+  "last_updated": "2025-07-23T08:11:57.489513Z",
+  "name": "data_collection_app_settings",
+  "version": "1.0"
+}

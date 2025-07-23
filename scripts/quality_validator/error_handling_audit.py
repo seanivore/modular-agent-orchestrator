@@ -4,7 +4,7 @@ MAO Error Handling Audit Script
 Finds inconsistencies in error handling patterns across the codebase
 
 This script analyzes:
-1. @handle_errors decorator usage vs manual try" / "catch
+1. @handle_errors decorator usage vs manual try/catch
 2. Error return patterns (dict vs exceptions vs None)
 3. Logging consistency in error scenarios
 4. Error type standardization (APIError, ValidationError, etc.)
@@ -43,10 +43,10 @@ class ErrorHandlingAuditor:
         python_files = []
         
         # Priority directories for error handling analysis
-        priority_dirs = ["orchestrator", "configs" / "cli", "interfaces", "tools"]
+        priority_dirs = ["orchestrator", "configs/cli", "interfaces", "tools"]
         
         for priority_dir in priority_dirs:
-            dir_path = self.project_root " / " priority_dir
+            dir_path = self.project_root / priority_dir
             if dir_path.exists():
                 for py_file in dir_path.rglob("*.py"):
                     if not any(skip in str(py_file) for skip in ['.backup', '__pycache__', 'test_']):
@@ -118,7 +118,7 @@ class ErrorHandlingAuditor:
                 return_patterns = []
                 
                 for node in ast.walk(func_node):
-                    # Find try" / "except blocks
+                    # Find try/except blocks
                     if isinstance(node, ast.Try):
                         try_blocks.append({
                             'line': node.lineno,
@@ -200,7 +200,7 @@ class ErrorHandlingAuditor:
         
         if mixed_functions:
             inconsistencies['mixed_handling'] = {
-                'description': 'Functions using both @handle_errors and manual try" / "catch',
+                'description': 'Functions using both @handle_errors and manual try/catch',
                 'functions': mixed_functions,
                 'recommendation': 'Choose either decorator or manual handling consistently'
             }
@@ -229,7 +229,7 @@ class ErrorHandlingAuditor:
             inconsistencies['varied_return_patterns'] = {
                 'description': 'Too many different error return patterns',
                 'patterns': dict(return_pattern_counts.most_common(10)),
-                'recommendation': 'Standardize error return format (suggest dict with success" / "error keys)'
+                'recommendation': 'Standardize error return format (suggest dict with success/error keys)'
             }
         
         return inconsistencies
@@ -272,7 +272,7 @@ class ErrorHandlingAuditor:
             mao_bonus = 0
         
         # Base score
-        decorator_ratio = decorator_functions " / " total_functions if total_functions > 0 else 0
+        decorator_ratio = decorator_functions / total_functions if total_functions > 0 else 0
         base_score = 70 + (decorator_ratio * 30)  # Prefer decorators
         
         final_score = base_score + mao_bonus - penalty
@@ -285,7 +285,7 @@ class ErrorHandlingAuditor:
         inconsistencies = self.find_inconsistent_patterns()
         
         if 'mixed_handling' in inconsistencies:
-            recommendations.append("🔧 Remove manual try" / "catch from functions already using @handle_errors decorator")
+            recommendations.append("🔧 Remove manual try/catch from functions already using @handle_errors decorator")
         
         if 'non_standard_errors' in inconsistencies:
             recommendations.append("📚 Standardize on MAO error types (APIError, ValidationError, etc.)")
@@ -360,7 +360,7 @@ class ErrorHandlingAuditor:
             json.dump(results, f, indent=2, default=str)
         
         # Print summary
-        print(Path(r"\n") + "="*60)
+        print("\n" + "="*60)
         print("📊 MAO ERROR HANDLING AUDIT RESULTS")
         print("="*60)
         
@@ -368,35 +368,35 @@ class ErrorHandlingAuditor:
         print(f"📁 Files analyzed: {summary['files_analyzed']}")
         print(f"✅ Files parsed: {summary['files_parsed']}")
         print(f"🎯 Functions with @handle_errors: {summary['functions_with_decorators']}")
-        print(f"🔧 Functions with manual try" / "catch: {summary['functions_with_manual_handling']}")
+        print(f"🔧 Functions with manual try/catch: {summary['functions_with_manual_handling']}")
         print(f"🚨 Error types found: {summary['error_types_found']}")
         print(f"📤 Return patterns found: {summary['return_patterns_found']}")
         print(f"⚠️ Inconsistency types: {summary['inconsistency_types']}")
-        print(f"📊 Error Handling Score: {summary['error_handling_score']:.1f}" / "100")
+        print(f"📊 Error Handling Score: {summary['error_handling_score']:.1f}/100")
         
         # Show decorator usage
         if results['decorator_usage']:
-            print(fPath(r"\n🎯 DECORATOR USAGE:"))
+            print(f"\n🎯 DECORATOR USAGE:")
             for decorator, usages in results['decorator_usage'].items():
                 print(f"  @{decorator}: {len(usages)} functions")
         
         # Show error types
         if results['error_types']:
-            print(fPath(r"\n🚨 ERROR TYPES:"))
+            print(f"\n🚨 ERROR TYPES:")
             for error_type, usages in list(results['error_types'].items())[:5]:
                 print(f"  {error_type}: {len(usages)} usages")
         
         # Show inconsistencies
         if results['inconsistencies']:
-            print(fPath(r"\n⚠️ INCONSISTENCIES:"))
+            print(f"\n⚠️ INCONSISTENCIES:")
             for inconsistency_type, details in results['inconsistencies'].items():
                 print(f"  📦 {inconsistency_type}: {details['description']}")
         
-        print(fPath(r"\n💡 RECOMMENDATIONS:"))
+        print(f"\n💡 RECOMMENDATIONS:")
         for rec in results['recommendations']:
             print(f"  {rec}")
         
-        print(fPath(r"\n📄 Full report saved to: {output_file}"))
+        print(f"\n📄 Full report saved to: {output_file}")
         print("="*60)
 
 def main():

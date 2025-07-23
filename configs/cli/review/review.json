@@ -1,39 +1,67 @@
 {
-  "command": "review",
-  "type": "needs_input",
-  "terminal_flag": "--review",
   "app_command": "/review",
-  "interface_method": "review_workflow",
-  "help": "Review and search workflows with detailed status and recovery options",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "workflow_state",
+      "search_parameters",
+      "system_state"
+    ],
+    "duration_seconds": 600,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "review",
   "cost_estimate": 0.003,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Review and search workflows with detailed status and recovery options",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_state",
+      "memory_mcp"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "review_workflow",
   "logic_file": "configs/cli/review/review.py",
-  "ui_file": "configs/cli/review/ui_review.py",
+  "name": "default_command",
   "operations": {
+    "detailed_review": {
+      "description": "Detailed workflow analysis and review",
+      "optional_params": [
+        "include_context"
+      ],
+      "required_params": true
+    },
     "execute": {
       "description": "Main workflow review operation",
-      "required_params": [],
-      "optional_params": ["workflow_id", "command", "user_id", "search", "detailed", "include_context"]
+      "optional_params": [
+        "workflow_id",
+        "command",
+        "user_id",
+        "search",
+        "detailed",
+        "include_context"
+      ],
+      "required_params": true
     },
     "search": {
       "description": "Search workflows for review",
-      "required_params": ["search"],
-      "optional_params": ["user_id", "detailed"]
-    },
-    "detailed_review": {
-      "description": "Detailed workflow analysis and review",
-      "required_params": ["workflow_id"],
-      "optional_params": ["include_context"]
+      "optional_params": [
+        "user_id",
+        "detailed"
+      ],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 600,
-    "cache_key_includes": ["workflow_state", "search_parameters", "system_state"]
-  }
+  "required": false,
+  "terminal_flag": "--review",
+  "type": "needs_input",
+  "ui_file": "configs/cli/review/ui_review.py"
 }

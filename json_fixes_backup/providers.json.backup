@@ -1,0 +1,30 @@
+{
+  "name": "providers",
+  "command": "providers",
+  "type": "standalone",
+  "terminal_flag": "--providers",
+  "app_command": "/providers",
+  "interface_method": "list_providers",
+  "help": "List all available providers with metadata and capabilities",
+  "cost_estimate": 0.001,
+  "file_path": "configs/cli/providers/providers.py",
+  "ui_path": "configs/cli/providers/ui_providers.py",
+  "operations": {
+    "list": {
+      "description": "List all available providers with comprehensive metadata",
+      "required_params": [],
+      "optional_params": ["format", "filter"]
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["manager_models"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 900,
+    "cache_key_includes": ["providers_directory_state", "provider_files_hash"]
+  }
+}

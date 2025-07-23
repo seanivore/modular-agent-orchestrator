@@ -1,0 +1,740 @@
+{
+  "summary": {
+    "files_analyzed": 83,
+    "files_modified": 28,
+    "total_fixes_applied": 75,
+    "backup_directory": "json_fixes_backup",
+    "config_types": {
+      "app_settings": {
+        "files": 9,
+        "fixes": 28
+      },
+      "generic": {
+        "files": 57,
+        "fixes": 13
+      },
+      "provider_config": {
+        "files": 8,
+        "fixes": 15
+      },
+      "model_config": {
+        "files": 9,
+        "fixes": 19
+      }
+    }
+  },
+  "detailed_results": [
+    {
+      "file": "configs/settings/data_collection_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/data_collection_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/cat_vibes_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/cat_vibes_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/theme_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/theme_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/favorite_model_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/favorite_model_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/application_settings_schema.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/settings/quick_launch_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/quick_launch_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/double_texting_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/double_texting_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/default_provider_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/default_provider_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/settings/tone_notification_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/tone_notification_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/providers/anthropic-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/anthropic-direct.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/providers/openai-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/openai-direct.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/providers/gemini-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/gemini-direct.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/providers/lm-studio.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/lm-studio.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/providers/litellm.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/litellm.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/providers/requesty.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/requesty.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/claude-3-7-sonnet.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/claude-3-7-sonnet.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/gpt-4.1-mini.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/gpt-4.1-mini.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/gpt-4.1-nano.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/gpt-4.1-nano.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/gemini-2.5-pro.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/gemini-2.5-pro.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/claude-opus-4.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/claude-opus-4.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/local-llama-3.1-8b.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/local-llama-3.1-8b.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/models/claude-sonnet-4.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/claude-sonnet-4.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/connections/providers_x_models.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "Renamed field 'claude-sonnet-4-20250514' to 'claude_sonnet_4_20250514'",
+        "Renamed field 'claude-opus-4-20250514' to 'claude_opus_4_20250514'",
+        "Renamed field 'claude-3-7-sonnet-20250219' to 'claude_3_7_sonnet_20250219'",
+        "Renamed field 'google/gemini-2.5-pro-exp-03-25' to 'google/gemini_2.5_pro_exp_03_25'",
+        "Renamed field 'anthropic/claude-3-7-sonnet-latest' to 'anthropic/claude_3_7_sonnet_latest'",
+        "Renamed field 'vertex/anthropic/claude-3-7-sonnet-latest' to 'vertex/anthropic/claude_3_7_sonnet_latest'",
+        "Renamed field 'openai/gpt-4.1-nano' to 'openai/gpt_4.1_nano'",
+        "Renamed field 'openai/gpt-4.1-mini' to 'openai/gpt_4.1_mini'",
+        "Renamed field 'gemini-2.5-pro' to 'gemini_2.5_pro'",
+        "Renamed field 'local-llama-3.1-8b' to 'local_llama_3.1_8b'"
+      ],
+      "fix_count": 10,
+      "backup_path": "json_fixes_backup/providers_x_models.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/connections/models_x_tools.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/connections/mcp_servers.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/system/analytics/aggregate_usage.json",
+      "config_type": "generic",
+      "fixes_applied": [
+        "Renamed field '09:00-12:00' to '09:00_12:00'",
+        "Renamed field '13:00-17:00' to '13:00_17:00'",
+        "Renamed field '18:00-22:00' to '18:00_22:00'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/aggregate_usage.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/system/analytics/tool_performance.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/mao/mao.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/dry_run/dry_run.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/tools/tools.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/privacy/privacy.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/memory/memory.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/update/update.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/chat/chat.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/config/config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/set_model/set_model.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/providers/providers.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 1,
+      "backup_path": "json_fixes_backup/providers.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/cli/doctor/doctor.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/fix_it/fix_it.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/setup/setup.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/provider/provider.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/workflows/workflows.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/logout/logout.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/models/models.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'name'",
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 3,
+      "backup_path": "json_fixes_backup/models.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "configs/cli/user_id/user_id.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/onboard/onboard.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/restart/restart.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/verbose/verbose.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/provider_list/provider_list.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/output_directory/output_directory.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/logs/logs.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/default_provider/default_provider.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/variables_explain/variables_explain.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/variables/variables.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/review/review.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/workflow_id/workflow_id.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/model/model.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/exit/exit.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/continue/continue.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/login/login.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/stats/stats.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/help/help.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/cli/goal/goal.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/user_seanivore.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/memories/personal_preferences.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/memories/project_context.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/cost_tracking.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/workflow_metrics.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/session_metrics.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/tool_usage.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_phase_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_handoff_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_workflow_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/settings/setting_name_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing required field 'app_name'",
+        "Added missing required field 'version'",
+        "Added missing required field 'created_date'",
+        "Added missing required field 'last_updated'"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_fixes_backup/setting_name_app_settings.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "templates/tools/tool_config_template.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/tools/tool.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/cli_commands/cli_command.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/providers/provider.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing required field 'type'",
+        "Added missing required field 'api_base'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/provider.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "templates/workflows/example-workflow_workflow_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/workflows/example-workflow_phase_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/workflows/example-workflow_handoff_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    },
+    {
+      "file": "templates/models/model.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing required field 'provider'",
+        "Added missing required field 'max_tokens'"
+      ],
+      "fix_count": 2,
+      "backup_path": "json_fixes_backup/model.json.backup",
+      "status": "normalized"
+    },
+    {
+      "file": "templates/users/user_username.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "status": "no_changes_needed"
+    }
+  ]
+}

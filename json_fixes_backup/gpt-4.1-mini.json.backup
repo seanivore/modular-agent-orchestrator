@@ -1,0 +1,16 @@
+{
+  "name": "gpt-4.1-mini",
+  "display_name": "GPT-4.1 Mini",
+  "model_id": "gpt-4.1-mini",
+  "context_window": 1048576,
+  "max_output": 32768,
+  "input_price_per_million": 0.40,
+  "output_price_per_million": 1.60,
+  "image_input_price_per_million": 10.00,
+  "image_output_price_per_million": 40.00,
+  "capabilities": {
+    "tools": true,
+    "vision": true
+  },
+  "safe_token_limit": 15000
+}

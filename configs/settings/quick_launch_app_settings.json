@@ -1,36 +1,55 @@
 {
-  "name": "quick_launch_app_settings",
-  "description": "Configure startup and login behavior",
-  "version": "1.0",
-  "quick_launch": {
-    "default": "always",
-    "description": "Launch app with last user logged in",
-    "type": "select",
-    "options": [
-      {
-        "value": "always",
-        "label": "Always",
-        "description": "Launch app with user from last session, unless logged out"
-      },
-      {
-        "value": "off", 
-        "label": "Off",
-        "description": "Load Username login on every startup"
-      },
-      {
-        "value": "continue_only",
-        "label": "Continue Only", 
-        "description": "Launch `mao --continue` to skip login, otherwise load Username login"
-      }
-    ],
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
     "ui_metadata": {
-      "section": "Startup & Navigation",
-      "preview_enabled": false,
-      "help_text": "Controls how MAO handles user login on startup"
+      "help_text": "Control application data collection",
+      "preview_enabled": true,
+      "section": "Privacy"
     }
   },
-  "_metadata": {
-    "last_updated": "2025-07-09T00:00:00Z",
-    "schema_version": "1.0"
-  }
+  "description": "Configure startup and login behavior",
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "quick_launch_app_settings",
+  "quick_launch": {
+    "default": true,
+    "description": "Launch app with last user logged in",
+    "options": [
+      {
+        "description": "Launch app with user from last session, unless logged out",
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "description": "Load Username login on every startup",
+        "label": "Off",
+        "value": "off"
+      },
+      {
+        "description": "Launch `mao --continue` to skip login, otherwise load Username login",
+        "label": "Continue Only",
+        "value": "continue_only"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Controls how MAO handles user login on startup",
+      "preview_enabled": false,
+      "section": "Startup & Navigation"
+    }
+  },
+  "version": "1.0"
 }

@@ -1,25 +1,48 @@
 {
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
+    "ui_metadata": {
+      "help_text": "Control application data collection",
+      "preview_enabled": true,
+      "section": "Privacy"
+    }
+  },
+  "last_updated": "2025-07-23T08:15:00.000000Z",
   "setting_name": {
-    "default": "default_value",
+    "default": true,
     "description": "Brief description of what this setting controls",
-    "type": "select",
-    "options": [
-      {
-        "value": "option_value",
-        "label": "Option Display Name",
-        "description": "Detailed description of what this option does"
-      }
-    ],
-    "source": "dynamic_list_name",
     "fallback_options": [
       "fallback_option_1",
       "fallback_option_2"
     ],
+    "options": [
+      {
+        "description": "Detailed description of what this option does",
+        "label": "Option Display Name",
+        "value": "option_value"
+      }
+    ],
+    "source": "dynamic_list_name",
+    "type": "select",
     "ui_metadata": {
-      "section": "Settings Section Name",
+      "help_text": "Additional contextual help text",
       "icon": "arrow-right",
       "preview_enabled": true,
-      "help_text": "Additional contextual help text"
+      "section": "Settings Section Name"
     }
-  }
+  },
+  "version": "default_version"
 }

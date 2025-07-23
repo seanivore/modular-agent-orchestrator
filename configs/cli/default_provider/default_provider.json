@@ -1,33 +1,47 @@
 {
-  "name": "default_provider",
-  "type": "needs_input",
-  "terminal_flag": "--default-provider",
   "app_command": "/default-provider",
-  "interface_method": "default_provider",
-  "help": "Set default provider for workflows",
-  "cost_estimate": 0.0001,
-  "logic_file": "configs/cli/default_provider/default_provider.py",
-  "ui_file": "configs/cli/default_provider/ui_default_provider.py",
-  "operations": {
-    "set_default": {
-      "description": "Set default provider for user workflows",
-      "required_params": ["provider_name"],
-      "optional_params": []
-    }
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "user_context",
+      "provider_availability",
+      "system_state"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
   },
+  "category": "GENERAL",
+  "command": "default",
+  "cost_estimate": 0.0001,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Set default provider for workflows",
+  "hidden": false,
   "integration": {
-    "memory_mcp": false,
     "cache_system": true,
     "error_handling": true,
-    "manager_touchpoints": ["settings_manager", "username_manager"]
+    "manager_touchpoints": [
+      "settings_manager",
+      "username_manager"
+    ],
+    "memory_mcp": false
   },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 300,
-    "cache_key_includes": ["user_context", "provider_availability", "system_state"]
+  "interface_method": "default_provider",
+  "logic_file": "configs/cli/default_provider/default_provider.py",
+  "name": "default_provider",
+  "operations": {
+    "set_default": true
   },
+  "required": false,
+  "terminal_flag": "--default-provider",
+  "type": "needs_input",
+  "ui_file": "configs/cli/default_provider/ui_default_provider.py",
   "validation": {
-    "provider_sources": ["dynamic_provider_list", "fallback_options"],
+    "provider_sources": [
+      "dynamic_provider_list",
+      "fallback_options"
+    ],
     "requires_user_session": true,
     "setting_name": "default_provider"
   }

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "files_analyzed": 130,
-    "files_parsed": 53,
-    "pathlib_operations": 68,
+    "files_analyzed": 134,
+    "files_parsed": 63,
+    "pathlib_operations": 105,
     "string_path_operations": 1,
-    "file_existence_checks": 6,
-    "hardcoded_separators": 520,
+    "file_existence_checks": 18,
+    "hardcoded_separators": 656,
     "inconsistency_types": 2,
     "path_handling_score": 0
   },
@@ -404,10 +404,90 @@
         "args_count": 1
       },
       {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "ErrorHandlingAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 26,
+        "function": "__init__",
+        "class": "JSONConfigAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 408,
+        "function": "generate_report",
+        "class": "JSONConfigAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 417,
+        "function": "generate_report",
+        "class": "JSONConfigAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 23,
         "function": "__init__",
         "class": "FilePathAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "FunctionNamingAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 342,
+        "function": "generate_report",
+        "class": "FunctionNamingAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 24,
+        "function": "__init__",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 25,
+        "function": "__init__",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "DesignerPrecisionFilePathFixer",
         "method": "Path",
         "args_count": 1
       },
@@ -482,6 +562,70 @@
         "class": "ImportFixer",
         "method": "Path",
         "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 22,
+        "function": "__init__",
+        "class": "FunctionNamingPerfector",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "FunctionNamingPerfector",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "ImportAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 272,
+        "function": "generate_report",
+        "class": "ImportAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 25,
+        "function": "__init__",
+        "class": "QualityAuditSuite",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 23,
+        "function": "__init__",
+        "class": "CacheUsageAuditor",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 25,
+        "function": "__init__",
+        "class": "JSONConfigNormalizer",
+        "method": "Path",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 26,
+        "function": "__init__",
+        "class": "JSONConfigNormalizer",
+        "method": "Path",
+        "args_count": 1
       }
     ],
     "Path.exists": [
@@ -494,10 +638,74 @@
         "args_count": 0
       },
       {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 50,
+        "function": "find_python_files",
+        "class": "ErrorHandlingAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 57,
         "function": "find_python_files",
         "class": "FilePathAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 53,
+        "function": "find_python_files",
+        "class": "FunctionNamingAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 111,
+        "function": "find_json_files",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 227,
+        "function": "find_files_needing_precision",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 112,
+        "function": "find_python_files",
+        "class": "FunctionNamingPerfector",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 74,
+        "function": "run_audit_script",
+        "class": "QualityAuditSuite",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 55,
+        "function": "find_python_files",
+        "class": "CacheUsageAuditor",
+        "method": "Path.exists",
+        "args_count": 0
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 108,
+        "function": "find_json_files",
+        "class": "JSONConfigNormalizer",
         "method": "Path.exists",
         "args_count": 0
       }
@@ -548,11 +756,101 @@
     ],
     "Path.rglob": [
       {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 51,
+        "function": "find_python_files",
+        "class": "ErrorHandlingAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 58,
         "function": "find_python_files",
         "class": "FilePathAuditor",
         "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 54,
+        "function": "find_python_files",
+        "class": "FunctionNamingAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 112,
+        "function": "find_json_files",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 228,
+        "function": "find_files_needing_precision",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 113,
+        "function": "find_python_files",
+        "class": "FunctionNamingPerfector",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 56,
+        "function": "find_python_files",
+        "class": "CacheUsageAuditor",
+        "method": "Path.rglob",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 109,
+        "function": "find_json_files",
+        "class": "JSONConfigNormalizer",
+        "method": "Path.rglob",
+        "args_count": 1
+      }
+    ],
+    "Path.relative_to": [
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 51,
+        "function": "create_backup",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 195,
+        "function": "designer_precision_file_fix",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 203,
+        "function": "designer_precision_file_fix",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
+        "args_count": 1
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 211,
+        "function": "designer_precision_file_fix",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "Path.relative_to",
         "args_count": 1
       }
     ],
@@ -610,6 +908,13 @@
         "method": "exists"
       },
       {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 50,
+        "function": "find_python_files",
+        "class": "ErrorHandlingAuditor",
+        "method": "exists"
+      },
+      {
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 57,
         "function": "find_python_files",
@@ -617,10 +922,87 @@
         "method": "exists"
       },
       {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 53,
+        "function": "find_python_files",
+        "class": "FunctionNamingAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 95,
+        "function": "create_backup",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 111,
+        "function": "find_json_files",
+        "class": "AggressiveJSONConfigFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 47,
+        "function": "create_backup",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 227,
+        "function": "find_files_needing_precision",
+        "class": "DesignerPrecisionFilePathFixer",
+        "method": "exists"
+      },
+      {
         "file": "scripts/quality_validator/import_fixer.py",
         "line": 195,
         "function": "run_fixer",
         "class": "ImportFixer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 96,
+        "function": "create_backup",
+        "class": "FunctionNamingPerfector",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 112,
+        "function": "find_python_files",
+        "class": "FunctionNamingPerfector",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 74,
+        "function": "run_audit_script",
+        "class": "QualityAuditSuite",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 55,
+        "function": "find_python_files",
+        "class": "CacheUsageAuditor",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 92,
+        "function": "create_backup",
+        "class": "JSONConfigNormalizer",
+        "method": "exists"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 108,
+        "function": "find_json_files",
+        "class": "JSONConfigNormalizer",
         "method": "exists"
       }
     ]
@@ -3043,6 +3425,136 @@
         "content": "print(fPath(r\"\\\\n\ud83d\udcb0 Estimated cost: ${cost_estimate:.4f}\"))"
       },
       {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 46,
+        "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\", \"tools\"]"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 203,
+        "content": "'description': 'Functions using both @handle_errors and manual try/catch',"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 232,
+        "content": "'recommendation': 'Standardize error return format (suggest dict with success/error keys)'"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 288,
+        "content": "recommendations.append(\"\ud83d\udd27 Remove manual try/catch from functions already using @handle_errors decorator\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 363,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 371,
+        "content": "print(f\"\ud83d\udd27 Functions with manual try/catch: {summary['functions_with_manual_handling']}\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 375,
+        "content": "print(f\"\ud83d\udcca Error Handling Score: {summary['error_handling_score']:.1f}/100\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 379,
+        "content": "print(f\"\\n\ud83c\udfaf DECORATOR USAGE:\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 385,
+        "content": "print(f\"\\n\ud83d\udea8 ERROR TYPES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 391,
+        "content": "print(f\"\\n\u26a0\ufe0f INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 395,
+        "content": "print(f\"\\n\ud83d\udca1 RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 399,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 166,
+        "content": "r'\\d{4}-\\d{2}-\\d{2}',  # 2025-07-23"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 167,
+        "content": "r'\\d{2}/\\d{2}/\\d{2,4}',  # 07/23/25 or 07/23/2025"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 168,
+        "content": "r'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}',  # ISO format"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 175,
+        "content": "if re.search(r'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}', value):"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 177,
+        "content": "elif re.search(r'\\d{4}-\\d{2}-\\d{2}', value):"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 179,
+        "content": "elif re.search(r'\\d{2}/\\d{2}/\\d{4}', value):"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 181,
+        "content": "elif re.search(r'\\d{2}/\\d{2}/\\d{2}', value):"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 329,
+        "content": "recommendations.append(\"\u2705 Standardize boolean formats - suggest using native JSON booleans (true/false)\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 389,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 404,
+        "content": "print(f\"\\n\ud83d\uddd3\ufe0f DATE FORMAT INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 413,
+        "content": "print(f\"\\n\u2705 BOOLEAN FORMAT INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 422,
+        "content": "print(f\"\\n\ud83d\udccb SCHEMA INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 428,
+        "content": "print(f\"\\n\ud83d\udca1 RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 432,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 42,
         "content": "'hardcoded_separators': r'[\"\\'][^\"\\']*[/\\\\][^\"\\']*[\"\\']',"
@@ -3066,11 +3578,6 @@
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 53,
         "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\", \"tools\", \"scripts\"]"
-      },
-      {
-        "file": "scripts/quality_validator/file_path_audit.py",
-        "line": 179,
-        "content": "# Look for patterns like string + \"/\" + string"
       },
       {
         "file": "scripts/quality_validator/file_path_audit.py",
@@ -3146,6 +3653,296 @@
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 425,
         "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 49,
+        "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\"]"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 321,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 337,
+        "content": "print(f\"\\n\ud83d\udc65 SIMILAR FUNCTION GROUPS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 346,
+        "content": "print(f\"\\n\u26a0\ufe0f MANAGER INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 354,
+        "content": "print(f\"\\n\ud83d\udcdd PARAMETER INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 360,
+        "content": "print(f\"\\n\ud83d\udca1 RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 364,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 60,
+        "content": "'api_base': 'https://api.example.com',"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 126,
+        "content": "elif '/providers/' in path_parts:"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 128,
+        "content": "elif '/models/' in path_parts:"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 130,
+        "content": "elif '/cli/' in path_parts:"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 151,
+        "content": "if any(pattern in value for pattern in ['2023', '2024', '2025', '-', '/']):"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 338,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 349,
+        "content": "print(f\"\\n\ud83c\udfaf 100/100 PERFECTION ACHIEVED!\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 350,
+        "content": "print(f\"\ud83d\udca1 Re-run the JSON config audit to see PERFECT 100/100 score\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 352,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 29,
+        "content": "r'[\"\\'][^\"\\']*\\.(py|json|txt|md|sh|js|ts|css|html)[\"\\']',  # File extensions"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 30,
+        "content": "r'[\"\\'][^\"\\']*/(configs|scripts|tools|orchestrator|interfaces)[^\"\\']*[\"\\']',  # Known dirs"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 31,
+        "content": "r'[\"\\']\\.{1,2}/[^\"\\']*[\"\\']',  # Relative paths (./ or ../)"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 32,
+        "content": "r'[\"\\']~?/[^\"\\']*[\"\\']'  # Absolute paths or home paths"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 37,
+        "content": "r'os\\.path\\.join\\s*\\(',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 38,
+        "content": "r'os\\.path\\.exists\\s*\\(',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 39,
+        "content": "r'os\\.path\\.dirname\\s*\\(',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 40,
+        "content": "r'os\\.path\\.basename\\s*\\(',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 41,
+        "content": "r'os\\.path\\.abspath\\s*\\('"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 64,
+        "content": "r'^https?://',"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 65,
+        "content": "r'^[a-zA-Z]+://',  # Protocol patterns"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 66,
+        "content": "r'^\\w+$',  # Single words"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 69,
+        "content": "r'\\\\[wWdDsS]',  # Regex patterns"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 70,
+        "content": "r'%[sd]|{}|\\{[^}]+\\}',  # Format strings"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 71,
+        "content": "r'^[a-z_]+\\.[a-z_]+$'  # Object notation"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 80,
+        "content": "r'\\.(py|json|txt|md|sh|js|ts|css|html|yml|yaml)$',  # File extensions"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 81,
+        "content": "r'/(configs|scripts|tools|orchestrator|interfaces)',  # Known directories"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 82,
+        "content": "r'^\\.{1,2}/',  # Relative paths"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 83,
+        "content": "r'^~?/',  # Absolute or home paths"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 84,
+        "content": "r'/.*/',  # Contains directory separators"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 85,
+        "content": "r'\\\\.*\\\\'  # Windows paths"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 102,
+        "content": "return f\"Path({args[0]}) / {args[1]}\""
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 105,
+        "content": "rest = ' / '.join(args[1:])"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 106,
+        "content": "return f\"Path({first}) / {rest}\""
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 109,
+        "content": "join_pattern = r'os\\.path\\.join\\s*\\(([^)]+)\\)'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 116,
+        "content": "(r'os\\.path\\.exists\\s*\\(([^)]+)\\)', r'Path(\\1).exists()'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 117,
+        "content": "(r'os\\.path\\.dirname\\s*\\(([^)]+)\\)', r'Path(\\1).parent'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 118,
+        "content": "(r'os\\.path\\.basename\\s*\\(([^)]+)\\)', r'Path(\\1).name'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 119,
+        "content": "(r'os\\.path\\.abspath\\s*\\(([^)]+)\\)', r'Path(\\1).resolve()'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 120,
+        "content": "(r'os\\.path\\.isfile\\s*\\(([^)]+)\\)', r'Path(\\1).is_file()'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 121,
+        "content": "(r'os\\.path\\.isdir\\s*\\(([^)]+)\\)', r'Path(\\1).is_dir()')"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 127,
+        "content": "fixes.append(f\"\ud83c\udfaf Converted {pattern.split('.')[2].split('\\\\')[0]} to pathlib\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 131,
+        "content": "concat_pattern = r'(\\w+)\\s*\\+\\s*[\"\\'][/\\\\][\"\\']?\\s*\\+\\s*(\\w+)'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 133,
+        "content": "content = re.sub(concat_pattern, r'Path(\\1) / \\2', content)"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 141,
+        "content": "lines = content.split('\\n')"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 165,
+        "content": "return '\\n'.join(lines), fixes"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 223,
+        "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\", \"tools\", \"scripts\"]"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 234,
+        "content": "if any(pattern in content for pattern in ['os.path', '/', '\\\\']):"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 288,
+        "content": "print(\"\\n\" + \"=\"*70)"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 300,
+        "content": "print(f\"\\n\ud83d\udd25 DESIGNER PRECISION ACHIEVED!\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 304,
+        "content": "print(f\"\\n\u2728 Already at designer perfection level!\")"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 306,
+        "content": "print(f\"\\n\ud83d\udcc4 Designer report: {output_file}\")"
       },
       {
         "file": "scripts/quality_validator/import_fixer.py",
@@ -3226,6 +4023,271 @@
         "file": "scripts/quality_validator/import_fixer.py",
         "line": 250,
         "content": "print(fPath(r\"\\n\u2705 Import fixing complete!\"))"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 108,
+        "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\", \"tools\"]"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 243,
+        "content": "def_pattern = rf'def {re.escape(old_name)}\\s*\\('"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 250,
+        "content": "call_pattern = rf'\\b{re.escape(old_name)}\\s*\\('"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 316,
+        "content": "print(\"\ud83d\udcaf TARGET: 98.2/100 \u2192 100/100 (Final 1.8% elimination)\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 342,
+        "content": "'perfection_target': '100/100'"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 361,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 372,
+        "content": "print(f\"\\n\ud83c\udfaf PERFECTION ACHIEVED!\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 373,
+        "content": "print(f\"\ud83d\udca1 Re-run function naming audit to see 100/100 score\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 375,
+        "content": "print(f\"\\n\ud83d\udcaf Function naming was already perfect!\")"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 377,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 44,
+        "content": "\"versioning/v*/\", \"tests/typescript-*\""
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 66,
+        "content": "lines = content.split('\\n')"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 71,
+        "content": "match = re.search(r'sys\\.path\\.append\\((.*?)\\)', line)"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 112,
+        "content": "lines = content.split('\\n')"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 154,
+        "content": "lines = content.split('\\n')"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 259,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 270,
+        "content": "print(f\"\\n\ud83d\udd27 SYS.PATH.APPEND ISSUES ({len(results['sys_path_issues'])}):\")"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 281,
+        "content": "print(f\"\\n\u26a0\ufe0f  INCONSISTENT IMPORTS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 287,
+        "content": "print(f\"\\n\ud83d\udca1 RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 291,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 26,
+        "content": "self.scripts_dir = self.project_root / \"scripts\" / \"quality_validator\""
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 48,
+        "content": "\"description\": \"Analyzes function/method naming consistency\""
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 230,
+        "content": "insights.append(\"\ud83d\udd27 Consider implementing automated quality checks in your CI/CD pipeline.\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 280,
+        "content": "print(f\"\\n\ud83d\udcca {audit_info['name']}\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 287,
+        "content": "print(f\"\u2705 Completed - Score: {score:.1f}/100\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 291,
+        "content": "print(f\"\\n\u23ed\ufe0f Skipping {audit_info['name']} (not implemented)\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 311,
+        "content": "print(\"\\n\" + \"=\" * 70)"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 324,
+        "content": "print(f\"\\n\ud83c\udfaf OVERALL QUALITY SCORE: {score:.1f}/100 {indicator}\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 327,
+        "content": "print(f\"\\n\ud83d\udcc8 AUDIT BREAKDOWN:\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 330,
+        "content": "print(f\"  {status_icon} {score_info['name']}: {score_info['score']:.1f}/100 (weight: {score_info['weight']}%)\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 333,
+        "content": "print(f\"\\n\ud83d\udca1 KEY INSIGHTS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 338,
+        "content": "print(f\"\\n\ud83d\udd27 TOP RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 344,
+        "content": "print(f\"\\n\ud83d\udcca SUMMARY:\")"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 349,
+        "content": "print(\"\\n\" + \"=\" * 70)"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 39,
+        "content": "'pipe_separated': r'^[a-z_]+\\|[a-z_|\\|]+$',"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 42,
+        "content": "'contains_spaces': r'\\s',"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 51,
+        "content": "priority_dirs = [\"orchestrator\", \"configs/cli\", \"interfaces\", \"tools\"]"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 391,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 402,
+        "content": "print(f\"\ud83d\udcca Cache Usage Score: {summary['cache_usage_score']:.1f}/100\")"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 406,
+        "content": "print(f\"\\n\u26a1 CACHE OPERATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 412,
+        "content": "print(f\"\\n\ud83c\udff7\ufe0f CACHE KEY PATTERNS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 418,
+        "content": "print(f\"\\n\u26a0\ufe0f INCONSISTENCIES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 422,
+        "content": "print(f\"\\n\ud83d\udca1 RECOMMENDATIONS:\")"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 426,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 147,
+        "content": "\"%Y/%m/%d\","
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 149,
+        "content": "\"%m/%d/%Y\","
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 187,
+        "content": "new_key = re.sub('([a-z0-9])([A-Z])', r'\\1_\\2', key).lower()"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 376,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 388,
+        "content": "print(f\"\\n\ud83d\udcca CONFIG TYPES:\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 393,
+        "content": "print(f\"\\n\u2705 SUCCESS! Normalized {summary['total_fixes_applied']} JSON configuration issues!\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 394,
+        "content": "print(f\"\ud83d\udca1 Re-run the JSON config audit to see 100/100 score\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 396,
+        "content": "print(f\"\\n\ud83d\udccb No JSON configuration issues found to fix\")"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 398,
+        "content": "print(f\"\\n\ud83d\udcc4 Full report saved to: {output_file}\")"
       }
     ],
     "concatenated": [
@@ -3340,14 +4402,19 @@
         "content": "console.print(f\"[green]\u2705 Content appended: {file_name}[/green] [green]+{appended_length}[\" / \"green]\")"
       },
       {
-        "file": "scripts/quality_validator/file_path_audit.py",
-        "line": 43,
-        "content": "'concatenated_paths': r'\\+.*[\"\\'][^\"\\']*[/\\\\]',"
+        "file": "scripts/quality_validator/error_handling_audit.py",
+        "line": 363,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_audit.py",
+        "line": 389,
+        "content": "print(\"\\n\" + \"=\"*60)"
       },
       {
         "file": "scripts/quality_validator/file_path_audit.py",
-        "line": 179,
-        "content": "# Look for patterns like string + \"/\" + string"
+        "line": 43,
+        "content": "'concatenated_paths': r'\\+.*[\"\\'][^\"\\']*[/\\\\]',"
       },
       {
         "file": "scripts/quality_validator/file_path_audit.py",
@@ -3358,19 +4425,129 @@
         "file": "scripts/quality_validator/file_path_audit.py",
         "line": 389,
         "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_audit.py",
+        "line": 321,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_fixer_v2.py",
+        "line": 338,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 65,
+        "content": "r'^[a-zA-Z]+://',  # Protocol patterns"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 66,
+        "content": "r'^\\w+$',  # Single words"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 70,
+        "content": "r'%[sd]|{}|\\{[^}]+\\}',  # Format strings"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 71,
+        "content": "r'^[a-z_]+\\.[a-z_]+$'  # Object notation"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 109,
+        "content": "join_pattern = r'os\\.path\\.join\\s*\\(([^)]+)\\)'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 116,
+        "content": "(r'os\\.path\\.exists\\s*\\(([^)]+)\\)', r'Path(\\1).exists()'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 117,
+        "content": "(r'os\\.path\\.dirname\\s*\\(([^)]+)\\)', r'Path(\\1).parent'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 118,
+        "content": "(r'os\\.path\\.basename\\s*\\(([^)]+)\\)', r'Path(\\1).name'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 119,
+        "content": "(r'os\\.path\\.abspath\\s*\\(([^)]+)\\)', r'Path(\\1).resolve()'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 120,
+        "content": "(r'os\\.path\\.isfile\\s*\\(([^)]+)\\)', r'Path(\\1).is_file()'),"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 121,
+        "content": "(r'os\\.path\\.isdir\\s*\\(([^)]+)\\)', r'Path(\\1).is_dir()')"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 131,
+        "content": "concat_pattern = r'(\\w+)\\s*\\+\\s*[\"\\'][/\\\\][\"\\']?\\s*\\+\\s*(\\w+)'"
+      },
+      {
+        "file": "scripts/quality_validator/file_path_fixer_v3_designer_precision.py",
+        "line": 288,
+        "content": "print(\"\\n\" + \"=\"*70)"
+      },
+      {
+        "file": "scripts/quality_validator/function_naming_perfector.py",
+        "line": 361,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/import_audit.py",
+        "line": 259,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 311,
+        "content": "print(\"\\n\" + \"=\" * 70)"
+      },
+      {
+        "file": "scripts/quality_validator/quality_audit_suite.py",
+        "line": 349,
+        "content": "print(\"\\n\" + \"=\" * 70)"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 39,
+        "content": "'pipe_separated': r'^[a-z_]+\\|[a-z_|\\|]+$',"
+      },
+      {
+        "file": "scripts/quality_validator/cache_usage_audit.py",
+        "line": 391,
+        "content": "print(\"\\n\" + \"=\"*60)"
+      },
+      {
+        "file": "scripts/quality_validator/json_config_normalizer.py",
+        "line": 376,
+        "content": "print(\"\\n\" + \"=\"*60)"
       }
     ]
   },
   "inconsistencies": {
     "mixed_path_apis": {
       "description": "Mixed usage of pathlib and os.path",
-      "pathlib_operations": 68,
+      "pathlib_operations": 105,
       "string_path_operations": 1,
       "recommendation": "Standardize on pathlib.Path for consistency and cross-platform compatibility"
     },
     "hardcoded_separators": {
       "description": "Hardcoded path separators found",
-      "count": 520,
+      "count": 656,
       "recommendation": "Use pathlib.Path or os.path.join for cross-platform compatibility"
     }
   },

@@ -1,0 +1,34 @@
+{
+  "name": "default_provider",
+  "type": "needs_input",
+  "terminal_flag": "--default-provider",
+  "app_command": "/default-provider",
+  "interface_method": "default_provider",
+  "help": "Set default provider for workflows",
+  "cost_estimate": 0.0001,
+  "logic_file": "configs/cli/default_provider/default_provider.py",
+  "ui_file": "configs/cli/default_provider/ui_default_provider.py",
+  "operations": {
+    "set_default": {
+      "description": "Set default provider for user workflows",
+      "required_params": ["provider_name"],
+      "optional_params": []
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["settings_manager", "username_manager"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 300,
+    "cache_key_includes": ["user_context", "provider_availability", "system_state"]
+  },
+  "validation": {
+    "provider_sources": ["dynamic_provider_list", "fallback_options"],
+    "requires_user_session": true,
+    "setting_name": "default_provider"
+  }
+}

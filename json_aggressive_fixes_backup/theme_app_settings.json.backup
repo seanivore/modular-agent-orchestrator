@@ -1,0 +1,54 @@
+{
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:11:57.497757Z",
+  "description": "Configure visual theme and color preferences",
+  "last_updated": "2025-07-23T08:11:57.497766Z",
+  "name": "theme_app_settings",
+  "theme": {
+    "default": "dark_mode_cvd",
+    "description": "Dark computer theme; use high legibility colors",
+    "options": [
+      {
+        "description": "Standard dark theme for most users",
+        "label": "Dark mode",
+        "value": "dark_mode"
+      },
+      {
+        "description": "Light theme for bright environments",
+        "label": "Light mode",
+        "value": "light_mode"
+      },
+      {
+        "description": "Dark mode with colorblind-friendly high contrast colors",
+        "label": "Dark mode (CVD)",
+        "value": "dark_mode_cvd"
+      },
+      {
+        "description": "Light mode with colorblind-friendly high contrast colors",
+        "label": "Light mode (CVD)",
+        "value": "light_mode_cvd"
+      },
+      {
+        "description": "Dark mode using only basic terminal colors",
+        "label": "Dark mode (ANSI colors only)",
+        "value": "dark_mode_ansi"
+      },
+      {
+        "description": "Light mode using only basic terminal colors",
+        "label": "Light mode (ANSI colors only)",
+        "value": "light_mode_ansi"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Visual theme affects all interface colors and contrast",
+      "preview_enabled": true,
+      "section": "Interface & Experience"
+    }
+  },
+  "version": "1.0"
+}

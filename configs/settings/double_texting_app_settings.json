@@ -1,31 +1,50 @@
 {
-  "name": "double_texting_app_settings",
-  "description": "Configure conversation interruption preferences",
-  "version": "1.0",
-  "double_texting": {
-    "default": "always",
-    "description": "Interrupt Mao like any messenger experience",
-    "type": "select",
-    "options": [
-      {
-        "value": "always",
-        "label": "Always",
-        "description": "Interrupt workflows and conversations anytime - feels like texting"
-      },
-      {
-        "value": "never",
-        "label": "Never",
-        "description": "Wait for complete responses - one message at a time"
-      }
-    ],
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
     "ui_metadata": {
-      "section": "Interface & Experience",
-      "preview_enabled": false,
-      "help_text": "Controls whether you can interrupt ongoing conversations and workflows"
+      "help_text": "Control application data collection",
+      "preview_enabled": true,
+      "section": "Privacy"
     }
   },
-  "_metadata": {
-    "last_updated": "2025-07-09T00:00:00Z",
-    "schema_version": "1.0"
-  }
+  "description": "Configure conversation interruption preferences",
+  "double_texting": {
+    "default": true,
+    "description": "Interrupt Mao like any messenger experience",
+    "options": [
+      {
+        "description": "Interrupt workflows and conversations anytime - feels like texting",
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "description": "Wait for complete responses - one message at a time",
+        "label": "Never",
+        "value": "never"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Controls whether you can interrupt ongoing conversations and workflows",
+      "preview_enabled": false,
+      "section": "Interface & Experience"
+    }
+  },
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "double_texting_app_settings",
+  "version": "1.0"
 }

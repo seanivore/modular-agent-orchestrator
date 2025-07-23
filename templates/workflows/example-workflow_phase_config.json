@@ -1,57 +1,83 @@
 {
+  "_metadata": {
+    "config_type": "provider_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
+  "api_base": "https://api.example.com",
+  "default": false,
+  "enabled": true,
+  "name": "default_provider",
   "phase": [
     {
-      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID",
-      "phase_number": "01",
-      "phase_goal": "Research and analysis phase",
+      "model_1": "claude-sonnet-4",
+      "model_2": "claude-sonnet-3.7",
+      "model_3": "gemini-2.5-pro",
       "phase_deliverable": "Research findings document",
       "phase_description": "Conduct comprehensive research on the topic using web search and analysis tools. Gather data from multiple sources and create initial findings document.",
+      "phase_goal": "Research and analysis phase",
+      "phase_number": "01",
+      "provider_1": "anthropic-direct",
+      "provider_2": "anthropic-direct",
+      "provider_3": "requesty",
       "resources": [
         "./example-resources/sample-data.md",
         "https://example.com/reference-material"
       ],
-      "tools": ["web_search", "perplexity_search", "text_editor"],
-      "model_1": "claude-sonnet-4",
-      "model_2": "claude-sonnet-3.7", 
-      "model_3": "gemini-2.5-pro",
-      "provider_1": "anthropic-direct",
-      "provider_2": "anthropic-direct",
-      "provider_3": "requesty"
+      "tools": [
+        "web_search",
+        "perplexity_search",
+        "text_editor"
+      ],
+      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
     },
     {
-      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID",
-      "phase_number": "02", 
-      "phase_goal": "Analysis and synthesis phase",
+      "model_1": "claude-opus-4",
+      "model_2": "claude-sonnet-4",
+      "model_3": "gemini-2.5-pro",
       "phase_deliverable": "Analyzed data with insights",
       "phase_description": "Process the research findings, identify patterns and insights, create visual representations if needed, and synthesize into actionable intelligence.",
+      "phase_goal": "Analysis and synthesis phase",
+      "phase_number": "02",
+      "provider_1": "anthropic-direct",
+      "provider_2": "anthropic-direct",
+      "provider_3": "requesty",
       "resources": [
         "./deliverables/phase-01-research-findings.md"
       ],
-      "tools": ["think", "graphic_design", "text_editor", "file_operations"],
-      "model_1": "claude-opus-4",
-      "model_2": "claude-sonnet-4",
-      "model_3": "gemini-2.5-pro", 
-      "provider_1": "anthropic-direct",
-      "provider_2": "anthropic-direct",
-      "provider_3": "requesty"
+      "tools": [
+        "think",
+        "graphic_design",
+        "text_editor",
+        "file_operations"
+      ],
+      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
     },
     {
-      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID",
-      "phase_number": "03",
-      "phase_goal": "Final deliverable creation",
+      "model_1": "claude-sonnet-4",
+      "model_2": "claude-sonnet-3.7",
+      "model_3": "gemini-2.5-pro",
       "phase_deliverable": "Complete workflow report",
       "phase_description": "Compile all findings, analysis, and insights into a comprehensive final report. Format professionally and include all supporting materials.",
+      "phase_goal": "Final deliverable creation",
+      "phase_number": "03",
+      "provider_1": "anthropic-direct",
+      "provider_2": "anthropic-direct",
+      "provider_3": "requesty",
       "resources": [
         "./deliverables/phase-01-research-findings.md",
         "./deliverables/phase-02-analysis-insights.md"
       ],
-      "tools": ["text_editor", "file_operations", "graphic_design"],
-      "model_1": "claude-sonnet-4", 
-      "model_2": "claude-sonnet-3.7",
-      "model_3": "gemini-2.5-pro",
-      "provider_1": "anthropic-direct", 
-      "provider_2": "anthropic-direct",
-      "provider_3": "requesty"
+      "tools": [
+        "text_editor",
+        "file_operations",
+        "graphic_design"
+      ],
+      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
     }
-  ]
+  ],
+  "secure": true,
+  "timeout": 30,
+  "type": "api_provider"
 }

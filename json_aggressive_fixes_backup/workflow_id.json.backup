@@ -1,0 +1,54 @@
+{
+  "name": "workflow_id",
+  "command": "workflow_id",
+  "type": "standalone",
+  "terminal_flag": "--workflow_id",
+  "app_command": "/workflow_id",
+  "interface_method": "workflow_id",
+  "help": "Generate workflow ID via workflow_manager.py",
+  "cost_estimate": 0.002,
+  "file_path": "configs/cli/workflow_id/workflow_id.py",
+  "ui_path": "configs/cli/workflow_id/ui_workflow_id.py",
+  "operations": {
+    "execute": {
+      "description": "Generate unique workflow ID for workflow setup flow",
+      "required_params": [],
+      "optional_params": ["explain"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 60,
+    "cache_key_includes": ["timestamp", "generation_params"]
+  },
+  "flags": {
+    "explain": {
+      "flag": "--explain",
+      "help": "Show mathematical explanation of the workflow ID generation process",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "examples": [
+    {
+      "command": "mao workflow_id",
+      "description": "Generate a new workflow ID"
+    },
+    {
+      "command": "mao workflow_id --explain",
+      "description": "Generate workflow ID with mathematical explanation"
+    },
+    {
+      "command": "/workflow_id",
+      "description": "Generate workflow ID (app command)"
+    }
+  ],
+  "category": "workflow",
+  "complexity": "medium"
+}

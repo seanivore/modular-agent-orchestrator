@@ -1,30 +1,44 @@
 {
-  "command": "help",
-  "type": "standalone",
-  "terminal_flag": "--help",
   "app_command": "/help",
-  "interface_method": "show_help",
-  "help": "View these help messages",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "cli_directory_state",
+      "command_files_count"
+    ],
+    "duration_seconds": 3600,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "help",
   "cost_estimate": 0.001,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "View these help messages",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "memory_mcp": false,
+    "specific_touchpoints": [],
+    "universal_touchpoints": [
+      "cli_manager",
+      "ui_terminal"
+    ]
+  },
+  "interface_method": "show_help",
   "logic_file": "configs/cli/help/help.py",
-  "ui_file": "configs/cli/help/ui_help.py",
+  "name": "default_command",
   "operations": {
     "execute": {
       "description": "Display organized list of all available CLI commands",
-      "required_params": [],
-      "optional_params": []
+      "optional_params": [],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": false,
-    "cache_system": true,
-    "error_handling": true,
-    "universal_touchpoints": ["cli_manager", "ui_terminal"],
-    "specific_touchpoints": []
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 3600,
-    "cache_key_includes": ["cli_directory_state", "command_files_count"]
-  }
+  "required": false,
+  "terminal_flag": "--help",
+  "type": "standalone",
+  "ui_file": "configs/cli/help/ui_help.py"
 }

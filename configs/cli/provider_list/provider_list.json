@@ -1,8 +1,16 @@
 {
-  "command": "provider_list",
-  "type": "standalone",
-  "terminal_flag": "--provider-list",
   "app_command": "/provider-list",
+  "args": [],
+  "category": "GENERAL",
+  "command": "provider_list",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "List all available providers",
+  "hidden": false,
   "interface_method": "list_providers",
-  "help": "List all available providers"
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "--provider-list",
+  "type": "standalone"
 }

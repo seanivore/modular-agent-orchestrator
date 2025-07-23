@@ -1,22 +1,22 @@
 {
-  "sessions": [
-    {
-      "session_id": "sess_001",
-      "start_time": "2025-01-15T09:00:00Z",
-      "end_time": "2025-01-15T11:30:00Z",
-      "duration_minutes": 150,
-      "workflow_count": 3,
-      "tool_activations": 12
-    }
-  ],
   "aggregates": {
-    "total_sessions": 1,
     "average_duration": 150,
+    "total_sessions": 1,
     "total_time_minutes": 150
   },
   "metadata": {
-    "user_id": "user-1642",
     "last_updated": "2025-01-15T11:30:00Z",
-    "schema_version": "1.0"
-  }
+    "schema_version": "1.0",
+    "user_id": "user-1642"
+  },
+  "sessions": [
+    {
+      "duration_minutes": 150,
+      "end_time": "2025-01-15T11:30:00Z",
+      "session_id": "sess_001",
+      "start_time": "2025-01-15T09:00:00Z",
+      "tool_activations": 12,
+      "workflow_count": 3
+    }
+  ]
 }

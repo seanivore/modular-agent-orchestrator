@@ -1,47 +1,82 @@
 {
-  "command": "logs",
-  "type": "standalone",
-  "terminal_flag": "--logs",
   "app_command": "/logs",
-  "interface_method": "show_workflow_logs",
-  "help": "View workflow logs with filtering and search capabilities",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "workflow_state",
+      "system_timestamp"
+    ],
+    "duration_seconds": 120,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "logs",
   "cost_estimate": 0.001,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "filter_options": {
+    "date_range": "2025-07-23T08:15:00.000000Z",
+    "limit": "Maximum number of log entries to return (default: 50)",
+    "search_query": "Search log content and metadata",
+    "status_filter": "Filter by workflow status (active, completed, error, etc.)",
+    "workflow_id": "Filter logs for specific workflow"
+  },
+  "help": "View workflow logs with filtering and search capabilities",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_state",
+      "memory_mcp"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "show_workflow_logs",
   "logic_file": "configs/cli/logs/logs.py",
-  "ui_file": "configs/cli/logs/ui_logs.py",
+  "name": "default_command",
   "operations": {
     "execute": {
       "description": "Main log viewing operation with optional filtering",
-      "required_params": [],
-      "optional_params": ["workflow_id", "search_query", "status_filter", "date_range", "limit"]
-    },
-    "search": {
-      "description": "Search workflow logs by content or metadata",
-      "required_params": ["search_query"],
-      "optional_params": ["workflow_id", "status_filter", "date_range", "limit"]
+      "optional_params": [
+        "workflow_id",
+        "search_query",
+        "status_filter",
+        "date_range",
+        "limit"
+      ],
+      "required_params": true
     },
     "filter": {
       "description": "Filter logs by workflow ID, status, or date range",
-      "required_params": [],
-      "optional_params": ["workflow_id", "status_filter", "date_range", "limit"]
+      "optional_params": [
+        "workflow_id",
+        "status_filter",
+        "date_range",
+        "limit"
+      ],
+      "required_params": true
+    },
+    "search": {
+      "description": "Search workflow logs by content or metadata",
+      "optional_params": [
+        "workflow_id",
+        "status_filter",
+        "date_range",
+        "limit"
+      ],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 120,
-    "cache_key_includes": ["workflow_state", "system_timestamp"]
-  },
-  "related_commands": ["stats", "workflows", "review"],
-  "filter_options": {
-    "workflow_id": "Filter logs for specific workflow",
-    "search_query": "Search log content and metadata",
-    "status_filter": "Filter by workflow status (active, completed, error, etc.)",
-    "date_range": "Time range filter (1d, 7d, 30d, 1h, 12h, 24h)",
-    "limit": "Maximum number of log entries to return (default: 50)"
-  }
+  "related_commands": [
+    "stats",
+    "workflows",
+    "review"
+  ],
+  "required": false,
+  "terminal_flag": "--logs",
+  "type": "standalone",
+  "ui_file": "configs/cli/logs/ui_logs.py"
 }

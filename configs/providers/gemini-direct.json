@@ -1,14 +1,26 @@
 {
-  "name": "gemini-direct",
-  "display_name": "Google Gemini Direct",
+  "_metadata": {
+    "config_type": "provider_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
+  "api_base": "default_api_base",
   "api_type": "gemini",
-  "base_url": "https://generativelanguage.googleapis.com/v1beta",
   "auth_header": "authorization",
+  "base_url": "https://generativelanguage.googleapis.com/v1beta",
+  "default": false,
+  "description": "Direct Google Gemini API for maximum context window and free usage",
+  "display_name": "Google Gemini Direct",
+  "enabled": true,
   "env_var": "GEMINI_API_KEY",
-  "supports_streaming": true,
+  "name": "gemini-direct",
   "rate_limits": {
     "requests_per_minute": 300,
     "tokens_per_minute": 150000
   },
-  "description": "Direct Google Gemini API for maximum context window and free usage"
+  "secure": true,
+  "supports_streaming": true,
+  "timeout": 30,
+  "type": "default_type"
 }

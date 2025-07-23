@@ -1,0 +1,30 @@
+{
+  "command": "help",
+  "type": "standalone",
+  "terminal_flag": "--help",
+  "app_command": "/help",
+  "interface_method": "show_help",
+  "help": "View these help messages",
+  "cost_estimate": 0.001,
+  "logic_file": "configs/cli/help/help.py",
+  "ui_file": "configs/cli/help/ui_help.py",
+  "operations": {
+    "execute": {
+      "description": "Display organized list of all available CLI commands",
+      "required_params": [],
+      "optional_params": []
+    }
+  },
+  "integration": {
+    "memory_mcp": false,
+    "cache_system": true,
+    "error_handling": true,
+    "universal_touchpoints": ["cli_manager", "ui_terminal"],
+    "specific_touchpoints": []
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 3600,
+    "cache_key_includes": ["cli_directory_state", "command_files_count"]
+  }
+}

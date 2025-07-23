@@ -1,49 +1,81 @@
 {
-  "name": "memory",
-  "type": "needs_input",
-  "terminal_flag": "--memory",
   "app_command": "/memory",
-  "interface_method": "memory",
-  "help": "Store, retrieve, and manage user memories and contextual information",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "user_id",
+      "operation_type",
+      "query_hash"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "default",
   "cost_estimate": 0.001,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Store, retrieve, and manage user memories and contextual information",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "user_memory_manager",
+      "username_manager"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "memory",
   "logic_file": "configs/cli/memory/memory.py",
-  "ui_file": "configs/cli/memory/ui_memory.py",
+  "name": "memory",
   "operations": {
-    "store": {
-      "description": "Store new memory with automatic categorization",
-      "required_params": ["content"],
-      "optional_params": ["category", "tags", "priority"]
-    },
-    "retrieve": {
-      "description": "Retrieve memories by query or category",
-      "required_params": ["query"],
-      "optional_params": ["category", "limit", "include_metadata"]
+    "delete": {
+      "description": "Delete specific memory by ID",
+      "optional_params": [
+        "confirm"
+      ],
+      "required_params": true
     },
     "list": {
       "description": "List all memories with optional filtering",
-      "required_params": [],
-      "optional_params": ["category", "limit", "sort_by"]
+      "optional_params": [
+        "category",
+        "limit",
+        "sort_by"
+      ],
+      "required_params": true
     },
-    "delete": {
-      "description": "Delete specific memory by ID",
-      "required_params": ["memory_id"],
-      "optional_params": ["confirm"]
+    "retrieve": {
+      "description": "Retrieve memories by query or category",
+      "optional_params": [
+        "category",
+        "limit",
+        "include_metadata"
+      ],
+      "required_params": true
+    },
+    "store": {
+      "description": "Store new memory with automatic categorization",
+      "optional_params": [
+        "category",
+        "tags",
+        "priority"
+      ],
+      "required_params": true
     },
     "suggest": {
       "description": "Get contextual memory suggestions",
-      "required_params": ["context"],
-      "optional_params": ["limit", "relevance_threshold"]
+      "optional_params": [
+        "limit",
+        "relevance_threshold"
+      ],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["user_memory_manager", "username_manager"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 300,
-    "cache_key_includes": ["user_id", "operation_type", "query_hash"]
-  }
+  "required": false,
+  "terminal_flag": "--memory",
+  "type": "needs_input",
+  "ui_file": "configs/cli/memory/ui_memory.py"
 }

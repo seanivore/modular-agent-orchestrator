@@ -1,41 +1,47 @@
 {
-  "name": "data_collection_app_settings",
-  "description": "Configure data collection and analytics preferences",
-  "version": "1.0",
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
   "data_collection": {
-    "default": "full_insights",
+    "default": true,
     "description": "What data we can collect to improve your experience",
-    "type": "select",
     "options": [
       {
-        "value": "full_insights",
+        "description": "Track all metrics for personal dashboard and community benchmarks",
         "label": "Full insights",
-        "description": "Track all metrics for personal dashboard and community benchmarks"
+        "value": "full_insights"
       },
       {
-        "value": "personal_only",
-        "label": "Personal only", 
-        "description": "Track personal metrics only - no anonymous community data"
+        "description": "Track personal metrics only - no anonymous community data",
+        "label": "Personal only",
+        "value": "personal_only"
       },
       {
-        "value": "essential_only",
+        "description": "Basic usage tracking for app functionality - minimal data collection",
         "label": "Essential only",
-        "description": "Basic usage tracking for app functionality - minimal data collection"
+        "value": "essential_only"
       },
       {
-        "value": "no_tracking",
+        "description": "Disable all analytics and metrics - purely local usage",
         "label": "No tracking",
-        "description": "Disable all analytics and metrics - purely local usage"
+        "value": "no_tracking"
       }
     ],
+    "type": "select",
     "ui_metadata": {
-      "section": "Notifications & Privacy",
+      "help_text": "Controls data collection for analytics and personal insights",
       "preview_enabled": true,
-      "help_text": "Controls data collection for analytics and personal insights"
+      "section": "Notifications & Privacy"
     }
   },
-  "_metadata": {
-    "last_updated": "2025-07-09T00:00:00Z",
-    "schema_version": "1.0"
-  }
+  "description": "Configure data collection and analytics preferences",
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "data_collection_app_settings",
+  "version": "1.0"
 }

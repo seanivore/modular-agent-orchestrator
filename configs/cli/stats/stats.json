@@ -1,23 +1,31 @@
 {
-  "command": "stats",
-  "type": "standalone",
-  "terminal_flag": "--stats",
   "app_command": "/stats",
-  "interface_method": "stats",
-  "help": "Show real-time system performance metrics, workflow monitoring, and cost tracking with search/filter capabilities",
-  "cost_estimate": 0.007,
-  "complexity": "high",
-  "data_type": "real_time",
+  "args": [],
   "cache_duration": "1_minute",
+  "category": "GENERAL",
+  "command": "stats",
+  "complexity": "high",
+  "cost_estimate": 0.007,
+  "data_type": "real_time",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Show real-time system performance metrics, workflow monitoring, and cost tracking with search/filter capabilities",
+  "hidden": false,
   "integration_points": [
     "SystemMetricsProvider",
-    "WorkflowMonitor", 
+    "WorkflowMonitor",
     "CostTracker"
   ],
+  "interface_method": "stats",
+  "name": "default_command",
+  "required": false,
   "search_capabilities": [
     "user_id",
     "workflow_id",
     "model_id",
     "provider_id"
-  ]
+  ],
+  "terminal_flag": "--stats",
+  "type": "standalone"
 }

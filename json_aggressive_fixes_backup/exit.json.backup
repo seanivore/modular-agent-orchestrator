@@ -1,0 +1,8 @@
+{
+  "command": "exit",
+  "type": "app_only",
+  "terminal_flag": "! mao exit",
+  "app_command": "/exit",
+  "interface_method": "exit_application",
+  "help": "Exit the Mao application"
+}

@@ -1,0 +1,29 @@
+{
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:11:57.498570Z",
+  "description": "Configure default AI model preferences",
+  "favorite_model": {
+    "default": "claude-sonnet-4",
+    "description": "Use for workflows unless discussed",
+    "fallback_options": [
+      "claude-sonnet-4",
+      "claude-opus-4",
+      "gemini-2.5-pro",
+      "gpt-4.1-mini"
+    ],
+    "source": "dynamic_model_list",
+    "type": "model_select",
+    "ui_metadata": {
+      "help_text": "Default AI model for new workflows - can be changed per workflow",
+      "preview_enabled": true,
+      "section": "Startup & Navigation"
+    }
+  },
+  "last_updated": "2025-07-23T08:11:57.498577Z",
+  "name": "favorite_model_app_settings",
+  "version": "1.0"
+}

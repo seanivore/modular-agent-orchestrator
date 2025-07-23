@@ -1,29 +1,48 @@
 {
-  "command": "goal",
-  "type": "needs_input",
-  "terminal_flag": "--goal",
   "app_command": "/goal",
-  "interface_method": "goal",
-  "help": "Create entire workflow from goal description",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "goal_text",
+      "user_context",
+      "time_block"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "goal",
   "cost_estimate": 0.008,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Create entire workflow from goal description",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "conversation_bridge",
+      "workflow_manager",
+      "workflow_state"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "goal",
   "logic_file": "configs/cli/goal/goal.py",
-  "ui_file": "configs/cli/goal/ui_goal.py",
+  "name": "default_command",
   "operations": {
     "execute": {
       "description": "Create workflow from natural language goal",
-      "required_params": ["goal"],
-      "optional_params": ["user_id", "complexity_hint"]
+      "optional_params": [
+        "user_id",
+        "complexity_hint"
+      ],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["conversation_bridge", "workflow_manager", "workflow_state"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 300,
-    "cache_key_includes": ["goal_text", "user_context", "time_block"]
-  }
+  "required": false,
+  "terminal_flag": "--goal",
+  "type": "needs_input",
+  "ui_file": "configs/cli/goal/ui_goal.py"
 }

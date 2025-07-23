@@ -1,30 +1,50 @@
 {
-  "command": "models",
-  "type": "standalone",
-  "terminal_flag": "--models",
+  "_metadata": {
+    "config_type": "model_config",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "version": "1.0.0"
+  },
   "app_command": "/models",
-  "interface_method": "models",
-  "help": "List all available models with display names and metadata",
+  "cache_settings": {
+    "cache_key_includes": [
+      "models_directory_state",
+      "model_files_modification_times"
+    ],
+    "duration_seconds": 600,
+    "enabled": true
+  },
+  "command": "models",
   "cost_estimate": 0.002,
+  "default": false,
+  "enabled": true,
+  "help": "List all available models with display names and metadata",
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "memory_mcp": false,
+    "specific_touchpoints": [
+      "manager_models"
+    ],
+    "universal_touchpoints": [
+      "cli_manager",
+      "ui_terminal"
+    ]
+  },
+  "interface_method": "models",
   "logic_file": "configs/cli/models/models.py",
-  "ui_file": "configs/cli/models/ui_models.py",
+  "max_tokens": 0,
+  "name": "default_name",
   "operations": {
     "execute": {
       "description": "Display list of all available models with provider and capability information",
-      "required_params": [],
-      "optional_params": []
+      "optional_params": [],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": false,
-    "cache_system": true,
-    "error_handling": true,
-    "universal_touchpoints": ["cli_manager", "ui_terminal"],
-    "specific_touchpoints": ["manager_models"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 600,
-    "cache_key_includes": ["models_directory_state", "model_files_modification_times"]
-  }
+  "provider": "default_provider",
+  "temperature": 0.7,
+  "terminal_flag": "--models",
+  "type": "standalone",
+  "ui_file": "configs/cli/models/ui_models.py"
 }

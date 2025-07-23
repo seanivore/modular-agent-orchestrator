@@ -176,7 +176,7 @@ class FilePathAuditor:
             def visit_BinOp(self, node):
                 # Check for string concatenation that might be building paths
                 if isinstance(node.op, ast.Add):
-                    # Look for patterns like string + "/" + string
+                    # Look for patterns like Path(string) / string
                     left_str = self.is_string_literal(node.left)
                     right_str = self.is_string_literal(node.right)
                     

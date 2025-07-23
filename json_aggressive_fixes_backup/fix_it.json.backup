@@ -1,0 +1,45 @@
+{
+  "command": "fix_it",
+  "type": "needs_file_or_directory",
+  "terminal_flag": "--fix-it",
+  "app_command": "/fix-it",
+  "interface_method": "fix_it",
+  "help": "Fix deliverable via JSON with automatic workflow correction",
+  "cost_estimate": 0.015,
+  "logic_file": "configs/cli/fix_it/fix_it.py",
+  "ui_file": "configs/cli/fix_it/ui_fix_it.py",
+  "operations": {
+    "execute": {
+      "description": "Main fix operation with JSON copying and workflow correction",
+      "required_params": ["path"],
+      "optional_params": ["verbose", "dry_run"]
+    },
+    "validate": {
+      "description": "Validate fix JSON structure before execution",
+      "required_params": ["path"],
+      "optional_params": []
+    },
+    "copy_json": {
+      "description": "Copy JSON to workflow directory if needed",
+      "required_params": ["path", "workflow_id"],
+      "optional_params": ["target_directory"]
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 180,
+    "cache_key_includes": ["file_state", "workflow_context", "system_state"]
+  },
+  "fix_types_supported": [
+    "re_run_phase",
+    "correct_deliverable", 
+    "update_parameters",
+    "resume_workflow"
+  ]
+}

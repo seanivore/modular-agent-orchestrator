@@ -1,0 +1,55 @@
+{
+  "name": "tool_template",
+  "description": "Template for creating new tool configurations",
+  "type": "template",
+  "version": "1.0.0",
+  "author": "MAO System",
+  "dependencies": [],
+  "parameters": {
+    "input": {
+      "type": "string",
+      "description": "Input parameter for the tool",
+      "required": true,
+      "default": ""
+    },
+    "options": {
+      "type": "object", 
+      "description": "Optional configuration parameters",
+      "required": false,
+      "default": {}
+    }
+  },
+  "output": {
+    "type": "object",
+    "description": "Tool execution results",
+    "schema": {
+      "success": "boolean",
+      "data": "any",
+      "message": "string"
+    }
+  },
+  "usage_examples": [
+    {
+      "description": "Basic usage example",
+      "input": {
+        "input": "example input",
+        "options": {}
+      },
+      "expected_output": {
+        "success": true,
+        "data": "processed result",
+        "message": "Tool executed successfully"
+      }
+    }
+  ],
+  "configuration": {
+    "timeout": 30,
+    "retries": 3,
+    "cache_results": true
+  },
+  "integration": {
+    "ui_component": "ui_tool_template.py",
+    "button_snippet": "button_snippet.py",
+    "help_text": "This tool provides template functionality for MAO workflows"
+  }
+}

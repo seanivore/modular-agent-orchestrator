@@ -1,8 +1,16 @@
 {
-  "command": "default_provider",
-  "type": "needs_input",
-  "terminal_flag": "--default-provider",
   "app_command": "/default-provider",
+  "args": [],
+  "category": "GENERAL",
+  "command": "default_provider",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Set default provider for workflows",
+  "hidden": false,
   "interface_method": "default_provider",
-  "help": "Set default provider for workflows"
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "--default-provider",
+  "type": "needs_input"
 }

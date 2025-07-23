@@ -1,40 +1,20 @@
 {
-  "name": "workflow_id",
-  "command": "workflow_id",
-  "type": "standalone",
-  "terminal_flag": "--workflow_id",
   "app_command": "/workflow_id",
-  "interface_method": "workflow_id",
-  "help": "Generate workflow ID via workflow_manager.py",
-  "cost_estimate": 0.002,
-  "file_path": "configs/cli/workflow_id/workflow_id.py",
-  "ui_path": "configs/cli/workflow_id/ui_workflow_id.py",
-  "operations": {
-    "execute": {
-      "description": "Generate unique workflow ID for workflow setup flow",
-      "required_params": [],
-      "optional_params": ["explain"]
-    }
-  },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
-  },
+  "args": [],
   "cache_settings": {
-    "enabled": true,
+    "cache_key_includes": [
+      "timestamp",
+      "generation_params"
+    ],
     "duration_seconds": 60,
-    "cache_key_includes": ["timestamp", "generation_params"]
+    "enabled": true
   },
-  "flags": {
-    "explain": {
-      "flag": "--explain",
-      "help": "Show mathematical explanation of the workflow ID generation process",
-      "type": "boolean",
-      "default": false
-    }
-  },
+  "category": "workflow",
+  "command": "workflow_id",
+  "complexity": "medium",
+  "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
   "examples": [
     {
       "command": "mao workflow_id",
@@ -49,6 +29,40 @@
       "description": "Generate workflow ID (app command)"
     }
   ],
-  "category": "workflow",
-  "complexity": "medium"
+  "file_path": "configs/cli/workflow_id/workflow_id.py",
+  "flags": {
+    "explain": {
+      "default": false,
+      "flag": "--explain",
+      "help": "Show mathematical explanation of the workflow ID generation process",
+      "type": "boolean"
+    }
+  },
+  "help": "Generate workflow ID via workflow_manager.py",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "workflow_state",
+      "memory_mcp"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "workflow_id",
+  "name": "workflow_id",
+  "operations": {
+    "execute": {
+      "description": "Generate unique workflow ID for workflow setup flow",
+      "optional_params": [
+        "explain"
+      ],
+      "required_params": true
+    }
+  },
+  "required": false,
+  "terminal_flag": "--workflow_id",
+  "type": "standalone",
+  "ui_path": "configs/cli/workflow_id/ui_workflow_id.py"
 }

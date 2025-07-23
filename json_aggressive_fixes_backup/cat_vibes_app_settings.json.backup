@@ -1,0 +1,39 @@
+{
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
+  },
+  "app_name": "default_app_name",
+  "cat_vibes": {
+    "default": "love_it",
+    "description": "We'll meow it up for you",
+    "options": [
+      {
+        "description": "Full cat personality - meow messages, cat emoji, playful language",
+        "label": "I love it",
+        "value": "love_it"
+      },
+      {
+        "description": "Moderate cat vibes - some meow references but not overwhelming",
+        "label": "Mao and then",
+        "value": "mao_and_then"
+      },
+      {
+        "description": "Professional mode - no cat references, business language only",
+        "label": "Be serious pls",
+        "value": "be_serious_pls"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Controls personality level and language style throughout the app",
+      "preview_enabled": true,
+      "section": "Interface & Experience"
+    }
+  },
+  "created_date": "2025-07-23T08:11:57.496876Z",
+  "description": "Configure cat personality level and language style",
+  "last_updated": "2025-07-23T08:11:57.496885Z",
+  "name": "cat_vibes_app_settings",
+  "version": "1.0"
+}

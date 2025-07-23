@@ -1,0 +1,15 @@
+{
+  "name": "openai-direct",
+  "display_name": "OpenAI Direct API",
+  "api_type": "openai",
+  "base_url": "https://api.openai.com/v1",
+  "auth_header": "authorization",
+  "env_var": "OPENAI_API_KEY",
+  "supports_streaming": true,
+  "rate_limits": {
+    "requests_per_minute": 500,
+    "tokens_per_minute": 150000
+  },
+  "description": "Official OpenAI API for GPT models and image generation",
+  "primary_use": "image_generation"
+}

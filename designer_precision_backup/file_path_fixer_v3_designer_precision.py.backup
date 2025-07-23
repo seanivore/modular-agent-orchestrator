@@ -1,0 +1,319 @@
+#!/usr/bin/env python3
+"""
+MAO File Path Fixer v3 - DESIGNER PRECISION MODE 👠
+Surgical precision file path fixing with perfectionist design attention to detail
+
+RED BOTTOMS & APC JEANS ENERGY:
+- Elegant pathlib.Path conversions
+- Surgical string literal identification  
+- Designer-level cross-platform compatibility
+- Zero aggressive chaos, pure precision
+"""
+
+import ast
+import re
+from pathlib import Path
+from typing import Dict, List, Any, Set, Optional, Tuple
+from collections import defaultdict
+import shutil
+
+class DesignerPrecisionFilePathFixer:
+    def __init__(self, project_root: str = "."):
+        self.project_root = Path(project_root)
+        self.backup_dir = Path("designer_precision_backup")
+        
+        # SURGICAL PRECISION: Only fix ACTUAL path problems
+        self.precision_patterns = {
+            # Only target OBVIOUS file paths, not random strings with /
+            'file_paths': [
+                r'["\'][^"\']*\.(py|json|txt|md|sh|js|ts|css|html)["\']',  # File extensions
+                r'["\'][^"\']*/(configs|scripts|tools|orchestrator|interfaces)[^"\']*["\']',  # Known dirs
+                r'["\']\.{1,2}/[^"\']*["\']',  # Relative paths (./ or ../)
+                r'["\']~?/[^"\']*["\']'  # Absolute paths or home paths
+            ],
+            
+            # os.path patterns to convert
+            'os_path_calls': [
+                r'os\.path\.join\s*\(',
+                r'os\.path\.exists\s*\(',
+                r'os\.path\.dirname\s*\(',
+                r'os\.path\.basename\s*\(',
+                r'os\.path\.abspath\s*\('
+            ]
+        }
+
+    def create_backup(self, file_path: Path) -> Path:
+        """Create backup with designer-level organization"""
+        if not self.backup_dir.exists():
+            self.backup_dir.mkdir()
+        
+        # Organized backup structure
+        relative_path = file_path.relative_to(self.project_root)
+        backup_path = self.backup_dir / f"{relative_path.name}.backup"
+        shutil.copy2(file_path, backup_path)
+        return backup_path
+
+    def is_actual_file_path(self, string_literal: str) -> bool:
+        """Designer precision: Identify ACTUAL file paths vs random strings"""
+        # Skip if it's clearly not a path
+        if len(string_literal) < 3:
+            return False
+            
+        # Skip URLs, JSON keys, SQL queries, regex patterns
+        skip_patterns = [
+            r'^https?://',
+            r'^[a-zA-Z]+://',  # Protocol patterns
+            r'^\w+$',  # Single words
+            r'^[A-Z_]+$',  # Constants
+            r'SELECT|INSERT|UPDATE|DELETE',  # SQL
+            r'\\[wWdDsS]',  # Regex patterns
+            r'%[sd]|{}|\{[^}]+\}',  # Format strings
+            r'^[a-z_]+\.[a-z_]+$'  # Object notation
+        ]
+        
+        for pattern in skip_patterns:
+            if re.search(pattern, string_literal, re.IGNORECASE):
+                return False
+        
+        # Positive identification of file paths
+        path_indicators = [
+            r'\.(py|json|txt|md|sh|js|ts|css|html|yml|yaml)$',  # File extensions
+            r'/(configs|scripts|tools|orchestrator|interfaces)',  # Known directories
+            r'^\.{1,2}/',  # Relative paths
+            r'^~?/',  # Absolute or home paths
+            r'/.*/',  # Contains directory separators
+            r'\\.*\\'  # Windows paths
+        ]
+        
+        return any(re.search(pattern, string_literal) for pattern in path_indicators)
+
+    def designer_precise_path_conversion(self, content: str) -> Tuple[str, List[str]]:
+        """Apply surgical precision path conversions"""
+        fixes = []
+        
+        # 1. SURGICAL os.path.join conversion
+        def convert_os_path_join(match):
+            args_str = match.group(1)
+            # Parse arguments carefully
+            args = [arg.strip() for arg in args_str.split(',')]
+            if len(args) == 1:
+                return f"Path({args[0]})"
+            elif len(args) == 2:
+                return f"Path({args[0]}) / {args[1]}"
+            else:
+                first = args[0]
+                rest = ' / '.join(args[1:])
+                return f"Path({first}) / {rest}"
+        
+        # Convert os.path.join with precision
+        join_pattern = r'os\.path\.join\s*\(([^)]+)\)'
+        if re.search(join_pattern, content):
+            content = re.sub(join_pattern, convert_os_path_join, content)
+            fixes.append("🎯 Converted os.path.join to pathlib")
+        
+        # 2. SURGICAL other os.path conversions
+        conversions = [
+            (r'os\.path\.exists\s*\(([^)]+)\)', r'Path(\1).exists()'),
+            (r'os\.path\.dirname\s*\(([^)]+)\)', r'Path(\1).parent'),
+            (r'os\.path\.basename\s*\(([^)]+)\)', r'Path(\1).name'),
+            (r'os\.path\.abspath\s*\(([^)]+)\)', r'Path(\1).resolve()'),
+            (r'os\.path\.isfile\s*\(([^)]+)\)', r'Path(\1).is_file()'),
+            (r'os\.path\.isdir\s*\(([^)]+)\)', r'Path(\1).is_dir()')
+        ]
+        
+        for pattern, replacement in conversions:
+            if re.search(pattern, content):
+                content = re.sub(pattern, replacement, content)
+                fixes.append(f"🎯 Converted {pattern.split('.')[2].split('\\')[0]} to pathlib")
+        
+        # 3. SURGICAL string concatenation fixes (only obvious path building)
+        # Pattern: variable + "/" + variable (clear path building)
+        concat_pattern = r'(\w+)\s*\+\s*["\'][/\\]["\']?\s*\+\s*(\w+)'
+        if re.search(concat_pattern, content):
+            content = re.sub(concat_pattern, r'Path(\1) / \2', content)
+            fixes.append("🎯 Converted path string concatenation to pathlib")
+        
+        return content, fixes
+
+    def add_pathlib_import(self, content: str) -> Tuple[str, List[str]]:
+        """Add pathlib import with designer precision"""
+        fixes = []
+        lines = content.split('\n')
+        
+        # Check if pathlib is already imported
+        has_pathlib = any('from pathlib import Path' in line or 'import pathlib' in line 
+                         for line in lines)
+        
+        if not has_pathlib:
+            # Find the perfect insertion point (after other imports)
+            insert_index = 0
+            for i, line in enumerate(lines):
+                if line.strip().startswith(('import ', 'from ')) and 'pathlib' not in line:
+                    insert_index = i + 1
+                elif line.strip() and not line.strip().startswith('#'):
+                    break
+            
+            # Insert with perfect spacing
+            if insert_index > 0:
+                lines.insert(insert_index, 'from pathlib import Path')
+                fixes.append("✨ Added pathlib import with perfect placement")
+            else:
+                lines.insert(0, 'from pathlib import Path')
+                lines.insert(1, '')  # Add spacing
+                fixes.append("✨ Added pathlib import at top with spacing")
+        
+        return '\n'.join(lines), fixes
+
+    def designer_precision_file_fix(self, file_path: Path) -> Dict[str, Any]:
+        """Apply designer-level precision fixes to a single file"""
+        try:
+            # Read with encoding precision
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+            
+            content = original_content
+            all_fixes = []
+            
+            # Apply surgical precision fixes
+            content, path_fixes = self.designer_precise_path_conversion(content)
+            all_fixes.extend(path_fixes)
+            
+            # Add imports with precision
+            content, import_fixes = self.add_pathlib_import(content)
+            all_fixes.extend(import_fixes)
+            
+            # Only save if we made REAL improvements
+            if content != original_content and all_fixes:
+                # Create organized backup
+                backup_path = self.create_backup(file_path)
+                
+                # Write with perfect formatting
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                
+                return {
+                    'file': str(file_path.relative_to(self.project_root)),
+                    'fixes_applied': all_fixes,
+                    'fix_count': len(all_fixes),
+                    'backup_path': str(backup_path),
+                    'status': 'designer_perfected'
+                }
+            else:
+                return {
+                    'file': str(file_path.relative_to(self.project_root)),
+                    'fixes_applied': [],
+                    'fix_count': 0,
+                    'status': 'already_designer_perfect'
+                }
+                
+        except Exception as e:
+            return {
+                'file': str(file_path.relative_to(self.project_root)),
+                'fixes_applied': [],
+                'fix_count': 0,
+                'error': str(e),
+                'status': 'designer_error'
+            }
+
+    def find_files_needing_precision(self) -> List[Path]:
+        """Find files that need designer precision"""
+        python_files = []
+        
+        # Focus on files that actually have path operations
+        priority_dirs = ["orchestrator", "configs/cli", "interfaces", "tools", "scripts"]
+        
+        for priority_dir in priority_dirs:
+            dir_path = self.project_root / priority_dir
+            if dir_path.exists():
+                for py_file in dir_path.rglob("*.py"):
+                    if not any(skip in str(py_file) for skip in ['.backup', '__pycache__', 'test_']):
+                        # Quick scan for path operations
+                        try:
+                            with open(py_file, 'r', encoding='utf-8') as f:
+                                content = f.read()
+                            if any(pattern in content for pattern in ['os.path', '/', '\\']):
+                                python_files.append(py_file)
+                        except:
+                            pass
+        
+        return python_files
+
+    def run_designer_precision_fixes(self) -> Dict[str, Any]:
+        """Execute designer precision file path fixes"""
+        print("👠 RED BOTTOMS ON: Starting Designer Precision File Path Fixes...")
+        print("✨ APC JEANS FITTED: Surgical precision mode activated")
+        
+        files_to_fix = self.find_files_needing_precision()
+        print(f"🎯 Found {len(files_to_fix)} files needing designer precision")
+        
+        results = []
+        total_fixes = 0
+        files_perfected = 0
+        
+        for file_path in files_to_fix:
+            result = self.designer_precision_file_fix(file_path)
+            results.append(result)
+            
+            if result['status'] == 'designer_perfected':
+                files_perfected += 1
+                total_fixes += result['fix_count']
+                print(f"✨ PERFECTED {result['fix_count']} issues in {result['file']}")
+            elif result['status'] == 'designer_error':
+                print(f"⚠️ Designer review needed for {result['file']}: {result['error']}")
+        
+        summary = {
+            'files_analyzed': len(files_to_fix),
+            'files_perfected': files_perfected,
+            'total_fixes_applied': total_fixes,
+            'backup_directory': str(self.backup_dir),
+            'designer_precision_level': 'RED_BOTTOMS_APC_JEANS'
+        }
+        
+        return {
+            'summary': summary,
+            'detailed_results': results
+        }
+
+    def generate_designer_report(self, output_file: str = "designer_precision_fixes_report.json") -> None:
+        """Generate designer-quality fix report"""
+        import json
+        
+        results = self.run_designer_precision_fixes()
+        
+        # Save with perfect formatting
+        with open(output_file, 'w') as f:
+            json.dump(results, f, indent=2, default=str, ensure_ascii=False)
+        
+        # Designer-level summary presentation
+        print("\n" + "="*70)
+        print("👠 RED BOTTOMS & APC JEANS: DESIGNER PRECISION RESULTS")
+        print("="*70)
+        
+        summary = results['summary']
+        print(f"🎯 Files analyzed with precision: {summary['files_analyzed']}")
+        print(f"✨ Files designer-perfected: {summary['files_perfected']}")
+        print(f"👠 Total surgical fixes: {summary['total_fixes_applied']}")
+        print(f"💎 Precision level: {summary['designer_precision_level']}")
+        print(f"📁 Organized backups: {summary['backup_directory']}")
+        
+        if summary['files_perfected'] > 0:
+            print(f"\n🔥 DESIGNER PRECISION ACHIEVED!")
+            print(f"💅 File paths now have luxury brand-level consistency")
+            print(f"🎯 Re-run audit to see the perfection scores")
+        else:
+            print(f"\n✨ Already at designer perfection level!")
+        
+        print(f"\n📄 Designer report: {output_file}")
+        print("="*70)
+
+def main():
+    """Execute designer precision file path fixes"""
+    print("👠 Putting on red bottoms...")
+    print("👖 Fitting APC jeans...")
+    print("💅 Designer perfectionist mode: ACTIVATED")
+    
+    fixer = DesignerPrecisionFilePathFixer()
+    fixer.generate_designer_report()
+
+if __name__ == "__main__":
+    main() 

@@ -1,0 +1,17 @@
+{
+  "capabilities": {
+    "tools": true,
+    "vision": false
+  },
+  "context_window": 128000,
+  "display_name": "Llama 3.1 8B (Local)",
+  "input_price_per_million": 0.0,
+  "max_output": 32000,
+  "max_tokens": 0,
+  "model_id": "llama-3.1-8b-instruct",
+  "name": "local-llama-3.1-8b",
+  "output_price_per_million": 0.0,
+  "privacy_note": "Runs entirely locally, no data leaves your machine",
+  "provider": "default_provider",
+  "safe_token_limit": 10000
+}

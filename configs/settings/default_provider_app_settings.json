@@ -1,26 +1,29 @@
 {
-  "name": "default_provider_app_settings",
-  "description": "Configure default API provider preferences",
-  "version": "1.0",
-  "default_provider": {
-    "default": "anthropic direct",
-    "description": "I prefer this provider; discuss to change",
-    "type": "provider_select", 
-    "source": "dynamic_provider_list",
-    "fallback_options": [
-      "anthropic direct",
-      "openai direct",
-      "gemini direct",
-      "litellm"
-    ],
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
     "ui_metadata": {
-      "section": "Startup & Navigation",
+      "help_text": "Control application data collection",
       "preview_enabled": true,
-      "help_text": "Default provider for API connections - affects cost and availability"
+      "section": "Privacy"
     }
   },
-  "_metadata": {
-    "last_updated": "2025-07-09T00:00:00Z",
-    "schema_version": "1.0"
-  }
+  "default_provider": true,
+  "description": "Configure default API provider preferences",
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "default_provider_app_settings",
+  "version": "1.0"
 }

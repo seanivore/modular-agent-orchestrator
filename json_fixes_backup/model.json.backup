@@ -1,0 +1,15 @@
+{
+  "name": "model_template",
+  "display_name": "Nickname",
+  "model_id": "Official Model ID",
+  "context_window": 200000,
+  "max_output": 64000,
+  "max_output_beta": 128000,
+  "input_price_per_million": 3.00,
+  "output_price_per_million": 15.00,
+  "capabilities": {
+    "tools": true,
+    "vision": true
+  },
+  "safe_token_limit": 7000
+}

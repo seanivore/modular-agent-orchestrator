@@ -1,0 +1,1245 @@
+{
+  "summary": {
+    "files_analyzed": 83,
+    "files_modified": 83,
+    "total_fixes_applied": 504,
+    "backup_directory": "json_aggressive_fixes_backup",
+    "perfection_achieved": true
+  },
+  "detailed_results": [
+    {
+      "file": "configs/settings/data_collection_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 7,
+      "backup_path": "json_aggressive_fixes_backup/data_collection_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/cat_vibes_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/cat_vibes_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/theme_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/theme_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/favorite_model_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/favorite_model_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/application_settings_schema.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: name",
+        "Added missing field: type",
+        "Added missing field: api_base",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default_provider",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 17,
+      "backup_path": "json_aggressive_fixes_backup/application_settings_schema.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/quick_launch_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/quick_launch_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/double_texting_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/double_texting_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/default_provider_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default_provider"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/default_provider_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/settings/tone_notification_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: data_collection",
+        "Normalized date field: last_updated",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/tone_notification_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/providers/anthropic-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/anthropic-direct.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/providers/openai-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/openai-direct.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/providers/gemini-direct.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/gemini-direct.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/providers/lm-studio.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/lm-studio.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/providers/litellm.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/litellm.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/providers/requesty.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/requesty.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/claude-3-7-sonnet.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/claude-3-7-sonnet.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/gpt-4.1-mini.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/gpt-4.1-mini.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/gpt-4.1-nano.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/gpt-4.1-nano.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/gemini-2.5-pro.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/gemini-2.5-pro.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/claude-opus-4.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/claude-opus-4.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/local-llama-3.1-8b.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/local-llama-3.1-8b.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/models/claude-sonnet-4.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/claude-sonnet-4.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/connections/providers_x_models.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: name",
+        "Added missing field: type",
+        "Added missing field: api_base",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure",
+        "Normalized date field: last_updated"
+      ],
+      "fix_count": 11,
+      "backup_path": "json_aggressive_fixes_backup/providers_x_models.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/connections/models_x_tools.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/models_x_tools.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/connections/mcp_servers.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/mcp_servers.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/system/analytics/aggregate_usage.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/aggregate_usage.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/system/analytics/tool_performance.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/tool_performance.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/mao/mao.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: args",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/mao.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/dry_run/dry_run.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/dry_run.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/tools/tools.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/tools.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/privacy/privacy.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/privacy.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/memory/memory.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: command",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 13,
+      "backup_path": "json_aggressive_fixes_backup/memory.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/update/update.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/update.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/chat/chat.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/chat.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/config/config.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 7,
+      "backup_path": "json_aggressive_fixes_backup/config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/set_model/set_model.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: command",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/set_model.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/providers/providers.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 6,
+      "backup_path": "json_aggressive_fixes_backup/providers.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/doctor/doctor.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/doctor.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/fix_it/fix_it.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized date field: validate",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 11,
+      "backup_path": "json_aggressive_fixes_backup/fix_it.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/setup/setup.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/setup.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/provider/provider.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/provider.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/workflows/workflows.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 10,
+      "backup_path": "json_aggressive_fixes_backup/workflows.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/logout/logout.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/logout.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/models/models.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/models.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/user_id/user_id.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 6,
+      "backup_path": "json_aggressive_fixes_backup/user_id.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/onboard/onboard.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: args",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/onboard.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/restart/restart.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/restart.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/verbose/verbose.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 12,
+      "backup_path": "json_aggressive_fixes_backup/verbose.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/provider_list/provider_list.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/provider_list.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/output_directory/output_directory.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: command",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 10,
+      "backup_path": "json_aggressive_fixes_backup/output_directory.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/logs/logs.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized date field: date_range",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 12,
+      "backup_path": "json_aggressive_fixes_backup/logs.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/default_provider/default_provider.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: command",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: set_default"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/default_provider.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/variables_explain/variables_explain.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/variables_explain.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/variables/variables.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: command",
+        "Added missing field: args",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: default",
+        "Normalized boolean field: default",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/variables.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/review/review.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 11,
+      "backup_path": "json_aggressive_fixes_backup/review.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/workflow_id/workflow_id.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: args",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 6,
+      "backup_path": "json_aggressive_fixes_backup/workflow_id.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/model/model.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/model.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/exit/exit.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/exit.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/continue/continue.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 11,
+      "backup_path": "json_aggressive_fixes_backup/continue.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/login/login.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/login.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/stats/stats.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/stats.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/help/help.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/help.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/cli/goal/goal.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: name",
+        "Added missing field: description",
+        "Added missing field: category",
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized boolean field: required_params"
+      ],
+      "fix_count": 9,
+      "backup_path": "json_aggressive_fixes_backup/goal.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/user_seanivore.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/user_seanivore.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/memories/personal_preferences.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/personal_preferences.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/memories/project_context.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/project_context.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/cost_tracking.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/cost_tracking.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/workflow_metrics.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/workflow_metrics.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/session_metrics.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/session_metrics.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/user/seanivore/analytics/tool_usage.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/tool_usage.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_phase_config.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: type",
+        "Added missing field: api_base",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 7,
+      "backup_path": "json_aggressive_fixes_backup/command_use_case_phase_config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_handoff_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/command_use_case_handoff_config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "configs/workflows/json_object_templates/command_use_case_workflow_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/command_use_case_workflow_config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/settings/setting_name_app_settings.json",
+      "config_type": "app_settings",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: data_collection",
+        "Normalized date field: created_date",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/setting_name_app_settings.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/tools/tool_config_template.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/tool_config_template.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/tools/tool.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/tool.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/cli_commands/cli_command.json",
+      "config_type": "cli_command",
+      "fixes_applied": [
+        "Added missing field: args",
+        "Added missing field: examples",
+        "Added missing field: enabled",
+        "Added missing field: required",
+        "Added missing field: hidden",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: required_fields"
+      ],
+      "fix_count": 7,
+      "backup_path": "json_aggressive_fixes_backup/cli_command.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/providers/provider.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 5,
+      "backup_path": "json_aggressive_fixes_backup/provider.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/workflows/example-workflow_workflow_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/example-workflow_workflow_config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/workflows/example-workflow_phase_config.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: name",
+        "Added missing field: type",
+        "Added missing field: api_base",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure"
+      ],
+      "fix_count": 8,
+      "backup_path": "json_aggressive_fixes_backup/example-workflow_phase_config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/workflows/example-workflow_handoff_config.json",
+      "config_type": "generic",
+      "fixes_applied": [],
+      "fix_count": 0,
+      "backup_path": "json_aggressive_fixes_backup/example-workflow_handoff_config.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/models/model.json",
+      "config_type": "model_config",
+      "fixes_applied": [
+        "Added missing field: _metadata",
+        "Added missing field: temperature",
+        "Added missing field: enabled",
+        "Added missing field: default"
+      ],
+      "fix_count": 4,
+      "backup_path": "json_aggressive_fixes_backup/model.json.backup",
+      "status": "aggressively_fixed"
+    },
+    {
+      "file": "templates/users/user_username.json",
+      "config_type": "provider_config",
+      "fixes_applied": [
+        "Added missing field: created_date",
+        "Added missing field: version",
+        "Added missing field: config_type",
+        "Added missing field: type",
+        "Added missing field: api_base",
+        "Added missing field: enabled",
+        "Added missing field: default",
+        "Added missing field: timeout",
+        "Added missing field: secure",
+        "Normalized date field: last_updated",
+        "Normalized boolean field: default_provider",
+        "Normalized boolean field: default_model"
+      ],
+      "fix_count": 12,
+      "backup_path": "json_aggressive_fixes_backup/user_username.json.backup",
+      "status": "aggressively_fixed"
+    }
+  ]
+}

@@ -1,26 +1,45 @@
 {
-  "name": "favorite_model_app_settings",
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
+    "ui_metadata": {
+      "help_text": "Control application data collection",
+      "preview_enabled": true,
+      "section": "Privacy"
+    }
+  },
   "description": "Configure default AI model preferences",
-  "version": "1.0",
   "favorite_model": {
-    "default": "claude-sonnet-4",
+    "default": true,
     "description": "Use for workflows unless discussed",
-    "type": "model_select",
-    "source": "dynamic_model_list",
     "fallback_options": [
       "claude-sonnet-4",
-      "claude-opus-4", 
+      "claude-opus-4",
       "gemini-2.5-pro",
       "gpt-4.1-mini"
     ],
+    "source": "dynamic_model_list",
+    "type": "model_select",
     "ui_metadata": {
-      "section": "Startup & Navigation",
+      "help_text": "Default AI model for new workflows - can be changed per workflow",
       "preview_enabled": true,
-      "help_text": "Default AI model for new workflows - can be changed per workflow"
+      "section": "Startup & Navigation"
     }
   },
-  "_metadata": {
-    "last_updated": "2025-07-09T00:00:00Z",
-    "schema_version": "1.0"
-  }
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "favorite_model_app_settings",
+  "version": "1.0"
 }

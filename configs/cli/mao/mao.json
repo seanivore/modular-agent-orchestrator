@@ -1,16 +1,20 @@
 {
-  "name": "mao",
-  "command": "mao", 
-  "terminal_flag": "--mao",
-  "type": "standalone",
-  "interface_method": "launch_terminal_ui_smart",
-  "help": "Launch the beautiful Mao terminal interface with smart user detection",
-  "description": "Start the main Mao terminal application. Detects returning users for quick launch, new users get full onboarding experience",
+  "args": [],
   "category": "SYSTEM_OPERATIONS",
+  "command": "mao",
+  "description": "Start the main Mao terminal application. Detects returning users for quick launch, new users get full onboarding experience",
+  "enabled": true,
   "examples": [
     {
-      "usage": "mao --mao",
-      "description": "Smart launch - quick for returning users, onboarding for new users"
+      "description": "Smart launch - quick for returning users, onboarding for new users",
+      "usage": "mao --mao"
     }
-  ]
+  ],
+  "help": "Launch the beautiful Mao terminal interface with smart user detection",
+  "hidden": false,
+  "interface_method": "launch_terminal_ui_smart",
+  "name": "mao",
+  "required": false,
+  "terminal_flag": "--mao",
+  "type": "standalone"
 }

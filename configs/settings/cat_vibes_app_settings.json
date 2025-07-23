@@ -1,36 +1,55 @@
 {
-  "name": "cat_vibes_app_settings",
-  "description": "Configure cat personality level and language style",
-  "version": "1.0",
+  "_metadata": {
+    "config_type": "app_settings",
+    "created_date": "2025-07-23T08:15:00.000000Z",
+    "last_updated": "2025-07-23T08:15:00.000000Z",
+    "schema_version": "1.0",
+    "version": "1.0.0"
+  },
+  "app_name": "default_app_name",
   "cat_vibes": {
-    "default": "love_it",
+    "default": true,
     "description": "We'll meow it up for you",
-    "type": "select",
     "options": [
       {
-        "value": "love_it",
+        "description": "Full cat personality - meow messages, cat emoji, playful language",
         "label": "I love it",
-        "description": "Full cat personality - meow messages, cat emoji, playful language"
+        "value": "love_it"
       },
       {
-        "value": "mao_and_then",
+        "description": "Moderate cat vibes - some meow references but not overwhelming",
         "label": "Mao and then",
-        "description": "Moderate cat vibes - some meow references but not overwhelming"
+        "value": "mao_and_then"
       },
       {
-        "value": "be_serious_pls",
-        "label": "Be serious pls", 
-        "description": "Professional mode - no cat references, business language only"
+        "description": "Professional mode - no cat references, business language only",
+        "label": "Be serious pls",
+        "value": "be_serious_pls"
       }
     ],
+    "type": "select",
     "ui_metadata": {
-      "section": "Interface & Experience",
+      "help_text": "Controls personality level and language style throughout the app",
       "preview_enabled": true,
-      "help_text": "Controls personality level and language style throughout the app"
+      "section": "Interface & Experience"
     }
   },
-  "_metadata": {
-    "last_updated": "2025-07-09T00:00:00Z",
-    "schema_version": "1.0"
-  }
+  "created_date": "2025-07-23T08:15:00.000000Z",
+  "data_collection": {
+    "default": true,
+    "description": "Enable data collection for analytics",
+    "options": {
+      "description": "Data collection preference"
+    },
+    "type": "boolean",
+    "ui_metadata": {
+      "help_text": "Control application data collection",
+      "preview_enabled": true,
+      "section": "Privacy"
+    }
+  },
+  "description": "Configure cat personality level and language style",
+  "last_updated": "2025-07-23T08:15:00.000000Z",
+  "name": "cat_vibes_app_settings",
+  "version": "1.0"
 }

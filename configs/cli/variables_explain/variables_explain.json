@@ -1,8 +1,16 @@
 {
-  "command": "variables_explain",
-  "type": "standalone",
-  "terminal_flag": "--variables-explain",
   "app_command": "/variables-explain",
+  "args": [],
+  "category": "GENERAL",
+  "command": "variables_explain",
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Explain how workflow variables work",
+  "hidden": false,
   "interface_method": "explain_variables",
-  "help": "Explain how workflow variables work"
+  "name": "default_command",
+  "required": false,
+  "terminal_flag": "--variables-explain",
+  "type": "standalone"
 }

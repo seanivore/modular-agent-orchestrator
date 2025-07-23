@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 MAO Function Naming Audit Script
-Finds inconsistencies in function" / "method naming across the codebase
+Finds inconsistencies in function/method naming across the codebase
 
 This script analyzes:
 1. Manager class method naming patterns
@@ -46,10 +46,10 @@ class FunctionNamingAuditor:
         python_files = []
         
         # Priority directories
-        priority_dirs = ["orchestrator", "configs" / "cli", "interfaces"]
+        priority_dirs = ["orchestrator", "configs/cli", "interfaces"]
         
         for priority_dir in priority_dirs:
-            dir_path = self.project_root " / " priority_dir
+            dir_path = self.project_root / priority_dir
             if dir_path.exists():
                 for py_file in dir_path.rglob("*.py"):
                     if not any(skip in str(py_file) for skip in ['.backup', '__pycache__']):
@@ -318,7 +318,7 @@ class FunctionNamingAuditor:
             json.dump(results, f, indent=2, default=str)
         
         # Print summary
-        print(Path(r"\n") + "="*60)
+        print("\n" + "="*60)
         print("📊 MAO FUNCTION NAMING AUDIT RESULTS")
         print("="*60)
         
@@ -334,7 +334,7 @@ class FunctionNamingAuditor:
         
         # Show similar function groups
         if results['similar_functions']:
-            print(fPath(r"\n👥 SIMILAR FUNCTION GROUPS:"))
+            print(f"\n👥 SIMILAR FUNCTION GROUPS:")
             for family, functions in list(results['similar_functions'].items())[:3]:
                 print(f"  📦 {family.upper()}:")
                 for func in functions[:5]:
@@ -343,7 +343,7 @@ class FunctionNamingAuditor:
         
         # Show manager inconsistencies
         if results['manager_inconsistencies']:
-            print(fPath(r"\n⚠️ MANAGER INCONSISTENCIES:"))
+            print(f"\n⚠️ MANAGER INCONSISTENCIES:")
             for issue_key, issue in list(results['manager_inconsistencies'].items())[:3]:
                 print(f"  📦 {issue['operation'].upper()} operations for {issue['target']}:")
                 for class_name, method in issue['methods']:
@@ -351,17 +351,17 @@ class FunctionNamingAuditor:
         
         # Show parameter inconsistencies
         if results['parameter_inconsistencies']:
-            print(fPath(r"\n📝 PARAMETER INCONSISTENCIES:"))
+            print(f"\n📝 PARAMETER INCONSISTENCIES:")
             for concept, variations in list(results['parameter_inconsistencies'].items())[:3]:
                 print(f"  📦 {concept.upper()}:")
                 for var in variations:
                     print(f"    📝 '{var['param_name']}' used in {var['usage_count']} functions")
         
-        print(fPath(r"\n💡 RECOMMENDATIONS:"))
+        print(f"\n💡 RECOMMENDATIONS:")
         for rec in results['recommendations']:
             print(f"  {rec}")
         
-        print(fPath(r"\n📄 Full report saved to: {output_file}"))
+        print(f"\n📄 Full report saved to: {output_file}")
         print("="*60)
 
 def main():

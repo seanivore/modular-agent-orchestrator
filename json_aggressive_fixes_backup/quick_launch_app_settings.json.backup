@@ -1,0 +1,39 @@
+{
+  "_metadata": {
+    "last_updated": "2025-07-09T00:00:00Z",
+    "schema_version": "1.0"
+  },
+  "app_name": "default_app_name",
+  "created_date": "2025-07-23T08:11:57.499850Z",
+  "description": "Configure startup and login behavior",
+  "last_updated": "2025-07-23T08:11:57.499861Z",
+  "name": "quick_launch_app_settings",
+  "quick_launch": {
+    "default": "always",
+    "description": "Launch app with last user logged in",
+    "options": [
+      {
+        "description": "Launch app with user from last session, unless logged out",
+        "label": "Always",
+        "value": "always"
+      },
+      {
+        "description": "Load Username login on every startup",
+        "label": "Off",
+        "value": "off"
+      },
+      {
+        "description": "Launch `mao --continue` to skip login, otherwise load Username login",
+        "label": "Continue Only",
+        "value": "continue_only"
+      }
+    ],
+    "type": "select",
+    "ui_metadata": {
+      "help_text": "Controls how MAO handles user login on startup",
+      "preview_enabled": false,
+      "section": "Startup & Navigation"
+    }
+  },
+  "version": "1.0"
+}

@@ -50,7 +50,7 @@ def _create_read_file_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - Read File
 import sys
 import os
-sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
+sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
 
 from tools.file_operations.file_operations import read_file, estimate_cost
 
@@ -101,7 +101,7 @@ def _create_list_directory_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - List Directory
 import sys
 import os
-sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
+sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
 
 from tools.file_operations.file_operations import list_directory, estimate_cost
 
@@ -158,7 +158,7 @@ def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - General Usage
 import sys
 import os
-sys.path.append(Path(os.path.dirname(Path(__file__).resolve().parent)))
+sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
 
 from tools.file_operations.file_operations import estimate_cost
 

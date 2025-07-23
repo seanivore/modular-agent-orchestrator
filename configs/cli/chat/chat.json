@@ -1,29 +1,43 @@
 {
-  "command": "chat",
-  "type": "needs_input",
-  "terminal_flag": "--chat",
   "app_command": "/chat",
-  "interface_method": "chat",
-  "help": "Jump into application and send first message to AI",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "message_patterns",
+      "goal_complexity"
+    ],
+    "duration_seconds": 300,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "chat",
   "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
+  "help": "Jump into application and send first message to AI",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "conversation_bridge",
+      "workflow_manager"
+    ],
+    "memory_mcp": true
+  },
+  "interface_method": "chat",
   "logic_file": "configs/cli/chat/chat.py",
-  "ui_file": "configs/cli/chat/ui_chat.py",
+  "name": "default_command",
   "operations": {
     "execute": {
       "description": "Process message through conversation bridge to create workflow",
-      "required_params": ["message"],
-      "optional_params": []
+      "optional_params": [],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": true,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["conversation_bridge", "workflow_manager"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 300,
-    "cache_key_includes": ["message_patterns", "goal_complexity"]
-  }
+  "required": false,
+  "terminal_flag": "--chat",
+  "type": "needs_input",
+  "ui_file": "configs/cli/chat/ui_chat.py"
 }

@@ -24,7 +24,7 @@ from datetime import datetime
 class JSONConfigAuditor:
     def __init__(self, project_root: str = "."):
         self.project_root = Path(project_root)
-        self.config_dir = self.project_root " / " "configs"
+        self.config_dir = self.project_root / "configs"
         self.issues = []
         self.schema_patterns = defaultdict(list)
         self.field_inconsistencies = defaultdict(set)
@@ -163,22 +163,22 @@ class JSONConfigAuditor:
         
         # Check if value looks like a date
         date_patterns = [
-            rPath(r'\d{4}-\d{2}-\d{2}'),  # 2025-07-23
-            rPath(r'\d{2}/\d{2}") / Path(r"\d{2,4}'),  # 07/23/25 or 07/23/2025
-            rPath(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'),  # ISO format
+            r'\d{4}-\d{2}-\d{2}',  # 2025-07-23
+            r'\d{2}/\d{2}/\d{2,4}',  # 07/23/25 or 07/23/2025
+            r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}',  # ISO format
         ]
         
         return any(re.search(pattern, value) for pattern in date_patterns)
 
     def detect_date_format(self, value: str) -> str:
         """Detect the format of a date string"""
-        if re.search(rPath(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}'), value):
+        if re.search(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}', value):
             return 'ISO_DATETIME'
-        elif re.search(rPath(r'\d{4}-\d{2}-\d{2}'), value):
+        elif re.search(r'\d{4}-\d{2}-\d{2}', value):
             return 'ISO_DATE'
-        elif re.search(rPath(r'\d{2}/\d{2}") / Path(r"\d{4}'), value):
+        elif re.search(r'\d{2}/\d{2}/\d{4}', value):
             return 'US_DATE'
-        elif re.search(rPath(r'\d{2}/\d{2}") / Path(r"\d{2}'), value):
+        elif re.search(r'\d{2}/\d{2}/\d{2}', value):
             return 'SHORT_US_DATE'
         else:
             return 'UNKNOWN'
@@ -326,7 +326,7 @@ class JSONConfigAuditor:
         
         # Boolean format recommendations
         if len(self.boolean_formats) > 1:
-            recommendations.append("✅ Standardize boolean formats - suggest using native JSON booleans (true" / "false)")
+            recommendations.append("✅ Standardize boolean formats - suggest using native JSON booleans (true/false)")
         
         # Schema recommendations
         schema_issues = self.find_schema_inconsistencies()
@@ -386,7 +386,7 @@ class JSONConfigAuditor:
             json.dump(results, f, indent=2)
         
         # Print summary
-        print(Path(r"\n") + "="*60)
+        print("\n" + "="*60)
         print("📊 MAO JSON CONFIGURATION AUDIT RESULTS")
         print("="*60)
         
@@ -401,7 +401,7 @@ class JSONConfigAuditor:
         
         # Show date format inconsistencies
         if len(results['date_formats']) > 1:
-            print(fPath(r"\n🗓️ DATE FORMAT INCONSISTENCIES:"))
+            print(f"\n🗓️ DATE FORMAT INCONSISTENCIES:")
             for fmt, examples in results['date_formats'].items():
                 print(f"  {fmt}: {len(examples)} files")
                 for example in examples[:3]:
@@ -410,7 +410,7 @@ class JSONConfigAuditor:
         
         # Show boolean format inconsistencies
         if len(results['boolean_formats']) > 1:
-            print(fPath(r"\n✅ BOOLEAN FORMAT INCONSISTENCIES:"))
+            print(f"\n✅ BOOLEAN FORMAT INCONSISTENCIES:")
             for fmt, examples in results['boolean_formats'].items():
                 print(f"  {fmt}: {len(examples)} files")
                 for example in examples[:3]:
@@ -419,17 +419,17 @@ class JSONConfigAuditor:
         
         # Show schema inconsistencies
         if results['schema_inconsistencies']:
-            print(fPath(r"\n📋 SCHEMA INCONSISTENCIES:"))
+            print(f"\n📋 SCHEMA INCONSISTENCIES:")
             for config_type, issues in results['schema_inconsistencies'].items():
                 print(f"  📦 {config_type.upper()} configs:")
                 for issue in issues[:5]:
                     print(f"    ⚠️ '{issue['field']}' missing from {len(issue['missing_from'])} files")
         
-        print(fPath(r"\n💡 RECOMMENDATIONS:"))
+        print(f"\n💡 RECOMMENDATIONS:")
         for rec in results['recommendations']:
             print(f"  {rec}")
         
-        print(fPath(r"\n📄 Full report saved to: {output_file}"))
+        print(f"\n📄 Full report saved to: {output_file}")
         print("="*60)
 
 def main():

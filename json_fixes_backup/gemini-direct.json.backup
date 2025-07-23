@@ -1,0 +1,14 @@
+{
+  "name": "gemini-direct",
+  "display_name": "Google Gemini Direct",
+  "api_type": "gemini",
+  "base_url": "https://generativelanguage.googleapis.com/v1beta",
+  "auth_header": "authorization",
+  "env_var": "GEMINI_API_KEY",
+  "supports_streaming": true,
+  "rate_limits": {
+    "requests_per_minute": 300,
+    "tokens_per_minute": 150000
+  },
+  "description": "Direct Google Gemini API for maximum context window and free usage"
+}

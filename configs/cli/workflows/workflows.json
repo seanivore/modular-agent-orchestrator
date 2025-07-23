@@ -1,40 +1,67 @@
 {
-  "name": "workflows",
-  "command": "workflows",
-  "type": "standalone",
-  "terminal_flag": "--workflows",
   "app_command": "/workflows",
-  "interface_method": "list_workflows",
-  "help": "List all configured workflows with search and filtering capabilities",
+  "args": [],
+  "cache_settings": {
+    "cache_key_includes": [
+      "workflow_directory_state",
+      "workflow_files_hash"
+    ],
+    "duration_seconds": 900,
+    "enabled": true
+  },
+  "category": "GENERAL",
+  "command": "workflows",
   "cost_estimate": 0.002,
+  "description": "Default CLI command description",
+  "enabled": true,
+  "examples": [],
   "file_path": "configs/cli/workflows/workflows.py",
-  "ui_path": "configs/cli/workflows/ui_workflows.py",
+  "help": "List all configured workflows with search and filtering capabilities",
+  "hidden": false,
+  "integration": {
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": [
+      "workflow_manager",
+      "review_command",
+      "logs_command",
+      "stats_command"
+    ],
+    "memory_mcp": false
+  },
+  "interface_method": "list_workflows",
+  "name": "workflows",
   "operations": {
+    "filter": {
+      "description": "Filter workflows by status, user, or command",
+      "optional_params": [
+        "status",
+        "user_id",
+        "command"
+      ],
+      "required_params": true
+    },
     "list": {
       "description": "List all workflows with comprehensive metadata and status",
-      "required_params": [],
-      "optional_params": ["search", "status", "user_id", "command"]
+      "optional_params": [
+        "search",
+        "status",
+        "user_id",
+        "command"
+      ],
+      "required_params": true
     },
     "search": {
       "description": "Search workflows by ID, command, goal, or description",
-      "required_params": ["search"],
-      "optional_params": ["status", "user_id"]
-    },
-    "filter": {
-      "description": "Filter workflows by status, user, or command",
-      "required_params": [],
-      "optional_params": ["status", "user_id", "command"]
+      "optional_params": [
+        "status",
+        "user_id"
+      ],
+      "required_params": true
     }
   },
-  "integration": {
-    "memory_mcp": false,
-    "cache_system": true,
-    "error_handling": true,
-    "manager_touchpoints": ["workflow_manager", "review_command", "logs_command", "stats_command"]
-  },
-  "cache_settings": {
-    "enabled": true,
-    "duration_seconds": 900,
-    "cache_key_includes": ["workflow_directory_state", "workflow_files_hash"]
-  }
+  "required": false,
+  "terminal_flag": "--workflows",
+  "type": "standalone",
+  "ui_path": "configs/cli/workflows/ui_workflows.py"
 }

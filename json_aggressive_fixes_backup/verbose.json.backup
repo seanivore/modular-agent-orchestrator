@@ -1,0 +1,50 @@
+{
+  "command": "verbose",
+  "type": "standalone",
+  "terminal_flag": "--verbose",
+  "app_command": "/verbose",
+  "interface_method": "toggle_verbose",
+  "help": "Toggle verbose mode and debug levels for enhanced troubleshooting",
+  "cost_estimate": 0.0001,
+  "logic_file": "configs/cli/verbose/verbose.py",
+  "ui_file": "configs/cli/verbose/ui_verbose.py",
+  "operations": {
+    "toggle": {
+      "description": "Toggle verbose mode on/off",
+      "required_params": [],
+      "optional_params": ["action"]
+    },
+    "debug": {
+      "description": "Enable debug mode with level control",
+      "required_params": [],
+      "optional_params": ["level"]
+    },
+    "status": {
+      "description": "Show current verbose/debug status",
+      "required_params": [],
+      "optional_params": []
+    },
+    "info": {
+      "description": "Show comprehensive debug information",
+      "required_params": [],
+      "optional_params": []
+    }
+  },
+  "integration": {
+    "memory_mcp": true,
+    "cache_system": true,
+    "error_handling": true,
+    "manager_touchpoints": ["workflow_manager", "workflow_state", "memory_mcp"]
+  },
+  "cache_settings": {
+    "enabled": true,
+    "duration_seconds": 60,
+    "cache_key_includes": ["system_state", "debug_state_file"]
+  },
+  "debug_features": {
+    "persistent_state": true,
+    "workflow_integration": true,
+    "session_tracking": true,
+    "debug_levels": ["basic", "detailed", "forensic"]
+  }
+}
