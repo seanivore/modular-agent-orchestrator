@@ -7,7 +7,15 @@ You're ready to automate your life. Advanced agentic orchestration, delegating t
 
 ---
 
-## Install 'Mao' 
+## New User Experience
+
+### First Time Setup
+
+**Getting Started**: Download Mao, run the installer, and you're ready to begin. The system handles user configuration, model setup, and tool access automatically.
+
+**Quick Onboarding**: Mao introduces itself and walks you through creating your first workflow. The conversation feels natural - just describe what you want to accomplish, and Mao handles the technical complexity.
+
+### Install 'Mao' 
 
 This is the literal hardest part of using Mao. (It's not hard at all.)
 
@@ -79,66 +87,28 @@ It's your first time with Mao ~(=^‥^) The app loads and:
 
 ---
 
-## Using Math to Create Unique UserIDs 
-
-We needed a way to create a unique ID for every user, that is always the same for the username they use. 
+## Create Unique UserIDs 
 
 - The system checks to see if the UserID already exists 
-- If not, it creates a new UserID using a script 
-- Run the script manually in the terminal 
+- New user login creates `./configs/user/username/user_username.json` file 
 - A UserID will always be the same for a specific Username 
-
-```bash
-meid seanivore # Run command with the Username 
-> user-1642    # Response is that Username's User ID 
-```
+- Subdirectories and files include preference, memories, analytics, and other data 
+- Workflows are stored in the `./configs/workflows/` directory and only include the UserID 
+- Search for workflows orchestrated Management files 
 
 ### `meid` Script Code 
-
-"What if the script changes certain characters into mathematical operations?" triggered rapid code development. If you're into math, you might find this interesting. 
 
 ```python 
         # Generate user_id using meid script
         try:
             user_id = generate_user_id(username)
-
-        self.operations = {
-            'add': lambda x, y: x + y,
-            'multiply': lambda x, y: (x * y) % 10000,
-            'fibonacci': lambda x, y: self._fib_mod(x + y),
-            'golden': lambda x, y: int((x + y) * 1.618) % 10000,
-            'spiral': lambda x, y: (x * 7 + y * 13) % 10000,
-            'mirror': lambda x, y: self._mirror_add(x, y),
-            'karmic': lambda x, y: (self._digit_sum(x) * 37 + self._digit_sum(y) * 23) % 10000,
-        }
-    
-    def _fib_mod(self, n):
-        """Fibonacci-like operation limited to 4 digits"""
-        if n <= 1:
-            return n % 10000
-        a, b = 0, 1
-        for _ in range(min(n % 15, 12)):  # Limit iterations
-            a, b = b, (a + b) % 10000
-        return b
-    
-    def _mirror_add(self, x, y):
-        """Add numbers with their digit reversals"""
-        x_str = str(x)
-        y_str = str(y)
-        x_rev = int(x_str[::-1]) if x_str[::-1].isdigit() else x
-        y_rev = int(y_str[::-1]) if y_str[::-1].isdigit() else y
-        return (x + x_rev + y + y_rev) % 10000
-    
-    def _digit_sum(self, n):
-        """Sum of digits in a number"""
-        return sum(int(d) for d in str(n))
 ```
 
-### `meid` Help 
+### `meid` Used Separately in Terminal 
 
 ```bash
-> meid 
-meid - Generate user IDs from usernames
+meid seanivore # Run command with the Username 
+> user-1642    # Response is that Username's User ID 
 
 Usage:
   meid username       Generate user ID for username
@@ -155,35 +125,131 @@ Mathematical Operations:
   Same username always produces the same user ID
 ```
 
-
-
-### New UserID Application Background Setup 
-
-- When a new user logs in, the application will create a new `./configs/user/username/user_username.json` directory and file
-- "username" in the filename is the Username: `user_seanivore.json`
-- All user settings, memories, User analytics, and other data are saved to subdirectories in this directory 
-
-
-
-### Workflows & UserID 
-
-- New Workflows created by this User ID are not recorded to the User ID JSON file 
-- However Orchestrator Management files easily can search a User ID or Username to pull up their workflows 
-- All workflow JSONs have a User ID field, which is how they can be searched for by the application 
-
-### UserID Application Session State 
-
-- The application saves the state with the most recent User ID used
-- Subsequent launches load with that ID and their settings 
-- The application will allow users to adjust these settings which updates a subdirectory in their `./configs/user/username/` directory 
+### Changing User Settings 
 
 ```bash
 /config   # Run this slash command while in the app to open the config screen 
 mao --config   # Launch the app to open on the config screen 
 ```
 
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
+---
+
+## Session Management & Memory
+
+### Persistent Context
+
+**Always On The Same Page**: Mao remembers everything about your projects, preferences, and working style. Start conversations mid-thought, and Mao picks up exactly where you left off.
+
+**Smart Context Switching**: Work on multiple projects simultaneously. Mao maintains separate contexts and switches seamlessly based on your current focus.
+
+**Learning Your Style**: Over time, Mao learns your communication patterns, quality standards, and business priorities. Each interaction becomes more personalized and efficient.
+
+### Cross-Session Continuity 
+
+**Project Memory**: Every workflow, decision, and outcome is remembered. Return to projects weeks later, and Mao provides complete context and suggests next steps.
+
+**Pattern Recognition**: Mao identifies recurring workflows and suggests templates. Your marketing processes become reusable assets that improve over time.
+
+The session management system relies on the **Memory MCP (Model Context Protocol)** server to maintain persistent workflow state and user context across sessions. This creates seamless continuity that feels magical to users but operates on solid technical foundations.
+
+### Core Memory Management Components **NOT ACCURATE NEEDS TO BE UPDATED**
+
+```python
+# orchestrator/memory_mcp.py - Memory integration hub
+class MemoryMCPManager:
+    def __init__(self):
+        self.memory_client = MemoryMCPClient()
+        self.cache = CacheManager()
+        
+    async def save_workflow_context(self, workflow_id: str, context: Dict[str, Any]):
+        """Save complete workflow state to knowledge graph"""
+        workflow_entity = {
+            "name": f"workflow_{workflow_id}",
+            "type": "workflow_context",
+            "observations": [
+                f"Goal: {context['goal']}",
+                f"Status: {context['status']}",
+                f"Current Phase: {context['current_phase']}",
+                f"Deliverables: {json.dumps(context['deliverables'])}"
+            ]
+        }
+        await self.memory_client.create_entities([workflow_entity])
+        
+    async def restore_workflow_context(self, workflow_id: str) -> Dict[str, Any]:
+        """Restore workflow state from knowledge graph"""
+        nodes = await self.memory_client.search_nodes(f"workflow_{workflow_id}")
+        return self._parse_workflow_context(nodes)
+```
+
+### Session State Persistence
+
+```python
+# orchestrator/user_memory_manager.py - User session management
+class UserMemoryManager:
+    def __init__(self, username: str):
+        self.username = username
+        self.user_config_path = f"configs/user/{username}/user_{username}.json"
+        self.memory_mcp = MemoryMCPManager()
+        
+    def save_session_state(self, session_data: Dict[str, Any]):
+        """Persist current session context"""
+        session_entity = {
+            "name": f"session_{self.username}_{datetime.now().isoformat()}",
+            "type": "user_session",
+            "observations": [
+                f"Active workflows: {session_data['active_workflows']}",
+                f"Current focus: {session_data['current_focus']}",
+                f"Preferences: {json.dumps(session_data['preferences'])}"
+            ]
+        }
+        self.memory_mcp.create_entities([session_entity])
+        
+    def get_user_context(self) -> Dict[str, Any]:
+        """Retrieve complete user context for session restoration"""
+        user_nodes = self.memory_mcp.search_nodes(f"session_{self.username}")
+        return self._compile_user_context(user_nodes)
+```
+
+### Workflow ID System Architecture
+
+```python
+# orchestrator/workflow_manager.py - Workflow identification and tracking
+class WorkflowManager:
+    def generate_workflow_id(self) -> str:
+        """Generate unique workflow identifier"""
+        import uuid
+        timestamp = int(time.time())
+        unique_id = str(uuid.uuid4())[:8]
+        return f"wf-{timestamp}-{unique_id}"
+        
+    def create_workflow_context(self, goal: str, user_id: str) -> Dict[str, Any]:
+        """Create initial workflow context with memory integration"""
+        workflow_id = self.generate_workflow_id()
+        context = {
+            "workflow_id": workflow_id,
+            "user_id": user_id,
+            "goal": goal,
+            "created_at": datetime.now().isoformat(),
+            "status": "planning",
+            "phases": [],
+            "memory_context": {}
+        }
+        
+        # Save to Memory MCP immediately
+        self.memory_mcp.save_workflow_context(workflow_id, context)
+        return context
+```
+
+### Cross-Session Data Flow
+
+The memory system creates a continuous data flow that persists across sessions:
+
+1. **Session Start**: System queries Memory MCP for user context and active workflows
+2. **Ongoing Work**: All interactions, decisions, and progress automatically saved to knowledge graph
+3. **Session End**: Current state persisted with timestamp and context markers
+4. **Session Resume**: Previous context restored with full workflow state and user preferences
+
+This architecture enables the "always on the same page" experience that makes Mao feel like a persistent team member rather than a stateless tool.
 
 ---
 

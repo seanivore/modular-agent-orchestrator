@@ -2,7 +2,28 @@
 
 ## Hello, friend 💎
 
-* **Our Project State system using the `memory` Model Context Preview (MCP) server**  
+Trying to put together the technical documentation for the project has been a mess with multiple sessions trying to use Claude Code to do it that resulted in completely made up information. 
+
+Then I had Claude Code batch file definitions thinking it might be easy to have AI write up the documentation text portions first then add bits of code architecture to it after. 
+
+  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS` (6 sections)
+  - `./documentation/FILE_BATCH_DEFINITIONS/GATHERED_INFO` (hundreds of files) 
+  - `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS` (6 files) 
+
+When seeing the gathered into files, I saw it only occasionally provided code architecture and instead answered the questions with textual information about the files. 
+
+I decided to address things directly. We discussed the previous multiple attempts and their inaccuracy. They said it was necessary to read the needed codebase files before copying over code. I'm not sure what this implied, that they were using grep and idk assuming the rest of the code? And they wanted to make a SPEC that was more specific for the subagents, treating the work more like coding. Writing this now it makes much less sense to me than it did at the time. 
+
+We saw that it still wasn't coming out accurate. They said they needed to do it on their own, but as they worked they were complaining about needing to do things "manually"; it was super strange. And I was still finding issues. 
+
+At some point I stopped and since then I've been trying to take stock of what assets we had, consolidate and perfect, still going with the whole "write then add code after" idea. We did some of it. I have worked on other docs a lot myself. 
+
+Anyway, the point is, we need to take stock of things at this point so I can indicate what I do like about the work so far and the structure of things, and then push through finishing them up with truly accurate code architecture that is comprehensive and built around the "narrative" structure we created so that the documentation would be compelling and informative to potential users, as well as be valuable for pitching while working in a marketing angle. 
+
+
+
+* **Understand Project State**
+  - Run the `memory` Model Context Protocol (MCP) server 
   - Search exact term `Mao Documentation Reorganization Project` to get on the same page 
   - Please only use it for understanding context and not for specifics as it is not always accurate 
   - This document is the go-to guide for this project 
