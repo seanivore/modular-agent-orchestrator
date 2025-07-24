@@ -54,7 +54,7 @@ export const ConversationInterface: React.FC = () => {
 
 Slash commands are one of Mao's many config files. New commands and capabilities can be added simply by dropping the file into the appropriate directories. Mao scans to discover functionality on the fly. 
 
-When you type `mao --help` the system isn't reading a static help file, it's dynamically building the help content by examining all the command configurations it finds in the system; they could techincally be changed up every day. 
+When you type `mao --help` the system isn't reading a static help file, it's dynamically building the help content by examining all the command configurations it finds in the system; they could technically be changed up every day. 
 
 **Discovery Implementation**
 `orchestrator/cli_manager.py`

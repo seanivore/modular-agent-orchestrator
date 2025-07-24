@@ -3,7 +3,7 @@
 
 ---
 
-Welcome to analytics in the era of AI. Insights are pushed further thanks to the power of memory and an ability to understand context. Intelligence built into analytics really makes a wild difference. Maos inteconnected memory system establishs sophisticated and intuitive user experience and data insight capabilities. This is where autonomy and agentic system meet evolution. Check out what it will do for you. 
+Welcome to analytics in the era of AI. Insights are pushed further thanks to the power of memory and an ability to understand context. Intelligence built into analytics really makes a wild difference. Mao's interconnected memory system establishes sophisticated and intuitive user experience and data insight capabilities. This is where autonomy and agentic system meet evolution. Check out what it will do for you. 
 
 ---
 
@@ -11,9 +11,9 @@ Welcome to analytics in the era of AI. Insights are pushed further thanks to the
 
 Contextualized analytics based on personal usage insights; because Mao notices. 
 
-Imagine a user who works with Mao to write, journaling their own memior. Or perhaps Mao's tasks are far more tactile, working with the User to run opperations for their cafe. You, the user, start your day and Mao already ordered your morning coffee made exactly to your high bar of specifications. 
+Imagine a user who works with Mao to write, journal their own memoir. Or perhaps Mao's tasks are far more tactile, working with the User to run operations for their cafe. You, the user, start your day and Mao already ordered your morning coffee made exactly to your high bar of specifications. 
 
-Push things futher by adding memories on the fly, like `/memory "Always book me a window seat in business class when I fly, and make sure that the east-bound flight is always a red-eye, but never the west-bound flight or I'll be back in LA at the crack of dawn!"`
+Push things further by adding memories on the fly, like `/memory "Always book me a window seat in business class when I fly, and make sure that the east-bound flight is always a red-eye, but never the west-bound flight or I'll be back in LA at the crack of dawn!"`
 
 WorkflowIDs can be used to pull in preferences they've been shown in previous projects, allowing Mao to suggest improvements to a workflow. "Didn't you want to make sure the summer rental has a saltwater pool for the kids? Or does Sam no longer react strongly to chlorine?" 
 
@@ -21,7 +21,7 @@ WorkflowIDs can be used to pull in preferences they've been shown in previous pr
 
 ## Real-Time Analytics Triggers 
 
-Mao's analytic triggers opperate in real time and are placed throughout the system, capturing valuable insights without you even noticing. 
+Mao's analytic triggers operate in real time and are placed throughout the system, capturing valuable insights without you even noticing. 
 
 User actions map analytics touch-points that build comprehensive intelligence that illuminates user productivity patterns, tool effectiveness, and popular personal preferences. 
 
