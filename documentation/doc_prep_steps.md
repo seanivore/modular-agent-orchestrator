@@ -1,32 +1,8 @@
 # Documentation Next Steps 
 
-## Hello, friend 💎
-
-Trying to put together the technical documentation for the project has been a mess with multiple sessions trying to use Claude Code to do it that resulted in completely made up information. 
-
-Then I had Claude Code batch file definitions thinking it might be easy to have AI write up the documentation text portions first then add bits of code architecture to it after. 
-
-  - `./documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS` (6 sections)
-  - `./documentation/FILE_BATCH_DEFINITIONS/GATHERED_INFO` (hundreds of files) 
-  - `./documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS` (6 files) 
-
-When seeing the gathered into files, I saw it only occasionally provided code architecture and instead answered the questions with textual information about the files. 
-
-I decided to address things directly. We discussed the previous multiple attempts and their inaccuracy. They said it was necessary to read the needed codebase files before copying over code. I'm not sure what this implied, that they were using grep and idk assuming the rest of the code? And they wanted to make a SPEC that was more specific for the subagents, treating the work more like coding. Writing this now it makes much less sense to me than it did at the time. 
-
-We saw that it still wasn't coming out accurate. They said they needed to do it on their own, but as they worked they were complaining about needing to do things "manually"; it was super strange. And I was still finding issues. 
-
-At some point I stopped and since then I've been trying to take stock of what assets we had, consolidate and perfect, still going with the whole "write then add code after" idea. We did some of it. I have worked on other docs a lot myself. 
-
-Anyway, the point is, we need to take stock of things at this point so I can indicate what I do like about the work so far and the structure of things, and then push through finishing them up with truly accurate code architecture that is comprehensive and built around the "narrative" structure we created so that the documentation would be compelling and informative to potential users, as well as be valuable for pitching while working in a marketing angle. 
-
-
-
 * **Understand Project State**
   - Run the `memory` Model Context Protocol (MCP) server 
   - Search exact term `Mao Documentation Reorganization Project` to get on the same page 
-  - Please only use it for understanding context and not for specifics as it is not always accurate 
-  - This document is the go-to guide for this project 
 
 * **A quick overview of our project**
   1. The documentation has all been written, thank you! 
@@ -105,7 +81,6 @@ Anyway, the point is, we need to take stock of things at this point so I can ind
   - And that we can reference the `./scripts/workflow_setup/workflow_setup.sh` script for the actual workflow setup 
   - And that we can reference the `./scripts/workflow_setup/install-workflow-commands.sh` script for the actual workflow setup 
 
-
 * Is this code helpful? Other than a few hardcoded "business" things, it seems like it might be. 
   - `./versioning/v4/v4_1_0/IMPL_TRIGGER_WORKFLOWS/timer_architecture.md` 
 
@@ -127,9 +102,6 @@ Anyway, the point is, we need to take stock of things at this point so I can ind
   - `./tests/FULL_CODEBASE_AUDIT/07_UPDATED_DOCUMENTATION.md`
 
 * And the rest of those full codebase audit docs are in here, since presumably if we were able to audit them here then somewhere we must have the rules for auditing them now, too: `./tests/FULL_CODEBASE_AUDIT` 
-
-* Audit file rules guide: `./versioning/v4/v4_0_0/_RULES_FILE_AUDIT_GUIDE.md` 
-
 
 ---
 
@@ -192,7 +164,6 @@ Which could be done and be the most powerful? The most helpful? The most engagin
 
 ## GROUP 5: Review/Audit for Accuracy 
 
-**COMPLETED**
 - `./documentation/04_INTERFACE.md` 
   - This is great!
   - It helps that much of the code we still need to implement for the UI, as it couldn't have been gotten wrong. 
@@ -200,7 +171,6 @@ Which could be done and be the most powerful? The most helpful? The most engagin
   - There was a bunch of extra stuff at the bottom from audits/reviews that I removed. 
   - And now I'm so happy with this file. 
 
-**COMPLETED, with comments/FYIs** 
 - `./documentation/06_ANALYTICS_MEMORY.md` 
   - This is pretty good too. 
   - However, I'm not sure where much of the second half of the details came from, Re: "The second half of the analytics documentation is fascinating but when I searched for any of the classes, many didn't exist. Like "PrivacyController" at line 636 and "UserDataController" line 695 and "CollectiveIntelligenceContributor" line 783... basically if they didn't have a file name to put under the h2 heading then I'm assuming it is not implemented. Hmm not true for them all... "AdaptiveRecommendationEngine" doesn't exist and it had a referenced file". All of this makes me think this need the same note as above about implementing requiring new files and updating some current files.  

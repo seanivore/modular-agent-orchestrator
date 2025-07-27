@@ -1,17 +1,141 @@
 # Documentation Preparation Guide
 
+## Session Setup 
+
+  1. Start a `sequential_thinking` session 
+  2. Review what is written in or Project State use of the `memory` MCP, searching for the term `Mao Documentation Reorganization Project` 
+  3. Look around for any other relevant information in the `memory` MCP and let me know if you find anything so that we can just include it specifically on this list and remove this open ended 'look around' note 
+  4. Review the `CLAUDE.md` file, our guide for standardization and rules 
+  5. Use this to understand the current state of the documentation pages we were working on: `./documentation/doc_prep_steps.md` you can see right at the top, under "We need to focus on TASK 1 first", I state "m not sure where CLI is... I think we should add it to..." which underscores the core issue with our previous process. The lack of clarity of an outline and the large size of the codebase has only made it continue to be difficult to write the documentation to completion. However, some of the files have been heavily edited and are in a good state. We will need to work through them one by one after identifying the online. 
+
 ## Overview
 
-This guide provides a structured approach to preparing documentation for a project. It outlines the key steps involved in creating comprehensive and user-friendly documentation.
+Developing a pragmatic approach to finishing up the documentation for Mao that maintains and builds on the current flow and narrative of the documents, and ensures the strategic content and writing style that was established to address the needs of standard documentation, as well as marketing and pitching audiences. 
+
+### Strategic Content & Writing Style 
+
+* Create documentation that is less dense and more accessible, modeling the style of Anthropic's documentation, for example. 
+* Employ a pattern of writing using very brief paragraphs and long-form bullet points, that is proceeded by the code architecture related to the topics just discussed. This then continues with a patter of writing about the tool, then code about what was just written, etc. 
+* Still ensure comprehensive coverage of the Mao system 
 
 ## Key Steps
 
-### 1. Define Documentation Scope
+### STEP 1: Initial Outline Building 
+*enter with current state of documentation, exit with an outline of the current documentation along with the intention implied for the rest of the documentation features to be covered* 
 
-- Identify the target audience
-- Determine the purpose of the documentation
+- Review the current state of documentation 
+- Consolidate and clean up multiple pages of documentation for a single section, a flaw of earlier processes 
+- Create an outline based on the contents and flow 
 
----
+#### Core Docs 
+
+- `documentation/03_USER_FLOW_00.md`
+- `documentation/03_USER_FLOW.md`
+
+- `documentation/04_INTERFACE.md`
+
+- `documentation/05_ORCHESTRATION.md`
+
+- `documentation/06_ANALYTICS_MEMORY.md`
+
+- `documentation/07_AUTOMATE_INTELLIGENCE.md`
+
+- `documentation/08_FUTURE_THINKING_old-outline.md`
+- `documentation/08_FUTURE_THINKING_original.md`
+- `documentation/08_FUTURE_THINKING_semi-recent-never-reviewed.md`
+- `documentation/08_FUTURE_THINKING.md`
+
+#### Secondary Docs 
+
+- `documentation/00_OVERVIEW_2.md`
+- `documentation/00_OVERVIEW.md`
+
+- `documentation/01_EVOLVING_AI_2.md`
+- `documentation/01_EVOLVING_AI.md`
+
+- `documentation/02_REFERENCE_2.md`
+- `documentation/02_REFERENCE.md`
+
+### STEP 2: Review & Feedback 
+*enter with initial outline, exit with concrete understanding of the outline and the intention implied for the rest of the documentation features to be covered* 
+
+- Review the initial outline 
+- Opportunity to address items that are intentional 
+- And remove items that are not intentional and merely a product of the process 
+- Sean to gather any specific resources for the documentation 
+
+### STEP 3: Building Out Comprehensive Outline 
+*enter with initial outline, exit with comprehensive outline of the documentation features to be covered that includes notation of where each topic's code is located* 
+
+- Take what is left after step 2 
+- Review all of the files in the project directory tree, provided below 
+- Build on the outline making it comprehensive as a tool to guide the writing process 
+  - Decides where each item or feature will be addressed 
+  - Ensures all features are addressed 
+  - Ensures the flow of the documentation is maintained 
+- Denote what file an architecture section is referencing 
+  - This can be maintained in the actual documentation; each section chapter in the docs will highlight what files are relevant 
+  - Helps while writing to know exactly where to go to find the code 
+  - This solves the problem of context window limitations 
+
+### STEP 4: Writing 
+*enter with comprehensive outline, exit with completed documentation as well as implementation docs for trigger system and UI plans* 
+
+- Write the documentation 
+- Ensure the writing is consistent with the style of the documentation 
+
+## Intention 
+
+The codebase is rather large and complex which is making it difficult to construct documentation because of AI context window limitations. As a result, I've been struggling, have dealt with multiple issues where Claude Code completely made up code and consistently complained about needing to read files and do things "manually". This led to broken pages of each section of documentation, and an inability to see how to close the gap when there is so much code to keep track of. Initially the idea was to write the text of the documentation first and then add code snippets. By creating the outline first, we can do just that, but without the need to read the codebase at the time of writing to know what code to add and from where to find it. 
+
+## Flow of Documentation VS Our Outline/Writing Process 
+
+- **Core documentation** is intended to use the implied narrative, much of which has been written and edited down, to create a flow of the documentation that covers the entirety of the system. All concepts and features are intended to be addressed here. 
+
+- **Secondary documentation** is has the following intentions to address after the completion of the core documentation. 
+  1. Overview = a more narrative version of a simple table of contents 
+  2. Evolving AI = an actual introduction to the product, brand story, and vision 
+  3. Reference = comprehensive user-guide references of the system, including commands and other need to reference information 
+
+### Core Documentation  
+
+- `03_USER_FLOW.md`
+- `04_INTERFACE.md`
+- `05_ORCHESTRATION.md`
+- `06_ANALYTICS_MEMORY.md`
+- `07_AUTOMATE_INTELLIGENCE.md`
+- `08_FUTURE_THINKING.md`
+
+### Secondary Documentation  
+
+- `00_OVERVIEW.md`
+- `01_EVOLVING_AI.md`
+- `02_REFERENCE.md`
+
+### Conceptual Flow of Core Documentation 
+
+We start with the end-to-end flow of a first time user's experience. 
+- What they will encounter and how they will interact with the system. 
+- This is broken up into digestible sections that are to be followed by code architecture of that section. 
+
+We then "follow the flow of data" through the system. 
+- This is meant to follow nicely what the user was doing in the 'user flow' section with the data that is being passed through the system, in the 'interface' section. 
+- The data then is processed by the system and results returned to the user; as explained by the 'orchestration' section which is meant to cover the core system files. 
+- This is a section where we are meant to write about the UI plans as if they are already implemented, as a means to create the actual implementation documentation. 
+
+We then cover the analytics and memory of the system. 
+- Now we're getting into how data and technology are used to create a novel user experience. 
+- It is where we start to introduce the value of the system and the potential of the product. 
+
+This value's climax would then be the 'automate intelligence' section. 
+- In writing it we came up with the actual logic for implementing the actual automation of intelligence. 
+- This trigger system is being included as a means to create the implementation documentation which will be implemented after creating documentation. 
+
+We then wrap up things by looking forward. 
+- This is meant to cover the ideas we have planned already. 
+- And also sprinkle in ideas that are not yet planned but are in the works, or are just brilliant possibilities. 
+
+## Project Directory Tree 
 
 ~/Development/modular-agent-orchestrator
 ├── _config.yml

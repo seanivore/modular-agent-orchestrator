@@ -21,7 +21,7 @@ Find: Core principles, production and development guidelines, CRITICAL implement
 - Setup scripts create executable commands in `/Users/seanivore/bin`; proven pattern 
 - Setup scripts do not put hyphens in command line, only spaces 
 
---
+---
 
 ## Production Ready
 - **NAMING** this is the product; don't put Mao or Mao-v4 in code or files
