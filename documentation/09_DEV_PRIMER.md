@@ -891,3 +891,48 @@ def function_name(self, params: Dict[str, Any]) -> Dict[str, Any]:
 - **Examples**:
   - `/repeat --scheduled /tmp/weekly_report/`
   - `/repeat --list-new /tmp/project_tasks/`
+
+---
+
+## 03_USER_FLOW.md Architecture Components
+
+### Memory MCP Integration
+**Real Classes**: `MemoryMCPManager`, `UserMemoryManager`
+- `create_workflow_context(workflow_id, user_goal)` - Initialize workflow in memory graph
+- `update_workflow_state(workflow_id, update_content)` - Update workflow state
+- `store_memory(user_id, content, category, tags, priority)` - Store user memory
+- `handle_session_recovery(workflow_id)` - Recover workflow session state
+
+### Chat Interface & Terminal UI  
+**Real Classes**: `TerminalInterface`, `SubprocessCommunicationBridge`
+- `process_user_input(user_input, session_context)` - Route user input appropriately
+- `generate_contextual_tips(session_state)` - Generate relevant user tips
+- `handle_nodejs_message(message)` - Process Node.js terminal messages
+- `send_to_nodejs(response)` - Send structured responses to terminal
+
+### Workflow ID System
+**Real Classes**: `WorkflowManager`, `WorkflowUIDGenerator` 
+- `generate_workflow_id(with_explanation)` - Generate unique workflow IDs
+- `generate_uid_with_explanation()` - Generate UID with mathematical explanation
+- `execute_workflow_id(params)` - CLI workflow ID command execution
+
+### JSON Configuration Architecture
+**Real Classes**: `ConversationToWorkflowBridge`, `JSONConfigNormalizer`
+- `create_workflow_from_conversation(user_goal)` - Generate workflow config from natural language
+- `normalize_config(config_data, config_type)` - Apply schema validation
+- Schema templates for `workflow_config`, `phase_config`, `handoff_config`
+
+### Basic Setup Script System
+**Real Classes**: Setup script integration via `execute_setup(params)`
+- `_setup_from_directory(workflow_dir, workflow_manager, workflow_state, memory_mcp)` - Core setup logic
+- Bash script processing for JSON-to-executable transformation
+- Directory structure management with proper file organization
+
+### Command Creation Architecture
+**Real Classes**: `CLICommandsManager`
+- `discover_cli_commands()` - Dynamically discover available CLI commands
+- `execute_command(command_name, args, session_context)` - Execute discovered commands
+- 3-file command pattern: `.json`, `.py`, `ui_.py`
+- Command registration and execution flow management
+
+---

@@ -164,27 +164,111 @@ mao --config   # Launch the app to open on the config screen
 
 The session management system relies on the **Memory MCP (Model Context Protocol)** server to maintain persistent workflow state and user context across sessions. This creates seamless continuity that feels magical to users but operates on solid technical foundations.
 
-### Memory Management Architecture
+### Memory MCP Integration Architecture
 *Files: orchestrator/memory_mcp.py, orchestrator/user_memory_manager.py, orchestrator/workflow_state.py*
 
-The memory system integrates with the Memory MCP server through several key components:
+The Memory MCP integration provides persistent workflow state and cross-session continuity through coordinated memory management:
 
-**Memory MCP Integration** (`orchestrator/memory_mcp.py`):
-- Maintains persistent knowledge graph for workflow context
-- Saves and retrieves user preferences and project state
-- Enables cross-session continuity through structured memory
+**Memory MCP Manager** (`orchestrator/memory_mcp.py`):
+```python
+class MemoryMCPManager:
+    """Manages workflow state persistence using Memory MCP"""
+    
+    def __init__(self):
+        self.cache = CacheManager()
+        self._client = None  # Lazy load MCP client
+    
+    @handle_errors(operation_name="create_workflow_context", return_dict=True)
+    def create_workflow_context(self, workflow_id: str, user_goal: str) -> str:
+        """Initialize complete workflow context in Memory MCP"""
+        context_data = {
+            "workflow_id": workflow_id,
+            "user_goal": user_goal,
+            "created_at": datetime.now().isoformat(),
+            "status": "initialized"
+        }
+        
+        # Create workflow entity in memory graph
+        entity_name = f"workflow-{workflow_id}"
+        self.client.create_entities([{
+            "name": entity_name,
+            "entityType": "workflow",
+            "observations": [json.dumps(context_data)]
+        }])
+        
+        return entity_name
+    
+    def update_workflow_state(self, workflow_id: str, update_content: str) -> bool:
+        """Update workflow state with new information"""
+        entity_name = f"workflow-{workflow_id}"
+        self.client.add_observations([{
+            "entityName": entity_name,
+            "contents": [f"{datetime.now().isoformat()}: {update_content}"]
+        }])
+        return True
+```
 
-**User Memory Management** (`orchestrator/user_memory_manager.py`):
-- Manages user-specific session data and preferences
-- Handles context restoration for returning users
-- Coordinates with Memory MCP for persistent storage
+**User Memory Manager** (`orchestrator/user_memory_manager.py`):
+```python
+class UserMemoryManager:
+    """Manages user-specific memory storage with MCP integration"""
+    
+    def __init__(self):
+        self.memory_mcp = MemoryMCPManager()
+        self.cache_duration = 300  # 5-minute cache for user data
+    
+    @handle_errors(operation_name="store_memory", return_dict=True)
+    def store_memory(self, user_id: str, content: str, category: str = None,
+                    tags: List[str] = None, priority: str = "medium") -> Dict[str, Any]:
+        """Store user memory with automatic categorization"""
+        memory_id = f"user-{user_id}-memory-{uuid4().hex[:8]}"
+        
+        # Organize memory data
+        memory_data = {
+            "content": content,
+            "category": category or "general",
+            "tags": tags or [],
+            "priority": priority,
+            "stored_at": datetime.now().isoformat()
+        }
+        
+        # Store in Memory MCP
+        self.memory_mcp.client.create_entities([{
+            "name": memory_id,
+            "entityType": "user_memory",
+            "observations": [json.dumps(memory_data)]
+        }])
+        
+        return {"success": True, "memory_id": memory_id}
+```
 
-**Workflow State Persistence** (`orchestrator/workflow_state.py`):
-- Tracks workflow execution progress across sessions
-- Manages phase completion and handoff states
-- Enables workflow resumption from any interruption point
+**Session Recovery Integration**:
+```python
+def handle_session_recovery(self, workflow_id: str) -> Optional[Dict[str, Any]]:
+    """Recover complete workflow session state"""
+    entity_name = f"workflow-{workflow_id}"
+    
+    # Search Memory MCP for workflow context
+    search_results = self.client.search_nodes(entity_name)
+    
+    if search_results and len(search_results) > 0:
+        workflow_entity = search_results[0]
+        
+        # Extract workflow state from observations
+        observations = workflow_entity.get("observations", [])
+        latest_state = json.loads(observations[-1]) if observations else {}
+        
+        return {
+            "can_resume": True,
+            "workflow_id": workflow_id,
+            "last_state": latest_state,
+            "recovery_point": datetime.now().isoformat()
+        }
+    
+    return None
+```
 
-This architecture ensures that users experience seamless continuity while maintaining clean separation between user data, system state, and workflow context.
+This architecture ensures seamless continuity through persistent memory graphs while maintaining privacy-first user data separation and efficient session recovery capabilities.
 
 ---
 
@@ -457,32 +541,267 @@ Mathematical Operations:
   s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
-### Chat Interface & Workflow Creation Architecture
-*Files: interfaces/ui_terminal.py, orchestrator/conversation_bridge.py, scripts/unique_id_generator/unique_id_generator.py, orchestrator/memory_mcp.py*
+### Chat Interface & Terminal UI Architecture
+*Files: interfaces/ui_terminal.py, versioning/v4_0_0/IMPL_UI/UI_IMPLEMENTATION_GUIDE.md, orchestrator/conversation_bridge.py*
 
-The conversational workflow creation experience operates through several coordinated systems:
+The conversational workflow creation experience operates through a sophisticated bridge between TypeScript frontend and Python backend:
 
-**Terminal UI Interface** (`interfaces/ui_terminal.py`):
-- Manages single-screen chat experience with dynamic content clearing
-- Handles user input processing and contextual tip generation
-- Coordinates with TypeScript/Node.js frontend for rich terminal experience
+**Terminal Interface Bridge** (`interfaces/ui_terminal.py`):
+```python
+class TerminalInterface:
+    """Main terminal interface coordinator for MAO conversations"""
+    
+    def __init__(self):
+        self.settings_manager = ApplicationSettingsManager()
+        self.username_manager = UsernameManager()
+        self.cli_manager = CLICommandsManager()
+    
+    @handle_errors(operation_name="process_user_input", return_dict=True)
+    def process_user_input(self, user_input: str, session_context: Dict[str, Any]) -> Dict[str, Any]:
+        """Process user input through conversational interface"""
+        
+        # Determine input type and route appropriately
+        if user_input.startswith('/'):
+            # Slash command routing
+            command = user_input[1:].split()[0]
+            args = user_input[1:].split()[1:] if len(user_input.split()) > 1 else []
+            return self.cli_manager.execute_command(command, args, session_context)
+        
+        elif user_input.startswith('mao '):
+            # CLI command routing 
+            command_parts = user_input[4:].split()
+            return self.cli_manager.execute_command_with_flags(command_parts, session_context)
+        
+        else:
+            # Natural language goal processing
+            return self._process_natural_language_goal(user_input, session_context)
+    
+    def generate_contextual_tips(self, session_state: Dict[str, Any]) -> List[str]:
+        """Generate contextually relevant tips for user guidance"""
+        tips = []
+        
+        # Workflow-specific tips
+        if session_state.get("has_active_workflow"):
+            tips.append("/continue to resume your last workflow")
+            tips.append("/workflow [id] to check workflow status")
+        
+        # New user tips
+        if session_state.get("is_new_user"):
+            tips.append("/help for available commands")
+            tips.append("/config to adjust your settings")
+        
+        return tips
+```
 
-**Conversation Bridge** (`orchestrator/conversation_bridge.py`):
-- Processes natural language goals into structured workflow requirements
-- Manages workflow ID generation and Memory MCP integration
-- Handles real-time workflow context updates during conversation
+**TypeScript Frontend Communication** (Implementation Guide):
+```typescript
+// ConversationInterface.tsx - Professional terminal UI
+export const ConversationInterface: React.FC = () => {
+  const [input, setInput] = useState('');
+  const pythonAPI = new PythonBridge();
+  
+  const handleInput = async (userInput: string) => {
+    if (userInput.startsWith('/')) {
+      // CLI command routing to Python backend
+      return await pythonAPI.executeCommand(userInput.slice(1));
+    } else {
+      // Natural language goal routing
+      return await pythonAPI.executeCommand('goal', userInput);
+    }
+  };
+  
+  return (
+    <Box flexDirection="column">
+      {/* Single conversation interface - NO menus, NO navigation */}
+      <ConversationDisplay messages={messages} />
+      <InputField onSubmit={handleInput} />
+      <ContextualTips tips={contextualTips} />
+    </Box>
+  );
+};
 
-**Workflow ID System** (`scripts/unique_id_generator/unique_id_generator.py`):
-- Generates collision-free workflow identifiers using mathematical operations
-- Ensures consistent ID format for easy recall and system integration
-- Provides batch generation and explanation capabilities for debugging
+// PythonBridge.ts - Subprocess communication
+class PythonBridge {
+  async executeCommand(command: string, args?: string): Promise<any> {
+    // 200ms immediate feedback threshold
+    this.showImmediateFeedback(`Executing ${command}...`);
+    
+    // Non-blocking HTTP call to Python cli_manager.py
+    const response = await fetch(`http://localhost:8000/cli/${command}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ args, source: 'typescript-terminal' })
+    });
+    
+    return response.json();
+  }
+}
+```
 
-**Memory Integration** (`orchestrator/memory_mcp.py`):
-- Tags all workflow context with appropriate IDs for seamless retrieval
-- Maintains project continuity across interruptions and sessions
-- Enables intelligent context switching between multiple active projects
+**Subprocess Communication Bridge** (`interfaces/ui_terminal.py`):
+```python
+class SubprocessCommunicationBridge:
+    """Node.js ↔ Python subprocess communication bridge"""
+    
+    def handle_nodejs_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
+        """Process incoming messages from Node.js terminal UI"""
+        message_type = message.get("type")
+        
+        if message_type == "command":
+            return self._handle_command_message(message)
+        elif message_type == "query":
+            return self._handle_query_message(message)
+        elif message_type == "ui_event":
+            return self._handle_ui_event(message)
+        
+        return {"success": False, "error": "Unknown message type"}
+    
+    def send_to_nodejs(self, response: Dict[str, Any]) -> None:
+        """Send structured responses to Node.js terminal UI"""
+        response_data = {
+            "success": response.get("success", True),
+            "data": response.get("data", {}),
+            "ui_updates": {
+                "display_state": response.get("display_state", "ready"),
+                "progress": response.get("progress", 0.0),
+                "status_message": response.get("status_message", "")
+            },
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        # Send JSON to Node.js via stdout
+        print(json.dumps(response_data), flush=True)
+```
 
-This architecture ensures that the conversational experience feels natural while maintaining robust technical foundations for workflow management and execution.
+This architecture creates a professional conversation-driven experience that rivals Claude Code's terminal interface while maintaining seamless integration with Mao's Python backend systems.
+
+### Workflow ID System Architecture
+*Files: orchestrator/workflow_manager.py, scripts/unique_id_generator/unique_id_generator.py, configs/cli/workflow_id/workflow_id.py*
+
+The workflow ID system provides collision-free identifier generation and comprehensive workflow tracking through integrated management:
+
+**Workflow Manager Integration** (`orchestrator/workflow_manager.py`):
+```python
+class WorkflowManager:
+    """Manages workflow IDs, discovery, and tracking"""
+    
+    def __init__(self):
+        self.workflows_dir = Path(__file__).parent.parent / "configs" / "workflows"
+        self.temp_dir = self.workflows_dir / ".temp"
+        
+        # Analytics and user management
+        self.user_analytics_manager = UserAnalyticsManager()
+        self.username_manager = UsernameManager()
+    
+    @handle_errors(operation_name="generate_workflow_id", return_dict=True)
+    def generate_workflow_id(self, with_explanation: bool = False) -> Dict[str, Any]:
+        """Generate a new unique workflow ID with optional mathematical explanation"""
+        try:
+            if with_explanation:
+                workflow_id, explanation = generate_workflow_uid_with_explanation()
+                return {
+                    "success": True,
+                    "workflow_id": workflow_id,
+                    "explanation": explanation,
+                    "timestamp": datetime.now().isoformat()
+                }
+            else:
+                workflow_id = generate_workflow_uid()
+                return {
+                    "success": True,
+                    "workflow_id": workflow_id,
+                    "timestamp": datetime.now().isoformat()
+                }
+        except Exception as e:
+            raise APIError(f"Failed to generate workflow ID: {str(e)}")
+```
+
+**Unique ID Generator** (`scripts/unique_id_generator/unique_id_generator.py`):
+```python
+class WorkflowUIDGenerator:
+    """Generates unique workflow IDs in format: uid-abc-123"""
+    
+    def __init__(self):
+        self.last_timestamp = 0
+        self.counter = 0
+        
+        # Map letters to mathematical operations
+        self.letter_operations = {
+            'a': ('add', lambda x: x + 17),
+            'b': ('multiply', lambda x: x * 3),
+            'c': ('subtract', lambda x: abs(x - 23)),
+            'd': ('divide', lambda x: x // 2 if x > 0 else 1),
+            'e': ('power', lambda x: (x ** 2) % 1000),
+            # ... 21 more mathematical operations
+        }
+    
+    @handle_errors(operation_name="uid_generation", return_dict=False)
+    def generate_uid_with_explanation(self) -> Tuple[str, str]:
+        """Generate UID with mathematical explanation"""
+        timestamp = int(time.time() * 1000)
+        
+        # Ensure uniqueness with collision handling
+        if timestamp <= self.last_timestamp:
+            self.counter += 1
+        else:
+            self.counter = 0
+            self.last_timestamp = timestamp
+        
+        # Generate unique number and apply mathematical operations
+        unique_number = timestamp + self.counter
+        letters = self._generate_letters(unique_number)
+        final_number = self._apply_mathematical_operations(unique_number, letters)
+        
+        uid = f"uid-{letters}-{final_number:03d}"
+        explanation = f"Math: {letters} operations on {unique_number} = {final_number}"
+        
+        return uid, explanation
+```
+
+**CLI Integration** (`configs/cli/workflow_id/workflow_id.py`):
+```python
+@handle_errors(operation_name="workflow_id", return_dict=True)
+def execute_workflow_id(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Main workflow_id command execution with workflow manager integration"""
+    
+    # Parse parameters
+    with_explanation = params.get("explain", False) if params else False
+    
+    # Initialize workflow manager
+    workflow_manager = WorkflowManager()
+    
+    # Generate workflow ID using workflow manager
+    id_result = workflow_manager.generate_workflow_id(with_explanation=with_explanation)
+    
+    if id_result.get("success"):
+        # Initialize workflow context in Memory MCP
+        try:
+            memory_manager = MemoryMCPManager()
+            context_id = memory_manager.create_workflow_context(
+                workflow_id=id_result.get("workflow_id"),
+                user_goal="Workflow setup phase - ID generated"
+            )
+            
+            return {
+                "success": True,
+                "workflow_id": id_result.get("workflow_id"),
+                "context_id": context_id,
+                "ready_for_workflow_setup": True,
+                "explanation": id_result.get("explanation") if with_explanation else None
+            }
+        except Exception as e:
+            # Don't break ID generation if memory context fails
+            return {
+                "success": True,
+                "workflow_id": id_result.get("workflow_id"),
+                "memory_context_created": False,
+                "warning": f"Memory context creation failed: {str(e)}"
+            }
+    
+    return {"success": False, "error": "Failed to generate workflow ID"}
+```
+
+This system ensures collision-free workflow identifiers with mathematical consistency while providing seamless integration with Memory MCP and comprehensive workflow tracking capabilities.
 
 ---
 
@@ -551,31 +870,125 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
 
 We'll touch on the specifics of how to setup, edit, or fix a workflow via JSON objects after this architecture section. 
 
-### JSON Configuration System Architecture
-*Files: orchestrator/conversation_bridge.py, templates/workflows/*
+### JSON Configuration Architecture
+*Files: orchestrator/conversation_bridge.py, templates/workflows/, scripts/quality_validator/json_config_normalizer.py*
 
-The 3-type JSON workflow configuration system provides modular workflow definition through coordinated object types:
+The 3-type JSON workflow configuration system provides modular workflow definition through coordinated object validation and template processing:
 
-**Configuration Generator** (`orchestrator/conversation_bridge.py`):
-- Processes natural language goals into structured JSON configurations
-- Manages template population and variable validation
-- Coordinates workflow, phase, and handoff object creation
+**Conversation Bridge Configuration Generator** (`orchestrator/conversation_bridge.py`):
+```python
+class ConversationToWorkflowBridge:
+    """Convert conversations to executable workflows using proven SFA patterns"""
+    
+    def create_workflow_from_conversation(self, user_goal: str) -> Dict[str, Any]:
+        """Generate complete workflow configuration from natural language"""
+        
+        # Generate workflow ID and create Memory MCP context
+        workflow_id = self._generate_unique_workflow_id()
+        self.memory_mcp.create_workflow_context(workflow_id, user_goal)
+        
+        # Analyze goal and create structured workflow specification
+        workflow_spec = self._analyze_goal(user_goal)
+        
+        # Generate 3-type JSON configuration
+        config = {
+            "workflow_id": workflow_id,
+            "custom_command": self._generate_command_name(workflow_spec, user_goal),
+            "goal": user_goal,
+            "phases": self._design_phases(workflow_spec),
+            "variables": self._extract_variables(workflow_spec, user_goal)
+        }
+        
+        # Save to temporary directory for setup script processing
+        command_name = config["custom_command"].replace(" ", "-")
+        use_case_dir = f"{self.use_case_base}/{command_name}"
+        os.makedirs(use_case_dir, exist_ok=True)
+        
+        config_path = f"{use_case_dir}/config.json"
+        with open(config_path, 'w') as f:
+            json.dump(config, f, indent=2)
+        
+        # Execute setup script to transform to executable workflow
+        result = subprocess.run([
+            self.setup_script_path, 
+            config_path
+        ], capture_output=True, text=True, cwd=".")
+        
+        return {
+            "success": result.returncode == 0,
+            "workflow_id": workflow_id,
+            "custom_command": config["custom_command"],
+            "setup_output": result.stdout
+        }
+```
 
-**Template System** (`templates/workflows/`):
-- Provides base JSON structures for consistent configuration format
-- Enables rapid workflow creation through template reuse
-- Maintains schema validation and required field checking
+**JSON Schema Validation System** (`scripts/quality_validator/json_config_normalizer.py`):
+```python
+class JSONConfigNormalizer:
+    """Ensures consistent JSON configuration format across all workflow types"""
+    
+    def __init__(self):
+        self.schema_templates = {
+            'workflow_config': {
+                'required_fields': ['workflow_id', 'custom_command', 'workflow_goal'],
+                'field_types': {
+                    'workflow_id': str,
+                    'custom_command': str,
+                    'workflow_goal': str,
+                    'workflow_deliverable': str,
+                    'user_id': str
+                },
+                'date_fields': ['created_at', 'last_updated']
+            },
+            'phase_config': {
+                'required_fields': ['workflow_id', 'phase_number', 'phase_goal'],
+                'field_types': {
+                    'workflow_id': str,
+                    'phase_number': str,
+                    'phase_goal': str,
+                    'tools': list,
+                    'model_1': str,
+                    'provider_1': str
+                }
+            },
+            'handoff_config': {
+                'required_fields': ['workflow_id', 'handoff_number', 'assessment_questions'],
+                'field_types': {
+                    'workflow_id': str,
+                    'handoff_number': str,
+                    'assessment_questions': list,
+                    'human_in_loop': str
+                }
+            }
+        }
+    
+    def normalize_config(self, config_data: Dict[str, Any], config_type: str) -> Dict[str, Any]:
+        """Apply schema normalization and validation"""
+        template = self.schema_templates.get(config_type, {})
+        normalized_data = config_data.copy()
+        
+        # Add missing required fields with defaults
+        for field in template.get('required_fields', []):
+            if field not in normalized_data:
+                if field in template.get('date_fields', []):
+                    normalized_data[field] = datetime.now().isoformat()
+                elif template['field_types'].get(field) == list:
+                    normalized_data[field] = []
+                else:
+                    normalized_data[field] = f"default_{field}"
+        
+        return normalized_data
+```
 
-**Workflow Configuration Types**:
+**Template Processing Pipeline**:
+1. **Natural Language Analysis** - Goal decomposition and requirement extraction
+2. **Template Population** - Fill base JSON structures with extracted data
+3. **Schema Validation** - Ensure all required fields and correct types
+4. **Temporary Storage** - Save to `.temp` directory for review/modification
+5. **Setup Script Processing** - Transform to executable workflow structure
+6. **Final Deployment** - Move to permanent workflow directory
 
-1. **WORKFLOW Object** - Master configuration linking all workflow components
-2. **PHASE Objects** - Individual task definitions with model/tool specifications  
-3. **HANDOFF Objects** - Quality control and progression logic definitions
-
-**Configuration Processing Pipeline**:
-- Natural language → structured requirements → template population → JSON validation → temporary storage → user review → final deployment
-
-This modular approach allows for flexible workflow modification while maintaining consistency and enabling complex multi-phase orchestration with intelligent quality control and agent coordination.
+This architecture ensures consistent configuration format while enabling flexible workflow creation through natural language processing and robust validation pipelines.
 
 ### **WORKFLOW** JSON Object Structure
 
@@ -840,31 +1253,318 @@ mao --fix-it configs/workflows/this-project/this-project-config-fix.json
 
 Both commands are designed so they can create new JSONs anywhere Mao, or you!, happen to be working, and the system automatically copies the new JSON to the appropriate directory for that use-case. This flexibility means workflow evolution can happen organically as projects develop.
 
-### Workflow Setup & Updates Architecture
-*Files: scripts/workflow_setup/, orchestrator/workflow_manager.py, configs/cli/setup/, configs/cli/fix_it/*
+### Basic Setup Script System Architecture
+*Files: scripts/workflow_setup/workflow_setup.sh, configs/cli/setup/setup.py, orchestrator/workflow_manager.py*
 
-The workflow setup and update system provides seamless transformation from JSON configurations to executable commands:
+The foundational workflow-to-executable transformation system converts JSON configurations into working custom commands:
 
-**Setup Script System** (`scripts/workflow_setup/`):
-- Processes temporary JSON configurations into permanent workflow structures
-- Manages directory creation, file organization, and command installation
-- Integrates with CLI commands for flexible execution from any location
+**Core Setup Script** (`scripts/workflow_setup/workflow_setup.sh`):
+```bash
+#!/bin/bash
+# Main workflow setup script - transforms JSON configs to executable commands
 
-**Workflow Evolution** (`orchestrator/workflow_manager.py`):
-- Handles dynamic workflow modification during execution
-- Supports creative workflow patterns with open-ended final phases
-- Manages quality control through automatic fix-it and update mechanisms
+# Parse input arguments and locate JSON files
+TEMP_DIR="$1"
+WORKFLOW_JSON="$TEMP_DIR/workflow_config.json"
+PHASE_JSON="$TEMP_DIR/phase_config.json"
+HANDOFF_JSON="$TEMP_DIR/handoff_config.json"
 
-**CLI Integration** (`configs/cli/setup/`, `configs/cli/fix_it/`):
-- Provides slash command and CLI flag interfaces for setup operations
-- Enables workflow updates from within active chat sessions
-- Coordinates with Memory MCP for context-aware workflow modifications
+# Extract workflow information from JSON
+CUSTOM_COMMAND=$(echo $WORKFLOW_INFO | python3 -c "import json, sys; print(json.load(sys.stdin)['custom_command'])")
+WORKFLOW_ID=$(echo $WORKFLOW_INFO | python3 -c "import json, sys; print(json.load(sys.stdin)['workflow_id'])")
+USER_ID=$(echo $WORKFLOW_INFO | python3 -c "import json, sys; print(json.load(sys.stdin)['user_id'])")
 
-**Directory Management**:
-- Automated temp-to-permanent workflow promotion
-- Consistent naming conventions across all workflow assets
-- Automatic cleanup and organization of workflow artifacts
+# Create workflow directory structure
+WORKFLOW_DIR="${MAO_ROOT}/configs/workflows/${CUSTOM_COMMAND}"
+mkdir -p "$WORKFLOW_DIR/config-files"
+mkdir -p "$WORKFLOW_DIR/deliverables"  
+mkdir -p "$WORKFLOW_DIR/metadata"
 
-This architecture ensures that workflow creation feels conversational while maintaining robust technical foundations for complex multi-phase orchestration and quality control.
+# Copy JSON files to permanent location
+cp "$WORKFLOW_JSON" "$WORKFLOW_DIR/config-files/"
+cp "$PHASE_JSON" "$WORKFLOW_DIR/config-files/"
+cp "$HANDOFF_JSON" "$WORKFLOW_DIR/config-files/"
+
+# Create custom executable command
+USER_BIN="$(cd ~ && pwd)/bin"
+mkdir -p "$USER_BIN"
+
+COMMAND_NAME=$(echo "$CUSTOM_COMMAND" | cut -d ' ' -f1)
+COMMAND_PATH="$USER_BIN/$COMMAND_NAME"
+
+cat > "$COMMAND_PATH" << EOF
+#!/bin/bash
+# Mao workflow command for $CUSTOM_COMMAND
+WORKFLOW_ID="$WORKFLOW_ID"
+USER_ID="$USER_ID"
+
+echo "~(=^‥^) Starting workflow: $CUSTOM_COMMAND"
+
+# Execute workflow using MAO orchestrator
+cd "\$MAO_ROOT"
+python3 -c "
+from orchestrator.mcp_hub import create_mcp_hub
+from orchestrator.workflow_manager import WorkflowManager
+
+hub = create_mcp_hub()
+workflow_manager = WorkflowManager()
+
+workflow_info = workflow_manager.get_workflow_by_id('\$WORKFLOW_ID')
+context_id = hub.create_workflow('\$WORKFLOW_ID', workflow_info.get('workflow_goal'))
+print(f'Workflow context created: {context_id}')
+"
+EOF
+
+chmod +x "$COMMAND_PATH"
+```
+
+**CLI Setup Integration** (`configs/cli/setup/setup.py`):
+```python
+@handle_errors(operation_name="setup", return_dict=True)
+def execute_setup(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Execute workflow setup from temporary JSON configurations"""
+    
+    # Parse workflow directory parameter
+    workflow_dir = params.get("workflow_dir") if params else None
+    if not workflow_dir:
+        return {"success": False, "error": "Workflow directory required"}
+    
+    # Initialize managers
+    workflow_manager = WorkflowManager()
+    workflow_state = WorkflowStateManager()
+    memory_mcp = MemoryMCPManager()
+    
+    # Process temporary directory into permanent workflow
+    result = _setup_from_directory(
+        Path(workflow_dir), 
+        workflow_manager, 
+        workflow_state, 
+        memory_mcp
+    )
+    
+    if result.get("success"):
+        # Clean up temporary directory
+        temp_path = Path(workflow_dir)
+        if temp_path.exists() and ".temp" in str(temp_path):
+            shutil.rmtree(temp_path)
+        
+        return {
+            "success": True,
+            "workflow_id": result.get("workflow_id"),
+            "custom_command": result.get("custom_command"),
+            "command_installed": result.get("command_installed"),
+            "message": f"Workflow '{result.get('custom_command')}' setup complete"
+        }
+    
+    return result
+
+def _setup_from_directory(workflow_dir: Path, workflow_manager: WorkflowManager,
+                         workflow_state: WorkflowStateManager, memory_mcp: MemoryMCPManager) -> Dict[str, Any]:
+    """Core setup logic for transforming temp directory to executable workflow"""
+    
+    # Read and validate JSON configurations
+    config_files = list(workflow_dir.glob("*.json"))
+    if len(config_files) < 3:
+        return {"success": False, "error": "Missing JSON configuration files"}
+    
+    # Process each configuration type
+    workflow_config = None
+    for config_file in config_files:
+        with open(config_file, 'r') as f:
+            config_data = json.load(f)
+            
+        if "workflow" in config_data:
+            workflow_config = config_data["workflow"][0]
+    
+    if not workflow_config:
+        return {"success": False, "error": "No valid workflow configuration found"}
+    
+    # Execute bash setup script
+    setup_script = Path(__file__).parent.parent.parent / "scripts" / "workflow_setup" / "workflow_setup.sh"
+    result = subprocess.run([str(setup_script), str(workflow_dir)], 
+                          capture_output=True, text=True)
+    
+    if result.returncode == 0:
+        return {
+            "success": True,
+            "workflow_id": workflow_config.get("workflow_id"),
+            "custom_command": workflow_config.get("custom_command"),
+            "command_installed": True,
+            "setup_output": result.stdout
+        }
+    
+    return {"success": False, "error": result.stderr}
+```
+
+**Directory Structure Management**:
+```
+configs/workflows/.temp/command-use-case/     # Temporary JSON storage
+├── workflow_config.json                      # Master workflow configuration
+├── phase_config.json                         # Task definitions
+└── handoff_config.json                       # Quality control logic
+
+↓ [Setup Script Processing] ↓
+
+configs/workflows/command-use-case/           # Permanent workflow structure  
+├── config-files/                            # JSON configurations
+│   ├── workflow_config.json
+│   ├── phase_config.json
+│   └── handoff_config.json
+├── deliverables/                             # Final outputs
+├── metadata/                                 # Tracking data
+└── README.md                                 # Auto-generated documentation
+
+~/bin/command                                 # Executable custom command
+```
+
+This foundational system transforms conversational workflow creation into executable custom commands while maintaining clean organization and enabling seamless workflow evolution.
+
+### Command Creation Architecture  
+*Files: orchestrator/cli_manager.py, configs/cli/*, scripts/mao_launch_setup/install_mao_command.sh*
+
+The command creation system provides dynamic discovery and execution of custom CLI commands through a modular architecture:
+
+**CLI Commands Manager** (`orchestrator/cli_manager.py`):
+```python
+class CLICommandsManager:
+    """Manages dynamic CLI command discovery and execution"""
+    
+    def __init__(self):
+        self.base_path = Path(__file__).parent.parent / "configs"
+        self.cli_commands_dir = self.base_path / "cli"
+        self.cache = CacheManager()
+        self.discovered_commands = {}
+    
+    @handle_errors(operation_name="discover_commands", return_dict=True)
+    def discover_cli_commands(self) -> Dict[str, Any]:
+        """Dynamically discover all available CLI commands"""
+        commands = {}
+        
+        # Scan CLI commands directory
+        for command_dir in self.cli_commands_dir.iterdir():
+            if command_dir.is_dir() and not command_dir.name.startswith('.'):
+                command_name = command_dir.name
+                
+                # Look for command configuration
+                config_file = command_dir / f"{command_name}.json"
+                python_file = command_dir / f"{command_name}.py"
+                
+                if config_file.exists() and python_file.exists():
+                    try:
+                        with open(config_file, 'r') as f:
+                            config = json.load(f)
+                        
+                        commands[command_name] = {
+                            "config": config,
+                            "module_path": f"configs.cli.{command_name}.{command_name}",
+                            "directory": str(command_dir),
+                            "available": True
+                        }
+                    except Exception as e:
+                        commands[command_name] = {
+                            "available": False,
+                            "error": str(e)
+                        }
+        
+        self.discovered_commands = commands
+        return {"success": True, "commands": commands}
+    
+    def execute_command(self, command_name: str, args: List[str], 
+                       session_context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Execute discovered CLI command with arguments"""
+        
+        if command_name not in self.discovered_commands:
+            self.discover_cli_commands()
+        
+        command_info = self.discovered_commands.get(command_name)
+        if not command_info or not command_info.get("available"):
+            return {"success": False, "error": f"Command '{command_name}' not available"}
+        
+        try:
+            # Import and execute command module
+            module_path = command_info["module_path"]
+            module = importlib.import_module(module_path)
+            
+            # Prepare execution parameters
+            params = {
+                "args": args,
+                "session_context": session_context or {},
+                "command_name": command_name
+            }
+            
+            # Execute command function
+            if hasattr(module, f'execute_{command_name}'):
+                result = getattr(module, f'execute_{command_name}')(params)
+            else:
+                result = {"success": False, "error": f"No execution function found for {command_name}"}
+            
+            return result
+            
+        except Exception as e:
+            return {"success": False, "error": f"Command execution failed: {str(e)}"}
+```
+
+**3-File Command Pattern**:
+Each CLI command follows a standardized 3-file structure:
+
+```
+configs/cli/command_name/
+├── command_name.json          # Command configuration and metadata
+├── command_name.py           # Core command logic
+└── ui_command_name.py        # UI integration (optional)
+```
+
+**Command Installation System** (`scripts/mao_launch_setup/install_mao_command.sh`):
+```bash
+#!/bin/bash
+# Install the main 'mao' command globally
+
+# Create the main mao command wrapper
+GLOBAL_BIN="/usr/local/bin"
+MAO_COMMAND="$GLOBAL_BIN/mao"
+
+cat > "$MAO_COMMAND" << 'EOF'
+#!/bin/bash
+# Global Mao command wrapper
+
+# Detect if this is the main application launch
+if [ "$1" = "mao" ] || [ $# -eq 0 ]; then
+    # Launch main Mao application
+    cd "$MAO_ROOT"
+    python3 -m interfaces.ui_terminal
+else
+    # Execute CLI command
+    cd "$MAO_ROOT"  
+    python3 -c "
+import sys
+sys.path.append('.')
+from orchestrator.cli_manager import CLICommandsManager
+
+cli_manager = CLICommandsManager()
+result = cli_manager.execute_command('$1', sys.argv[2:])
+
+if result.get('success'):
+    print(result.get('message', ''))
+    if result.get('output'):
+        print(result['output'])
+else:
+    print(f'Error: {result.get(\"error\", \"Unknown error\")}')
+    sys.exit(1)
+" "$@"
+fi
+EOF
+
+chmod +x "$MAO_COMMAND"
+echo "Global 'mao' command installed at $MAO_COMMAND"
+```
+
+**Command Registration Flow**:
+1. **Directory Structure Creation** - Standard 3-file pattern in `configs/cli/`
+2. **Dynamic Discovery** - CLI manager scans and registers available commands
+3. **Module Import** - Commands loaded dynamically at execution time
+4. **Execution Routing** - Arguments and context passed to command functions
+5. **Result Processing** - Standardized response format for UI integration
+
+This architecture enables seamless addition of new commands without code changes to the core system while maintaining consistent execution patterns and error handling across all CLI operations.
 
 ---
