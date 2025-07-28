@@ -410,19 +410,155 @@ class APIError(OrchestrationError)        # External API call failures
 ```python
 # orchestrator/user_analytics_manager.py
 class UserAnalyticsManager:
+    def __init__(self, user_dir: str = "./configs/user/")
+    def estimate_cost(self, operation: str = "analytics_operation") -> float
     def track_session(self, username: str, session_id: str, action: str, **kwargs) -> bool
     def track_tool_usage(self, username: str, tool_name: str, success: bool, response_time: float) -> bool
     def track_workflow(self, username: str, workflow_id: str, workflow_command: str, action: str, **kwargs) -> bool
+    def track_costs(self, username: str, date: str, model_name: str, cost: float, session_id: str = None) -> bool
     def scan_available_tools(self, username: str) -> List[str]
-    def get_user_analytics_summary(self, username: str) -> Dict
+    def _get_user_analytics_dir(self, username: str) -> Path
+    def _ensure_analytics_dir(self, username: str) -> Path
+    def _read_analytics_file(self, username: str, filename: str) -> Dict[str, Any]
+    def _write_analytics_file(self, username: str, filename: str, data: Dict[str, Any]) -> bool
 
-# orchestrator/system_analytics_manager.py
-class SystemAnalyticsManager
+**Data Classes**:
+- `SessionMetric` - Individual session tracking data
+- `ToolUsageMetric` - Individual tool usage tracking data  
+- `WorkflowMetric` - Individual workflow tracking data
+- `CostMetric` - Daily cost tracking data
 
-# orchestrator/real_time_metrics.py
-class SystemMetricsProvider:
-    def get_dashboard_metrics(self) -> Dict[str, Any]
+### orchestrator/user_memory_manager.py
+**Real Class**: `UserMemoryManager`
+**Key Methods**:
+- `__init__(self)`
+- `store_memory(self, user_id: str, content: str, category: str = None, tags: List[str] = None, priority: str = "medium") -> Dict[str, Any]`
+- `retrieve_memories(self, user_id: str, query: str, category: str = None, limit: int = 10, include_metadata: bool = False) -> List[Dict[str, Any]]`
+- `delete_memory(self, user_id: str, memory_id: str) -> Dict[str, Any]`
+- `suggest_contextual_memories(self, user_id: str, current_context: str, workflow_type: str = None) -> List[Dict[str, Any]]`
+- `_store_memory_to_file(self, username: str, memory: Dict[str, Any], category: str)`
+- `_store_memory_to_mcp(self, user_id: str, memory: Dict[str, Any])`
+- `_delete_memory_from_mcp(self, user_id: str, memory_id: str)`
+- `_auto_categorize_content(self, content: str) -> str`
+- `_auto_generate_tags(self, content: str) -> List[str]`
+- `_extract_context_triggers(self, content: str) -> List[str]`
+
+### orchestrator/memory_mcp.py  
+**Real Class**: `MemoryMCPManager`
+**Key Methods**:
+- `__init__(self, config_path: str = None)`
+- `initialize(self) -> bool`
+- `test_connection(self) -> bool`
+- `estimate_cost(self, operation: str = "memory_operation") -> float`
+- `create_workflow(self, workflow_data: Dict[str, Any]) -> str`
+- `prepare_agent_handoff(self, workflow_id: str, agent_context: Dict[str, Any]) -> bool`
+- `restore_agent_context(self, workflow_id: str) -> Dict[str, Any]`
+- `recover_session(self, session_data: Dict[str, Any]) -> Dict[str, Any]`
+
+**Real Class**: `LocalMemoryFallback`
+**Key Methods**:
+- `__init__(self)`
+- `create_entities(self, entities: List[Dict]) -> List[str]`
+- `add_observations(self, observations: List[Dict]) -> bool`
+- `_load_json(self, file_path, default)`
+- `_save_data(self)`
+
+### orchestrator/mcp_hub.py
+**Real Class**: `MCPIntegrationHub`
+**Key Methods**:
+- `__init__(self)`
+- `create_workflow(self, workflow_config: Dict[str, Any]) -> str`
+- `update_workflow_state(self, workflow_id: str, state_update: Dict[str, Any]) -> bool`
+- `get_workflow_state(self, workflow_id: str) -> Dict[str, Any]`
+- `store_session_context(self, session_data: Dict[str, Any]) -> bool`
+- `restore_session_context(self, session_id: str) -> Dict[str, Any]`
+- `health_check(self) -> Dict[str, bool]`
+- `_initialize_servers(self)`
+- `_setup_memory_mcp(self)`
+- `_setup_files_api(self)`
+- `_setup_mcp_connector(self)`
+
+## Analytics Data Schemas
+
+### Session Metrics Schema
+```json
+{
+  "sessions": [
+    {
+      "session_id": "sess_001",
+      "start_time": "2025-01-15T09:00:00Z",
+      "end_time": "2025-01-15T11:30:00Z",
+      "duration_minutes": 150,
+      "workflow_count": 3,
+      "tool_activations": 12
+    }
+  ],
+  "aggregates": {
+    "total_sessions": 1,
+    "average_duration": 150,
+    "total_time_minutes": 150
+  }
+}
 ```
+
+### Tool Usage Schema
+```json
+{
+  "tool_usage": {
+    "brave_search": {
+      "total_uses": 15,
+      "success_rate": 0.95,
+      "avg_response_time": 1.2,
+      "last_used": "2025-01-15T10:30:00Z"
+    }
+  },
+  "metadata": {
+    "discovery_enabled": true,
+    "last_discovery_scan": "2025-01-15T10:30:00Z"
+  }
+}
+```
+
+### Memory Schema
+```json
+{
+  "memories": [
+    {
+      "memory_id": "mem_a1b2c3d4",
+      "content": "Always use descriptive variable names",
+      "category": "coding_preference", 
+      "tags": ["coding", "variables", "best_practices"],
+      "priority": "medium",
+      "created_at": "2025-01-15T10:30:00Z",
+      "access_count": 0,
+      "relevance_score": 1.0,
+      "context_triggers": ["variable", "naming", "code"]
+    }
+  ]
+}
+```
+
+## Analytics Trigger Points
+
+### Session Triggers
+- **File**: `interfaces/ui_terminal.py`
+- **Methods**: `track_session(username, session_id, "start"|"end"|"update_workflow_count"|"update_tool_activations")`
+
+### Tool Usage Triggers  
+- **File**: `orchestrator/manager_tools.py`
+- **Methods**: `track_tool_usage(username, tool_name, success, response_time)`
+
+### Workflow Triggers
+- **File**: `orchestrator/workflow_manager.py`
+- **Methods**: `track_workflow(username, workflow_id, command, "start"|"complete", tags=tags, success=True/False)`
+
+### Cost Triggers
+- **Files**: `orchestrator/manager_models.py`, `orchestrator/real_time_metrics.py`
+- **Methods**: `track_costs(username, date, model_name, cost, session_id)`
+
+### Memory Triggers
+- **File**: `configs/cli/memory/memory.py`
+- **CLI Commands**: `/memory "content"`, `/memory --list`, `/memory --delete [ID]`
 
 #### Script Tools
 ```python
