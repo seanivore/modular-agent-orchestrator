@@ -392,7 +392,7 @@ def display_error(error_message: str) -> None:
 
 ### Manager Integration Map
 ```
-Universal Touchpoints: ALL commands → cli_manager.py (routing), ui_terminal.py (slash commands)
+Universal Touch-points: ALL commands → cli_manager.py (routing), ui_terminal.py (slash commands)
 User Management: login, logout, user_id → username_manager.py
 Settings: config, model, provider, output → settings_manager.py  
 Workflows: goal, workflows, workflow_id → workflow_manager.py

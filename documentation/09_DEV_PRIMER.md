@@ -26,6 +26,14 @@
 - Settings: `./configs/settings/`
 - Templates: `./templates/`
 
+### Validation Audits of New Code 
+   - Standard Mao imports 
+   - CacheManager integration 
+   - estimate_cost() function 
+   - @handle_errors decorators 
+   - Fingerprinting patterns 
+   - UI consistency patterns 
+
 ---
 
 ## Tool Creation Guide

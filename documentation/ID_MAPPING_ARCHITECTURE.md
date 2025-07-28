@@ -3,26 +3,55 @@
 
 ---
 
-## **CRITICAL CONTEXT**
-- **ALL concepts in docs 03-07 have been implemented, audited, validated, tested**
-- **Only missing**: Python→TypeScript UI layer + repeating workflows from 07_AUTOMATE_INTELLIGENCE  
-- **Goal**: Use documentation creation to fix 09_DEV_PRIMER.md accuracy and create proper implementation guides
-- **Challenge**: Context window limitations require systematic one-section-at-a-time approach
+## Core Documentation Files 
+*All concepts should be covered within these middle few files of the documentation suite* 
+
+  - `./documentation/03_USER_FLOW.md`
+  - `./documentation/04_INTERFACE.md`
+  - `./documentation/05_ORCHESTRATION.md`
+  - `./documentation/06_ANALYTICS_MEMORY.md`
+  - `./documentation/07_AUTOMATE_INTELLIGENCE.md`
 
 ---
 
-## **STANDARDIZED SECTION PROCESSING WORKFLOW**
-For Each Documentation Section (🔧 Architecture Needed)
+## Finding Codebase Architecture Snippets 
 
-### **STEP 1:** Section Analysis
+  1. All but two concepts in docs 03-07 have been implemented, audited, validated, tested
+     - We can and should find and pull directly from the codebase in all cases 
+     - Implementation plans might help direct us to the correct file, but use the codebase directly 
+
+  2. Exception #1: Python→TypeScript UI layer 
+     - We have documents defining the plans 
+     - The full implementation plan should provide all needed code snippets 
+     - Implementation plan: `./versioning/v4_0_0/IMPL_UI/UI_IMPLEMENTATION_GUIDE.md` 
+     - Make sure anything already in `./documentation/04_INTERFACE.md` is accurate as above 
+     - Any other details can be found in the UI implementation directory: `./versioning/v4_0_0/IMPL_UI/`
+
+  3. Exception #2: Repeating workflows 
+     - All logic has been detailed in `07_AUTOMATE_INTELLIGENCE.md` 
+     - We need to create a full implementation plan based on the logic 
+     - Please review and give feedback if it is missing anything or is not clear 
+     - The same process as creating the /setup command and setup scripts from the normal workflow should be followed 
+     - Each repeating workflow just has a different output format 
+     - And there is a single new JSON file for repeating workflows that is the same for all types 
+
+- **PRIMARY TASK**: Complete documentation for all concepts in docs 03-07 according to the outline in `./documentation/CONTENT_ID_OUTLINE.md`
+- **SECONDARY GOAL**: Use documentation creation to validate and fix `09_DEV_PRIMER.md` accuracy (step 5)
+
+---
+
+## Standardized Section Processing Workflow 
+Follow this flow for each concept that needs to be covered, in each section of the documentation. 
+
+### STEP 1:Section Analysis
 - Read the section narrative to understand what concepts need architecture
 - Identify the specific technical requirements (classes, functions, systems)
 - Note any cross-references to other sections
 
-### **STEP 2:** File Discovery
+### STEP 2: File Discovery
 Resources to identify relevant files are at the following locations. 
 
-#### **Orchestrator file list** (20 files with descriptions)
+#### **Orchestrator file list** (20+ files with descriptions)
 *These are actual codebase files and the ONLY place that any code should be copied from to place in documentation*
 
 ./modular-agent-orchestrator/orchestrator/
@@ -51,78 +80,58 @@ Resources to identify relevant files are at the following locations.
 ├── `workflow_manager.py` --> workflow ID generation, discovery, tracking
 └── `workflow_state.py` --> simple state tracking with Memory MCP integration
 
-#### **FILE_BATCH_DEFINITION_PROMPTS/** (6 category groupings)
-*These files may be used as a guide, but DO NOT COPY CODE FROM THEM. The AI did not copy accurately at all times*
+#### **Old Implementation Documents** 
+*These are the implementation plans or confirmations that we have saved; however, you must still confirm the code in the actual codebase files* 
 
-./modular-agent-orchestrator/documentation/FILE_BATCH_DEFINITIONS/FILE_BATCH_DEFINITION_PROMPTS
-├── `CLI_COMMAND_SYSTEM.md` --> defines files & info collected on comprehensive CLI command system 
-├── `CONFIGURATION_MANAGEMENT.md` --> files & info collected on comprehensive configuration management system
-├── `CORE_SYSTEM_ARCHITECTURE.md` --> files & info collected on the foundational system architecture
-├── `TEMPLATES_AND_SCRIPTS.md` --> files & info collected on template system and utility scripts
-├── `TOOLS_ECOSYSTEM.md` --> files & info collected to document comprehensive tool ecosystem 
-└── *`UI_TYPESCRIPT_INTEGRATION.md`* --> files & info to document local terminal UI integration between TypeScript/Node.js and the Python backend
+- CLI COMMANDS: `./versioning/v4_0_0/IMPL_CLI_COMMANDS/CLI_COMMAND_STANDARDIZATION.md`
+- USER CONFIG SETUP: `./versioning/v4_0_0/IMPL_OG_WORKFLOW_SETUP/IMPL_USER_CONFIG_SETUP_SCRIPT.md`
+- WORKFLOW CREATION: `./versioning/v4_0_0/IMPL_OG_WORKFLOW_SETUP/IMPL_WORKFLOW_CREATION.md`
+- INTEGRATION POINTS: `./versioning/v4_0_0/IMPL_OG_WORKFLOW_SETUP/INTEGRATION_POINTS_BY_FILE.md`
+- USER ID CONFIG SETUP: `./versioning/v4_0_0/IMPL_OG_WORKFLOW_SETUP/USER_ID_CONFIG_SETUP.md`
+- WORKFLOW ID SETUP: `./versioning/v4_0_0/IMPL_OG_WORKFLOW_SETUP/WORKFLOW_ID_SETUP.md`
 
-#### **ARCHITECTURE_SECTIONS/** (6 pattern documents) 
-*These files may be used as a guide, but DO NOT COPY CODE FROM THEM. The AI did not copy accurately at all times*
+#### **New Implementation Documents** 
+*These are the implementation plans that we are creating for the next steps* 
 
-./modular-agent-orchestrator/documentation/FILE_BATCH_DEFINITIONS/ARCHITECTURE_SECTIONS
-├── `ARCH_01_Architecture_Overview.md` --> architecture pattern emphasizes subprocess communication, dynamic discovery, privacy
-├── `ARCH_02_Core_System_Patterns.md` --> data from everywhere come together for sophisticated processing 
-├── `ARCH_03_Tool_Integration_Patterns.md` --> dynamic tool discovery, generation, and execution
-├── `ARCH_04_Configuration_Data_Patterns.md` --> configuration management, data storage, and retrieval
-├── *`ARCH_05_User_Interface_Patterns.md`* --> local terminal UI integration between TypeScript/Node.js and the Python backend
-└── `ARCH_06_Extension_Automation_Patterns.md` --> extension ecosystem map, extension automation patterns
+- UI LAYER: `./versioning/v4_0_0/IMPL_UI/UI_IMPLEMENTATION_GUIDE.md`
+- TRIGGER WORKFLOWS: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
+- TIMER PROPOSED SKETCH: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/timer_architecture.md`
 
-   *Note:*
-   - This (UI_TYPESCRIPT_INTEGRATION.md and ARCH_05_User_Interface_Patterns.md) information does not currently exist in the codebase.
-   - It has been prepared to create a full implementation plan and implementation.
-   - Implementation plan directory: `./versioning/v4_0_0/DEV_IMPL_UI`
-
-#### **FULL_CODEBASE_AUDIT/** results
-*These files may be used as a guide, but DO NOT COPY CODE FROM THEM. The AI did not copy accurately at all times*
-
-./modular-agent-orchestrator/tests/FULL_CODEBASE_AUDIT
-├── `00_EXECUTIVE_SUMMARY.md`
-├── `01_CRITICAL_VIOLATIONS.md`
-├── `02_UI_INTEGRATION_MAP.md`
-├── `03_DEPENDENCY_MATRIX.md`
-├── `04_STANDARDIZATION_REPORT.md`
-├── `05_DUPLICATE_CODE_REPORT.md`
-└── `07_UPDATED_DOCUMENTATION.md`
-
-The above are in reference to the following directories of files. 
-
-- `./tests/FULL_CODEBASE_AUDIT/file_analysis_reports/`
-- `./tests/FULL_CODEBASE_AUDIT/file_batch_definitions/`
-
-### **STEP 3:** Code Verification
-- Read the actual implementation files using file system tools
+### STEP 3: Code Verification
+- Read the actual codebase files using file system tools
 - Verify classes/functions exist and match their descriptions
 - Note actual function signatures, file locations, dependencies
 - Cross-check against quality audit results
 
-#### **Step 4: Documentation Creation**
+### STEP 4: Documentation Creation
 - Write accurate architecture section with real code references
 - Include actual class names, function signatures, file paths
 - Add code examples from real implementation
 - Note any implementation gaps (only UI layer + repeating workflows)
 
-#### **Step 5: 09_DEV_PRIMER.md Updates**
-- Fix any accuracy issues discovered (like non-existent CommandNameManager)
-- Add missing but important classes/functions found
-- Update file location references
+### STEP 5: 09_DEV_PRIMER.md Updates
+- Look out for items to fix (like non-existent CommandNameManager)
+- For each relevant file: purpose + all classes + all functions
+- Add any touch-points, dependencies, or integration notes
+- Create robust reference that prevents AI code hallucination
 - Verify import patterns are correct
 
-#### **Step 6: Cross-Reference Validation**
+```
+File: orchestrator/core.py - "Main brain that turns natural language into intelligent workflows"
+Classes: WorkflowOrchestrator, GoalAnalyzer, PhaseBuilder
+Functions: def estimate_cost(), def analyze_goal(), def create_workflow_plan()
+```
+
+### STEP 6: Cross-Reference Validation
 - Ensure section links properly to other documentation sections
 - Verify no contradictions with other architecture sections
 - Check against Sean's finalized outline for consistency
 
 ---
 
-## **RESOURCE MAPPING**
+## Resource Mapping
 
-### **Key File Groups for Documentation Sections:**
+### Key File Groups for Documentation Sections:
 
 **V. ORCHESTRATION (Core Magic)**
 - Primary: `orchestrator/core.py`, `conversation_bridge.py`, `workflow_manager.py`
@@ -146,7 +155,7 @@ The above are in reference to the following directories of files.
 
 ---
 
-## **VALIDATION CHECKLIST**
+## Validation Checklist
 
 For each completed section:
 - [ ] All code references point to actual files/functions
@@ -159,7 +168,7 @@ For each completed section:
 
 ---
 
-## **CONTEXT WINDOW MANAGEMENT**
+## Context Window Management
 
 **Per Session Approach:**
 1. Choose ONE documentation section (e.g., V-M "Goal Analysis")
@@ -176,7 +185,7 @@ For each completed section:
 
 ---
 
-## **SUCCESS METRICS**
+## Success Metrics
 
 **Per Section:**
 - Architecture section complete with real code references
