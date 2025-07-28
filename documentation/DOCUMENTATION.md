@@ -59,57 +59,14 @@ Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned futur
 
 ## Key Steps Updated For This Session
 
-### STEP 1: Outline Building 
-*enter with current state of documentation, exit with an outline of the documentation that needs notation for where to source code and indicating relevant files in the final documents*
-
---> `./documentation/TECHNICAL_CONTENT_OUTLINE.md` 
-
+### STEP 1: Outline Building ✅
 ### STEP 2: Outline Completion 
 *enter with comprehensive outline, exit with outline that has notation for adding code; an outline that should allow for producing documentation in segregated context-separated sessions* 
 
-- Sean to gather any specific resources for the documentation
-- Review all of the files in the project directory tree, provided below 
-- Denote what file an architecture section is referencing 
-  - This can be maintained in the actual documentation; each section chapter in the docs will highlight what files are relevant 
-  - Helps while writing to know exactly where to go to find the code 
-  - This solves the problem of context window limitations 
-- Plan-out and logically organize placeholders for visuals 
+Use the outline along with the ID mapping and architecture guide to create the documentation. 
 
-#### Strategic Questions To Answer That Will Guide Finalizing The Outline 
-
-- For each documentation section: Which specific .py files contain the implementation?
-- For code architecture sections: What's the minimum set of files needed to understand this concept?
-- For visual elements: Which flow diagrams would eliminate the most confusion?
-
-#### Specific thoughts from Claude
-
-- Start with Core Documentation Flow (your 6-document strategy):
-  - 03_USER_FLOW.md → Map to CLI commands, workflow configs, and UI components
-  - 04_INTERFACE.md → Map to interfaces/, ui_*.py files, and terminal components
-  - 05_ORCHESTRATION.md → Map to orchestrator/ core files and workflow management
-  - 06_ANALYTICS_MEMORY.md → Map to Memory MCP, analytics managers, and user data
-  - 07_AUTOMATE_INTELLIGENCE.md → Map to tool system and automation features
-  - 08_FUTURE_THINKING.md → Map to planned features and extension points
-
-- Create Section-to-File Reference Matrix: For each major section, list:
-  - Primary code files it references
-  - Key configuration files
-  - Related template files
-  - Dependencies and integration points
-
-- Visual Architecture Planning: As you mentioned, identify which diagrams would be most helpful:
-  - Tool architecture diagrams (tools directory)
-  - System architecture diagrams (orchestrator flow)
-  - Data flow visualizations (Memory MCP + analytics)
-  - Integration touch-point maps (MCP + Files API + tool buttons)
-
-#### Regarding Comprehensiveness 
-
-Items I'm not sure I've seen covered in the documentation yet: 
-- Types of workflows that Mao can do
-- Parallel tool use
-- Parallel agents 
-- Buttons 
+--> `./documentation/CONTENT_ID_OUTLINE.md` 
+--> `./documentation/ID_MAPPING_ARCHITECTURE.md` 
 
 #### Regarding Visuals 
 
