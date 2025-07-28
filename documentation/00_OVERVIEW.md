@@ -4,6 +4,14 @@ Pronounce it /maʊ̯/ like "mau" with no "H" sound, like a cat. Mao, meow!
 
 ---
 
+End-to-end UX flow --> `03_USER_FLOW.md` --> User creates data...
+Inward flow of data --> `04_INTERFACE.md` --> Processing of data `05_ORCHESTRATION.md` --> data sent back out to the User. 
+Data + AI = Enhanced UX --> `06_ANALYTICS_MEMORY.md` --> As well as addressing the inherent value of data collection. 
+Value builds into climax --> `07_AUTOMATE_INTELLIGENCE.md` --> By showing the sheer scale of what Mao does that other agentic systems do not. 
+Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned future as well as what is possible. 
+
+---
+
 ## AI 'Assistant' Gets Their Promotion 
 
 * **Treat Mao Like A Senior Employee** 

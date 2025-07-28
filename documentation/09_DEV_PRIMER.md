@@ -349,7 +349,6 @@ class TaskCoordinator
 
 # orchestrator/memory_mcp.py
 class MemoryMCPManager
-class MemoryMCPClient
 
 # orchestrator/user_memory_manager.py
 class UserMemoryManager

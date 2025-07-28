@@ -3,6 +3,14 @@
 
 ---
 
+End-to-end UX flow --> `03_USER_FLOW.md` --> User creates data...
+Inward flow of data --> `04_INTERFACE.md` --> Processing of data `05_ORCHESTRATION.md` --> data sent back out to the User. 
+Data + AI = Enhanced UX --> `06_ANALYTICS_MEMORY.md` --> As well as addressing the inherent value of data collection. 
+Value builds into climax --> `07_AUTOMATE_INTELLIGENCE.md` --> By showing the sheer scale of what Mao does that other agentic systems do not. 
+Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned future as well as what is possible. 
+
+---
+
 ## 03_USER_FLOW.md
 **Theme:** End-to-end first-time user experience walkthrough
 
@@ -125,7 +133,17 @@
 - **Timer System Architecture** - Cron-like scheduling, workflow triggers, automation loops
 - **Setup Script System** - workflow_setup.sh, directory management, command installation
 - **Autonomous Workflows** - Decision trees, quality assessment, dynamic phase creation
-- **Business Intelligence** - ROI tracking, efficiency metrics, value calculation
+- **Business Intelligence** - ROI tracking, efficiency metrics, value calculation 
+
+*When preparing the code architecture for this section, please also write the actual implementation plan* 
+* Finished the logic for this in writing the section  
+  - Provide any feedback or suggestions 
+  - Make sure that the logic is sound and clearly understood
+* Then there are two locations where I've indicated our need for code architecture meaning we need to plan the implementation 
+  - Line 188 = we need to plan the implementation for the `/avail` commands 
+  - Line 654 = we need to plan the implementation for the reoccurring workflow setup scripts 
+  - Not sure when this came from but maybe it will be helpful: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/timer_architecture.md`
+  - Plan implementation here: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
 
 **MENTION BUT DON'T DEEP DIVE:**
 - Memory integration (covered in Analytics/Memory)

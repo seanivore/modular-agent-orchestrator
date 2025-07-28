@@ -205,7 +205,7 @@ I think maybe we should produce it as a Claude Code SPEC.
 
 You may want to see the other code addition needs in this document before getting started. There is one more down further about creating the setup scripts. 
 
-AH -- just found implementation docs for CLI: `./versioning/v4/v4_0_0/implemented-cli-commands`
+AH -- just found implementation docs for CLI: `./versioning/v4_0_0/implemented-cli-commands`
 
 ---
 

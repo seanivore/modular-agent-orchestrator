@@ -55,8 +55,8 @@ mao --variables --explain         # Detailed variable explanations
 | Variable               | Description                   | Format               | Example                                                 |
 | ---------------------- | ----------------------------- | -------------------- | ------------------------------------------------------- |
 | `user_id`              | Your unique user identifier   | `user-[identifier]`  | `user-john_doe_2024`                                    |
-| `workflow_id`          | Generated workflow identifier | `uid-[generated]`    | `uid-wf_abc123def456`                                   |
-| `custom_command`       | Your workflow command name    | `[descriptive-name]` | `marketing-analysis`                                    |
+| `workflow_id`          | Generated workflow identifier | `uid-[generated]`    | `uid-0000`                                              |
+| `custom_command`       | Your workflow command name    | `[descriptive-name]` | `marketing analysis`                                    |
 | `workflow_goal`        | Primary objective             | Free text            | `Create comprehensive marketing strategy`               |
 | `workflow_deliverable` | Expected output               | Free text            | `Marketing plan with budget and timeline`               |
 | `workflow_description` | Detailed process description  | Free text            | `Multi-phase analysis including competitor research...` |
