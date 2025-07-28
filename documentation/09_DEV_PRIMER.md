@@ -49,14 +49,14 @@ cache = CacheManager()
 
 class ToolNameManager:
     def __init__(self):
-        self.tool_name = \"tool_name\"
+        self.tool_name = "tool_name"
     
-    @handle_errors(operation_name=\"main_operation\", return_dict=True)
+    @handle_errors(operation_name="main_operation", return_dict=True)
     def main_operation(self, params: Dict[str, Any]) -> Dict[str, Any]:
-        \"\"\"Main tool operation\"\"\"
+        """Main tool operation"""
         # Standard caching pattern
-        cache_key = f\"tool_name|{params.get('key_param', 'default')}\"
-        cached = cache.get_cached_analysis(cache_key, \"tool_name\")
+        cache_key = f"tool_name|{params.get('key_param', 'default')}"
+        cached = cache.get_cached_analysis(cache_key, "tool_name")
         if cached:
             return json.loads(cached)
         
@@ -64,22 +64,22 @@ class ToolNameManager:
         result = self._process_data(params)
         
         # Cache result
-        cache.cache_content_analysis(cache_key, json.dumps(result), \"tool_name\")
+        cache.cache_content_analysis(cache_key, json.dumps(result), "tool_name")
         return result
     
     def _process_data(self, params: Dict[str, Any]) -> Dict[str, Any]:
-        \"\"\"Internal processing logic\"\"\"
+        """Internal processing logic"""
         # Implementation here
-        return {\"status\": \"success\", \"data\": \"processed\"}
+        return {"status": "success", "data": "processed"}
 
 # Standalone functions for button imports
 def standalone_operation(params: Dict[str, Any]) -> Dict[str, Any]:
-    \"\"\"Standalone function for button file imports\"\"\"
+    """Standalone function for button file imports"""
     manager = ToolNameManager()
     return manager.main_operation(params)
 
 def estimate_cost(params: Dict[str, Any] = None) -> float:
-    \"\"\"Estimate operation cost for budget planning\"\"\"
+    """Estimate operation cost for budget planning"""
     return 0.001  # Adjust based on complexity
 ```
 
@@ -88,24 +88,24 @@ def estimate_cost(params: Dict[str, Any] = None) -> float:
 from typing import Dict, Any
 from .tool_name import standalone_operation
 
-def create_button_snippet(params: Dict[str, Any], model: str = \"claude-sonnet-4\") -> str:
-    \"\"\"Single entry point for button snippet generation\"\"\"
-    operation = params.get(\"operation\", \"default_operation\")
+def create_button_snippet(params: Dict[str, Any], model: str = "claude-sonnet-4") -> str:
+    """Single entry point for button snippet generation"""
+    operation = params.get("operation", "default_operation")
     
-    if operation == \"main_operation\":
+    if operation == "main_operation":
         return _create_main_snippet(params, model)
     else:
         return _create_default_snippet(params, model)
 
 def _create_main_snippet(params: Dict[str, Any], model: str) -> str:
-    \"\"\"Create main operation button snippet\"\"\"
+    """Create main operation button snippet"""
     # Use imported functions, don't duplicate logic
     result = standalone_operation(params)
-    return f\"Button snippet based on: {result['status']}\"
+    return f"Button snippet based on: {result['status']}"
 
 def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
-    \"\"\"Default button snippet\"\"\"
-    return \"Default tool button snippet\"
+    """Default button snippet"""
+    return "Default tool button snippet"
 ```
 
 ### Step 4: UI File (`ui_[tool_name].py`)
@@ -113,42 +113,42 @@ def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
 from typing import Dict, Any, List
 
 def display_results(results: Dict[str, Any]) -> str:
-    \"\"\"Display tool results in formatted output\"\"\"
-    if not results or results.get(\"status\") != \"success\":
-        return \"❌ Operation failed\"
+    """Display tool results in formatted output"""
+    if not results or results.get("status") != "success":
+        return "❌ Operation failed"
     
     output = []
-    output.append(\"✅ Tool operation completed\")
+    output.append("✅ Tool operation completed")
     
     # Format data display
-    if \"data\" in results:
-        output.append(f\"Data: {results['data']}\")
+    if "data" in results:
+        output.append(f"Data: {results['data']}")
     
-    return \"\\n\".join(output)
+    return "\n".join(output)
 
 def format_error(error_msg: str) -> str:
-    \"\"\"Format error messages for display\"\"\"
-    return f\"❌ Error: {error_msg}\"
+    """Format error messages for display"""
+    return f"❌ Error: {error_msg}"
 ```
 
 ### Step 5: Configuration File (`tool_[tool_name].json`)
 ```json
 {
-    \"name\": \"tool_name\",
-    \"version\": \"1.0.0\",
-    \"description\": \"Tool description\",
-    \"file_path\": \"tools/tool_name/tool_name.py\",
-    \"button_path\": \"tools/tool_name/button_tool_name.py\",
-    \"ui_path\": \"tools/tool_name/ui_tool_name.py\",
-    \"operations\": {
-        \"main_operation\": {
-            \"description\": \"Main tool operation\",
-            \"required_params\": [\"key_param\"],
-            \"optional_params\": [\"optional_param\"]
+    "name": "tool_name",
+    "version": "1.0.0",
+    "description": "Tool description",
+    "file_path": "tools/tool_name/tool_name.py",
+    "button_path": "tools/tool_name/button_tool_name.py",
+    "ui_path": "tools/tool_name/ui_tool_name.py",
+    "operations": {
+        "main_operation": {
+            "description": "Main tool operation",
+            "required_params": ["key_param"],
+            "optional_params": ["optional_param"]
         }
     },
-    \"models_supported\": [\"all\"],
-    \"cost_estimate\": 0.001
+    "models_supported": ["all"],
+    "cost_estimate": 0.001
 }
 ```
 
@@ -172,13 +172,13 @@ cache = CacheManager()
 
 class CommandNameManager:
     def __init__(self):
-        self.command_name = \"command_name\"
+        self.command_name = "command_name"
     
-    @handle_errors(operation_name=\"execute_command\", return_dict=True)
+    @handle_errors(operation_name="execute_command", return_dict=True)
     def execute_command(self, params: Dict[str, Any]) -> Dict[str, Any]:
-        \"\"\"Execute the CLI command\"\"\"
+        """Execute the CLI command"""
         # Command implementation
-        return {\"status\": \"success\", \"message\": \"Command executed\"}
+        return {"status": "success", "message": "Command executed"}
 
 def estimate_cost(params: Dict[str, Any] = None) -> float:
     return 0.001
@@ -189,22 +189,22 @@ def estimate_cost(params: Dict[str, Any] = None) -> float:
 from typing import Dict, Any
 
 def display_command_result(result: Dict[str, Any]) -> str:
-    \"\"\"Display command execution result\"\"\"
-    if result.get(\"status\") == \"success\":
-        return f\"✅ {result.get('message', 'Command completed')}\"
+    """Display command execution result"""
+    if result.get("status") == "success":
+        return f"✅ {result.get('message', 'Command completed')}"
     else:
-        return f\"❌ Command failed: {result.get('error', 'Unknown error')}\"
+        return f"❌ Command failed: {result.get('error', 'Unknown error')}"
 ```
 
 ### Step 4: Command Configuration (`[command_name].json`)
 ```json
 {
-    \"name\": \"command_name\",
-    \"help\": \"Command description\",
-    \"terminal_flag\": \"--command-flag\",
-    \"type\": \"utility\",
-    \"file_path\": \"configs/cli/command_name/command_name.py\",
-    \"ui_path\": \"configs/cli/command_name/ui_command_name.py\"
+    "name": "command_name",
+    "help": "Command description",
+    "terminal_flag": "--command-flag",
+    "type": "utility",
+    "file_path": "configs/cli/command_name/command_name.py",
+    "ui_path": "configs/cli/command_name/ui_command_name.py"
 }
 ```
 
@@ -232,28 +232,28 @@ def display_command_result(result: Dict[str, Any]) -> str:
 ### Model Configuration
 ```json
 {
-    \"name\": \"model_name\",
-    \"display_name\": \"Model Display Name\",
-    \"provider\": \"provider_name\",
-    \"model_id\": \"actual-model-id\",
-    \"context_window\": 128000,
-    \"max_tokens\": 4096,
-    \"cost_per_input_token\": 0.003,
-    \"cost_per_output_token\": 0.015,
-    \"capabilities\": [\"text\", \"code\", \"reasoning\"]
+    "name": "model_name",
+    "display_name": "Model Display Name",
+    "provider": "provider_name",
+    "model_id": "actual-model-id",
+    "context_window": 128000,
+    "max_tokens": 4096,
+    "cost_per_input_token": 0.003,
+    "cost_per_output_token": 0.015,
+    "capabilities": ["text", "code", "reasoning"]
 }
 ```
 
 ### Settings Configuration
 ```json
 {
-    \"name\": \"setting_name\",
-    \"display_name\": \"Setting Display Name\",
-    \"description\": \"What this setting controls\",
-    \"type\": \"boolean\",
-    \"default_value\": true,
-    \"options\": [true, false],
-    \"category\": \"general\"
+    "name": "setting_name",
+    "display_name": "Setting Display Name",
+    "description": "What this setting controls",
+    "type": "boolean",
+    "default_value": true,
+    "options": [true, false],
+    "category": "general"
 }
 ```
 
@@ -301,35 +301,35 @@ configs/cli/
 
 ### Standard Error Handling
 ```python
-@handle_errors(operation_name=\"function_name\", return_dict=True)
+@handle_errors(operation_name="function_name", return_dict=True)
 def function_name(self, params: Dict[str, Any]) -> Dict[str, Any]:
     try:
         # Operation logic
         result = self._do_operation(params)
-        return {\"status\": \"success\", \"data\": result}
+        return {"status": "success", "data": result}
     except Exception as e:
-        return {\"status\": \"error\", \"error\": str(e)}
+        return {"status": "error", "error": str(e)}
 ```
 
 ### Standard Caching Pattern
 ```python
-# Cache key format: \"component|param1|param2|param3\"
-cache_key = f\"component_name|{param1}|{param2}\"
-cached_result = cache.get_cached_analysis(cache_key, \"component_name\")
+# Cache key format: "component|param1|param2|param3"
+cache_key = f"component_name|{param1}|{param2}"
+cached_result = cache.get_cached_analysis(cache_key, "component_name")
 if cached_result:
     return json.loads(cached_result)
 
 # Process and cache
 result = process_data()
-cache.cache_content_analysis(cache_key, json.dumps(result), \"component_name\")
+cache.cache_content_analysis(cache_key, json.dumps(result), "component_name")
 return result
 ```
 
 ### JSON Schema Validation
 ```python
 def validate_config(config: Dict[str, Any]) -> bool:
-    \"\"\"Validate configuration against schema\"\"\"
-    required_fields = [\"name\", \"file_path\"]
+    """Validate configuration against schema"""
+    required_fields = ["name", "file_path"]
     return all(field in config for field in required_fields)
 ```
 
