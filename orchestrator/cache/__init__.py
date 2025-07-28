@@ -1,6 +1,6 @@
 """
 Cache Tools
-Universal caching infrastructure for modular tools
+Universal caching infrastructure for modular tools, and beyond
 """
 
 from .cache_system import (
