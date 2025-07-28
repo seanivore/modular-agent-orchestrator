@@ -98,8 +98,9 @@ The system automatically generates unique UserIDs using mathematical operations 
 - Workflows are stored in the `./configs/workflows/` directory and only include the UserID 
 
 ### UserID Generation Architecture
+*Files: scripts/user_id_generator/user_id_generator.py*
 
-The UserID generation system uses the `scripts/user_id_generator/user_id_generator.py` script with mathematical operations for deterministic ID creation:
+The UserID generation system uses mathematical operations for deterministic ID creation:
 
 ```python
 # scripts/user_id_generator/user_id_generator.py
@@ -125,8 +126,7 @@ Examples:
   meid -e alice       # user-1161 | Steps: 5 chars -> ...
 
 Mathematical Operations:
-  Uses character count, doubled count, and ASCII values
-  Applies fibonacci, golden ratio, spiral, mirror, karmic operations
+  Uses mathematical operations to ensure consistency
   Same username always produces the same user ID
 ```
 
@@ -158,6 +158,7 @@ mao --config   # Launch the app to open on the config screen
 The session management system relies on the **Memory MCP (Model Context Protocol)** server to maintain persistent workflow state and user context across sessions. This creates seamless continuity that feels magical to users but operates on solid technical foundations.
 
 ### Memory Management Architecture
+*Files: orchestrator/memory_mcp.py, orchestrator/user_memory_manager.py, orchestrator/workflow_state.py*
 
 The memory system integrates with the Memory MCP server through several key components:
 
@@ -263,6 +264,7 @@ This architecture ensures that users experience seamless continuity while mainta
 Want to set up new settings for the application? Ask Mao what files are needed, they'll do the rest. The modular settings system allows dynamic addition of new configuration options through JSON templates.
 
 ### Settings Architecture
+*Files: orchestrator/settings_manager.py, configs/settings/, configs/cli/config/*
 
 The settings system operates through several coordinated components:
 
@@ -449,6 +451,7 @@ Mathematical Operations:
 ```
 
 ### Chat Interface & Workflow Creation Architecture
+*Files: interfaces/ui_terminal.py, orchestrator/conversation_bridge.py, scripts/unique_id_generator/unique_id_generator.py, orchestrator/memory_mcp.py*
 
 The conversational workflow creation experience operates through several coordinated systems:
 
@@ -542,6 +545,7 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
 We'll touch on the specifics of how to setup, edit, or fix a workflow via JSON objects after this architecture section. 
 
 ### JSON Configuration System Architecture
+*Files: orchestrator/conversation_bridge.py, templates/workflows/*
 
 The 3-type JSON workflow configuration system provides modular workflow definition through coordinated object types:
 
@@ -830,6 +834,7 @@ mao --fix-it configs/workflows/this-project/this-project-config-fix.json
 Both commands are designed so they can create new JSONs anywhere Mao, or you!, happen to be working, and the system automatically copies the new JSON to the appropriate directory for that use-case. This flexibility means workflow evolution can happen organically as projects develop.
 
 ### Workflow Setup & Updates Architecture
+*Files: scripts/workflow_setup/, orchestrator/workflow_manager.py, configs/cli/setup/, configs/cli/fix_it/*
 
 The workflow setup and update system provides seamless transformation from JSON configurations to executable commands:
 

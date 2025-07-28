@@ -350,10 +350,9 @@ def validate_config(config: Dict[str, Any]) -> bool:
 
 #### Orchestrator Classes
 ```python
-# orchestrator/core.py
-class WorkflowOrchestrator
-class AgentManager
-class TaskCoordinator
+# orchestrator/conversation_bridge.py  
+class ConversationToWorkflowBridge:
+    def estimate_cost(self, params: Dict[str, Any]) -> float
 
 # orchestrator/memory_mcp.py
 class MemoryMCPManager
@@ -400,6 +399,17 @@ class SystemAnalyticsManager
 class MetricsCollector
 ```
 
+#### Script Tools
+```python
+# scripts/user_id_generator/user_id_generator.py
+def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]
+def generate_user_id(username: str) -> str  # Mathematical operations for consistency
+
+# scripts/unique_id_generator/unique_id_generator.py  
+def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]
+def generate_workflow_id() -> str  # Collision-free workflow identifiers
+```
+
 ### Core Functions
 
 #### Error Handling & Decorators
@@ -413,10 +423,10 @@ def log_error(error: Exception, context: str)
 #### Memory & State Management
 ```python
 # orchestrator/memory_mcp.py
-async def save_workflow_context(workflow_id: str, context: Dict[str, Any])
-async def restore_workflow_context(workflow_id: str) -> Dict[str, Any]
-async def create_entities(entities: List[Dict])
-async def search_nodes(query: str)
+class MemoryMCPManager:
+    def estimate_cost(self, params: Dict[str, Any]) -> float
+    def client(self) -> property  # Lazy load MCP client
+    # Note: Actual MCP integration methods available via property
 
 # orchestrator/user_memory_manager.py
 def save_session_state(session_data: Dict[str, Any])
