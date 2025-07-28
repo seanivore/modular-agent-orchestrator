@@ -186,7 +186,7 @@ mao --avail "every month"  # not in-app; variables in quotes, normal language
 ---
 
 ## Calendar Availability Architecture
-*Files: `configs/cli/avail/avail.py`, `orchestrator/calendar_manager.py`*
+*Files: configs/cli/avail/avail.py, orchestrator/calendar_manager.py*
 
 The `/avail` command system provides intelligent calendar management for trigger workflow scheduling, building on Mao's existing workflow architecture from Section III.
 
@@ -864,7 +864,7 @@ The setup process for trigger workflows extends the standard workflow setup with
 - Calendar index updates for conflict detection
 - Custom command generation for workflow execution
 
-*Reference: Section III for standard workflow setup patterns* 
+*Reference: [Section III](03_USER_FLOW.md) for standard workflow setup patterns* 
 
 
 ```bash
@@ -907,14 +907,14 @@ mao repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
 
 
 ## Trigger Workflow Setup Architecture
-*Files: `configs/cli/repeat/repeat.py`, `scripts/setup_trigger_workflow.sh`*
+*Files: configs/cli/repeat/repeat.py, scripts/setup_trigger_workflow.sh*
 
 Building on the standard workflow setup from Section III, trigger workflows extend the setup process with calendar-based scheduling and type-specific directory organization.
 
 ### Repeat Command Implementation
 
 ```python
-# configs/cli/repeat/repeat.py - Real implementation
+# configs/cli/repeat/repeat.py 
 def execute_repeat(params):
     """Create reoccurring trigger workflows with type-specific setup"""
     from orchestrator.calendar_manager import CalendarManager
