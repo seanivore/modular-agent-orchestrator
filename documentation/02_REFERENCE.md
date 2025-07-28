@@ -11,35 +11,43 @@ This is your daily reference guide for productive work with Mao. Whether you're 
 
 ### Application Launch and Core Workflow Commands
 ```bash
-# Start Mao application
+# Start Mao application (from terminal)
 mao mao                                    # Launch main application
+mao --login [username]                     # Login from terminal
 
 # Create workflows from natural language goals
-mao --goal "create a marketing plan for my startup"
+/goal "create a marketing plan for my startup"          # Inside app
+# OR: mao --goal "create a marketing plan for my startup"  # From terminal
 
 # Set up workflows from JSON configurations  
-mao --setup ./config-files/workflow.json
-mao --update ./config-files/phase-two.json  
-mao --fix-it ./config-files/fix-requirements.json
+/setup ./config-files/workflow.json                     # Inside app
+/update ./config-files/phase-two.json                   # Inside app  
+/fix-it ./config-files/fix-requirements.json            # Inside app
+# OR: Use mao --setup, mao --update, mao --fix-it from terminal
 
 # Monitor and manage workflows
-mao --workflows                            # List all workflows
-mao --stats                               # System performance metrics
-mao --continue                            # Resume last workflow
+/workflows                                 # List all workflows
+/stats                                     # System performance metrics
+/continue                                  # Resume last workflow
+
+# Run any terminal command from inside app
+! git status                               # Execute terminal commands with !
 ```
+
+**Note:** All slash commands work as `mao --command-flag` from terminal. Inside the app, you can run any terminal command by starting with `!`
 
 ### User and Session Management
 ```bash
-# User management
-mao --login [username]                    # Start user session
-mao --logout                              # End user session
-mao --config                              # Manage user settings
-meid [username]                           # Generate user ID
-uid                                       # Generate unique workflow ID
+# User management (most commonly used from terminal)
+mao --login [username]                    # Start user session (terminal)
+mao --logout                              # End user session (terminal)
+/config                                   # Manage user settings (inside app)
+meid [username]                           # Generate user ID (terminal)
+uid                                       # Generate unique workflow ID (terminal)
 
 # System information and debugging
-mao --help                               # Full command reference
-mao --verbose                            # Detailed system output
+/help                                     # Full command reference (inside app)
+/verbose                                  # Detailed system output (inside app)
 mao --doctor                             # System health check
 mao --logs                               # System logs and diagnostics
 ```
@@ -47,28 +55,23 @@ mao --logs                               # System logs and diagnostics
 ### Model, Provider, and Tool Management
 ```bash
 # View available resources
-mao --models                             # Available models
-mao --providers                          # Available providers
-mao --tools                              # Available tools
-mao --variables                          # Workflow template variables
-mao --variables-explain                  # Detailed variable explanations
+/models                                  # Available models (inside app)
+/providers                               # Available providers (inside app)
+/tools                                   # Available tools (inside app)
+/variables                               # Workflow template variables (inside app)
+/variables-explain                       # Detailed variable explanations (inside app)
 
 # Set preferences
-mao --model [model-name]                 # Set favorite model
-mao --provider [provider-name]           # Set default provider
+/model [model-name]                      # Set favorite model (inside app)
+/provider [provider-name]                # Set default provider (inside app)
+```
 ```
 
-### In-App Command Equivalents
-All terminal commands have in-app equivalents using `/` prefix:
-```bash
-# Inside Mao application
-/goal "create a marketing plan"          # Same as --goal
-/setup ./config.json                     # Same as --setup
-/workflows                               # Same as --workflows
-/config                                  # Same as --config
-/help                                    # Same as --help
-! ls -la                                 # Execute terminal commands
-```
+### Command System Summary
+- **Inside App:** Use `/command` format (most common usage)
+- **From Terminal:** Use `mao --command` format  
+- **Terminal Commands:** Use `! command` from inside app
+- **Setup/Login:** Usually done from terminal before launching app
 
 ---
 
