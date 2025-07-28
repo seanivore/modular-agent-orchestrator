@@ -373,6 +373,44 @@ def validate_config(config: Dict[str, Any]) -> bool:
 
 ---
 
+## Dependency Architecture Overview
+
+### **Layer 1: Foundation Layer**
+```
+orchestrator/
+├── cache/cache_system.py          [FOUNDATION]
+├── error_handling.py              [FOUNDATION]
+├── core.py                        [FOUNDATION]
+└── protocol.md                    [DOCUMENTATION]
+```
+
+### **Layer 2: Service Layer**
+```
+orchestrator/
+├── agent_orchestrator.py          [CORE SERVICE]
+├── workflow_manager.py            [CORE SERVICE]
+├── cli_manager.py                 [CORE SERVICE]
+└── mcp_hub.py                     [CORE SERVICE]
+```
+
+### **Layer 3: Interface Layer**
+```
+interfaces/
+├── claude_interface.py            [MAIN INTERFACE]
+├── terminal_interface.py          [UI INTERFACE]
+└── console_interface.py           [CONSOLE INTERFACE]
+```
+
+### **Layer 4: Application Layer**
+```
+tools/                             [TOOLS]
+configs/cli/                       [COMMANDS]
+configs/models/                    [MODELS]
+configs/providers/                 [PROVIDERS]
+```
+
+---
+
 ## Class & Function Reference
 *Quick lookup for all Mao components to prevent coding mistakes*
 

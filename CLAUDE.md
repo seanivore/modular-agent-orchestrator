@@ -21,6 +21,19 @@ Find: Core principles, production and development guidelines, CRITICAL implement
 - Setup scripts create executable commands in `/Users/seanivore/bin`; proven pattern 
 - Setup scripts do not put hyphens in command line, only spaces 
 
+## Development Guidelines 
+- Always use CacheManager, @handle_errors, and estimate_cost() in MAO files
+- Follow FILE_STANDARDIZATION_RULES.md - no emoji icons, text-based visual hierarchy
+- Use modular JSON discovery patterns, never hardcode file lists or mappings
+- Follow 4-file tool structure: logic.py, button_*.py, ui_*.py, tool_*.json
+- Use 'name' field in JSON configs, flat path structures, simplified operations
+- CLI commands need 3 files: command.py, ui_command.py, command.json
+- Memory MCP is single source of truth for all workflow state
+- Use filesystem tools over artifacts for accuracy in Mao implementations
+- Everything modular, everything discoverable via directory scanning
+- Delta-only storage for settings - only store changes from defaults
+- Conversation-driven interfaces only - no menus, navigation, or complex UI chrome
+
 ---
 
 ## Production Ready

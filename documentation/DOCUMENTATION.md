@@ -16,15 +16,46 @@
 
 ## NOT LOUD IN THE DOCS 
 
-- Types of workflows that Mao can do! More information about the flexibility in the kinds of workflows Mao can create. That they often leave the phase on a creative task's workflow missing so that they can review the result and then make a decision and create the next workflow step based on the actual deliverable in the moment. That they can execute running agents in parallel. Maybe some of those other actual names for types of workflows that were on the Anthropic blog about agents. 
-
-- Bigger noise about the "human" buttons. 
-
-- Being able to execute tools in parallel and what benefits that can provide in the immediate scope. 
+- Types of workflows that Mao can do. ✅ ADDED! 
+- Being able to execute tools in parallel and what benefits that can provide in the immediate scope. 💀 CONTEXT WINDOW SMASHED: `./documentation/CONTEXT_WINDOW_SMASHED.md`
+- Bigger noise about the "human" buttons ⏳ NOT YET. 
 
 ## OTHER THOUGHTS 
 
 - If so many things including analytics are modular, drop in files, then how do we make sure they get touch points for analytics when a user adds new tools themselves? Do we make it part of the necessary build? For every configuration collection file like inspection before upload to share? What about not shared tools they create on their own. 
+
+## Create "HOW TO ADD" For All Configs to README in TEMPLATES 
+
+Trying to figure out how to add a new tool to the system that was a bit more complex (parallel tool use) was so very complicated that we should make this a top priority. We can reference it in the documentation. 
+
+I've added back these old documentation files in case they might help us. 
+
+- `./documentation/OGDOCS_2_SYSTEM_FILES.md`
+- `./documentation/OGDOCS_3_ARCHITECTURE.md`
+- `./documentation/OGDOCS_4_CONFIG_GUIDE.md`
+- `./documentation/OGDOCS_5_FILE_INTEGRITY.md`
+
+- DIRECTORY: `./templates`
+├── cli_commands
+│   └── cli_command.json
+├── models
+│   └── model.json
+├── providers
+│   └── provider.json
+├── settings
+│   └── setting_name_app_settings.json
+├── tools
+│   ├── tool_config_template.json
+│   ├── tool.json
+│   ├── tool.py
+│   └── ui_tool.py
+├── users
+│   └── user_username.json
+└── workflows
+    ├── example-workflow_handoff_config.json
+    ├── example-workflow_phase_config.json
+    ├── example-workflow_workflow_config.json
+    └── README.md
 
 ---
 

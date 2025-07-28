@@ -1,152 +1,175 @@
 # CONTEXT WINDOW SMASHED 
 
-I started with the `DOCUMENTATION.md` document you've read. Then we were addressing these comments: 
+## `05_ORCHESTRATION.md` Changes To Sort Out
 
-```
-## NOT LOUD IN THE DOCS 
+### What Stayed
 
-- Types of workflows that Mao can do! More information about the flexibility in the kinds of workflows Mao can create. That they often leave the phase on a creative task's workflow missing so that they can review the result and then make a decision and create the next workflow step based on the actual deliverable in the moment. That they can execute running agents in parallel. Maybe some of those other actual names for types of workflows that were on the Anthropic blog about agents. 
-
-- Bigger noise about the "human" buttons. 
-
-- Being able to execute tools in parallel and what benefits that can provide in the immediate scope. 
-
-## OTHER THOUGHTS 
-
-- If so many things including analytics are modular, drop in files, then how do we make sure they get touch points for analytics when a user adds new tools themselves? Do we make it part of the necessary build? For every configuration collection file like inspection before upload to share? What about not shared tools they create on their own. 
-```
-
-1. First bit on workflows is done. 
-2. We got context window smashed after making changes that are detailed below. Please review and let me know if we should proceed or revert. You'll understand after reading. 
-3. We then still need to make sure that the "human" buttons are added. They would be part of the new `04_MAOS_ROLE.md` document. 
-
-
-Read this first using because it is what inspired them and then helped us expand to create the new `04_MAOS_ROLE.md` document: `./versioning/v4_0_0/IMPL_UI/docs/_NEW_USER_FLOW.md`
-
-Then use the read_file function to read the following files so they stay persistent in your context conversation history while we sort out the issues. 
-- `./Users/seanivore/Development/modular-agent-orchestrator/documentation/06_ORCHESTRATION_OLD.md`
-- `./Users/seanivore/Development/modular-agent-orchestrator/documentation/06_ORCHESTRATION.md`
-
-It might be helpful to read these with the function as well: 
-
-- `./documentation/03_USER_FLOW.md`
-- `./documentation/04_MAOS_ROLE.md`
-- `./documentation/05_INTERFACE.md`
-
-Then continue down this page. 
-
----
-
-# FIXING THE ORCHESTRATION DOCUMENTATION 
-
-NOTE FROM CLAUDE REGARDING CHANGES: 
-
-You're absolutely right! 🎆 Looking back at the 04_MAOS_ROLE.md, I actually **created most of it fresh** based on the concepts rather than pulling heavily from existing sections. The code examples are new, the orchestration explanations are new, and the human buttons section is completely original. So you're good to just **renumber and add it in**!
-
-Let me quickly check the `_NEW_USER_FLOW.md` for anything we might have missed across all docs:Perfect! From reviewing the `_NEW_USER_FLOW.md`, I think we've covered the **core concepts** well. The main gaps are more **implementation details** like:
-- Detailed UI/UX ASCII art examples  
-- 3-part JSON config system (workflow/phase/handoff)
-- Setup script automation workflow
-- Command naming conventions
-
-But those feel more like **09_DEV_PRIMER.md** material anyway!
-
-Now let me fix the **Anthropic workflow patterns** (remove brand mentions) and create the **streamlined 05_ORCHESTRATION.md** rewrite:Now the **streamlined 05_ORCHESTRATION.md** rewrite:Perfect! 🎆 Here's what I created:
-
-## **Fixed Anthropic Workflow Patterns** ✅
-- Removed all brand mentions (Anthropic, Claude)
-- Streamlined to focus on how **Mao implements** these patterns
-- Kept it generic - these are universal AI workflow patterns
-
-## **Streamlined 05_ORCHESTRATION.md** ✅
-This is what I **kept** from the original but **streamlined**:
-
-### **What Stayed (Refined):**
 - Dynamic workflow phase construction concept
-- Goal analysis and workflow design architecture  
+- Goal analysis and workflow design architecture 
 - Multi-agent coordination principles
 
-### **What's NEW (Major Upgrades):**
+### What's NEW
 - **Parallel Tool Execution Architecture** - Finally gives proper spotlight to parallel execution benefits!
 - **Agent Coordination System** - Multi-agent workflow management with real handoff protocols
 - **Intelligent Model Selection** - Dynamic model assignment based on task requirements
 - **Workflow State Management** - Real-time tracking and session recovery
 - **Advanced Orchestration Features** - Cost optimization and quality assurance integration
 
-### **What Got REMOVED:**
-- The overly detailed workflow pattern selection code (moved to 04_MAOS_ROLE.md where it belongs)
-- Redundant goal analysis details (better covered in 04_MAOS_ROLE.md)
-- Some of the excessive code examples that were repetitive
+### What Got Moved to `04_MAOS_ROLE.md`
+- Workflow pattern selection code 
+- Goal analysis details 
 
-## **The Result:**
-A much more **focused 05_ORCHESTRATION.md** that covers the **technical implementation** of orchestration without overlapping with Mao's strategic role (which is now perfectly covered in 04_MAOS_ROLE.md).
+## The Problem And Working Through It 
 
-**Ready to renumber and integrate 04_MAOS_ROLE.md?** This is going to make the documentation flow **so much better**! 💎
-
-The new structure will be:
-- **04_MAOS_ROLE.md** - Strategic orchestration intelligence  
-- **05_ORCHESTRATION.md** - Technical orchestration implementation
-
-Perfect separation! 🚀
-
----
-
-
-Not perfect separation because all the new major upgrades can't just be added before being implemented. 
-
-For example from the "added" above information, please see: 
+"execute_parallel_tools" and other code functions, classes, etc. were added to the `05_ORCHESTRATION.md` document for the new abilities before they were implemented. 
 
 - OLD ORCHESTRATOR `./documentation/06_ORCHESTRATION_OLD.md`
 - NEW ORCHESTRATOR `./documentation/06_ORCHESTRATION.md`
 
-In the old "parallel_tools" is mentioned in the code regarding picking a model and if they can perform like that. I would say that we only need Mao to do it, but next update we're going to add Opus and Claude Code as options for who "Mao" is. 
+## How to Sort Out 
 
-The problem is that in the new all of the "execute_parallel_tools" functions and code at the top has not been implemented. Not a problem if it is something we can do now. Only, I'm not sure how to implement something like this. Do we implement it like any other tool? Or add it to an orchestrator file? 
+A. Remove the "what got moved" items from the `05_ORCHESTRATION_OLD.md` document. 
+B. Implement the "what's new" items that code was added for to the `05_ORCHESTRATION.md` document. 
 
-Implementation doc from Anthropic: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_PARALLEL_USE.md`
+Either way, I like how the old version start off with the goal setting example. 
 
-All of the orchestrator files are at the top here: `./documentation/10_DEV_PRIMER.md​`
+### To Consider 
 
-I see "manager_tools.py" but that doesn't seem like the place where tool execution is handled. 
-
-I'm guessing that is because it is in the button snippets (though shouldn't it be somewhere for Mao separately?) 
-
-If in the button snippets how do we implement parallel tool use? And the ability to call agents in parallel? 
-
-Hmm then it mentions core.py as "intelligent tool selection" which seems like the wrong file. But regardless the code there doesn't exist in the codebase either. 
-
-BUT FIRST, are the other items things that can be easily implemented? 
-
-Side note: when this is sorted though i think we should still start out with the pow that "create workflow from goal" being the first function has. 
-
-Otherwise, we just need to combine the old and new orchestration documentation without loosing anything EXCEPT the "what got removed" items. 
-
-Is this achievable and worth doing? 
+  - "parallel_tools" is a variable listed for model selection already 
+  - MAIN GOAL: Be able to run agents in parallel 
+    - Does this just require two API calls in succession and nothing else? 
+    - If so, what is the best way to implement this? 
+    - If not, is it the "parallel_tools" variable that needs to be implemented? 
+  - Either way, this is a "tool" or ability that only needs to be run by whoever Mao is (next update you'll be able to select Opus or Claude Code as Mao)
 
 ---
 
-# FIXING THE USER FLOW DOCUMENTATION 
+## The Implementation 
 
-The "### Chat Interface & Terminal UI Architecture" header all the way down to "This architecture creates a professional conversation-driven terminal experience while maintaining seamless integration with Mao's Python backend systems." is information that we want to move to the `05_INTERFACE.md` document. 
+- Implementation doc from Anthropic `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_PARALLEL_USE.md` has been waiting for a while. 
 
-They said: 
+- All of the orchestrator files are at the top here `./documentation/10_DEV_PRIMER.md​` to identify what the touch-points are. 
 
+- I see "manager_tools.py" but that doesn't seem like the place where tool execution is handled. 
+
+- More details below from `./versioning/v4_0_0/AUDIT_ARCHIVE_JULY_2025/03_DEPENDENCY_MATRIX.md` 
+
+### Examples of Mao Only Tools 
+
+- CODE EXECUTION: `./tools/code_execution`
+├── button_code_execution.py
+├── code_execution.py
+├── tool_code_execution.json
+└── ui_code_execution.py
+
+- FILES API: `./tools/files_api`
+├── button_files_api.py
+├── files_api.json
+├── files_api.py
+├── tool_files_api.json
+└── ui_files_api.py
+
+#### 4-File Architecture Compliance
+
+- `tool_name.py` - Core logic with Mao standardization
+- `button_tool_name.py` - Executable snippet generation
+- `ui_tool_name.py` - Rich console display components
+- `tool_tool_name.json` - Configuration and metadata
+
+### Critical Dependencies 
+
+**Cache System Pattern:**
+```python
+from orchestrator.cache.cache_system import CacheManager
+cache = CacheManager()
 ```
-Move TO 05_INTERFACE.md:
-The entire section from your first attachment:
+**Error Handling Pattern:**
+```python
+from orchestrator.error_handling import handle_errors, APIError
 
-- Chat Interface & Terminal UI Architecture
-- Terminal Interface Bridge code
-- TypeScript Frontend Communication code
-- Subprocess Communication Bridge code
-
-Keep IN 03_USER_FLOW.md:
-
-- A simple reference like: "The conversational interface operates through a sophisticated TypeScript/Python bridge system detailed in Section V: Interface"
-- Focus on the user experience of chatting with Mao
-- The Setup Script Magic (what I created)
+@handle_errors(operation_name="function_name", return_dict=True)
+def function_name():
+    # function implementation
 ```
 
-I've added the "setup script magic" already but that is all. The rests of the details need to be completed from moving the code to adding a simple reference. 
+### Core Service Dependencies
 
-Then we can move on to the `05_INTERFACE.md` document which seems like it just needs to be more interesting and engaging. 
+#### **Agent Orchestrator (orchestrator/agent_orchestrator.py)**
+**Dependent Files:** 45 files  
+**Dependency Type:** Service + Runtime  
+**Impact:** HIGH - Workflow execution  
+
+**Direct Dependencies:**
+- Workflow management system
+- Tool execution modules
+- CLI command handlers
+- Terminal UI bridges
+
+**Dependency Chain:**
+```
+Terminal UI → Interface Bridge → Agent Orchestrator → Tools/Commands
+```
+
+#### **Workflow Manager (orchestrator/workflow_manager.py)**
+**Dependent Files:** 34 files  
+**Dependency Type:** Service + Configuration  
+**Impact:** HIGH - Process coordination  
+
+**Direct Dependencies:**
+- Workflow configuration files
+- Tool execution modules
+- State management systems
+- Progress tracking systems
+
+### Interface Dependencies 
+
+#### **Claude Interface (interfaces/claude_interface.py)**
+**Dependent Files:** 12 files  
+**Dependency Type:** Interface + Runtime  
+**Impact:** HIGH - System entry point  
+
+**Direct Dependencies:**
+- Terminal interface bridge
+- CLI manager integration
+- Agent orchestrator coordination
+- Configuration management
+
+**Integration Pattern:**
+```python
+from interfaces.claude_interface import ClaudeInterface
+
+interface = ClaudeInterface()
+interface.bootstrap_interface()
+interface.launch_terminal_ui_smart()
+```
+
+### Code Execution Tool-Specific Analysis
+
+**Architecture Excellence:**
+- Sophisticated container management with persistence
+- Files API integration for upload/download workflows
+- Intelligent caching system prevents redundant executions
+- Comprehensive sandbox environment configuration
+
+**Key Features:**
+- Secure Python 3.11 sandbox with pre-installed libraries
+- Container lifecycle management (1-hour expiration)
+- Multi-step execution support with state persistence
+- File generation and download capabilities
+
+**Integration Points:**
+- Memory MCP for workflow state tracking
+- Files API for file upload/download
+- Anthropic Beta APIs (code-execution, files-api)
+- Cache system for execution result optimization
+
+## Integration Touch-points
+
+- Memory MCP Integration: Workflow state tracking for execution sessions
+- Custom exception types where appropriate
+- All logic files include required imports: `CacheManager`, `@handle_errors`, `estimate_cost()`
+- All functions properly decorated with `@handle_errors` 
+- All tools have standalone `estimate_cost()` functions
+- Cache integration present in all applicable operations
+
+---
