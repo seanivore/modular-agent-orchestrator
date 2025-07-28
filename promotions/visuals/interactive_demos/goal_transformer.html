@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mao Goal-to-Workflow Transformer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .example-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .example-btn {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .example-btn:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        .chat-interface {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 120px;
+            background: #f8f9fa;
+        }
+        
+        .user-input {
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px 20px 5px 20px;
+            margin-bottom: 15px;
+            display: inline-block;
+            max-width: 85%;
+        }
+        
+        .mao-response {
+            background: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px 20px 20px 20px;
+            margin-bottom: 15px;
+            display: inline-block;
+            max-width: 90%;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .workflow-breakdown {
+            background: #fff;
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            animation: expandIn 0.8s ease-out;
+        }
+        
+        @keyframes expandIn {
+            from { opacity: 0; height: 0; }
+            to { opacity: 1; height: auto; }
+        }
+        
+        .workflow-step {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .step-number {
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .demo-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .metric-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .case-study-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .case-study-note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Mao Goal-to-Workflow Transformer</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 25px;">
+            Watch Mao transform simple goals into comprehensive workflows instantly
+        </p>
+        
+        <div class="example-buttons">
+            <button class="example-btn" onclick="loadExample('marketing')">📈 Marketing Campaign</button>
+            <button class="example-btn" onclick="loadExample('social')">📱 Social Content</button>
+            <button class="example-btn" onclick="loadExample('business')">💼 Business Plan</button>
+            <button class="example-btn" onclick="loadExample('research')">🔍 Market Research</button>
+        </div>
+        
+        <div class="chat-interface" id="chatInterface">
+            <div style="color: #666; text-align: center; padding: 20px;">
+                Choose an example above or type your own goal below...
+            </div>
+        </div>
+        
+        <input type="text" class="input-field" id="goalInput" 
+               placeholder="Type your goal here or click an example above">
+        
+        <button class="demo-button" onclick="runDemo()">▶️ Transform Goal into Workflow</button>
+        
+        <div class="workflow-breakdown" id="workflowBreakdown">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const examples = {
+            marketing: {
+                input: "/goal 'Create a comprehensive marketing campaign for Glossier beauty brand'",
+                response: "Perfect! I'm creating a full marketing campaign with brand voice guidelines, target audience analysis, and 60-day content calendar. Deploying 5 parallel agents for research, strategy, content creation, visual planning, and performance metrics.",
+                steps: [
+                    {
+                        title: "Brand Research & Analysis",
+                        description: "Deep dive into Glossier's brand essence, target demographics, and market positioning"
+                    },
+                    {
+                        title: "Audience Segmentation", 
+                        description: "Identify key segments: Minimalist Essentialist, Conscious Beauty Advocate, Authentic Self-Expresser, Community Connector, Beauty Novice"
+                    },
+                    {
+                        title: "Brand Voice Guidelines",
+                        description: "Develop comprehensive voice framework: 'Like talking to a knowledgeable friend' with community-focused language"
+                    },
+                    {
+                        title: "60-Day Content Calendar",
+                        description: "Strategic content plan with themes, posting schedule, cross-platform integration, and engagement strategies"
+                    },
+                    {
+                        title: "Performance Framework",
+                        description: "KPI definitions, emotional gut checks, analytics integration, and refinement processes"
+                    }
+                ],
+                metrics: {
+                    time: "23",
+                    agents: "5", 
+                    deliverables: "127",
+                    efficiency: "95%"
+                },
+                caseStudy: "Based on real case study: Created comprehensive campaigns for Glossier, Hydro Flask, and Jungalow from just 210-word brand briefs each."
+            },
+            social: {
+                input: "/goal 'Develop social media content strategy and create posts for Instagram and TikTok'",
+                response: "Excellent! Creating multi-platform social strategy with detailed visual descriptions, caption variations, hashtag research, and cross-channel integration. Each post includes implementation notes for optimal engagement.",
+                steps: [
+                    {
+                        title: "Platform Strategy Development",
+                        description: "Tailored approaches for Instagram, TikTok, and YouTube with platform-specific optimization"
+                    },
+                    {
+                        title: "Visual Content Planning", 
+                        description: "Detailed image/video descriptions, visual cohesion guidelines, and aesthetic frameworks"
+                    },
+                    {
+                        title: "Caption & Copy Creation",
+                        description: "Multiple caption variations, brand voice integration, and community engagement hooks"
+                    },
+                    {
+                        title: "Hashtag Strategy",
+                        description: "Research-backed hashtag combinations for maximum reach and audience targeting"
+                    },
+                    {
+                        title: "Posting Schedule & Themes",
+                        description: "Optimal timing, content themes, cross-platform integration, and engagement maximization"
+                    }
+                ],
+                metrics: {
+                    time: "18",
+                    agents: "5",
+                    deliverables: "89", 
+                    efficiency: "92%"
+                },
+                caseStudy: "Real results: Generated complete social campaigns with visual descriptions so detailed that any human could execute flawlessly."
+            },
+            business: {
+                input: "/goal 'Create a business plan for my chocolate bar startup including market analysis and financial projections'",
+                response: "Outstanding! Developing comprehensive business plan with market research, competitive analysis, financial modeling, and go-to-market strategy. This will include executive summary, operational plans, and investor-ready materials.",
+                steps: [
+                    {
+                        title: "Market Research & Analysis",
+                        description: "Chocolate industry overview, market size, growth trends, and consumer behavior analysis"
+                    },
+                    {
+                        title: "Competitive Landscape",
+                        description: "Direct and indirect competitors, pricing analysis, market positioning opportunities"
+                    },
+                    {
+                        title: "Business Model & Operations",
+                        description: "Revenue streams, supply chain strategy, production planning, and operational structure"
+                    },
+                    {
+                        title: "Financial Projections",
+                        description: "5-year financial model, break-even analysis, funding requirements, and ROI projections"
+                    },
+                    {
+                        title: "Go-to-Market Strategy",
+                        description: "Launch plan, distribution channels, marketing strategy, and growth roadmap"
+                    }
+                ],
+                metrics: {
+                    time: "31",
+                    agents: "5",
+                    deliverables: "156",
+                    efficiency: "89%"
+                },
+                caseStudy: "Professional-grade business plans that match or exceed what human consultants deliver after weeks of work."
+            },
+            research: {
+                input: "/goal 'Conduct comprehensive market research on AI voice marketing for home services industry'",
+                response: "Perfect! Launching deep research project with data collection, industry analysis, strategy development, and actionable implementation guides. This will include voice engineering specs and conversion optimization.",
+                steps: [
+                    {
+                        title: "Industry Data Collection",
+                        description: "Comprehensive research on home services market, voice technology adoption, and consumer preferences"
+                    },
+                    {
+                        title: "Technical Implementation Analysis",
+                        description: "Voice platform comparison, integration requirements, and technical strategy recommendations"
+                    },
+                    {
+                        title: "Conversion Strategy Development",
+                        description: "Data-backed strategies for voice marketing optimization and customer engagement"
+                    },
+                    {
+                        title: "Script Writing & Voice Engineering",
+                        description: "Specific scripts, voice variables matrix, and persona development for maximum effectiveness"
+                    },
+                    {
+                        title: "Implementation Guide Creation",
+                        description: "Step-by-step deployment guide, best practices, and performance monitoring frameworks"
+                    }
+                ],
+                metrics: {
+                    time: "27",
+                    agents: "5",
+                    deliverables: "203",
+                    efficiency: "94%"
+                },
+                caseStudy: "Real project: Produced comprehensive AI voice marketing guide with data-backed strategies and tool-specific implementation details."
+            }
+        };
+
+        function loadExample(type) {
+            const example = examples[type];
+            document.getElementById('goalInput').value = example.input;
+        }
+
+        function runDemo() {
+            const chatInterface = document.getElementById('chatInterface');
+            const workflowBreakdown = document.getElementById('workflowBreakdown');
+            const goalInput = document.getElementById('goalInput').value;
+            
+            // Determine which example to use based on input
+            let selectedExample = examples.marketing; // default
+            
+            if (goalInput.toLowerCase().includes('social') || goalInput.toLowerCase().includes('instagram') || goalInput.toLowerCase().includes('tiktok')) {
+                selectedExample = examples.social;
+            } else if (goalInput.toLowerCase().includes('business plan') || goalInput.toLowerCase().includes('startup')) {
+                selectedExample = examples.business;
+            } else if (goalInput.toLowerCase().includes('research') || goalInput.toLowerCase().includes('voice marketing')) {
+                selectedExample = examples.research;
+            }
+            
+            // Clear chat interface
+            chatInterface.innerHTML = '';
+            
+            // Add user input
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-input';
+            userMessage.textContent = goalInput;
+            chatInterface.appendChild(userMessage);
+            
+            // Add Mao response after delay
+            setTimeout(() => {
+                const maoResponse = document.createElement('div');
+                maoResponse.className = 'mao-response';
+                maoResponse.innerHTML = `<strong>🧠 Mao:</strong> ${selectedExample.response}`;
+                chatInterface.appendChild(maoResponse);
+                
+                // Show workflow breakdown
+                setTimeout(() => {
+                    workflowBreakdown.innerHTML = `
+                        <h3>🎯 Complete Workflow Generated</h3>
+                        ${selectedExample.steps.map((step, index) => `
+                            <div class="workflow-step">
+                                <span class="step-number">${index + 1}</span>
+                                <strong>${step.title}</strong><br>
+                                <small>${step.description}</small>
+                            </div>
+                        `).join('')}
+                        
+                        <div class="metrics">
+                            <div class="metric">
+                                <div class="metric-number">${selectedExample.metrics.time}</div>
+                                <div class="metric-label">Minutes to Complete</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-number">${selectedExample.metrics.agents}</div>
+                                <div class="metric-label">Parallel Agents</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-number">${selectedExample.metrics.deliverables}</div>
+                                <div class="metric-label">Deliverables Created</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-number">${selectedExample.metrics.efficiency}</div>
+                                <div class="metric-label">Time Saved vs Manual</div>
+                            </div>
+                        </div>
+                        
+                        <div class="case-study-note">
+                            <strong>Real Case Study:</strong> ${selectedExample.caseStudy}
+                        </div>
+                    `;
+                    workflowBreakdown.style.display = 'block';
+                }, 1000);
+            }, 1500);
+        }
+        
+        // Allow Enter key to trigger demo
+        document.getElementById('goalInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                runDemo();
+            }
+        });
+    </script>
+</body>
+</html>
