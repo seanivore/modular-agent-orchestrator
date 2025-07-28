@@ -1109,6 +1109,7 @@ class JSONConfigNormalizer:
 ```
 
 **Template Processing Pipeline**:
+
 1. **Natural Language Analysis** - Goal decomposition and requirement extraction
 2. **Template Population** - Fill base JSON structures with extracted data
 3. **Schema Validation** - Ensure all required fields and correct types
@@ -1290,51 +1291,74 @@ command category variant   # This is the command
 
 **Always remember** these should be helpful for humans to remember and use. 
 
-### Setup Script Automations 
+## The Setup Script Does EVERYTHING For You
 
-When the workflow is created, you need to run the JSON config file(s) through the setup script. This will create the following: 
+Here's where the real magic happens. When you run that setup script, Mao doesn't just move some files around. They **build your entire custom workflow infrastructure** automatically. 
 
-1. Create a new directory in the `configs/workflows/command_use_case/` directory 
-2. Place a new JSON config file in the new directory 
-   - Built from the .temp directory 
-   - Then deletes the .temp directory 
-3. Produces a README.md file in the new directory 
-   - Describes the workflow
-   - Reminds the user how to activate the workflow 
-   - Also creates categorical tags about the workflow project to be used in analytics 
-4. Creates executable script with all the details of the workflow 
-   - This is the script that will be used to run the workflow 
-   - Finally, we have a script that is specific and not generic 
-5. Make the script executable using the custom command 
-   - Creates it using the tool `chmod +x` 
-   - Script runs `chmod +x ./configs/workflows/command_use_case/command_use_case.sh` 
-   - Saves the command to your ~/bin directory 
-6. Creates new sub-directories for 
-   - Deliverables 
-   - Metadata 
-   - **This is all automated**
+No coding. No configuration files. No technical setup. You literally just run the script and **everything is ready**.
 
-**NOTE:** It is important to remember that the drafting documents used in the workflow are kept in the Files API and not passed along with the deliverables. If you NEED draft documents, you will need to list them as deliverables. 
+### Watch Mao Build Your Workflow
 
-#### Workflow Directory Structure
+When you execute `/setup ./marketing-strategy-startup/`, here's what happens behind the scenes:
 
-  - Automatically created by the setup script 
-  - Command naming structure across files 
-
+**1. Creates Your Complete Directory Structure**
 ```
-configs/workflows/command_use_case/
-├── config-files/                                 # Directory for JSON config files 
-│   ├── command_use_case_workflow_config.json     # Workflow JSON config file 
-│   ├── command_use_case_phase_config.json        # Phase JSON config file 
-│   └── command_use_case_handoff_config.json      # Handoff JSON config file 
-├── README_command_use_case.md                    # Auto-generated usage guide
-├── command_use_case.sh                           # Auto-generated use-case specific script that your command activates 
-├── metadata/                                     # Workflow tracking details  
-│   ├── command_use_case_memory.json              # Workflow Memory MCP File  
-│   └── command_use_case_log.json                 # Workflow log file 
-└── deliverables/                                 # Final outputs; this is where the deliverables are stored 
-    └── command_use_case_report.md                # This is the final deliverable; it is the report 
+configs/workflows/marketing-strategy-startup/
+├── config-files/                                    # ← Mao creates this
+│   ├── marketing_strategy_startup_workflow.json     # ← Mao moves & renames
+│   ├── marketing_strategy_startup_phase.json        # ← Mao moves & renames  
+│   └── marketing_strategy_startup_handoff.json      # ← Mao moves & renames
+├── README_marketing_strategy_startup.md             # ← Mao writes this automatically
+├── marketing_strategy_startup.sh                    # ← Mao creates your custom script
+├── metadata/                                        # ← Mao creates tracking directory
+│   ├── marketing_strategy_startup_memory.json       # ← Mao links to Memory MCP
+│   └── marketing_strategy_startup_log.json          # ← Mao creates execution log
+└── deliverables/                                    # ← Mao creates output directory
+    └── marketing_strategy_startup_report.md         # ← Where your final report goes
 ```
+
+**2. Writes Your README.md Automatically**
+Mao analyzes your workflow and creates a complete README that explains:
+- What this workflow does
+- How to run it (`marketing strategy startup`)
+- What deliverables you'll get
+- Analytics tags for tracking your project types
+
+**3. Creates Your Custom Executable Command**
+Mao doesn't just create files - they create a **working command** that you can run from anywhere:
+```bash
+marketing strategy startup  # Your custom command works instantly
+```
+
+This command gets installed in your `~/bin` directory and is immediately available system-wide.
+
+**4. Links Everything to Memory MCP**
+Behind the scenes, Mao connects your new workflow to the Memory MCP system so they can:
+- Remember exactly where you left off
+- Track all decisions and changes
+- Provide context when you return weeks later
+
+**5. Sets Up Analytics Tracking**
+Your workflow is automatically configured to track:
+- Execution time and costs
+- Tool usage patterns  
+- Quality metrics
+- Success rates
+
+**6. Cleans Up Automatically**
+Once everything is built, Mao deletes the temporary files. No mess, no manual cleanup.
+
+### The Magic Result
+
+What started as a conversation with Mao becomes:
+- **A custom command** that works anywhere on your system
+- **A complete directory structure** with everything organized
+- **Automatic documentation** explaining how it all works
+- **Persistent memory** so Mao remembers your project
+- **Analytics tracking** to improve future workflows
+- **Quality assurance** with built-in assessment questions
+
+**All from running one simple command.** This is why people love Mao - the technical complexity disappears, but the power remains.
 
 ### Using The Setup Script 
 
