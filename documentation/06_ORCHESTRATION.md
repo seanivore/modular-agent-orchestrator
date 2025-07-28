@@ -286,7 +286,7 @@ async def execute_workflow_async(self, workflow_id: str) -> Dict[str, Any]:
     return {"results": results, "parallel_groups": len([g for g in phase_groups if len(g) > 1])}
 ```
 
-**For setup guidance, see [04_MAOS_ROLE.md](04_MAOS_ROLE.md) for detailed workflow creation patterns.**
+**For setup guidance, see [04_MAOS_ROLE.md](04_MAOS_FLOW.md) for detailed workflow creation patterns.**
 
 ### Resource-Centric Model Selection
 
