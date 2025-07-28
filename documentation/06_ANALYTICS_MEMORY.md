@@ -20,10 +20,9 @@ WorkflowIDs can be used to pull in preferences they've been shown in previous pr
 ---
 
 ## Real-Time Analytics Architecture 
+*Files: orchestrator/user_analytics_manager.py, orchestrator/system_analytics_manager.py*
 
 Mao's analytic system operates with privacy-first design, capturing valuable insights through strategic trigger points while maintaining complete user control over personal data.
-
-*Files: `orchestrator/user_analytics_manager.py`, `orchestrator/system_analytics_manager.py`*
 
 ### Core Principles 
 
@@ -50,10 +49,129 @@ Tool Usage     Settings Mgr      Memory Analytics   Memory MCP      Privacy    R
 ./memory_mcp/                         # Analytics patterns and insights
 ```
 
+### System-Level Analytics Implementation
+
+The `SystemAnalyticsManager` handles anonymous aggregate analytics, tracking system-wide performance and health metrics with complete user anonymization.
+
+```python
+# Real SystemAnalyticsManager.track_performance method
+@handle_errors
+def track_performance(self, tool_name: str, response_time: float, success: bool, error_type: str = None) -> bool:
+    """Track tool performance metrics anonymously"""
+    try:
+        data = self._read_system_analytics_file("tool_performance.json")
+        current_time = datetime.now(timezone.utc).isoformat()
+        
+        # Initialize tool if not exists
+        if tool_name not in data["tool_metrics"]:
+            data["tool_metrics"][tool_name] = {
+                "avg_response_time": 0.0,
+                "success_rate": 0.0,
+                "error_patterns": {},
+                "performance_trend": "stable",
+                "total_executions": 0
+            }
+        
+        tool_data = data["tool_metrics"][tool_name]
+        old_total = tool_data.get("total_executions", 0)
+        tool_data["total_executions"] = old_total + 1
+        
+        # Update average response time
+        if old_total == 0:
+            tool_data["avg_response_time"] = response_time
+        else:
+            current_avg = tool_data["avg_response_time"]
+            tool_data["avg_response_time"] = (current_avg * old_total + response_time) / tool_data["total_executions"]
+        
+        # Update success rate
+        if old_total == 0:
+            tool_data["success_rate"] = 1.0 if success else 0.0
+        else:
+            current_successes = tool_data["success_rate"] * old_total
+            new_successes = current_successes + (1 if success else 0)
+            tool_data["success_rate"] = new_successes / tool_data["total_executions"]
+        
+        # Track error patterns anonymously
+        if error_type and not success:
+            if error_type not in tool_data["error_patterns"]:
+                tool_data["error_patterns"][error_type] = 0
+            tool_data["error_patterns"][error_type] += 1
+        
+        # Update system health metrics (aggregated)
+        all_tools = data["tool_metrics"].values()
+        if all_tools:
+            total_executions = sum(tool.get("total_executions", 0) for tool in all_tools)
+            weighted_success_rate = sum(tool.get("success_rate", 0) * tool.get("total_executions", 0) for tool in all_tools)
+            weighted_response_time = sum(tool.get("avg_response_time", 0) * tool.get("total_executions", 0) for tool in all_tools)
+            
+            if total_executions > 0:
+                data["system_health"]["overall_success_rate"] = weighted_success_rate / total_executions
+                data["system_health"]["avg_response_time"] = weighted_response_time / total_executions
+                data["system_health"]["error_rate"] = 1.0 - (weighted_success_rate / total_executions)
+        
+        data["metadata"]["total_executions_analyzed"] = sum(tool.get("total_executions", 0) for tool in all_tools)
+        data["metadata"]["last_updated"] = current_time
+        
+        return self._write_system_analytics_file("tool_performance.json", data)
+        
+    except Exception as e:
+        # System analytics failures should not break main functionality
+        return False
+```
+
+### Anonymous Time Pattern Analysis
+
+```python
+# Real SystemAnalyticsManager.calculate_time_patterns method
+@handle_errors
+def calculate_time_patterns(self, user_analytics_data: List[Dict]) -> Dict:
+    """Calculate anonymous time usage patterns from user data"""
+    try:
+        peak_hours = {}
+        peak_days = {}
+        
+        # Anonymize all user data before processing
+        anonymized_data = [self._anonymize_user_data(user_data) for user_data in user_analytics_data]
+        
+        for user_data in anonymized_data:
+            if "sessions" in user_data and "sessions" in user_data["sessions"]:
+                for session in user_data["sessions"]["sessions"]:
+                    if session.get("start_time"):
+                        start_time = datetime.fromisoformat(session["start_time"].replace('Z', '+00:00'))
+                        
+                        # Track hourly patterns (anonymous aggregates)
+                        hour_range = f"{start_time.hour:02d}:00-{start_time.hour+1:02d}:00"
+                        if hour_range not in peak_hours:
+                            peak_hours[hour_range] = 0
+                        peak_hours[hour_range] += 1
+                        
+                        # Track daily patterns (anonymous aggregates)
+                        day_name = start_time.strftime("%A").lower()
+                        if day_name not in peak_days:
+                            peak_days[day_name] = 0
+                        peak_days[day_name] += 1
+        
+        # Convert to percentages for privacy
+        total_hours = sum(peak_hours.values())
+        total_days = sum(peak_days.values())
+        
+        if total_hours > 0:
+            peak_hours = {k: v / total_hours for k, v in peak_hours.items()}
+        if total_days > 0:
+            peak_days = {k: v / total_days for k, v in peak_days.items()}
+        
+        return {
+            "peak_hours": peak_hours,
+            "peak_days": peak_days
+        }
+    except Exception as e:
+        return {"peak_hours": {}, "peak_days": {}}
+```
+
 ---
 
 ## Session Analytics Architecture
-*Files: `orchestrator/user_analytics_manager.py`, `interfaces/ui_terminal.py`*
+*Files: orchestrator/user_analytics_manager.py, interfaces/ui_terminal.py*
 
 ### Trigger Points
 
@@ -119,7 +237,7 @@ def track_session(self, username: str, session_id: str, action: str, **kwargs) -
 ```
 
 ## Workflow Analytics Architecture
-*Files: `orchestrator/user_analytics_manager.py`, `orchestrator/workflow_manager.py`*
+*Files: orchestrator/user_analytics_manager.py, orchestrator/workflow_manager.py*
 
 ### Trigger Points
 
@@ -203,7 +321,7 @@ def track_workflow(self, username: str, workflow_id: str, workflow_command: str,
 ```
 
 ## Cost Tracking Architecture
-*Files: `orchestrator/user_analytics_manager.py`, `orchestrator/manager_models.py`*
+*Files: orchestrator/user_analytics_manager.py, orchestrator/manager_models.py*
 
 ### Trigger Points
 
@@ -284,7 +402,7 @@ def track_costs(self, username: str, date: str, model_name: str, cost: float, se
 ---
 
 ## Memory System Architecture
-*Files: `orchestrator/user_memory_manager.py`, `orchestrator/memory_mcp.py`, `orchestrator/mcp_hub.py`*
+*Files: orchestrator/user_memory_manager.py, orchestrator/memory_mcp.py, orchestrator/mcp_hub.py*
 
 Mao's memory system provides intelligent storage and retrieval of user preferences, contextual insights, and personalized suggestions through Memory MCP integration.
 
@@ -457,12 +575,12 @@ def _store_memory_to_mcp(self, user_id: str, memory: Dict[str, Any]):
 ---
 
 ## Privacy & Data Control Architecture
-*Files: `orchestrator/user_analytics_manager.py`, `orchestrator/username_manager.py`*
+*Files: orchestrator/user_analytics_manager.py, orchestrator/username_manager.py*
 
 Privacy isn't an afterthought in Mao's analytics and memory systems; it's foundational to the architecture. Every piece of user data is designed to be easily discoverable, exportable, and deletable.
 
 ### User Data Directory Structure 
-*All easily deletable information*
+**All easily deletable information**
 
 ```
 ./configs/user/[username]/
@@ -478,7 +596,7 @@ Privacy isn't an afterthought in Mao's analytics and memory systems; it's founda
 ```
 
 ### System Data Directory Structure
-*All anonymous information*
+**All anonymous information**
 
 ```
 ./configs/system/analytics/
@@ -543,7 +661,7 @@ Users maintain complete control over their analytics and memory data through tra
 ---
 
 ## Dynamic Discovery Architecture
-*Files: `orchestrator/user_analytics_manager.py`, `orchestrator/manager_tools.py`*
+*Files: orchestrator/user_analytics_manager.py, orchestrator/manager_tools.py*
 
 Following Mao's core philosophy of "Everything modular, everything discoverable," the analytics system automatically adapts to new tools, workflows, and components without requiring manual configuration.
 

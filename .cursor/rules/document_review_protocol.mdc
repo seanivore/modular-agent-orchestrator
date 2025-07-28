@@ -1,0 +1,48 @@
+# Document Review Protocol
+
+When reviewing documents or files after completion, always read the entire document/file in full first.
+
+## Full Document Review Required
+- ALWAYS read complete documents during review phases
+- Get the complete picture and flow before making targeted changes
+- See overall structure, coherence, and potential issues
+- Identify scattered problems that only appear with full context
+
+## When to Use Chunked Reading vs Full Reading
+
+### Use Chunked Reading (50-150 lines) For:
+- **Initial exploration** of unfamiliar codebases
+- **Targeted implementation** when adding specific sections
+- **Code verification** when checking specific methods
+- **Active development** when working on particular features
+
+### Use Full Reading For:
+- **Document reviews** after completion
+- **Quality assurance** and final checks
+- **Flow analysis** and structural assessment
+- **Duplicate content detection**
+- **Placeholder and formatting issue identification**
+
+## Review Process
+1. **Full Read First** - Read entire document to understand complete structure
+2. **Systematic Search** - Use grep/search to find ALL instances of patterns
+3. **Targeted Fixes** - Make specific corrections based on full context
+4. **Flow Verification** - Ensure logical progression throughout
+
+## Why This Matters
+Prevents missing:
+- Duplicate sections in different parts of documents
+- Scattered placeholder blocks and formatting issues
+- Incomplete endings and abrupt transitions
+- Flow breaks between document sections
+- Inconsistent formatting patterns
+- Content that belongs in different locations
+
+## Anti-Pattern
+Don't review documents by reading random 100-line chunks - this leads to missing obvious issues that would be immediately apparent with a complete read.
+
+The chunked approach is valuable for exploration and implementation, but reviews need the full picture for quality and completeness.
+description:
+globs:
+alwaysApply: false
+---

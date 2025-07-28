@@ -15,8 +15,7 @@ All they have to say is "My start-up needs a marketing plan" and gears start tur
 
 That goal analysis is no simple step. Mao has to examine the request for complexity, ask them selves what models are best at different types of work, identify a task type that can achieve the goal and is feasible with available resources, then plan an optimal, often complex, execution pattern. Mao may need to adjust the workflow on-the-fly, and of course, they'll be there for each agent every step of the way. After all, if the deliverable isn't up to Mao's standards, someone will need to plan an additional set of task phases to get it right. 
 
-| **GOAL ANALYSIS AND WORKFLOW DESIGN ARCHITECTURE** |
-| -------------------------------------------------- |
+### Goal Analysis and Workflow Design Architecture
 
 **Natural language processing, task decomposition, workflow planning**
 
@@ -125,8 +124,7 @@ class ConversationToWorkflowBridge:
 - **Complexity Assessment**: Simple/medium/high complexity classification drives workflow structure
 - **Domain Detection**: Business, technology, creative, research domain classification for specialized handling
 
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
+---
 
 ### Dynamic Nature of Real Workflow Phases 
 
@@ -136,12 +134,11 @@ The custom nature means that the identical goal provided by different users can 
 
 Often, a workflow will be left open ended. Mao won't plan the final phase or two until they actually see the results from the previous agent. This is where the real magic happens. It allows Mao to act on contextual information. 
 
-Maybe the short story Mao just recieved to send off to the illustrator happens to be written in a way that really makes the one dog in the story shine. 
+Maybe the short story Mao just received to send off to the illustrator happens to be written in a way that really makes the one dog in the story shine. 
 
 Now they know, and now they can be sure the illustrations will reflect that. Had the story gone straight to the illustrator, they might not have considered the story's nuances nor do they know the author's intent; they could have ended up with a photo series of landscapes. 
 
-| **DYNAMIC PHASE CONSTRUCTION ARCHITECTURE** |
-| ------------------------------------------- |
+### Dynamic Phase Construction Architecture
 
 **Phase creation patterns, tool selection logic, adaptive workflow building**
 
@@ -236,10 +233,7 @@ Think about task type, required quality level, cost constraints, and availabilit
 
 And don't worry about unavailable choices, we always plan fallback options. 
 
-**MODEL SELECTION AND RESOURCE MANAGEMENT ARCHITECTURE**
-
-*Model capability analysis, resource allocation, fallback strategies*
-
+### Resource Management Architecture
 *Files: orchestrator/manager_models.py, orchestrator/core.py*
 
 Dynamic model selection that matches capabilities to requirements without hardcoded assumptions:
@@ -380,6 +374,7 @@ def _select_optimal_model(self, phase: WorkflowPhase, preferences: Dict[str, Any
 ```
 
 **Key Resource Management Patterns:**
+
 - **Dynamic Requirement Detection**: Automatic analysis of goal text to identify needed capabilities (vision, tools, code execution)
 - **Multi-Strategy Selection**: Flexible selection strategies (cheapest, fastest, highest_quality, balanced) based on user preferences
 - **Capability Filtering**: Hard requirement filtering eliminates incompatible models before selection
@@ -397,8 +392,7 @@ Every workflow has a lifecycle, and the orchestrator tracks every detail of that
 
 The state management system uses multiple persistence mechanisms to ensure reliability. Critical workflow state is stored in the Memory MCP system for cross-session persistence, execution files are managed through the Files API for efficient access, and cached results are maintained for performance optimization. This multi-layer approach ensures that workflows can survive system restarts, network interruptions, and other potential disruptions.
 
-| **STATE MANAGEMENT AND PERSISTENCE ARCHITECTURE** |
-| ------------------------------------------------- |
+### State Management and Persistence Architecture
 
 **Workflow state tracking, persistence mechanisms, recovery capabilities**
 
@@ -493,6 +487,7 @@ class MCPIntegrationHub:
 ```
 
 **Key Persistence Patterns:**
+
 - **Triple Redundancy**: State tracked in Memory MCP, Files API, and local cache for reliability
 - **Graceful Degradation**: System continues functioning even if persistence components fail
 - **Recovery Planning**: Automated analysis of interruption points and recovery options
@@ -505,14 +500,10 @@ Workflows are more than just sequences of independent tasks; they're coordinated
 
 Context sharing goes beyond simple file passing. The system maintains semantic understanding of what each phase produced, how that information relates to the overall workflow goal, and what aspects are most relevant for subsequent phases. This intelligent context management means that later phases can reference and build upon earlier work in natural, meaningful ways.
 
-| **CONTEXT SHARING AND COMMUNICATION ARCHITECTURE** |
-| -------------------------------------------------- |
-
-**Inter-phase communication, context management, semantic understanding**
-
+### Context Sharing and Communication Architecture
 *Files: orchestrator/agent_orchestrator.py, orchestrator/core.py, orchestrator/mcp_hub.py*
 
-Sophisticated context management ensures each phase builds meaningfully on previous work:
+Sophisticated inter-phase communication, context management, and semantic understanding ensures each phase builds meaningfully on previous work:
 
 ```python
 # orchestrator/agent_orchestrator.py
@@ -613,6 +604,7 @@ def restore_agent_context(self, workflow_id: str, handoff_file_id: str) -> Dict[
 ```
 
 **Key Communication Patterns:**
+
 - **Semantic File Chaining**: Outputs from earlier phases automatically become named inputs for later phases
 - **Agent Handoff Packages**: Complete context packages with instructions, tools, and previous results
 - **Memory MCP Integration**: Persistent workflow context across sessions and interruptions  
@@ -625,14 +617,10 @@ Modern users expect to understand what's happening with their requests, especial
 
 The monitoring system captures detailed metrics about each phase, including execution time, token consumption, cost accumulation, and quality indicators. This information flows back to the interface layer for user display and is also used internally for performance optimization and model selection refinement. Users can see exactly what's happening and when they can expect results.
 
-| **REAL-TIME MONITORING ARCHITECTURE** |
-| ------------------------------------- |
-
-**Progress tracking, metrics collection, performance monitoring**
-
+### Real-Time Monitoring Architecture
 *Files: orchestrator/real_time_metrics.py, orchestrator/workflow_state.py*
 
-Comprehensive real-time monitoring provides live visibility into workflow execution:
+Comprehensive progress tracking, metrics collection, and performance monitoring provides live visibility into workflow execution:
 
 ```python
 # orchestrator/real_time_metrics.py
@@ -759,6 +747,7 @@ def track_workflow_progress(self, workflow_id: str, update: str) -> bool:
 ```
 
 **Key Monitoring Patterns:**
+
 - **Live Dashboard Metrics**: Real-time model, tool, workflow, and cost statistics  
 - **Granular Progress Tracking**: Phase-by-phase execution monitoring with percentage completion
 - **Cost Monitoring**: Real-time spend tracking with estimated vs actual comparisons
@@ -770,17 +759,14 @@ def track_workflow_progress(self, workflow_id: str, update: str) -> bool:
 
 ## Caching, Sure, But How About Fingerprinting?
 
-One of Mao's most impressive efficiency mechanisms is their sophyisticated caching. Their orchestrator doesn't use simple respopnse caching; it is intelligent, content aware caching that understands when previous work can be reused and when fresh execution is required. 
+One of Mao's most impressive efficiency mechanisms is their sophisticated caching. Their orchestrator doesn't use simple response caching; it is intelligent, content aware caching that understands when previous work can be reused and when fresh execution is required. 
 
 The system analyzes content and context of each request to determine cache applicability. Mao recognizes when you ask for something similar to previous work, so they can reuse components. It is an intelligent process that ensures iterative work becomes progressively faster while maintaining quality and accuracy. 
 
-**INTELLIGENT CACHING ARCHITECTURE**
-
-*Content fingerprinting, cache validity, performance optimization*
-
+### Intelligent Caching Architecture
 *Files: orchestrator/cache/cache_system.py*
 
-Dual-layer hybrid caching system with intelligent content fingerprinting and smart cache decisions:
+Dual-layer hybrid caching system with intelligent content fingerprinting and smart cache decisions for cache validity and performance optimization:
 
 ```python
 # orchestrator/cache/cache_system.py
@@ -888,6 +874,7 @@ class CacheManager:
 ```
 
 **Key Caching Patterns:**
+
 - **Dual-Layer Strategy**: Local fingerprint cache for permanent storage + Files API for workflow handoffs
 - **Content Fingerprinting**: MD5-based content hashing enables instant duplicate detection
 - **Smart Cache Rules**: Intelligent decisions based on content type and size thresholds
@@ -901,10 +888,7 @@ Mao uses the orchestrator to stay on top of costs through intelligent resource o
 
 Spending is tracked in real-time. When setting up a workflow, Mao will tell you a fairly accurate cost estimate. During the workflow, Mao uses resources that stay within budget, some even costing nothing. 
 
-**RESOURCE OPTIMIZATION ARCHITECTURE**
-
-*Cost tracking, budget management, resource allocation optimization*
-
+### Resource Optimization Architecture
 *Files: orchestrator/real_time_metrics.py, orchestrator/workflow_state.py, orchestrator/memory_mcp.py, orchestrator/agent_orchestrator.py*
 
 Comprehensive resource optimization with real-time cost tracking and intelligent budget management:
@@ -1034,6 +1018,7 @@ async def create_workflow_from_goal(self, user_goal: str, preferences: Optional[
 ```
 
 **Key Resource Optimization Patterns:**
+
 - **Real-Time Cost Tracking**: Live monitoring of spending with daily budget limits and automatic resets
 - **Component-Level Estimation**: Each orchestrator component provides granular cost estimates for planning
 - **Budget-Aware Tool Selection**: Tool recommendations respect budget preferences (conservative/balanced/performance)
@@ -1047,13 +1032,10 @@ async def create_workflow_from_goal(self, user_goal: str, preferences: Optional[
 
 Working with systems that are new or complex mean anxiety because things could go wrong. Mao's orchestrator error handling however, really hits different. With intelligent but understandable error analysis, Mao will quickly provide recovery strategies, moving through issues with grace. 
 
-**ERROR HANDLING AND RECOVERY ARCHITECTURE**
-
-*Error categorization, recovery strategies, graceful degradation*
-
+### Error Handling and Recovery Architecture
 *Files: orchestrator/error_handling.py, orchestrator/agent_orchestrator.py, orchestrator/workflow_state.py*
 
-Comprehensive error handling with intelligent categorization and automatic recovery strategies:
+Comprehensive error handling with intelligent categorization and automatic recovery strategies and graceful degradation:
 
 ```python
 # orchestrator/error_handling.py
@@ -1225,6 +1207,7 @@ def retry_on_failure(max_retries: int = 3,
 ```
 
 **Key Error Handling Patterns:**
+
 - **Hierarchical Exception Types**: Specific exception classes for different error categories (Validation, Processing, Resource, API)
 - **Contextual Error Information**: Comprehensive error details with timestamps, operation context, and diagnostic data
 - **Graceful Degradation**: Errors return structured information rather than crashing the system
@@ -1238,13 +1221,10 @@ Mao's orchestrator continuously monitors its own health and the health of connec
 
 The diagnostic system tracks everything from individual component response times to overall system throughput. It can identify performance bottlenecks, predict capacity issues, and suggest optimization opportunities. This visibility ensures that the orchestrator operates at peak efficiency and provides early warning of potential problems.
 
-**SYSTEM HEALTH AND DIAGNOSTICS ARCHITECTURE**
-
-*Health monitoring, diagnostic capabilities, performance analysis*
-
+### System Health and Diagnostics Architecture
 *Files: orchestrator/mcp_hub.py, orchestrator/system_analytics_manager.py, orchestrator/real_time_metrics.py, orchestrator/workflow_state.py*
 
-Comprehensive health monitoring with intelligent diagnostics and performance analysis:
+Comprehensive health monitoring with intelligent diagnostic capabilities and performance analysis:
 
 ```python
 # orchestrator/mcp_hub.py
@@ -1431,6 +1411,7 @@ def _analyze_workflow_observations(self, observations: List[str]) -> Dict[str, A
 ```
 
 **Key Health Monitoring Patterns:**
+
 - **Component Health Checks**: Individual testing of Memory MCP, Files API, and MCP Connector components
 - **Performance Analytics**: Anonymized tracking of tool response times, success rates, and error patterns
 - **Real-Time Diagnostics**: Live system metrics including model availability, workflow statistics, and uptime
@@ -1448,12 +1429,9 @@ Discovery-based architecture means that new capabilities can be added simply by 
 
 Discovery runs continuously to present you with new components as they become available. Any removed components will disappear from the interface options. 
 
-This is the key to Mao; their dynamic flexability allows them to adapt to ever changing environments, making new tool additions simple, and keeping up with evolving AI model availability without any new tools or learning curves. 
+This is the key to Mao; their dynamic flexibility allows them to adapt to ever changing environments, making new tool additions simple, and keeping up with evolving AI model availability without any new tools or learning curves. 
 
-**DYNAMIC DISCOVERY ARCHITECTURE**
-
-*Component scanning, configuration discovery, capability detection*
-
+### Dynamic Discovery Architecture
 *Files: orchestrator/settings_manager.py, orchestrator/manager_tools.py, orchestrator/cli_manager.py*
 
 Live discovery of components and configurations without hardcoded system capabilities:
@@ -1612,6 +1590,7 @@ def discover_cli_commands(self, force_refresh: bool = False) -> Dict[str, Dict[s
 ```
 
 **Key Discovery Patterns:**
+
 - **Live Directory Scanning**: Real-time discovery of new components by scanning filesystem patterns
 - **Multi-Source Discovery**: Tools discovered from local directories, MCP servers, and external sources
 - **Cached Discovery**: Intelligent caching with force refresh capabilities for performance optimization
@@ -1623,12 +1602,9 @@ def discover_cli_commands(self, force_refresh: bool = False) -> Dict[str, Dict[s
 
 Every user has preferences for how they work, from the level of quality they strive for to the size of their budget. Mao uses orchestrator files that help to integrate seamlessly with user settings ensuring top-tier user-experience. Mao will ensure every workflow execution respects those preferences. 
 
-Settings integration goes beyond preference storage by learning directly from your behavior. Mao will keep tabs on which suggestions you end up accepting, prefered models for certain types of work, and of course, quality versus cost. 
+Settings integration goes beyond preference storage by learning directly from your behavior. Mao will keep tabs on which suggestions you end up accepting, preferred models for certain types of work, and of course, quality versus cost. 
 
-**SETTINGS INTEGRATION ARCHITECTURE**
-
-*User preference integration, behavioral learning, adaptive defaults*
-
+### Settings Integration Architecture
 *Files: orchestrator/settings_manager.py, orchestrator/username_manager.py*
 
 Seamless integration of user preferences with intelligent behavioral learning and delta-only storage:

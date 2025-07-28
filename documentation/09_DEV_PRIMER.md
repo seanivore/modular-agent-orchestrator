@@ -708,9 +708,10 @@ def get_user_metrics(user_id: str) -> Dict[str, Any]
 def generate_user_report(user_id: str) -> Dict[str, Any]
 
 # orchestrator/system_analytics_manager.py
-def track_system_event(event_type: str, data: Dict[str, Any])
-def get_system_metrics() -> Dict[str, Any]
-def generate_performance_report() -> Dict[str, Any]
+def track_performance(tool_name: str, response_time: float, success: bool, error_type: str)
+def track_health(metric_name: str, value: float, trend: str)
+def calculate_time_patterns(user_analytics_data: List[Dict]) -> Dict
+def _anonymize_user_data(user_data: Dict) -> Dict
 ```
 
 ### Standard Function Patterns
