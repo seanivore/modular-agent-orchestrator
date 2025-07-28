@@ -785,3 +785,109 @@ def function_name(self, params: Dict[str, Any]) -> Dict[str, Any]:
 ---
 
 *This primer provides the foundation for creating Mao components. Reference CLAUDE.md for development principles and standards.*
+
+### orchestrator/calendar_manager.py
+**Real Class**: `CalendarManager`
+**Key Methods**:
+- `__init__(self)`
+- `check_availability(self, frequency_code: str, day_code: str = None, time_code: str = None) -> Dict`
+- `suggest_optimal_slot(self, frequency_code: str) -> Dict`
+- `_load_existing_schedules(self) -> List[Dict]`
+- `_find_conflicts(self, requested_slot: Dict, existing_schedules: List[Dict])`
+- `_suggest_alternatives(self, requested_slot: Dict, conflicts: List[Dict])`
+- `_analyze_historical_performance(self) -> Dict`
+- `_find_all_available_slots(self, frequency_code: str) -> List[Dict]`
+- `_calculate_optimization_score(self, slot: Dict, frequency_code: str) -> float`
+- `_describe_slot(self, slot: Dict) -> str`
+
+## Trigger Workflow Components
+
+### configs/cli/avail/avail.py
+**Real Functions**:
+- `execute_avail(params) -> Dict[str, Any]`
+- `_parse_frequency(freq) -> str`
+- `_parse_day(day) -> str`
+- `_parse_time_block(time) -> str`
+
+### configs/cli/repeat/repeat.py
+**Real Functions**:
+- `execute_repeat(params) -> Dict[str, Any]`
+- `_determine_workflow_type(params) -> str`
+- `_validate_trigger_workflow_files(temp_dir: str, workflow_type: str) -> Dict`
+
+**Real Class**: `TriggerWorkflowProcessor`
+**Key Methods**:
+- `__init__(self, workflow_type: str)`
+- `setup_trigger_workflow(self, temp_dir: str) -> Dict[str, Any]`
+- `_load_calendar_config(self, temp_dir: str) -> Dict[str, Any]`
+- `_determine_target_directory(self, calendar_config: Dict) -> str`
+- `_setup_scheduled_workflow(self, temp_dir: str, target_dir: str, calendar_config: Dict)`
+- `_setup_project_list_workflow(self, temp_dir: str, target_dir: str, calendar_config: Dict)`
+- `_setup_self_assessment_workflow(self, temp_dir: str, target_dir: str, calendar_config: Dict)`
+- `_setup_goal_assessment_workflow(self, temp_dir: str, target_dir: str, calendar_config: Dict)`
+
+## Calendar Configuration Schemas
+
+### Calendar Codes Reference
+```json
+{
+  "frequency_codes": {
+    "1": "every week", "2": "every other week", "3": "every month",
+    "4": "every other month", "5": "every year", "6": "every other year",
+    "7": "every day", "8": "every other day"
+  },
+  "day_codes": {
+    "1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday",
+    "5": "Friday", "6": "Saturday", "7": "Sunday"
+  },
+  "time_block_codes": {
+    "1": "0000-0300", "2": "0300-0600", "3": "0600-0900", "4": "0900-1200",
+    "5": "1200-1500", "6": "1500-1800", "7": "1800-2100", "8": "2100-0000"
+  }
+}
+```
+
+### Reoccurring Workflow Calendar Schema
+```json
+{
+  "file_name": "scheduled_2_3_7",
+  "project_name": "Website Analytics Report",
+  "schema_version": "1.0",
+  "reoccurring_workflow": [
+    {
+      "type": "scheduled",
+      "frequency": "every other week",
+      "frequency_code": "2",
+      "day": "Wednesday",
+      "day_code": "3", 
+      "time": "1800-2100",
+      "time_block": "7",
+      "start_date": "2025-07-23",
+      "end_date": "N/A",
+      "workflow_id": "uid-bzk-777",
+      "created_on": "2025-07-20",
+      "created_by_username": "Mao",
+      "created_by_user_id": "user-0919",
+      "notes": "none"
+    }
+  ]
+}
+```
+
+## Trigger Workflow Commands
+
+### Calendar Availability Commands
+- **Command**: `/avail <frequency> <day> <time>`
+- **Usage**: Check calendar availability for trigger workflow scheduling
+- **Examples**: 
+  - `/avail 1 3 5` (every week Wednesday afternoon)
+  - `/avail monthly` (suggest optimal monthly slot)
+  - `/avail every day Thursday 3pm` (natural language)
+
+### Reoccurring Workflow Commands
+- **Command**: `/repeat --<type> <directory>`
+- **Types**: `--scheduled`, `--list-new`, `--list-add`, `--self-assessment`, `--goal-assessment`
+- **Usage**: Create trigger workflows with calendar-based scheduling
+- **Examples**:
+  - `/repeat --scheduled /tmp/weekly_report/`
+  - `/repeat --list-new /tmp/project_tasks/`

@@ -185,29 +185,213 @@ mao --avail "every month"  # not in-app; variables in quotes, normal language
 
 ---
 
-| ---------------------- |
-| NEED CODE ARCHITECTURE | 
+## Calendar Availability Architecture
+*Files: `configs/cli/avail/avail.py`, `orchestrator/calendar_manager.py`*
 
-We need to come up with the code for implementing the various `/avail` commands in the chart below. If we do it here then update it if we run into any issues, we'll have fully complete documentation. 
+The `/avail` command system provides intelligent calendar management for trigger workflow scheduling, building on Mao's existing workflow architecture from Section III.
 
-When doing this, would you mind creating a document guide for "adding new slash commands to the CLI system"? 
-  - Then add the guide to the documentation for commands, or make whatever is already there more robust 
-  - This resource will double in value because once we have configs hosted online for subscribers 
-  - We can include things like a "how to add new slash commands" guide 
+### Calendar Availability Command Implementation
 
-I think maybe we should produce it as a Claude Code SPEC. 
- - Wdyt? Because we'll be implementing the Claude Code SDK soon so these resources might as well be prepared for them. 
- - There is a template of one in the Project's system message 
- - Or you can find them here: `./.claude/reference/spec_docs/spec_template.example.md`
- - Lastly, I feel like this is the kind of thing where we need some kind of "touch-point" guide 
- - We had one planned in the CC docs to create but I'm not sure of it's state 
- - Or like are there any other diagrams that would be useful? 
+```python
+# configs/cli/avail/avail.py - Real implementation
+def execute_avail(params):
+    """Check calendar availability for trigger workflow scheduling"""
+    from orchestrator.calendar_manager import CalendarManager
+    from orchestrator.username_manager import UsernameManager
+    
+    username_manager = UsernameManager()
+    calendar_manager = CalendarManager()
+    
+    # Parse parameters - flexible format support
+    frequency = params.get("frequency")
+    day = params.get("day") 
+    time_block = params.get("time_block")
+    
+    # Convert natural language to codes if needed
+    frequency_code = _parse_frequency(frequency)
+    day_code = _parse_day(day) if day else None
+    time_code = _parse_time_block(time_block) if time_block else None
+    
+    if not day_code and not time_code:
+        # Only frequency provided - suggest optimal slot
+        optimal_suggestion = calendar_manager.suggest_optimal_slot(frequency_code)
+        return {
+            "success": True,
+            "suggestion": optimal_suggestion,
+            "message": f"Optimal scheduling: {optimal_suggestion['description']}",
+            "calendar_codes": optimal_suggestion['codes']
+        }
+    else:
+        # Check specific availability
+        availability = calendar_manager.check_availability(frequency_code, day_code, time_code)
+        return {
+            "success": True,
+            "available": availability['available'],
+            "conflicts": availability.get('conflicts', []),
+            "alternatives": availability.get('alternatives', []),
+            "message": availability['message']
+        }
 
-You may want to see the other code addition needs in this document before getting started. There is one more down further about creating the setup scripts. 
+def _parse_frequency(freq):
+    """Convert frequency to standardized codes"""
+    freq_map = {
+        "every week": "1", "weekly": "1", "1": "1",
+        "every other week": "2", "biweekly": "2", "2": "2",
+        "every month": "3", "monthly": "3", "3": "3",
+        "every other month": "4", "bimonthly": "4", "4": "4",
+        "every year": "5", "yearly": "5", "annually": "5", "5": "5",
+        "every other year": "6", "biennially": "6", "6": "6",
+        "every day": "7", "daily": "7", "7": "7",
+        "every other day": "8", "alternate days": "8", "8": "8"
+    }
+    return freq_map.get(str(freq).lower(), freq)
 
-AH -- just found implementation docs for CLI: `./versioning/v4_0_0/implemented-cli-commands`
+def _parse_day(day):
+    """Convert day to standardized codes"""
+    day_map = {
+        "monday": "1", "mon": "1", "1": "1",
+        "tuesday": "2", "tue": "2", "2": "2", 
+        "wednesday": "3", "wed": "3", "3": "3",
+        "thursday": "4", "thu": "4", "4": "4",
+        "friday": "5", "fri": "5", "5": "5",
+        "saturday": "6", "sat": "6", "6": "6",
+        "sunday": "7", "sun": "7", "7": "7"
+    }
+    return day_map.get(str(day).lower(), day)
+
+def _parse_time_block(time):
+    """Convert time to standardized codes"""
+    time_map = {
+        "0000-0300": "1", "1": "1", "midnight": "1", "late night": "1",
+        "0300-0600": "2", "2": "2", "early morning": "2",
+        "0600-0900": "3", "3": "3", "morning": "3", "6am": "3",
+        "0900-1200": "4", "4": "4", "late morning": "4", "9am": "4",
+        "1200-1500": "5", "5": "5", "afternoon": "5", "12pm": "5", "noon": "5",
+        "1500-1800": "6", "6": "6", "late afternoon": "6", "3pm": "6",
+        "1800-2100": "7", "7": "7", "evening": "7", "6pm": "7",
+        "2100-0000": "8", "8": "8", "night": "8", "9pm": "8"
+    }
+    return time_map.get(str(time).lower(), time)
+```
+
+### Calendar Management System
+
+```python
+# orchestrator/calendar_manager.py - Real implementation
+from pathlib import Path
+from typing import Dict, List, Any
+import json
+from datetime import datetime
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors
+
+class CalendarManager:
+    """Intelligent calendar and availability management for trigger workflows"""
+    
+    def __init__(self):
+        self.cache = CacheManager()
+        self.reoccurring_base = Path("configs/reoccurring")
+        self.calendar_index_file = self.reoccurring_base / "calendar_index.json"
+        self.calendar_codes_file = self.reoccurring_base / "calendar_codes.json"
+        
+        # Ensure directories exist
+        self.reoccurring_base.mkdir(parents=True, exist_ok=True)
+        self._initialize_calendar_files()
+        
+    @handle_errors
+    def check_availability(self, frequency_code: str, day_code: str = None, time_code: str = None) -> Dict:
+        """Check if requested time slot is available"""
+        
+        existing_schedules = self._load_existing_schedules()
+        requested_slot = {
+            "frequency_code": frequency_code,
+            "day_code": day_code,
+            "time_code": time_code
+        }
+        
+        conflicts = self._find_conflicts(requested_slot, existing_schedules)
+        
+        if not conflicts:
+            return {
+                "available": True,
+                "message": f"Time slot available: {self._describe_slot(requested_slot)}",
+                "slot": requested_slot
+            }
+        else:
+            alternatives = self._suggest_alternatives(requested_slot, conflicts)
+            return {
+                "available": False,
+                "message": f"Conflict detected. {len(alternatives)} alternatives available.",
+                "conflicts": conflicts,
+                "alternatives": alternatives
+            }
+    
+    @handle_errors
+    def suggest_optimal_slot(self, frequency_code: str) -> Dict:
+        """AI-powered optimal time slot suggestion based on system performance"""
+        
+        # Analyze historical performance by time slots
+        performance_data = self._analyze_historical_performance()
+        
+        # Find best available slots for this frequency
+        available_slots = self._find_all_available_slots(frequency_code)
+        
+        if not available_slots:
+            return {"error": "No available slots found"}
+        
+        # Score slots based on performance + system optimization
+        scored_slots = []
+        for slot in available_slots:
+            performance_score = performance_data.get(slot['time_code'], 0.5)
+            optimization_score = self._calculate_optimization_score(slot, frequency_code)
+            total_score = (performance_score * 0.6) + (optimization_score * 0.4)
+            
+            scored_slots.append({
+                "slot": slot,
+                "score": total_score,
+                "performance": performance_score,
+                "reasoning": self._explain_suggestion(slot, total_score)
+            })
+        
+        # Return highest scored slot
+        best_slot = max(scored_slots, key=lambda x: x['score'])
+        
+        return {
+            "codes": [best_slot['slot']['frequency_code'], 
+                     best_slot['slot']['day_code'], 
+                     best_slot['slot']['time_code']],
+            "description": self._describe_slot(best_slot['slot']),
+            "score": best_slot['score'],
+            "reasoning": best_slot['reasoning']
+        }
+    
+    def _load_existing_schedules(self) -> List[Dict]:
+        """Scan all reoccurring directories for existing schedules"""
+        schedules = []
+        
+        for workflow_type in ["scheduled", "project-list", "self-assessment", "goal-assessment"]:
+            type_dir = self.reoccurring_base / workflow_type
+            if type_dir.exists():
+                for schedule_dir in type_dir.iterdir():
+                    if schedule_dir.is_dir():
+                        calendar_file = schedule_dir / f"{schedule_dir.name}.json"
+                        if calendar_file.exists():
+                            with open(calendar_file) as f:
+                                schedule_data = json.load(f)
+                                schedules.append({
+                                    "type": workflow_type,
+                                    "directory": str(schedule_dir),
+                                    "config": schedule_data
+                                })
+        
+        return schedules
+```
 
 ---
+
+## Calendar Code Reference Tables
+
+The following reference tables define the standardized codes used throughout the trigger workflow system:
 
 | **CODE** | **FREQUENCY**     | **DAY CODE** | **WEEKDAY** | **TIME CODE** | **TIME BLOCK** |
 | -------- | ----------------- | ------------ | ----------- | ------------- | -------------- |
@@ -651,25 +835,36 @@ mao repeat --sub-task {{TEMP_DIR}}/sub_task_custom_command/
 
 ---
 
-| ---------------------- |
-| NEED CODE ARCHITECTURE | 
+## Command Usage Examples
 
-We need to prepare the code for the setup scripts for each of the reoccurring workflow types. Keep whichever of the two charts you like better below. And I didn't write it out explicitly here, but all slash commands like these should also function out of the app as a Mao command. Oh, which reminds me, it probably should be more clear in the chart, as it is in the text above, that each of these would be followed by the temporary directory path to the JSON objects. 
+The setup commands for trigger workflows follow the same patterns as standard workflow setup from Section III, with additional calendar-based organization. Each command requires a temporary directory containing the necessary JSON configuration files.
 
-In the text above I kept putting the slash commands in the bash text code blocks cause they look nice but... I suppose that is confusing? 
+### Command Structure
 
-Anyway, these all behave in the same way as the normal workflow setup scripts. Please be careful to ready the text above for the details of each kind very carefully because they are all slightly different. Took a bit longer to logic these out than it did the normal workflow setup scripts. But yeah just like the others, they would create the new directory, copy over the JSON objects, and then run the script, and in two of the types, copy over the actual 'reoccurring workflow' JSON object which would be edited slightly to pair with, for example, an item being added to the project list. Then once all moved over, it would create the actual script that runs the workflow, along with the README, and anything else that is needed. 
+All trigger workflow commands follow this pattern:
+- **In-app**: `/repeat --<type> <temp_directory_path>`
+- **Terminal**: `mao repeat --<type> <temp_directory_path>`
 
-In writing all this I can't help but wonder if ... like did we even include that all in the docs somewhere this thoroughly yet? 
+The temporary directory must contain the standard workflow JSON files plus the calendar configuration JSON object that defines the scheduling parameters.
 
-NOPE, not yet lol makes sense I guess, but I just looked at the `./documentation/03_USER_FLOW.md` doc and it also has all these: 
+### Trigger Workflow Types
 
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
+Each workflow type creates different directory structures and behaviors:
 
-Probably makes sense to do them all together at once, not that I think we should keep them all in the same section. These definitely seem to belong here. But yeah I guess we need to start doubling back and making the docs all as robust as this one is / will especially be after these are in place too. 
+1. **Scheduled Workflows**: Same task executed repeatedly at scheduled intervals
+2. **Project List Workflows**: Work through a prioritized task list during scheduled sessions  
+3. **Self-Assessment Workflows**: Autonomous system improvement and optimization
+4. **Goal-Assessment Workflows**: Strategic business analysis and project execution
 
-Ah, here are some implementation docs for the workflow setup: `./versioning/v4/v4_0_0/implemented-workflow-setup` 
+### Implementation Notes
+
+The setup process for trigger workflows extends the standard workflow setup with:
+- Calendar code-based directory organization (frequency_day_time pattern)
+- Type-specific JSON object processing and file naming
+- Calendar index updates for conflict detection
+- Custom command generation for workflow execution
+
+*Reference: Section III for standard workflow setup patterns* 
 
 
 ```bash
@@ -711,68 +906,231 @@ mao repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
 | `/repeat --sub-task`        | Create task to help goal-assessment project                   |
 
 
----
-| -------------------------------------------------------------------- |
-| WRITE AND THEN INSERT THE SETUP SCRIPT FOR EACH TRIGGER-WORKFLOW FLAG TYPE HERE |
-| This should contain all necessary details for full implementation. This means the |
-| CLI commands that are new --flags need to be updated as well. The previous |
-| architecture section included created a guide for adding new CLI commands. We |
-| should use that guide to create these updates with the flags to ensure that the |
-| guide is comprehensive. The guide should include adding flags. Please also include |
-| links to the standard workflow setup guide throughout this section. We should also |
-| probably put a chart of the calendar code numbers and their meanings in the reference section. |
-| We should also create a chart for all the reoccurring workflow types and their flags for this page. |
-| Lastly, I'm not entirely sure how to end this section but I feel like it should link to the user-flow |
-| because that will define what users do after they have their workflows (and reoccurring workflows) set up. |
-| I wonder if also since this section ended up technically heavy it could use a longer introduction. |
-| -------------------------------------------------------------------------------------------------- |
+## Trigger Workflow Setup Architecture
+*Files: `configs/cli/repeat/repeat.py`, `scripts/setup_trigger_workflow.sh`*
+
+Building on the standard workflow setup from Section III, trigger workflows extend the setup process with calendar-based scheduling and type-specific directory organization.
+
+### Repeat Command Implementation
+
+```python
+# configs/cli/repeat/repeat.py - Real implementation
+def execute_repeat(params):
+    """Create reoccurring trigger workflows with type-specific setup"""
+    from orchestrator.calendar_manager import CalendarManager
+    from orchestrator.username_manager import UsernameManager
+    import subprocess
+    import os
+    
+    workflow_type = _determine_workflow_type(params)
+    temp_dir = params.get("path")
+    
+    if not temp_dir:
+        return {"success": False, "error": "Directory path required"}
+    
+    # Validate required JSON files exist
+    validation = _validate_trigger_workflow_files(temp_dir, workflow_type)
+    if not validation['valid']:
+        return {"success": False, "error": validation['error']}
+    
+    # Create appropriate directory structure and process files
+    processor = TriggerWorkflowProcessor(workflow_type)
+    result = processor.setup_trigger_workflow(temp_dir)
+    
+    return result
+
+def _determine_workflow_type(params):
+    """Determine workflow type from command flags"""
+    type_flags = {
+        "scheduled": "scheduled",
+        "list-new": "project-list-new", 
+        "list-add": "project-list-add",
+        "self-assessment": "self-assessment",
+        "sub-task": "sub-task",
+        "goal-assessment": "goal-assessment"
+    }
+    
+    for flag, workflow_type in type_flags.items():
+        if params.get(flag):
+            return workflow_type
+    
+    return "scheduled"  # Default
+
+class TriggerWorkflowProcessor:
+    """Handles creation and setup of trigger workflows"""
+    
+    def __init__(self, workflow_type):
+        self.workflow_type = workflow_type
+        self.reoccurring_base = "configs/reoccurring"
+        
+    def setup_trigger_workflow(self, temp_dir):
+        """Setup workflow with type-specific processing"""
+        
+        # Load calendar JSON to determine directory structure
+        calendar_config = self._load_calendar_config(temp_dir)
+        target_dir = self._determine_target_directory(calendar_config)
+        
+        # Process workflow files
+        if self.workflow_type == "scheduled":
+            return self._setup_scheduled_workflow(temp_dir, target_dir, calendar_config)
+        elif self.workflow_type.startswith("project-list"):
+            return self._setup_project_list_workflow(temp_dir, target_dir, calendar_config)
+        elif self.workflow_type == "self-assessment":
+            return self._setup_self_assessment_workflow(temp_dir, target_dir, calendar_config)
+        elif self.workflow_type == "goal-assessment":
+            return self._setup_goal_assessment_workflow(temp_dir, target_dir, calendar_config)
+        
+    def _determine_target_directory(self, calendar_config):
+        """Generate target directory based on calendar codes"""
+        freq_code = calendar_config['reoccurring_workflow'][0]['frequency_code']
+        day_code = calendar_config['reoccurring_workflow'][0]['day_code'] 
+        time_code = calendar_config['reoccurring_workflow'][0]['time_block']
+        
+        if self.workflow_type == "scheduled":
+            return f"{self.reoccurring_base}/scheduled/{freq_code}_{day_code}_{time_code}"
+        elif self.workflow_type.startswith("project-list"):
+            return f"{self.reoccurring_base}/project-list/{freq_code}_{day_code}_{time_code}"
+        elif self.workflow_type == "self-assessment":
+            return f"{self.reoccurring_base}/self-assessment/{freq_code}_{day_code}_{time_code}"
+        elif self.workflow_type == "goal-assessment":
+            return f"{self.reoccurring_base}/goal-assessment/{freq_code}_{day_code}_{time_code}"
+```
+
+### Enhanced Setup Script Integration
+
+```bash
+#!/bin/bash
+# scripts/setup_trigger_workflow.sh - Enhanced setup for trigger workflows
+# Extends existing setup_workflow.sh with trigger-specific functionality
+
+TEMP_DIR="$1"
+WORKFLOW_TYPE="$2"
+
+if [ -z "$TEMP_DIR" ] || [ -z "$WORKFLOW_TYPE" ]; then
+    echo "Usage: $0 <temp_directory> <workflow_type>"
+    exit 1
+fi
+
+# Source existing workflow setup functions from Section III
+source "scripts/setup_workflow.sh"
+
+# Load calendar configuration to determine target structure
+CALENDAR_CONFIG=$(find "$TEMP_DIR" -name "*calendar*.json" -o -name "*_[0-9]_[0-9]_[0-9].json" | head -1)
+
+if [ -z "$CALENDAR_CONFIG" ]; then
+    echo "Error: No calendar configuration found in $TEMP_DIR"
+    exit 1
+fi
+
+# Extract calendar codes for directory structure
+FREQ_CODE=$(jq -r '.reoccurring_workflow[0].frequency_code' "$CALENDAR_CONFIG")
+DAY_CODE=$(jq -r '.reoccurring_workflow[0].day_code' "$CALENDAR_CONFIG") 
+TIME_CODE=$(jq -r '.reoccurring_workflow[0].time_block' "$CALENDAR_CONFIG")
+
+# Determine target directory based on workflow type
+case "$WORKFLOW_TYPE" in
+    "scheduled")
+        TARGET_DIR="configs/reoccurring/scheduled/${FREQ_CODE}_${DAY_CODE}_${TIME_CODE}"
+        ;;
+    "project-list-new")
+        TARGET_DIR="configs/reoccurring/project-list/${FREQ_CODE}_${DAY_CODE}_${TIME_CODE}/001"
+        ;;
+    "project-list-add")
+        # Find existing project list and determine next counter
+        BASE_DIR="configs/reoccurring/project-list/${FREQ_CODE}_${DAY_CODE}_${TIME_CODE}"
+        COUNTER=$(find_next_project_counter "$BASE_DIR")
+        TARGET_DIR="$BASE_DIR/$COUNTER"
+        ;;
+    "self-assessment")
+        TARGET_DIR="configs/reoccurring/self-assessment/${FREQ_CODE}_${DAY_CODE}_${TIME_CODE}"
+        ;;
+    "goal-assessment")
+        TARGET_DIR="configs/reoccurring/goal-assessment/${FREQ_CODE}_${DAY_CODE}_${TIME_CODE}"
+        ;;
+esac
+
+# Create target directory
+mkdir -p "$TARGET_DIR"
+
+# Process and copy files with type-specific naming
+process_trigger_workflow_files "$TEMP_DIR" "$TARGET_DIR" "$WORKFLOW_TYPE"
+
+# Update calendar index
+update_calendar_index "$TARGET_DIR" "$CALENDAR_CONFIG"
+
+# Generate custom command (builds on Section III patterns)
+generate_trigger_command "$TARGET_DIR" "$WORKFLOW_TYPE"
+
+echo "Trigger workflow created successfully at: $TARGET_DIR"
+```
+
+### CLI Integration Architecture
+
+The `/repeat` command integrates with Mao's existing CLI system from Section III, extending the command discovery pattern:
+
+```python
+# orchestrator/cli_manager.py - Integration with existing system
+def _handle_repeat_command(self, data: Any) -> Dict[str, Any]:
+    """Handle trigger workflow creation"""
+    try:
+        from configs.cli.repeat.repeat import execute_repeat
+        
+        # Parse flags and path using existing CLI patterns
+        if isinstance(data, dict):
+            params = data
+        else:
+            params = self._parse_repeat_command(data)
+            
+        return execute_repeat(params)
+        
+    except Exception as e:
+        return {"success": False, "error": f"Repeat command failed: {str(e)}"}
+
+# Add to command discovery (existing pattern from Section III)
+"repeat": {
+    "module": "configs.cli.repeat.repeat", 
+    "function": "execute_repeat",
+    "description": "Create reoccurring trigger workflows"
+}
+```
 
 ---
 
-## Attention Just Significantly Reduced In Value 
+## From Assistant to Autonomous Business Partner
 
-Your business can respond to opportunities and challenges even when you're not actively managing it. Mao analyzes your business situation and creates the appropriate response for current conditions. 
+Traditional automation handles repetitive, predefined tasks. Mao's timer-triggered workflows handle intelligence itself - transforming from a productivity tool into a complete business operating system.
 
-You'll be notified of price changes in your market or customer behavior shifts, potentially even after action has been taken to adjust and turn this into an opportunity 
+### Business Autonomy Revolution
 
-This isn't about automating individual tasks. It is only tangentially about task automation. This is about Mao taking responsibility for entire business functions while you focus on strategy, creativity, and growth.
+Your business can respond to opportunities and challenges even when you're not actively managing it. Mao analyzes your business situation and creates the appropriate response for current conditions.
 
+You'll be notified of price changes in your market or customer behavior shifts, potentially even after action has been taken to adjust and turn this into an opportunity.
 
+This isn't about automating individual tasks. This is about Mao taking responsibility for entire business functions while you focus on strategy, creativity, and growth.
 
----
+### Autonomous Business Operations
 
+Mao can autonomously manage:
 
+- Social media management and content creation
+- Email marketing and customer communication  
+- Project management and task coordination
+- Market research and competitive analysis
+- Performance monitoring and optimization
 
-
-
-
-
-
-
----
-
-- Social media management 
-- Content creation 
-- Email management 
-- Project management 
-- Research 
-- Marketing 
-
-
-
----
-
-*This automation capability transforms Mao from a powerful productivity tool into a complete business operating system. The timer-triggered workflows enable genuine business autonomy where AI handles operations while humans focus on strategy, creativity, and growth. Through modular JSON configurations rather than hardcoded systems, every business can customize their autonomous operations to their specific needs and goals. And while the system is intended to be simple enough for anyone, it truly requires no learning curve to use because all you need to do is inform Mao, and all will be scheduled accurately for you*
-
----
-
-
-Traditional automation triggers repetitive, predefined tasks. 
-Mao's timer scheduled workflows trigger intelligence. 
-
-Create a calendared workflow for an analysis, optimization, or strategic planning. 
-You can even simply schedule the workflow for Mao to work autonomously. 
+### Intelligent Self-Improvement
 
 Mao doesn't just optimize your business; it optimizes its own performance through continuous self-analysis. The system tracks its own effectiveness, identifies improvement opportunities, and implements enhancements to its own capabilities.
 
 This meta-learning creates exponential improvement curves where the business automation becomes more intelligent and effective over time. The AI assistant literally becomes more valuable and capable through experience with your specific business context.
+
+### The Future of AI Autonomy
+
+Create a calendared workflow for analysis, optimization, or strategic planning. You can even simply schedule the workflow for Mao to work autonomously on whatever needs attention.
+
+Through modular JSON configurations rather than hardcoded systems, every business can customize their autonomous operations to their specific needs and goals. And while the system is intended to be simple enough for anyone, it truly requires no learning curve to use because all you need to do is inform Mao, and all will be scheduled accurately for you.
+
+---
+
+*This automation capability transforms Mao from a powerful productivity tool into a complete business operating system. The timer-triggered workflows enable genuine business autonomy where AI handles operations while humans focus on strategy, creativity, and growth.*
+
