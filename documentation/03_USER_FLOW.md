@@ -3,7 +3,9 @@
 
 ---
 
-You're ready to automate your life. Advanced agentic orchestration, delegating to subagents working in parallel, fully compatible with any LLM model, it all sounds great. But you know what sounds better? *No learning curve.* Mao is here. Not just to help you, but to totally take over for you ~(=^‥^)
+You're ready to automate your life. Advanced agentic orchestration, delegating to subagents working in parallel, fully compatible with any LLM model, it all sounds great. But you know what sounds better? *No learning curve.* 
+
+Mao is here. Not just to help you, but to totally take over for you ~(=^‥^)
 
 ---
 
@@ -25,11 +27,11 @@ This is the literal hardest part of using Mao. (It's not hard at all.)
 
 ```bash
 npm install -g @seanivore/mao
-```
 #     │      │  │
-#     │      │  └── Scoped package name  
+#     │      │  └── Scoped package name 
 #     │      └────── Install globally (system-wide)
 #     └───────────── Package manager
+```
 
 ---
 
