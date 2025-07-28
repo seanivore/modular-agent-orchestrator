@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mao Goal-to-Workflow Transformer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .chat-interface {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            min-height: 100px;
+            background: #f8f9fa;
+        }
+        
+        .user-input {
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px 20px 5px 20px;
+            margin-bottom: 15px;
+            display: inline-block;
+            max-width: 70%;
+        }
+        
+        .mao-response {
+            background: #28a745;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px 20px 20px 20px;
+            margin-bottom: 15px;
+            display: inline-block;
+            max-width: 80%;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .workflow-breakdown {
+            background: #fff;
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            animation: expandIn 0.8s ease-out;
+        }
+        
+        @keyframes expandIn {
+            from { opacity: 0; height: 0; }
+            to { opacity: 1; height: auto; }
+        }
+        
+        .workflow-step {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .step-number {
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .demo-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .metric {
+            text-align: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .metric-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .metric-label {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Mao Goal-to-Workflow Transformer</h1>
+        
+        <div class="chat-interface" id="chatInterface">
+            <div style="color: #666; text-align: center; padding: 20px;">
+                Type your goal below and watch Mao create a complete workflow instantly...
+            </div>
+        </div>
+        
+        <input type="text" class="input-field" id="goalInput" 
+               placeholder="Example: /goal 'I need a marketing plan for my chocolate bar meeting today'"
+               value="/goal 'I need a marketing plan for my chocolate bar meeting today'">
+        
+        <button class="demo-button" onclick="runDemo()">▶️ Transform Goal into Workflow</button>
+        
+        <div class="workflow-breakdown" id="workflowBreakdown">
+            <h3>🎯 Complete Workflow Generated</h3>
+            <div class="workflow-step">
+                <span class="step-number">1</span>
+                <strong>Market Research Phase</strong><br>
+                <small>Analyze chocolate bar market, competitor pricing, target demographics</small>
+            </div>
+            <div class="workflow-step">
+                <span class="step-number">2</span>
+                <strong>Brand Positioning</strong><br>
+                <small>Define unique value proposition, brand story, key differentiators</small>
+            </div>
+            <div class="workflow-step">
+                <span class="step-number">3</span>
+                <strong>Campaign Strategy</strong><br>
+                <small>Multi-channel approach: social media, retail partnerships, sampling</small>
+            </div>
+            <div class="workflow-step">
+                <span class="step-number">4</span>
+                <strong>Budget Allocation</strong><br>
+                <small>Cost breakdown by channel, ROI projections, timeline milestones</small>
+            </div>
+            <div class="workflow-step">
+                <span class="step-number">5</span>
+                <strong>Presentation Materials</strong><br>
+                <small>Slides, executive summary, visual mockups, implementation timeline</small>
+            </div>
+            
+            <div class="metrics">
+                <div class="metric">
+                    <div class="metric-number">12</div>
+                    <div class="metric-label">Minutes to Complete</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">5</div>
+                    <div class="metric-label">Parallel Agents</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">47</div>
+                    <div class="metric-label">Deliverables Created</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">98%</div>
+                    <div class="metric-label">Time Saved vs Manual</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runDemo() {
+            const chatInterface = document.getElementById('chatInterface');
+            const workflowBreakdown = document.getElementById('workflowBreakdown');
+            const goalInput = document.getElementById('goalInput');
+            
+            // Clear chat interface
+            chatInterface.innerHTML = '';
+            
+            // Add user input
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-input';
+            userMessage.textContent = goalInput.value;
+            chatInterface.appendChild(userMessage);
+            
+            // Add Mao response after delay
+            setTimeout(() => {
+                const maoResponse = document.createElement('div');
+                maoResponse.className = 'mao-response';
+                maoResponse.innerHTML = `
+                    <strong>🧠 Mao:</strong> Perfect! I'm creating a comprehensive marketing plan for your chocolate bar. 
+                    I'm deploying 5 parallel agents to handle market research, brand positioning, campaign strategy, 
+                    budget allocation, and presentation materials. Estimated completion: 12 minutes.
+                `;
+                chatInterface.appendChild(maoResponse);
+                
+                // Show workflow breakdown
+                setTimeout(() => {
+                    workflowBreakdown.style.display = 'block';
+                }, 1000);
+            }, 1500);
+        }
+        
+        // Allow Enter key to trigger demo
+        document.getElementById('goalInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                runDemo();
+            }
+        });
+    </script>
+</body>
+</html>
