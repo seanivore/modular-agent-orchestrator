@@ -335,4 +335,221 @@ def validate_config(config: Dict[str, Any]) -> bool:
 
 ---
 
+## Class & Function Reference
+*Quick lookup for all Mao components to prevent coding mistakes*
+
+### Core Classes
+
+#### Orchestrator Classes
+```python
+# orchestrator/core.py
+class WorkflowOrchestrator
+class AgentManager
+class TaskCoordinator
+
+# orchestrator/memory_mcp.py
+class MemoryMCPManager
+class MemoryMCPClient
+
+# orchestrator/user_memory_manager.py
+class UserMemoryManager
+
+# orchestrator/workflow_manager.py
+class WorkflowManager
+class WorkflowExecutor
+
+# orchestrator/workflow_state.py
+class WorkflowStateManager
+
+# orchestrator/settings_manager.py
+class SettingsManager
+
+# orchestrator/manager_models.py
+class ModelManager
+
+# orchestrator/manager_tools.py
+class ToolManager
+
+# orchestrator/manager_buttons.py
+class ButtonManager
+
+# orchestrator/cache/cache_system.py
+class CacheManager
+
+# orchestrator/error_handling.py
+class ErrorHandler
+class APIError
+```
+
+#### Analytics Classes
+```python
+# orchestrator/user_analytics_manager.py
+class UserAnalyticsManager
+
+# orchestrator/system_analytics_manager.py
+class SystemAnalyticsManager
+
+# orchestrator/real_time_metrics.py
+class MetricsCollector
+```
+
+### Core Functions
+
+#### Error Handling & Decorators
+```python
+# orchestrator/error_handling.py
+@handle_errors(operation_name: str, return_dict: bool = True)
+def retry_with_backoff(func, max_retries: int = 3)
+def log_error(error: Exception, context: str)
+```
+
+#### Memory & State Management
+```python
+# orchestrator/memory_mcp.py
+async def save_workflow_context(workflow_id: str, context: Dict[str, Any])
+async def restore_workflow_context(workflow_id: str) -> Dict[str, Any]
+async def create_entities(entities: List[Dict])
+async def search_nodes(query: str)
+
+# orchestrator/user_memory_manager.py
+def save_session_state(session_data: Dict[str, Any])
+def get_user_context() -> Dict[str, Any]
+def load_user_preferences(username: str) -> Dict[str, Any]
+```
+
+#### Workflow Management
+```python
+# orchestrator/workflow_manager.py
+def generate_workflow_id() -> str
+def create_workflow_context(goal: str, user_id: str) -> Dict[str, Any]
+def execute_workflow(workflow_id: str) -> Dict[str, Any]
+def validate_workflow_config(config: Dict[str, Any]) -> bool
+
+# orchestrator/workflow_state.py
+def save_workflow_state(workflow_id: str, state: Dict)
+def load_workflow_state(workflow_id: str) -> Dict
+def update_phase_status(workflow_id: str, phase: str, status: str)
+```
+
+#### Cache Management
+```python
+# orchestrator/cache/cache_system.py
+def get_cached_analysis(cache_key: str, component_name: str) -> str
+def cache_content_analysis(cache_key: str, content: str, component_name: str)
+def clear_cache(pattern: str = None)
+def get_cache_stats() -> Dict[str, Any]
+```
+
+#### Configuration & Settings
+```python
+# orchestrator/settings_manager.py
+def load_user_settings(user_id: str) -> Dict[str, Any]
+def save_user_settings(user_id: str, settings: Dict[str, Any])
+def get_default_settings() -> Dict[str, Any]
+def validate_settings(settings: Dict[str, Any]) -> bool
+
+# orchestrator/manager_models.py
+def get_available_models() -> List[Dict[str, Any]]
+def select_optimal_model(task_type: str) -> str
+def get_model_config(model_name: str) -> Dict[str, Any]
+
+# orchestrator/manager_tools.py
+def get_available_tools() -> List[Dict[str, Any]]
+def load_tool_config(tool_name: str) -> Dict[str, Any]
+def validate_tool_requirements(tool_name: str) -> bool
+```
+
+#### User Management
+```python
+# orchestrator/username_manager.py
+def generate_user_id(username: str) -> str
+def validate_username(username: str) -> bool
+def create_user_profile(username: str) -> Dict[str, Any]
+def get_user_profile(user_id: str) -> Dict[str, Any]
+```
+
+#### Analytics Functions
+```python
+# orchestrator/user_analytics_manager.py
+def track_user_action(user_id: str, action: str, metadata: Dict)
+def get_user_metrics(user_id: str) -> Dict[str, Any]
+def generate_user_report(user_id: str) -> Dict[str, Any]
+
+# orchestrator/system_analytics_manager.py
+def track_system_event(event_type: str, data: Dict[str, Any])
+def get_system_metrics() -> Dict[str, Any]
+def generate_performance_report() -> Dict[str, Any]
+```
+
+### Standard Function Patterns
+
+#### Required in Every Component
+```python
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate operation cost for budget planning"""
+    return 0.001  # Adjust based on complexity
+```
+
+#### Standard Import Pattern
+```python
+# At top of every file
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, APIError
+from typing import Dict, Any, List
+import json
+
+# Standard cache instance
+cache = CacheManager()
+```
+
+#### Standard Caching Pattern
+```python
+# Cache key format: "component|param1|param2|param3"
+cache_key = f"component_name|{param1}|{param2}"
+cached_result = cache.get_cached_analysis(cache_key, "component_name")
+if cached_result:
+    return json.loads(cached_result)
+
+# Process and cache
+result = process_data()
+cache.cache_content_analysis(cache_key, json.dumps(result), "component_name")
+return result
+```
+
+#### Standard Error Handling
+```python
+@handle_errors(operation_name="function_name", return_dict=True)
+def function_name(self, params: Dict[str, Any]) -> Dict[str, Any]:
+    try:
+        # Operation logic
+        result = self._do_operation(params)
+        return {"status": "success", "data": result}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+```
+
+### Common Mistakes to Avoid
+
+**Import Errors:**
+- ❌ `from orchestrator import cache` 
+- ✅ `from orchestrator.cache.cache_system import CacheManager`
+
+**Function Naming:**
+- ❌ `def processData()` or `def process_Data()`
+- ✅ `def process_data()`
+
+**Cache Key Format:**
+- ❌ `cache_key = f"{param1}-{param2}"`
+- ✅ `cache_key = f"component|{param1}|{param2}"`
+
+**Error Decorator:**
+- ❌ `@handle_errors("function_name")`
+- ✅ `@handle_errors(operation_name="function_name", return_dict=True)`
+
+**JSON Config Fields:**
+- ❌ `"id": "tool_name"` or `"tool_id": "tool_name"`
+- ✅ `"name": "tool_name"`
+
+---
+
 *This primer provides the foundation for creating Mao components. Reference CLAUDE.md for development principles and standards.*

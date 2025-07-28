@@ -89,19 +89,24 @@ It's your first time with Mao ~(=^‥^) The app loads and:
 
 ## Create Unique UserIDs 
 
+The system automatically generates unique UserIDs using mathematical operations for consistency and collision avoidance. The `meid` script ensures the same username always produces the same UserID.
+
 - The system checks to see if the UserID already exists 
 - New user login creates `./configs/user/username/user_username.json` file 
 - A UserID will always be the same for a specific Username 
 - Subdirectories and files include preference, memories, analytics, and other data 
 - Workflows are stored in the `./configs/workflows/` directory and only include the UserID 
-- Search for workflows orchestrated Management files 
 
-### `meid` Script Code 
+### UserID Generation Architecture
 
-```python 
-        # Generate user_id using meid script
-        try:
-            user_id = generate_user_id(username)
+The UserID generation system uses the `scripts/user_id_generator/user_id_generator.py` script with mathematical operations for deterministic ID creation:
+
+```python
+# scripts/user_id_generator/user_id_generator.py
+def generate_user_id(username: str) -> str:
+    """Generate consistent UserID from username using mathematical operations"""
+    # Implementation uses character count, ASCII values, fibonacci, golden ratio
+    # Same username always produces same UserID for consistency
 ```
 
 ### `meid` Used Separately in Terminal 
@@ -152,104 +157,26 @@ mao --config   # Launch the app to open on the config screen
 
 The session management system relies on the **Memory MCP (Model Context Protocol)** server to maintain persistent workflow state and user context across sessions. This creates seamless continuity that feels magical to users but operates on solid technical foundations.
 
-### Core Memory Management Components **NOT ACCURATE NEEDS TO BE UPDATED**
+### Memory Management Architecture
 
-```python
-# orchestrator/memory_mcp.py - Memory integration hub
-class MemoryMCPManager:
-    def __init__(self):
-        self.memory_client = MemoryMCPClient()
-        self.cache = CacheManager()
-        
-    async def save_workflow_context(self, workflow_id: str, context: Dict[str, Any]):
-        """Save complete workflow state to knowledge graph"""
-        workflow_entity = {
-            "name": f"workflow_{workflow_id}",
-            "type": "workflow_context",
-            "observations": [
-                f"Goal: {context['goal']}",
-                f"Status: {context['status']}",
-                f"Current Phase: {context['current_phase']}",
-                f"Deliverables: {json.dumps(context['deliverables'])}"
-            ]
-        }
-        await self.memory_client.create_entities([workflow_entity])
-        
-    async def restore_workflow_context(self, workflow_id: str) -> Dict[str, Any]:
-        """Restore workflow state from knowledge graph"""
-        nodes = await self.memory_client.search_nodes(f"workflow_{workflow_id}")
-        return self._parse_workflow_context(nodes)
-```
+The memory system integrates with the Memory MCP server through several key components:
 
-### Session State Persistence
+**Memory MCP Integration** (`orchestrator/memory_mcp.py`):
+- Maintains persistent knowledge graph for workflow context
+- Saves and retrieves user preferences and project state
+- Enables cross-session continuity through structured memory
 
-```python
-# orchestrator/user_memory_manager.py - User session management
-class UserMemoryManager:
-    def __init__(self, username: str):
-        self.username = username
-        self.user_config_path = f"configs/user/{username}/user_{username}.json"
-        self.memory_mcp = MemoryMCPManager()
-        
-    def save_session_state(self, session_data: Dict[str, Any]):
-        """Persist current session context"""
-        session_entity = {
-            "name": f"session_{self.username}_{datetime.now().isoformat()}",
-            "type": "user_session",
-            "observations": [
-                f"Active workflows: {session_data['active_workflows']}",
-                f"Current focus: {session_data['current_focus']}",
-                f"Preferences: {json.dumps(session_data['preferences'])}"
-            ]
-        }
-        self.memory_mcp.create_entities([session_entity])
-        
-    def get_user_context(self) -> Dict[str, Any]:
-        """Retrieve complete user context for session restoration"""
-        user_nodes = self.memory_mcp.search_nodes(f"session_{self.username}")
-        return self._compile_user_context(user_nodes)
-```
+**User Memory Management** (`orchestrator/user_memory_manager.py`):
+- Manages user-specific session data and preferences
+- Handles context restoration for returning users
+- Coordinates with Memory MCP for persistent storage
 
-### Workflow ID System Architecture
+**Workflow State Persistence** (`orchestrator/workflow_state.py`):
+- Tracks workflow execution progress across sessions
+- Manages phase completion and handoff states
+- Enables workflow resumption from any interruption point
 
-```python
-# orchestrator/workflow_manager.py - Workflow identification and tracking
-class WorkflowManager:
-    def generate_workflow_id(self) -> str:
-        """Generate unique workflow identifier"""
-        import uuid
-        timestamp = int(time.time())
-        unique_id = str(uuid.uuid4())[:8]
-        return f"wf-{timestamp}-{unique_id}"
-        
-    def create_workflow_context(self, goal: str, user_id: str) -> Dict[str, Any]:
-        """Create initial workflow context with memory integration"""
-        workflow_id = self.generate_workflow_id()
-        context = {
-            "workflow_id": workflow_id,
-            "user_id": user_id,
-            "goal": goal,
-            "created_at": datetime.now().isoformat(),
-            "status": "planning",
-            "phases": [],
-            "memory_context": {}
-        }
-        
-        # Save to Memory MCP immediately
-        self.memory_mcp.save_workflow_context(workflow_id, context)
-        return context
-```
-
-### Cross-Session Data Flow
-
-The memory system creates a continuous data flow that persists across sessions:
-
-1. **Session Start**: System queries Memory MCP for user context and active workflows
-2. **Ongoing Work**: All interactions, decisions, and progress automatically saved to knowledge graph
-3. **Session End**: Current state persisted with timestamp and context markers
-4. **Session Resume**: Previous context restored with full workflow state and user preferences
-
-This architecture enables the "always on the same page" experience that makes Mao feel like a persistent team member rather than a stateless tool.
+This architecture ensures that users experience seamless continuity while maintaining clean separation between user data, system state, and workflow context.
 
 ---
 
@@ -333,19 +260,28 @@ This architecture enables the "always on the same page" experience that makes Ma
 
 ## Application Settings Are **MODULAR** Magic 
 
-- Want to set up new settings for the application? 
-- Ask Mao what files are needed, they'll do the rest  
-- EXAMPLE: Add a new setting that says "Bark like a dog when workflow is done y/n?" --> Magic. 
+Want to set up new settings for the application? Ask Mao what files are needed, they'll do the rest. The modular settings system allows dynamic addition of new configuration options through JSON templates.
 
----
+### Settings Architecture
 
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
+The settings system operates through several coordinated components:
 
-## Login, Theme & Application Settings **ARCHITECTURE** 
+**Settings Manager** (`orchestrator/settings_manager.py`):
+- Manages user preference loading and saving
+- Validates settings against available options
+- Coordinates with user analytics for preference tracking
 
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
+**Modular Settings Discovery** (`configs/settings/`):
+- Each setting defined as standalone JSON configuration
+- Settings automatically discovered through directory scanning
+- Template-based consistency for new setting creation
+
+**CLI Settings Commands** (`configs/cli/config/`):
+- Provides interactive settings modification interface
+- Integrates with terminal UI for seamless user experience
+- Supports both slash commands and CLI flags
+
+This architecture enables easy addition of new settings without code changes - simply add a new JSON configuration file following the established template pattern.
 
 ---
 
@@ -375,7 +311,7 @@ This architecture enables the "always on the same page" experience that makes Ma
 
 
 ╭───────────────────────────────────────────────────╮
-│ > Try "how do we start building?"                 │
+│ > Try "how do we start building?"                 │
 ╰───────────────────────────────────────────────────╯
   ?  /help for help, /config to change settings
 ```
@@ -421,7 +357,7 @@ This architecture enables the "always on the same page" experience that makes Ma
 
 
 ╭───────────────────────────────────────────────────╮
-│ > some rough notes to |                           │
+│ > some rough notes to |                           │
 ╰───────────────────────────────────────────────────╯
   ?  /variables to see what is needed 
 ```
@@ -435,7 +371,7 @@ This architecture enables the "always on the same page" experience that makes Ma
 **A goal is all Mao needs**
 
 - The minimum Mao needs is to know your goal! 
-- Mao will get an inital workflow create for you 
+- Mao will get an initial workflow created for you 
 - If your goal is vague, Mao will ask for details 
 - Jump into Mao setting up a workflow by using `/goal` 
 
@@ -475,14 +411,14 @@ mao --workflow uid-abc-000 # Shows workflow details
 
 Here's how Mao is able to always be on the same page as you. 
 
-**The Memory MCP tool gives Mao a Persistant Vector Graph "memory" for context between sessions**
+**The Memory MCP tool gives Mao a Persistent Vector Graph "memory" for context between sessions**
 
 * The Workflow ID is for you 
   - It identifies your workflow and connects it to your UserID and Username 
   - Every new project, Mao will create a new Workflow ID 
 * The Workflow ID is for Mao 
   - Mao tags memory context updates with the Workflow ID, keeping all information about the project together 
-  - If you get inturrupted, Mao uses the workflow ID to know exactly where to pick up
+  - If you get interrupted, Mao uses the workflow ID to know exactly where to pick up
   - Mao uses the Workflow ID when running the automation to understand the project  
 
 * Math is used to create the ID 
@@ -512,23 +448,37 @@ Mathematical Operations:
   s=spiral, t=triangle, u=unity, v=vortex, w=wave, x=xor, y=yield, z=zenith
 ```
 
----
+### Chat Interface & Workflow Creation Architecture
 
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
+The conversational workflow creation experience operates through several coordinated systems:
 
-## Chatting with Mao, the UI options, Workflow ID, Using Memory MCP **ARCHITECTURE** 
+**Terminal UI Interface** (`interfaces/ui_terminal.py`):
+- Manages single-screen chat experience with dynamic content clearing
+- Handles user input processing and contextual tip generation
+- Coordinates with TypeScript/Node.js frontend for rich terminal experience
 
-This is the first introductory half of creating a workflow for their project. What the experience will look like. What they will need to do, or how little they'll need to do. We touch on how Mao is able to always be on the same page using the Memory MCP tool as well as Workflow ID. 
+**Conversation Bridge** (`orchestrator/conversation_bridge.py`):
+- Processes natural language goals into structured workflow requirements
+- Manages workflow ID generation and Memory MCP integration
+- Handles real-time workflow context updates during conversation
 
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
+**Workflow ID System** (`scripts/unique_id_generator/unique_id_generator.py`):
+- Generates collision-free workflow identifiers using mathematical operations
+- Ensures consistent ID format for easy recall and system integration
+- Provides batch generation and explanation capabilities for debugging
+
+**Memory Integration** (`orchestrator/memory_mcp.py`):
+- Tags all workflow context with appropriate IDs for seamless retrieval
+- Maintains project continuity across interruptions and sessions
+- Enables intelligent context switching between multiple active projects
+
+This architecture ensures that the conversational experience feels natural while maintaining robust technical foundations for workflow management and execution.
 
 ---
 
 ## The Workflow's JSON Config
  
-When chatting with Mao, you will be halping them to fill out a JSON config file. This is basically a prompt that has been broken down into variables. Use the `/variables` command to remind yourself what you need to tell Mao. 
+When chatting with Mao, you will be helping them to fill out a JSON config file. This is basically a prompt that has been broken down into variables. Use the `/variables` command to remind yourself what you need to tell Mao. 
 
 ```bash
 /variables # Shows the variables that are needed 
@@ -561,7 +511,6 @@ When chatting with Mao, you will be halping them to fill out a JSON config file.
 | assessment_questions | Questions to assess if the deliverable is complete            |
 | human_in_loop        | Whether the orchestrator should get human feedback            |
 
-
 ### Three JSON Config Schemas In A Workflow
 
 We'll touch on the basics of the JSON config file and the three JSON objects that are created when a workflow is created before jumping into the technical details in an architecture section. 
@@ -592,23 +541,32 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
 
 We'll touch on the specifics of how to setup, edit, or fix a workflow via JSON objects after this architecture section. 
 
----
+### JSON Configuration System Architecture
 
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
+The 3-type JSON workflow configuration system provides modular workflow definition through coordinated object types:
 
-## The Workflow's JSON Config **ARCHITECTURE** 
+**Configuration Generator** (`orchestrator/conversation_bridge.py`):
+- Processes natural language goals into structured JSON configurations
+- Manages template population and variable validation
+- Coordinates workflow, phase, and handoff object creation
 
-This is the first half of the workflow setup details, specifically about the JSON config file. It should cover everything up to and NOT including the setup script itself. In the section to follow we'll talk about the setup script along with the commands used to create the workflow. 
+**Template System** (`templates/workflows/`):
+- Provides base JSON structures for consistent configuration format
+- Enables rapid workflow creation through template reuse
+- Maintains schema validation and required field checking
 
-### **WORKFLOW** JSON Object 
+**Workflow Configuration Types**:
 
-- This is the first JSON object that is created when a workflow is created 
-- It contains the workflow's goal, deliverable, description, and other details 
-- Each project's workflow has only one workflow JSON object 
-- The 'goal', 'deliverable', and 'description' are all items that will be broken down into the phases 
-- The objects are tied together by the workflow_id 
-- While building the workflow, the temp_directory is used to store the JSON objects, the management of this file is explained later
+1. **WORKFLOW Object** - Master configuration linking all workflow components
+2. **PHASE Objects** - Individual task definitions with model/tool specifications  
+3. **HANDOFF Objects** - Quality control and progression logic definitions
+
+**Configuration Processing Pipeline**:
+- Natural language → structured requirements → template population → JSON validation → temporary storage → user review → final deployment
+
+This modular approach allows for flexible workflow modification while maintaining consistency and enabling complex multi-phase orchestration with intelligent quality control and agent coordination.
+
+### **WORKFLOW** JSON Object Structure
 
 ```json
 {
@@ -626,14 +584,7 @@ This is the first half of the workflow setup details, specifically about the JSO
 }
 ```
 
-### **PHASE** JSON Object 
-
-- This is the second JSON object that is created when a workflow is created 
-- It contains a task needed to be completed to achieve the workflow's goal 
-- Just like the workflow, each phase has a goal, deliverable, description, and specific details for the agent 
-- The objects are tied together by the workflow_id 
-- Phases are numbered sequentially, starting with 01, 02, 03, etc. 
-- If there are agents running in parallel, they will share the same phase_number, appended with an underscore and a letter, a, b, c, etc. 
+### **PHASE** JSON Object Structure
 
 ```json
 {
@@ -660,15 +611,7 @@ This is the first half of the workflow setup details, specifically about the JSO
 }
 ```
 
-### **HANDOFF** JSON Object 
-
-- This is the third type of JSON object that is created when a workflow is created 
-- This is created while building the workflow as part of the creative process 
-- When the assessment is being discussed, it is important to get it written down in real time 
-- This object also helps provide important indicators to the orchestrator or the User watching the workflow 
-- For example, if there is a human in the loop, the orchestrator will need to know when to get human feedback 
-- Additionally, the handoff object is important when the subsequent phases have been left open-ended, where the handoff object is used as a placeholder and indicator that the Orchestrator needs to make a decision and then build the rest of the workflow accordingly 
-- Note that there might be more than one phase created after a handoff, there is no hard rule 
+### **HANDOFF** JSON Object Structure
 
 ```json
 {
@@ -686,9 +629,6 @@ This is the first half of the workflow setup details, specifically about the JSO
   ]
 }
 ```
-
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
 
 ---
 
@@ -732,7 +672,7 @@ That same command is used in the following naming structures to tie everything t
      - It is also likely that there will be other marketing strategy workflows
      - This will make it easier to find the right command 
   3. For the third word, I'm just going to drill down more: `report`
-     - This makes it extrememly memorable 
+     - This makes it extremely memorable 
      - It also makes it clear for future workflow creation that this might be a workflow that can easily be repurposed for marketing strategy reports on other startup ideas 
      - The workflow can be reused in the future simply by updating the JSON objects and running the setup script again 
 
@@ -889,19 +829,30 @@ mao --fix-it configs/workflows/this-project/this-project-config-fix.json
 
 Both commands are designed so they can create new JSONs anywhere Mao, or you!, happen to be working, and the system automatically copies the new JSON to the appropriate directory for that use-case. This flexibility means workflow evolution can happen organically as projects develop.
 
+### Workflow Setup & Updates Architecture
+
+The workflow setup and update system provides seamless transformation from JSON configurations to executable commands:
+
+**Setup Script System** (`scripts/workflow_setup/`):
+- Processes temporary JSON configurations into permanent workflow structures
+- Manages directory creation, file organization, and command installation
+- Integrates with CLI commands for flexible execution from any location
+
+**Workflow Evolution** (`orchestrator/workflow_manager.py`):
+- Handles dynamic workflow modification during execution
+- Supports creative workflow patterns with open-ended final phases
+- Manages quality control through automatic fix-it and update mechanisms
+
+**CLI Integration** (`configs/cli/setup/`, `configs/cli/fix_it/`):
+- Provides slash command and CLI flag interfaces for setup operations
+- Enables workflow updates from within active chat sessions
+- Coordinates with Memory MCP for context-aware workflow modifications
+
+**Directory Management**:
+- Automated temp-to-permanent workflow promotion
+- Consistent naming conventions across all workflow assets
+- Automatic cleanup and organization of workflow artifacts
+
+This architecture ensures that workflow creation feels conversational while maintaining robust technical foundations for complex multi-phase orchestration and quality control.
+
 ---
-
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
-
-The Setup Script 
-Workflow Updates 
-
-*Details about how the setup script works, referencing:*
-- `./scripts/workflow_setup`
-- `./versioning/v4/v4_0_0/implemented-workflow-setup/TASK_4_WORKFLOW_CREATION_COMPLETE.md`
-*Reference: `./archive/OGDOCS_7_USER_GUIDE.md` contains additional details*
-
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
-
