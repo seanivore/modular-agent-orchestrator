@@ -94,54 +94,6 @@ configs/cli/[command]/
 └── ui_[command].py       ← UI file for command display patterns
 ```
 
-## Step 4: Workflow & User System Integration
-**Task:** The user and workflow file were a handful of tasks that included everything from app configuration settings, to workflow creation. We need to fully document EVERY touch-point for EVERY file in our codebase. This section is for Workflow & User System Integration with the UI, which is a large bulk of everything. The results of this section will be needed the documentation task and then the testing and validation task, as this is where we will need be be more thorough than just the UI touch-points, important, proper class names, etc. 
-**Approach:** Document review → Integration mapping  
-**Delegation:** Manual (requires understanding of Tasks 1-4)  
-**Resources:** 
-  - `TASK_2_CACHE_USER_CONFIG_SETUP.md`
-  - `TASK_2_USERNAME_CONFIG_COMPLETE.md`
-  - `TASK_3_INTEGRATION_POINTS.md`
-  - `TASK_3_WORKFLOW_ID_COMPLETE.md`
-  - `TASK_4_WORKFLOW_CREATION_COMPLETE.md`
-  - `FILE_STANDARDIZATION_RULES.md`
-  - List of all the orchestrator files in documentation section below  
-**Deliverable:** Comprehensive integration requirements document  
-**Goal:** Ensure all previous work properly connects to UI
-
-## Step 5: Technical Documentation Completion & Audit 
-**Task:** The intention of this step is multi-pronged. We need to ensure that we have a complete understanding of all files and their roles, identify any overlap or gaps, and create a plan that ensures all touch-points are implemented across the entire source code, NOT just the UI as in the previous step. The reprecussions of not one is the same as not doing the other when it comes to running the UI. The other purpose is that these orchestrator files and other files all need an audit; I saw hardcoding in the CLI files below, and I'm sure we'll find other issues. The third prong is ensuring that our code is as simple implement as possible. We have come across SO MANY redundancies in files and across files which is just unacceptable. We already have the world critisizing and watching any AI-Pair programming, and "pointless code" or adding a funciton instead of import and vice versa is something they specifically call out. We will not be the butt of their joke. We just won't publish if we cannot assure this essential standard. The FINAL prong is simple: We need our documentation to be complete and up to date. Much of it will likely be easier to rewrite than to edit. But I am moving this task up because it needs to be done before the rest of the steps. 
-**Approach:** Documentation audit → Updates  
-**Delegation:** Agentic (systematic documentation work)  
-**Resources:** 
-  - `FILE_STANDARDIZATION_RULES.md`
-  - List of all the orchestrator files in documentation section below  
-**Deliverable:** Complete and current technical docs  
-**Goal:** Ensure everything is properly documented
-
-```
-  1. `./orchestrator/__init__.py` = "Modular AI workflow orchestration system"
-  2. `./orchestrator/agent_callback.py` = "Handles agent returns, execution results, and workflow progression"
-  3. `./orchestrator/agent_orchestrator.py` = "Coordinates agent handoffs with context packages via Files API"
-  4. `./orchestrator/cache/__init__.py` = "Universal caching infrastructure for modular tools" 
-  5. `./orchestrator/cache/cache_system.py` = "Files API for workflow handoffs and Local cache for permanence; fingerprinting" 
-  6. `./orchestrator/cli_manager.py` = "Dynamic CLI command discovery and interface integration"
-  7. `./orchestrator/conversation_bridge.py` = "Converts natural language goals into executable custom commands"
-  8. `./orchestrator/core.py` = "The main brain that turns natural language into intelligent workflows"
-  9. `./orchestrator/error_handling.py` = "Professional error handling patterns for all tools"
-  10. `./orchestrator/manager_buttons.py` = "Creates executable code snippets for any model/provider combo"
-  11. `./orchestrator/manager_models.py` = "Loads JSON configs and provides intelligent model selection"
-  12. `./orchestrator/manager_tools.py` = "Dynamic tool suggestion based on goals, not hardcoded categories"
-  13. `./orchestrator/mcp_hub.py` = "Integrates Memory MCP, Files API, and MCP Connector into unified system"
-  14. `./orchestrator/memory_mcp.py` = "Provides workflow context tracking, state management, and session recovery"
-  15. `./orchestrator/protocol.md`
-  16. `./orchestrator/real_time_metrics.py` = "Provides live data for UI components; no mock data allowed"
-  17. `./orchestrator/settings_manager.py` = "Dynamic settings discovery and management using directory-based scanning"
-  18. `./orchestrator/username_manager.py` = "Handles user creation, session persistence, and settings integration"
-  19. `./orchestrator/workflow_manager.py` = "Handles workflow ID generation, discovery, and tracking"
-  20. `./orchestrator/workflow_state.py` = "Simple state tracking with Memory MCP integration"
-```
-
 ## Step 6: Visual Brand & Wireframe Creation
 **Task:** We need to reivew and improve our visual brand identity document especially to make it clearer and more decisive; there must be no question as to what a certain bit of typography should look like. Then we need to go through our New User Flow document and turn it into a wire frame. It is imporant to include both by illustration and directly, that the VISUALS and the build of the app ARE THE TYPOGRAPHY. In the previous UI there was framing and containers. We need to REMEMBER that this UI is for a terminal and we need to design it to play welL with ANYONE'S terminal design. Claude Code's didn't change a single bit of my zsh terminal settings and I think that is extremely important. The initial build had backgrounds which is pointless. We have no idea what the background of the users terminal is and we definitely do not want to overwrite it. Nor do we want to overwrite their primary color. 
 **Approach:** Review → Wireframe design → Validation  
