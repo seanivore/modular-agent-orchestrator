@@ -62,13 +62,7 @@ Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned futur
 ### STEP 1: Outline Building 
 *enter with current state of documentation, exit with an outline of the documentation that needs notation for where to source code and indicating relevant files in the final documents*
 
-- Review current state of documentation  
-- Update the outline based on the contents and flow of the documentation 
-- Balance the outline in terms of where it should be code heavy, or where narrative benefits from code 
-- Ensure comprehensive coverage of the Mao system in the outline 
-- Plan-out and logically organize placeholders for visuals 
-
-`./documentation/FLOW_ARCHITECTURE.md`
+--> `./documentation/TECHNICAL_CONTENT_OUTLINE.md` 
 
 ### STEP 2: Outline Completion 
 *enter with comprehensive outline, exit with outline that has notation for adding code; an outline that should allow for producing documentation in segregated context-separated sessions* 
@@ -79,6 +73,7 @@ Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned futur
   - This can be maintained in the actual documentation; each section chapter in the docs will highlight what files are relevant 
   - Helps while writing to know exactly where to go to find the code 
   - This solves the problem of context window limitations 
+- Plan-out and logically organize placeholders for visuals 
 
 #### Strategic Questions To Answer That Will Guide Finalizing The Outline 
 
