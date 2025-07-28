@@ -62,17 +62,9 @@ Pushing that value further --> `09_FUTURE_THINKING.md` --> Showing planned futur
 
 #### PART 1: Future Thinking `./documentation/09_FUTURE_THINKING.md` ✅ 
 
-#### PART 2: The **OVERVIEW** document needs to be updated to reflect the new documentation flow and content 
-   - This stands as our "table of contents" but with more compelling reasons to click through each link included 
-   - `./documentation/00_OVERVIEW.md`
-   - `./documentation/00_OVERVIEW_2.md`
-   - I like all of the text under the following headers in the 00_OVERVIEW.md document; I'd like to keep it as is, with adjustments for flow and links to sections throughout the documents: AI 'Assistant' Gets Their Promotion, Mao Is The 'Modular Agent Orchestrator', Security In Longevity, Complete Compatibility & Flexibility, and Cost Innovation Optimization
+#### PART 2: Overview `./documentation/00_OVERVIEW.md` ✅ 
 
-#### PART 3: The **EVOLVING AI** document needs to be cleaned up 
-   - It stands as the introduction to the product, brand story, and vision 
-   - `./documentation/01_EVOLVING_AI.md`
-   - `./documentation/01_EVOLVING_AI_2.md`
-   - Self-Evolving AI-Project Manager, Exponentially Uncomprehendable (with numbers made visual), Small Players Need To Be Smart (but made shorter), Our Problem Is Clear all the way down to the end right before -- all up to here is the STORY about the brand -- up to the start of "Chapter 1.2" -- which I like these small sections but am curious about if we should look at the content we have across this document and the OVERVIEW document and better organize the content that I do like and want to keep, then build out from there. 
+#### PART 3: Evolving AI `./documentation/01_EVOLVING_AI.md` ✅ 
 
 #### PART 4: The **REFERENCE** document needs to be cleaned up 
    - `./documentation/02_REFERENCE.md`
