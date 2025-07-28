@@ -3,7 +3,7 @@
 
 ---
 
-Data flowed from commands and settings, chats and workflows, analytics touch-points and memory notes; it all converges here. In this core, goals turn into agents, chats about projects become tasks. Every piece of data that flows into Mao passes through these sophisticated orchestration system files just to be sent backout as deliverables or polished messaging on a screen. 
+Data flowed from commands and settings, chats and workflows, analytics touch-points and memory notes; it all converges here. In this core, goals turn into agents, chats about projects become tasks. Every piece of data that flows into Mao passes through these sophisticated orchestration system files just to be sent back out as deliverables or polished messaging on a screen. 
 
 ---
 
@@ -132,7 +132,7 @@ class ConversationToWorkflowBridge:
 
 Each workflow consists of phases dynamically constructed based on the specific requirements. Mao rarely opts for static template flows. 
 
-The custom nature means that the identical goal provided by different users can result in completely different workflow strucutres. Mao's focus is on the nuances of the requirements and how they can use the most advanced agentic methodology to get across the finish line. 
+The custom nature means that the identical goal provided by different users can result in completely different workflow structures. Mao's focus is on the nuances of the requirements and how they can use the most advanced agentic methodology to get across the finish line. 
 
 Often, a workflow will be left open ended. Mao won't plan the final phase or two until they actually see the results from the previous agent. This is where the real magic happens. It allows Mao to act on contextual information. 
 

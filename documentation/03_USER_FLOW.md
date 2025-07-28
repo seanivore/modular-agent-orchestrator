@@ -355,26 +355,152 @@ This architecture ensures seamless continuity through persistent memory graphs w
 Want to set up new settings for the application? Ask Mao what files are needed, they'll do the rest. The modular settings system allows dynamic addition of new configuration options through JSON templates.
 
 ### Settings Architecture
-*Files: orchestrator/settings_manager.py, configs/settings/, configs/cli/config/*
+*Files: orchestrator/settings_manager.py, configs/settings/, configs/cli/config/config.py*
 
-The settings system operates through several coordinated components:
+The modular settings system provides dynamic discovery and user preference management through coordinated components:
 
-**Settings Manager** (`orchestrator/settings_manager.py`):
-- Manages user preference loading and saving
-- Validates settings against available options
-- Coordinates with user analytics for preference tracking
+**Application Settings Manager** (`orchestrator/settings_manager.py`):
+```python
+@dataclass
+class SettingDefinition:
+    """Individual setting configuration"""
+    name: str
+    default: Any
+    description: str
+    type: str
+    options: List[Dict] = None
+    source: str = None
+    fallback_options: List[str] = None
+    ui_metadata: Dict = None
 
-**Modular Settings Discovery** (`configs/settings/`):
-- Each setting defined as standalone JSON configuration
-- Settings automatically discovered through directory scanning
-- Template-based consistency for new setting creation
+class ApplicationSettingsManager:
+    """Manages modular application settings with dynamic discovery"""
+    
+    def __init__(self, settings_dir: str = "./configs/settings/"):
+        self.settings_dir = Path(settings_dir)
+        self.user_dir = Path("./configs/user/")
+    
+    @handle_errors(operation_name="discover_settings", return_dict=True)
+    def discover_settings(self, force_refresh: bool = False) -> Dict[str, SettingDefinition]:
+        """Dynamically discover all settings from directory using MAO caching"""
+        cache_key = f"settings_discovery|{self.settings_dir}|{force_refresh}"
+        
+        # Check cache first (MAO standard caching pattern)
+        if not force_refresh:
+            cached_result = cache.get_cached_analysis(cache_key, "settings_discovery")
+            if cached_result:
+                cached_data = json.loads(cached_result)
+                # Convert cached data back to SettingDefinition objects
+                settings = {}
+                for name, data in cached_data.items():
+                    settings[name] = SettingDefinition(**data)
+                return settings
+        
+        settings = {}
+        
+        # Scan all *_app_settings.json files
+        for settings_file in self.settings_dir.glob("*_app_settings.json"):
+            try:
+                with open(settings_file, 'r') as f:
+                    setting_data = json.load(f)
+                
+                # Convert to SettingDefinition
+                setting_name = settings_file.stem.replace('_app_settings', '')
+                settings[setting_name] = SettingDefinition(
+                    name=setting_name,
+                    default=setting_data.get('default'),
+                    description=setting_data.get('description', ''),
+                    type=setting_data.get('type', 'string'),
+                    options=setting_data.get('options', []),
+                    source=str(settings_file)
+                )
+            except Exception as e:
+                # Log but don't break discovery
+                continue
+        
+        # Cache results for performance
+        cache_data = {name: setting.__dict__ for name, setting in settings.items()}
+        cache.cache_content_analysis(cache_key, json.dumps(cache_data), "settings_discovery")
+        
+        return settings
+```
 
-**CLI Settings Commands** (`configs/cli/config/`):
-- Provides interactive settings modification interface
-- Integrates with terminal UI for seamless user experience
-- Supports both slash commands and CLI flags
+**CLI Settings Integration** (`configs/cli/config/config.py`):
+```python
+@handle_errors(operation_name="config", return_dict=True)
+def execute_config(params: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Main config command execution with settings management integration"""
+    
+    # Check cache first
+    cache_key = _generate_cache_key(params)
+    cached_result = cache.get_cached_analysis(cache_key, "config")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # Initialize settings manager
+    settings_manager = ApplicationSettingsManager()
+    
+    # Get current session user
+    current_user = get_session_user()
+    if not current_user:
+        return {"success": False, "error": "No active user session"}
+    
+    # Discover all available settings
+    available_settings = settings_manager.discover_settings()
+    
+    # Get current user settings (delta storage)
+    user_settings = get_user_settings(current_user["username"])
+    
+    # Merge with defaults for complete settings view
+    complete_settings = {}
+    for setting_name, setting_def in available_settings.items():
+        complete_settings[setting_name] = {
+            "current_value": user_settings.get(setting_name, setting_def.default),
+            "default_value": setting_def.default,
+            "description": setting_def.description,
+            "options": setting_def.options,
+            "type": setting_def.type
+        }
+    
+    result = {
+        "success": True,
+        "user_id": current_user["user_id"],
+        "username": current_user["username"],
+        "available_settings": complete_settings,
+        "settings_count": len(available_settings),
+        "user_customizations": len(user_settings)
+    }
+    
+    # Cache result for 12 minutes
+    cache.cache_content_analysis(cache_key, json.dumps(result), "config")
+    return result
+```
 
-This architecture enables easy addition of new settings without code changes - simply add a new JSON configuration file following the established template pattern.
+**Delta Storage Pattern**:
+```python
+def update_user_setting(username: str, setting_name: str, new_value: Any) -> bool:
+    """Update individual user setting using delta storage"""
+    user_config_path = Path(f"./configs/user/{username}/user_{username}.json")
+    
+    # Load existing config or create new
+    if user_config_path.exists():
+        with open(user_config_path, 'r') as f:
+            user_config = json.load(f)
+    else:
+        user_config = {"username": username, "settings_deltas": {}}
+    
+    # Update only changed settings (delta storage)
+    user_config["settings_deltas"][setting_name] = new_value
+    user_config["last_updated"] = datetime.now().isoformat()
+    
+    # Save updated configuration
+    with open(user_config_path, 'w') as f:
+        json.dump(user_config, f, indent=2)
+    
+    return True
+```
+
+This architecture enables seamless addition of new settings through JSON file creation while maintaining efficient delta-only user storage and comprehensive settings discovery.
 
 ---
 
@@ -542,7 +668,7 @@ Mathematical Operations:
 ```
 
 ### Chat Interface & Terminal UI Architecture
-*Files: interfaces/ui_terminal.py, versioning/v4_0_0/IMPL_UI/UI_IMPLEMENTATION_GUIDE.md, orchestrator/conversation_bridge.py*
+*Files: interfaces/ui_terminal.py, orchestrator/conversation_bridge.py*
 
 The conversational workflow creation experience operates through a sophisticated bridge between TypeScript frontend and Python backend:
 
@@ -673,7 +799,7 @@ class SubprocessCommunicationBridge:
         print(json.dumps(response_data), flush=True)
 ```
 
-This architecture creates a professional conversation-driven experience that rivals Claude Code's terminal interface while maintaining seamless integration with Mao's Python backend systems.
+This architecture creates a professional conversation-driven terminal experience while maintaining seamless integration with Mao's Python backend systems.
 
 ### Workflow ID System Architecture
 *Files: orchestrator/workflow_manager.py, scripts/unique_id_generator/unique_id_generator.py, configs/cli/workflow_id/workflow_id.py*

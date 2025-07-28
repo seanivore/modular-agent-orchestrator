@@ -807,7 +807,7 @@ MAO is a **full interactive application platform**, not a monitoring utility.
 - Rich chat interfaces for natural workflow creation
 - Live workflow monitoring with real-time progress
 - Settings management and user preferences
-- Professional application experience rivaling Claude Code
+- Professional terminal application experience
 
 ---
 
@@ -849,7 +849,7 @@ class ConversationInterface:
 
 - Transparent tool usage: User asks questions, Mao automatically uses tools when helpful
 - Fresh information: Mao detects when current data would improve responses
-- Familiar UX: Same experience users expect from Claude web interface or Claude Code
+- Familiar UX: Professional-grade terminal interface experience
 - No workflow overhead: Tools used conversationally, not as formal workflow steps
 
 #### Integration Points

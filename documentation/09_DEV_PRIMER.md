@@ -935,4 +935,18 @@ def function_name(self, params: Dict[str, Any]) -> Dict[str, Any]:
 - 3-file command pattern: `.json`, `.py`, `ui_.py`
 - Command registration and execution flow management
 
+### Settings Architecture  
+**Real Classes**: `ApplicationSettingsManager`, `SettingDefinition`
+- `discover_settings(force_refresh)` - Dynamic settings discovery from directory scanning
+- `execute_config(params)` - CLI settings command with user persistence integration
+- `update_user_setting(username, setting_name, new_value)` - Delta storage pattern
+- Settings structure: `SettingDefinition` dataclass with name, default, description, type, options
+
+### Progress Visualization System  
+**Real Classes**: `SystemMetricsProvider`
+- `get_workflow_progress(workflow_id)` - Real-time workflow execution progress tracking
+- `get_dashboard_metrics()` - Live system metrics for dashboard display
+- Progress tracking: phases, completion percentage, execution time, cost tracking
+- Frontend integration via TypeScript progress components
+
 ---

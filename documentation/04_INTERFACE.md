@@ -148,10 +148,29 @@ This personalization happens persistently across sessions; all without explicit 
 
 Delta-only settings implementation only saves preferences differing from the defaults, making personalized configurations efficient and portable. 
 
-**Personalized Settings Experience**
-*Files: orchestrator/settings_manager.py*
+### Settings Management Architecture
+*Files: orchestrator/settings_manager.py, configs/settings/*
 
-Settings personalization happens through the existing ApplicationSettingsManager which handles delta-only storage and user preference merging. Interface adapts based on user analytics and settings data collected during interactions.
+Modular JSON configs with user preferences and delta storage:
+
+```python
+# orchestrator/settings_manager.py  
+class ApplicationSettingsManager:
+    def discover_settings(self, force_refresh: bool = False) -> Dict[str, SettingDefinition]:
+        """Discover all settings from individual JSON files"""
+        
+    def get_default_settings(self) -> Dict[str, Any]:
+        """Get all default settings values with caching"""
+        
+    def get_user_settings(self, username: str) -> Dict[str, Any]:
+        """Get user settings with delta-only storage"""
+        # Merges user changes with current application defaults
+        
+    def get_settings_by_section(self) -> Dict[str, List[str]]:
+        """Organize settings by logical sections"""
+```
+
+Settings personalization happens through the `ApplicationSettingsManager` which handles delta-only storage and user preference merging. The interface adapts based on user analytics and settings data collected during interactions.
 
 ---
 
@@ -201,11 +220,74 @@ The result is fast response times and local-only application security. No networ
 
 ---
 
-### Progress Visualization System
+### Progress Visualization System Architecture
 *Files: orchestrator/real_time_metrics.py, interfaces/ui_terminal.py* 
 
-What while you wait. Mao's interface displays progress metrics and status updates keeping you updated and slightly entertained. From tool status to system health, everything is tracked in real time. So check that ETA, and then wait for the tone while you check your email. 
+Real-time progress visualization keeps users informed during workflow execution through coordinated backend metrics and frontend display:
 
+**Real-Time Metrics Provider** (`orchestrator/real_time_metrics.py`):
+```python
+class SystemMetricsProvider:
+    """Provides real-time system metrics for UI components"""
+    
+    def __init__(self, orchestrator):
+        self.orchestrator = orchestrator
+        self.start_time = datetime.now()
+    
+    def get_workflow_progress(self, workflow_id: str) -> Dict[str, Any]:
+        """Real-time workflow execution progress"""
+        try:
+            workflow_status = self.orchestrator.get_workflow_status(workflow_id)
+            if workflow_status.get('error'):
+                return {"error": workflow_status['error']}
+            
+            # Get execution history for real progress
+            execution_history = self.orchestrator.execution_history.get(workflow_id, [])
+            
+            return {
+                "workflow_id": workflow_id,
+                "name": workflow_status.get('name', 'Unknown'),
+                "status": workflow_status.get('status', 'unknown'),
+                "progress": {
+                    "phases_total": workflow_status.get('phases_total', 0),
+                    "phases_completed": workflow_status.get('phases_completed', 0),
+                    "current_phase": workflow_status.get('current_phase', 'none'),
+                    "percentage": workflow_status.get('progress_percentage', 0.0)
+                },
+                "execution_time": {
+                    "elapsed": workflow_status.get('elapsed_time', 0),
+                    "estimated_remaining": workflow_status.get('estimated_remaining', 0)
+                },
+                "cost_tracking": {
+                    "current_cost": workflow_status.get('current_cost', 0.0),
+                    "estimated_total": workflow_status.get('estimated_total_cost', 0.0)
+                },
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            return {"error": str(e), "timestamp": datetime.now().isoformat()}
+    
+    def get_dashboard_metrics(self) -> Dict[str, Any]:
+        """Live metrics for dashboard display"""
+        workflows = self.orchestrator.list_workflows()
+        completed = [w for w in workflows if w['status'] == 'completed']
+        
+        return {
+            "workflows": {
+                "total": len(workflows),
+                "completed": len(completed),
+                "success_rate": (len(completed) / len(workflows) * 100) if workflows else 0
+            },
+            "costs": {
+                "total_spent": sum(w.get('estimated_cost', 0) for w in completed),
+                "today_cost": self._calculate_today_cost(workflows)
+            },
+            "uptime": (datetime.now() - self.start_time).total_seconds(),
+            "timestamp": datetime.now().isoformat()
+        }
+```
+
+**Frontend Progress Display** (TypeScript):
 ```typescript
 export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workflowId }) => {
   const [progress, setProgress] = useState<WorkflowProgress>();
@@ -233,28 +315,6 @@ export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workfl
 ### Stress-Free Error Handling
 
 Even errors are handled without missing a conversational beat. Mao flows smoothly in, ensuring any technical information is understandable, and then providing information on how to fix things, unless they're able to fix it themselves. 
-
-### Settings Management Architecture
-*Files: orchestrator/settings_manager.py, configs/settings/*
-
-Modular JSON configs with user preferences and delta storage:
-
-```python
-# orchestrator/settings_manager.py  
-class ApplicationSettingsManager:
-    def discover_settings(self, force_refresh: bool = False) -> Dict[str, SettingDefinition]:
-        """Discover all settings from individual JSON files"""
-        
-    def get_default_settings(self) -> Dict[str, Any]:
-        """Get all default settings values with caching"""
-        
-    def get_user_settings(self, username: str) -> Dict[str, Any]:
-        """Get user settings with delta-only storage"""
-        # Merges user changes with current application defaults
-        
-    def get_settings_by_section(self) -> Dict[str, List[str]]:
-        """Organize settings by logical sections"""
-```
 
 **Error Communication Implementation**
 *Files: orchestrator/error_handling.py*
