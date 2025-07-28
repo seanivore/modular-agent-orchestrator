@@ -15,8 +15,8 @@ The system recognizes if you're a first-time user and starts onboarding, a retur
 
 This sophisticated experience, designed for a future of change, is all thanks to the user management system, tracking sessions, preferences, and creating a novel and contextually relevant experience every interaction. 
 
-**Terminal Interface**
-`interfaces/ui_terminal.py`
+### Terminal UI Implementation  
+*Files: interfaces/ui_terminal.py*
 
 Mao's communication bridge between the TypeScript frontend and robust Python backend. 
 
@@ -56,8 +56,10 @@ Slash commands are one of Mao's many config files. New commands and capabilities
 
 When you type `mao --help` the system isn't reading a static help file, it's dynamically building the help content by examining all the command configurations it finds in the system; they could technically be changed up every day. 
 
-**Discovery Implementation**
-`orchestrator/cli_manager.py`
+### CLI Command System Architecture
+*Files: orchestrator/cli_manager.py, configs/cli/*
+
+Dynamic command discovery with 3-file pattern implementation:
 
 ```typescript
 // PythonBridge.ts   # Command discovery and routing
@@ -85,8 +87,29 @@ The conversation-driven interaction philosophy is the centerpiece of the interfa
 
 They have no script, only an understanding of the product. We encourage Mao to do what they do best, learn through natural language. 
 
-**A Goal Is All Mao Needs**
-`orchestrator/core.py`
+### Slash Command Integration
+*Files: orchestrator/cli_manager.py, orchestrator/conversation_bridge.py*
+
+Command routing, autocomplete, and validation system:
+
+```python
+# orchestrator/cli_manager.py
+class CLICommandsManager:
+    def execute_slash_command(self, command: str, args: str) -> Dict[str, Any]:
+        """Route slash commands to appropriate orchestrator functions"""
+        # Discover and validate command
+        # Route to appropriate manager
+        # Return structured response
+        
+    def get_autocomplete_suggestions(self, partial: str) -> List[str]:
+        """Provide intelligent command completion"""
+        # Scan available commands
+        # Filter by user patterns
+        # Return ranked suggestions
+```
+
+**Natural Language Processing**
+*Files: orchestrator/conversation_bridge.py*
 
 ```python
 @handle_errors(operation_name="goal_processing", return_dict=True)
@@ -157,8 +180,10 @@ Data exchange, status updates, and command execution flow through a communicatio
 
 This separation means updating the interface layer as trends shift over the years doesn't require touching any of the core orchestrator logic. 
 
-**Bridging Local Communication**
-`interfaces/PythonBridge.ts` 
+### Communication Bridge System
+*Files: interfaces/ui_terminal.py, mao_v4.py*
+
+Local subprocess communication with JSON protocols: 
 
 ```typescript
 export class PythonBridge {
@@ -193,9 +218,8 @@ The result is fast response times and local-only application security. No networ
 
 ---
 
-### Progress Updates In Real-Time
-`interfaces/ProgressVisualization.tsx` 
-`orchestrator/real_time_metrics.py` 
+### Progress Visualization System
+*Files: orchestrator/real_time_metrics.py, interfaces/ui_terminal.py* 
 
 What while you wait. Mao's interface displays progress metrics and status updates keeping you updated and slightly entertained. From tool status to system health, everything is tracked in real time. So check that ETA, and then wait for the tone while you check your email. 
 
@@ -227,8 +251,29 @@ export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workfl
 
 Even errors are handled without missing a conversational beat. Mao flows smoothly in, ensuring any techincal information is understandable, and then providing information on how to fix things, unless they're able to fix it themselves. 
 
+### Settings Management Architecture
+*Files: orchestrator/settings_manager.py, configs/settings/*
+
+Modular JSON configs with user preferences and delta storage:
+
+```python
+# orchestrator/settings_manager.py  
+class ApplicationSettingsManager:
+    def load_user_settings(self, user_id: str) -> Dict[str, Any]:
+        """Load user preferences with delta-only storage"""
+        # Load default settings
+        # Apply user deltas
+        # Return merged configuration
+        
+    def save_user_settings(self, user_id: str, settings: Dict[str, Any]):
+        """Save only settings that differ from defaults"""
+        # Calculate deltas from defaults
+        # Store minimal user preferences
+        # Maintain GDPR compliance
+```
+
 **Error Communication Implementation**
-`orchestrator/error_handling.py` 
+*Files: orchestrator/error_handling.py* 
 
 ```python
 class ErrorHandler:
@@ -261,7 +306,7 @@ class ErrorHandler:
 Even our carefully crafted design patterns, as simple as they are, keep the focus on conversation. Visual elements semantically suggest where to look, ensuring you're never searching for information or searching through information you don't need. 
 
 **Visual Protocol Implementation**
-`interfaces/VisualProtocol.tsx` 
+*Files: interfaces/ui_terminal.py* 
 
 ```typescript
 export const Colors = {
@@ -292,8 +337,8 @@ Mao adapts, learning user patterns to provide suggestions accordingly. The comma
 
 When an interface only become more and more helpful over time, remaining predictable, users develop trust in the intuitive application. And that's all Mao really wants. 
 
-**Adaptive Intelligence Implementation**
-`orchestrator/user_analytics_manager.py` 
+### Adaptive Intelligence Engine
+*Files: orchestrator/user_analytics_manager.py, orchestrator/settings_manager.py* 
 
 ```python
 class InterfaceAdaptationEngine:

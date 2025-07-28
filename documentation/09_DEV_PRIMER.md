@@ -354,6 +354,20 @@ def validate_config(config: Dict[str, Any]) -> bool:
 class ConversationToWorkflowBridge:
     def estimate_cost(self, params: Dict[str, Any]) -> float
 
+# orchestrator/cli_manager.py
+class CLICommandsManager:
+    def execute_slash_command(self, command: str, args: str) -> Dict[str, Any]
+    def get_autocomplete_suggestions(self, partial: str) -> List[str]
+
+# orchestrator/settings_manager.py
+class ApplicationSettingsManager:
+    def load_user_settings(self, user_id: str) -> Dict[str, Any]
+    def save_user_settings(self, user_id: str, settings: Dict[str, Any])
+
+# orchestrator/real_time_metrics.py
+class SystemMetricsProvider:
+    def get_dashboard_metrics(self) -> Dict[str, Any]
+
 # orchestrator/memory_mcp.py
 class MemoryMCPManager
 
