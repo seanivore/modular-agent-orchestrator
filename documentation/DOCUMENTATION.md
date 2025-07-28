@@ -14,6 +14,20 @@
 
 ---
 
+## NOT LOUD IN THE DOCS 
+
+- Types of workflows that Mao can do! More information about the flexibility in the kinds of workflows Mao can create. That they often leave the phase on a creative task's workflow missing so that they can review the result and then make a decision and create the next workflow step based on the actual deliverable in the moment. That they can execute running agents in parallel. Maybe some of those other actual names for types of workflows that were on the Anthropic blog about agents. 
+
+- Bigger noise about the "human" buttons. 
+
+- Being able to execute tools in parallel and what benefits that can provide in the immediate scope. 
+
+## OTHER THOUGHTS 
+
+- If so many things including analytics are modular, drop in files, then how do we make sure they get touch points for analytics when a user adds new tools themselves? Do we make it part of the necessary build? For every configuration collection file like inspection before upload to share? What about not shared tools they create on their own. 
+
+---
+
 ## Intention 
 
 The codebase is rather large and complex which is making it difficult to construct documentation because of AI context window limitations. As a result, I've been struggling, have dealt with multiple issues where Claude Code completely made up code and consistently complained about needing to read files and do things "manually". This led to broken pages of each section of documentation, and an inability to see how to close the gap when there is so much code to keep track of. Initially the idea was to write the text of the documentation first and then add code snippets. By creating the outline first, we can do just that, but without the need to read the codebase at the time of writing to know what code to add and from where to find it. 
