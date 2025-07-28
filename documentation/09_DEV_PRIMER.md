@@ -463,16 +463,68 @@ def load_user_preferences(username: str) -> Dict[str, Any]
 
 #### Workflow Management
 ```python
-# orchestrator/workflow_manager.py
-def generate_workflow_id() -> str
-def create_workflow_context(goal: str, user_id: str) -> Dict[str, Any]
-def execute_workflow(workflow_id: str) -> Dict[str, Any]
-def validate_workflow_config(config: Dict[str, Any]) -> bool
+# orchestrator/core.py - WorkflowOrchestrator
+async def create_workflow_from_goal(user_goal: str, preferences: Optional[Dict] = None) -> WorkflowPlan
+def _analyze_goal(goal: str) -> Dict[str, Any]
+async def _design_workflow_phases(analysis: Dict[str, Any], preferences: Dict[str, Any], tool_suggestions: Dict[str, Any]) -> List[WorkflowPhase]
+async def _execute_phase_with_caching(phase: WorkflowPhase, workflow: WorkflowPlan, workflow_memory: Dict, anthropic_client) -> ExecutionResult
+async def execute_workflow(workflow_id: str, anthropic_client=None) -> Dict[str, Any]
 
-# orchestrator/workflow_state.py
-def save_workflow_state(workflow_id: str, state: Dict)
-def load_workflow_state(workflow_id: str) -> Dict
-def update_phase_status(workflow_id: str, phase: str, status: str)
+# orchestrator/workflow_state.py - WorkflowStatus (dataclass)
+workflow_id: str
+status: str  # 'initialized', 'active', 'paused', 'completed', 'failed'
+phases_total: int
+phases_completed: int
+phases_active: int
+last_activity: str
+created_at: str
+updated_at: str
+health: str  # 'healthy', 'warning', 'error'
+
+# orchestrator/workflow_state.py - RecoveryPlan (dataclass)
+workflow_id: str
+recovery_type: str  # 'resume_phase', 'restart_phase', 'continue_next', 'restart_workflow'
+current_phase: Optional[str]
+next_phase: Optional[str]
+context_available: bool
+files_accessible: bool
+recovery_actions: List[str]
+estimated_recovery_time: str
+
+# orchestrator/workflow_state.py - WorkflowStateManager
+def track_workflow_progress(workflow_id: str, update: str) -> bool
+def get_workflow_status(workflow_id: str) -> Optional[WorkflowStatus]
+def recover_interrupted_workflow(workflow_id: str) -> Optional[RecoveryPlan]
+def estimate_cost(params: Dict[str, Any]) -> float
+
+# orchestrator/agent_orchestrator.py - AgentOrchestrator
+def execute_workflow_phase(workflow_id: str, phase: dict) -> Dict[str, Any]
+def _create_agent_package(workflow_id: str, phase: dict, context: dict) -> dict
+def recover_interrupted_workflow(workflow_id: str) -> dict
+
+# orchestrator/real_time_metrics.py - SystemMetricsProvider
+def get_dashboard_metrics() -> Dict[str, Any]
+def get_workflow_progress(workflow_id: str) -> Dict[str, Any]
+def get_live_stats() -> Dict[str, Any]
+def _calculate_progress_percentage(workflow_status: Dict) -> float
+def _get_phase_details(workflow_id: str, execution_history: List) -> List[Dict]
+
+# orchestrator/real_time_metrics.py - WorkflowMonitor
+def subscribe(callback)
+def on_workflow_start(workflow_id: str, workflow_info: Dict)
+def on_phase_start(workflow_id: str, phase_info: Dict)
+def on_phase_progress(workflow_id: str, progress_info: Dict)
+def on_phase_complete(workflow_id: str, result_info: Dict)
+
+# orchestrator/mcp_hub.py - MCPIntegrationHub
+def create_workflow(workflow_id: str, user_goal: str) -> str
+def save_workflow_draft(workflow_id: str, content: str, draft_type: str, phase: str = None) -> str
+def prepare_agent_handoff(workflow_id: str, agent_materials: Dict[str, Any]) -> str
+def restore_agent_context(workflow_id: str, handoff_file_id: str) -> Dict[str, Any]
+def complete_workflow(workflow_id: str, final_results: Dict[str, Any]) -> bool
+def recover_session(workflow_id: str) -> Optional[Dict[str, Any]]
+def list_recoverable_workflows() -> List[Dict[str, Any]]
+def execute_mcp_tool(server_name: str, tool_name: str, params: Dict[str, Any], workflow_id: str = None) -> Dict[str, Any]
 ```
 
 #### Cache Management
