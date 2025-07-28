@@ -215,16 +215,16 @@ def display_command_result(result: Dict[str, Any]) -> str:
 ### Provider Configuration
 ```json
 {
-    \"name\": \"provider_name\",
-    \"display_name\": \"Provider Display Name\",
-    \"type\": \"api_provider\",
-    \"base_url\": \"https://api.provider.com\",
-    \"api_key_env\": \"PROVIDER_API_KEY\",
-    \"models_supported\": [\"model1\", \"model2\"],
-    \"default_model\": \"model1\",
-    \"rate_limits\": {
-        \"requests_per_minute\": 60,
-        \"requests_per_hour\": 1000
+    "name": "provider_name",
+    "display_name": "Provider Display Name",
+    "type": "api_provider",
+    "base_url": "https://api.provider.com",
+    "api_key_env": "PROVIDER_API_KEY",
+    "models_supported": ["model1", "model2"],
+    "default_model": "model1",
+    "rate_limits": {
+        "requests_per_minute": 60,
+        "requests_per_hour": 1000
     }
 }
 ```
