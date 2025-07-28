@@ -6,8 +6,8 @@
 
   1. Start a `sequential_thinking` session 
   2. Review what is written in our Project State use of the `memory` MCP: 
-     - Search for exact term `mao-v4-docs` 
-     - Search for exact term `Mao` 
+     - Search for exact entity `mao-v4-docs` for project state 
+     - Search for exact entity `Mao` for app updates 
   3. Read standardization rule guides created for context priming each session:
      - `CLAUDE.md` 
      - `./documentation/09_DEV_PRIMER.md` 
