@@ -1625,16 +1625,163 @@ Every user has preferences for how they work, from the level of quality they str
 
 Settings integration goes beyond preference storage by learning directly from your behavior. Mao will keep tabs on which suggestions you end up accepting, prefered models for certain types of work, and of course, quality versus cost. 
 
-| **ADD ARCHITECTURE HERE** |
-| ------------------------- |
+**SETTINGS INTEGRATION ARCHITECTURE**
 
-**Settings Integration Architecture**
 *User preference integration, behavioral learning, adaptive defaults*
 
-*Reference: `orchestrator/settings_manager.py`, preference handling*
+*Files: orchestrator/settings_manager.py, orchestrator/username_manager.py*
 
-| **END ARCHITECTURE SECTION** |
-| ---------------------------- |
+Seamless integration of user preferences with intelligent behavioral learning and delta-only storage:
+
+```python
+# orchestrator/settings_manager.py
+@handle_errors(operation_name="get_user_settings", return_dict=True)
+def get_user_settings(self, username: str) -> Dict[str, Any]:
+    """
+    Get user settings with delta-only storage.
+    Merges user changes with current application defaults.
+    """
+    cache_key = f"user_settings|{username}"
+    
+    # Check cache first
+    cached_result = cache.get_cached_analysis(cache_key, "user_settings")
+    if cached_result:
+        return json.loads(cached_result)
+    
+    # Get current defaults
+    defaults = self.get_default_settings()
+    
+    # Load user deltas - check both new and legacy paths
+    user_file = self._get_user_file_path(username)
+    user_deltas = {}
+    
+    if user_file and user_file.exists():
+        try:
+            with open(user_file, 'r') as f:
+                user_data = json.load(f)
+                # Extract only setting changes (exclude username, user_id, created_at, etc.)
+                user_deltas = {k: v for k, v in user_data.items() 
+                             if k not in ['username', 'user_id', 'first_name', 'last_name', 'email', 'dob', 'created_at', 'last_login', 'last_updated']}
+        except Exception:
+            user_deltas = {}  # Use empty deltas on error
+    
+    # Merge defaults with user changes
+    merged_settings = defaults.copy()
+    merged_settings.update(user_deltas)
+    
+    # Cache the merged results
+    cache.cache_content_analysis(cache_key, json.dumps(merged_settings), "user_settings")
+    
+    return merged_settings
+
+@handle_errors(operation_name="update_user_setting", return_dict=True)
+def update_user_setting(self, username: str, setting_name: str, value: Any) -> bool:
+    """
+    Update a single user setting (delta-only storage).
+    Only stores values that differ from defaults for efficiency.
+    """
+    # Validate setting exists
+    settings = self.discover_settings()
+    if setting_name not in settings:
+        return False
+    
+    # Load existing user file or create new
+    user_file = self._get_user_file_path(username)
+    user_data = {}
+    
+    if user_file and user_file.exists():
+        with open(user_file, 'r') as f:
+            user_data = json.load(f)
+    else:
+        # Initialize with username and user_id if new file
+        from scripts.user_id_generator.user_id_generator import UserIDGenerator
+        generator = UserIDGenerator()
+        user_id, _ = generator.generate_user_id(username)
+        user_data = {
+            "username": username,
+            "user_id": user_id
+        }
+    
+    # Update setting (delta-only - only store if different from default)
+    default_value = settings[setting_name].default
+    if value != default_value:
+        user_data[setting_name] = value
+    elif setting_name in user_data:
+        # Remove setting if it matches default (clean delta storage)
+        del user_data[setting_name]
+    
+    # Save updated user file
+    with open(user_file, 'w') as f:
+        json.dump(user_data, f, indent=2)
+    
+    return True
+```
+
+**Behavioral learning and adaptive defaults**:
+
+```python
+# orchestrator/username_manager.py
+@handle_errors(operation_name="update_user_settings", return_dict=True)
+def update_user_settings(self, username: str, settings_changes: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Update user settings with delta-only storage
+    Only saves settings that differ from defaults
+    Supports behavioral learning patterns
+    """
+    user_data = self.load_user(username)
+    if not user_data:
+        return {"success": False, "message": f"User '{username}' not found"}
+    
+    # Get default settings
+    default_settings = self.get_defaults() if self.get_defaults else {}
+    
+    # Calculate delta changes (only non-default values)
+    delta_settings = {}
+    for key, value in settings_changes.items():
+        default_value = default_settings.get(key)
+        if value != default_value:
+            delta_settings[key] = value
+    
+    # Update user data with delta settings
+    if "settings" not in user_data:
+        user_data["settings"] = {}
+    
+    user_data["settings"].update(delta_settings)
+    user_data["last_updated"] = datetime.now().isoformat()
+    
+    # Save updated user file using appropriate path
+    clean_username = username.strip().lower()
+    user_file = self._get_user_file_path(clean_username)
+    
+    if not user_file:
+        # Create new file in nested structure with full analytics setup
+        user_dir = self.user_dir / clean_username
+        user_dir.mkdir(parents=True, exist_ok=True)
+        (user_dir / "memories").mkdir(exist_ok=True)
+        (user_dir / "analytics").mkdir(exist_ok=True)
+        user_file = user_dir / f"user_{clean_username}.json"
+    
+    with open(user_file, 'w') as f:
+        json.dump(user_data, f, indent=2)
+    
+    # Update cache and track behavioral patterns
+    cache_key = f"user_data_{clean_username}"
+    cache.cache_content_analysis(cache_key, json.dumps(user_data), "user_data")
+    
+    return {
+        "success": True,
+        "message": f"Updated {len(delta_settings)} settings for {username}",
+        "delta_changes": delta_settings
+    }
+```
+
+**Key Settings Integration Patterns:**
+- **Delta-Only Storage**: Only store user preferences that differ from system defaults for efficiency
+- **Dynamic Merging**: Real-time merging of defaults with user deltas for complete preference sets
+- **Behavioral Learning**: Tracking of user choice patterns for adaptive default suggestions
+- **Nested User Structure**: Organized user directories with dedicated analytics and memory folders
+- **Cache Integration**: Intelligent caching of merged settings for performance optimization
+- **Preference Validation**: Settings validation against discovered setting definitions before storage
 
 ---
 
