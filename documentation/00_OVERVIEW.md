@@ -49,7 +49,7 @@ Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned futur
      - Mao will do as much or as little as you want, requiring only a simple goal 
      - The options are endless and all you need to do is start up the chat 
 
-### Security In Logevity 
+### Security In Longevity  
 
 - The AI-industry is changing constantly; we shouldn't expect we'll need the same models or tools in months or even years. 
 - Abilities, intelligence, capabilities, we've designed the system to accomodate future advances in AI. 

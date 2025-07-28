@@ -62,24 +62,6 @@ Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned futur
 ### STEP 1: Outline Building ✅
 ### STEP 2: Outline Completion ✅
 
-#### Regarding Visuals 
-
-Re: Visuals, which could be done and be the most powerful? The most helpful? The most engaging? Which could be combined to have one super informative visual instead of a few? Which could be done to be the most visually impressive? 
-
-- Tool architecture diagrams
-- Extension ecosystem map
-- System architecture diagrams 
-- Data flow visualizations
-- Integration touch-point maps
-- Performance metrics dashboards
-- Security and privacy flow charts
-- User journey flow diagram
-- Scalability demonstration charts
-- Orchestrator communication flow diagram showing component information passing
-- Cross-session state management showing memory state persistence flow
-- Tool integration data exchange flow chart showing how 'button snippets' are created and used
-- Flow chart showing analytics trigger points and data flow 
-
 ### STEP 3: Writing ⏳
 *enter with comprehensive outline, exit with completed documentation as well as implementation docs for trigger system and UI plans* 
 
@@ -141,8 +123,48 @@ Functions: def estimate_cost(), def analyze_goal(), def create_workflow_plan()
   - Parallel Tool Use: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_PARALLEL.md`
   - Fine-Grained Streaming: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_FINE_GRAINED_STREAMING.md`
 
+3. The **OVERVIEW** document needs to be updated to reflect the new documentation flow and content 
+   - This stands as our "table of contents" but with more compelling reasons to click through each link included 
+   - `./documentation/00_OVERVIEW.md`
+   - `./documentation/00_OVERVIEW_2.md`
+   - I like all of the text under the following headers in the 00_OVERVIEW.md document; I'd like to keep it as is, with adjustments for flow and links to sections throughout the documents: AI 'Assistant' Gets Their Promotion, Mao Is The 'Modular Agent Orchestrator', Security In Longevity, Complete Compatibility & Flexibility, and Cost Innovation Optimization
 
+4. The **EVOLVING AI** document needs to be cleaned up 
+   - It stands as the introduction to the product, brand story, and vision 
+   - `./documentation/01_EVOLVING_AI.md`
+   - `./documentation/01_EVOLVING_AI_2.md`
+   - Self-Evolving AI-Project Manager, Exponentially Uncomprehendable (with numbers made visual), Small Players Need To Be Smart (but made shorter), Our Problem Is Clear all the way down to the end right before -- all up to here is the STORY about the brand -- up to the start of "Chapter 1.2" -- which I like these small sections but am curious about if we should look at the content we have across this document and the OVERVIEW document and better organize the content that I do like and want to keep, then build out from there. 
 
+5. The **REFERENCE** document needs to be cleaned up 
+   - `./documentation/02_REFERENCE.md`
+   - `./documentation/02_REFERENCE_2.md`
+   - The items in "_2" are great 
+   - The items in the main no addendum file name version are from the old documentation and might have concepts worth keeping 
+   - This is best done last, after looking over all the documentation and deciding what could be made small and compact and added to this section 
+
+6. Our **VISUAL AIDS** must be identified and created  
+   - As yourself 
+     - Which could be done and be the most powerful? 
+     - The most helpful? 
+     - The most engaging? 
+     - Which could be combined to have one super informative visual instead of a few? 
+     - Which could be done to be the most visually impressive? 
+   - The following are the items that could be created as visual aids: 
+```
+- Tool architecture diagrams
+- Extension ecosystem map
+- System architecture diagrams 
+- Data flow visualizations
+- Integration touch-point maps
+- Performance metrics dashboards
+- Security and privacy flow charts
+- User journey flow diagram
+- Scalability demonstration charts
+- Orchestrator communication flow diagram showing component information passing
+- Cross-session state management showing memory state persistence flow
+- Tool integration data exchange flow chart showing how 'button snippets' are created and used
+- Flow chart showing analytics trigger points and data flow 
+```
 
 ---
 
