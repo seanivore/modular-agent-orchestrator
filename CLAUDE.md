@@ -163,6 +163,90 @@ def standalone_function_name(params) -> return_type:
 
 ---
 
+## Documentation Writing Principles
+
+### Writing Style (Following Anthropic Docs Approach)
+- **Narrative prose over bullet points** as primary structure
+- **Brief paragraphs** for accessibility and readability
+- **Natural weaving** of technical architecture within narrative story
+- **NO separate technical sections** - integrate code explanations throughout
+- **Pattern:** Brief text → code architecture → more text → code architecture
+- **Audience:** Accessible to both technical and marketing/pitch audiences
+
+### Documentation Rules
+- **Never delete existing writing** - suggest edits only
+- **Use semicolons instead of m-dashes** in narrative flow
+- **No emoji icons** - text-based visual hierarchy only
+- **No bullet points as primary narrative device** - prose first
+- **Brief paragraphs** with comprehensive coverage
+
+---
+
+## CLI Command Requirements
+
+### CLI Structure (3 Files Required)
+1. `[command_name].py` - Main command logic
+2. `ui_[command_name].py` - Display components
+3. `[command_name].json` - Command configuration
+
+### CLI JSON Configuration
+```json
+{
+    "name": "command_name",
+    "help": "Command description",
+    "terminal_flag": "--flag",
+    "type": "command_type",
+    "file_path": "configs/cli/command_name/command_name.py",
+    "ui_path": "configs/cli/command_name/ui_command_name.py"
+}
+```
+
+---
+
+## Context Priming Strategy
+
+### Two-Document System for AI Development
+**Efficient context priming without reading all comprehensive documentation**
+
+#### **CLAUDE.md (This Document) - "Rules & Principles"**
+**Contains:**
+- Core development principles and constraints
+- Standardization requirements and quality control
+- Code patterns and architectural guidelines
+- Writing style rules and copywriting standards
+- Error handling, caching, and import requirements
+- "HOW TO WORK" with Mao codebase
+
+**Use for:** Understanding project standards, development approach, and coding requirements
+
+#### **documentation/09_DEV_PRIMER.md - "Templates & Creation Guides"**
+**Contains:**
+- Step-by-step config creation guides
+- JSON templates with examples
+- Directory structure examples
+- File naming conventions with samples
+- Implementation patterns with code examples
+- "HOW TO CREATE" each type of Mao component
+
+**Use for:** Actually building new tools, CLI commands, configs, and components
+
+#### **Memory MCP - "Project State Updates"**
+**Contains:**
+- Current task progress and status
+- Session-specific decisions and changes
+- Dynamic project state information
+- Context for ongoing work
+
+**Use for:** Picking up where previous sessions left off
+
+### **Context Priming Workflow**
+1. **Start every session:** Read CLAUDE.md (rules and standards)
+2. **When creating components:** Reference 09_DEV_PRIMER.md (templates and guides)
+3. **For project continuity:** Search Memory MCP for current state
+4. **Skip comprehensive docs:** Unless specific technical details needed
+
+---
+
 ## Tool-Specific Requirements
 
 ### Tool Structure (4 Files Required)

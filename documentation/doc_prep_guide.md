@@ -3,10 +3,9 @@
 ## Session Setup 
 
   1. Start a `sequential_thinking` session 
-  2. Review what is written in or Project State use of the `memory` MCP, searching for the term `Mao Documentation Reorganization Project` 
-  3. Look around for any other relevant information in the `memory` MCP and let me know if you find anything so that we can just include it specifically on this list and remove this open ended 'look around' note 
-  4. Review the `CLAUDE.md` file, our guide for standardization and rules 
-  5. Use this to understand the current state of the documentation pages we were working on: `./documentation/doc_prep_steps.md` you can see right at the top, under "We need to focus on TASK 1 first", I state "I'm not sure where CLI is... I think we should add it to..." which underscores the core issue with our previous process. No concrete plan on what goes where. The lack of clarity of an outline and the large size of the codebase has only made it continue to be difficult to write the documentation to completion. However, some of the files have been heavily edited and are in a good state. We will need to work through them one by one after identifying the online. I like the idea of our current doc state, the flow is good, writing was getting there, but we need to get the code architecture in place which requires a comprehensive outline with concrete plan on what goes where. g
+  2. Review what is written in or Project State use of the `memory` MCP, searching for the term `mao-v4-docs` and also see what is posted to `Mao`; search for both using exact search terms. 
+  3. Review the `CLAUDE.md` file and `./documentation/09_DEV_PRIMER.md` for all of our guide for standardization and rules that are specifically put together for context priming before every session. 
+  4. Use this to understand the current state of the documentation pages we were working on: `./documentation/doc_prep_steps.md` you can see right at the top, under "We need to focus on TASK 1 first", I state "I'm not sure where CLI is... I think we should add it to..." which underscores the core issue with our previous process. No concrete plan on what goes where. The lack of clarity of an outline and the large size of the codebase has only made it continue to be difficult to write the documentation to completion. However, some of the files have been heavily edited and are in a good state. We will need to work through them one by one after identifying the online. I like the idea of our current doc state, the flow is good, writing was getting there, but we need to get the code architecture in place which requires a comprehensive outline with concrete plan on what goes where. g
 
 ## Overview
 
