@@ -246,12 +246,49 @@ async def execute_workflow_async(self, workflow_id: str, anthropic_client=None) 
 ### User Documentation
 - `03_USER_FLOW.md`: Document parallel phase creation
 - `04_MAOS_ROLE.md`: Add parallel workflow examples
-- `07_USER_GUIDE.md`: Include parallel execution tutorials
 
 ### Technical Documentation  
 - `05_ORCHESTRATION.md`: Document parallel execution architecture
-- `10_DEV_PRIMER.md`: Add orchestrator file responsibility guide
+- `10_DEV_PRIMER.md`: Add orchestrator parallel execution section with complete file index
 - Update JSON schema documentation with parallel examples
+
+#### Specific 10_DEV_PRIMER.md Additions:
+**Orchestrator Parallel Execution Section:**
+```markdown
+## Orchestrator Files - Parallel Agent Execution
+
+### Core Execution Flow (for parallel agents implementation)
+- **`core.py`** → Main workflow execution brain
+  - Classes: `WorkflowOrchestrator`
+  - Functions: `execute_workflow()`, `_design_workflow_phases()`, `_execute_phase_with_caching()`
+  - **Parallel Role**: Add `_group_parallel_phases()`, `execute_workflow_async()`, `_execute_phase_async()`
+
+- **`agent_orchestrator.py`** → Agent coordination & handoffs  
+  - Classes: `AgentOrchestrator`
+  - Functions: `coordinate_agent_handoff()`, `process_agent_completion()`
+  - **Parallel Role**: Handle multiple simultaneous agent completions and coordinate concurrent Files API operations
+
+- **`workflow_state.py`** → State tracking & persistence
+  - Classes: `WorkflowStateManager` 
+  - Functions: `update_workflow_state()`, `get_workflow_status()`, `handle_session_recovery()`
+  - **Parallel Role**: Track multiple phases executing simultaneously, coordinate parallel state updates in Memory MCP
+
+- **`agent_callback.py`** → Result processing & aggregation
+  - Classes: `AgentCallbackManager`
+  - Functions: `process_agent_result()`, `handle_agent_completion()`
+  - **Parallel Role**: Process multiple simultaneous results, aggregate parallel deliverables
+
+### Phase Number Pattern Recognition
+- **Sequential**: `"01"`, `"02"`, `"03"` → Execute one after another
+- **Parallel**: `"01a"`, `"01b"`, `"01c"` → Execute simultaneously in group "01"
+- **Mixed**: Group "01" (parallel) → Group "02" (sequential) → Group "03a", "03b" (parallel)
+
+### Implementation Pattern
+1. **Parse** phase numbers to identify parallel groups
+2. **Group** phases by base number (`01a`, `01b` → group `01`)  
+3. **Execute** groups sequentially, phases within groups in parallel using `asyncio.gather()`
+4. **Coordinate** results and state across parallel executions
+```
 
 ## Future Enhancements
 
