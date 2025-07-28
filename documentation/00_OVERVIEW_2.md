@@ -34,9 +34,9 @@ We can tell you, thanks to Mao: **Productivity increases exponentially.**
 
 **Foundation Understanding:** [User Flow and Workflows](03_USER_FLOW.md) - How natural language becomes executable projects
 
-**Core Architecture:** [Orchestration Systems](05_ORCHESTRATION.md) - The intelligent data processing hub where magic happens
+**Core Architecture:** [Orchestration Systems](06_ORCHESTRATION_OLD.md) - The intelligent data processing hub where magic happens
 
-**Interface Integration:** [Data Input Channels](04_INTERFACE.md) - How multiple entry points feed the orchestrator
+**Interface Integration:** [Data Input Channels](05_INTERFACE.md) - How multiple entry points feed the orchestrator
 
 **Developer Reference:** [Quick Commands](02_REFERENCE.md) - Essential commands, variables, and troubleshooting
 
@@ -54,11 +54,11 @@ We can tell you, thanks to Mao: **Productivity increases exponentially.**
 ### 🔧 For System Administrators: The Operations Perspective
 *"Show me deployment, management, and enterprise features"*
 
-**System Architecture:** [Orchestration Core](05_ORCHESTRATION.md) - Central processing, state management, and coordination
+**System Architecture:** [Orchestration Core](06_ORCHESTRATION_OLD.md) - Central processing, state management, and coordination
 
 **Data Management:** [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) - Privacy-first analytics and intelligent memory systems
 
-**Interface Systems:** [Data Input Channels](04_INTERFACE.md) - Multi-channel integration and communication bridges
+**Interface Systems:** [Data Input Channels](05_INTERFACE.md) - Multi-channel integration and communication bridges
 
 **Enterprise Roadmap:** [Future Platform Evolution](09_FUTURE_THINKING.md) - Multi-instance, enterprise, and ecosystem features
 
@@ -131,7 +131,7 @@ Each section builds upon previous understanding while remaining accessible as st
 
 **Business Case:** Start with [Self-Evolving AI](01_EVOLVING_AI.md) and [Business Automation](07_AUTOMATE_BUSINESS_ADD_TO_DOC.md)
 
-**Technical Understanding:** Focus on [User Flow](03_USER_FLOW.md), [Orchestration](05_ORCHESTRATION.md), and [Interface](04_INTERFACE.md)
+**Technical Understanding:** Focus on [User Flow](03_USER_FLOW.md), [Orchestration](06_ORCHESTRATION_OLD.md), and [Interface](05_INTERFACE.md)
 
 **Strategic Planning:** Emphasize [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) and [Future Thinking](09_FUTURE_THINKING.md)
 
@@ -147,8 +147,8 @@ Each section builds upon previous understanding while remaining accessible as st
 
 ### Technical Implementers  
 1. Understand the [User Flow](03_USER_FLOW.md) foundation and workflow concepts
-2. Study the [Orchestration Architecture](05_ORCHESTRATION.md) for system design patterns
-3. Review [Interface Integration](04_INTERFACE.md) for data flow and communication
+2. Study the [Orchestration Architecture](06_ORCHESTRATION_OLD.md) for system design patterns
+3. Review [Interface Integration](05_INTERFACE.md) for data flow and communication
 4. Reference [Quick Commands](02_REFERENCE.md) for development and debugging tools
 
 ### Business Decision Makers
@@ -158,9 +158,9 @@ Each section builds upon previous understanding while remaining accessible as st
 4. Use [Reference Materials](02_REFERENCE.md) for implementation timeline assessment
 
 ### System Administrators
-1. Review [Orchestration Systems](05_ORCHESTRATION.md) for deployment architecture
+1. Review [Orchestration Systems](06_ORCHESTRATION_OLD.md) for deployment architecture
 2. Understand [Analytics & Memory](06_ANALYTICS_MEMORY_ADD_TO_DOC.md) for data management
-3. Study [Interface Channels](04_INTERFACE.md) for integration requirements
+3. Study [Interface Channels](05_INTERFACE.md) for integration requirements
 4. Plan with [Future Thinking](09_FUTURE_THINKING.md) for scalability needs
 
 ---

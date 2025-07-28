@@ -23,7 +23,7 @@ Mao modular agent orchestration let's you plug-and-play the newest models or too
   * [Section III: Setting Up a Project for Mao](documentation/03_USER_FLOW.md)
     - Explain to Mao your idea, no matter how thought out or complex 
     - Not sure what you need? Just tell them a goal and nothing else 
-  * [Section IV: Orchestration of Core Functionality](documentation/05_ORCHESTRATION.md)
+  * [Section IV: Orchestration of Core Functionality](documentation/06_ORCHESTRATION_OLD.md)
     - The core of Mao's system file architecture 
     - See how files work to gether and how Mao manages everything 
   * [Section V: Enhancing the Average Agentic Experience](documentation/06_ENHANCEMENTS.md)
@@ -35,7 +35,7 @@ Mao modular agent orchestration let's you plug-and-play the newest models or too
   * [Section VII: Mao Does The Business Automation For You](documentation/07_AUTOMATE_BUSINESS_ADD_TO_DOC.md)
     - With triggered workflows, Mao can automate just about all digital business tasks 
     - Not sure what you need? Mao will analyze business data and create workflows on their own 
-  * [Section VIII: Conceptual Semantic Visual Identity](documentation/04_INTERFACE.md)
+  * [Section VIII: Conceptual Semantic Visual Identity](documentation/05_INTERFACE.md)
     - Mao's visual identity is designed to be easy on the eyes and cognitive load 
     - Word and concept grouping by color, icons, and white space are the only design elements 
   * [Section IX: Mao's 10-Year Plan](documentation/08_FUTURE_THINKING_original.md)
