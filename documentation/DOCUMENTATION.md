@@ -33,7 +33,6 @@ The codebase is rather large and complex which is making it difficult to constru
 - `05_ORCHESTRATION.md`
 - `06_ANALYTICS_MEMORY.md`
 - `07_AUTOMATE_INTELLIGENCE.md`
-- `08_FUTURE_THINKING.md`
 
 - **Secondary documentation** is has the following intentions to address after the completion of the core documentation. 
   1. Overview = a more narrative version of a simple table of contents 
@@ -43,6 +42,7 @@ The codebase is rather large and complex which is making it difficult to constru
 - `00_OVERVIEW.md`
 - `01_EVOLVING_AI.md`
 - `02_REFERENCE.md`
+- `08_FUTURE_THINKING.md`
 
 - **AI Development Resource** created to help ensure future updates to the Mao codebase are done in a way that might minimize the need for auditing and validation of the codebase after the fact. 
 - `09_DEV_PRIMER.md`
