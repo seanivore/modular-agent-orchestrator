@@ -1,5 +1,5 @@
 # Mao Standardization Rules
-*Critical development rules; read in full before every session* 
+*Critical standardization rules for context priming to review before each session* 
 
 ---
 

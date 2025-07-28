@@ -5,10 +5,10 @@
 ## Session Setup 
 
   1. Start a `sequential_thinking` session 
-  2. Review what is written in or Project State use of the `memory` MCP: 
+  2. Review what is written in our Project State use of the `memory` MCP: 
      - Search for exact term `mao-v4-docs` 
      - Search for exact term `Mao` 
-  3. Read guides of standardization rules that were specifically created for context priming before every session:
+  3. Read standardization rule guides created for context priming each session:
      - `CLAUDE.md` 
      - `./documentation/09_DEV_PRIMER.md` 
 
@@ -70,6 +70,44 @@ Pushing that value further --> `08_FUTURE_THINKING.md` --> Showing planned futur
 
 `./documentation/FLOW_ARCHITECTURE.md`
 
+### STEP 2: Outline Completion 
+*enter with comprehensive outline, exit with outline that has notation for adding code; an outline that should allow for producing documentation in segregated context-separated sessions* 
+
+- Sean to gather any specific resources for the documentation
+- Review all of the files in the project directory tree, provided below 
+- Denote what file an architecture section is referencing 
+  - This can be maintained in the actual documentation; each section chapter in the docs will highlight what files are relevant 
+  - Helps while writing to know exactly where to go to find the code 
+  - This solves the problem of context window limitations 
+
+#### Strategic Questions To Answer That Will Guide Finalizing The Outline 
+
+- For each documentation section: Which specific .py files contain the implementation?
+- For code architecture sections: What's the minimum set of files needed to understand this concept?
+- For visual elements: Which flow diagrams would eliminate the most confusion?
+
+#### Specific thoughts from Claude
+
+- Start with Core Documentation Flow (your 6-document strategy):
+  - 03_USER_FLOW.md → Map to CLI commands, workflow configs, and UI components
+  - 04_INTERFACE.md → Map to interfaces/, ui_*.py files, and terminal components
+  - 05_ORCHESTRATION.md → Map to orchestrator/ core files and workflow management
+  - 06_ANALYTICS_MEMORY.md → Map to Memory MCP, analytics managers, and user data
+  - 07_AUTOMATE_INTELLIGENCE.md → Map to tool system and automation features
+  - 08_FUTURE_THINKING.md → Map to planned features and extension points
+
+- Create Section-to-File Reference Matrix: For each major section, list:
+  - Primary code files it references
+  - Key configuration files
+  - Related template files
+  - Dependencies and integration points
+
+- Visual Architecture Planning: As you mentioned, identify which diagrams would be most helpful:
+  - Tool architecture diagrams (tools directory)
+  - System architecture diagrams (orchestrator flow)
+  - Data flow visualizations (Memory MCP + analytics)
+  - Integration touch-point maps (MCP + Files API + tool buttons)
+
 #### Regarding Comprehensiveness 
 
 Items I'm not sure I've seen covered in the documentation yet: 
@@ -95,16 +133,6 @@ Re: Visuals, which could be done and be the most powerful? The most helpful? The
 - Cross-session state management showing memory state persistence flow
 - Tool integration data exchange flow chart showing how 'button snippets' are created and used
 - Flow chart showing analytics trigger points and data flow 
-
-### STEP 2: Outline Completion 
-*enter with comprehensive outline, exit with outline that has notation for adding code; an outline that should allow for producing documentation in segregated context-separated sessions* 
-
-- Sean to gather any specific resources for the documentation
-- Review all of the files in the project directory tree, provided below 
-- Denote what file an architecture section is referencing 
-  - This can be maintained in the actual documentation; each section chapter in the docs will highlight what files are relevant 
-  - Helps while writing to know exactly where to go to find the code 
-  - This solves the problem of context window limitations 
 
 ### STEP 3: Writing 
 *enter with comprehensive outline, exit with completed documentation as well as implementation docs for trigger system and UI plans* 
