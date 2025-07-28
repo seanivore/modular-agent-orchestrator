@@ -148,27 +148,10 @@ This personalization happens persistently across sessions; all without explicit 
 
 Delta-only settings implementation only saves preferences differing from the defaults, making personalized configurations efficient and portable. 
 
-**Settings Management Implementation**
-`orchestrator/settings_manager.py` 
+**Personalized Settings Experience**
+*Files: orchestrator/settings_manager.py*
 
-```python
-class SettingsManager:
-    def __init__(self):
-        self.cache_manager = CacheManager()
-        self.default_settings = self.load_defaults()
-        
-    @handle_errors(operation_name="settings_personalization", return_dict=True)
-    def apply_user_preferences(self, user_id: str, context: dict) -> dict:
-        user_deltas = self.load_user_deltas(user_id)
-        personalized_settings = {**self.default_settings, **user_deltas}
-        
-        # Apply contextual adaptations
-        adapted_settings = self.adapt_to_context(personalized_settings, context)
-        return adapted_settings
-        
-    def estimate_cost(self, params=None):
-        return 0.001  # Minimal cost for local preference loading
-```
+Settings personalization happens through the existing ApplicationSettingsManager which handles delta-only storage and user preference merging. Interface adapts based on user analytics and settings data collected during interactions.
 
 ---
 
@@ -249,7 +232,7 @@ export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workfl
 
 ### Stress-Free Error Handling
 
-Even errors are handled without missing a conversational beat. Mao flows smoothly in, ensuring any techincal information is understandable, and then providing information on how to fix things, unless they're able to fix it themselves. 
+Even errors are handled without missing a conversational beat. Mao flows smoothly in, ensuring any technical information is understandable, and then providing information on how to fix things, unless they're able to fix it themselves. 
 
 ### Settings Management Architecture
 *Files: orchestrator/settings_manager.py, configs/settings/*
@@ -259,44 +242,40 @@ Modular JSON configs with user preferences and delta storage:
 ```python
 # orchestrator/settings_manager.py  
 class ApplicationSettingsManager:
-    def load_user_settings(self, user_id: str) -> Dict[str, Any]:
-        """Load user preferences with delta-only storage"""
-        # Load default settings
-        # Apply user deltas
-        # Return merged configuration
+    def discover_settings(self, force_refresh: bool = False) -> Dict[str, SettingDefinition]:
+        """Discover all settings from individual JSON files"""
         
-    def save_user_settings(self, user_id: str, settings: Dict[str, Any]):
-        """Save only settings that differ from defaults"""
-        # Calculate deltas from defaults
-        # Store minimal user preferences
-        # Maintain GDPR compliance
+    def get_default_settings(self) -> Dict[str, Any]:
+        """Get all default settings values with caching"""
+        
+    def get_user_settings(self, username: str) -> Dict[str, Any]:
+        """Get user settings with delta-only storage"""
+        # Merges user changes with current application defaults
+        
+    def get_settings_by_section(self) -> Dict[str, List[str]]:
+        """Organize settings by logical sections"""
 ```
 
 **Error Communication Implementation**
-*Files: orchestrator/error_handling.py* 
+*Files: orchestrator/error_handling.py*
 
 ```python
-class ErrorHandler:
-    @staticmethod
-    def translate_for_user(error: Exception, context: dict) -> dict:
-        """Convert technical errors into conversational explanations"""
-        
-        error_translations = {
-            "ConnectionError": "I couldn't connect to {service}. Check your internet connection?",
-            "AuthenticationError": "The API key for {service} needs updating in settings.",
-            "RateLimitError": "We're hitting rate limits. I'll wait a moment and retry.",
-            "ValidationError": "I need more information about {missing_field} to continue."
-        }
-        
-        error_type = error.__class__.__name__
-        user_message = error_translations.get(error_type, "Something unexpected happened.")
-        
-        return {
-            "user_message": user_message.format(**context),
-            "technical_details": str(error),
-            "suggested_actions": ErrorHandler.get_suggested_actions(error_type),
-            "can_retry": ErrorHandler.is_retryable(error)
-        }
+# Actual custom exception classes
+class OrchestrationError(Exception):
+    def __init__(self, message: str, error_code: str = "ORCHESTRATION_ERROR", details: Optional[Dict] = None)
+
+class ValidationError(OrchestrationError):
+    def __init__(self, message: str, field: str = None, value: Any = None)
+
+class ProcessingError(OrchestrationError):
+    def __init__(self, message: str, operation: str = None, stage: str = None)
+
+class APIError(OrchestrationError):
+    def __init__(self, message: str, api_name: str = None, status_code: int = None)
+
+@handle_errors(operation_name: str, return_dict: bool = True, log_errors: bool = True)
+def decorator(func: Callable) -> Callable:
+    """Decorator for comprehensive error handling with professional patterns"""
 ```
 
 ---
@@ -338,23 +317,19 @@ Mao adapts, learning user patterns to provide suggestions accordingly. The comma
 When an interface only become more and more helpful over time, remaining predictable, users develop trust in the intuitive application. And that's all Mao really wants. 
 
 ### Adaptive Intelligence Engine
-*Files: orchestrator/user_analytics_manager.py, orchestrator/settings_manager.py* 
+*Files: orchestrator/user_analytics_manager.py, orchestrator/settings_manager.py*
 
 ```python
-class InterfaceAdaptationEngine:
-    @handle_errors(operation_name="interface_adaptation", return_dict=True)
-    def generate_contextual_suggestions(self, user_id: str, current_input: str) -> dict:
-        usage_patterns = self.analyze_user_patterns(user_id)
-        context_history = self.get_recent_context(user_id)
-        
-        suggestions = {
-            "command_completions": self.rank_commands_by_usage(current_input, usage_patterns),
-            "tool_recommendations": self.suggest_tools_by_context(context_history),
-            "workflow_templates": self.recommend_templates(usage_patterns),
-            "model_preferences": self.prioritize_models_by_success(user_id)
-        }
-        
-        return suggestions
+# orchestrator/user_analytics_manager.py
+class UserAnalyticsManager:
+    def track_session(self, username: str, session_id: str, action: str, **kwargs) -> bool
+    def track_tool_usage(self, username: str, tool_name: str, success: bool, response_time: float) -> bool
+    def track_workflow(self, username: str, workflow_id: str, workflow_command: str, action: str, **kwargs) -> bool
+    def scan_available_tools(self, username: str) -> List[str]
+    def get_user_analytics_summary(self, username: str) -> Dict
+    
+# User pattern learning happens through analytics tracking
+# Interface adaptation comes from settings + analytics data
 ```
 
 ---

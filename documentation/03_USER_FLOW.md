@@ -104,10 +104,17 @@ The UserID generation system uses mathematical operations for deterministic ID c
 
 ```python
 # scripts/user_id_generator/user_id_generator.py
-def generate_user_id(username: str) -> str:
-    """Generate consistent UserID from username using mathematical operations"""
-    # Implementation uses character count, ASCII values, fibonacci, golden ratio
-    # Same username always produces same UserID for consistency
+def generate_user_id(username):
+    """Quick function to generate a user ID"""
+    generator = UserIDGenerator()
+    user_id, _ = generator.generate_user_id(username)
+    return user_id
+
+class UserIDGenerator:
+    def generate_user_id(self, username):
+        """Generate a deterministic user ID from username"""
+        # Uses character count, ASCII values, mathematical operations
+        # Same username always produces same UserID for consistency
 ```
 
 ### `meid` Used Separately in Terminal 

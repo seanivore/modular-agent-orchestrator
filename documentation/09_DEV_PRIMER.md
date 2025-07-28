@@ -361,8 +361,10 @@ class CLICommandsManager:
 
 # orchestrator/settings_manager.py
 class ApplicationSettingsManager:
-    def load_user_settings(self, user_id: str) -> Dict[str, Any]
-    def save_user_settings(self, user_id: str, settings: Dict[str, Any])
+    def discover_settings(self, force_refresh: bool = False) -> Dict[str, SettingDefinition]
+    def get_default_settings(self) -> Dict[str, Any]
+    def get_user_settings(self, username: str) -> Dict[str, Any]
+    def get_settings_by_section(self) -> Dict[str, List[str]]
 
 # orchestrator/real_time_metrics.py
 class SystemMetricsProvider:
@@ -397,27 +399,38 @@ class ButtonManager
 class CacheManager
 
 # orchestrator/error_handling.py
-class ErrorHandler
-class APIError
+class OrchestrationError  # Base exception for orchestration tools
+class ValidationError(OrchestrationError)  # Input validation failures
+class ProcessingError(OrchestrationError)  # Tool processing failures
+class ResourceError(OrchestrationError)   # Resource access failures
+class APIError(OrchestrationError)        # External API call failures
 ```
 
 #### Analytics Classes
 ```python
 # orchestrator/user_analytics_manager.py
-class UserAnalyticsManager
+class UserAnalyticsManager:
+    def track_session(self, username: str, session_id: str, action: str, **kwargs) -> bool
+    def track_tool_usage(self, username: str, tool_name: str, success: bool, response_time: float) -> bool
+    def track_workflow(self, username: str, workflow_id: str, workflow_command: str, action: str, **kwargs) -> bool
+    def scan_available_tools(self, username: str) -> List[str]
+    def get_user_analytics_summary(self, username: str) -> Dict
 
 # orchestrator/system_analytics_manager.py
 class SystemAnalyticsManager
 
 # orchestrator/real_time_metrics.py
-class MetricsCollector
+class SystemMetricsProvider:
+    def get_dashboard_metrics(self) -> Dict[str, Any]
 ```
 
 #### Script Tools
 ```python
 # scripts/user_id_generator/user_id_generator.py
 def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]
-def generate_user_id(username: str) -> str  # Mathematical operations for consistency
+def generate_user_id(username) -> str  # Standalone function
+class UserIDGenerator:
+    def generate_user_id(self, username)  # Deterministic ID generation
 
 # scripts/unique_id_generator/unique_id_generator.py  
 def estimate_cost(generation_params: Dict[str, Any] = None) -> Dict[str, float]
