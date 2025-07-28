@@ -50,7 +50,8 @@ def _create_read_file_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - Read File
 import sys
 import os
-sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from tools.file_operations.file_operations import read_file, estimate_cost
 
@@ -101,7 +102,8 @@ def _create_list_directory_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - List Directory
 import sys
 import os
-sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from tools.file_operations.file_operations import list_directory, estimate_cost
 
@@ -148,7 +150,7 @@ def main():
 
 if __name__ == "__main__":
     result = main()
-    print(f"\\n🎯 Directory listing {{\"completed\" if result.get('status' == 'success' else \")failed\"}}")
+            print(f"\\n🎯 Directory listing {{\"completed\" if result.get('status') == 'success' else \"failed\"}}")
 '''
 
 
@@ -158,7 +160,8 @@ def _create_default_snippet(params: Dict[str, Any], model: str) -> str:
     return f'''# File Operations - General Usage
 import sys
 import os
-sys.path.append(Path(Path(Path(__file__).parent.resolve().parent)))
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from tools.file_operations.file_operations import estimate_cost
 
@@ -196,5 +199,4 @@ def estimate_cost(params: Dict[str, Any]) -> float:
     """Estimate cost for executing this tool - standardized naming"""
     # Import from logic file for consistency
     from tools.file_operations.file_operations import estimate_cost as logic_estimate_cost
-from pathlib import Path
     return logic_estimate_cost(params)

@@ -48,7 +48,6 @@ class CodeExecutionTool:
         """Lazy load Files API manager"""
         if self._files_api is None:
             from tools.files_api.files_api import FilesAPIManager
-from pathlib import Path
             self._files_api = FilesAPIManager()
         return self._files_api
     

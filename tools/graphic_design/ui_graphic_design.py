@@ -79,7 +79,7 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
         console.print(Panel(header_text, style="blue"))
         console.print(f"📁 File: {image_path}", style="dim")
     else:
-        console.print(f"🖼️ Analyzed: {image_path.split(' / '[-1]}", style="blue bold")
+        console.print(f"🖼️ Analyzed: {image_path.split('/')[-1]}", style="blue bold")
     
     # Technical specifications table
     if specs:
@@ -101,11 +101,10 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
     
     # Optimization recommendations
     if optimization and verbose:
-        console.print(r"\n📊 Optimization Recommendations:"), style="bold yellow")
+        console.print("\n📊 Optimization Recommendations:", style="bold yellow")
         
         if optimization.get("resize_recommended"):
             console.print("   📐 Resize recommended (large dimensions)", style="yellow")
-        
         if optimization.get("format_optimization"):
             console.print("   📦 Format optimization available (consider WebP)", style="yellow")
         
@@ -115,7 +114,7 @@ def display_analysis_results(result: Dict[str, Any], verbose: bool = False) -> N
     # AI analysis note
     metadata = result.get("metadata", {})
     if metadata.get("requires_ai_analysis"):
-        console.print(r"\n💡 For detailed composition analysis, use the AI-powered human button"), style="green")
+        console.print("\n💡 For detailed composition analysis, use the AI-powered human button", style="green")
 
 
 def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> None:
@@ -177,15 +176,14 @@ def display_editing_results(result: Dict[str, Any], verbose: bool = False) -> No
     # Text overlay details
     text_info = result.get("text_overlay", {})
     if text_info.get("applied") and verbose:
-        console.print(r"\n✨ Text Overlay Details:"), style="bold")
-        console.print(f"   Text: '{text_info.get('text', 'Unknown'}'", style="white")
-        console.print(f"   Font: {text_info.get('font_used', 'Unknown'}", style="cyan")
-        console.print(f"   Position: {text_info.get('position', 'Unknown'}", style="dim")
-    
+        console.print("\n✨ Text Overlay Details:", style="bold")
+        console.print(f"   Text: '{text_info.get('text', 'Unknown')}'", style="white")
+        console.print(f"   Font: {text_info.get('font_used', 'Unknown')}", style="cyan")
+        console.print(f"   Position: {text_info.get('position', 'Unknown')}", style="dim")
     # Professional quality indicator
     metadata = result.get("metadata", {})
     if metadata.get("professional_quality"):
-        console.print(r"\n✅ Professional quality workflow completed"), style="green")
+        console.print(r"\n✅ Professional quality workflow completed", style="green")
 
 
 def display_optimization_results(result: Dict[str, Any], verbose: bool = False) -> None:
@@ -320,14 +318,14 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
             orig_dims = specs.get("original_dimensions", {})
             final_dims = specs.get("final_dimensions", {})
             if orig_dims and final_dims:
-                formatted_results.append(f"Dimensions: {orig_dims.get('width'}×{orig_dims.get('height'} → {final_dims.get('width'}×{final_dims.get('height'}")
+                formatted_results.append(f"Dimensions: {orig_dims.get('width')}×{orig_dims.get('height')} → {final_dims.get('width')}×{final_dims.get('height')}")
         
         # Text overlay info
         text_info = results.get("text_overlay", {})
         if text_info.get("applied"):
-            formatted_results.append(f"Text added: '{text_info.get('text'}' using {text_info.get('font_used'}")
+            formatted_results.append(f"Text added: '{text_info.get('text')}' using {text_info.get('font_used')}")
         
-        return r"\n").join(formatted_results)
+        return "\n".join(formatted_results)
     
     elif "optimization_results" in results:
         # Optimization results
@@ -346,7 +344,7 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
             if format_conversion:
                 formatted_results.append(f"Format: {format_conversion}")
         
-        return r"\n").join(formatted_results)
+        return "\n".join(formatted_results)
     
     elif "technical_specs" in results:
         # Analysis results
@@ -358,12 +356,12 @@ def format_for_agent_handoff(results: Dict[str, Any]) -> str:
         if specs:
             dims = specs.get("dimensions", {})
             if dims:
-                formatted_results.append(f"Dimensions: {dims.get('width'}×{dims.get('height'} pixels")
+                formatted_results.append(f"Dimensions: {dims.get('width')}×{dims.get('height')} pixels")
             
-            formatted_results.append(f"Format: {specs.get('format', 'Unknown'}")
+            formatted_results.append(f"Format: {specs.get('format', 'Unknown')}")
             formatted_results.append(f"File size: {specs.get('file_size_bytes', 0):,} bytes")
         
-        return r"\n").join(formatted_results)
+        return "\n".join(formatted_results)
     
     else:
         return "Graphic design operation completed successfully"
@@ -392,7 +390,7 @@ def display_workflow_guide(verbose: bool = False) -> None:
         
         console.print(table)
         
-        console.print(r"\n💡 Pro Tip: Always analyze before and after editing to assess composition and readability"), style="green")
+        console.print("\n💡 Pro Tip: Always analyze before and after editing to assess composition and readability", style="green")
     else:
         console.print("📋 5-Step Process: Assess → Resize → Crop → Text → Save", style="cyan")
-        console.print("💡 Use analyze_image before and after editing for best results", style="green") 
+        console.print("💡 Use analyze_image before and after editing for best results", style="green")

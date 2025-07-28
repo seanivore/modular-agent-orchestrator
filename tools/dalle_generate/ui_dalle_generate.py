@@ -53,7 +53,7 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
     
     # Header
     console.print(Panel.fit(
-        f"🎨 [bold green]DALL-E Image Generation Complete[ / bold green]",
+        f"🎨 [bold green]DALL-E Image Generation Complete[/bold green]",
         style="green"
     ))
     
@@ -74,13 +74,13 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
     
     # Generated images
     if generated_images:
-        console.print("[bold cyan]📸 Generated Images:[ / bold cyan]")
+        console.print("[bold cyan]📸 Generated Images:[/bold cyan]")
         
         for i, image in enumerate(generated_images, 1):
             image_panel = Panel(
-                f"[bold white]{image['filename']}[" / bold white]\n")
-                f"📁 {image['filepath']}\n")
-                f"📏 {image['size_bytes']:,} bytes ({image['size_bytes']/1024" / 1024:.1f} MB)\n")
+                f"[bold white]{image['filename']}[/bold white]\n"
+                f"📁 {image['filepath']}\n"
+                f"📏 {image['size_bytes']:,} bytes ({image['size_bytes']/1024/1024:.1f} MB)\n"
                 f"🔗 {image['url'][:60]}..." if len(image['url']) > 60 else f"🔗 {image['url']}",
                 title=f"Image {i}",
                 border_style="green"
@@ -103,7 +103,7 @@ def _display_generation_result(result: Dict[str, Any], verbose: bool):
 def _display_enhancement_result(result: Dict[str, Any], verbose: bool):
     """Display prompt enhancement results"""
     console.print(Panel.fit(
-        f"✨ [bold green]Prompt Enhancement Complete[ / bold green]",
+        f"✨ [bold green]Prompt Enhancement Complete[/bold green]",
         style="green"
     ))
     
@@ -212,9 +212,9 @@ def _display_batch_result(result: Dict[str, Any], verbose: bool):
             status = "✅ Success" if item_result.get("status") == "success" else "❌ Failed"
             
             result_panel = Panel(
-                f"[bold white]Prompt {prompt_index + 1}:[" / bold white] {prompt[:50]}...\n")
+                f"[bold white]Prompt {prompt_index + 1}:[/bold white] {prompt[:50]}...\n"
                 f"Status: {status}\n"
-                f"Error: {item_result.get('error', 'None'}" if item_result.get('error' else f"Images: {len(item_result.get('generated_images', []))}",
+                f"Error: {item_result.get('error', 'None')}" if item_result.get('error') else f"Images: {len(item_result.get('generated_images', []))}",
                 border_style="green" if item_result.get("status") == "success" else "red"
             )
             console.print(result_panel)
@@ -280,7 +280,7 @@ def _display_generic_result(result: Dict[str, Any], verbose: bool):
 
 def _display_verbose_generation_details(result: Dict[str, Any]):
     """Display verbose generation details"""
-    console.print("[bold cyan]🔍 Detailed Information:[ / bold cyan]")
+    console.print("[bold cyan]🔍 Detailed Information:[/bold cyan]")
     
     metadata = result.get("metadata", {})
     
