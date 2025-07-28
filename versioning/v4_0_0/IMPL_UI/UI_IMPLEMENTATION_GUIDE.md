@@ -28,9 +28,9 @@ TERMINAL INTERFACE:
 
 BACKEND INTEGRATION:
 ├── Python 3.11+ (Existing orchestrator - unchanged)
-├── HTTP/WebSocket API (Communication bridge)
-├── JSON-RPC (Command routing)
-└── Process spawning (Node.js calls Python)
+├── Subprocess Communication (stdin/stdout/IPC)
+├── JSON Message Passing (Structured communication)
+└── Process spawning (Node.js spawns Python child process)
 
 ARCHITECTURE PATTERN:
 ├── Single Conversation Interface (no menus)
@@ -49,19 +49,19 @@ ARCHITECTURE PATTERN:
 │  ├─ Command Autocomplete             │   │
 │  └─ Progress Visualization           │   │
 ├─────────────────────────────────────┤   │ JSON
-│  PythonBridge.ts                    │   │ HTTP/WS
-│  ├─ HTTP Client                     │   │
-│  ├─ WebSocket Client                │   │
+│  PythonBridge.ts                    │   │ stdin/stdout
+│  ├─ Subprocess Manager               │   │
+│  ├─ Message Queue Handler           │   │
 │  └─ Command Router                  │   │
 └─────────────────────────────────────┘   │
               │                           │
-              │ JSON-RPC                  │
+              │ Child Process             │
               ▼                           │
 ┌─────────────────────────────────────┐   │
 │  Python Backend (Existing)          │   │
 ├─────────────────────────────────────┤   │
 │  interfaces/ui_terminal.py          │ ──┘
-│  ├─ HTTP Server                     │
+│  ├─ JSON Input Parser               │
 │  ├─ Command Router                  │
 │  └─ JSON Response Formatter         │
 ├─────────────────────────────────────┤
@@ -78,35 +78,34 @@ ARCHITECTURE PATTERN:
 
 ### File Organization
 ```
-mao-terminal-ui/                     ← NEW: TypeScript application
-├── package.json                     ← Dependencies: ink, react, @types/*
-├── tsconfig.json                     ← TypeScript configuration
-├── src/
-│   ├── app.tsx                       ← Main application entry point
-│   ├── components/
-│   │   ├── ConversationInterface.tsx ← Primary conversation UI
-│   │   ├── AutoCompleteSystem.tsx    ← Command suggestions
-│   │   ├── ProgressVisualization.tsx ← Live workflow progress
-│   │   ├── VisualProtocol.tsx        ← Color/styling system
-│   │   ├── LoginInterface.tsx        ← User authentication
-│   │   └── ErrorDisplay.tsx          ← Error handling UI
-│   ├── api/
-│   │   ├── PythonBridge.ts           ← Main backend communication
-│   │   ├── CLICommandRouter.ts       ← Command routing logic
-│   │   ├── WebSocketClient.ts        ← Real-time updates
-│   │   └── types.ts                  ← TypeScript interfaces
-│   ├── utils/
-│   │   ├── display-helpers.ts        ← UI formatting utilities
-│   │   └── validation.ts             ← Input validation
-│   └── styles/
-│       └── protocol.ts               ← Visual design system
-├── build/                            ← Compiled JavaScript output
-└── node_modules/                     ← npm dependencies
-
-modular-agent-orchestrator/          ← EXISTING: Python backend (unchanged)
+modular-agent-orchestrator/          ← EXISTING: Main project (LOCAL app)
 ├── interfaces/
-│   ├── ui_terminal.py               ← API bridge (enhance for HTTP)
-│   └── ui_web.py                    ← Future web interface
+│   ├── ui_terminal.py               ← Enhanced for subprocess communication
+│   ├── ui_web.py                    ← Future web interface
+│   └── terminal-ui/                 ← NEW: TypeScript terminal interface
+│       ├── package.json             ← Dependencies: ink, react, @types/*
+│       ├── tsconfig.json            ← TypeScript configuration
+│       ├── src/
+│       │   ├── app.tsx              ← Main application entry point
+│       │   ├── components/
+│       │   │   ├── ConversationInterface.tsx ← Primary conversation UI
+│       │   │   ├── AutoCompleteSystem.tsx    ← Command suggestions
+│       │   │   ├── ProgressVisualization.tsx ← Live workflow progress
+│       │   │   ├── VisualProtocol.tsx        ← Color/styling system
+│       │   │   ├── LoginInterface.tsx        ← User authentication
+│       │   │   └── ErrorDisplay.tsx          ← Error handling UI
+│       │   ├── api/
+│       │   │   ├── PythonBridge.ts           ← Subprocess communication
+│       │   │   ├── CLICommandRouter.ts       ← Command routing logic
+│       │   │   ├── MessageHandler.ts         ← stdin/stdout message handling
+│       │   │   └── types.ts                  ← TypeScript interfaces
+│       │   ├── utils/
+│       │   │   ├── display-helpers.ts        ← UI formatting utilities
+│       │   │   └── validation.ts             ← Input validation
+│       │   └── styles/
+│       │       └── protocol.ts               ← Visual design system
+│       ├── build/                            ← Compiled JavaScript output
+│       └── node_modules/                     ← npm dependencies
 ├── orchestrator/                    ← All backend logic (keep as-is)
 ├── configs/                         ← All configurations (keep as-is)
 └── tools/                           ← All tools (keep as-is)
@@ -114,9 +113,9 @@ modular-agent-orchestrator/          ← EXISTING: Python backend (unchanged)
 
 ### Integration Points
 - **Python Backend**: Keep all existing files unchanged
-- **Communication Bridge**: Enhance `ui_terminal.py` with HTTP server
-- **Configuration Sync**: TypeScript reads config files directly
-- **State Management**: WebSocket for real-time updates
+- **Communication Bridge**: Enhance `ui_terminal.py` for subprocess stdin/stdout communication
+- **Configuration Sync**: TypeScript reads config files directly from local filesystem
+- **State Management**: JSON message passing for real-time updates
 
 ---
 
@@ -279,84 +278,144 @@ export const ConversationInterface: React.FC = () => {
 ### 3. Python Backend Bridge
 ```typescript
 // src/api/PythonBridge.ts
-import axios, { AxiosInstance } from 'axios';
-import WebSocket from 'ws';
+import { spawn, ChildProcess } from 'child_process';
+import * as path from 'path';
+
+interface PendingCommand {
+  id: string;
+  resolve: (value: any) => void;
+  reject: (error: Error) => void;
+  timeout: NodeJS.Timeout;
+}
 
 export class PythonBridge {
-  private httpClient: AxiosInstance;
-  private wsClient: WebSocket | null = null;
-  private baseURL = 'http://localhost:8080';
+  private pythonProcess: ChildProcess | null = null;
+  private pendingCommands: Map<string, PendingCommand> = new Map();
+  private messageBuffer: string = '';
   private progressCallbacks: Map<string, (data: any) => void> = new Map();
-  
-  constructor() {
-    this.httpClient = axios.create({
-      baseURL: this.baseURL,
-      timeout: 30000,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-  }
+  private commandIdCounter: number = 0;
   
   async initialize(): Promise<void> {
     try {
-      // Test Python backend connection
-      await this.httpClient.get('/health');
+      // Spawn Python subprocess
+      const pythonPath = path.join(process.cwd(), '..', '..', 'interfaces', 'ui_terminal.py');
       
-      // Initialize WebSocket for real-time updates
-      this.initializeWebSocket();
+      this.pythonProcess = spawn('python3', [pythonPath, '--subprocess-mode'], {
+        stdio: ['pipe', 'pipe', 'pipe'],
+        cwd: path.join(process.cwd(), '..', '..')
+      });
+      
+      this.setupProcessHandlers();
+      
+      // Test connection with ping command
+      await this.executeCommand('ping', '');
       
     } catch (error) {
-      throw new Error(`Failed to connect to Python backend: ${error.message}`);
+      throw new Error(`Failed to initialize Python backend: ${error.message}`);
     }
   }
   
-  private initializeWebSocket(): void {
-    this.wsClient = new WebSocket(`ws://localhost:8081`);
+  private setupProcessHandlers(): void {
+    if (!this.pythonProcess) return;
     
-    this.wsClient.on('message', (data) => {
-      try {
-        const message = JSON.parse(data.toString());
-        
-        if (message.type === 'progress_update' && message.workflow_id) {
-          const callback = this.progressCallbacks.get(message.workflow_id);
-          if (callback) {
-            callback(message.data);
-          }
+    // Handle stdout messages from Python
+    this.pythonProcess.stdout?.on('data', (data: Buffer) => {
+      this.messageBuffer += data.toString();
+      this.processMessages();
+    });
+    
+    // Handle stderr for errors
+    this.pythonProcess.stderr?.on('data', (data: Buffer) => {
+      console.error('Python stderr:', data.toString());
+    });
+    
+    // Handle process exit
+    this.pythonProcess.on('exit', (code, signal) => {
+      console.error(`Python process exited with code ${code}, signal ${signal}`);
+      this.rejectAllPendingCommands(new Error('Python process exited unexpectedly'));
+    });
+    
+    // Handle process errors
+    this.pythonProcess.on('error', (error) => {
+      console.error('Python process error:', error);
+      this.rejectAllPendingCommands(error);
+    });
+  }
+  
+  private processMessages(): void {
+    // Split buffer by newlines to get complete JSON messages
+    const lines = this.messageBuffer.split('\n');
+    this.messageBuffer = lines.pop() || ''; // Keep incomplete line in buffer
+    
+    for (const line of lines) {
+      if (line.trim()) {
+        try {
+          const message = JSON.parse(line);
+          this.handleMessage(message);
+        } catch (error) {
+          console.error('Failed to parse message from Python:', line, error);
         }
-      } catch (error) {
-        console.error('WebSocket message parsing error:', error);
       }
-    });
-    
-    this.wsClient.on('error', (error) => {
-      console.error('WebSocket error:', error);
-    });
+    }
+  }
+  
+  private handleMessage(message: any): void {
+    if (message.type === 'command_response' && message.command_id) {
+      // Handle command response
+      const pending = this.pendingCommands.get(message.command_id);
+      if (pending) {
+        clearTimeout(pending.timeout);
+        this.pendingCommands.delete(message.command_id);
+        
+        if (message.error) {
+          pending.reject(new Error(message.error));
+        } else {
+          pending.resolve(message.result);
+        }
+      }
+    } else if (message.type === 'progress_update' && message.workflow_id) {
+      // Handle progress update
+      const callback = this.progressCallbacks.get(message.workflow_id);
+      if (callback) {
+        callback(message.data);
+      }
+    }
   }
   
   async executeCommand(command: string, args?: string): Promise<any> {
-    try {
-      const response = await this.httpClient.post('/command', {
-        command,
-        args,
-        timestamp: new Date().toISOString(),
-      });
-      
-      return response.data;
-      
-    } catch (error) {
-      if (error.response) {
-        throw new Error(error.response.data.error || 'Command execution failed');
-      } else {
-        throw new Error(`Network error: ${error.message}`);
-      }
+    if (!this.pythonProcess || !this.pythonProcess.stdin) {
+      throw new Error('Python process not initialized');
     }
+    
+    return new Promise((resolve, reject) => {
+      const commandId = `cmd_${++this.commandIdCounter}`;
+      
+      // Set up timeout
+      const timeout = setTimeout(() => {
+        this.pendingCommands.delete(commandId);
+        reject(new Error(`Command timeout: ${command}`));
+      }, 30000);
+      
+      // Store pending command
+      this.pendingCommands.set(commandId, { id: commandId, resolve, reject, timeout });
+      
+      // Send command to Python
+      const message = {
+        type: 'command',
+        command_id: commandId,
+        command,
+        args: args || '',
+        timestamp: new Date().toISOString()
+      };
+      
+      this.pythonProcess!.stdin!.write(JSON.stringify(message) + '\n');
+    });
   }
   
   async getAutoCompleteOptions(partial: string): Promise<string[]> {
     try {
-      const response = await this.httpClient.get(`/autocomplete?q=${encodeURIComponent(partial)}`);
-      return response.data.suggestions || [];
+      const result = await this.executeCommand('autocomplete', partial);
+      return result.suggestions || [];
     } catch (error) {
       console.error('Autocomplete error:', error);
       return [];
@@ -369,6 +428,22 @@ export class PythonBridge {
   
   unsubscribeFromWorkflowProgress(workflowId: string): void {
     this.progressCallbacks.delete(workflowId);
+  }
+  
+  private rejectAllPendingCommands(error: Error): void {
+    for (const pending of this.pendingCommands.values()) {
+      clearTimeout(pending.timeout);
+      pending.reject(error);
+    }
+    this.pendingCommands.clear();
+  }
+  
+  destroy(): void {
+    if (this.pythonProcess) {
+      this.pythonProcess.kill();
+      this.pythonProcess = null;
+    }
+    this.rejectAllPendingCommands(new Error('PythonBridge destroyed'));
   }
 }
 ```
@@ -505,55 +580,78 @@ export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workfl
 
 ## Python Backend Enhancements
 
-### HTTP Server Integration
+### Subprocess Communication Integration
 ```python
 # interfaces/ui_terminal.py (enhance existing file)
-from flask import Flask, request, jsonify
-from flask_socketio import SocketIO, emit
-import threading
+import sys
 import json
+import argparse
+from datetime import datetime
+from typing import Dict, Any
 
 class TerminalInterface:
     def __init__(self):
-        self.app = Flask(__name__)
-        self.socketio = SocketIO(self.app, cors_allowed_origins="*")
         self.mcp_hub = None
-        self.setup_routes()
+        self.subprocess_mode = False
         
-    def setup_routes(self):
-        @self.app.route('/health', methods=['GET'])
-        def health_check():
-            return jsonify({"status": "healthy", "service": "mao-backend"})
+    def run_subprocess_mode(self):
+        """Run in subprocess mode for TypeScript communication"""
+        self.subprocess_mode = True
+        
+        # Send ready signal
+        self.send_message({
+            "type": "ready",
+            "timestamp": datetime.utcnow().isoformat()
+        })
+        
+        # Process incoming commands from stdin
+        try:
+            for line in sys.stdin:
+                if line.strip():
+                    try:
+                        message = json.loads(line.strip())
+                        self.handle_subprocess_message(message)
+                    except json.JSONDecodeError as e:
+                        self.send_error_message(f"Invalid JSON: {e}")
+                        
+        except KeyboardInterrupt:
+            self.send_message({"type": "shutdown"})
             
-        @self.app.route('/command', methods=['POST'])
-        def execute_command():
-            data = request.json
-            command = data.get('command')
-            args = data.get('args', '')
-            
-            try:
-                result = self.route_command(command, args)
-                return jsonify(result)
-            except Exception as e:
-                return jsonify({
-                    "display_type": "error",
-                    "error_message": str(e),
-                    "timestamp": datetime.utcnow().isoformat()
-                }), 500
+    def handle_subprocess_message(self, message: Dict[str, Any]):
+        """Handle incoming message from TypeScript frontend"""
+        message_type = message.get('type')
+        command_id = message.get('command_id')
+        
+        try:
+            if message_type == 'command':
+                command = message.get('command')
+                args = message.get('args', '')
                 
-        @self.app.route('/autocomplete', methods=['GET'])
-        def autocomplete():
-            query = request.args.get('q', '')
-            suggestions = self.get_autocomplete_suggestions(query)
-            return jsonify({"suggestions": suggestions})
+                # Route to existing command handler
+                result = self.route_command(command, args)
+                
+                # Send response back to TypeScript
+                self.send_command_response(command_id, result)
+                
+            elif message_type == 'ping':
+                self.send_command_response(command_id, {"status": "pong"})
+                
+            else:
+                self.send_command_response(command_id, None, f"Unknown message type: {message_type}")
+                
+        except Exception as e:
+            self.send_command_response(command_id, None, str(e))
             
     def route_command(self, command: str, args: str = '') -> dict:
         """Route command to appropriate handler with structured response"""
-        # Import existing CLI manager
-        from orchestrator.cli_manager import CLIManager
-        
-        cli_manager = CLIManager()
-        result = cli_manager.execute_command(command, args)
+        # Import existing CLI manager (when available)
+        try:
+            from orchestrator.cli_manager import CLIManager
+            cli_manager = CLIManager()
+            result = cli_manager.execute_command(command, args)
+        except ImportError:
+            # Fallback for development/testing
+            result = {"message": f"Executed {command} with args: {args}"}
         
         # Ensure response is structured for TypeScript consumption
         if not isinstance(result, dict):
@@ -567,22 +665,57 @@ class TerminalInterface:
         
         return result
         
-    def start_server(self, host='localhost', port=8080):
-        """Start HTTP server for TypeScript integration"""
-        self.socketio.run(self.app, host=host, port=port, debug=False)
-```
+    def send_command_response(self, command_id: str, result: Dict[str, Any] = None, error: str = None):
+        """Send command response back to TypeScript"""
+        response = {
+            "type": "command_response",
+            "command_id": command_id,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        
+        if error:
+            response["error"] = error
+        else:
+            response["result"] = result
+            
+        self.send_message(response)
+        
+    def send_progress_update(self, workflow_id: str, progress_data: dict):
+        """Send progress update to TypeScript client"""
+        self.send_message({
+            "type": "progress_update",
+            "workflow_id": workflow_id,
+            "data": progress_data,
+            "timestamp": datetime.utcnow().isoformat()
+        })
+        
+    def send_message(self, message: Dict[str, Any]):
+        """Send JSON message to TypeScript via stdout"""
+        if self.subprocess_mode:
+            print(json.dumps(message), flush=True)
+            
+    def send_error_message(self, error: str):
+        """Send error message to TypeScript"""
+        self.send_message({
+            "type": "error",
+            "error": error,
+            "timestamp": datetime.utcnow().isoformat()
+        })
 
-### WebSocket Progress Updates
-```python
-# Add to ui_terminal.py
-def emit_progress_update(self, workflow_id: str, progress_data: dict):
-    """Emit real-time progress updates to TypeScript client"""
-    self.socketio.emit('progress_update', {
-        'type': 'progress_update',
-        'workflow_id': workflow_id,
-        'data': progress_data,
-        'timestamp': datetime.utcnow().isoformat()
-    })
+# Add subprocess mode argument parsing
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--subprocess-mode', action='store_true', 
+                       help='Run in subprocess mode for TypeScript communication')
+    args = parser.parse_args()
+    
+    interface = TerminalInterface()
+    
+    if args.subprocess_mode:
+        interface.run_subprocess_mode()
+    else:
+        # Normal terminal mode (existing functionality)
+        interface.launch_terminal_ui_smart()
 ```
 
 ---
@@ -605,13 +738,10 @@ def emit_progress_update(self, workflow_id: str, progress_data: dict):
   },
   "dependencies": {
     "ink": "^4.4.0",
-    "react": "^18.2.0",
-    "axios": "^1.6.0",
-    "ws": "^8.14.0"
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
-    "@types/ws": "^8.5.0",
     "typescript": "^5.0.0",
     "ts-node": "^10.9.0",
     "@types/node": "^20.0.0",
@@ -656,11 +786,11 @@ def emit_progress_update(self, workflow_id: str, progress_data: dict):
 ### Phase 1: Foundation Setup
 1. **Initialize TypeScript Project**
    ```bash
-   mkdir mao-terminal-ui
-   cd mao-terminal-ui
+   mkdir interfaces/terminal-ui
+   cd interfaces/terminal-ui
    npm init -y
-   npm install ink react axios ws
-   npm install -D typescript @types/react @types/ws ts-node @types/node
+   npm install ink react
+   npm install -D typescript @types/react ts-node @types/node
    ```
 
 2. **Create Basic Project Structure**
@@ -677,14 +807,14 @@ def emit_progress_update(self, workflow_id: str, progress_data: dict):
 
 ### Phase 2: Python Integration
 1. **Enhance ui_terminal.py**
-   - Add Flask HTTP server
-   - Add WebSocket support with Flask-SocketIO
+   - Add subprocess mode argument parsing
+   - Add stdin/stdout JSON message handling
    - Implement command routing to existing CLI manager
 
 2. **Test Communication Bridge**
-   - Start Python HTTP server
-   - Test TypeScript HTTP client connection
-   - Verify command execution flow
+   - Test Python subprocess spawning from TypeScript
+   - Test TypeScript subprocess communication
+   - Verify command execution flow via stdin/stdout
 
 ### Phase 3: Advanced Features
 1. **Implement AutoComplete System**
@@ -693,7 +823,7 @@ def emit_progress_update(self, workflow_id: str, progress_data: dict):
    - Integrate with conversation interface
 
 2. **Add Progress Visualization**
-   - WebSocket progress updates from Python
+   - JSON message progress updates from Python subprocess
    - Real-time progress bars and status
    - Workflow state visualization
 
@@ -796,8 +926,8 @@ describe('Python Integration', () => {
 
 ### Manual Testing Checklist
 - [ ] TypeScript compilation without errors
-- [ ] Python backend HTTP server starts
-- [ ] WebSocket connection establishes
+- [ ] Python subprocess spawns correctly
+- [ ] stdin/stdout communication works
 - [ ] All CLI commands route correctly
 - [ ] Visual protocol displays properly
 - [ ] Progress updates work in real-time
@@ -839,10 +969,11 @@ This implementation guide consolidates insights from 100+ documentation files in
 **Key Benefits:**
 - Professional terminal interface using industry-standard tools
 - Conversation-driven UX without complex menus
-- Real-time progress visualization and WebSocket updates
+- Real-time progress visualization via subprocess communication
 - Complete CLI command integration (30+ commands)
 - Rich formatting with graceful fallback patterns
 - Type-safe TypeScript implementation
+- LOCAL-first architecture with no external web services
 
 **Implementation Time Estimate:** 2-3 weeks for core functionality, 1-2 weeks for polish and testing.
 
