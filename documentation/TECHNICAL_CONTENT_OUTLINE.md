@@ -1,127 +1,180 @@
-# Comprehensive Mao Core Technical Document Outline 
-*Based on actual content analysis of docs 03-07*
+# Mao Strategic Concept Flow Documentation Outline 
+*Comprehensive narrative + architecture roadmap with improved learning progression*
 
 ---
 
-## III. 03_USER_FLOW.md ✅ **WELL DEVELOPED**
-   A. Installation and setup experience
-   B. UserID generation and security architecture
-   C. Username creation and management system
-   D. Theme selection and configuration
-   E. Session management and memory continuity architecture  
-   F. Login and application configuration settings
-   G. Chat interface and workflow creation experience
-   H. Workflow ID system and Memory MCP integration
-   I. JSON config variables explanation and 3-type schema
-   J. (Setup script execution - details in VII)
-   K. (Command creation and naming conventions - details in VII)
-   L. Workflow updates and creative evolution patterns
-
-## IV. 04_INTERFACE.md ✅ **WELL DEVELOPED**  
-   A. Terminal UI architecture (TypeScript/Node.js implementation)
-   B. Dynamic command discovery and autocomplete system
-   C. Conversation-driven interaction philosophy  
-   D. Personalized settings management architecture
-   E. Communication bridge system (Python backend integration)
-   F. Progress updates and real-time monitoring
-   G. Error handling and user communication
-   H. Conversation-first visual design protocol
-   I. Adaptive intelligence and learning patterns
-   J. (CLI command system - mentioned, architecture in orchestration)
-   K. (Tool ecosystem interface - mentioned, detailed in V)
-
-## V. 05_ORCHESTRATION.md ⚠️ **NEEDS ARCHITECTURE SECTIONS**
-   A. 🔧 Natural language goal analysis and workflow design
-   B. 🔧 Dynamic phase construction and tool selection logic  
-   C. 🔧 Resource-centric model selection and fallback strategies
-   D. 🔧 State management and persistence mechanisms
-   E. 🔧 Cross-phase communication and context sharing
-   F. 🔧 Real-time monitoring and progress tracking
-   G. 🔧 Intelligent caching and content fingerprinting
-   H. 🔧 Resource optimization and budget management
-   I. 🔧 Error handling and recovery architecture
-   J. 🔧 System health and diagnostics
-   K. 🔧 Dynamic discovery and configuration management
-   L. 🔧 Settings integration and behavioral learning
-   M. (JSON configuration processing - mentioned here, detailed in III)
-   N. (Memory MCP integration - mentioned here, detailed in VI)
-   O. **Missing: Parallel tool usage coordination**
-   P. **Missing: Parallel agent coordination patterns** 
-   Q. **Missing: Button system architecture**
-
-## VI. 06_ANALYTICS_MEMORY.md ✅ **COMPREHENSIVE**
-   A. Real-time analytics triggers and data flow architecture
-   B. Session analytics collection and tracking
-   C. Tool usage analytics and performance metrics
-   D. Intelligent cost optimization and tracking
-   E. Workflow success pattern recognition
-   F. System analytics intelligence (anonymous data)
-   G. Tool and model performance tracking
-   H. System health and optimization monitoring
-   I. Contextual intelligence and memory integration
-   J. Cross-project learning and pattern recognition
-   K. Intelligent suggestions and automation opportunities
-   L. Privacy architecture and data control systems
-   M. Anonymous collective intelligence contributions
-   N. Live performance monitoring and real-time feedback
-   O. Adaptive recommendations and learning systems
-   P. User experience integration and achievement tracking
-
-## VII. 07_AUTOMATE_INTELLIGENCE.md ⚠️ **NEEDS ARCHITECTURE SECTIONS**
-   A. (Scheduling autonomous activity - concepts covered)
-   B. (Types of triggered workflows - well documented)
-   C. 🔧 Agentic alarm clock and standardized scheduling system
-   D. 🔧 Calendar availability checking and conflict resolution
-   E. 🔧 Trigger-workflow setup system and directory management
-   F. 🔧 "Scheduled" type workflow architecture and execution
-   G. 🔧 "Project-list" type workflow management and item tracking
-   H. 🔧 "Self-assessment" type autonomous improvement system
-   I. 🔧 "Goal-assessment" type project execution framework
-   J. (Setup script automations - detailed concepts, needs implementation)
-   K. (Business automation examples - well covered narratively)
-   L. **Missing: Complete setup script implementations for all types**
+## **STRATEGIC LEARNING FLOW: Learn → Apply → Orchestrate → Analyze → Automate**
 
 ---
 
-## **STATUS LEGEND**
+## III. 03_USER_FLOW.md - **FOUNDATION LEARNING** ✅ *Well Developed*
+### **Narrative Points (Existing Content)**
+   A. Installation and setup experience walkthrough
+   B. Username/UserID generation and security story  
+   C. Theme selection and configuration journey
+   D. Session management and memory continuity experience
+   E. Login and application configuration settings tour
+   F. Chat interface and natural conversation flow
+   G. Workflow creation conversation and planning experience
+   H. JSON config variables explanation and user understanding
+   I. Workflow updates and creative evolution stories
 
-✅ **WELL DEVELOPED** - Content and architecture sections complete
-⚠️ **NEEDS ARCHITECTURE SECTIONS** - Good content but missing technical implementation details
-🔧 **Architecture Needed** - Placeholder sections requiring code implementation details
-**(Concept)** - Mentioned but detailed elsewhere
-**Missing:** - Identified gaps needing addition
-
----
-
-## **KEY CROSS-REFERENCES IDENTIFIED**
-
-- **Setup Scripts**: Mentioned in III-J,K → Detailed in VII-D,E,F,G,H,I,J,L
-- **JSON Configs**: Detailed in III-I → Referenced in V-M  
-- **Memory MCP**: Detailed in III-E,H → Referenced in V-N → Comprehensive in VI-I,J
-- **CLI Commands**: Mentioned in IV-J → Architecture needed in V
-- **Tool Integration**: Mentioned in IV-K → Architecture needed in V
-- **Button System**: Missing from V but needed for complete tool architecture
-- **Parallel Operations**: Missing from V but critical for orchestration completeness
-
----
-
-## **IMPLEMENTATION PRIORITIES**
-
-### **Immediate Architecture Needs (🔧)**
-1. **05_ORCHESTRATION.md** - 12 architecture sections needed
-2. **07_AUTOMATE_INTELLIGENCE.md** - 7 architecture sections + setup scripts
-3. **Missing concepts** - Parallel tool usage, parallel agents, button system
-
-### **Content Expansion Needs** 
-1. **Types of workflows Mao can handle** - Add to III or V
-2. **Complete tool ecosystem coverage** - Add to V  
-3. **Setup script implementation guides** - Complete in VII
-
-### **Cross-Reference Integration**
-1. **Internal linking system** - Connect mentioned concepts to detailed sections
-2. **Architecture distribution** - Ensure no gaps between narrative and technical depth
-3. **Visual diagram integration** - Strategic placement for maximum clarity
+### **Architecture Points (Technical Implementation)**
+   J. **UserID Generation System** - Mathematical operations, `meid` script, deterministic creation ✅
+   K. **Memory MCP Integration** - Session persistence, workflow context, cross-session continuity ✅  
+   L. **Chat Interface & Terminal UI** - Conversation bridge, single-screen experience ✅
+   M. **Workflow ID System** - Generation, tracking, Memory MCP coordination ✅
+   N. **JSON Configuration Architecture** - 3-type schema, template system, validation ✅
+   O. **🔧 MOVED HERE: Basic Setup Script System** - Foundational workflow-to-executable transformation
+   P. **🔧 MOVED HERE: Command Creation Architecture** - Basic custom command generation and installation
 
 ---
 
-*This outline reflects the actual current state of documentation and provides a clear roadmap for completing the technical architecture sections while preserving the excellent narrative content already written.*
+## IV. 04_INTERFACE.md - **APPLICATION LAYER** ✅ *Well Developed*
+### **Narrative Points (Existing Content)**  
+   A. Terminal UI experience and professional design
+   B. Dynamic command discovery and user experience
+   C. Conversation-driven philosophy and no-menu approach
+   D. Personalized settings and adaptive intelligence
+   E. Communication bridge between frontend and backend
+   F. Progress updates and real-time feedback experience
+   G. Error handling and conversational recovery
+   H. Visual design protocol and user-focused aesthetics
+
+### **Architecture Points (Technical Implementation)**
+   I. **Terminal UI Implementation** - TypeScript/Node.js frontend, subprocess communication ✅
+   J. **🔧 MOVED HERE: CLI Command System Architecture** - 3-file pattern, discovery, argument processing
+   K. **🔧 MOVED HERE: Slash Command Integration** - Command routing, autocomplete, validation
+   L. **Communication Bridge System** - Python backend integration, JSON protocols ✅
+   M. **Settings Management Architecture** - Modular JSON configs, user preferences, delta storage ✅
+   N. **Progress Visualization System** - Real-time monitoring, status updates, user feedback ✅
+   O. **Adaptive Intelligence Engine** - User pattern learning, contextual suggestions ✅
+
+---
+
+## V. 05_ORCHESTRATION.md - **CORE MAGIC** ⚠️ *Needs Architecture Implementation*
+### **Narrative Points (Existing Content)**
+   A. Natural language goal processing story
+   B. Dynamic workflow phase construction narrative  
+   C. Resource-centric model selection approach
+   D. State management and workflow lifecycle story
+   E. Cross-phase communication philosophy
+   F. Real-time monitoring and user feedback experience
+   G. Intelligent caching and efficiency narrative
+   H. Budget management and cost optimization story
+   I. Error handling and graceful recovery experience
+   J. System health and self-monitoring narrative
+   K. Dynamic discovery and modular capabilities story
+   L. Settings integration and behavioral learning narrative
+
+### **Architecture Points (Technical Implementation)**
+   M. **🔧 Goal Analysis and Workflow Design** - Natural language processing, task decomposition, workflow planning
+   N. **🔧 Dynamic Phase Construction** - Phase creation patterns, tool selection logic, adaptive building
+   O. **🔧 Resource Management** - Model selection, capability analysis, fallback strategies
+   P. **🔧 State Management** - Workflow tracking, persistence mechanisms, recovery capabilities  
+   Q. **🔧 Context Sharing** - Inter-phase communication, semantic understanding, data flow
+   R. **🔧 Real-Time Monitoring** - Progress tracking, metrics collection, performance analysis
+   S. **🔧 Intelligent Caching** - Content fingerprinting, cache validity, performance optimization
+   T. **🔧 Resource Optimization** - Cost tracking, budget management, efficiency strategies
+   U. **🔧 Error Handling Framework** - Categorization, recovery strategies, graceful degradation
+   V. **🔧 System Health** - Diagnostics, monitoring, capacity planning
+   W. **🔧 Dynamic Discovery** - Component scanning, configuration detection, capability mapping
+   X. **🔧 MOVED HERE: Parallel Tool Usage Coordination** - Multi-tool orchestration, resource sharing
+   Y. **🔧 MOVED HERE: Parallel Agent Coordination** - Agent handoffs, communication, conflict resolution  
+   Z. **🔧 MOVED HERE: Button System Architecture** - Tool integration, snippet generation, orchestrator coordination
+
+---
+
+## VI. 06_ANALYTICS_MEMORY.md - **INTELLIGENCE ENHANCEMENT** ✅ *Comprehensive*
+### **Narrative Points (Existing Content)**
+   A. Emotional intelligence and contextual awareness story
+   B. Real-time analytics philosophy and privacy approach
+   C. Cost optimization intelligence narrative
+   D. Workflow success pattern recognition story
+   E. System health and collective intelligence approach
+   F. Privacy architecture and user control philosophy
+   G. Cross-project learning and memory evolution story
+   H. Adaptive recommendations and personalization narrative
+
+### **Architecture Points (Technical Implementation)**  
+   I. **Real-Time Analytics System** - Trigger points, data flow, collection architecture ✅
+   J. **Session Analytics** - Tracking, metrics, performance analysis ✅
+   K. **Tool Usage Analytics** - Performance tracking, efficiency measurement ✅
+   L. **Cost Intelligence** - Optimization analysis, budget tracking, prediction ✅
+   M. **Pattern Recognition** - Success analysis, workflow optimization ✅
+   N. **System Analytics** - Anonymous aggregation, performance monitoring ✅
+   O. **Memory MCP Integration** - Knowledge graph, entity management, search ✅
+   P. **Privacy Architecture** - Data separation, anonymization, GDPR compliance ✅
+   Q. **Cross-Project Learning** - Pattern application, insight accumulation ✅
+   R. **Adaptive Recommendations** - Learning engine, personalization, feedback loops ✅
+   S. **Live Performance Monitoring** - Real-time feedback, optimization suggestions ✅
+
+---
+
+## VII. 07_AUTOMATE_INTELLIGENCE.md - **AUTONOMOUS OPERATIONS** ⚠️ *Needs Architecture Implementation*
+### **Narrative Points (Existing Content)**
+   A. Scheduling autonomous activity philosophy 
+   B. Conceptualizing business value and AI autonomy
+   C. Types of triggered workflows explanation (4 types well documented)
+   D. Agentic alarm clock concept and scheduling philosophy
+   E. Trigger-workflow setup differences and directory structure
+   F. Business automation examples and value creation stories
+   G. Attention reduction and autonomous business operations narrative
+
+### **Architecture Points (Technical Implementation)**
+   H. **🔧 Agentic Scheduling System** - Calendar codes, frequency management, conflict resolution
+   I. **🔧 Calendar Availability Engine** - `/avail` command system, optimization algorithms  
+   J. **🔧 BUILDS ON III: Triggered Setup Scripts** - Complex variations of basic setup system
+   K. **🔧 "Scheduled" Workflow Architecture** - Recurring execution, state management
+   L. **🔧 "Project-List" Workflow System** - List management, item tracking, progression
+   M. **🔧 "Self-Assessment" Workflow Engine** - Autonomous improvement, sub-task generation
+   N. **🔧 "Goal-Assessment" Workflow Framework** - Strategic planning, execution monitoring
+   O. **🔧 Calendaring JSON System** - Unified scheduling object, type management
+   P. **🔧 Directory Management** - Automated organization, naming conventions, file coordination
+
+---
+
+## **STRATEGIC CROSS-REFERENCES** 
+
+### **Foundation → Advanced Building Pattern**
+- **Setup Scripts**: Foundation (III-O,P) → Advanced Triggered Variants (VII-J,K,L,M,N)
+- **CLI Commands**: Interface Architecture (IV-J,K) → Advanced Scheduling Commands (VII-H,I)
+- **Memory Integration**: User Experience (III-K) → Analytics Deep Dive (VI-O) → Autonomous Usage (VII)
+- **JSON Configs**: User Understanding (III-N) → Orchestration Processing (V) → Triggered Extensions (VII-O)
+
+### **Behind-the-Scenes Integration**
+- **User sees**: Workflow creation conversation (III-G)
+- **Orchestrator does**: Parallel coordination, button generation, agent management (V-X,Y,Z)
+- **System learns**: Pattern recognition, optimization, recommendations (VI)
+- **Automation applies**: Autonomous execution, self-improvement (VII)
+
+### **Concept Flow Dependencies**
+1. **Learn foundations** (III) - UserID, Memory, basic setup, JSON concepts
+2. **Apply through interface** (IV) - CLI systems, commands, real-time feedback  
+3. **Orchestrate intelligently** (V) - Parallel operations, coordination, advanced workflow magic
+4. **Analyze and remember** (VI) - Pattern recognition, learning, optimization
+5. **Automate operations** (VII) - Triggered workflows, autonomous business operations
+
+---
+
+## **IMPLEMENTATION STATUS**
+
+### **✅ Content Complete** 
+- III: 16 total concepts (9 narrative + 7 architecture) - *Well balanced*
+- IV: 15 total concepts (8 narrative + 7 architecture) - *Well balanced*  
+- VI: 19 total concepts (8 narrative + 11 architecture) - *Comprehensive*
+
+### **⚠️ Architecture Implementation Needed**
+- V: 26 total concepts (12 narrative + 14 architecture) - *Heavy architecture load but appropriate for core*
+- VII: 16 total concepts (7 narrative + 9 architecture) - *Good balance once implemented*
+
+### **🔧 Priority Architecture Sections**
+1. **V-X,Y,Z** - Parallel operations and button system (missing core concepts)
+2. **V-M through W** - Core orchestration architecture (11 sections)  
+3. **VII-H through P** - Triggered workflow systems (9 sections)
+4. **IV-J,K** - CLI command architecture (moved here for better flow)
+5. **III-O,P** - Basic setup script architecture (foundational)
+
+---
+
+*This finalized outline creates optimal learning progression while ensuring comprehensive coverage of both user experience narrative and technical implementation architecture. Ready for STEP 2: File mapping and location notation.*
