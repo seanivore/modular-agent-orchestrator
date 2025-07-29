@@ -7,11 +7,12 @@
 3. Read: 
     `./CLAUDE.md` --> Complete development rules including new UI Development Guidelines section
     `./documentation/10_AI_DEV_INDEX.md` --> Complete Python backend architecture understanding
+    `./documentation/02_REFERENCE.md` --> Complete reference documentation for the project  
     `./versioning/v4_0_0/IMPL_UI/UI_CURRENT_STATE.md`--> Current working UI implementation state
 4. Architecture Flow: User Input → ChatInterface.tsx → PythonBridge.ts → ui_terminal.py → orchestrator/ → Response
-5. Current Working: interfaces/mao/ with Ink 6.1+, React 19.1+, subprocess communication 
+5. Current Working: `./interfaces/mao/` with Ink 6.1+, React 19.1+, subprocess communication 
 
-## Pristine Logic Documents  
+## Pristine Logic  
 
 As we were setting it up earlier, the context window was large and AI was making mistakes. My main concern is that we have two documents with VERY clearly defined logic and we need to make sure the implementation is exactly as described and pictured. 
 
@@ -244,6 +245,7 @@ I thought I would have more types of block text than the below, but this is all 
   - The icons and one branch down are accurate to high-fidelity designs as well 
   - All un-highlighted text is MAIN text color 
   - Please pull the logic and strategy implied by the placement of these specific highlights and write it out clearly and place it on the implementation document 
+  - HIGH-FIDELITY EXAMPLE that is what the terminal could display, only without color, pretty much exactly as shown 
 
 ```
 ●   **Task** (Project memory updates)
