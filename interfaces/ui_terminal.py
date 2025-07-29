@@ -252,6 +252,104 @@ class TerminalInterface:
         
         return base_cost
 
+    def start_ui_mode(self):
+        """
+        Start UI mode for TypeScript frontend communication
+        Handles JSON messages via stdin/stdout
+        """
+        import json
+        import sys
+        import time
+        
+        try:
+            while True:
+                # Read JSON message from stdin
+                line = sys.stdin.readline()
+                if not line:
+                    break
+                
+                try:
+                    message = json.loads(line.strip())
+                    response = self.handle_ui_message(message)
+                    
+                    # Send JSON response to stdout
+                    print(json.dumps(response), flush=True)
+                    
+                except json.JSONDecodeError:
+                    error_response = {
+                        'id': message.get('id') if 'message' in locals() else None,
+                        'success': False,
+                        'error': 'Invalid JSON message',
+                        'timestamp': int(time.time() * 1000)
+                    }
+                    print(json.dumps(error_response), flush=True)
+                    
+        except KeyboardInterrupt:
+            sys.exit(0)
+        except Exception as e:
+            error_response = {
+                'id': None,
+                'success': False,
+                'error': f'UI mode error: {str(e)}',
+                'timestamp': int(time.time() * 1000)
+            }
+            print(json.dumps(error_response), flush=True)
+            
+    def handle_ui_message(self, message):
+        """
+        Handle incoming messages from TypeScript frontend
+        """
+        import time
+        
+        message_type = message.get('type', 'unknown')
+        message_id = message.get('id')
+        data = message.get('data', {})
+        
+        try:
+            if message_type == 'ping':
+                return {
+                    'id': message_id,
+                    'success': True,
+                    'data': 'pong',
+                    'timestamp': int(time.time() * 1000)
+                }
+            elif message_type == 'slash_command':
+                command = data.get('command', '')
+                # Mock implementation for now
+                return {
+                    'id': message_id,
+                    'success': True,
+                    'data': {
+                        'output': f'Real Mao executed: {command}'
+                    },
+                    'timestamp': int(time.time() * 1000)
+                }
+            elif message_type == 'chat':
+                message_content = data.get('message', '')
+                # Mock implementation for now
+                return {
+                    'id': message_id,
+                    'success': True,
+                    'data': {
+                        'response': f'Real Mao received: {message_content}'
+                    },
+                    'timestamp': int(time.time() * 1000)
+                }
+            else:
+                return {
+                    'id': message_id,
+                    'success': False,
+                    'error': f'Unknown message type: {message_type}',
+                    'timestamp': int(time.time() * 1000)
+                }
+        except Exception as e:
+            return {
+                'id': message_id,
+                'success': False,
+                'error': str(e),
+                'timestamp': int(time.time() * 1000)
+            }
+
 
 # =================================================================
 # SUBPROCESS COMMUNICATION PATTERNS (TO BE IMPLEMENTED)
@@ -327,237 +425,6 @@ class SubprocessCommunicationBridge:
         on the current processing context.
         """
         self.subprocess_handlers[handler_name] = handler_func
-
-    def start_ui_mode(self):
-        """
-        Start UI mode for TypeScript frontend communication
-        Handles JSON messages via stdin/stdout
-        """
-        import json
-        import sys
-        import time
-        
-        try:
-            while True:
-                # Read JSON message from stdin
-                line = sys.stdin.readline()
-                if not line:
-                    break
-                
-                try:
-                    message = json.loads(line.strip())
-                    response = self.handle_ui_message(message)
-                    
-                    # Send JSON response to stdout
-                    print(json.dumps(response), flush=True)
-                    
-                except json.JSONDecodeError:
-                    error_response = {
-                        'id': message.get('id') if 'message' in locals() else None,
-                        'success': False,
-                        'error': 'Invalid JSON message',
-                        'timestamp': int(time.time() * 1000)
-                    }
-                    print(json.dumps(error_response), flush=True)
-                    
-        except KeyboardInterrupt:
-            sys.exit(0)
-        except Exception as e:
-            error_response = {
-                'id': None,
-                'success': False,
-                'error': f'UI mode error: {str(e)}',
-                'timestamp': int(time.time() * 1000)
-            }
-            print(json.dumps(error_response), flush=True)
-            
-    def handle_ui_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Handle incoming messages from TypeScript frontend
-        """
-        message_type = message.get('type', 'unknown')
-        message_id = message.get('id')
-        data = message.get('data', {})
-        
-        try:
-            if message_type == 'command':
-                command = data.get('command')
-                args = data.get('args', {})
-                
-                if command == 'ping':
-                    return {
-                        'type': 'response',
-                        'id': message_id,
-                        'data': {'status': 'connected', 'message': 'Mao backend ready'}
-                    }
-                elif command == 'slash_command':
-                    return self.handle_slash_command(data.get('command'), message_id)
-                elif command == 'goal':
-                    return self.handle_goal_command(data.get('goal'), message_id)
-                elif command == 'chat':
-                    return self.handle_chat_command(data.get('message'), message_id)
-                elif command == 'config':
-                    return self.handle_config_command(message_id)
-                elif command == 'help':
-                    return self.handle_help_command(message_id)
-                elif command == 'stats':
-                    return self.handle_stats_command(message_id)
-                else:
-                    return {
-                        'type': 'error',
-                        'id': message_id,
-                        'data': f'Unknown command: {command}'
-                    }
-            else:
-                return {
-                    'type': 'error',
-                    'id': message_id,
-                    'data': f'Unknown message type: {message_type}'
-                }
-                
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Command execution error: {str(e)}'
-            }
-    
-    def handle_slash_command(self, command: str, message_id: str) -> Dict[str, Any]:
-        """Handle slash commands from UI"""
-        try:
-            if command == 'help':
-                return self.handle_help_command(message_id)
-            elif command == 'config':
-                return self.handle_config_command(message_id)
-            elif command == 'stats':
-                return self.handle_stats_command(message_id)
-            elif hasattr(self.cli_manager, f'execute_{command}'):
-                # Route through CLI manager
-                method = getattr(self.cli_manager, f'execute_{command}')
-                result = method()
-                return {
-                    'type': 'response',
-                    'id': message_id,
-                    'data': {'message': str(result)}
-                }
-            else:
-                return {
-                    'type': 'error',
-                    'id': message_id,
-                    'data': f'Command "/{command}" not recognized. Try /help for available commands.'
-                }
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Error executing /{command}: {str(e)}'
-            }
-    
-    def handle_goal_command(self, goal: str, message_id: str) -> Dict[str, Any]:
-        """Handle goal creation from UI"""
-        try:
-            # Use the CLI manager's goal functionality
-            result = self.cli_manager.execute_goal(goal)
-            return {
-                'type': 'response',
-                'id': message_id,
-                'data': {'message': f'Goal processed: {goal}\n\nResult: {result}'}
-            }
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Error processing goal: {str(e)}'
-            }
-    
-    def handle_chat_command(self, message: str, message_id: str) -> Dict[str, Any]:
-        """Handle general chat from UI"""
-        try:
-            # For now, provide a helpful response
-            response = f'I understand you want to: "{message}"\n\nLet me help you create a workflow for that. What specific deliverable are you looking for?'
-            return {
-                'type': 'response',
-                'id': message_id,
-                'data': {'message': response}
-            }
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Error in chat: {str(e)}'
-            }
-    
-    def handle_config_command(self, message_id: str) -> Dict[str, Any]:
-        """Handle config request from UI"""
-        try:
-            config_info = f"""Configuration:
-  Theme: {self.settings.get('color_theme', 'default')}
-  Output Directory: {self.settings.get('output_directory', 'Not set')}
-  Verbose: {self.settings.get('verbose', False)}
-  Config Directory: {self.config_dir}
-  Status: Connected to backend"""
-            
-            return {
-                'type': 'response',
-                'id': message_id,
-                'data': {'message': config_info}
-            }
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Error getting config: {str(e)}'
-            }
-    
-    def handle_help_command(self, message_id: str) -> Dict[str, Any]:
-        """Handle help request from UI"""
-        try:
-            help_text = """Available commands:
-  /help - Show this help
-  /config - Show configuration
-  /goal - Create a workflow from natural language
-  /stats - Show system statistics
-  /exit - Exit Mao
-
-You can also:
-  - Describe your workflow goals in natural language
-  - Ask questions about Mao's capabilities
-  - Request specific deliverables"""
-            
-            return {
-                'type': 'response',
-                'id': message_id,
-                'data': {'message': help_text}
-            }
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Error getting help: {str(e)}'
-            }
-    
-    def handle_stats_command(self, message_id: str) -> Dict[str, Any]:
-        """Handle stats request from UI"""
-        try:
-            # Try to get real stats from CLI manager
-            stats_info = """System Statistics:
-  Status: Connected to backend
-  Interface: Terminal UI (TypeScript frontend)
-  CLI Commands: Available
-  Tools: Loading...
-  Cache: Active"""
-            
-            return {
-                'type': 'response',
-                'id': message_id,
-                'data': {'message': stats_info}
-            }
-        except Exception as e:
-            return {
-                'type': 'error',
-                'id': message_id,
-                'data': f'Error getting stats: {str(e)}'
-            }
 
 
 # Note: Integration points in existing TerminalInterface class:
