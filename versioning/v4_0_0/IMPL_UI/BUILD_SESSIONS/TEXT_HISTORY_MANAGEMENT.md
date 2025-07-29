@@ -7,6 +7,12 @@
   - I don't think we want to do this because it is handled by the actual terminal app 
   - The MacOS terminal app has scrollbar behavior that matches the entire OS; it isn't visible until you scroll 
 
+* Look at the chat to see what we need to fix most, it is sort of obvious
+  - `./Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/need-to-fix-mao-chat.png`
+  - Ask me when you are ready for me to paste each image 
+  - You can see how they're encased in a stroke container
+  - There is a high-fidelity chat in the "action lists" section below which should be taken as exact and replicate until it is perfectly the same 
+
 * Generally speaking we need to remember that the TERMINAL is our app; our only control lies in text choice, color, and white space 
 
 * Re: "Implement keyboard navigation (`↑`/`↓` arrows to scroll through history)" 
