@@ -1,5 +1,6 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {Box, Text, useInput, Spacer} from 'ink';
+import {PythonBridge} from '../api/PythonBridge.js';
 
 type Props = {
 	username: string;
@@ -15,7 +16,17 @@ type Message = {
 export default function ChatInterface({username}: Props) {
 	const [messages, setMessages] = useState<Message[]>([]);
 	const [input, setInput] = useState('');
-	const [isConnected] = useState(false);
+	const [isConnected, setIsConnected] = useState(false);
+	const [pythonBridge] = useState(() => new PythonBridge());
+
+	useEffect(() => {
+		// Check backend connection status
+		pythonBridge.ping().then(() => {
+			setIsConnected(true);
+		}).catch(() => {
+			setIsConnected(false);
+		});
+	}, [pythonBridge]);
 
 	const getMockResponse = useCallback((content: string): string => {
 		if (content.startsWith('/help')) return 'Available commands: /config, /stats, /exit, /goal';
@@ -35,17 +46,36 @@ export default function ChatInterface({username}: Props) {
 
 		setMessages(prev => [...prev, userMessage]);
 
-		// Mock response for now
-		const mockResponse = getMockResponse(content);
-		const maoMessage: Message = {
-			id: `mao-${Date.now()}`,
-			type: 'mao',
-			content: mockResponse,
-			timestamp: new Date(),
-		};
+		try {
+			let response: string;
+			
+			if (content.startsWith('/')) {
+				response = await pythonBridge.executeSlashCommand(content);
+			} else {
+				response = await pythonBridge.chat(content);
+			}
 
-		setMessages(prev => [...prev, maoMessage]);
-	}, [getMockResponse]);
+			const maoMessage: Message = {
+				id: `mao-${Date.now()}`,
+				type: 'mao',
+				content: response,
+				timestamp: new Date(),
+			};
+
+			setMessages(prev => [...prev, maoMessage]);
+		} catch (error) {
+			// Fallback to mock responses if backend fails
+			const mockResponse = getMockResponse(content);
+			const maoMessage: Message = {
+				id: `mao-${Date.now()}`,
+				type: 'mao',
+				content: mockResponse,
+				timestamp: new Date(),
+			};
+
+			setMessages(prev => [...prev, maoMessage]);
+		}
+	}, [pythonBridge, getMockResponse]);
 
 	useInput(useCallback((inputChar, key) => {
 		if (key.return && input.trim()) {
