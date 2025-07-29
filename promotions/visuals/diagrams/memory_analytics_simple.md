@@ -16,11 +16,11 @@ flowchart TD
     %% Central Intelligence
     C["MEMORY MCP<br/>single source truth<br/>cross-instance learning<br/>predictive insights"]
     
-    %% Business Impact
-    D1["FASTER DECISIONS<br/>data-driven choices"]
-    D2["LOWER COSTS<br/>optimized resource use"] 
-    D3["BETTER OUTCOMES<br/>proven successful patterns"]
-    D4["EXPONENTIAL SCALE<br/>multi-instance intelligence"]
+    %% Business Impact by Audience
+    D1["DEVS GET<br/>scale speed productivity"]
+    D2["INVESTORS GET<br/>data into dollar signs"] 
+    D3["USERS GET<br/>free time being heard"]
+    D4["EVERYONE GETS<br/>exponential intelligence"]
     
     %% Flow connections
     A1 --> B
@@ -54,4 +54,4 @@ flowchart TD
 - **Triggering Events**: Question, Task, Workflow, Cost
 - **Data Capture**: Performance, Behavior, Efficiency, Optimization  
 - **Central Intelligence**: Truth, Learning, Prediction, Insights
-- **Business Impact**: Speed, Savings, Success, Scale
+- **Business Impact**: Devs, Investors, Users, Everyone

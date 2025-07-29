@@ -9,7 +9,7 @@
 
 **See It In Action:** [User Flow Guide](03_USER_FLOW.md) - From simple goals to complex project completion in minutes
 
-**Understand The Power:** [Mao's Role](04_MAOS_ROLE.md) - How AI transitions from assistant to senior employee
+**Understand The Power:** [Mao's Flow](04_MAOS_FLOW.md) - How AI transitions from assistant to senior employee
 
 **Technical Deep Dive:** [Interface Systems](05_INTERFACE.md) → [Orchestration Core](06_ORCHESTRATION.md) - The intelligent data processing that makes magic happen
 
@@ -26,6 +26,7 @@
 **Treat Mao Like A Senior Employee**
 - Don't over-explain; they can break your project into tasks, delegate efficiently, and assess deliverables before handing off to you
 - Trust them to do what you need; with active memory you can be sure they'll remember your business's branding, and even your personal style
+- **Emotional intelligence built-in**: Mao notices when you mention "presentation on Friday" and asks "How did your presentation go?" when you log back in Monday
 - Cost conscious by design; we've reached the point where AI can turn hundreds of dollars into pennies
 
 **Expect Mao to Grow & Evolve Personally**

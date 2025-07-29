@@ -1,4 +1,4 @@
-# Section II: Quick Reference Materials
+# Section II: Quick Reference Materials 
 *Everything you need to find quickly and start immediately*
 
 ---
