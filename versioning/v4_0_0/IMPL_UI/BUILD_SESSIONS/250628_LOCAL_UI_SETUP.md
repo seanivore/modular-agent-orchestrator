@@ -7,10 +7,10 @@ Built a real JavaScript terminal interface for Mao using Node.js/Ink/React stack
 - [x] Create JavaScript terminal UI project with real tools (Node.js/Ink/React)
 - [x] Build exact visual interface matching `03_USER_FLOW.md` lines 521-537
 - [x] Establish Python ↔ JavaScript subprocess communication bridge  
-- [x] Connect to real Mao backend instead of mock responses
-- [x] Implement slash commands (`/help`, `/config`, `/stats`, `/exit`)
-- [x] Set up `mao mao` command integration
-- [x] Create global npm installation system
+- [ ] Connect to real Mao backend instead of mock responses
+- [ ] Implement slash commands (`/help`, `/config`, `/stats`, `/exit`)
+- [ ] Set up `mao mao` command integration
+- [ ] Create global npm installation system
 
 ## Project Structure Created
 
