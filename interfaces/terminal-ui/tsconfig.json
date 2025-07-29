@@ -5,15 +5,27 @@
     "lib": ["ES2020"],
     "outDir": "./build",
     "rootDir": "./src",
-    "strict": true,
+    "strict": false,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "declaration": true,
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"]
+    },
+    "noImplicitAny": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build"],
+  "ts-node": {
+    "esm": false,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  }
 }

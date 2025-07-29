@@ -194,26 +194,26 @@ class TerminalInterface:
     # =================================================================
     
     def launch_terminal_ui_smart(self):
-        """Smart terminal UI launch - now launches TypeScript interface"""
+        """Smart terminal UI launch - now launches JavaScript interface"""
         import subprocess
         import os
         
-        # Path to the TypeScript UI
+        # Path to the terminal UI
         ui_path = Path(__file__).parent / "terminal-ui"
         
         if ui_path.exists():
-            print("🚀 Launching Mao TypeScript Terminal UI...")
+            print("🚀 Launching Mao JavaScript Terminal UI...")
             try:
-                # Change to the UI directory and run npm dev
-                subprocess.run(['npm', 'run', 'dev'], cwd=ui_path, check=True)
+                # Change to the UI directory and run node directly
+                subprocess.run(['node', 'src/app.js'], cwd=ui_path, check=True)
             except subprocess.CalledProcessError:
-                print("❌ Failed to launch TypeScript UI, falling back to Python terminal")
+                print("❌ Failed to launch JavaScript UI, falling back to Python terminal")
                 self.interactive()
             except FileNotFoundError:
-                print("❌ npm not found, falling back to Python terminal")
+                print("❌ Node.js not found, falling back to Python terminal")
                 self.interactive()
         else:
-            print("❌ TypeScript UI not found, falling back to Python terminal")
+            print("❌ Terminal UI not found, falling back to Python terminal")
             self.interactive()
     
     def launch_terminal_ui_onboarding(self, data: Any = None):

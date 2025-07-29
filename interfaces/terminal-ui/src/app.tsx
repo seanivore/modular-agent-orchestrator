@@ -4,7 +4,7 @@ import { render } from 'ink';
 import { ChatInterface } from './components/ChatInterface';
 
 const App: React.FC = () => {
-  return <ChatInterface />;
+  return React.createElement(ChatInterface);
 };
 
-render(<App />);
+render(React.createElement(App) as any);

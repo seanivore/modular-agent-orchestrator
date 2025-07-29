@@ -2,9 +2,10 @@
   "name": "mao-terminal-ui",
   "version": "1.0.0",
   "description": "Mao Terminal Interface - Simple chat UI to start",
+  "type": "module",
   "main": "build/app.js",
   "scripts": {
-    "dev": "ts-node src/app.tsx",
+    "dev": "node src/app.js",
     "build": "tsc",
     "start": "node build/app.js"
   },
@@ -15,7 +16,7 @@
   "devDependencies": {
     "@types/node": "^20.19.9",
     "@types/react": "^18.3.23",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "bin": {
