@@ -261,6 +261,9 @@ class TerminalInterface:
         import sys
         import time
         
+        # Initialize logging for UI mode
+        logger.info("Starting UI mode for TypeScript frontend communication")
+        
         try:
             while True:
                 # Read JSON message from stdin
@@ -275,7 +278,8 @@ class TerminalInterface:
                     # Send JSON response to stdout
                     print(json.dumps(response), flush=True)
                     
-                except json.JSONDecodeError:
+                except json.JSONDecodeError as e:
+                    logger.error(f"JSON decode error: {e}")
                     error_response = {
                         'id': message.get('id') if 'message' in locals() else None,
                         'success': False,
@@ -315,26 +319,62 @@ class TerminalInterface:
                 }
             elif message_type == 'slash_command':
                 command = data.get('command', '')
-                # Mock implementation for now
+                # Route to real CLI manager
+                result = self.execute_cli_command(command)
                 return {
                     'id': message_id,
-                    'success': True,
+                    'success': result.get('success', True),
                     'data': {
-                        'output': f'Real Mao executed: {command}'
+                        'output': result.get('message', result.get('result', f'Command executed: {command}'))
+                    },
+                    'metadata': {
+                        'tokens': result.get('tokens', 0),
+                        'cost': result.get('cost', 0.0)
                     },
                     'timestamp': int(time.time() * 1000)
                 }
             elif message_type == 'chat':
                 message_content = data.get('message', '')
-                # Mock implementation for now
-                return {
-                    'id': message_id,
-                    'success': True,
-                    'data': {
-                        'response': f'Real Mao received: {message_content}'
-                    },
-                    'timestamp': int(time.time() * 1000)
-                }
+                # Route to real orchestrator via goal processing
+                try:
+                    # Try goal processing first for natural language
+                    result = self.execute_cli_command("goal", message_content)
+                    
+                    if result.get('success', True):
+                        response_text = result.get('result', result.get('message', 'Task completed'))
+                    else:
+                        # If goal processing fails, try direct chat
+                        try:
+                            chat_result = self.orchestrator.process_conversation(
+                                message_content, 
+                                context={'source': 'ui_terminal', 'user': 'terminal_user'}
+                            )
+                            response_text = chat_result.get('response', 'Message processed')
+                            result = chat_result
+                        except Exception:
+                            response_text = f"I understand you said: '{message_content}'. How can I help you accomplish your goals?"
+                        
+                    return {
+                        'id': message_id,
+                        'success': result.get('success', True),
+                        'data': {
+                            'response': response_text
+                        },
+                        'metadata': {
+                            'tokens': result.get('tokens', 0),
+                            'cost': result.get('cost', 0.0),
+                            'duration': result.get('duration', 0)
+                        },
+                        'timestamp': int(time.time() * 1000)
+                    }
+                except Exception as e:
+                    logger.error(f"Chat processing error: {e}")
+                    return {
+                        'id': message_id,
+                        'success': False,
+                        'error': f'Chat processing failed: {str(e)}',
+                        'timestamp': int(time.time() * 1000)
+                    }
             else:
                 return {
                     'id': message_id,

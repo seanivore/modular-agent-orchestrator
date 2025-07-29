@@ -7,10 +7,11 @@
         "mao": "./mao_v4.py"
     },
     "scripts": {
-        "install-ui": "cd interfaces/terminal-ui && npm install",
-        "build-ui": "cd interfaces/terminal-ui && npm run build",
+        "install-ui": "cd interfaces/mao && npm install",
+        "build-ui": "cd interfaces/mao && npm run build",
         "dev": "python3 mao_v4.py mao",
-        "setup": "npm run install-ui"
+        "setup": "npm run install-ui",
+        "start": "npm run build-ui && cd interfaces/mao && ./dist/cli.js"
     },
     "keywords": [
         "ai",

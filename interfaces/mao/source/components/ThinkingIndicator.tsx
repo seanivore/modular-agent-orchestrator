@@ -159,9 +159,9 @@ export default function ThinkingIndicator({
 			{/* Cat ASCII art and thinking word */}
 			<Box>
 				<Text color={colorSystem.getColor('main')}>~(=^‥^) </Text>
-				<Text>🟁 </Text>
+				<Text color={colorSystem.getColor('trusting_update_1')}>● </Text>
 				<Text color={colorSystem.getColor('processing')}>{state.contextualWord}... </Text>
-				<Text>🟅 </Text>
+				<Text color={colorSystem.getColor('trusting_update_1')}>● </Text>
 				<Text color={colorSystem.getColor('user')}>
 					({state.elapsedSeconds}s • ${state.estimatedCost.toFixed(3)} • {state.tokensUsed} tokens
 					{state.showInterruptHint && ' • esc to interrupt'})

@@ -45,7 +45,7 @@ export class SemanticHighlighter {
 				numberColor: this.colorSystem.getColor('user'),
 				actionColor: this.colorSystem.getColor('user'),
 				pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
-				errorColor: '#ff6b6b',
+				errorColor: this.colorSystem.getColor('bold'),
 				expansionColor: this.colorSystem.getColor('supplemental_2')
 			};
 		}
@@ -61,7 +61,7 @@ export class SemanticHighlighter {
 					numberColor: this.colorSystem.getColor('supplemental_2'), // Light brown for numbers
 					actionColor: this.colorSystem.getColor('main'),
 					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
-					errorColor: '#ff6b6b',
+					errorColor: this.colorSystem.getColor('bold'),
 					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
@@ -74,7 +74,7 @@ export class SemanticHighlighter {
 					numberColor: this.colorSystem.getColor('supplemental_2'),
 					actionColor: this.colorSystem.getColor('main'),
 					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
-					errorColor: '#ff6b6b',
+					errorColor: this.colorSystem.getColor('bold'),
 					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
@@ -87,7 +87,7 @@ export class SemanticHighlighter {
 					numberColor: this.colorSystem.getColor('supplemental_2'), // Light brown for numbers
 					actionColor: this.colorSystem.getColor('main'),
 					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
-					errorColor: '#ff6b6b',
+					errorColor: this.colorSystem.getColor('bold'),
 					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
@@ -101,7 +101,7 @@ export class SemanticHighlighter {
 					numberColor: this.colorSystem.getColor('supplemental_2'),
 					actionColor: this.colorSystem.getColor('bold'), // Pink for actions
 					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
-					errorColor: '#ff6b6b',
+					errorColor: this.colorSystem.getColor('bold'),
 					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
@@ -114,20 +114,20 @@ export class SemanticHighlighter {
 					numberColor: this.colorSystem.getColor('supplemental_2'),
 					actionColor: this.colorSystem.getColor('supplemental_2'),
 					pastedIndicatorColor: this.colorSystem.getColor('trusting_update_2'), // Light blue for indicators
-					errorColor: '#ff6b6b',
+					errorColor: this.colorSystem.getColor('bold'),
 					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			case 'error':
 				return {
-					borderColor: '#ff6b6b',
+					borderColor: this.colorSystem.getColor('bold'),
 					prefixColor: this.colorSystem.getColor('main'),
-					textColor: '#ff6b6b', // Red for errors
-					bulletColor: '#ff6b6b',
-					numberColor: '#ff6b6b',
-					actionColor: '#ff6b6b',
-					pastedIndicatorColor: '#ff6b6b',
-					errorColor: '#ff6b6b',
+					textColor: this.colorSystem.getColor('bold'), // Pink for errors (attention)
+					bulletColor: this.colorSystem.getColor('bold'),
+					numberColor: this.colorSystem.getColor('bold'),
+					actionColor: this.colorSystem.getColor('bold'),
+					pastedIndicatorColor: this.colorSystem.getColor('bold'),
+					errorColor: this.colorSystem.getColor('bold'),
 					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 

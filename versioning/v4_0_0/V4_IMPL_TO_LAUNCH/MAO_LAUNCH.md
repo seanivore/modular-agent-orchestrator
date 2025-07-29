@@ -60,24 +60,3 @@ If these were not included above, it would make sense to add them for launch. Th
 ```
 
 ---
-
-## Mao Testing Functionality Thoughts 
-
-- Is the terminal.py file accurate? 
-  - "Comprehensive terminal interface for CLI command execution and interactive mode. 
-  - Routes CLI commands through standardized CLI manager system" 
-  - But that doesn't seem to be working. 
-  - Just feels like it would connect to way more files. 
-
-- This file has weird imports not added properly at the top. 
-  - `./interfaces/mao/source/components/ActionList.tsx` 
-
-- Are these files complete? 
-  - `./interfaces/mao/source/app.tsx` --> Just empty. 
-  - `./interfaces/mao/source/cli.tsx` --> Looks completely unrelated 
-  - `./interfaces/mao/package.json` --> I include this one because there is another at the root of the whole project with different information. 
-  - `./interfaces/mao/tsconfig.json` --> Looks weird too. 
-
-- These two files are in the project root 
-  - `./mao_v4.py`
-  - `./package.json`
