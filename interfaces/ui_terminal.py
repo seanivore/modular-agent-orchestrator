@@ -193,20 +193,28 @@ class TerminalInterface:
     # TERMINAL UI LAUNCH METHODS (for CLI commands)
     # =================================================================
     
-    def launch_terminal_ui_smart(self, data: Any = None):
-        """Smart launch - quick for returning users, onboarding for new users (mao mao)"""
-        try:
-            # Import the CLI command and execute it
-            from configs.cli.mao.mao import execute_command
-            result = execute_command(data)
-            
-            if result.get("success"):
-                print(f"SUCCESS: {result.get('message', 'Terminal UI launched')}")
-            else:
-                print(f"ERROR: {result.get('message', 'Failed to launch terminal UI')}")
-                
-        except Exception as e:
-            print(f"ERROR: Failed to launch terminal UI: {str(e)}")
+    def launch_terminal_ui_smart(self):
+        """Smart terminal UI launch - now launches TypeScript interface"""
+        import subprocess
+        import os
+        
+        # Path to the TypeScript UI
+        ui_path = Path(__file__).parent / "terminal-ui"
+        
+        if ui_path.exists():
+            print("🚀 Launching Mao TypeScript Terminal UI...")
+            try:
+                # Change to the UI directory and run npm dev
+                subprocess.run(['npm', 'run', 'dev'], cwd=ui_path, check=True)
+            except subprocess.CalledProcessError:
+                print("❌ Failed to launch TypeScript UI, falling back to Python terminal")
+                self.interactive()
+            except FileNotFoundError:
+                print("❌ npm not found, falling back to Python terminal")
+                self.interactive()
+        else:
+            print("❌ TypeScript UI not found, falling back to Python terminal")
+            self.interactive()
     
     def launch_terminal_ui_onboarding(self, data: Any = None):
         """Always launch with full onboarding experience (single mao)"""

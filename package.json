@@ -1,0 +1,27 @@
+{
+  "name": "@seanivore/mao",
+  "version": "4.0.0",
+  "description": "Mao - Modular Agent Orchestrator with TypeScript Terminal UI",
+  "main": "mao_v4.py",
+  "bin": {
+    "mao": "./mao_v4.py"
+  },
+  "scripts": {
+    "install-ui": "cd interfaces/terminal-ui && npm install",
+    "build-ui": "cd interfaces/terminal-ui && npm run build",
+    "dev": "python3 mao_v4.py mao",
+    "setup": "npm run install-ui"
+  },
+  "keywords": ["ai", "orchestrator", "terminal", "typescript", "agent"],
+  "author": "Sean Ivore",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seanivore/modular-agent-orchestrator.git"
+  }
+}
