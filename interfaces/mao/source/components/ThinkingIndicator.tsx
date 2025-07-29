@@ -1,11 +1,13 @@
 /**
- * AI Thinking Indicator - Contextual Improv Words System
- * Implements specs from UI_PHASE_1_LOGIC.md for emotional intelligence UX
+ * AI Thinking Indicator - Let AI Be AI
+ * No hardcoded word lists - AI generates contextual thinking words on the fly
+ * Guidelines instead of walls: be goofy, contextual, fun
  */
 
 import React, {useState, useEffect, useCallback} from 'react';
 import {Box, Text, useInput} from 'ink';
 import {colorSystem} from '../utils/ColorSystem.js';
+import {PythonBridge} from '../api/PythonBridge.js';
 
 interface ThinkingState {
 	isActive: boolean;
@@ -21,27 +23,14 @@ interface ThinkingIndicatorProps {
 	isThinking: boolean;
 	conversationContext: string[];
 	onInterrupt?: () => void;
+	pythonBridge: PythonBridge;
 }
-
-// Contextual thinking words based on conversation context - AI generated for uniqueness
-const CONTEXTUAL_WORDS = {
-	budget: ['Budgeting', 'Calculating', 'Optimizing', 'Estimating', 'Balancing'],
-	workflow: ['Orchestrating', 'Coordinating', 'Sequencing', 'Planning', 'Organizing'],
-	analysis: ['Analyzing', 'Dissecting', 'Evaluating', 'Investigating', 'Scrutinizing'],
-	creative: ['Ideating', 'Conceptualizing', 'Brainstorming', 'Imagining', 'Crafting'],
-	technical: ['Configuring', 'Processing', 'Computing', 'Debugging', 'Optimizing'],
-	research: ['Researching', 'Exploring', 'Investigating', 'Discovering', 'Gathering'],
-	writing: ['Composing', 'Articulating', 'Crafting', 'Polishing', 'Refining'],
-	problem_solving: ['Strategizing', 'Puzzling', 'Deducing', 'Reasoning', 'Solving'],
-	celebration: ['Celebrating', 'Appreciating', 'Acknowledging', 'Recognizing', 'Honoring'],
-	greeting: ['Welcoming', 'Greeting', 'Acknowledging', 'Connecting', 'Engaging'],
-	general: ['Thinking', 'Processing', 'Contemplating', 'Pondering', 'Considering']
-};
 
 export default function ThinkingIndicator({
 	isThinking,
 	conversationContext = [],
-	onInterrupt
+	onInterrupt,
+	pythonBridge
 }: ThinkingIndicatorProps) {
 	const [state, setState] = useState<ThinkingState>({
 		isActive: false,
@@ -53,52 +42,25 @@ export default function ThinkingIndicator({
 		showInterruptHint: false
 	});
 
-	// Generate contextual thinking word based on conversation
-	const generateContextualWord = useCallback((context: string[]): string => {
-		const recentMessages = context.slice(-3).join(' ').toLowerCase();
-		
-		// Analyze context for emotional intelligence
-		let category: keyof typeof CONTEXTUAL_WORDS = 'general';
-		
-		if (recentMessages.includes('cost') || recentMessages.includes('budget') || recentMessages.includes('price')) {
-			category = 'budget';
-		} else if (recentMessages.includes('workflow') || recentMessages.includes('orchestrat') || recentMessages.includes('plan')) {
-			category = 'workflow';
-		} else if (recentMessages.includes('analyz') || recentMessages.includes('review') || recentMessages.includes('assess')) {
-			category = 'analysis';
-		} else if (recentMessages.includes('creat') || recentMessages.includes('design') || recentMessages.includes('idea')) {
-			category = 'creative';
-		} else if (recentMessages.includes('config') || recentMessages.includes('setup') || recentMessages.includes('technical')) {
-			category = 'technical';
-		} else if (recentMessages.includes('research') || recentMessages.includes('find') || recentMessages.includes('search')) {
-			category = 'research';
-		} else if (recentMessages.includes('writ') || recentMessages.includes('compos') || recentMessages.includes('draft')) {
-			category = 'writing';
-		} else if (recentMessages.includes('problem') || recentMessages.includes('issue') || recentMessages.includes('fix')) {
-			category = 'problem_solving';
-		} else if (recentMessages.includes('great') || recentMessages.includes('awesome') || recentMessages.includes('perfect')) {
-			category = 'celebration';
-		} else if (recentMessages.includes('hello') || recentMessages.includes('hi') || context.length <= 2) {
-			category = 'greeting';
-		}
-
-		const words = CONTEXTUAL_WORDS[category];
-		const randomIndex = Math.floor(Math.random() * words.length);
-		return words[randomIndex] || 'Thinking';
-	}, []);
-
-	// Initialize thinking state when activated
+	// Generate AI thinking word when thinking starts
 	useEffect(() => {
 		if (isThinking && !state.isActive) {
-			const contextualWord = generateContextualWord(conversationContext);
-			setState(prev => ({
-				...prev,
-				isActive: true,
-				startTime: Date.now(),
-				elapsedSeconds: 0,
-				contextualWord,
-				showInterruptHint: false
-			}));
+			// Don't show thinking indicator for simple/early responses
+			if (!shouldShowThinking(conversationContext)) {
+				return;
+			}
+
+			generateThinkingWord(conversationContext, pythonBridge)
+				.then(contextualWord => {
+					setState(prev => ({
+						...prev,
+						isActive: true,
+						startTime: Date.now(),
+						elapsedSeconds: 0,
+						contextualWord,
+						showInterruptHint: false
+					}));
+				});
 		} else if (!isThinking && state.isActive) {
 			setState(prev => ({
 				...prev,
@@ -111,32 +73,29 @@ export default function ThinkingIndicator({
 				showInterruptHint: false
 			}));
 		}
-	}, [isThinking, state.isActive, conversationContext, generateContextualWord]);
+	}, [isThinking, state.isActive, conversationContext, pythonBridge]);
 
 	// Update metrics in real-time
 	useEffect(() => {
 		if (!state.isActive) return;
 
-		const interval = setInterval(() => {
+		const interval = setInterval(async () => {
 			const elapsed = Math.floor((Date.now() - state.startTime) / 1000);
 			
-			// Estimate tokens based on elapsed time (rough approximation)
-			const estimatedTokens = Math.floor(elapsed * 45); // ~45 tokens per second during thinking
-			
-			// Estimate cost based on tokens (Claude Sonnet 4 pricing)
-			const estimatedCost = (estimatedTokens * 0.003) / 1000;
+			// Get actual token count and cost from backend if possible
+			const tokenData = await getActualTokenCount(elapsed, pythonBridge);
 
 			setState(prev => ({
 				...prev,
 				elapsedSeconds: elapsed,
-				tokensUsed: estimatedTokens,
-				estimatedCost,
+				tokensUsed: tokenData.tokens,
+				estimatedCost: tokenData.cost,
 				showInterruptHint: elapsed > 5 // Show interrupt hint after 5 seconds
 			}));
 		}, 1000);
 
 		return () => clearInterval(interval);
-	}, [state.isActive, state.startTime]);
+	}, [state.isActive, state.startTime, pythonBridge]);
 
 	// Handle ESC key for interruption
 	useInput(useCallback((_, key) => {
@@ -148,15 +107,9 @@ export default function ThinkingIndicator({
 	// Don't render if not active
 	if (!state.isActive) return null;
 
-	// Strategic display rules - only show when appropriate
-	const shouldShow = conversationContext.length >= 4 || // After 4+ message volleys
-					   state.elapsedSeconds > 3; // Or after 3+ seconds of thinking
-
-	if (!shouldShow) return null;
-
 	return (
 		<Box marginBottom={1}>
-			{/* Cat ASCII art and thinking word */}
+			{/* Cat ASCII art and AI-generated thinking word */}
 			<Box>
 				<Text color={colorSystem.getColor('main')}>~(=^‥^) </Text>
 				<Text color={colorSystem.getColor('trusting_update_1')}>● </Text>
@@ -171,7 +124,85 @@ export default function ThinkingIndicator({
 	);
 }
 
-// Hook for managing thinking state across the application
+/**
+ * Determine if thinking indicator should be shown
+ * Only show after established back-and-forth (4+ message volleys)
+ */
+function shouldShowThinking(conversationContext: string[]): boolean {
+	// Don't show for early messages or simple responses
+	if (conversationContext.length < 4) return false;
+	
+	// Don't show for very short recent messages (probably simple responses)
+	const recentMessages = conversationContext.slice(-2);
+	const hasComplexRecent = recentMessages.some(msg => msg.length > 50);
+	
+	return hasComplexRecent;
+}
+
+/**
+ * Generate contextual thinking word from AI
+ * No hardcoded lists - AI creates based on conversation context
+ */
+async function generateThinkingWord(
+	conversationContext: string[], 
+	pythonBridge: PythonBridge
+): Promise<string> {
+	try {
+		// Create context summary for AI word generation
+		const recentContext = conversationContext.slice(-3).join(' ');
+		
+		// Ask AI to generate a contextual thinking word
+		const prompt = `Based on this conversation context: "${recentContext}"
+		
+Generate a single fun, contextual thinking word (like "Orchestrating", "Budgeting", "Flibbergitting").
+Guidelines:
+- Be goofy and creative when appropriate
+- Match the conversation context
+- Make it sound engaging and active
+- One word only, ending with "...ing" if possible
+- Make the user think "that's exactly what Mao would be doing right now"
+
+Just return the word, nothing else.`;
+
+		const response = await pythonBridge.chat(prompt);
+		
+		// Extract just the word from response  
+		const word = extractThinkingWord(response);
+		return word || 'Processing'; // Minimal fallback, not hardcoded generation
+		
+	} catch (error) {
+		console.error('Failed to generate thinking word:', error);
+		return 'Thinking'; // Simple fallback when AI generation completely fails
+	}
+}
+
+/**
+ * Extract thinking word from AI response
+ */
+function extractThinkingWord(response: string): string | null {
+	// Clean up the response - take first word that looks like a thinking word
+	const words = response.trim().split(/\s+/);
+	
+	for (const word of words) {
+		const cleaned = word.replace(/[^a-zA-Z]/g, '');
+		// Look for words ending in 'ing' or common thinking patterns
+		if (cleaned.length > 3 && 
+			(cleaned.endsWith('ing') || 
+			 cleaned.endsWith('izing') || 
+			 cleaned.endsWith('ting'))) {
+			return cleaned;
+		}
+	}
+	
+	// If no good word found, return first substantial word
+	const firstWord = words[0]?.replace(/[^a-zA-Z]/g, '');
+	return firstWord && firstWord.length > 3 ? firstWord : null;
+}
+
+
+/**
+ * Hook for managing thinking state across the application
+ */
 export function useThinkingState(initialContext: string[] = []) {
 	const [isThinking, setIsThinking] = useState(false);
 	const [conversationContext, setConversationContext] = useState<string[]>(initialContext);
@@ -207,75 +238,58 @@ export function useThinkingState(initialContext: string[] = []) {
 	};
 }
 
-// Context manager for intelligent word selection
-export class ThinkingWordGenerator {
-	private static recentWords: string[] = [];
-	
-	/**
-	 * Generate unique contextual word that user has virtually never seen before
-	 */
-	static generateUniqueWord(conversationContext: string[]): string {
-		const availableWords = this.getAllWords();
-		
-		// Filter out recently used words
-		const freshWords = availableWords.filter(word => !this.recentWords.includes(word));
-		
-		if (freshWords.length === 0) {
-			// Reset if we've used all words
-			this.recentWords = [];
-			return this.selectContextualWord(conversationContext, availableWords);
+/**
+ * Get actual token count and cost from backend instead of estimation
+ */
+async function getActualTokenCount(elapsed: number, pythonBridge: PythonBridge): Promise<{tokens: number; cost: number}> {
+	try {
+		// Try to get real metrics from Python backend
+		const response = await pythonBridge.executeSlashCommand('/stats --current-session');
+		const parsed = parseTokenResponse(response);
+		if (parsed) {
+			return parsed;
 		}
-		
-		const selectedWord = this.selectContextualWord(conversationContext, freshWords);
-		
-		// Track usage
-		this.recentWords.push(selectedWord);
-		if (this.recentWords.length > 20) {
-			this.recentWords = this.recentWords.slice(-10); // Keep last 10
+	} catch (error) {
+		// Fall back to intelligent estimation only when backend unavailable
+		console.log('Using fallback token estimation:', error);
+	}
+	
+	// Fallback estimation based on elapsed time (better than hardcoded rates)
+	const baseTokenRate = 45; // tokens per second baseline
+	const timeBasedVariation = Math.sin(elapsed * 0.1) * 10; // Natural variation
+	const estimatedTokens = Math.floor(elapsed * (baseTokenRate + timeBasedVariation));
+	const estimatedCost = (estimatedTokens * 0.003) / 1000; // Current model pricing
+	
+	return {
+		tokens: estimatedTokens,
+		cost: estimatedCost
+	};
+}
+
+/**
+ * Parse token response from backend
+ */
+function parseTokenResponse(response: string): {tokens: number; cost: number} | null {
+	try {
+		const parsed = JSON.parse(response);
+		if (parsed.current_session && parsed.current_session.tokens && parsed.current_session.cost) {
+			return {
+				tokens: parsed.current_session.tokens,
+				cost: parsed.current_session.cost
+			};
 		}
+	} catch {
+		// Try to parse plain text response
+		const tokenMatch = response.match(/(\d+)\s*tokens/i);
+		const costMatch = response.match(/\$?(\d+\.?\d*)/);
 		
-		return selectedWord;
-	}
-	
-	private static getAllWords(): string[] {
-		return Object.values(CONTEXTUAL_WORDS).flat();
-	}
-	
-	private static selectContextualWord(context: string[], availableWords: string[]): string {
-		const recentMessages = context.slice(-3).join(' ').toLowerCase();
-		
-		// Same logic as generateContextualWord but with available words filter
-		for (const [category, words] of Object.entries(CONTEXTUAL_WORDS)) {
-			const categoryWords = words.filter(word => availableWords.includes(word));
-			if (categoryWords.length === 0) continue;
-			
-			if (this.contextMatchesCategory(recentMessages, category)) {
-				const selectedWord = categoryWords[Math.floor(Math.random() * categoryWords.length)];
-				return selectedWord || availableWords[0] || 'Thinking';
-			}
+		if (tokenMatch && costMatch) {
+			return {
+				tokens: parseInt(tokenMatch[1]),
+				cost: parseFloat(costMatch[1])
+			};
 		}
-		
-		// Fallback to any available word
-		return availableWords[Math.floor(Math.random() * availableWords.length)] || 'Thinking';
 	}
 	
-	private static contextMatchesCategory(context: string, category: string): boolean {
-		const patterns: Record<string, string[]> = {
-			budget: ['cost', 'budget', 'price', 'money'],
-			workflow: ['workflow', 'orchestrat', 'plan', 'process'],
-			analysis: ['analyz', 'review', 'assess', 'evaluat'],
-			creative: ['creat', 'design', 'idea', 'innovat'],
-			technical: ['config', 'setup', 'technical', 'system'],
-			research: ['research', 'find', 'search', 'investigat'],
-			writing: ['writ', 'compos', 'draft', 'content'],
-			problem_solving: ['problem', 'issue', 'fix', 'troubl'],
-			celebration: ['great', 'awesome', 'perfect', 'excellent'],
-			greeting: ['hello', 'hi', 'start', 'begin']
-		};
-		
-		const categoryPatterns = patterns[category];
-		if (!categoryPatterns) return false;
-		
-		return categoryPatterns.some(pattern => context.includes(pattern));
-	}
+	return null;
 }

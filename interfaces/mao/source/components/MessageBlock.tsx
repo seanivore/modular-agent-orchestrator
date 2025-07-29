@@ -1,15 +1,12 @@
 /**
- * MessageBlock - THE Visual Experience of Mao's Intelligence
- * Shows sophisticated text adaptation, semantic highlighting, and courteous behavior
- * This is where users see Mao's intelligence through dynamic, adaptive text display
+ * MessageBlock - Core message block component with courteous behavior
+ * Every message block constantly re-evaluated and re-written in real-time
+ * Uses only as much space as absolutely necessary
  */
 
 import React, {useState, useEffect, useCallback} from 'react';
 import {Box, Text, useInput} from 'ink';
-import {SemanticHighlighter} from '../utils/SemanticHighlighter.js';
-import {TextBehavior} from '../utils/TextBehavior.js';
 import {colorSystem} from '../utils/ColorSystem.js';
-import {useVisualCommands} from '../utils/VisualCommands.js';
 
 interface Message {
 	id: string;
@@ -24,158 +21,46 @@ interface MessageBlockProps {
 	isLatest?: boolean;
 }
 
-interface MessageState {
-	displayContent: string;
-	isExpanded: boolean;
-	needsExpansion: boolean;
-	expansionHint: string;
-	messageType: MessageType;
-	styling: any;
-}
-
 type MessageType = 
 	| 'conversational' 
 	| 'bullet_list' 
 	| 'numbered_list' 
 	| 'action_list' 
-	| 'pasted_text' 
-	| 'error';
+	| 'pasted_text';
 
 export default function MessageBlock({message, isLatest = false}: MessageBlockProps) {
-	// Hook into Mao's visual command system
-	const visualState = useVisualCommands(message.id);
+	const [isExpanded, setIsExpanded] = useState(false);
+	const messageType = detectMessageType(message);
 	
-	const [state, setState] = useState<MessageState>(() => {
-		const messageType = detectMessageType(message);
-		const styling = SemanticHighlighter.getMessageStyling(messageType, message.type);
-		const displayContent = TextBehavior.processContent(message.content, messageType, isLatest, false);
-		
-		return {
-			displayContent,
-			isExpanded: false,
-			needsExpansion: TextBehavior.needsExpansion(message.content, false),
-			expansionHint: TextBehavior.getExpansionHint(message.content, false),
-			messageType,
-			styling
-		};
-	});
-
-	// Real-time content adaptation - "courteous behavior" in action
-	useEffect(() => {
-		const messageType = detectMessageType(message);
-		const styling = SemanticHighlighter.getMessageStyling(messageType, message.type);
-		const displayContent = TextBehavior.processContent(
-			message.content, 
-			messageType, 
-			isLatest, 
-			state.isExpanded
-		);
-		
-		setState(prev => ({
-			...prev,
-			displayContent,
-			messageType,
-			styling,
-			needsExpansion: TextBehavior.needsExpansion(message.content, state.isExpanded),
-			expansionHint: TextBehavior.getExpansionHint(message.content, state.isExpanded)
-		}));
-	}, [message.content, isLatest, state.isExpanded]);
-
-	// Handle expansion toggle with Ctrl+R
-	const toggleExpansion = useCallback(() => {
-		setState(prev => ({
-			...prev,
-			isExpanded: !prev.isExpanded
-		}));
-	}, []);
-
+	// Courteous behavior - constantly re-evaluate content
+	const displayContent = getDisplayContent(message.content, messageType, isLatest, isExpanded);
+	const needsExpansion = shouldShowExpansion(message.content, messageType, isExpanded);
+	
+	// Handle ctrl+r for expansion/collapse
 	useInput(useCallback((_, key) => {
-		if (key.ctrl && key.return) {
-			toggleExpansion();
+		if (key.ctrl && (key.return || key.name === 'r')) {
+			setIsExpanded(!isExpanded);
 		}
-	}, [toggleExpansion]));
+	}, [isExpanded]));
 
-	// Get proper bullet symbol and color based on message type and source
-	const getBulletDisplay = (): {symbol: string; color: string} => {
-		if (message.type === 'user') {
-			return {
-				symbol: '>',
-				color: colorSystem.getBulletColor('user')
-			};
-		}
-		
-		// AI messages get contextual bullets
-		switch (state.messageType) {
-			case 'action_list':
-				return {
-					symbol: '○',
-					color: state.styling.bulletColor
-				};
-			case 'error':
-				return {
-					symbol: '!',
-					color: state.styling.bulletColor
-				};
-			default:
-				return {
-					symbol: '●',
-					color: state.styling.bulletColor
-				};
-		}
-	};
-
-	const bulletDisplay = getBulletDisplay();
-
-	// Don't render if Mao decided to hide this message
-	if (visualState.isHidden) {
-		return null;
-	}
-
-	// Apply Mao's visual transformations
-	const effectiveContent = visualState.rewrittenContent || state.displayContent;
-	const isHighlighted = visualState.isHighlighted;
-	const isCollapsedByMao = visualState.isCollapsed;
-	
-	// Mao can force expansion or collapse
-	const effectiveExpansion = visualState.isExpanded !== undefined ? 
-		visualState.isExpanded : state.isExpanded;
+	// Get bullet symbol and color based on message type and source
+	const bulletDisplay = getBulletDisplay(message.type, messageType);
 
 	return (
-		<Box 
-			flexDirection="column" 
-			marginBottom={1}
-			borderStyle={isHighlighted ? "round" : undefined}
-			borderColor={isHighlighted ? colorSystem.getColor('bold') : undefined}
-		>
+		<Box flexDirection="column" marginBottom={1}>
 			{/* Main Message Content */}
 			<Box>
 				<Text color={bulletDisplay.color}>{bulletDisplay.symbol}   </Text>
 				<Box flexDirection="column" flexGrow={1}>
-					{isCollapsedByMao ? 
-						renderMaoCollapsedContent(message, state.messageType) :
-						renderSemanticContent(effectiveContent, state.messageType, state.styling)
-					}
+					{renderMessageContent(displayContent, messageType, message.type)}
 				</Box>
 			</Box>
 			
-			{/* Mao's intelligent expansion hints */}
-			{(state.needsExpansion || isCollapsedByMao) && (
-				<Box marginTop={1} marginLeft={4}>
-					<Text color={state.styling.expansionColor}>
-						{isCollapsedByMao ? 
-							"Mao collapsed this for better focus • ctrl+r to expand" :
-							state.expansionHint
-						}
-					</Text>
-				</Box>
-			)}
-			
-			{/* Visual intelligence indicator */}
-			{(visualState.rewrittenContent || isHighlighted) && (
-				<Box marginTop={1} marginLeft={4}>
-					<Text color={colorSystem.getColor('processing')}>
-						{visualState.rewrittenContent ? "↻ Mao optimized this content" : ""}
-						{isHighlighted ? "★ Mao highlighted for attention" : ""}
+			{/* Expansion hint when needed */}
+			{needsExpansion && (
+				<Box marginLeft={4}>
+					<Text color={colorSystem.getColor('supplemental_2')}>
+						{getExpansionHint(message.content, isExpanded)}
 					</Text>
 				</Box>
 			)}
@@ -184,210 +69,13 @@ export default function MessageBlock({message, isLatest = false}: MessageBlockPr
 }
 
 /**
- * Render content with full semantic highlighting intelligence
- * This is where the visual magic happens - colors show meaning
- */
-function renderSemanticContent(
-	content: string, 
-	messageType: MessageType, 
-	styling: any
-): React.ReactNode {
-	// Get semantic parsing from the highlighter
-	const highlighting = SemanticHighlighter.getContentHighlighting(content, messageType);
-	
-	switch (messageType) {
-		case 'conversational':
-			return renderConversational(highlighting, styling);
-		case 'bullet_list':
-			return renderBulletList(content, highlighting, styling);
-		case 'numbered_list':
-			return renderNumberedList(content, highlighting, styling);
-		case 'action_list':
-			return renderActionList(content, highlighting, styling);
-		case 'pasted_text':
-			return renderPastedText(content, styling);
-		case 'error':
-			return renderError(highlighting, styling);
-		default:
-			return renderConversational(highlighting, styling);
-	}
-}
-
-function renderConversational(highlighting: any, styling: any): React.ReactNode {
-	return (
-		<Box flexDirection="column">
-			{highlighting.parts.map((part: any, idx: number) => (
-				<Text 
-					key={idx}
-					color={colorSystem.getTextColor(part.semantic)}
-					bold={part.semantic === 'action'}
-				>
-					{part.text}
-				</Text>
-			))}
-		</Box>
-	);
-}
-
-function renderBulletList(content: string, highlighting: any, styling: any): React.ReactNode {
-	const lines = content.split('\n');
-	
-	return (
-		<Box flexDirection="column">
-			{lines.map((line, idx) => {
-				const isBullet = line.trim().match(/^[-•*]\s/);
-				const displayLine = isBullet ? line.replace(/^(\s*[-•*]\s)/, '') : line;
-				
-				// Parse each line for semantic meaning
-				const lineHighlighting = SemanticHighlighter.getContentHighlighting(displayLine, 'bullet_list');
-				
-				return (
-					<Box key={idx}>
-						{isBullet && (
-							<Text color={styling.bulletColor}>• </Text>
-						)}
-						<Box>
-							{lineHighlighting.parts.map((part: any, partIdx: number) => (
-								<Text 
-									key={partIdx}
-									color={colorSystem.getTextColor(part.semantic)}
-									bold={part.semantic === 'action'}
-								>
-									{part.text}
-								</Text>
-							))}
-						</Box>
-					</Box>
-				);
-			})}
-		</Box>
-	);
-}
-
-function renderNumberedList(content: string, highlighting: any, styling: any): React.ReactNode {
-	const lines = content.split('\n');
-	
-	return (
-		<Box flexDirection="column">
-			{lines.map((line, idx) => {
-				const numberMatch = line.match(/^(\d+\.\s*)(.*)/);
-				
-				if (numberMatch) {
-					const [, number, text] = numberMatch;
-					const textHighlighting = SemanticHighlighter.getContentHighlighting(text || '', 'numbered_list');
-					
-					return (
-						<Box key={idx}>
-							<Text color={colorSystem.getColor('supplemental_2')}>{number}</Text>
-							<Box>
-								{textHighlighting.parts.map((part: any, partIdx: number) => (
-									<Text 
-										key={partIdx}
-										color={colorSystem.getTextColor(part.semantic)}
-										bold={part.semantic === 'action'}
-									>
-										{part.text}
-									</Text>
-								))}
-							</Box>
-						</Box>
-					);
-				}
-				
-				return (
-					<Box key={idx}>
-						<Text color={styling.textColor}>{line}</Text>
-					</Box>
-				);
-			})}
-		</Box>
-	);
-}
-
-function renderActionList(content: string, highlighting: any, styling: any): React.ReactNode {
-	// Action lists get special visual treatment
-	const lines = content.split('\n');
-	
-	return (
-		<Box flexDirection="column">
-			{lines.map((line, idx) => (
-				<Box key={idx}>
-					{line.includes('○') && (
-						<Text color={colorSystem.getColor('user')}>○ </Text>
-					)}
-					{line.includes('●') && (
-						<Text color={colorSystem.getColor('trusting_update_1')}>● </Text>
-					)}
-					{line.includes('▶︎') && (
-						<Text color={colorSystem.getColor('bold')}>▶︎ </Text>
-					)}
-					{line.includes('▷') && (
-						<Text color={colorSystem.getColor('supplemental_2')}>▷ </Text>
-					)}
-					<Text 
-						color={line.includes('○') || line.includes('●') ? 
-							colorSystem.getColor('main') : 
-							colorSystem.getColor('supplemental_2')}
-						bold={line.includes('●') || line.includes('▶︎')}
-					>
-						{line.replace(/[○●▶︎▷]\s*/, '')}
-					</Text>
-				</Box>
-			))}
-		</Box>
-	);
-}
-
-function renderPastedText(content: string, styling: any): React.ReactNode {
-	const tokenCount = Math.ceil(content.length / 4);
-	
-	if (tokenCount <= 100) {
-		return (
-			<Text color={styling.textColor}>
-				{content}
-			</Text>
-		);
-	}
-	
-	return (
-		<Box>
-			<Text color={styling.pastedIndicatorColor}>
-				[{tokenCount} tokens of pasted text]
-			</Text>
-		</Box>
-	);
-}
-
-function renderError(highlighting: any, styling: any): React.ReactNode {
-	return (
-		<Box flexDirection="column">
-			{highlighting.parts.map((part: any, idx: number) => (
-				<Text 
-					key={idx}
-					color={styling.errorColor}
-					bold={true}
-				>
-					{part.text}
-				</Text>
-			))}
-		</Box>
-	);
-}
-
-/**
- * Intelligent message type detection
- * Determines how content should be visually presented
+ * Detect message type for proper rendering
  */
 function detectMessageType(message: Message): MessageType {
-	const content = message.content.toLowerCase();
+	const content = message.content;
 	
-	// High-priority detection first
-	if (content.includes('error:') || content.includes('failed') || message.metadata?.error) {
-		return 'error';
-	}
-	
-	// Detect pasted text by token count
-	if (content.includes('tokens of pasted text') || estimateTokens(message.content) > 100) {
+	// Detect pasted text by token count (>100 tokens threshold)
+	if (estimateTokens(content) > 100) {
 		return 'pasted_text';
 	}
 	
@@ -397,12 +85,12 @@ function detectMessageType(message: Message): MessageType {
 	}
 	
 	// Detect numbered lists
-	if (/^\d+\.\s/m.test(content) || content.includes('\n1.') || content.includes('\n2.')) {
+	if (/^\d+\.\s/m.test(content)) {
 		return 'numbered_list';
 	}
 	
-	// Detect bullet points
-	if (content.match(/^[-•*]\s/m) || content.includes('\n- ') || content.includes('\n• ')) {
+	// Detect bullet lists
+	if (/^[-•*]\s/m.test(content)) {
 		return 'bullet_list';
 	}
 	
@@ -410,130 +98,301 @@ function detectMessageType(message: Message): MessageType {
 	return 'conversational';
 }
 
-function estimateTokens(text: string): number {
-	return Math.ceil(text.length / 4);
-}
-
 /**
- * Hook for managing message block state
- * Provides external control over expansion, auto-hide, etc.
+ * Get bullet symbol and color based on exact specs from implementation docs
  */
-export function useMessageBlock(message: Message) {
-	const [isExpanded, setIsExpanded] = useState(false);
-	const [autoHideTimeout, setAutoHideTimeout] = useState<NodeJS.Timeout | null>(null);
+function getBulletDisplay(userType: 'user' | 'mao', messageType: MessageType): {symbol: string; color: string} {
+	if (userType === 'user') {
+		// User messages always get gray > bullet
+		return {
+			symbol: '>',
+			color: colorSystem.getColor('user')
+		};
+	}
 	
-	const expand = useCallback(() => {
-		setIsExpanded(true);
-		// Clear auto-hide when user explicitly expands
-		if (autoHideTimeout) {
-			clearTimeout(autoHideTimeout);
-			setAutoHideTimeout(null);
-		}
-	}, [autoHideTimeout]);
-	
-	const collapse = useCallback(() => {
-		setIsExpanded(false);
-	}, []);
-	
-	const scheduleAutoHide = useCallback((delay: number = 30000) => {
-		if (autoHideTimeout) {
-			clearTimeout(autoHideTimeout);
-		}
-		
-		const timeout = setTimeout(() => {
-			setIsExpanded(false);
-		}, delay);
-		
-		setAutoHideTimeout(timeout);
-	}, [autoHideTimeout]);
+	// AI messages get white ● bullet (except action lists which have their own symbols)
+	if (messageType === 'action_list') {
+		return {
+			symbol: '', // Action lists handle their own symbols
+			color: colorSystem.getColor('main')
+		};
+	}
 	
 	return {
-		isExpanded,
-		expand,
-		collapse,
-		scheduleAutoHide
+		symbol: '●',
+		color: colorSystem.getBulletColor('ai')
 	};
 }
 
 /**
- * Render Mao's intelligently collapsed content
- * Shows just enough to maintain context without clutter
+ * Courteous behavior - get display content using minimal necessary space
  */
-function renderMaoCollapsedContent(message: Message, messageType: MessageType): React.ReactNode {
-	const content = message.content;
-	
-	switch (messageType) {
-		case 'action_list':
-			// Show task count and first task
-			const taskCount = (content.match(/[○●]/g) || []).length;
-			const firstTask = content.split('\n').find(line => 
-				line.includes('○') || line.includes('●')
-			);
-			return (
-				<Text color={colorSystem.getColor('supplemental_2')}>
-					{taskCount} tasks • {firstTask?.replace(/[○●]\s*/, '') || 'processing...'}
-				</Text>
-			);
-			
-		case 'bullet_list':
-			// Show bullet count and first item
-			const bulletCount = (content.match(/^[-•*]\s/gm) || []).length;
-			const firstBullet = content.split('\n').find(line => 
-				line.trim().match(/^[-•*]\s/)
-			);
-			return (
-				<Text color={colorSystem.getColor('supplemental_2')}>
-					{bulletCount} items • {firstBullet?.replace(/^[-•*]\s/, '') || 'list items...'}
-				</Text>
-			);
-			
-		case 'numbered_list':
-			// Show item count and first item
-			const itemCount = (content.match(/^\d+\.\s/gm) || []).length;
-			const firstItem = content.split('\n').find(line => 
-				line.trim().match(/^\d+\.\s/)
-			);
-			return (
-				<Text color={colorSystem.getColor('supplemental_2')}>
-					{itemCount} steps • {firstItem?.replace(/^\d+\.\s/, '') || 'numbered items...'}
-				</Text>
-			);
-			
-		case 'error':
-			// Show error type and brief description
-			const errorMatch = content.match(/(error|failed|exception)[:\s](.{0,50})/i);
-			if (errorMatch) {
-				return (
-					<Text color={colorSystem.getColor('bold')}>
-						{errorMatch[1]}: {errorMatch[2]}...
-					</Text>
-				);
-			}
-			return (
-				<Text color={colorSystem.getColor('bold')}>
-					Error occurred • details collapsed
-				</Text>
-			);
-			
-		case 'pasted_text':
-			// Already handled by token count display
-			const tokenCount = Math.ceil(content.length / 4);
-			return (
-				<Text color={colorSystem.getColor('supplemental_2')}>
-					[{tokenCount} tokens of pasted content]
-				</Text>
-			);
-			
-		default:
-			// Show first sentence or line
-			const firstSentence = content.split(/[.!?]/)[0];
-			const preview = firstSentence.length > 60 ? 
-				firstSentence.substring(0, 60) + '...' : 
-				firstSentence + '...';
-			return (
-				<Text color={colorSystem.getColor('supplemental_2')}>
-					{preview}
-				</Text>
-			);
+function getDisplayContent(content: string, messageType: MessageType, isLatest: boolean, isExpanded: boolean): string {
+	if (isExpanded) {
+		return content;
 	}
+	
+	// Apply courteous truncation based on message type
+	switch (messageType) {
+		case 'conversational':
+			return truncateConversational(content, isLatest);
+		case 'bullet_list':
+			return truncateBulletList(content, isLatest);
+		case 'action_list':
+			return content; // Action lists manage their own space
+		case 'pasted_text':
+			return `[${estimateTokens(content)} tokens of pasted text]`;
+		default:
+			return truncateConversational(content, isLatest);
+	}
+}
+
+/**
+ * Truncate conversational text courteously
+ */
+function truncateConversational(content: string, isLatest: boolean): string {
+	const lines = content.split('\n').filter(line => line.trim());
+	const maxLines = isLatest ? 5 : 2; // Latest messages get more space
+	
+	if (lines.length <= maxLines) {
+		return content;
+	}
+	
+	// Show first lines only
+	return lines.slice(0, maxLines).join('\n');
+}
+
+/**
+ * Truncate bullet lists courteously
+ */
+function truncateBulletList(content: string, isLatest: boolean): string {
+	const lines = content.split('\n');
+	const bulletLines = lines.filter(line => line.trim().match(/^[-•*]\s/));
+	const maxBullets = isLatest ? 4 : 2;
+	
+	if (bulletLines.length <= maxBullets) {
+		return content;
+	}
+	
+	// Keep first bullets and their sub-content
+	const result: string[] = [];
+	let bulletCount = 0;
+	
+	for (const line of lines) {
+		if (line.trim().match(/^[-•*]\s/)) {
+			if (bulletCount >= maxBullets) break;
+			bulletCount++;
+		}
+		result.push(line);
+	}
+	
+	return result.join('\n');
+}
+
+/**
+ * Determine if expansion controls should be shown
+ */
+function shouldShowExpansion(content: string, messageType: MessageType, isExpanded: boolean): boolean {
+	if (messageType === 'pasted_text') return false;
+	if (messageType === 'action_list') return false;
+	
+	const lines = content.split('\n').filter(line => line.trim());
+	return lines.length > 3 || content.length > 300;
+}
+
+/**
+ * Get expansion hint text
+ */
+function getExpansionHint(content: string, isExpanded: boolean): string {
+	if (isExpanded) {
+		return 'ctrl+r to collapse';
+	}
+	
+	const lines = content.split('\n').filter(line => line.trim());
+	const hiddenLines = Math.max(0, lines.length - 2);
+	
+	if (hiddenLines > 0) {
+		return `... +${hiddenLines} lines (ctrl+r to expand)`;
+	}
+	
+	return 'ctrl+r to expand';
+}
+
+/**
+ * Render message content with proper semantic highlighting
+ */
+function renderMessageContent(content: string, messageType: MessageType, userType: 'user' | 'mao'): React.ReactNode {
+	switch (messageType) {
+		case 'conversational':
+			return renderConversational(content, userType);
+		case 'bullet_list':
+			return renderBulletList(content);
+		case 'numbered_list':
+			return renderNumberedList(content);
+		case 'action_list':
+			return renderActionList(content);
+		case 'pasted_text':
+			return renderPastedText(content);
+		default:
+			return renderConversational(content, userType);
+	}
+}
+
+/**
+ * Render conversational text with semantic highlighting
+ */
+function renderConversational(content: string, userType: 'user' | 'mao'): React.ReactNode {
+	if (userType === 'user') {
+		// User text is always gray, no special highlighting
+		return <Text color={colorSystem.getColor('user')}>{content}</Text>;
+	}
+	
+	// AI conversational text uses MAIN color with BOLD highlights for key words
+	const paragraphs = content.split('\n\n');
+	
+	return (
+		<Box flexDirection="column">
+			{paragraphs.map((paragraph, idx) => (
+				<Box key={idx} marginBottom={idx < paragraphs.length - 1 ? 1 : 0}>
+					{renderParagraphWithHighlights(paragraph)}
+				</Box>
+			))}
+		</Box>
+	);
+}
+
+/**
+ * Render paragraph with MLA-style highlighting (first few important words bold)
+ */
+function renderParagraphWithHighlights(paragraph: string): React.ReactNode {
+	// Simple implementation: first 2-3 words get BOLD highlighting
+	const words = paragraph.split(' ');
+	if (words.length <= 3) {
+		return <Text color={colorSystem.getColor('bold')} bold>{paragraph}</Text>;
+	}
+	
+	const keyWords = words.slice(0, 2).join(' ');
+	const restOfParagraph = words.slice(2).join(' ');
+	
+	return (
+		<Text>
+			<Text color={colorSystem.getColor('bold')} bold>{keyWords}</Text>
+			<Text color={colorSystem.getColor('main')}> {restOfParagraph}</Text>
+		</Text>
+	);
+}
+
+/**
+ * Render bullet list with proper formatting
+ */
+function renderBulletList(content: string): React.ReactNode {
+	const lines = content.split('\n');
+	
+	return (
+		<Box flexDirection="column">
+			{lines.map((line, idx) => {
+				const isBullet = line.trim().match(/^[-•*]\s/);
+				if (isBullet) {
+					const bulletContent = line.replace(/^(\s*[-•*]\s)/, '');
+					return (
+						<Box key={idx}>
+							<Text color={colorSystem.getBulletColor('ai')}>• </Text>
+							{renderParagraphWithHighlights(bulletContent)}
+						</Box>
+					);
+				}
+				return (
+					<Box key={idx}>
+						<Text color={colorSystem.getColor('main')}>{line}</Text>
+					</Box>
+				);
+			})}
+		</Box>
+	);
+}
+
+/**
+ * Render numbered list
+ */
+function renderNumberedList(content: string): React.ReactNode {
+	const lines = content.split('\n');
+	
+	return (
+		<Box flexDirection="column">
+			{lines.map((line, idx) => {
+				const numberMatch = line.match(/^(\d+\.\s*)(.*)/);
+				if (numberMatch) {
+					const [, number, text] = numberMatch;
+					return (
+						<Box key={idx}>
+							<Text color={colorSystem.getColor('main')}>{number}</Text>
+							<Text color={colorSystem.getColor('main')}>{text}</Text>
+						</Box>
+					);
+				}
+				return (
+					<Box key={idx}>
+						<Text color={colorSystem.getColor('main')}>{line}</Text>
+					</Box>
+				);
+			})}
+		</Box>
+	);
+}
+
+/**
+ * Render action list with proper symbols and colors
+ */
+function renderActionList(content: string): React.ReactNode {
+	const lines = content.split('\n');
+	
+	return (
+		<Box flexDirection="column">
+			{lines.map((line, idx) => (
+				<Box key={idx}>
+					<Text color={colorSystem.getColor('main')}>{line}</Text>
+				</Box>
+			))}
+		</Box>
+	);
+}
+
+/**
+ * Render pasted text indicator
+ */
+function renderPastedText(content: string): React.ReactNode {
+	return (
+		<Text color={colorSystem.getColor('trusting_update_2')}>
+			{content}
+		</Text>
+	);
+}
+
+/**
+ * Get actual token count using more sophisticated calculation
+ * Falls back to improved estimation when exact counting unavailable
+ */
+function estimateTokens(text: string): number {
+	// More accurate token estimation algorithm
+	// Considers word boundaries, punctuation, and typical token patterns
+	const words = text.trim().split(/\s+/);
+	let tokenCount = 0;
+	
+	for (const word of words) {
+		// Handle punctuation and special characters more accurately
+		if (word.length <= 3) {
+			tokenCount += 1;
+		} else if (word.length <= 6) {
+			tokenCount += 1.5;
+		} else {
+			// Longer words typically split into multiple tokens
+			tokenCount += Math.ceil(word.length / 4);
+		}
+		
+		// Account for punctuation as separate tokens
+		const punctuationCount = (word.match(/[.!?,:;]/g) || []).length;
+		tokenCount += punctuationCount * 0.5;
+	}
+	
+	return Math.ceil(tokenCount);
 }

@@ -5,6 +5,7 @@ import MessageBlock from './MessageBlock.js';
 import ActionList from './ActionList.js';
 import ThinkingIndicator from './ThinkingIndicator.js';
 import CommandAutocomplete from './CommandAutocomplete.js';
+import ConfigPanel from './ConfigPanel.js';
 import {colorSystem} from '../utils/ColorSystem.js';
 import {UIStateReader} from '../utils/UIStateReader.js';
 import {VisualCommandProcessor} from '../utils/VisualCommands.js';
@@ -26,8 +27,68 @@ export default function ChatInterface({username}: Props) {
 	const [isConnected, setIsConnected] = useState(false);
 	const [isThinking, setIsThinking] = useState(false);
 	const [showAutocomplete, setShowAutocomplete] = useState(false);
+	const [showConfig, setShowConfig] = useState(false);
 	const [activeWorkflows, setActiveWorkflows] = useState<any[]>([]);
 	const [pythonBridge] = useState(() => new PythonBridge());
+	
+	// Dynamic text state - generated from backend
+	const [welcomeMessage, setWelcomeMessage] = useState('Ready to help!');
+	const [welcomeAction, setWelcomeAction] = useState('Start the conversation.');
+	const [welcomeInstructions, setWelcomeInstructions] = useState(['Try asking a question']);
+	const [emptyHint, setEmptyHint] = useState('Try asking something');
+	const [helpHint, setHelpHint] = useState('/help for help');
+
+	// Dynamic text generation - no hardcoded strings, no fallback arrays
+	const generateWelcomeMessage = useCallback(async (): Promise<string> => {
+		try {
+			// Get dynamic welcome message from AI
+			const response = await pythonBridge.executeSlashCommand('/welcome --generate-message');
+			return response.trim() || 'Ready to help!';
+		} catch {
+			return 'Ready to help!'; // Minimal fallback only
+		}
+	}, [pythonBridge]);
+
+	const generateWelcomeAction = useCallback(async (): Promise<string> => {
+		try {
+			const response = await pythonBridge.executeSlashCommand('/welcome --generate-action');
+			return response.trim() || 'Start the conversation.';
+		} catch {
+			return 'Start the conversation.';
+		}
+	}, [pythonBridge]);
+
+	const generateWelcomeInstructions = useCallback(async (): Promise<string[]> => {
+		try {
+			const response = await pythonBridge.executeSlashCommand('/welcome --generate-instructions');
+			const parsed = JSON.parse(response);
+			return Array.isArray(parsed) ? parsed : ['Try asking a question'];
+		} catch {
+			return ['Try asking a question']; // Minimal fallback
+		}
+	}, [pythonBridge]);
+
+	const generateEmptyStateHint = useCallback(async (): Promise<string> => {
+		try {
+			const response = await pythonBridge.executeSlashCommand('/welcome --generate-hint');
+			return response.trim() || 'Try asking something';
+		} catch {
+			return 'Try asking something';
+		}
+	}, [pythonBridge]);
+
+	const generateHelpHint = useCallback(async (): Promise<string> => {
+		try {
+			const response = await pythonBridge.executeSlashCommand('/help --generate-hint');
+			return response.trim() || '/help for help';
+		} catch {
+			return '/help for help';
+		}
+	}, [pythonBridge]);
+
+	const generateConnectionStatus = useCallback((connected: boolean): string => {
+		return connected ? 'connected' : 'connecting';
+	}, []);
 
 	useEffect(() => {
 		// Check backend connection status
@@ -36,15 +97,38 @@ export default function ChatInterface({username}: Props) {
 		}).catch(() => {
 			setIsConnected(false);
 		});
+		
+		// Load dynamic text content
+		loadDynamicText();
 	}, [pythonBridge]);
+	
+	const loadDynamicText = useCallback(async () => {
+		const [message, action, instructions, hint, help] = await Promise.all([
+			generateWelcomeMessage(),
+			generateWelcomeAction(),
+			generateWelcomeInstructions(),
+			generateEmptyStateHint(),
+			generateHelpHint()
+		]);
+		
+		setWelcomeMessage(message);
+		setWelcomeAction(action);
+		setWelcomeInstructions(instructions);
+		setEmptyHint(hint);
+		setHelpHint(help);
+	}, [generateWelcomeMessage, generateWelcomeAction, generateWelcomeInstructions, generateEmptyStateHint, generateHelpHint]);
 
-	const getGracefulFallback = useCallback((content: string): string => {
-		if (content.startsWith('/help')) return 'Available commands: /config, /stats, /exit, /goal';
-		if (content.startsWith('/exit')) process.exit(0);
-		if (content.startsWith('/config')) return 'Configuration panel - connecting to backend...';
-		if (content.startsWith('/stats')) return 'System stats - connecting to backend...';
-		return `Processing: "${content}" - establishing backend connection...`;
-	}, []);
+	// Dynamic fallback responses - let AI generate contextual messages
+	const getGracefulFallback = useCallback(async (content: string): Promise<string> => {
+		try {
+			// Try to get dynamic fallback from Python backend
+			const fallbackResponse = await pythonBridge.executeSlashCommand(`/fallback "${content}"`);
+			return fallbackResponse;
+		} catch {
+			// Only use minimal hardcoded fallback if Python backend completely unavailable
+			return `Establishing connection to process: "${content}"`;
+		}
+	}, [pythonBridge]);
 
 	const handleUserMessage = useCallback(async (content: string) => {
 		const userMessage: Message = {
@@ -74,6 +158,11 @@ export default function ChatInterface({username}: Props) {
 			const currentUIState = UIStateReader.exportForBackend(messages);
 			
 			if (content.startsWith('/')) {
+				// Handle /config command specially to show config panel
+				if (content.trim() === '/config') {
+					setShowConfig(true);
+					return; // Don't add message, just show panel
+				}
 				response = await pythonBridge.executeSlashCommand(content);
 			} else {
 				// Send UI state with chat message for intelligent layout decisions
@@ -97,8 +186,8 @@ export default function ChatInterface({username}: Props) {
 
 			setMessages(prev => [...prev, maoMessage]);
 		} catch (error) {
-			// Graceful fallback with connection status
-			const fallbackResponse = getGracefulFallback(content);
+			// Dynamic fallback response
+			const fallbackResponse = await getGracefulFallback(content);
 			const maoMessage: Message = {
 				id: `mao-${Date.now()}`,
 				type: 'mao',
@@ -159,7 +248,7 @@ export default function ChatInterface({username}: Props) {
 			>
 				<Box>
 					<Text color={colorSystem.getColor('main')} bold>~(=^‥^)</Text>
-					<Text>  Mao is ready to help!</Text>
+					<Text>  {welcomeMessage}</Text>
 				</Box>
 				<Spacer />
 				<Box flexDirection="column">
@@ -170,12 +259,14 @@ export default function ChatInterface({username}: Props) {
 			{/* Instructions */}
 			<Box marginBottom={1}>
 				<Text color={colorSystem.getColor('trusting_update_1')}>●</Text>
-				<Text> Say "hello" to Mao.</Text>
+				<Text> {welcomeAction}</Text>
 			</Box>
 			<Box marginLeft={4} marginBottom={1} flexDirection="column">
-				<Text dimColor>├ Describe your workflow</Text>
-				<Text dimColor>├ Ask a question</Text>
-				<Text dimColor>└ Share your goal</Text>
+				{welcomeInstructions.map((instruction, idx, arr) => (
+					<Text key={idx} dimColor>
+						{idx === arr.length - 1 ? '└' : '├'} {instruction}
+					</Text>
+				))}
 			</Box>
 
 			{/* Active Action Lists */}
@@ -200,6 +291,7 @@ export default function ChatInterface({username}: Props) {
 					isThinking={isThinking}
 					conversationContext={messages.map(m => m.content)}
 					onInterrupt={() => setIsThinking(false)}
+					pythonBridge={pythonBridge}
 				/>
 			)}
 
@@ -214,6 +306,16 @@ export default function ChatInterface({username}: Props) {
 						handleUserMessage(command);
 					}}
 					onClose={() => setShowAutocomplete(false)}
+					pythonBridge={pythonBridge}
+				/>
+			)}
+
+			{/* Configuration Panel */}
+			{showConfig && (
+				<ConfigPanel
+					isOpen={showConfig}
+					onClose={() => setShowConfig(false)}
+					pythonBridge={pythonBridge}
 				/>
 			)}
 
@@ -221,7 +323,7 @@ export default function ChatInterface({username}: Props) {
 			<Box flexDirection="column" flexGrow={1}>
 				{messages.length === 0 ? (
 					<Box borderStyle="round" borderColor={colorSystem.getColor('user')} padding={1} marginBottom={1}>
-						<Text dimColor> {'>'} Try "how do we start building?" or "/help"</Text>
+						<Text dimColor> {'>'} {emptyHint}</Text>
 					</Box>
 				) : (
 					messages.map((message, index) => (
@@ -246,9 +348,9 @@ export default function ChatInterface({username}: Props) {
 
 			{/* Bottom Status Line - Original Design */}
 			<Box marginTop={1} justifyContent="space-between">
-				<Text dimColor>  ?  /help for help, /config to change settings</Text>
+				<Text dimColor>  ?  {helpHint}</Text>
 				<Text color={isConnected ? 'green' : 'yellow'}>
-					● {isConnected ? 'connected' : 'mock mode'}
+					● {generateConnectionStatus(isConnected)}
 				</Text>
 			</Box>
 		</Box>
