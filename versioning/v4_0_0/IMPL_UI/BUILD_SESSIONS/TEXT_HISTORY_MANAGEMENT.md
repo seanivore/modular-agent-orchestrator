@@ -3,28 +3,12 @@
 
 ## Regarding Phase Enhancements 
 
-* Re: "Add visual scroll indicators when content overflows" 
-  - I don't think we want to do this because it is handled by the actual terminal app 
-  - The MacOS terminal app has scrollbar behavior that matches the entire OS; it isn't visible until you scroll 
-
-* Look at the chat to see what we need to fix most, it is sort of obvious
-  - `./Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/need-to-fix-mao-chat.png`
-  - Ask me when you are ready for me to paste each image 
-  - You can see how they're encased in a stroke container
-  - There is a high-fidelity chat in the "action lists" section below which should be taken as exact and replicate until it is perfectly the same 
-
-* Generally speaking we need to remember that the TERMINAL is our app; our only control lies in text choice, color, and white space 
-
 * Re: "Implement keyboard navigation (`↑`/`↓` arrows to scroll through history)" 
   - Again, I don't want to conflict or override terminal app behavior 
   - However, Claude Code uses these keybindings, which sound somehow standardized 
   - I see known keybindings for VIM, etc. `./.claude/reference/tech_docs/CLAUDE_CODE_TERMINAL.md` 
   - They get into keyboard shortcuts even more here: `./.claude/reference/tech_docs/CLAUDE_CODE_INTERACTIVE_MODE.md` 
   - I asked Claude Code to explain the difference between interactive mode and non-interactive mode; see next section 
-
-* Re: All of the "Enhanced Message Display" items 
-  - These all seem like they would conflict with the terminal app behavior 
-  - I don't think we want to do any of them 
 
 * Enhancement Plan A: "Loading Spinners" skip as well -- we will cover this below with the "Thinking" AI Improv word -- also dont forget, spinners are for apps with multiple screens, not a single screen app like ours 
 
@@ -70,24 +54,11 @@
   - Things like how often Mao shows variables it created for them from chat -- which seems like better to hold off and do at the end -- but use the truncated version described in the lists below where they could use ctrl+b to expand and read them early if they want 
 
 * The setting up CLI section sounds great! 
-  - I didn't realize we had auto-complete set up but I just found this in our index: "def execute_slash_command(command: str, args: str) -> Dict[str, Any] def get_autocomplete_suggestions" 
-  - Also mentioned in the UI implementation guide 
-  - However, after seeing them implemented the first time, I have a lot of thoughts about presentation of them from the design UI side of things 
   - Please ask me to share this image with you; this is the very nice way the Claude Code handles it: 
   - BEFORE typing a slash: `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/before-typing-slash.png`
   - AFTER typing a slash: `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/after-typing-slash.png` 
   - The most important thing is probably the most subtle... the space you see in the before image where they show up in after, it nudged my text field up to make room for them as soon as I typed the slash -- then you use the up and down arrows to toggle through them if you want -- or you keep typing and they narrow down -- or just type what you want -- really sleek 
   - PS when I keep saying "modal but not in a container" that is what i mean in the after picture and space for it. Just like everything else, it finds room on the ONE SCREEN UI EXPERIENCE which is key 
-
-* I have reservations about the "Command History" section 
-  - Namely, we have all those keybindings introduced in the section above 
-  - Interestingly when you put the up key in Claude Code it populates your previous sent messages one by one 
-  - Can we just have the above auto-complete functionality also include recently or most used? 
-  - They're already shortcuts so I just don't want to go crazy with them -- no need for favorites or bookmarks for this reason -- this is something that wwe would learn from experience using the tool rather than implementing ahead of time 
-
-* What does "Usage analytics for command optimization" mean? 
-  - Primarily the "optimization" part of it 
-  - Initially meant, and then in the context of my notes above 
 
 * Re: Configuration Panel details 
   - Please see what happens when you run /config in Claude Code here: `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/config-slash-command-panel.png`
@@ -96,11 +67,8 @@
   - The second also gives you a visual of their themes which should be helpful because I think we need to be more categorical about the colors in the themes rather than picking colors in actuality 
   - Given so many nixed things above, I would like to implement all of the app config settings at once-- it is also more efficient -- work once not twice. 
   - Note that there is no user "save" option it just does it when you make the choice; it might be confirmed when you exit the modal 
-  - AH here is the old auto-complete functionality implemented with the bad initial UI where they didn't use typescript or node.js even though they were going to. I think we implemented it already so just be aware of the incorrect code here: `./versioning/v4_0_0/IMPL_UI/docs/og_ui_dev_flow/CLI_AUTOCOMPLETE_IMPLEMENTATION.md`
 
-* The "Enhancement Visual Polish" section goes off script with what resources we actually have 
-  - As mentioned above about the terminals -- I don't think it is picking colors it is picking CONCEPTUAL SYNTAX shades that work together for each intention 
-  - Please review this document in full: `./versioning/v4_0_0/IMPL_UI/docs/_VISUAL_BRAND_IDENTITY.md` 
+* The "Enhancement Visual Polish" section goes off script -- please review this document in full: `./versioning/v4_0_0/IMPL_UI/docs/_VISUAL_BRAND_IDENTITY.md` 
 
 * I feel like such a design HARD ASS but: 
   - NIX: "Subtle hover effects on interactive elements" 

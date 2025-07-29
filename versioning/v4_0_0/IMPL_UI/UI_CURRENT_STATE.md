@@ -20,11 +20,11 @@ interfaces/mao/
 ### What Works Right Now
 ✅ **Basic Chat Interface**: User input → Mao responses  
 ✅ **Backend Connection**: TypeScript ↔ Python subprocess communication  
-✅ **Slash Commands**: `/config`, `/stats`, `/help`, `/goal` working  
-✅ **Visual Design**: Terminal-native with 4-color semantic system  
-✅ **Mock Fallback**: Graceful degradation when backend unavailable  
-✅ **Message History**: Persistent conversation thread  
-✅ **Connection Status**: Live backend connectivity indicator  
+✅ **Slash Commands**: `/config`, `/stats`, `/help`, `/goal` working --> not true
+✅ **Visual Design**: Terminal-native with 4-color semantic system  --> I've yet to see 
+✅ **Mock Fallback**: Graceful degradation when backend unavailable  --> huh? 
+✅ **Message History**: Persistent conversation thread  --> what how what part of the implementation 
+✅ **Connection Status**: Live backend connectivity indicator  --> how do we tell? 
 
 ### Current Capabilities
 

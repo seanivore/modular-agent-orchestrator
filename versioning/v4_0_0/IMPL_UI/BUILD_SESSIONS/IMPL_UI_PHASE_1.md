@@ -14,8 +14,8 @@
 ## Design Reality Check ✅
 
 **Foundation**: We're building **for the terminal**, not recreating web app patterns  
-**Our Control**: Text choice, colors, white space, semantic meaning  
-**Terminal Handles**: Scrolling, history, keyboard shortcuts, visual indicators  
+**Our Control**: Text choice, contextual semantic color-coding, white space  
+**Terminal Handles**: Scrolling, history, keyboard shortcuts, visual indicators --> the terminal is basically the app 
 **Core Experience**: Single-screen chat interface with intelligent message blocks
 
 **Critical Design Principle**: "We hold very little and thus very careful control over all possible (few opportunities) for UX"
