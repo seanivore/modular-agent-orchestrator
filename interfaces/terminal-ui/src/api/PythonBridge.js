@@ -14,13 +14,19 @@ export class PythonBridge {
     }
 
     initializePythonProcess() {
-        // Path to the Python backend from terminal-ui directory
-        const pythonPath = path.resolve(__dirname, '../../../mao_v4.py');
+        // Path to the Python backend - go up from interfaces/terminal-ui/ to project root
+        // Current file: interfaces/terminal-ui/src/api/PythonBridge.js
+        // Target: mao_v4.py (in project root)
+        const currentDir = path.dirname(__filename);
+        const projectRoot = path.resolve(currentDir, '../../'); // up 2 levels: terminal-ui -> interfaces -> root
+        const pythonPath = path.join(projectRoot, 'mao_v4.py');
+
+        console.log('Looking for mao_v4.py at:', pythonPath);
 
         try {
             this.pythonProcess = spawn('python3', [pythonPath, '--ui-mode'], {
                 stdio: ['pipe', 'pipe', 'pipe'],
-                cwd: path.resolve(__dirname, '../../..')
+                cwd: projectRoot
             });
 
             this.pythonProcess.stdout?.on('data', (data) => {
