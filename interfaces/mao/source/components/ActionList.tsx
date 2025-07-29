@@ -237,11 +237,7 @@ export default function ActionList({
 async function generateDynamicActivities(title: string, items: ActionItem[]): Promise<string[]> {
 	try {
 		// Use AI to generate contextual activity messages
-		const context = {
-			title,
-			itemCount: items.length,
-			itemTypes: items.map(item => item.text.substring(0, 50)).join('; ')
-		};
+		// Future: could call Python backend with task context
 		
 		// This would ideally call the Python backend to generate activities
 		// For now, return minimal dynamic content

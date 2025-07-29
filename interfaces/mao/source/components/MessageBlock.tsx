@@ -4,7 +4,7 @@
  * Uses only as much space as absolutely necessary
  */
 
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {Box, Text, useInput} from 'ink';
 import {colorSystem} from '../utils/ColorSystem.js';
 
@@ -38,7 +38,7 @@ export default function MessageBlock({message, isLatest = false}: MessageBlockPr
 	
 	// Handle ctrl+r for expansion/collapse
 	useInput(useCallback((_, key) => {
-		if (key.ctrl && (key.return || key.name === 'r')) {
+		if (key.ctrl && key.return) {
 			setIsExpanded(!isExpanded);
 		}
 	}, [isExpanded]));
@@ -192,7 +192,7 @@ function truncateBulletList(content: string, isLatest: boolean): string {
 /**
  * Determine if expansion controls should be shown
  */
-function shouldShowExpansion(content: string, messageType: MessageType, isExpanded: boolean): boolean {
+function shouldShowExpansion(content: string, messageType: MessageType, _isExpanded: boolean): boolean {
 	if (messageType === 'pasted_text') return false;
 	if (messageType === 'action_list') return false;
 	

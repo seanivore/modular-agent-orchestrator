@@ -231,7 +231,7 @@ export class VisualCommandProcessor {
 	static cleanupExpiredStates(): void {
 		const now = Date.now();
 		
-		this.messageStates.forEach((state, messageId) => {
+		this.messageStates.forEach((state, _messageId) => {
 			if (state.highlightExpiry && now > state.highlightExpiry) {
 				state.isHighlighted = false;
 				delete state.highlightExpiry;

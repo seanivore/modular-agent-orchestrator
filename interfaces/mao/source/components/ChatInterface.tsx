@@ -28,7 +28,7 @@ export default function ChatInterface({username}: Props) {
 	const [isThinking, setIsThinking] = useState(false);
 	const [showAutocomplete, setShowAutocomplete] = useState(false);
 	const [showConfig, setShowConfig] = useState(false);
-	const [activeWorkflows, setActiveWorkflows] = useState<any[]>([]);
+	const [activeWorkflows] = useState<any[]>([]);
 	const [pythonBridge] = useState(() => new PythonBridge());
 	
 	// Dynamic text state - generated from backend
@@ -272,7 +272,7 @@ export default function ChatInterface({username}: Props) {
 			{/* Active Action Lists */}
 			{activeWorkflows.length > 0 && (
 				<Box flexDirection="column" marginBottom={1}>
-					{activeWorkflows.map((workflow, index) => (
+					{activeWorkflows.map((workflow) => (
 						<ActionList
 							key={workflow.id}
 							id={workflow.id}

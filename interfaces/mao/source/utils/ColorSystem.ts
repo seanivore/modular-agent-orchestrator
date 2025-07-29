@@ -106,6 +106,7 @@ class ColorSystem {
 	 */
 	getColor(semanticMeaning: keyof ColorTheme): string {
 		const theme = COLOR_THEMES[this.currentTheme];
+		if (!theme) return 'inherit';
 		return theme[semanticMeaning] || theme.main;
 	}
 	
@@ -195,8 +196,9 @@ class ColorSystem {
 	}
 }
 
-// Export singleton instance
+// Export singleton instance and class
 export const colorSystem = new ColorSystem();
+export { ColorSystem };
 
 // Set initial theme based on detection
 colorSystem.setTheme(colorSystem.detectBestTheme());

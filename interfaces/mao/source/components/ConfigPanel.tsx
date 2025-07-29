@@ -84,9 +84,11 @@ export default function ConfigPanel({isOpen, onClose, pythonBridge}: ConfigPanel
 				setSelectedIndex(prev => Math.min(themes.length - 1, prev + 1));
 			} else if (key.return || inputChar === ' ') {
 				const selectedTheme = themes[selectedIndex];
-				selectTheme(selectedTheme);
-				setCurrentSection('main');
-				setSelectedIndex(0);
+				if (selectedTheme) {
+					selectTheme(selectedTheme);
+					setCurrentSection('main');
+					setSelectedIndex(0);
+				}
 			} else if (key.escape) {
 				setCurrentSection('main');
 				setSelectedIndex(0);
@@ -257,7 +259,7 @@ function parseTextConfigOptions(response: string): ConfigOption[] {
 	
 	for (const line of lines) {
 		const match = line.trim().match(/^(\w+):\s*(.+)$/);
-		if (match) {
+		if (match && match[1] && match[2]) {
 			options.push({
 				key: match[1],
 				label: match[1].replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
@@ -268,5 +270,6 @@ function parseTextConfigOptions(response: string): ConfigOption[] {
 	}
 	
 	return options;
+}
 }
 

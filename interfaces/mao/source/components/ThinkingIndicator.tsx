@@ -283,7 +283,7 @@ function parseTokenResponse(response: string): {tokens: number; cost: number} | 
 		const tokenMatch = response.match(/(\d+)\s*tokens/i);
 		const costMatch = response.match(/\$?(\d+\.?\d*)/);
 		
-		if (tokenMatch && costMatch) {
+		if (tokenMatch && costMatch && tokenMatch[1] && costMatch[1]) {
 			return {
 				tokens: parseInt(tokenMatch[1]),
 				cost: parseFloat(costMatch[1])

@@ -3,7 +3,7 @@
  */
 
 import test from 'ava';
-import {ColorSystem, colorSystem, THEME_DISPLAY_NAMES} from '../../utils/ColorSystem.js';
+import {ColorSystem, colorSystem} from '../../utils/ColorSystem.js';
 
 test('ColorSystem - Theme switching', t => {
 	const cs = new ColorSystem();

@@ -111,7 +111,7 @@ export default function CommandAutocomplete({
 	}, [input, state.availableCommands]);
 
 	// Handle keyboard navigation
-	useInput(useCallback((inputChar, key) => {
+	useInput(useCallback((_, key) => {
 		if (!isActive || state.isLoading) return;
 
 		if (key.upArrow) {
@@ -125,8 +125,9 @@ export default function CommandAutocomplete({
 				selectedIndex: Math.min(prev.filteredCommands.length - 1, prev.selectedIndex + 1)
 			}));
 		} else if (key.return || key.tab) {
-			if (state.filteredCommands[state.selectedIndex]) {
-				onSelect(state.filteredCommands[state.selectedIndex].name);
+			const selectedCommand = state.filteredCommands[state.selectedIndex];
+			if (selectedCommand) {
+				onSelect(selectedCommand.name);
 			}
 		} else if (key.escape) {
 			onClose();
@@ -212,7 +213,7 @@ function parseTextCommandList(response: string): Command[] {
 	for (const line of lines) {
 		// Look for patterns like "/command - description"
 		const match = line.trim().match(/^(\/\w+)\s*-\s*(.+)$/);
-		if (match) {
+		if (match && match[1] && match[2]) {
 			commands.push({
 				name: match[1],
 				description: match[2],
