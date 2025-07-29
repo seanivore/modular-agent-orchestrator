@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useEffect} from 'react';
 import {Box, Text, useInput, Spacer} from 'ink';
 import {PythonBridge} from '../api/PythonBridge.js';
+import MessageBlock from './MessageBlock.js';
 
 type Props = {
 	username: string;
@@ -121,27 +122,16 @@ export default function ChatInterface({username}: Props) {
 			{/* Messages */}
 			<Box flexDirection="column" flexGrow={1}>
 				{messages.length === 0 ? (
-					<Box
-						borderStyle="round"
-						borderColor="#bbbcbb"
-						padding={1}
-						marginBottom={1}
-					>
+					<Box borderStyle="round" borderColor="#bbbcbb" padding={1} marginBottom={1}>
 						<Text dimColor> {'>'} Try "how do we start building?" or "/help"</Text>
 					</Box>
 				) : (
-					messages.map(message => (
-						<Box
-							key={message.id}
-							borderStyle="round"
-							borderColor={message.type === 'mao' ? '#f1d771' : '#bbbcbb'}
-							padding={1}
-							marginBottom={1}
-						>
-							<Text color={message.type === 'mao' ? '#f1d771' : '#bbbcbb'}>
-								{message.type === 'mao' ? '🐱 mao' : '👤 you'}: {message.content}
-							</Text>
-						</Box>
+					messages.map((message, index) => (
+						<MessageBlock 
+							key={message.id} 
+							message={message}
+							isLatest={index === messages.length - 1}
+						/>
 					))
 				)}
 			</Box>
