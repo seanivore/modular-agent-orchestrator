@@ -125,7 +125,7 @@ export default function CommandAutocomplete({
 	}, [isActive, input, availableCommands]);
 
 	// Handle keyboard navigation
-	useInput(useCallback((inputChar, key) => {
+	useInput(useCallback((_, key) => {
 		if (!state.isVisible) return;
 
 		if (key.upArrow) {

@@ -99,7 +99,7 @@ export class ColorSystem {
 
 	constructor(themeName: string = 'dark_mode') {
 		this.currentTheme = themeName;
-		this.theme = COLOR_THEMES[themeName] || COLOR_THEMES.dark_mode;
+		this.theme = COLOR_THEMES[themeName] ?? COLOR_THEMES['dark_mode']!;
 	}
 
 	/**
@@ -154,7 +154,7 @@ export class ColorSystem {
 	 * Get text color based on semantic meaning
 	 * Implements exact decision tree from _VISUAL_BRAND_IDENTITY.md
 	 */
-	getTextColor(semanticMeaning: 'action' | 'explanation' | 'user_input' | 'ai_highlight' | 'system_auto' | 'metadata'): string {
+	getTextColor(semanticMeaning: 'action' | 'explanation' | 'user_input' | 'ai_highlight' | 'system_auto' | 'metadata' | 'normal'): string {
 		switch (semanticMeaning) {
 			case 'action': // AI taking specific action - PINK and BOLD
 				return this.theme.bold;
@@ -168,6 +168,8 @@ export class ColorSystem {
 				return this.theme.main;
 			case 'metadata': // Numbers, organizational info - LIGHT BROWN
 				return this.theme.supplemental_2;
+			case 'normal': // Default text
+				return this.theme.main;
 			default:
 				return this.theme.main;
 		}

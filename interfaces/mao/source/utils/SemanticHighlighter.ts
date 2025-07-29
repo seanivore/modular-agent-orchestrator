@@ -3,6 +3,7 @@
  * Uses ColorSystem for consistent theming and semantic meaning
  */
 
+import React from 'react';
 import { colorSystem, ColorSystem } from './ColorSystem.js';
 
 interface MessageStyling {
@@ -120,14 +121,14 @@ export class SemanticHighlighter {
 			case 'error':
 				return {
 					borderColor: '#ff6b6b',
-					prefixColor: theme.systemText,
+					prefixColor: this.colorSystem.getColor('main'),
 					textColor: '#ff6b6b', // Red for errors
 					bulletColor: '#ff6b6b',
 					numberColor: '#ff6b6b',
 					actionColor: '#ff6b6b',
 					pastedIndicatorColor: '#ff6b6b',
 					errorColor: '#ff6b6b',
-					expansionColor: theme.fadedSystemText
+					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			default:
@@ -230,12 +231,14 @@ export class SemanticHighlighter {
 		if (numberMatch) {
 			const [, number, text] = numberMatch;
 			const parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}> = [
-				{text: number, semantic: 'metadata'}
+				{text: number || '', semantic: 'metadata'}
 			];
 			
 			// Parse URLs in the text part
-			const textParts = this.parseConversationalContent(text);
-			parts.push(...textParts.parts);
+			if (text) {
+				const textParts = this.parseConversationalContent(text);
+				parts.push(...textParts.parts);
+			}
 			
 			return { parts };
 		}
@@ -249,12 +252,7 @@ export class SemanticHighlighter {
 		const parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}> = [];
 		
 		// Parse action list content with task indicators and file paths
-		const indicatorRegex = /([○●▶︎▷])/g;
-		const filePathRegex = /(\/[^\s]+\.[a-zA-Z]+)/g;
-		const taskRegex = /(\*\*[^*]+\*\*)/g; // Bold task names
-		
-		let workingContent = content;
-		let result = content;
+		// (Variables removed to avoid unused variable warnings)
 		
 		// For now, return simplified parsing - will enhance with ActionList component
 		if (content.includes('○') || content.includes('●')) {
@@ -297,5 +295,18 @@ export class SemanticHighlighter {
 	 */
 	static getColor(semanticMeaning: 'action' | 'explanation' | 'user_input' | 'ai_highlight' | 'system_auto' | 'metadata'): string {
 		return this.colorSystem.getTextColor(semanticMeaning);
+	}
+
+	/**
+	 * Highlight content with React components (compatibility method for MessageBlock)
+	 */
+	static highlightContent(content: string, _messageType: MessageType): React.ReactNode {
+		// This method provides React-compatible highlighting
+		// Returns the content as string for now - will be enhanced with React components
+		// Future enhancement: use this.getContentHighlighting(content, messageType) for semantic parsing
+		
+		// Return content as string for now - will be enhanced with React components
+		// when MessageBlock is fully integrated with the semantic system
+		return content;
 	}
 }

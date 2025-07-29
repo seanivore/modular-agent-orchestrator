@@ -4,7 +4,7 @@
  * Based on UI_PHASE_1_LOGIC.md specifications
  */
 
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Box, Text} from 'ink';
 import {colorSystem} from '../utils/ColorSystem.js';
 
@@ -68,13 +68,11 @@ const ACTIVITY_MESSAGES = {
 };
 
 export default function ActionList({
-	id,
 	title,
 	type,
 	items,
 	metadata,
-	isExpanded = true,
-	onToggleExpand
+	isExpanded = true
 }: ActionListProps) {
 	const [state, setState] = useState<ActionListState>({
 		isBlinking: type === 'active',
@@ -92,7 +90,7 @@ export default function ActionList({
 		const interval = setInterval(() => {
 			setState(prev => ({
 				...prev,
-				currentActivity: activities[prev.activityIndex % activities.length],
+				currentActivity: activities[prev.activityIndex % activities.length] || '',
 				activityIndex: prev.activityIndex + 1
 			}));
 		}, 3000); // 3-second cycles as specified
@@ -100,7 +98,7 @@ export default function ActionList({
 		// Initial activity
 		setState(prev => ({
 			...prev,
-			currentActivity: activities[0]
+			currentActivity: activities[0] || ''
 		}));
 
 		return () => clearInterval(interval);
@@ -290,6 +288,8 @@ export function useActionListAutoCollapse(
 
 			return () => clearTimeout(timer);
 		}
+		// Return undefined when no cleanup needed
+		return undefined;
 	}, [type, completionTime]);
 
 	return shouldCollapse;

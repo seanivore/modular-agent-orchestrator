@@ -84,7 +84,7 @@ export default function ThinkingIndicator({
 
 		const words = CONTEXTUAL_WORDS[category];
 		const randomIndex = Math.floor(Math.random() * words.length);
-		return words[randomIndex];
+		return words[randomIndex] || 'Thinking';
 	}, []);
 
 	// Initialize thinking state when activated
@@ -139,7 +139,7 @@ export default function ThinkingIndicator({
 	}, [state.isActive, state.startTime]);
 
 	// Handle ESC key for interruption
-	useInput(useCallback((input, key) => {
+	useInput(useCallback((_, key) => {
 		if (key.escape && state.isActive && onInterrupt) {
 			onInterrupt();
 		}
@@ -250,12 +250,13 @@ export class ThinkingWordGenerator {
 			if (categoryWords.length === 0) continue;
 			
 			if (this.contextMatchesCategory(recentMessages, category)) {
-				return categoryWords[Math.floor(Math.random() * categoryWords.length)];
+				const selectedWord = categoryWords[Math.floor(Math.random() * categoryWords.length)];
+				return selectedWord || availableWords[0] || 'Thinking';
 			}
 		}
 		
 		// Fallback to any available word
-		return availableWords[Math.floor(Math.random() * availableWords.length)];
+		return availableWords[Math.floor(Math.random() * availableWords.length)] || 'Thinking';
 	}
 	
 	private static contextMatchesCategory(context: string, category: string): boolean {

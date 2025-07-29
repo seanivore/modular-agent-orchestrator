@@ -2,6 +2,11 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {Box, Text, useInput, Spacer} from 'ink';
 import {PythonBridge} from '../api/PythonBridge.js';
 import MessageBlock from './MessageBlock.js';
+// import ActionList from './ActionList.js';
+// import ThinkingIndicator, {useThinkingState} from './ThinkingIndicator.js';
+// import CommandAutocomplete, {useCommandAutocomplete, CommandHistory, useSpaceManagement} from './CommandAutocomplete.js';
+// Color system available for future theme integration
+// import {colorSystem} from '../utils/ColorSystem.js';
 
 type Props = {
 	username: string;

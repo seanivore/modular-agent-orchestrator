@@ -112,11 +112,11 @@ function renderMessageContent(
 		case 'error':
 			return renderErrorMessage(content, styling);
 		default:
-			return renderConversationalText(content, styling);
+			return renderConversationalText(content);
 	}
 }
 
-function renderConversationalText(content: string, styling: any): React.ReactNode {
+function renderConversationalText(content: string): React.ReactNode {
 	// Split into paragraphs and apply semantic highlighting
 	const paragraphs = content.split('\n\n');
 	
