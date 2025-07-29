@@ -11,11 +11,172 @@ npm run setup        # Install UI dependencies
 npm run build-ui     # Build TypeScript 
 npm run start        # Launch with username prompt
 
+```
+*ISSUES* 
+I just ran npm run build-ui from project root and got this. The same when I run npm run start. 
+
+> ~/Development/modular-agent-orchestrator > npm run build-ui             17:28
+
+> @seanivore/mao@4.0.0 build-ui
+> cd interfaces/mao && npm run build
+
+
+> mao@0.0.0 build
+> tsc
+
+source/components/ChatInterface.tsx:29:26 - error TS6133: 'setActiveWorkflows' is declared but its value is never read.
+
+29  const [activeWorkflows, setActiveWorkflows] = useState<any[]>([]);
+                            ~~~~~~~~~~~~~~~~~~
+
+source/components/ChatInterface.tsx:184:38 - error TS6133: 'index' is declared but its value is never read.
+
+184      {activeWorkflows.map((workflow, index) => (
+                                         ~~~~~
+
+source/components/MessageBlock.tsx:140:8 - error TS6133: 'effectiveExpansion' is declared but its value is never read.
+
+140  const effectiveExpansion = visualState.isExpanded !== undefined ?
+           ~~~~~~~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:216:50 - error TS6133: 'styling' is declared but its value is never read.
+
+216 function renderConversational(highlighting: any, styling: any): React.ReactNode {
+                                                     ~~~~~~~
+
+source/components/MessageBlock.tsx:232:44 - error TS6133: 'highlighting' is declared but its value is never read.
+
+232 function renderBulletList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                               ~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:267:46 - error TS6133: 'highlighting' is declared but its value is never read.
+
+267 function renderNumberedList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                                 ~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:307:44 - error TS6133: 'highlighting' is declared but its value is never read.
+
+307 function renderActionList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                               ~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:307:63 - error TS6133: 'styling' is declared but its value is never read.
+
+307 function renderActionList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                                                  ~~~~~~~
+
+source/components/MessageBlock.tsx:421:33 - error TS6133: 'message' is declared but its value is never read.
+
+421 export function useMessageBlock(message: Message) {
+                                    ~~~~~~~
+
+source/components/MessageBlock.tsx:530:20 - error TS18048: 'firstSentence' is possibly 'undefined'.
+
+530    const preview = firstSentence.length > 60 ?
+                       ~~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:531:5 - error TS18048: 'firstSentence' is possibly 'undefined'.
+
+531     firstSentence.substring(0, 60) + '...' :
+        ~~~~~~~~~~~~~
+
+source/utils/VisualCommands.ts:234:38 - error TS6133: 'messageId' is declared but its value is never read.
+
+234   this.messageStates.forEach((state, messageId) => {
+                                         ~~~~~~~~~
+
+
+Found 12 errors in 3 files.
+
+Errors  Files
+     2  source/components/ChatInterface.tsx:29
+     9  source/components/MessageBlock.tsx:140
+     1  source/utils/VisualCommands.ts:234
+```
+
+```
 # OR from interfaces/mao directory
 cd interfaces/mao
 npm run build
 chmod +x dist/cli.js
 ./dist/cli.js --name=seanivore
+
+```
+*ISSUES*
+
+same thing i think when i run npm run build from interfaces/mao
+
+> ~/Development/modular-agent-orchestrator/interfaces/mao > npm run build 17:28
+
+> mao@0.0.0 build
+> tsc
+
+source/components/ChatInterface.tsx:29:26 - error TS6133: 'setActiveWorkflows' is declared but its value is never read.
+
+29  const [activeWorkflows, setActiveWorkflows] = useState<any[]>([]);
+                            ~~~~~~~~~~~~~~~~~~
+
+source/components/ChatInterface.tsx:184:38 - error TS6133: 'index' is declared but its value is never read.
+
+184      {activeWorkflows.map((workflow, index) => (
+                                         ~~~~~
+
+source/components/MessageBlock.tsx:140:8 - error TS6133: 'effectiveExpansion' is declared but its value is never read.
+
+140  const effectiveExpansion = visualState.isExpanded !== undefined ?
+           ~~~~~~~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:216:50 - error TS6133: 'styling' is declared but its value is never read.
+
+216 function renderConversational(highlighting: any, styling: any): React.ReactNode {
+                                                     ~~~~~~~
+
+source/components/MessageBlock.tsx:232:44 - error TS6133: 'highlighting' is declared but its value is never read.
+
+232 function renderBulletList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                               ~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:267:46 - error TS6133: 'highlighting' is declared but its value is never read.
+
+267 function renderNumberedList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                                 ~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:307:44 - error TS6133: 'highlighting' is declared but its value is never read.
+
+307 function renderActionList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                               ~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:307:63 - error TS6133: 'styling' is declared but its value is never read.
+
+307 function renderActionList(content: string, highlighting: any, styling: any): React.ReactNode {
+                                                                  ~~~~~~~
+
+source/components/MessageBlock.tsx:421:33 - error TS6133: 'message' is declared but its value is never read.
+
+421 export function useMessageBlock(message: Message) {
+                                    ~~~~~~~
+
+source/components/MessageBlock.tsx:530:20 - error TS18048: 'firstSentence' is possibly 'undefined'.
+
+530    const preview = firstSentence.length > 60 ?
+                       ~~~~~~~~~~~~~
+
+source/components/MessageBlock.tsx:531:5 - error TS18048: 'firstSentence' is possibly 'undefined'.
+
+531     firstSentence.substring(0, 60) + '...' :
+        ~~~~~~~~~~~~~
+
+source/utils/VisualCommands.ts:234:38 - error TS6133: 'messageId' is declared but its value is never read.
+
+234   this.messageStates.forEach((state, messageId) => {
+                                         ~~~~~~~~~
+
+
+Found 12 errors in 3 files.
+
+Errors  Files
+     2  source/components/ChatInterface.tsx:29
+     9  source/components/MessageBlock.tsx:140
+     1  source/utils/VisualCommands.ts:234
 ```
 
 **Expected Launch Output:**
