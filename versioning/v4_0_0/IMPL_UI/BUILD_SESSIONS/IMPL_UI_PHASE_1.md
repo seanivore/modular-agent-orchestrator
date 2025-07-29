@@ -140,7 +140,7 @@
 
 ---
 
-## 2. "Thinking" AI Behavior Word 🧠 ❌
+## 2. "Processing" AI Improv Word 🧠 ❌
 
 ### Current State
 - No indication when backend is processing
@@ -428,7 +428,7 @@
 4. **Create message block behavior foundation**
 
 ### **Phase 1B: Action Lists - Core Innovation**
-1. **Build three action list types** (finalized, inactive, active)
+1. **Build three action list types** (inactive and finalized, inactive but not finalized, and active)
 2. **Implement rapid-changing feedback UX** (the key emotional feature)
 3. **Add completion/collapse behavior with cost/time tracking**
 4. **Create real-time update system for "immediacy" feeling**
@@ -447,6 +447,16 @@
 
 ---
 
+For error handling, logic: 
+
+"Error state visualization" we detailed how Mao is supposed to message the error along with a simplified explanation of the error, and provide method to fix it; in here for sure `./versioning/v4_0_0/IMPL_UI/docs/_NEW_USER_FLOW.md` -- please confirm it is also in documentation 
+
+Configuration panel UI design: 
+
+Configuration Panel details we are definitely following Claude Code's lead here, too. See images; you type /config, the text field  nudges up to make room for list to toggle through; use space bar to toggle options, or enter to open new page for things like themes; `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/config-slash-command-panel.png` and `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/config-enter-some-settings.png` 
+
+---
+
 ## Success Metrics
 
 **User Experience:**
@@ -455,12 +465,14 @@
 - **Immediacy Feeling**: Action lists make progress feel faster than reality
 - **Emotional Response**: "Audible noise" reactions to AI thinking words
 - **Command Discovery**: Under 3 keystrokes to find any command
+- **Handle partial JSON responses gracefully**: not sure what this means but we might want to think about the logic of that entire exchange; early thoughts were that Mao will "read the room" to provide less if they're quieter, verbose if they are. But we should also use the collapsing message block logic so that Mao can show all the variables at the end, but display them as their available with a ctrl-r to expand and read them early 
 
 **Technical:**
 - **100% Real Integration**: No mock responses in production
 - **Smart Context**: Automatic handling approaching 200k token limit
 - **Memory Efficiency**: Under 50MB for extended sessions
 - **Response Time**: Under 200ms for all UI interactions
+- **Keybinding**: let's follow Claude Code lead with keybindings; details here: `./.claude/reference/tech_docs/CLAUDE_CODE_TERMINAL.md` -- they get into keyboard shortcuts even more here: `./.claude/reference/tech_docs/CLAUDE_CODE_INTERACTIVE_MODE.md` 
 
 **Visual:**
 - **Exact Match**: High-fidelity reference designs implemented perfectly
