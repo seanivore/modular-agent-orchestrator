@@ -1,14 +1,9 @@
-// Semantic Highlighter - 6-Color System for Terminal-Native Design
-// Based on PHASE_1_REVISED_ENHANCEMENTS.md specification
+/**
+ * Semantic Highlighter - Implements exact _VISUAL_BRAND_IDENTITY.md specifications
+ * Uses ColorSystem for consistent theming and semantic meaning
+ */
 
-interface ColorTheme {
-	mainHighlight: string;      // MAIN HIGHLIGHT COLOR (pink/bold)
-	systemText: string;         // SYSTEM TEXT COLOR (yellow)  
-	fadedSystemText: string;    // FADED SYSTEM TEXT COLOR (dimmed yellow)
-	lightGray: string;          // LIGHT GRAY TEXT (neutral secondary)
-	superLightBlue: string;     // SUPER LIGHT BLUE ALMOST WHITE (subtle accents)
-	babyBlueDarker: string;     // BABY BLUE DARKER VERSION (stronger blue accents)
-}
+import { colorSystem, ColorSystem } from './ColorSystem.js';
 
 interface MessageStyling {
 	borderColor: string;
@@ -33,101 +28,93 @@ type MessageType =
 type UserType = 'user' | 'mao';
 
 export class SemanticHighlighter {
-	private static currentTheme: ColorTheme = {
-		// Dark Mode (current implementation) - fallback defaults
-		mainHighlight: '#ff49ff',      // Pink - AI actions (BOLD only)
-		systemText: '#f1d771',         // Yellow - AI explanations and conversation  
-		fadedSystemText: '#d4c666',    // Dimmed yellow
-		lightGray: '#bbbcbb',          // Gray - User input and secondary info
-		superLightBlue: '#f0f8ff',     // Almost white blue - Subtle accents
-		babyBlueDarker: '#82d0ff'      // Light blue - Highlighted items and recommendations
-	};
+	private static colorSystem: ColorSystem = colorSystem;
 
 	/**
-	 * Get styling configuration for specific message type and user type
+	 * Get styling configuration based on exact _VISUAL_BRAND_IDENTITY.md rules
 	 */
 	static getMessageStyling(messageType: MessageType, userType: UserType): MessageStyling {
-		const theme = this.currentTheme;
-		
 		if (userType === 'user') {
+			// User messages - always gray with gray bullet
 			return {
-				borderColor: theme.lightGray,
-				prefixColor: theme.lightGray,
-				textColor: theme.lightGray,         // Gray text for user messages
-				bulletColor: theme.lightGray,       // Gray bullet (>) for user
-				numberColor: theme.lightGray,
-				actionColor: theme.lightGray,
-				pastedIndicatorColor: theme.fadedSystemText,
+				borderColor: this.colorSystem.getColor('user'),
+				prefixColor: this.colorSystem.getColor('user'),
+				textColor: this.colorSystem.getColor('user'),
+				bulletColor: this.colorSystem.getColor('user'), // Gray bullet for user
+				numberColor: this.colorSystem.getColor('user'),
+				actionColor: this.colorSystem.getColor('user'),
+				pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
 				errorColor: '#ff6b6b',
-				expansionColor: theme.fadedSystemText
+				expansionColor: this.colorSystem.getColor('supplemental_2')
 			};
 		}
 
-		// Mao (AI) message styling - varies by message type
+		// AI messages - exact bullet color rules from _VISUAL_BRAND_IDENTITY.md
 		switch (messageType) {
 			case 'conversational':
 				return {
-					borderColor: theme.systemText,
-					prefixColor: theme.systemText,
-					textColor: theme.systemText,        // Yellow text for AI explanations
-					bulletColor: '#ffffff',             // White bullet (●) for AI responses
-					numberColor: theme.systemText,
-					actionColor: theme.systemText,
-					pastedIndicatorColor: theme.fadedSystemText,
+					borderColor: this.colorSystem.getColor('main'),
+					prefixColor: this.colorSystem.getColor('main'),
+					textColor: this.colorSystem.getColor('main'), // Yellow - AI explaining
+					bulletColor: this.colorSystem.getBulletColor('ai'), // White bullet for AI
+					numberColor: this.colorSystem.getColor('supplemental_2'), // Light brown for numbers
+					actionColor: this.colorSystem.getColor('main'),
+					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
 					errorColor: '#ff6b6b',
-					expansionColor: theme.fadedSystemText
+					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			case 'bullet_list':
 				return {
-					borderColor: theme.systemText,
-					prefixColor: theme.systemText,
-					textColor: theme.systemText,
-					bulletColor: theme.mainHighlight, // Pink bullets for emphasis
-					numberColor: theme.systemText,
-					actionColor: theme.systemText,
-					pastedIndicatorColor: theme.fadedSystemText,
+					borderColor: this.colorSystem.getColor('main'),
+					prefixColor: this.colorSystem.getColor('main'),
+					textColor: this.colorSystem.getColor('main'), // Yellow for AI explaining
+					bulletColor: this.colorSystem.getBulletColor('ai'), // White bullet for AI content
+					numberColor: this.colorSystem.getColor('supplemental_2'),
+					actionColor: this.colorSystem.getColor('main'),
+					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
 					errorColor: '#ff6b6b',
-					expansionColor: theme.fadedSystemText
+					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			case 'numbered_list':
 				return {
-					borderColor: theme.systemText,
-					prefixColor: theme.systemText,
-					textColor: theme.systemText,
-					bulletColor: theme.systemText,
-					numberColor: theme.systemText, // Yellow throughout for numbered lists
-					actionColor: theme.systemText,
-					pastedIndicatorColor: theme.fadedSystemText,
+					borderColor: this.colorSystem.getColor('main'),
+					prefixColor: this.colorSystem.getColor('main'),
+					textColor: this.colorSystem.getColor('main'), // Yellow throughout
+					bulletColor: this.colorSystem.getBulletColor('ai'),
+					numberColor: this.colorSystem.getColor('supplemental_2'), // Light brown for numbers
+					actionColor: this.colorSystem.getColor('main'),
+					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
 					errorColor: '#ff6b6b',
-					expansionColor: theme.fadedSystemText
+					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			case 'action_list':
+				// Action lists with special bullet rules
 				return {
-					borderColor: theme.babyBlueDarker,
-					prefixColor: theme.systemText,
-					textColor: theme.babyBlueDarker,
-					bulletColor: theme.mainHighlight,
-					numberColor: theme.babyBlueDarker,
-					actionColor: theme.babyBlueDarker, // Blue for action items
-					pastedIndicatorColor: theme.fadedSystemText,
+					borderColor: this.colorSystem.getColor('main'),
+					prefixColor: this.colorSystem.getColor('main'),
+					textColor: this.colorSystem.getColor('main'), // Yellow for descriptions
+					bulletColor: this.colorSystem.getBulletColor('ai', 'bold'), // Light blue when text is pink/bold
+					numberColor: this.colorSystem.getColor('supplemental_2'),
+					actionColor: this.colorSystem.getColor('bold'), // Pink for actions
+					pastedIndicatorColor: this.colorSystem.getColor('supplemental_2'),
 					errorColor: '#ff6b6b',
-					expansionColor: theme.fadedSystemText
+					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			case 'pasted_text':
 				return {
-					borderColor: theme.fadedSystemText,
-					prefixColor: theme.systemText,
-					textColor: theme.fadedSystemText,
-					bulletColor: theme.fadedSystemText,
-					numberColor: theme.fadedSystemText,
-					actionColor: theme.fadedSystemText,
-					pastedIndicatorColor: theme.fadedSystemText, // Dimmed for paste indicators
+					borderColor: this.colorSystem.getColor('supplemental_2'),
+					prefixColor: this.colorSystem.getColor('supplemental_2'),
+					textColor: this.colorSystem.getColor('supplemental_2'), // Light brown - less important
+					bulletColor: this.colorSystem.getBulletColor('ai'),
+					numberColor: this.colorSystem.getColor('supplemental_2'),
+					actionColor: this.colorSystem.getColor('supplemental_2'),
+					pastedIndicatorColor: this.colorSystem.getColor('trusting_update_2'), // Light blue for indicators
 					errorColor: '#ff6b6b',
-					expansionColor: theme.fadedSystemText
+					expansionColor: this.colorSystem.getColor('supplemental_2')
 				};
 
 			case 'error':
@@ -149,157 +136,166 @@ export class SemanticHighlighter {
 	}
 
 	/**
-	 * Apply semantic highlighting to content based on message type
+	 * Apply semantic meaning through React-compatible color props
+	 * Returns JSX-compatible color information
 	 */
-	static highlightContent(content: string, messageType: MessageType): string {
+	static getContentHighlighting(content: string, messageType: MessageType): {
+		parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}>;
+	} {
 		switch (messageType) {
 			case 'conversational':
-				return this.highlightConversationalContent(content);
+				return this.parseConversationalContent(content);
 			case 'bullet_list':
-				return this.highlightBulletContent(content);
+				return this.parseBulletContent(content);
 			case 'numbered_list':
-				return this.highlightNumberedContent(content);
+				return this.parseNumberedContent(content);
 			case 'action_list':
-				return this.highlightActionContent(content);
+				return this.parseActionContent(content);
 			case 'error':
-				return this.highlightErrorContent(content);
+				return this.parseErrorContent(content);
 			default:
-				return content;
+				return { parts: [{text: content, semantic: 'normal'}] };
 		}
 	}
 
-	private static highlightConversationalContent(content: string): string {
-		// Highlight URLs in SUPER LIGHT BLUE
-		let highlighted = content.replace(
-			/(https?:\/\/[^\s]+)/g, 
-			`\x1b[38;2;240;248;255m$1\x1b[0m` // Super light blue
-		);
-
-		// Highlight first few words in MAIN HIGHLIGHT COLOR (pink/bold)
-		const words = highlighted.split(' ');
-		if (words.length > 0) {
-			const firstWords = words.slice(0, 3).join(' ');
-			const restWords = words.slice(3).join(' ');
-			highlighted = `\x1b[38;2;255;73;255m\x1b[1m${firstWords}\x1b[0m${restWords ? ' ' + restWords : ''}`;
-		}
-
-		return highlighted;
-	}
-
-	private static highlightBulletContent(content: string): string {
-		// Remove bullet point and apply first-word highlighting
-		const cleanContent = content.replace(/^[-•*]\s/, '');
-		return this.highlightConversationalContent(cleanContent);
-	}
-
-	private static highlightNumberedContent(content: string): string {
-		// Numbered lists use SYSTEM TEXT COLOR throughout - no special highlighting
-		return content;
-	}
-
-	private static highlightActionContent(content: string): string {
-		// Highlight task indicators and file paths
-		let highlighted = content;
-
-		// Highlight circles and triangles
-		highlighted = highlighted.replace(
-			/([○●▶︎▷])/g,
-			`\x1b[38;2;255;73;255m$1\x1b[0m` // Pink for task indicators
-		);
-
-		// Highlight file paths
-		highlighted = highlighted.replace(
-			/(\/[^\s]+\.[a-zA-Z]+)/g,
-			`\x1b[38;2;240;248;255m$1\x1b[0m` // Super light blue for file paths
-		);
-
-		return highlighted;
-	}
-
-	private static highlightErrorContent(content: string): string {
-		// Error messages - keep simple red coloring
-		return content;
-	}
-
-	/**
-	 * Update theme (for dynamic theme switching)
-	 */
-	static updateTheme(newTheme: Partial<ColorTheme>): void {
-		this.currentTheme = { ...this.currentTheme, ...newTheme };
-	}
-
-	/**
-	 * Detect user's terminal theme (future implementation)
-	 */
-	static detectTerminalTheme(): 'dark' | 'light' | 'unknown' {
-		// TODO: Implement terminal theme detection
-		// For now, default to dark
-		return 'dark';
-	}
-
-	/**
-	 * Get theme presets for different modes
-	 */
-	static getThemePresets(): Record<string, ColorTheme> {
-		return {
-			'dark': {
-				mainHighlight: '#ff49ff',
-				systemText: '#f1d771', 
-				fadedSystemText: '#d4c666',
-				lightGray: '#bbbcbb',
-				superLightBlue: '#f0f8ff',
-				babyBlueDarker: '#82d0ff'
-			},
-			'light': {
-				mainHighlight: '#d63384', // Darker pink for light backgrounds
-				systemText: '#856404',    // Darker yellow
-				fadedSystemText: '#6c757d',
-				lightGray: '#6c757d',
-				superLightBlue: '#0066cc',
-				babyBlueDarker: '#0066cc'
-			},
-			'dark_colorblind': {
-				mainHighlight: '#ff6b35', // Orange instead of pink
-				systemText: '#4ecdc4',    // Teal instead of yellow
-				fadedSystemText: '#95a5a6',
-				lightGray: '#7f8c8d',
-				superLightBlue: '#3498db',
-				babyBlueDarker: '#2980b9'
-			},
-			'light_colorblind': {
-				mainHighlight: '#e67e22', // Orange for light mode
-				systemText: '#16a085',    // Dark teal
-				fadedSystemText: '#7f8c8d',
-				lightGray: '#95a5a6',
-				superLightBlue: '#2980b9',
-				babyBlueDarker: '#3498db'
-			},
-			'dark_ansi': {
-				mainHighlight: '#ff0000', // ANSI red
-				systemText: '#ffff00',    // ANSI yellow
-				fadedSystemText: '#808080',
-				lightGray: '#c0c0c0',
-				superLightBlue: '#00ffff',
-				babyBlueDarker: '#0000ff'
-			},
-			'light_ansi': {
-				mainHighlight: '#800000', // Dark red
-				systemText: '#808000',    // Dark yellow
-				fadedSystemText: '#808080',
-				lightGray: '#808080',
-				superLightBlue: '#000080',
-				babyBlueDarker: '#0000ff'
+	private static parseConversationalContent(content: string): {
+		parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}>;
+	} {
+		const parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}> = [];
+		
+		// Parse for URLs (AI-highlighted when sent by AI)
+		const urlRegex = /(https?:\/\/[^\s]+)/g;
+		let lastIndex = 0;
+		let match;
+		
+		while ((match = urlRegex.exec(content)) !== null) {
+			// Add text before URL
+			if (match.index > lastIndex) {
+				const beforeText = content.substring(lastIndex, match.index);
+				if (beforeText.trim()) {
+					parts.push({text: beforeText, semantic: 'explanation'});
+				}
 			}
+			
+			// Add URL as AI highlight
+			parts.push({text: match[0], semantic: 'ai_highlight'});
+			lastIndex = match.index + match[0].length;
+		}
+		
+		// Add remaining text
+		if (lastIndex < content.length) {
+			const remainingText = content.substring(lastIndex);
+			if (remainingText.trim()) {
+				parts.push({text: remainingText, semantic: 'explanation'});
+			}
+		}
+		
+		// If no URLs found, return as explanation
+		if (parts.length === 0) {
+			parts.push({text: content, semantic: 'explanation'});
+		}
+		
+		return { parts };
+	}
+
+	private static parseBulletContent(content: string): {
+		parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}>;
+	} {
+		// Parse bullet content - first few words get action highlighting per MLA-style rule
+		const cleanContent = content.replace(/^[-•*]\s/, '');
+		const words = cleanContent.split(' ');
+		
+		if (words.length <= 3) {
+			return { parts: [{text: cleanContent, semantic: 'action'}] };
+		}
+		
+		// First 2-3 words are action (like MLA title case logic)
+		const actionWords = words.slice(0, 2).join(' ');
+		const explanationWords = words.slice(2).join(' ');
+		
+		return {
+			parts: [
+				{text: actionWords, semantic: 'action'},
+				{text: ' ' + explanationWords, semantic: 'explanation'}
+			]
 		};
 	}
 
-	/**
-	 * Apply theme preset
-	 */
-	static applyThemePreset(presetName: string): void {
-		const presets = this.getThemePresets();
-		if (presets[presetName]) {
-			this.currentTheme = presets[presetName];
+	private static parseNumberedContent(content: string): {
+		parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}>;
+	} {
+		// Numbers get metadata styling, rest is explanation
+		const numberMatch = content.match(/^(\d+\.\s*)(.*)/); 
+		
+		if (numberMatch) {
+			const [, number, text] = numberMatch;
+			const parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}> = [
+				{text: number, semantic: 'metadata'}
+			];
+			
+			// Parse URLs in the text part
+			const textParts = this.parseConversationalContent(text);
+			parts.push(...textParts.parts);
+			
+			return { parts };
 		}
+		
+		return { parts: [{text: content, semantic: 'explanation'}] };
+	}
+
+	private static parseActionContent(content: string): {
+		parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}>;
+	} {
+		const parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}> = [];
+		
+		// Parse action list content with task indicators and file paths
+		const indicatorRegex = /([○●▶︎▷])/g;
+		const filePathRegex = /(\/[^\s]+\.[a-zA-Z]+)/g;
+		const taskRegex = /(\*\*[^*]+\*\*)/g; // Bold task names
+		
+		let workingContent = content;
+		let result = content;
+		
+		// For now, return simplified parsing - will enhance with ActionList component
+		if (content.includes('○') || content.includes('●')) {
+			// Task line
+			parts.push({text: content, semantic: 'action'});
+		} else if (content.includes('/') && content.includes('.')) {
+			// File path line
+			parts.push({text: content, semantic: 'ai_highlight'});
+		} else {
+			// Regular action content
+			parts.push({text: content, semantic: 'explanation'});
+		}
+		
+		return { parts };
+	}
+
+	private static parseErrorContent(content: string): {
+		parts: Array<{text: string; semantic: 'action' | 'explanation' | 'ai_highlight' | 'metadata' | 'normal'}>;
+	} {
+		// Errors are all high-priority action content
+		return { parts: [{text: content, semantic: 'action'}] };
+	}
+
+	/**
+	 * Update color system theme
+	 */
+	static updateTheme(themeName: string): void {
+		this.colorSystem.setTheme(themeName);
+	}
+
+	/**
+	 * Get available themes from color system
+	 */
+	static getAvailableThemes(): string[] {
+		return this.colorSystem.getAvailableThemes();
+	}
+
+	/**
+	 * Get color by semantic meaning
+	 */
+	static getColor(semanticMeaning: 'action' | 'explanation' | 'user_input' | 'ai_highlight' | 'system_auto' | 'metadata'): string {
+		return this.colorSystem.getTextColor(semanticMeaning);
 	}
 }

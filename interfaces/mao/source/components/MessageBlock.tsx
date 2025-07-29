@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Box, Text} from 'ink';
 import {SemanticHighlighter} from '../utils/SemanticHighlighter.js';
 import {TextBehavior} from '../utils/TextBehavior.js';
+import {colorSystem} from '../utils/ColorSystem.js';
 
 interface Message {
 	id: string;
@@ -121,13 +122,22 @@ function renderConversationalText(content: string, styling: any): React.ReactNod
 	
 	return (
 		<Box flexDirection="column">
-			{paragraphs.map((paragraph, idx) => (
-				<Box key={idx} marginBottom={idx < paragraphs.length - 1 ? 1 : 0}>
-					<Text color={styling.textColor}>
-						{SemanticHighlighter.highlightContent(paragraph, 'conversational')}
-					</Text>
-				</Box>
-			))}
+			{paragraphs.map((paragraph, idx) => {
+				const highlighting = SemanticHighlighter.getContentHighlighting(paragraph, 'conversational');
+				return (
+					<Box key={idx} marginBottom={idx < paragraphs.length - 1 ? 1 : 0}>
+						{highlighting.parts.map((part, partIdx) => (
+							<Text 
+								key={partIdx}
+								color={colorSystem.getTextColor(part.semantic)}
+								bold={part.semantic === 'action'}
+							>
+								{part.text}
+							</Text>
+						))}
+					</Box>
+				);
+			})}
 		</Box>
 	);
 }
