@@ -7,6 +7,7 @@ Routes CLI commands through standardized CLI manager system
 
 import json
 import sys
+import logging
 # import os  # Removed - was only used for sys.path.append
 from datetime import datetime
 from pathlib import Path
@@ -15,6 +16,10 @@ from typing import Optional, Dict, Any
 # Standard Mao imports
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, ValidationError
+
+# Set up logger
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 class TerminalInterface:
     """Clean Mao terminal interface with CLI manager integration"""
