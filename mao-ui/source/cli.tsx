@@ -7,13 +7,13 @@ import App from './app.js';
 const cli = meow(
 	`
 	Usage
-	  $ mao-ui-reference
+	  $ mao-ui
 
 	Options
 		--name  Your name
 
 	Examples
-	  $ mao-ui-reference --name=Jane
+	  $ mao-ui --name=Jane
 	  Hello, Jane
 `,
 	{

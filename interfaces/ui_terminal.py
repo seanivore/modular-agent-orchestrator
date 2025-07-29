@@ -204,10 +204,14 @@ class TerminalInterface:
         if ui_path.exists():
             print("🚀 Launching Mao JavaScript Terminal UI...")
             try:
-                # Change to the UI directory and run node directly
-                subprocess.run(['node', 'src/app.js'], cwd=ui_path, check=True)
-            except subprocess.CalledProcessError:
-                print("❌ Failed to launch JavaScript UI, falling back to Python terminal")
+                # First ensure the TypeScript is compiled
+                subprocess.run(['npm', 'run', 'build'], cwd=ui_path, check=True, capture_output=True)
+                
+                # Change to the UI directory and run the compiled CLI
+                subprocess.run(['node', 'dist/cli.js'], cwd=ui_path, check=True)
+            except subprocess.CalledProcessError as e:
+                print(f"❌ Failed to launch JavaScript UI: {e}")
+                print("❌ Falling back to Python terminal")
                 self.interactive()
             except FileNotFoundError:
                 print("❌ Node.js not found, falling back to Python terminal")
