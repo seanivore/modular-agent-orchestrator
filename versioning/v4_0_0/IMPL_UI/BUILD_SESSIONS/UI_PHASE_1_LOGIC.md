@@ -16,9 +16,13 @@
 As we were setting it up earlier, the context window was large and AI was making mistakes. My main concern is that we have two documents with VERY clearly defined logic and we need to make sure the implementation is exactly as described and pictured. 
 
 - the first: `./versioning/v4_0_0/IMPL_UI/BUILD_SESSIONS/_VISUAL_BRAND_IDENTITY.md` --> though the icons are a bit complex
-- the second: `./versioning/v4_0_0/IMPL_UI/BUILD_SESSIONS/TEXT_HISTORY_MANAGEMENT.md` --> icons here are simple and clear 
+- the second: are those used in the example below --> icons here are simple and clear 
 
-I will now include the logic for the color and pallets though I could use help with the last part. This will be in the implementation document as well. 
+### Very Thorough Update of Implementation Document 
+
+Address all of the items on the implementation document: `./versioning/v4_0_0/IMPL_UI/BUILD_SESSIONS/IMPL_UI_PHASE_1.md` 
+
+Use the logic from the sections below. I've made sure to cover every topic. We may need to see if any of the early steps of phase 1 have had code changed made so that we can improve on them. Actually there definitely were code changes because we were testing the terminal. 
 
 ---
 
