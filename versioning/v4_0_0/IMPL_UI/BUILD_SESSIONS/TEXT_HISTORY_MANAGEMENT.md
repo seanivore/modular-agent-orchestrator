@@ -20,7 +20,7 @@
   - These all seem like they would conflict with the terminal app behavior 
   - I don't think we want to do any of them 
 
-* Enhancement Plan A: "Loading Spinners" skip as well 
+* Enhancement Plan A: "Loading Spinners" skip as well -- we will cover this below with the "Thinking" AI Improv word -- also dont forget, spinners are for apps with multiple screens, not a single screen app like ours 
 
 * For Enhancement Plan B: "Enhanced Status Indicators" 
   - I just don't envision an on screen progress report yet 
@@ -40,6 +40,7 @@
   - I don't like this idea 
   - We hold very little and thus very careful control over all possible (few opportunities) for UX 
   - See below about how the rapidly changing action list is an important UX feature 
+  - The whole message shows up at once, in a WILDLY subtle fade in but honestly like good makeup, people shouldn't know it is there consciously 
 
 * Related-ly, Re: "Show "typing" indicator while backend processes" 
   - We don't want to treat the chat as if it only shows chat messages from Mao or User
@@ -81,6 +82,27 @@
 * What does "Usage analytics for command optimization" mean? 
   - Primarily the "optimization" part of it 
   - Initially meant, and then in the context of my notes above 
+
+* Re: Configuration Panel details 
+  - Please see what happens when you run /config in Claude Code here: `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/config-slash-command-panel.png`
+  - For settings that just have a few options the space bar works 
+  - For the theme though, were a new modal opens, I hit enter; see here: `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/IMPL_UI/docs/wireframe_img/config-enter-some-settings.png` 
+  - The second also gives you a visual of their themes which should be helpful because I think we need to be more categorical about the colors in the themes rather than picking colors in actuality 
+  - Given so many nixed things above, I would like to implement all of the app config settings at once-- it is also more efficient -- work once not twice. 
+  - Note that there is no user "save" option it just does it when you make the choice; it might be confirmed when you exit the modal 
+  - AH here is the old auto-complete functionality implemented with the bad initial UI where they didn't use typescript or node.js even though they were going to. I think we implemented it already so just be aware of the incorrect code here: `./versioning/v4_0_0/IMPL_UI/docs/og_ui_dev_flow/CLI_AUTOCOMPLETE_IMPLEMENTATION.md`
+
+* The "Enhancement Visual Polish" section goes off script with what resources we actually have 
+  - As mentioned above about the terminals -- I don't think it is picking colors it is picking CONCEPTUAL SYNTAX shades that work together for each intention 
+  - Please review this document in full: `./versioning/v4_0_0/IMPL_UI/docs/_VISUAL_BRAND_IDENTITY.md` 
+
+* I feel like such a design HARD ASS but: 
+  - NIX: "Subtle hover effects on interactive elements" 
+  - Handled by app not us: "Loading state transitions"
+  - SUPER SUBTLE: like the whole message shows up in full with the TINIEST of fade in like 0.0000001 millisecond lol, re: "Smooth message appearance animations" 
+  - This is handled by our "thinking" AI improve word -- because are you forgetting, this is a ONE SCREEN UI EXPERIENCE and that one screen is a chat, re: "Progress bars for long operations" 
+  - Define what is toast? We want to use the app's iOS push notifications built into the app already, re: "Toast notifications for system events" 
+  - Discussed in the above section about error handling and Mao communicating the error, re: "Enhanced error display with actions" 
 
 ### Interactive Mode 
 
