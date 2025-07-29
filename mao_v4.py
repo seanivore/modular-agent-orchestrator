@@ -96,6 +96,13 @@ def bootstrap_interface():
 def main():
     """Pure dynamic routing - zero hardcoding"""
     
+    # Special handling for UI mode (TypeScript frontend communication)
+    if len(sys.argv) >= 2 and '--ui-mode' in sys.argv:
+        from interfaces.ui_terminal import TerminalInterface
+        interface = TerminalInterface()
+        interface.start_ui_mode()
+        return
+    
     # Special handling for 'mao mao' command
     if len(sys.argv) == 2 and sys.argv[1] == "mao":
         # User typed 'mao mao' - trigger smart launch
