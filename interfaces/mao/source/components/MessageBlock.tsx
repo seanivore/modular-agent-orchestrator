@@ -37,26 +37,22 @@ export default function MessageBlock({message, isLatest = false}: MessageBlockPr
 	// Get semantic highlighting for this message type
 	const styling = SemanticHighlighter.getMessageStyling(messageType, message.type);
 	
+	// Determine bullet type based on message source and content type
+	const bulletSymbol = message.type === 'user' ? '>' : 
+		(messageType === 'action_list' ? '○' : '●');
+	
 	return (
-		<Box
-			padding={1}
-			marginBottom={1}
-		>
-			{/* Message Header */}
-			<Box>
-				<Text color={styling.prefixColor}>
-					{message.type === 'mao' ? '🐱 mao' : '👤 you'}:
-				</Text>
-			</Box>
-			
-			{/* Message Content with Semantic Highlighting */}
-			<Box marginTop={1} flexDirection="column">
-				{renderMessageContent(displayContent, messageType, styling)}
+		<Box>
+			<Box flexDirection="row">
+				<Text color={styling.bulletColor}>{bulletSymbol}   </Text>
+				<Box flexDirection="column" flexGrow={1}>
+					{renderMessageContent(displayContent, messageType, styling)}
+				</Box>
 			</Box>
 			
 			{/* Expansion Controls */}
 			{TextBehavior.needsExpansion(message.content, isExpanded) && (
-				<Box marginTop={1}>
+				<Box marginTop={1} marginLeft={4}>
 					<Text color={styling.expansionColor}>
 						{TextBehavior.getExpansionHint(message.content, isExpanded)}
 					</Text>

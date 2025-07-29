@@ -1,5 +1,16 @@
 # Phase 1: Terminal-Native UI Enhancements 🎨
 
+## Implementation Protocol 📋
+
+**CRITICAL**: This guide requires **live tracking** during implementation. Update status indicators as you progress:
+- ❌ **Not Started** - Section not yet begun
+- ⚡ **In Progress** - Currently implementing
+- ✅ **Complete** - Fully implemented and tested
+- 🔍 **Testing** - Ready for testing phase
+- ⚠️ **Issues** - Implementation problems found
+
+**Deviation Documentation**: If you must deviate from specs, document the change and reason in the section.
+
 ## Design Reality Check ✅
 
 **Foundation**: We're building **for the terminal**, not recreating web app patterns  
@@ -11,13 +22,20 @@
 
 ---
 
-## 1. Message Block Behavior System 📜
+## 1. Message Block Behavior System 📜 ❌
 
 ### Current State *(Screenshots confirmed: formatting needs fixes)*
 - ✅ Basic chat working with real backend connection
 - ⚠️ Each message needs Claude Code-style formatting fixes  
 - ⚠️ No intelligent text management or courteous behavior
 - ⚠️ Messages don't "take care of themselves" with space optimization
+
+### Implementation Status
+- ❌ Dynamic Theme System (6 adaptive color modes)
+- ❌ Message Block Components 
+- ❌ Courteous Behavior Logic
+- ❌ Semantic Color Assignment
+- ❌ Testing Protocol
 
 ### Enhancement Plan
 **A. Implement "Courteous" Message Blocks**
@@ -54,6 +72,46 @@
 - `TextBehavior.ts` - Text truncation, expansion, and auto-hide logic
 - `PastedTextHandler.ts` - Token counting and paste formatting
 
+### Testing Protocol for Message Blocks 🧪
+**MUST TEST each message type before proceeding:**
+
+**Test 1: User Messages**
+```bash
+# Send regular user message - should show:
+> Hello mao
+# Expected: Gray `>` bullet, gray text
+```
+
+**Test 2: AI Conversational**
+```bash
+# Ask for explanation - should show:
+● Here are 3 ideas for improving...
+# Expected: White `●` bullet, yellow text, pink bold for key words
+```
+
+**Test 3: Action Lists**
+```bash
+# Trigger workflow - should generate:
+○ Task (Analytics report generation)
+  └── ▶︎ Download monthly data...
+# Expected: Empty circle `○` bullet, active sub-tasks with triangles
+```
+
+**Test 4: Pasted Text (>100 tokens)**
+```bash
+# Paste large content - should show:
+> [289 tokens of pasted text]
+# Expected: Token count indicator, not full text
+```
+
+**Test 5: Courteous Behavior**
+```bash
+# Generate long response - should auto-truncate with:
+● First line of response...
+  └── ... +37 lines (ctrl+r to expand)
+# Expected: Automatic truncation with expansion hint
+```
+
 ### **E. Dynamic Theme System** *(6 Adaptive Color Modes)*
 
 **Core Philosophy:** Colors adapt to user's terminal settings for native feel
@@ -82,12 +140,18 @@
 
 ---
 
-## 2. "Thinking" AI Behavior Word 🧠
+## 2. "Thinking" AI Behavior Word 🧠 ❌
 
 ### Current State
 - No indication when backend is processing
 - Static responses without personality
 - **Existing Design**: Triangle indicators in `_DESIGN_RULES.md` (`▲ Mao thinking and planning`)
+
+### Implementation Status
+- ❌ Context-aware thinking words
+- ❌ Display rules (show/hide logic)
+- ❌ Token/time tracking
+- ❌ ESC interrupt capability
 
 ### Enhancement Plan
 **A. Implement AI Improv Word System** *(Links to existing welcome logic)*
@@ -124,7 +188,7 @@
 
 ---
 
-## 3. Terminal-Native Slash Commands 💻
+## 3. Terminal-Native Slash Commands 💻 ⚡
 
 ### Current State *(Screenshots confirmed working!)*
 - ✅ `/config` slash command triggers configuration panel  
@@ -132,6 +196,12 @@
 - ✅ Real Mao backend connection working (`Real Mao received: meow`)
 - ⚠️ Need autocomplete integration with existing `discover_cli_commands()` function
 - ✅ Found: `orchestrator/cli_manager.py` has dynamic command discovery infrastructure
+
+### Implementation Status
+- ✅ Basic `/config` panel working
+- ❌ Claude Code-style autocomplete
+- ❌ Space management for suggestions
+- ❌ CLI discovery integration
 
 ### Enhancement Plan
 **A. Claude Code-Style Autocomplete** *(✅ Config panel implementation confirmed from screenshots)*
@@ -415,3 +485,168 @@
 4. **High-fidelity action lists reference** - Section 5: Action list behavior
 
 **Next Phase Preview**: Phase 2 will build on this terminal-native foundation to add tool ecosystem integration, workflow visualization, and advanced orchestration features. The courteous message blocks and action lists will provide the perfect framework for displaying complex multi-agent workflows.
+
+---
+
+## Comprehensive Testing Protocol 🧪
+
+### Pre-Implementation Testing Setup
+**Required before starting any implementation:**
+
+1. **UI Access**
+```bash
+cd interfaces/mao
+chmod +x ./dist/cli.js
+./dist/cli.js --name=seanivore
+```
+
+2. **Backend Connection** *(Automatic - UI handles this)*
+- UI automatically starts Python backend at project root
+- Look for: "🚀 Starting Python backend at: /.../mao_v4.py"
+- Status indicator: "● connected" (bottom right)
+
+### Testing Each Implementation Section
+
+#### Section 1: Message Block System Testing 🔍
+**Execute BEFORE marking Section 1 as ✅**
+
+**Test A: Basic Message Types**
+```bash
+# User message test
+hello mao
+Expected: Gray > bullet, gray text
+
+# AI response test  
+what are 3 ways to improve this?
+Expected: White ● bullet, yellow text, pink bold keywords
+
+# List response test
+give me a bulleted list of features
+Expected: White ● bullet, proper bullet formatting
+```
+
+**Test B: Action List Generation**
+```bash
+# Workflow trigger test
+/goal "create a simple analytics report"
+Expected: Action lists with ○ bullets, sub-tasks with ▶︎/▷
+
+# Real-time updates
+Watch for: Rapidly changing content, blinking indicators
+```
+
+**Test C: Pasted Text Handling**
+```bash
+# Large paste test (copy long text >100 tokens)
+Paste large content here...
+Expected: [XXX tokens of pasted text] indicator
+
+# Small paste test (copy short text <100 tokens)  
+Paste short text here
+Expected: Full text display, no tokenization
+```
+
+**Test D: Courteous Behavior**
+```bash
+# Long response test
+explain the entire MAO system in detail
+Expected: Auto-truncation with "ctrl+r to expand" 
+
+# Completed task collapse
+Wait for task completion
+Expected: Collapse to "Done ($0.003 • 400 tokens • 8.3s)"
+```
+
+#### Section 2: Thinking Words Testing 🔍
+**Execute BEFORE marking Section 2 as ✅**
+
+```bash
+# Context-aware thinking test
+ask complex question after 4+ message exchanges
+Expected: AI improv word like "+ Organizing... (107s • 2.9k tokens • esc to interrupt)"
+
+# Display rules test  
+ask simple question immediately
+Expected: NO thinking word shown (too early in conversation)
+
+# Interrupt test
+ESC key during thinking
+Expected: Process cancellation with graceful exit
+```
+
+#### Section 3: Slash Commands Testing 🔍
+**Execute BEFORE marking Section 3 as ✅**
+
+```bash
+# Autocomplete test
+Type: /
+Expected: Space appears below with command suggestions
+
+# Navigation test  
+Type: /he and use arrow keys
+Expected: /help highlighted, can select with arrows
+
+# Config panel test
+Type: /config
+Expected: Modal config panel opens with theme options
+```
+
+#### Section 4: Visual Protocol Testing 🔍
+**Execute BEFORE marking Section 4 as ✅**
+
+```bash
+# Theme system test
+/config → select different theme
+Expected: All colors update immediately, maintain semantic meaning
+
+# Bullet protocol test
+Send multiple message types
+Expected: Correct bullet colors per VISUAL_BRAND_IDENTITY.md specs
+
+# Spacing test
+Send long conversation
+Expected: Clean 3-space bullet indentation, proper line spacing
+```
+
+#### Section 5: Action Lists Testing 🔍 
+**Execute BEFORE marking Section 5 as ✅**
+
+```bash
+# Action list types test
+/goal "multi-step project"
+Expected: All 3 types (finalized ●, inactive ○, active ○ blinking)
+
+# Rapid updates test
+Watch active task execution
+Expected: Content changes rapidly, "immediacy" feeling
+
+# Completion behavior test
+Wait for task completion
+Expected: Collapse, move above master list, show cost/time
+```
+
+### Integration Testing *(All Sections Complete)*
+
+**Final Comprehensive Test**
+```bash
+# Full workflow test combining all features:
+1. Start conversation (normal messages)
+2. Trigger workflow (/goal command)  
+3. Watch action lists with thinking words
+4. Use /config to change themes
+5. Paste large content
+6. Test command autocomplete
+7. Verify courteous behavior throughout
+
+Expected: Seamless experience matching high-fidelity specs exactly
+```
+
+### Failure Protocol
+**If any test fails:**
+1. Mark section status as ⚠️ **Issues**
+2. Document specific failure in the section
+3. Fix implementation before proceeding
+4. Re-test until ✅ **Complete**
+5. Never proceed with failing components
+
+**Testing Philosophy**: "Do it right the first time" - each component must match high-fidelity specs exactly before moving forward.

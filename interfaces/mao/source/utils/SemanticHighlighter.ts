@@ -53,12 +53,12 @@ export class SemanticHighlighter {
 			return {
 				borderColor: theme.lightGray,
 				prefixColor: theme.lightGray,
-				textColor: theme.lightGray,
-				bulletColor: theme.lightGray,
+				textColor: theme.lightGray,         // Gray text for user messages
+				bulletColor: theme.lightGray,       // Gray bullet (>) for user
 				numberColor: theme.lightGray,
 				actionColor: theme.lightGray,
 				pastedIndicatorColor: theme.fadedSystemText,
-				errorColor: '#ff6b6b', // Red for user errors
+				errorColor: '#ff6b6b',
 				expansionColor: theme.fadedSystemText
 			};
 		}
@@ -69,8 +69,8 @@ export class SemanticHighlighter {
 				return {
 					borderColor: theme.systemText,
 					prefixColor: theme.systemText,
-					textColor: theme.systemText,
-					bulletColor: theme.mainHighlight,
+					textColor: theme.systemText,        // Yellow text for AI explanations
+					bulletColor: '#ffffff',             // White bullet (●) for AI responses
 					numberColor: theme.systemText,
 					actionColor: theme.systemText,
 					pastedIndicatorColor: theme.fadedSystemText,
