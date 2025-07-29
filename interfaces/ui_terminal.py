@@ -333,6 +333,10 @@ class SubprocessCommunicationBridge:
         Start UI mode for TypeScript frontend communication
         Handles JSON messages via stdin/stdout
         """
+        import json
+        import sys
+        import time
+        
         try:
             while True:
                 # Read JSON message from stdin
@@ -349,9 +353,10 @@ class SubprocessCommunicationBridge:
                     
                 except json.JSONDecodeError:
                     error_response = {
-                        'type': 'error',
-                        'id': None,
-                        'data': 'Invalid JSON message'
+                        'id': message.get('id') if 'message' in locals() else None,
+                        'success': False,
+                        'error': 'Invalid JSON message',
+                        'timestamp': int(time.time() * 1000)
                     }
                     print(json.dumps(error_response), flush=True)
                     
@@ -359,9 +364,10 @@ class SubprocessCommunicationBridge:
             sys.exit(0)
         except Exception as e:
             error_response = {
-                'type': 'error', 
                 'id': None,
-                'data': f'UI mode error: {str(e)}'
+                'success': False,
+                'error': f'UI mode error: {str(e)}',
+                'timestamp': int(time.time() * 1000)
             }
             print(json.dumps(error_response), flush=True)
             
