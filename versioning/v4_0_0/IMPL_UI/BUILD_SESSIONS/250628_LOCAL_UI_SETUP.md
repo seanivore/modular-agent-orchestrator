@@ -15,12 +15,12 @@
 ### Fresh Start Plan - Session 2
 
 **Core Decision: Use the Enhanced Version Pattern**
-- Use `interfaces/mao-terminal-ui-v2/` pattern as inspiration
+- Use `interfaces/mao/` pattern as inspiration
 - Modern dependencies (Ink 4.4.1, newer meow, gradient-string, figlet, etc.)
 - Clear single approach: **Pure TypeScript with proper ESM setup**
 
 ## Session 2 Goals ✅
-- [ ] **STEP 1**: Clean scaffold with `npx create-ink-app --typescript mao-ui`
+- [ ] **STEP 1**: Clean scaffold with `npx create-ink-app --typescript mao`
 - [ ] **STEP 2**: Enhance package.json with modern dependencies (gradient-string, figlet, ora)
 - [ ] **STEP 3**: Create single beautiful ChatInterface that matches the working visual
 - [ ] **STEP 4**: Implement TypeScript PythonBridge with proper subprocess communication  
