@@ -186,7 +186,7 @@ mao --avail "every month"  # not in-app; variables in quotes, normal language
 ---
 
 ## Calendar Availability Architecture
-*Files: configs/cli/avail/avail.py, orchestrator/calendar_manager.py*
+*configs/cli/avail/avail.py, orchestrator/calendar_manager.py*
 
 The `/avail` command system provides intelligent calendar management for trigger workflow scheduling, building on Mao's existing workflow architecture from Section III.
 
@@ -864,7 +864,7 @@ The setup process for trigger workflows extends the standard workflow setup with
 - Calendar index updates for conflict detection
 - Custom command generation for workflow execution
 
-*Reference: [Section III](03_USER_FLOW.md) for standard workflow setup patterns* 
+*Reference our [Section III](03_USER_FLOW.md) for standard workflow setup patterns* 
 
 
 ```bash
@@ -895,19 +895,8 @@ mao repeat --self-assessment {{TEMP_DIR}}/self_assessment_1_7_1/
 
 ---
 
-| **COMMAND**                 | **DESCRIPTION**                                               |
-| --------------------------- | ------------------------------------------------------------- |
-| `/repeat --scheduled`       | Create *Scheduled* workflow to complete same task regularly   |
-| `/repeat --list-new`        | Create new *Project List* & check items off when active       |
-| `/repeat --list-add`        | Add item to existing *Project List* workflow                  |
-| `/repeat --self-assessment` | Setup *Self Assessment* & improve app when active             |
-| `/repeat --sub-task`        | Create task to help improve app                               |
-| `/repeat --goal-assessment` | Setup *Goal Assessment* & complete unique project when active |
-| `/repeat --sub-task`        | Create task to help goal-assessment project                   |
-
-
 ## Trigger Workflow Setup Architecture
-*Files: configs/cli/repeat/repeat.py, scripts/setup_trigger_workflow.sh*
+*configs/cli/repeat/repeat.py, scripts/setup_trigger_workflow.sh*
 
 Building on the standard workflow setup from Section III, trigger workflows extend the setup process with calendar-based scheduling and type-specific directory organization.
 
@@ -1133,4 +1122,3 @@ Through modular JSON configurations rather than hardcoded systems, every busines
 ---
 
 *This automation capability transforms Mao from a powerful productivity tool into a complete business operating system. The timer-triggered workflows enable genuine business autonomy where AI handles operations while humans focus on strategy, creativity, and growth.*
-
