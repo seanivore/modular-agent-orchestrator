@@ -1,4 +1,4 @@
-# Section IV: How Data Flows Into Mao
+# Section IV: How Data Flows Into Mao's Core
 *Every interface pathway data takes to reach the orchestrator*
 
 ---
@@ -16,11 +16,12 @@ When you launch Mao, the system immediately recognizes your context. First-time 
 This sophisticated experience, designed for a future of constant change, relies on an intelligent user management system that tracks sessions, learns preferences, and creates contextually relevant interactions every single time.
 
 ### Chat Interface & Terminal UI Architecture
-*Files: interfaces/ui_terminal.py, orchestrator/conversation_bridge.py*
+*interfaces/ui_terminal.py, orchestrator/conversation_bridge.py*
 
 Here's where the magic happens; a sophisticated bridge between TypeScript frontend brilliance and Python backend power:
 
 **Terminal Interface Bridge** (`interfaces/ui_terminal.py`):
+
 ```python
 class TerminalInterface:
     """Main terminal interface coordinator for MAO conversations"""
@@ -68,6 +69,7 @@ class TerminalInterface:
 ```
 
 **TypeScript Frontend Communication** (Implementation Guide):
+
 ```typescript
 // ConversationInterface.tsx - Professional terminal UI
 export const ConversationInterface: React.FC = () => {
@@ -113,6 +115,7 @@ class PythonBridge {
 ```
 
 **Subprocess Communication Bridge** (`interfaces/ui_terminal.py`):
+
 ```python
 class SubprocessCommunicationBridge:
     """Node.js ↔ Python subprocess communication bridge"""
@@ -158,7 +161,7 @@ Forget memorizing syntax or hunting through documentation. Mao's slash commands 
 When you type `mao --help`, the system isn't reading some dusty static help file. It's dynamically building help content by examining all the command configurations it finds in real-time. Commands could technically change every day, and you'd never miss a beat.
 
 ### CLI Command System Architecture
-*Files: orchestrator/cli_manager.py, configs/cli/*
+*orchestrator/cli_manager.py, configs/cli/*
 
 Dynamic command discovery with the elegant 3-file pattern that makes everything possible:
 
@@ -220,7 +223,7 @@ Here's the revolutionary part; the conversation-driven interaction philosophy is
 They have no script, only deep understanding of the product. We encourage Mao to do what they do best; learn through natural language, adapt to your communication style, and get things done.
 
 ### Slash Command Integration & Natural Language Magic
-*Files: orchestrator/cli_manager.py, orchestrator/conversation_bridge.py*
+*orchestrator/cli_manager.py, orchestrator/conversation_bridge.py*
 
 Command routing, autocomplete, and validation that feels like mind-reading:
 
@@ -241,7 +244,7 @@ class CLICommandsManager:
 ```
 
 **Natural Language Processing That Gets You**
-*Files: orchestrator/conversation_bridge.py*
+*orchestrator/conversation_bridge.py*
 
 ```python
 @handle_errors(operation_name="goal_processing", return_dict=True)
@@ -281,7 +284,7 @@ This personalization happens persistently across sessions; all without you havin
 The delta-only settings implementation is pure elegance; it only saves preferences that differ from defaults, making personalized configurations efficient and portable.
 
 ### Settings Management Architecture
-*Files: orchestrator/settings_manager.py, configs/settings/*
+*orchestrator/settings_manager.py, configs/settings/*
 
 Modular JSON configurations with user preferences and delta storage that just works:
 
@@ -371,7 +374,7 @@ Data exchange, status updates, and command execution flow through a sophisticate
 **Future-proof by design.**
 
 ### Communication Bridge System
-*Files: interfaces/ui_terminal.py, mao_v4.py*
+*interfaces/ui_terminal.py, mao_v4.py*
 
 Local subprocess communication with JSON protocols that feel instantaneous:
 
@@ -411,7 +414,7 @@ The result is lightning-fast response times and bulletproof local-only applicati
 ## Progress That You Can actually See
 
 ### Progress Visualization System Architecture
-*Files: orchestrator/real_time_metrics.py, interfaces/ui_terminal.py* 
+*orchestrator/real_time_metrics.py, interfaces/ui_terminal.py* 
 
 Real-time progress visualization keeps users informed during workflow execution through coordinated backend metrics and frontend display that actually matters:
 
@@ -467,6 +470,7 @@ class SystemMetricsProvider:
 ```
 
 **Frontend Progress Display** (TypeScript):
+
 ```typescript
 export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workflowId }) => {
   const [progress, setProgress] = useState<WorkflowProgress>();
@@ -498,7 +502,7 @@ export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workfl
 Even errors are handled without missing a conversational beat. Mao flows smoothly into any technical hiccup, ensuring any technical information is understandable, and then providing clear information on how to fix things; unless they're able to fix it themselves.
 
 **Error Communication Implementation**
-*Files: orchestrator/error_handling.py*
+*orchestrator/error_handling.py*
 
 ```python
 # Real custom exception classes that make sense
@@ -545,17 +549,17 @@ def decorator(func: Callable) -> Callable:
 
 Even our carefully crafted design patterns, simple as they are, keep the focus on conversation. Visual elements semantically suggest where to look, ensuring you're never searching for information or drowning in information you don't need.
 
-**Visual Protocol Implementation**
-*Files: interfaces/ui_terminal.py* 
+**Visual Protocol Psychology**
+*interfaces/ui_terminal.py* 
 
 ```typescript
 export const Colors = {
-  pink: '#ff49ff',      // AI actions (BOLD only) - cognitive interrupts that matter
-  yellow: '#f1d771',    // AI explanations and conversation flow
-  light_blue: '#82d0ff', // Highlighted items and AI recommendations
-  white: '#ffffff',     // System responses that guide you
-  gray: '#bbbcbb',      // User input and secondary information
-  light_brown: '#7b714a' // Tree/metadata and organizational context
+  pink: '#ff49ff',        // AI actions (BOLD only) - cognitive interrupts that matter
+  yellow: '#f1d771',      // AI explanations and conversation flow
+  light_blue: '#82d0ff',  // Highlighted items and AI recommendations
+  white: '#ffffff',       // System responses that guide you
+  gray: '#bbbcbb',        // User input and secondary information
+  light_brown: '#7b714a'  // Tree/metadata and organizational context
 } as const;
 
 export const StyledText: React.FC<{
@@ -580,7 +584,7 @@ Mao adapts continuously, learning user patterns to provide suggestions that actu
 When an interface becomes more and more helpful over time while remaining predictable, users develop deep trust in the application. And that's exactly what Mao wants; your trust, earned through consistent intelligence.
 
 ### Adaptive Intelligence Engine
-*Files: orchestrator/user_analytics_manager.py, orchestrator/settings_manager.py*
+*orchestrator/user_analytics_manager.py, orchestrator/settings_manager.py*
 
 ```python
 # orchestrator/user_analytics_manager.py - Intelligence that learns
