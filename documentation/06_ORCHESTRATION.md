@@ -1,4 +1,4 @@
-# Section V: Core Orchestrator of Data
+# Section V: Mao's Core Where All Data Is Orchestrated 
 *Data management that orchestrates all that is Mao*
 
 ---
@@ -18,8 +18,7 @@ That goal analysis is no simple step. Mao has to examine the request for complex
 ### Goal Analysis and Workflow Design Architecture
 
 **Natural language processing, task decomposition, workflow planning**
-
-*Files: orchestrator/core.py, orchestrator/conversation_bridge.py*
+*orchestrator/core.py, orchestrator/conversation_bridge.py*
 
 The **magic method** that transforms natural language goals into intelligent workflows:
 
@@ -141,8 +140,7 @@ Now they know, and now they can be sure the illustrations will reflect that. Had
 ### Dynamic Phase Construction Architecture
 
 **Phase creation patterns, tool selection logic, adaptive workflow building**
-
-*Files: orchestrator/core.py*
+*orchestrator/core.py*
 
 Dynamic workflows adapt to specific requirements rather than following static templates:
 
@@ -228,8 +226,7 @@ async def _design_workflow_phases(
 ## Parallel Agent Execution System
 
 ### Phase Number Pattern Recognition for Parallel Execution
-
-*Files: orchestrator/core.py (implementation planned)*
+*orchestrator/core.py (implementation planned)*
 
 Mao supports parallel agent execution through intelligent phase numbering patterns in workflow JSON configurations:
 
@@ -238,6 +235,7 @@ Mao supports parallel agent execution through intelligent phase numbering patter
 **Mixed workflow:** Group "01" (parallel) → Group "02" (sequential) → Group "03a"`, `"03b"` (parallel)
 
 **Implementation Pattern for Parallel Agents:**
+
 ```python
 def _group_parallel_phases(self, phases: List[WorkflowPhase]) -> List[List[WorkflowPhase]]:
     """Group phases by their base phase number for parallel execution"""
@@ -297,7 +295,7 @@ Think about task type, required quality level, cost constraints, and availabilit
 And don't worry about unavailable choices, we always plan fallback options. 
 
 ### Resource Management Architecture
-*Files: orchestrator/manager_models.py, orchestrator/core.py*
+*orchestrator/manager_models.py, orchestrator/core.py*
 
 Dynamic model selection that matches capabilities to requirements without hardcoded assumptions:
 
@@ -431,8 +429,7 @@ The state management system uses multiple persistence mechanisms to ensure relia
 ### State Management and Persistence Architecture
 
 **Workflow state tracking, persistence mechanisms, recovery capabilities**
-
-*Files: orchestrator/workflow_state.py, orchestrator/memory_mcp.py, orchestrator/mcp_hub.py*
+*orchestrator/workflow_state.py, orchestrator/memory_mcp.py, orchestrator/mcp_hub.py*
 
 Comprehensive state management ensures workflows can survive interruptions and context switches:
 
@@ -537,7 +534,7 @@ Workflows are more than just sequences of independent tasks; they're coordinated
 Context sharing goes beyond simple file passing. The system maintains semantic understanding of what each phase produced, how that information relates to the overall workflow goal, and what aspects are most relevant for subsequent phases. This intelligent context management means that later phases can reference and build upon earlier work in natural, meaningful ways.
 
 ### Context Sharing and Communication Architecture
-*Files: orchestrator/agent_orchestrator.py, orchestrator/core.py, orchestrator/mcp_hub.py*
+*orchestrator/agent_orchestrator.py, orchestrator/core.py, orchestrator/mcp_hub.py*
 
 Sophisticated inter-phase communication, context management, and semantic understanding ensures each phase builds meaningfully on previous work:
 
@@ -622,7 +619,7 @@ Modern users expect to understand what's happening with their requests, especial
 The monitoring system captures detailed metrics about each phase, including execution time, token consumption, cost accumulation, and quality indicators. This information flows back to the interface layer for user display and is also used internally for performance optimization and model selection refinement. Users can see exactly what's happening and when they can expect results.
 
 ### Real-Time Monitoring Architecture
-*Files: orchestrator/real_time_metrics.py, orchestrator/workflow_state.py*
+*orchestrator/real_time_metrics.py, orchestrator/workflow_state.py*
 
 Comprehensive progress tracking, metrics collection, and performance monitoring provides live visibility into workflow execution:
 
@@ -768,7 +765,7 @@ One of Mao's most impressive efficiency mechanisms is their sophisticated cachin
 The system analyzes content and context of each request to determine cache applicability. Mao recognizes when you ask for something similar to previous work, so they can reuse components. It is an intelligent process that ensures iterative work becomes progressively faster while maintaining quality and accuracy. 
 
 ### Intelligent Caching Architecture
-*Files: orchestrator/cache/cache_system.py*
+*orchestrator/cache/cache_system.py*
 
 Dual-layer hybrid caching system with intelligent content fingerprinting and smart cache decisions for cache validity and performance optimization:
 
@@ -893,7 +890,7 @@ Mao uses the orchestrator to stay on top of costs through intelligent resource o
 Spending is tracked in real-time. When setting up a workflow, Mao will tell you a fairly accurate cost estimate. During the workflow, Mao uses resources that stay within budget, some even costing nothing. 
 
 ### Resource Optimization Architecture
-*Files: orchestrator/real_time_metrics.py, orchestrator/workflow_state.py, orchestrator/memory_mcp.py, orchestrator/agent_orchestrator.py*
+*orchestrator/real_time_metrics.py, orchestrator/workflow_state.py, orchestrator/memory_mcp.py, orchestrator/agent_orchestrator.py*
 
 Comprehensive resource optimization with real-time cost tracking and intelligent budget management:
 
@@ -1037,7 +1034,7 @@ async def create_workflow_from_goal(self, user_goal: str, preferences: Optional[
 Working with systems that are new or complex mean anxiety because things could go wrong. Mao's orchestrator error handling however, really hits different. With intelligent but understandable error analysis, Mao will quickly provide recovery strategies, moving through issues with grace. 
 
 ### Error Handling and Recovery Architecture
-*Files: orchestrator/error_handling.py, orchestrator/agent_orchestrator.py, orchestrator/workflow_state.py*
+*orchestrator/error_handling.py, orchestrator/agent_orchestrator.py, orchestrator/workflow_state.py*
 
 Comprehensive error handling with intelligent categorization and automatic recovery strategies and graceful degradation:
 
@@ -1226,7 +1223,7 @@ Mao's orchestrator continuously monitors its own health and the health of connec
 The diagnostic system tracks everything from individual component response times to overall system throughput. It can identify performance bottlenecks, predict capacity issues, and suggest optimization opportunities. This visibility ensures that the orchestrator operates at peak efficiency and provides early warning of potential problems.
 
 ### System Health and Diagnostics Architecture
-*Files: orchestrator/mcp_hub.py, orchestrator/system_analytics_manager.py, orchestrator/real_time_metrics.py, orchestrator/workflow_state.py*
+*orchestrator/mcp_hub.py, orchestrator/system_analytics_manager.py, orchestrator/real_time_metrics.py, orchestrator/workflow_state.py*
 
 Comprehensive health monitoring with intelligent diagnostic capabilities and performance analysis:
 
@@ -1436,7 +1433,7 @@ Discovery runs continuously to present you with new components as they become av
 This is the key to Mao; their dynamic flexibility allows them to adapt to ever changing environments, making new tool additions simple, and keeping up with evolving AI model availability without any new tools or learning curves. 
 
 ### Dynamic Discovery Architecture
-*Files: orchestrator/settings_manager.py, orchestrator/manager_tools.py, orchestrator/cli_manager.py*
+*orchestrator/settings_manager.py, orchestrator/manager_tools.py, orchestrator/cli_manager.py*
 
 Live discovery of components and configurations without hardcoded system capabilities:
 
@@ -1609,7 +1606,7 @@ Every user has preferences for how they work, from the level of quality they str
 Settings integration goes beyond preference storage by learning directly from your behavior. Mao will keep tabs on which suggestions you end up accepting, preferred models for certain types of work, and of course, quality versus cost. 
 
 ### Settings Integration Architecture
-*Files: orchestrator/settings_manager.py, orchestrator/username_manager.py*
+*orchestrator/settings_manager.py, orchestrator/username_manager.py*
 
 Seamless integration of user preferences with intelligent behavioral learning and delta-only storage:
 
