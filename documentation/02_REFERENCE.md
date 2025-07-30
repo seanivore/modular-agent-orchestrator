@@ -10,6 +10,7 @@ This is your daily reference guide for productive work with Mao. Whether you're 
 ## Essential Commands Quick Reference
 
 ### Application Launch and Core Workflow Commands
+
 ```bash
 # Start Mao application (from terminal)
 mao mao                                    # Launch main application
@@ -37,6 +38,7 @@ mao --login [username]                     # Login from terminal
 **Note:** All slash commands work as `mao --command-flag` from terminal. Inside the app, you can run any terminal command by starting with `!`
 
 ### User and Session Management
+
 ```bash
 # User management (most commonly used from terminal)
 mao --login [username]                    # Start user session (terminal)
@@ -53,6 +55,7 @@ mao --logs                               # System logs and diagnostics
 ```
 
 ### Model, Provider, and Tool Management
+
 ```bash
 # View available resources
 /models                                  # Available models (inside app)
@@ -65,9 +68,9 @@ mao --logs                               # System logs and diagnostics
 /model [model-name]                      # Set favorite model (inside app)
 /provider [provider-name]                # Set default provider (inside app)
 ```
-```
 
 ### Command System Summary
+
 - **Inside App:** Use `/command` format (most common usage)
 - **From Terminal:** Use `mao --command` format  
 - **Terminal Commands:** Use `! command` from inside app
@@ -119,68 +122,72 @@ mao --logs                               # System logs and diagnostics
 ## File System Architecture Quick Map
 
 ### Core System Files
+
 ```
 ./orchestrator/
-├── core.py                    # Main workflow orchestration brain
-├── conversation_bridge.py     # Natural language to workflows
-├── agent_orchestrator.py      # Agent coordination and handoffs
-├── cli_manager.py            # Command discovery and routing
-├── workflow_manager.py       # Workflow lifecycle management
-├── memory_mcp.py             # Persistent memory system
-├── workflow_state.py         # State tracking and recovery
-├── mcp_hub.py               # MCP integration coordination
+├── core.py                      # Main workflow orchestration brain
+├── conversation_bridge.py       # Natural language to workflows
+├── agent_orchestrator.py        # Agent coordination and handoffs
+├── cli_manager.py               # Command discovery and routing
+├── workflow_manager.py          # Workflow lifecycle management
+├── memory_mcp.py                # Persistent memory system
+├── workflow_state.py            # State tracking and recovery
+├── mcp_hub.py                   # MCP integration coordination
 ├── cache/
-│   └── cache_system.py       # Dual-layer caching system
-├── manager_models.py         # AI model management
-├── manager_tools.py          # Dynamic tool discovery
-├── manager_buttons.py        # Universal code generation
-├── settings_manager.py       # Dynamic settings management
-├── username_manager.py       # User session management
-├── user_analytics_manager.py # User analytics tracking
-├── system_analytics_manager.py # System performance metrics
-├── user_memory_manager.py    # Personal memory storage
-├── real_time_metrics.py      # Live system monitoring
-└── error_handling.py         # Professional error handling
+│   └── cache_system.py          # Dual-layer caching system
+├── manager_models.py            # AI model management
+├── manager_tools.py             # Dynamic tool discovery
+├── manager_buttons.py           # Universal code generation
+├── settings_manager.py          # Dynamic settings management
+├── username_manager.py          # User session management
+├── user_analytics_manager.py    # User analytics tracking
+├── system_analytics_manager.py  # System performance metrics
+├── user_memory_manager.py       # Personal memory storage
+├── real_time_metrics.py         # Live system monitoring
+└── error_handling.py            # Professional error handling
 ```
 
 ### Configuration Directories
+
 ```
 ./configs/
-├── cli/                      # Command definitions (3-file pattern)
-├── models/                   # AI model specifications
-├── providers/                # Service provider configurations
-├── connections/              # Model-provider-tool mappings
-├── settings/                 # Application settings
-├── user/[username]/          # User-specific data
-│   ├── analytics/           # User analytics (deletable)
-│   └── memories/            # Personal memories
-├── workflows/                # Active workflow storage
-└── system/analytics/         # Anonymous system metrics
+├── cli/                         # Command definitions (3-file pattern)
+├── models/                      # AI model specifications
+├── providers/                   # Service provider configurations
+├── connections/                 # Model-provider-tool mappings
+├── settings/                    # Application settings
+├── user/[username]/             # User-specific data
+│   ├── analytics/               # User analytics (deletable)
+│   └── memories/                # Personal memories
+├── workflows/                   # Active workflow storage
+└── system/analytics/            # Anonymous system metrics
 ```
 
 ### Tool Architecture (6-File Pattern)
+
 ```
 ./tools/[tool_name]/
-├── [tool_name].py           # Core tool functionality
-├── ui_[tool_name].py        # Terminal interface
-├── button_[tool_name].py    # Universal code generation
-├── tool_[tool_name].json    # Tool configuration
-├── [tool_name]_helpers.py   # Helper functions
-└── [tool_name]_tests.py     # Testing functions
+├── [tool_name].py               # Core tool functionality
+├── ui_[tool_name].py            # Terminal interface
+├── button_[tool_name].py        # Universal code generation
+├── tool_[tool_name].json        # Tool configuration
+├── [tool_name]_helpers.py       # Helper functions
+└── [tool_name]_tests.py         # Testing functions
 ```
 
 ### Interface and Script Locations
+
 ```
 ./interfaces/
-├── ui_terminal.py           # Main terminal application
-└── ui_web.py               # Web interface (future)
+├── ui_terminal.py               # Main terminal application
+└── ui_web.py                    # Web interface (future)
 
 ./scripts/
-├── mao_launch_setup/        # Installation scripts
-├── workflow_setup/          # Workflow creation scripts
-├── user_id_generator/       # User ID generation
-├── unique_id_generator/     # Workflow ID generation
-└── quality_validator/       # Configuration validation
+├── mao_launch_setup/            # Installation scripts
+├── workflow_setup/              # Workflow creation scripts
+├── user_id_generator/           # User ID generation
+├── unique_id_generator/         # Workflow ID generation
+└── quality_validator/           # Configuration validation
 ```
 
 ---
@@ -190,16 +197,17 @@ mao --logs                               # System logs and diagnostics
 ### Core Settings Configuration
 ```bash
 # View and modify settings
-mao --config                             # Open settings interface
-/config                                  # In-app settings
+mao --config                     # Open settings interface
+/config                          # In-app settings
 
 # Direct setting modification (planned)
-mao --config theme dark                  # Visual appearance
+mao --config theme dark          # Visual appearance
 mao --config default-provider anthropic-direct
 mao --config favorite-model claude-sonnet-4
 ```
 
 ### Available Settings
+
 | Setting             | Options                          | Purpose                  | Default             |
 | ------------------- | -------------------------------- | ------------------------ | ------------------- |
 | `quick_launch`      | `always`, `off`, `continue_only` | Startup behavior         | `always`            |
@@ -215,6 +223,7 @@ mao --config favorite-model claude-sonnet-4
 ## Calendar and Trigger Workflow Codes
 
 ### Frequency Codes
+
 | Code | Frequency         | Code | Frequency        |
 | ---- | ----------------- | ---- | ---------------- |
 | 1    | Every week        | 5    | Every year       |
@@ -223,6 +232,7 @@ mao --config favorite-model claude-sonnet-4
 | 4    | Every other month | 8    | Every other day  |
 
 ### Day of Week Codes
+
 | Code | Day       | Code | Day      |
 | ---- | --------- | ---- | -------- |
 | 1    | Monday    | 5    | Friday   |
@@ -231,6 +241,7 @@ mao --config favorite-model claude-sonnet-4
 | 4    | Thursday  |      |          |
 
 ### Time Block Codes
+
 | Code | Time Block | Code | Time Block |
 | ---- | ---------- | ---- | ---------- |
 | 1    | 0000-0300  | 5    | 1200-1500  |
@@ -239,18 +250,19 @@ mao --config favorite-model claude-sonnet-4
 | 4    | 0900-1200  | 8    | 2100-0000  |
 
 ### Trigger Workflow Commands
+
 ```bash
 # Check calendar availability
-/avail [frequency] [day] [time]          # Check specific slot
-/avail 3                                 # Suggest optimal monthly slot
+/avail [frequency] [day] [time]        # Check specific slot
+/avail 3                               # Suggest optimal monthly slot
 
 # Create trigger workflows
-/repeat --scheduled [temp_dir]           # Scheduled workflows
-/repeat --list-new [temp_dir]           # New project list
-/repeat --list-add [temp_dir]           # Add to existing list
-/repeat --self-assessment [temp_dir]     # Self-improvement workflows
-/repeat --goal-assessment [temp_dir]     # Goal-based projects
-/repeat --sub-task [temp_dir]           # Subtasks for assessments
+/repeat --scheduled [temp_dir]         # Scheduled workflows
+/repeat --list-new [temp_dir]          # New project list
+/repeat --list-add [temp_dir]          # Add to existing list
+/repeat --self-assessment [temp_dir]   # Self-improvement workflows
+/repeat --goal-assessment [temp_dir]   # Goal-based projects
+/repeat --sub-task [temp_dir]          # Subtasks for assessments
 ```
 
 ---
@@ -258,6 +270,7 @@ mao --config favorite-model claude-sonnet-4
 ## Troubleshooting Quick Fixes
 
 ### Common Issues and Solutions
+
 | Problem              | Symptom                   | Quick Solution        | Command                     |
 | -------------------- | ------------------------- | --------------------- | --------------------------- |
 | Command not found    | `command not found` error | Check system health   | `mao --doctor`              |
@@ -267,27 +280,28 @@ mao --config favorite-model claude-sonnet-4
 | Memory system errors | Context not persisting    | Check MCP connection  | `mao --doctor`              |
 
 ### Diagnostic Commands
+
 ```bash
 # System health and status
-mao --doctor                             # Comprehensive system check
-mao --stats                              # Performance metrics
-mao --logs                               # Recent system activity
-mao --verbose [command]                  # Detailed command output
+mao --doctor                         # Comprehensive system check
+mao --stats                          # Performance metrics
+mao --logs                           # Recent system activity
+mao --verbose [command]              # Detailed command output
 
 # Workflow debugging
-mao --review [custom-command]            # Check workflow details
-mao --workflows                          # List all workflows
-mao --variables                          # Check variable definitions
+mao --review [custom-command]        # Check workflow details
+mao --workflows                      # List all workflows
+mao --variables                      # Check variable definitions
 ```
 
 ### File Location Diagnostics
 ```bash
 # Check if files exist in expected locations
-ls -la configs/user/[username]/          # User configuration
-ls -la configs/workflows/                # Workflow storage
-ls -la tools/                           # Available tools
-which mao                                # Mao command location
-which [custom-command]                   # Custom workflow commands
+ls -la configs/user/[username]/      # User configuration
+ls -la configs/workflows/            # Workflow storage
+ls -la tools/                        # Available tools
+which mao                            # Mao command location
+which [custom-command]               # Custom workflow commands
 ```
 
 ---
@@ -295,6 +309,7 @@ which [custom-command]                   # Custom workflow commands
 ## JSON Configuration Templates
 
 ### Minimal Workflow Configuration
+
 ```json
 {
   "workflow": [{
@@ -309,6 +324,7 @@ which [custom-command]                   # Custom workflow commands
 ```
 
 ### Phase Configuration
+
 ```json
 {
   "phase": [{
@@ -326,6 +342,7 @@ which [custom-command]                   # Custom workflow commands
 ```
 
 ### Handoff Configuration
+
 ```json
 {
   "handoff": [{
@@ -346,12 +363,14 @@ which [custom-command]                   # Custom workflow commands
 ## Performance Optimization Tips
 
 ### Speed Enhancement Strategies
+
 - **Use caching**: Mao automatically caches analysis and content fingerprints
 - **Set favorite model**: Consistent model selection improves response patterns
 - **Enable parallel phases**: Use phase numbering like `01a`, `01b` for parallel execution
 - **Leverage Memory MCP**: Context persistence reduces redundant processing
 
 ### Resource Management
+
 - **Budget awareness**: Mao tracks costs in real-time with daily budget management
 - **Model selection**: Intelligent selection balances cost, speed, and capability
 - **Tool optimization**: Dynamic tool discovery prevents unnecessary tool loading
