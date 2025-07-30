@@ -1,9 +1,11 @@
-# Section III: Setting Up a Project for Mao 
-*Walkthrough of a first-time user's experience* 
+# Section III: Letting Mao Set Up Your Project 
+*Experience the walkthrough of a first-time user's experience* 
 
 ---
 
-You're ready to automate your life. Advanced agentic orchestration, delegating to subagents working in parallel, fully compatible with any LLM model, it all sounds great. But you know what sounds better? *No learning curve.* 
+You're ready to automate your life. Advanced agentic orchestration, delegating to subagents working in parallel, fully compatible with any LLM model, it all sounds great. 
+
+But you know what sounds better? *No learning curve.* 
 
 Mao is here. Not just to help you, but to totally take over for you ~(=^‥^)
 
@@ -52,7 +54,7 @@ If you forget a second "mao" ~(=^‥^) you'll be treated as a new user.
 You've used Mao before on this device? Launch the app already logged in. 
 
 ```bash
-    mao --login # Launches with the Username field available 
+    mao --login      # Launches with the Username field available 
     mao --login --username seanivore # Launches with the Username field set to "seanivore" 
     mao --continue   # Launches Mao in the last session 
 ```
@@ -100,7 +102,7 @@ The system automatically generates unique UserIDs using mathematical operations 
 - Workflows are stored in the `./configs/workflows/` directory and only include the UserID 
 
 ### UserID Generation Architecture
-*Files: scripts/user_id_generator/user_id_generator.py*
+*scripts/user_id_generator/user_id_generator.py*
 
 The UserID generation system uses mathematical operations for deterministic ID creation:
 
@@ -167,11 +169,12 @@ mao --config   # Launch the app to open on the config screen
 The session management system relies on the **Memory MCP (Model Context Protocol)** server to maintain persistent workflow state and user context across sessions. This creates seamless continuity that feels magical to users but operates on solid technical foundations.
 
 ### Memory MCP Integration Architecture
-*Files: orchestrator/memory_mcp.py, orchestrator/user_memory_manager.py, orchestrator/workflow_state.py*
+*orchestrator/memory_mcp.py, orchestrator/user_memory_manager.py, orchestrator/workflow_state.py*
 
 The Memory MCP integration provides persistent workflow state and cross-session continuity through coordinated memory management:
 
 **Memory MCP Manager** (`orchestrator/memory_mcp.py`):
+
 ```python
 class MemoryMCPManager:
     """Manages workflow state persistence using Memory MCP"""
@@ -211,6 +214,7 @@ class MemoryMCPManager:
 ```
 
 **User Memory Manager** (`orchestrator/user_memory_manager.py`):
+
 ```python
 class UserMemoryManager:
     """Manages user-specific memory storage with MCP integration"""
@@ -245,6 +249,7 @@ class UserMemoryManager:
 ```
 
 **Session Recovery Integration**:
+
 ```python
 def handle_session_recovery(self, workflow_id: str) -> Optional[Dict[str, Any]]:
     """Recover complete workflow session state"""
@@ -291,7 +296,7 @@ This architecture ensures seamless continuity through persistent memory graphs w
 
    1. Dark mode
    2. Light mode
- ❯ 3. Dark mode (CVD)✔
+ ❯ 3. Dark mode (CVD) ✔
    1. Light mode (CVD)
    2. Dark mode (ANSI colors only)
    3. Light mode (ANSI colors only)
@@ -357,11 +362,12 @@ This architecture ensures seamless continuity through persistent memory graphs w
 Want to set up new settings for the application? Ask Mao what files are needed, they'll do the rest. The modular settings system allows dynamic addition of new configuration options through JSON templates.
 
 ### Settings Architecture
-*Files: orchestrator/settings_manager.py, configs/settings/, configs/cli/config/config.py*
+*orchestrator/settings_manager.py, configs/settings/, configs/cli/config/config.py*
 
 The modular settings system provides dynamic discovery and user preference management through coordinated components:
 
 **Application Settings Manager** (`orchestrator/settings_manager.py`):
+
 ```python
 @dataclass
 class SettingDefinition:
@@ -428,6 +434,7 @@ class ApplicationSettingsManager:
 ```
 
 **CLI Settings Integration** (`configs/cli/config/config.py`):
+
 ```python
 @handle_errors(operation_name="config", return_dict=True)
 def execute_config(params: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -479,6 +486,7 @@ def execute_config(params: Dict[str, Any] = None) -> Dict[str, Any]:
 ```
 
 **Delta Storage Pattern**:
+
 ```python
 def update_user_setting(username: str, setting_name: str, new_value: Any) -> bool:
     """Update individual user setting using delta storage"""
@@ -532,7 +540,7 @@ This architecture enables seamless addition of new settings through JSON file cr
 
 
 ╭───────────────────────────────────────────────────╮
-│ > Try "how do we start building?"                 │
+│ > How do we start building?                       │
 ╰───────────────────────────────────────────────────╯
   ?  /help for help, /config to change settings
 ```
@@ -586,7 +594,6 @@ This architecture enables seamless addition of new settings through JSON file cr
 ### Tell Mao About Your Project 
 
 - Chat is flexible; Mao will chat like any AI model. Treat Mao like an employee. Provide as much or as little detail as you want. 
-
 - Mao is not trained with any scripts; they are simply an expert in turning projects into tasks and then into a workflow 
 
 **A goal is all Mao needs**
@@ -622,10 +629,10 @@ mao --goal "Create a marketing plan for my Etsy shop featuring our promotion on 
 - You can also run `--workflow` with the Custom Command of a workflow 
 
 ```bash 
-uid # Creates a new unique Workflow ID 
+uid                        # Creates a new unique Workflow ID 
 mao --workflow uid-abc-000 # Shows workflow details 
-/uid # Creates a new unique Workflow ID 
-/workflow uid-abc-000 # Shows workflow details 
+/uid                       # Creates a new unique Workflow ID 
+/workflow uid-abc-000      # Shows workflow details 
 ```
 
 ### Mao's "One Source of Truth"
@@ -637,6 +644,7 @@ Here's how Mao is able to always be on the same page as you.
 * The Workflow ID is for you 
   - It identifies your workflow and connects it to your UserID and Username 
   - Every new project, Mao will create a new Workflow ID 
+
 * The Workflow ID is for Mao 
   - Mao tags memory context updates with the Workflow ID, keeping all information about the project together 
   - If you get interrupted, Mao uses the workflow ID to know exactly where to pick up
@@ -670,16 +678,17 @@ Mathematical Operations:
 ```
 
 ### Chat Interface & Terminal UI Architecture
-*Files: interfaces/ui_terminal.py, orchestrator/conversation_bridge.py*
+*interfaces/ui_terminal.py, orchestrator/conversation_bridge.py*
 
 The conversational workflow creation experience operates through a sophisticated bridge between TypeScript frontend and Python backend which we get into detail about in the [05_INTERFACE.md](./05_INTERFACE.md) document. 
 
 ### Workflow ID System Architecture
-*Files: orchestrator/workflow_manager.py, scripts/unique_id_generator/unique_id_generator.py, configs/cli/workflow_id/workflow_id.py*
+*orchestrator/workflow_manager.py, scripts/unique_id_generator/unique_id_generator.py, configs/cli/workflow_id/workflow_id.py*
 
 The workflow ID system provides collision-free identifier generation and comprehensive workflow tracking through integrated management:
 
 **Workflow Manager Integration** (`orchestrator/workflow_manager.py`):
+
 ```python
 class WorkflowManager:
     """Manages workflow IDs, discovery, and tracking"""
@@ -716,6 +725,7 @@ class WorkflowManager:
 ```
 
 **Unique ID Generator** (`scripts/unique_id_generator/unique_id_generator.py`):
+
 ```python
 class WorkflowUIDGenerator:
     """Generates unique workflow IDs in format: uid-abc-123"""
@@ -758,6 +768,7 @@ class WorkflowUIDGenerator:
 ```
 
 **CLI Integration** (`configs/cli/workflow_id/workflow_id.py`):
+
 ```python
 @handle_errors(operation_name="workflow_id", return_dict=True)
 def execute_workflow_id(params: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -805,7 +816,7 @@ This system ensures collision-free workflow identifiers with mathematical consis
 ---
 
 ## The Workflow's JSON Config
- 
+
 When chatting with Mao, you will be helping them to fill out a JSON config file. This is basically a prompt that has been broken down into variables. Use the `/variables` command to remind yourself what you need to tell Mao. 
 
 ```bash
@@ -870,11 +881,12 @@ Similarly, Mao may decide the Agent's deliverables are not acceptable; not up to
 We'll touch on the specifics of how to setup, edit, or fix a workflow via JSON objects after this architecture section. 
 
 ### JSON Configuration Architecture
-*Files: orchestrator/conversation_bridge.py, templates/workflows/, scripts/quality_validator/json_config_normalizer.py*
+*orchestrator/conversation_bridge.py, templates/workflows/, scripts/quality_validator/json_config_normalizer.py*
 
 The 3-type JSON workflow configuration system provides modular workflow definition through coordinated object validation and template processing:
 
 **Conversation Bridge Configuration Generator** (`orchestrator/conversation_bridge.py`):
+
 ```python
 class ConversationToWorkflowBridge:
     """Convert conversations to executable workflows using proven SFA patterns"""
@@ -922,6 +934,7 @@ class ConversationToWorkflowBridge:
 ```
 
 **JSON Schema Validation System** (`scripts/quality_validator/json_config_normalizer.py`):
+
 ```python
 class JSONConfigNormalizer:
     """Ensures consistent JSON configuration format across all workflow types"""
@@ -1057,7 +1070,6 @@ This architecture ensures consistent configuration format while enabling flexibl
 ---
 
 ### The Setup Script
-
 *Deals with our temporary JSON Object Directory* 
 
 - During workflow creation, the JSON objects are saved in a temporary directory 
@@ -1173,6 +1185,7 @@ No coding. No configuration files. No technical setup. You literally just run th
 When you execute `/setup ./marketing-strategy-startup/`, here's what happens behind the scenes:
 
 **1. Creates Your Complete Directory Structure**
+
 ```
 configs/workflows/marketing-strategy-startup/
 ├── config-files/                                    # ← Mao creates this
@@ -1189,6 +1202,7 @@ configs/workflows/marketing-strategy-startup/
 ```
 
 **2. Writes Your README.md Automatically**
+
 Mao analyzes your workflow and creates a complete README that explains:
 - What this workflow does
 - How to run it (`marketing strategy startup`)
@@ -1196,6 +1210,7 @@ Mao analyzes your workflow and creates a complete README that explains:
 - Analytics tags for tracking your project types
 
 **3. Creates Your Custom Executable Command**
+
 Mao doesn't just create files - they create a **working command** that you can run from anywhere:
 ```bash
 marketing strategy startup  # Your custom command works instantly
@@ -1204,12 +1219,14 @@ marketing strategy startup  # Your custom command works instantly
 This command gets installed in your `~/bin` directory and is immediately available system-wide.
 
 **4. Links Everything to Memory MCP**
+
 Behind the scenes, Mao connects your new workflow to the Memory MCP system so they can:
 - Remember exactly where you left off
 - Track all decisions and changes
 - Provide context when you return weeks later
 
 **5. Sets Up Analytics Tracking**
+
 Your workflow is automatically configured to track:
 - Execution time and costs
 - Tool usage patterns  
@@ -1217,6 +1234,7 @@ Your workflow is automatically configured to track:
 - Success rates
 
 **6. Cleans Up Automatically**
+
 Once everything is built, Mao deletes the temporary files. No mess, no manual cleanup.
 
 ### The Magic Result
@@ -1277,11 +1295,12 @@ mao --fix-it configs/workflows/this-project/this-project-config-fix.json
 Both commands are designed so they can create new JSONs anywhere Mao, or you!, happen to be working, and the system automatically copies the new JSON to the appropriate directory for that use-case. This flexibility means workflow evolution can happen organically as projects develop.
 
 ### Basic Setup Script System Architecture
-*Files: scripts/workflow_setup/workflow_setup.sh, configs/cli/setup/setup.py, orchestrator/workflow_manager.py*
+*scripts/workflow_setup/workflow_setup.sh, configs/cli/setup/setup.py, orchestrator/workflow_manager.py*
 
 The foundational workflow-to-executable transformation system converts JSON configurations into working custom commands:
 
 **Core Setup Script** (`scripts/workflow_setup/workflow_setup.sh`):
+
 ```bash
 #!/bin/bash
 # Main workflow setup script - transforms JSON configs to executable commands
@@ -1342,6 +1361,7 @@ chmod +x "$COMMAND_PATH"
 ```
 
 **CLI Setup Integration** (`configs/cli/setup/setup.py`):
+
 ```python
 @handle_errors(operation_name="setup", return_dict=True)
 def execute_setup(params: Dict[str, Any] = None) -> Dict[str, Any]:
@@ -1420,6 +1440,7 @@ def _setup_from_directory(workflow_dir: Path, workflow_manager: WorkflowManager,
 ```
 
 **Directory Structure Management**:
+
 ```
 configs/workflows/.temp/command-use-case/     # Temporary JSON storage
 ├── workflow_config.json                      # Master workflow configuration
@@ -1443,11 +1464,12 @@ configs/workflows/command-use-case/           # Permanent workflow structure
 This foundational system transforms conversational workflow creation into executable custom commands while maintaining clean organization and enabling seamless workflow evolution.
 
 ### Command Creation Architecture  
-*Files: orchestrator/cli_manager.py, configs/cli/*, scripts/mao_launch_setup/install_mao_command.sh*
+*orchestrator/cli_manager.py, configs/cli/, scripts/mao_launch_setup/install_mao_command.sh*
 
 The command creation system provides dynamic discovery and execution of custom CLI commands through a modular architecture:
 
 **CLI Commands Manager** (`orchestrator/cli_manager.py`):
+
 ```python
 class CLICommandsManager:
     """Manages dynamic CLI command discovery and execution"""
@@ -1538,6 +1560,7 @@ configs/cli/command_name/
 ```
 
 **Command Installation System** (`scripts/mao_launch_setup/install_mao_command.sh`):
+
 ```bash
 #!/bin/bash
 # Install the main 'mao' command globally
@@ -1582,12 +1605,13 @@ echo "Global 'mao' command installed at $MAO_COMMAND"
 ```
 
 **Command Registration Flow**:
+
 1. **Directory Structure Creation** - Standard 3-file pattern in `configs/cli/`
 2. **Dynamic Discovery** - CLI manager scans and registers available commands
 3. **Module Import** - Commands loaded dynamically at execution time
 4. **Execution Routing** - Arguments and context passed to command functions
 5. **Result Processing** - Standardized response format for UI integration
 
-This architecture enables seamless addition of new commands without code changes to the core system while maintaining consistent execution patterns and error handling across all CLI operations.
-
 ---
+
+*This architecture enables seamless addition of new commands without code changes to the core system while maintaining consistent execution patterns and error handling across all CLI operations.*
