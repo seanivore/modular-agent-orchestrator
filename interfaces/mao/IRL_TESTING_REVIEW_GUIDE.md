@@ -88,7 +88,7 @@ what are 3 ways to improve this?
 # ● Active tasks (filled circles, blinking)  
 # ▶︎ Completed sub-tasks
 # ▷ Pending sub-tasks
-# Real-time activity updates every 3 seconds
+# Real-time activity updates every 3 seconds --> this needs to be way faster and just be REAL like tool usage as fast as you're using tools. 
 ```
 
 #### **Contextual AI Thinking** ⭐ **ENHANCED**

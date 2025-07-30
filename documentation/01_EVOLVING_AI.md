@@ -1,8 +1,6 @@
 # Section I: Self-Evolving AI - The Revolution That Changes Everything
 *Why Mao isn't just different, but fundamentally transformational*
 
-Pronounce it /maʊ̯/ like "mau" with no "H" sound, like a cat. Mao, meow!
-
 ---
 
 This is where everything changes. Not incrementally, not gradually, but fundamentally. Mao represents the first time artificial intelligence becomes genuinely intelligent collaboration rather than sophisticated automation. This isn't about getting better results from AI tools; it's about AI that thinks strategically, learns continuously, and enhances its own capabilities while working alongside you as a true partner.
