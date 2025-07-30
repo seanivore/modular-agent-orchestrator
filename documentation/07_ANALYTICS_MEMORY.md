@@ -3,7 +3,7 @@
 
 ---
 
-Welcome to analytics in the era of AI. Insights are pushed further thanks to the power of memory and an ability to understand context. Intelligence built into analytics really makes a wild difference. Mao's interconnected memory system establishes sophisticated and intuitive user experience and data insight capabilities. This is where autonomy and agentic system meet evolution. Check out what it will do for you. 
+Welcome to analytics in the era of AI. This is SO FUTURE. Insights are pushed further thanks to the power of memory and an ability to understand context. Intelligence built into analytics really makes a wild difference. Mao's interconnected memory system establishes sophisticated and intuitive user experience and data insight capabilities. This is where autonomy and agentic system meet evolution. Check out what it will do for you. 
 
 ---
 
@@ -20,7 +20,7 @@ WorkflowIDs can be used to pull in preferences they've been shown in previous pr
 ---
 
 ## Real-Time Analytics Architecture 
-*Files: orchestrator/user_analytics_manager.py, orchestrator/system_analytics_manager.py*
+*orchestrator/user_analytics_manager.py, orchestrator/system_analytics_manager.py*
 
 Mao's analytic system operates with privacy-first design, capturing valuable insights through strategic trigger points while maintaining complete user control over personal data.
 
@@ -171,7 +171,7 @@ def calculate_time_patterns(self, user_analytics_data: List[Dict]) -> Dict:
 ---
 
 ## Session Analytics Architecture
-*Files: orchestrator/user_analytics_manager.py, interfaces/ui_terminal.py*
+*orchestrator/user_analytics_manager.py, interfaces/ui_terminal.py*
 
 ### Trigger Points
 
@@ -237,7 +237,7 @@ def track_session(self, username: str, session_id: str, action: str, **kwargs) -
 ```
 
 ## Workflow Analytics Architecture
-*Files: orchestrator/user_analytics_manager.py, orchestrator/workflow_manager.py*
+*orchestrator/user_analytics_manager.py, orchestrator/workflow_manager.py*
 
 ### Trigger Points
 
@@ -321,7 +321,7 @@ def track_workflow(self, username: str, workflow_id: str, workflow_command: str,
 ```
 
 ## Cost Tracking Architecture
-*Files: orchestrator/user_analytics_manager.py, orchestrator/manager_models.py*
+*orchestrator/user_analytics_manager.py, orchestrator/manager_models.py*
 
 ### Trigger Points
 
@@ -402,7 +402,7 @@ def track_costs(self, username: str, date: str, model_name: str, cost: float, se
 ---
 
 ## Memory System Architecture
-*Files: orchestrator/user_memory_manager.py, orchestrator/memory_mcp.py, orchestrator/mcp_hub.py*
+*orchestrator/user_memory_manager.py, orchestrator/memory_mcp.py, orchestrator/mcp_hub.py*
 
 Mao's memory system provides intelligent storage and retrieval of user preferences, contextual insights, and personalized suggestions through Memory MCP integration.
 
@@ -532,7 +532,6 @@ def _store_memory_to_mcp(self, user_id: str, memory: Dict[str, Any]):
 ---
 
 ## Analytics Trigger Points Reference
-
 *This section documents where analytics triggers are implemented across the codebase*
 
 ### Session Triggers
@@ -575,11 +574,12 @@ def _store_memory_to_mcp(self, user_id: str, memory: Dict[str, Any]):
 ---
 
 ## Privacy & Data Control Architecture
-*Files: orchestrator/user_analytics_manager.py, orchestrator/username_manager.py*
+*orchestrator/user_analytics_manager.py, orchestrator/username_manager.py*
 
 Privacy isn't an afterthought in Mao's analytics and memory systems; it's foundational to the architecture. Every piece of user data is designed to be easily discoverable, exportable, and deletable.
 
 ### User Data Directory Structure 
+
 **All easily deletable information**
 
 ```
@@ -596,6 +596,7 @@ Privacy isn't an afterthought in Mao's analytics and memory systems; it's founda
 ```
 
 ### System Data Directory Structure
+
 **All anonymous information**
 
 ```
@@ -661,7 +662,7 @@ Users maintain complete control over their analytics and memory data through tra
 ---
 
 ## Dynamic Discovery Architecture
-*Files: orchestrator/user_analytics_manager.py, orchestrator/manager_tools.py*
+*orchestrator/user_analytics_manager.py, orchestrator/manager_tools.py*
 
 Following Mao's core philosophy of "Everything modular, everything discoverable," the analytics system automatically adapts to new tools, workflows, and components without requiring manual configuration.
 
