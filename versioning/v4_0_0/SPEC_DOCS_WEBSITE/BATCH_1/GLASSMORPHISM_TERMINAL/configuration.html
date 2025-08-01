@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - Mao Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-grid"></div>
+    
+    <header class="glass-header">
+        <div class="logo-container">
+            <div class="ascii-cat">~(=^‥^)</div>
+            <h1>Configuration</h1>
+            <span class="tagline">Customizing your orchestrator</span>
+        </div>
+        <nav class="glass-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="getting-started.html" class="nav-link">Getting Started</a>
+            <a href="workflows.html" class="nav-link">Workflows</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="glass-panel hero-panel">
+                <h2>Modular Configuration System</h2>
+                <p>Mao's atomic JSON configuration system provides maximum flexibility while maintaining simplicity and discoverability.</p>
+            </div>
+        </section>
+
+        <section class="config-grid">
+            <div class="glass-panel config-card">
+                <h3>Agent Configurations</h3>
+                <p>Define specialized AI agents for different task domains with custom prompts, models, and tool access.</p>
+                <div class="config-example">
+                    <div class="config-header">agents/research_specialist.json</div>
+                    <pre class="config-code">{
+  "name": "research_specialist",
+  "description": "Deep research and analysis",
+  "model": "claude-sonnet-4",
+  "temperature": 0.2,
+  "system_prompt": "Expert researcher...",
+  "tools": ["web_search", "document_analysis"],
+  "memory_enabled": true
+}</pre>
+                </div>
+            </div>
+
+            <div class="glass-panel config-card">
+                <h3>Tool Definitions</h3>
+                <p>Create custom tools with the 4-file modular pattern for maximum reusability and maintainability.</p>
+                <div class="config-example">
+                    <div class="config-header">tools/data_analyzer.json</div>
+                    <pre class="config-code">{
+  "name": "data_analyzer",
+  "version": "1.0.0",
+  "file_path": "tools/data_analyzer.py",
+  "button_path": "tools/button_data_analyzer.py",
+  "ui_path": "tools/ui_data_analyzer.py",
+  "operations": {
+    "analyze": {
+      "description": "Analyze dataset patterns",
+      "required_params": ["data_path"]
+    }
+  }
+}</pre>
+                </div>
+            </div>
+
+            <div class="glass-panel config-card">
+                <h3>Workflow Patterns</h3>
+                <p>Define reusable workflow templates that orchestrate multiple agents and tools in sophisticated patterns.</p>
+                <div class="config-example">
+                    <div class="config-header">workflows/parallel_research.json</div>
+                    <pre class="config-code">{
+  "name": "parallel_research",
+  "description": "Multi-agent parallel research",
+  "steps": [
+    {
+      "name": "topic_analysis",
+      "agent": "research_specialist"
+    },
+    {
+      "name": "parallel_search",
+      "type": "parallel",
+      "agents": ["web_researcher", "academic_researcher"]
+    }
+  ]
+}</pre>
+                </div>
+            </div>
+
+            <div class="glass-panel config-card">
+                <h3>UI Customization</h3>
+                <p>Customize the terminal interface colors, themes, and behavior to match your preferences and workflow needs.</p>
+                <div class="config-example">
+                    <div class="config-header">ui/theme.json</div>
+                    <pre class="config-code">{
+  "name": "custom_theme",
+  "colors": {
+    "primary": "#00ff00",
+    "secondary": "#00cc00", 
+    "accent": "#ffff00",
+    "background": "#000000"
+  },
+  "animations": {
+    "typing_speed": 50,
+    "fade_duration": 300
+  }
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <section class="configuration-commands">
+            <div class="glass-panel commands-panel">
+                <h3>Configuration Commands</h3>
+                <p>Manage your Mao configuration through the command-line interface:</p>
+                
+                <div class="command-grid">
+                    <div class="command-item">
+                        <div class="command-name">mao config list</div>
+                        <div class="command-desc">Show all configuration values</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">mao config set model claude-sonnet-4</div>
+                        <div class="command-desc">Set default AI model</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">mao config set memory.persist true</div>
+                        <div class="command-desc">Enable persistent memory</div>
+                    </div>
+                    <div class="command-item">
+                        <div class="command-name">mao config validate</div>
+                        <div class="command-desc">Validate all configuration files</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="discovery-system">
+            <div class="glass-panel discovery-panel">
+                <h3>Automatic Discovery</h3>
+                <p>Mao automatically discovers and loads configurations through directory scanning - no hardcoded lists or manual registration required.</p>
+                
+                <div class="terminal-demo">
+                    <div class="glass-panel terminal-panel">
+                        <div class="terminal-header">
+                            <div class="terminal-controls">
+                                <span class="control-dot red"></span>
+                                <span class="control-dot yellow"></span>
+                                <span class="control-dot green"></span>
+                            </div>
+                            <span class="terminal-title">config-discovery</span>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-line">
+                                <span class="prompt">mao $</span>
+                                <span class="command">config discover</span>
+                            </div>
+                            <div class="terminal-output">
+                                <div class="output-line">[INFO] Scanning ~/.config/mao/...</div>
+                                <div class="output-line">[INFO] Found 12 agent configurations</div>
+                                <div class="output-line">[INFO] Found 8 tool definitions</div>
+                                <div class="output-line">[INFO] Found 5 workflow patterns</div>
+                                <div class="output-line success">[SUCCESS] Configuration discovery complete</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <p>Modular • Atomic • Template-based • Discovery-driven</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="getting-started.html">Getting Started</a>
+                <a href="workflows.html">Workflows</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

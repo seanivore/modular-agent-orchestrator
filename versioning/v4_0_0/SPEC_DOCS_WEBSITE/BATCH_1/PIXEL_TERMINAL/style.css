@@ -1,0 +1,439 @@
+/* PIXEL TERMINAL - Retro pixelated terminal aesthetic */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    /* Mao 4-color semantic system - Pixel theme */
+    --primary-color: #00ff41;      /* Bright green */
+    --secondary-color: #00cc33;    /* Medium green */
+    --accent-color: #ffff00;       /* Bright yellow */
+    --neutral-color: #888888;      /* Gray */
+    
+    /* Pixel specific colors */
+    --bg-color: #0c0c0c;
+    --panel-bg: #1a1a1a;
+    --border-color: #333333;
+    --text-color: #00ff41;
+    --success-color: #00ff00;
+    --info-color: #0099ff;
+    --pixel-size: 2px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+    font-size: 8px;
+    overflow-x: hidden;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* CRT Effects */
+.pixel-container {
+    min-height: 100vh;
+    position: relative;
+    background: var(--bg-color);
+    padding: 20px;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, 0.03) 2px,
+        rgba(0, 255, 65, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.2) 100%);
+    pointer-events: none;
+    z-index: 999;
+}
+
+/* Header */
+.pixel-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.pixel-terminal {
+    margin-bottom: 20px;
+}
+
+.terminal-border {
+    border: 3px solid var(--border-color);
+    background: var(--panel-bg);
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.terminal-title-bar {
+    background: var(--border-color);
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.terminal-title {
+    color: var(--primary-color);
+    font-size: 6px;
+    font-weight: normal;
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    background: var(--panel-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 6px;
+}
+
+.btn:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+}
+
+/* Logo Section */
+.logo-section {
+    margin: 20px 0;
+}
+
+.pixel-cat {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px var(--accent-color);
+    animation: pixelGlow 2s ease-in-out infinite alternate;
+}
+
+.cat-row {
+    line-height: 1.2;
+}
+
+.pixel-title {
+    font-size: 24px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0px var(--secondary-color);
+    margin-bottom: 10px;
+    letter-spacing: 4px;
+}
+
+.pixel-subtitle {
+    color: var(--secondary-color);
+    font-size: 8px;
+    letter-spacing: 2px;
+}
+
+/* Content Panels */
+.pixel-panel {
+    background: var(--panel-bg);
+    border: 2px solid var(--border-color);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.pixel-panel::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-color), transparent, var(--primary-color));
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.panel-header {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    padding: 8px 15px;
+    font-size: 8px;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+
+.pixel-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Boot Section */
+.boot-log {
+    padding: 20px;
+}
+
+.boot-line {
+    margin-bottom: 8px;
+    color: var(--info-color);
+    animation: typewriter 0.8s steps(40, end) forwards;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.boot-line:nth-child(1) { animation-delay: 0s; }
+.boot-line:nth-child(2) { animation-delay: 1s; }
+.boot-line:nth-child(3) { animation-delay: 2s; }
+.boot-line:nth-child(4) { animation-delay: 3s; }
+.boot-line:nth-child(5) { animation-delay: 4s; }
+
+.boot-line.success {
+    color: var(--success-color);
+    text-shadow: 0 0 5px var(--success-color);
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.feature-block {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-block:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.feature-icon {
+    font-size: 12px;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px var(--accent-color);
+}
+
+.feature-block h3 {
+    color: var(--primary-color);
+    font-size: 8px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.feature-block p {
+    color: var(--neutral-color);
+    font-size: 6px;
+    line-height: 1.6;
+}
+
+/* Terminal Demo */
+.pixel-terminal-demo {
+    padding: 20px;
+    background: var(--bg-color);
+    font-family: 'Courier New', monospace;
+}
+
+.demo-prompt {
+    margin-bottom: 10px;
+}
+
+.prompt-symbol {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.demo-command {
+    color: var(--accent-color);
+}
+
+.demo-output {
+    margin-left: 20px;
+}
+
+.output-line {
+    margin-bottom: 5px;
+    color: var(--info-color);
+    font-size: 7px;
+}
+
+.output-line.success {
+    color: var(--success-color);
+    text-shadow: 0 0 3px var(--success-color);
+}
+
+/* Specs Grid */
+.specs-grid {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px dotted var(--border-color);
+}
+
+.spec-label {
+    color: var(--neutral-color);
+    font-size: 7px;
+}
+
+.spec-value {
+    color: var(--primary-color);
+    font-size: 7px;
+    text-align: right;
+}
+
+/* Navigation */
+.nav-menu {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-button {
+    background: var(--bg-color);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 8px 20px;
+    text-decoration: none;
+    font-size: 8px;
+    transition: all 0.3s ease;
+    display: block;
+    text-align: center;
+    min-width: 200px;
+}
+
+.nav-button:hover {
+    background: var(--primary-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Footer */
+.pixel-footer {
+    margin-top: 30px;
+}
+
+.footer-bar {
+    background: var(--border-color);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid var(--primary-color);
+}
+
+.footer-text {
+    color: var(--primary-color);
+    font-size: 7px;
+}
+
+.footer-status {
+    color: var(--success-color);
+    font-size: 7px;
+    text-shadow: 0 0 5px var(--success-color);
+}
+
+/* Animations */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes pixelGlow {
+    from { text-shadow: 0 0 5px var(--accent-color); }
+    to { text-shadow: 0 0 15px var(--accent-color), 0 0 25px var(--accent-color); }
+}
+
+.typing {
+    animation: typewriter 2s steps(40, end) forwards;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .pixel-container {
+        padding: 10px;
+    }
+    
+    .pixel-title {
+        font-size: 16px;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    
+    .nav-menu {
+        padding: 15px;
+    }
+    
+    .nav-button {
+        min-width: 150px;
+        padding: 6px 15px;
+    }
+    
+    body {
+        font-size: 7px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pixel-title {
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+    
+    .terminal-title {
+        font-size: 5px;
+    }
+    
+    .feature-block p,
+    .output-line,
+    .spec-label,
+    .spec-value {
+        font-size: 6px;
+    }
+    
+    body {
+        font-size: 6px;
+    }
+}

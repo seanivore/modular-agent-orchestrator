@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - Mao Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="gradient-background">
+        <div class="gradient-layer gradient-1"></div>
+        <div class="gradient-layer gradient-2"></div>
+        <div class="gradient-layer gradient-3"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="terminal-window">
+                <div class="window-controls">
+                    <div class="control red"></div>
+                    <div class="control yellow"></div>
+                    <div class="control green"></div>
+                </div>
+                <div class="window-title">mao@docs:getting-started</div>
+            </div>
+            <div class="logo-section">
+                <div class="ascii-cat">~(=^‥^)</div>
+                <h1 class="gradient-text">Getting Started</h1>
+                <p class="subtitle">Your first steps with Mao</p>
+            </div>
+        </header>
+
+        <nav class="navigation">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="configuration.html" class="nav-item">Configuration</a>
+            <a href="workflows.html" class="nav-item">Workflows</a>
+        </nav>
+
+        <main class="content">
+            <section class="install-section">
+                <div class="content-card">
+                    <h2 class="gradient-text">Installation</h2>
+                    <p>Install Mao with a single command and start orchestrating AI agents immediately:</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-title">Installation</span>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="command-line">
+                                <span class="prompt">curl -sSL https://get.mao.dev | bash</span>
+                            </div>
+                            <div class="output-lines">
+                                <div class="output-line info">[INFO] Downloading Mao installer...</div>
+                                <div class="output-line info">[INFO] Setting up modular tool ecosystem...</div>
+                                <div class="output-line info">[INFO] Configuring terminal interface...</div>
+                                <div class="output-line success">[SUCCESS] Mao installed successfully</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="setup-section">
+                <div class="content-card">
+                    <h2 class="gradient-text">Initial Setup</h2>
+                    <p>Initialize your Mao workspace with the configuration system:</p>
+                    <div class="setup-grid">
+                        <div class="setup-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Initialize Workspace</h3>
+                                <code class="inline-code">mao init</code>
+                                <p>Creates configuration directories and default settings</p>
+                            </div>
+                        </div>
+                        <div class="setup-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Configure Agents</h3>
+                                <code class="inline-code">mao agents setup</code>
+                                <p>Set up AI model preferences and API keys</p>
+                            </div>
+                        </div>
+                        <div class="setup-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Start Chatting</h3>
+                                <code class="inline-code">mao chat</code>
+                                <p>Launch the interactive terminal interface</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="first-workflow">
+                <div class="content-card">
+                    <h2 class="gradient-text">Your First Workflow</h2>
+                    <p>Experience multi-agent orchestration with a simple research task:</p>
+                    <div class="terminal-block">
+                        <div class="terminal-header">
+                            <span class="terminal-prompt">mao $</span>
+                            <span class="terminal-title">First Workflow</span>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="command-line">
+                                <span class="prompt">workflow run research --topic "sustainable technology trends"</span>
+                            </div>
+                            <div class="output-lines">
+                                <div class="output-line info">[INFO] Initializing research workflow...</div>
+                                <div class="output-line info">[INFO] Spawning 3 research agents...</div>
+                                <div class="output-line">[INFO] Agent 1: Web research → Active</div>
+                                <div class="output-line">[INFO] Agent 2: Academic search → Active</div>
+                                <div class="output-line">[INFO] Agent 3: Data analysis → Active</div>
+                                <div class="output-line processing">[INFO] Processing parallel results...</div>
+                                <div class="output-line success">[SUCCESS] Research synthesis complete</div>
+                                <div class="output-line">Report saved: ./reports/sustainable_tech_2025.md</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="key-concepts">
+                <div class="content-card">
+                    <h2 class="gradient-text">Key Concepts</h2>
+                    <div class="concepts-grid">
+                        <div class="concept-item">
+                            <h3>Local First</h3>
+                            <p>Runs entirely on your machine with no cloud dependencies for core functionality</p>
+                        </div>
+                        <div class="concept-item">
+                            <h3>Modular Tools</h3>
+                            <p>JSON-based tool system with automatic discovery and template-driven creation</p>
+                        </div>
+                        <div class="concept-item">
+                            <h3>Agent Orchestration</h3>
+                            <p>Intelligent routing between specialized AI agents based on task requirements</p>
+                        </div>
+                        <div class="concept-item">
+                            <h3>Memory System</h3>
+                            <p>Persistent context and state management across sessions and workflows</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>Terminal-native AI orchestration • Local-first architecture</p>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="configuration.html">Configuration</a>
+                    <a href="workflows.html">Workflows</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

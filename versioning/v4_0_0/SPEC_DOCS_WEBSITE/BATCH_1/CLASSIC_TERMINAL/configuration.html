@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - Mao Documentation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="terminal-title">mao@localhost:~/docs/config$</div>
+        </div>
+        
+        <div class="terminal-content">
+            <div class="boot-sequence">
+                <div class="boot-line">Loading configuration documentation...</div>
+                <div class="boot-line">JSON schemas validated</div>
+                <div class="boot-line prompt-line">$</div>
+            </div>
+
+            <main class="content-area">
+                <header class="header">
+                    <div class="logo">
+                        <pre class="ascii-cat">~(=^‥^)</pre>
+                        <h1>Configuration</h1>
+                        <p class="tagline">Customizing your Mao orchestrator</p>
+                    </div>
+                </header>
+
+                <section class="intro">
+                    <div class="command-prompt">
+                        <span class="prompt">$ find ~/.config/mao -name "*.json" | head -5</span>
+                    </div>
+                    <div class="output">
+                        <h2>Configuration Architecture</h2>
+                        <p>Mao uses modular JSON configuration files for maximum flexibility. Each component is standalone and atomic:</p>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <span class="file-type">json</span>
+                                <span class="file-name">agents/default.json</span>
+                                <span class="file-desc">Default agent configuration</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="file-type">json</span>
+                                <span class="file-name">tools/filesystem.json</span>
+                                <span class="file-desc">File operation tool definition</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="file-type">json</span>
+                                <span class="file-name">workflows/research.json</span>
+                                <span class="file-desc">Research workflow pattern</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="file-type">json</span>
+                                <span class="file-name">ui/colors.json</span>
+                                <span class="file-desc">Terminal color scheme</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="features">
+                    <div class="command-prompt">
+                        <span class="prompt">$ cat agents/example.json</span>
+                    </div>
+                    <div class="output">
+                        <h2>Agent Configuration</h2>
+                        <p>Configure specialized agents for different tasks:</p>
+                        <div class="code-block">{
+  "name": "research_agent",
+  "description": "Specialized for research and analysis tasks",
+  "model": "claude-sonnet-4",
+  "temperature": 0.3,
+  "system_prompt": "You are a research specialist...",
+  "tools": ["web_search", "document_analysis", "citation_manager"],
+  "memory_enabled": true,
+  "cost_limit": 0.50
+}</div>
+                    </div>
+                </section>
+
+                <section class="quick-start">
+                    <div class="command-prompt">
+                        <span class="prompt">$ cat tools/custom_tool.json</span>
+                    </div>
+                    <div class="output">
+                        <h2>Tool Development</h2>
+                        <p>Create custom tools with JSON definitions:</p>
+                        <div class="code-block">{
+  "name": "file_analyzer",
+  "version": "1.0.0",
+  "description": "Analyzes file structure and content",
+  "file_path": "tools/file_analyzer.py",
+  "button_path": "tools/button_file_analyzer.py",
+  "ui_path": "tools/ui_file_analyzer.py",
+  "operations": {
+    "analyze": {
+      "description": "Analyze file content and structure",
+      "required_params": ["file_path"],
+      "optional_params": ["depth", "format"]
+    }
+  },
+  "models_supported": ["all"],
+  "cost_estimate": 0.001
+}</div>
+                    </div>
+                </section>
+
+                <section class="workflow-config">
+                    <div class="command-prompt">
+                        <span class="prompt">$ mao config --list</span>
+                    </div>
+                    <div class="output">
+                        <h2>Runtime Configuration</h2>
+                        <p>Modify Mao's behavior through configuration commands:</p>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <span class="file-type">cmd</span>
+                                <span class="file-name">mao config set model claude-sonnet-4</span>
+                                <span class="file-desc">Set default AI model</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="file-type">cmd</span>
+                                <span class="file-name">mao config set memory.persist true</span>
+                                <span class="file-desc">Enable persistent memory</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="file-type">cmd</span>
+                                <span class="file-name">mao config set ui.theme classic</span>
+                                <span class="file-desc">Set terminal color theme</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="file-type">cmd</span>
+                                <span class="file-name">mao config set cost.daily_limit 5.00</span>
+                                <span class="file-desc">Set daily cost limits</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="navigation">
+                    <div class="command-prompt">
+                        <span class="prompt">$ ls ../</span>
+                    </div>
+                    <div class="output nav-links">
+                        <a href="getting-started.html" class="nav-link">← Getting Started</a>
+                        <a href="index.html" class="nav-link">← Back to Home</a>
+                        <a href="workflows.html" class="nav-link">Workflow Patterns →</a>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <div class="command-prompt">
+                        <span class="prompt">$ echo "Configuration mastery achieved"</span>
+                    </div>
+                    <div class="output">
+                        <p>Modular • Atomic • Template-based • Discovery-driven</p>
+                    </div>
+                </footer>
+            </main>
+
+            <div class="terminal-cursor">_</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
