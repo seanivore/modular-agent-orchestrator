@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mao - Modular Agent Orchestrator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="minimal-container">
+        <div class="content-wrapper">
+            <header class="header">
+                <div class="logo-section">
+                    <div class="ascii-cat">~(=^‥^)</div>
+                    <h1 class="title">Mao</h1>
+                    <p class="subtitle">Modular Agent Orchestrator</p>
+                </div>
+                
+                <div class="status-line">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">system ready</span>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <section class="intro-section">
+                    <div class="command-line">
+                        <span class="prompt">→</span>
+                        <span class="command">about</span>
+                    </div>
+                    
+                    <div class="output-block">
+                        <p class="description">
+                            Local terminal-based AI orchestration system. Coordinates multiple AI agents 
+                            through modular workflows and intelligent conversation routing.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="features-section">
+                    <div class="command-line">
+                        <span class="prompt">→</span>
+                        <span class="command">features --list</span>
+                    </div>
+                    
+                    <div class="output-block">
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <div class="feature-header">
+                                    <span class="feature-icon">●</span>
+                                    <h3>Agent Orchestration</h3>
+                                </div>
+                                <p>Intelligent routing between specialized agents</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-header">
+                                    <span class="feature-icon">●</span>
+                                    <h3>Modular Tools</h3>
+                                </div>
+                                <p>Extensible tool ecosystem with JSON configs</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-header">
+                                    <span class="feature-icon">●</span>
+                                    <h3>Memory System</h3>
+                                </div>
+                                <p>Persistent context and workflow state</p>
+                            </div>
+                            
+                            <div class="feature-card">
+                                <div class="feature-header">
+                                    <span class="feature-icon">●</span>
+                                    <h3>Terminal Interface</h3>
+                                </div>
+                                <p>Beautiful conversation flow in your terminal</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="installation-section">
+                    <div class="command-line">
+                        <span class="prompt">→</span>
+                        <span class="command">install</span>
+                    </div>
+                    
+                    <div class="output-block">
+                        <div class="code-container">
+                            <div class="code-header">
+                                <div class="code-controls">
+                                    <span class="code-control"></span>
+                                    <span class="code-control"></span>
+                                    <span class="code-control"></span>
+                                </div>
+                                <span class="code-title">quick-start.sh</span>
+                            </div>
+                            <pre class="code-content"><code># Install Mao
+curl -sSL https://get.mao.dev | bash
+
+# Initialize workflow  
+mao init
+
+# Start orchestrating
+mao chat</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="navigation-section">
+                    <div class="command-line">
+                        <span class="prompt">→</span>
+                        <span class="command">docs --browse</span>
+                    </div>
+                    
+                    <div class="output-block">
+                        <nav class="docs-nav">
+                            <a href="#" class="doc-link">
+                                <span class="doc-icon">□</span>
+                                <span class="doc-title">Getting Started</span>
+                                <span class="doc-desc">Installation and first steps</span>
+                            </a>
+                            
+                            <a href="#" class="doc-link">
+                                <span class="doc-icon">□</span>
+                                <span class="doc-title">Agent Configuration</span>
+                                <span class="doc-desc">Setting up AI agents</span>
+                            </a>
+                            
+                            <a href="#" class="doc-link">
+                                <span class="doc-icon">□</span>
+                                <span class="doc-title">Tool Development</span>
+                                <span class="doc-desc">Creating custom tools</span>
+                            </a>
+                            
+                            <a href="#" class="doc-link">
+                                <span class="doc-icon">□</span>
+                                <span class="doc-title">Workflow Patterns</span>
+                                <span class="doc-desc">Common orchestration patterns</span>
+                            </a>
+                            
+                            <a href="#" class="doc-link">
+                                <span class="doc-icon">□</span>
+                                <span class="doc-title">API Reference</span>
+                                <span class="doc-desc">Complete technical reference</span>
+                            </a>
+                        </nav>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <div class="command-line">
+                    <span class="prompt">→</span>
+                    <span class="command">status</span>
+                </div>
+                
+                <div class="output-block">
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <span class="status-label">Architecture</span>
+                            <span class="status-value">Local-first</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Dependencies</span>
+                            <span class="status-value">No cloud required</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Privacy</span>
+                            <span class="status-value">By design</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        
+        <div class="cursor-indicator">_</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

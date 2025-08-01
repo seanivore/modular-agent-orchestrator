@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mao - Modular Agent Orchestrator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="terminal-title">mao@localhost:~$</div>
+        </div>
+        
+        <div class="terminal-content">
+            <div class="boot-sequence">
+                <div class="boot-line">System initializing...</div>
+                <div class="boot-line">Loading agent orchestrator...</div>
+                <div class="boot-line">Modular Agent Orchestrator v4.0 ready</div>
+                <div class="boot-line prompt-line">$</div>
+            </div>
+
+            <main class="content-area">
+                <header class="header">
+                    <div class="logo">
+                        <pre class="ascii-cat">~(=^‥^)</pre>
+                        <h1>Mao</h1>
+                        <p class="tagline">Modular Agent Orchestrator</p>
+                    </div>
+                </header>
+
+                <section class="intro">
+                    <div class="command-prompt">
+                        <span class="prompt">$ cat introduction.txt</span>
+                    </div>
+                    <div class="output">
+                        <p>Your local terminal-based AI orchestration system. Mao coordinates multiple AI agents to handle complex tasks through modular workflows and intelligent conversation routing.</p>
+                    </div>
+                </section>
+
+                <section class="features">
+                    <div class="command-prompt">
+                        <span class="prompt">$ ls features/</span>
+                    </div>
+                    <div class="output feature-list">
+                        <div class="feature-item">
+                            <span class="file-type">dir</span>
+                            <span class="file-name">agent-orchestration/</span>
+                            <span class="file-desc">Intelligent routing between specialized agents</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="file-type">dir</span>
+                            <span class="file-name">modular-tools/</span>
+                            <span class="file-desc">Extensible tool ecosystem with JSON configs</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="file-type">dir</span>
+                            <span class="file-name">memory-system/</span>
+                            <span class="file-desc">Persistent context and workflow state</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="file-type">dir</span>
+                            <span class="file-name">terminal-ui/</span>
+                            <span class="file-desc">Beautiful terminal interface with conversation flow</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="quick-start">
+                    <div class="command-prompt">
+                        <span class="prompt">$ cat quick-start.sh</span>
+                    </div>
+                    <div class="output">
+                        <pre class="code-block">#!/bin/bash
+
+# Install Mao
+curl -sSL https://get.mao.dev | bash
+
+# Initialize your first workflow  
+mao init
+
+# Start orchestrating
+mao chat</pre>
+                    </div>
+                </section>
+
+                <section class="navigation">
+                    <div class="command-prompt">
+                        <span class="prompt">$ find docs/ -name "*.md" | head -5</span>
+                    </div>
+                    <div class="output nav-links">
+                        <a href="#" class="nav-link">docs/getting-started.md</a>
+                        <a href="#" class="nav-link">docs/agent-configuration.md</a>
+                        <a href="#" class="nav-link">docs/tool-development.md</a>
+                        <a href="#" class="nav-link">docs/workflow-patterns.md</a>
+                        <a href="#" class="nav-link">docs/api-reference.md</a>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <div class="command-prompt">
+                        <span class="prompt">$ whoami</span>
+                    </div>
+                    <div class="output">
+                        <p>Local-first AI orchestration • No cloud dependencies • Privacy by design</p>
+                    </div>
+                </footer>
+            </main>
+
+            <div class="terminal-cursor">_</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

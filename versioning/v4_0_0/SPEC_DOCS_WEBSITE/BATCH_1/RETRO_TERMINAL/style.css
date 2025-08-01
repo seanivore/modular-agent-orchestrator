@@ -1,0 +1,572 @@
+/* RETRO TERMINAL - Amber/phosphor vintage computing aesthetics */
+
+:root {
+    /* Mao 4-color semantic system - Retro interpretation */
+    --primary-color: #ffb000;        /* Amber/phosphor orange */
+    --secondary-color: #ff8800;      /* Darker amber */
+    --accent-color: #ffff00;         /* Bright yellow highlights */
+    --neutral-color: #cc8800;        /* Muted amber */
+    
+    /* CRT/Terminal specific colors */
+    --screen-bg: #1a0f00;           /* Dark brown-black */
+    --phosphor-green: #33ff33;       /* Classic green phosphor */
+    --phosphor-amber: var(--primary-color);
+    --cursor-color: var(--accent-color);
+    --scanline-color: rgba(255, 176, 0, 0.1);
+    
+    /* Typography */
+    --mono-font: 'Courier New', 'Liberation Mono', 'DejaVu Sans Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--mono-font);
+    background: #000;
+    color: var(--primary-color);
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* CRT Container and Effects */
+.crt-container {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #111 0%, #000 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.crt-screen {
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+    background: var(--screen-bg);
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 
+        inset 0 0 50px rgba(255, 176, 0, 0.1),
+        0 0 100px rgba(255, 176, 0, 0.2),
+        0 0 200px rgba(255, 176, 0, 0.1);
+    border: 3px solid #333;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.crt-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse 100% 50% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.3) 100%),
+        linear-gradient(0deg, transparent 50%, rgba(255, 176, 0, 0.03) 50%);
+    background-size: 100% 100%, 100% 4px;
+    pointer-events: none;
+    border-radius: 17px;
+    z-index: 10;
+}
+
+.crt-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0px,
+        rgba(255, 176, 0, 0.02) 2px,
+        transparent 4px
+    );
+    background-size: 4px 100%;
+    pointer-events: none;
+    border-radius: 17px;
+    z-index: 11;
+}
+
+/* Scanlines */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        var(--scanline-color) 2px,
+        var(--scanline-color) 4px
+    );
+    pointer-events: none;
+    z-index: 12;
+    animation: scanline-animation 0.1s linear infinite;
+    border-radius: 17px;
+}
+
+@keyframes scanline-animation {
+    0% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+/* Screen Content */
+.screen-content {
+    position: relative;
+    z-index: 5;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Boot Sequence */
+.boot-sequence {
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.boot-line {
+    margin-bottom: 4px;
+    opacity: 0;
+    animation: boot-typewriter 0.5s steps(40, end) forwards;
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+.boot-line:nth-child(1) { animation-delay: 0s; }
+.boot-line:nth-child(2) { animation-delay: 0.6s; }
+.boot-line:nth-child(3) { animation-delay: 1.2s; }
+.boot-line:nth-child(4) { animation-delay: 1.8s; }
+.boot-line:nth-child(5) { animation-delay: 2.4s; }
+.boot-line:nth-child(6) { animation-delay: 3.0s; }
+
+.boot-line.separator {
+    color: var(--secondary-color);
+    margin: 10px 0;
+}
+
+/* Terminal Session */
+.terminal-session {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Header Section */
+.header-section {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--secondary-color);
+    margin-bottom: 20px;
+}
+
+.ascii-cat {
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--accent-color);
+    text-shadow: 0 0 15px var(--accent-color);
+    margin-bottom: 15px;
+    animation: retro-glow 3s ease-in-out infinite alternate;
+}
+
+.system-info {
+    margin-top: 15px;
+}
+
+.info-line {
+    font-size: 12px;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 8px var(--primary-color);
+}
+
+/* Terminal Sections */
+.terminal-section {
+    margin-bottom: 25px;
+}
+
+/* Command Prompts */
+.command-prompt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.prompt-symbol {
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-color);
+    font-weight: bold;
+}
+
+.command-text {
+    color: var(--primary-color);
+    text-shadow: 0 0 6px var(--primary-color);
+    animation: command-flicker 0.1s steps(2) infinite;
+}
+
+/* Command Output */
+.command-output {
+    margin-left: 20px;
+    color: var(--primary-color);
+    text-shadow: 0 0 4px var(--primary-color);
+}
+
+.output-text {
+    line-height: 1.6;
+    white-space: pre-line;
+}
+
+/* Directory Listing */
+.directory-listing {
+    font-family: var(--mono-font);
+}
+
+.dir-header {
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px var(--accent-color);
+    font-weight: bold;
+}
+
+.dir-entry {
+    display: grid;
+    grid-template-columns: 80px 60px 80px 150px 1fr;
+    gap: 15px;
+    margin-bottom: 4px;
+    padding: 2px 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.dir-entry:hover {
+    background: rgba(255, 176, 0, 0.1);
+    padding-left: 10px;
+    text-shadow: 0 0 8px var(--primary-color);
+}
+
+.dir-date, .dir-time {
+    color: var(--neutral-color);
+    font-size: 12px;
+}
+
+.dir-size {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.dir-name {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.dir-desc {
+    color: var(--neutral-color);
+    font-size: 12px;
+    font-style: italic;
+}
+
+.dir-footer {
+    margin-top: 15px;
+    color: var(--secondary-color);
+    font-size: 12px;
+    text-align: right;
+}
+
+/* Batch File Display */
+.batch-file {
+    background: rgba(255, 176, 0, 0.05);
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.batch-header {
+    color: var(--accent-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px var(--accent-color);
+}
+
+.batch-content {
+    color: var(--primary-color);
+}
+
+.batch-line {
+    margin-bottom: 4px;
+    font-family: var(--mono-font);
+}
+
+.batch-line:empty {
+    height: 8px;
+}
+
+/* Menu System */
+.menu-system {
+    font-family: var(--mono-font);
+    color: var(--primary-color);
+}
+
+.menu-header, .menu-footer {
+    color: var(--secondary-color);
+    text-shadow: 0 0 6px var(--secondary-color);
+    font-weight: bold;
+}
+
+.menu-items {
+    color: var(--primary-color);
+}
+
+.menu-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 2px 0;
+}
+
+.menu-item:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--accent-color);
+    background: rgba(255, 255, 0, 0.1);
+}
+
+/* Status Display */
+.status-display {
+    font-family: var(--mono-font);
+    color: var(--primary-color);
+}
+
+.status-header, .status-footer {
+    color: var(--secondary-color);
+    text-shadow: 0 0 6px var(--secondary-color);
+    font-weight: bold;
+}
+
+.status-content {
+    color: var(--primary-color);
+}
+
+.status-row {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.status-row::after {
+    content: '';
+    width: 20px;
+    height: 12px;
+    background: var(--primary-color);
+    margin-left: auto;
+    box-shadow: 0 0 8px var(--primary-color);
+    animation: status-blink 2s ease-in-out infinite;
+}
+
+/* Current Prompt */
+.current-prompt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 20px;
+    font-weight: bold;
+}
+
+.cursor-block {
+    color: var(--cursor-color);
+    text-shadow: 0 0 10px var(--cursor-color);
+    animation: cursor-blink 1s step-end infinite;
+}
+
+/* Animations */
+@keyframes boot-typewriter {
+    from { 
+        width: 0; 
+        opacity: 0; 
+    }
+    to { 
+        width: 100%; 
+        opacity: 1; 
+    }
+}
+
+@keyframes retro-glow {
+    from { 
+        text-shadow: 0 0 15px var(--accent-color); 
+    }
+    to { 
+        text-shadow: 0 0 25px var(--accent-color), 0 0 35px var(--accent-color); 
+    }
+}
+
+@keyframes command-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.95; }
+}
+
+@keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes status-blink {
+    0%, 70% { opacity: 1; }
+    71%, 100% { opacity: 0.3; }
+}
+
+/* Responsive Design - Mobile First */
+@media (max-width: 768px) {
+    .crt-container {
+        padding: 10px;
+    }
+    
+    .crt-screen {
+        padding: 20px;
+        height: 95vh;
+        border-radius: 10px;
+    }
+    
+    .ascii-cat {
+        font-size: 16px;
+    }
+    
+    .dir-entry {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+    
+    .dir-date, .dir-time, .dir-size {
+        display: inline;
+        margin-right: 10px;
+    }
+    
+    .dir-name {
+        display: block;
+        margin: 5px 0;
+        font-size: 14px;
+    }
+    
+    .dir-desc {
+        display: block;
+        margin-left: 0;
+        font-size: 11px;
+    }
+    
+    .command-output {
+        margin-left: 10px;
+    }
+    
+    body {
+        font-size: 13px;
+    }
+    
+    .menu-system, .status-display, .batch-file {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .crt-screen {
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    .ascii-cat {
+        font-size: 14px;
+    }
+    
+    .info-line {
+        font-size: 10px;
+    }
+    
+    .command-prompt {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .batch-file {
+        padding: 10px;
+    }
+    
+    body {
+        font-size: 12px;
+    }
+    
+    .terminal-session {
+        gap: 20px;
+    }
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #ffcc00;
+        --secondary-color: #ff9900;
+        --accent-color: #ffffff;
+        --neutral-color: #cccccc;
+    }
+    
+    .crt-screen {
+        border: 3px solid var(--primary-color);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .scanlines {
+        animation: none;
+    }
+}
+
+/* Print styles for documentation */
+@media print {
+    .crt-container {
+        background: white;
+        padding: 0;
+    }
+    
+    .crt-screen {
+        background: white;
+        color: black;
+        box-shadow: none;
+        border: 1px solid black;
+        border-radius: 0;
+    }
+    
+    .scanlines, .crt-screen::before, .crt-screen::after {
+        display: none;
+    }
+    
+    * {
+        text-shadow: none !important;
+        animation: none !important;
+    }
+}

@@ -5,7 +5,9 @@
 
 ## High-Level Objective
 
-Transform the existing Mao documentation into a visually stunning, responsive website that embodies the terminal application's design philosophy while delivering an exceptional user experience across all devices. The website must feel like an extension of the Mao product itself - sophisticated, purposeful, and beautifully minimal.
+**CREATE ACTUAL WEBSITE FILES** - Transform the existing Mao documentation into a visually stunning, responsive website that embodies the terminal application's design philosophy while delivering an exceptional user experience across all devices. The website must feel like an extension of the Mao product itself - sophisticated, purposeful, and beautifully minimal.
+
+**CRITICAL**: You must create actual HTML, CSS, and JavaScript files. Save all files to: `/Users/seanivore/Development/modular-agent-orchestrator/versioning/v4_0_0/SPEC_DOCS_WEBSITE/BATCH_1/[your_design_name]/`
 
 ## Mid-Level Objectives
 
@@ -58,11 +60,19 @@ Apply the MLA title case principle to visual emphasis - highlighting what matter
 - Mao color system and visual hierarchy principles
 
 ### Ending Context  
-- Static website files ready for GitHub Pages deployment
+- **ACTUAL WEBSITE FILES CREATED** in designated BATCH_1 directory
+- Static website files ready for GitHub Pages deployment  
 - Responsive design working flawlessly on mobile, tablet, and desktop
 - All documentation content beautifully presented
 - Terminal-inspired aesthetic successfully translated to web
 - Professional-quality implementation ready for global multilingual launch
+
+**DELIVERABLES REQUIRED:**
+- index.html (homepage)
+- At least 3 documentation pages as HTML files
+- CSS files (styles/main.css, styles/colors.css, etc.)
+- JavaScript files if applicable
+- All files must be functional and viewable in browser
 
 ## Design Exploration Variables
 

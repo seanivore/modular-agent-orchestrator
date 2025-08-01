@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mao - Modular Agent Orchestrator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="gradient-mesh"></div>
+    <div class="grid-pattern"></div>
+    
+    <header class="gradient-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="ascii-cat">~(=^‥^)</div>
+                <div class="logo-text">
+                    <h1 class="gradient-title">Mao</h1>
+                    <span class="tagline">Modular Agent Orchestrator</span>
+                </div>
+            </div>
+            <nav class="gradient-nav">
+                <a href="#docs" class="nav-item">Documentation</a>
+                <a href="#tools" class="nav-item">Tools</a>
+                <a href="#workflows" class="nav-item">Workflows</a>
+                <a href="#setup" class="nav-item">Setup</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-text">Terminal-Native</span>
+                </div>
+                <h2 class="hero-title">
+                    <span class="title-line">Agent Orchestration</span>
+                    <span class="title-line">Reimagined</span>
+                </h2>
+                <p class="hero-description">
+                    A sophisticated local application for orchestrating AI agents with modular tools, 
+                    custom workflows, and intelligent memory management. Built for developers who 
+                    value performance and elegance in equal measure.
+                </p>
+                <div class="hero-actions">
+                    <button class="gradient-button primary">
+                        <span class="button-content">
+                            <span class="button-text">Get Started</span>
+                            <span class="button-icon">→</span>
+                        </span>
+                    </button>
+                    <button class="gradient-button secondary">
+                        <span class="button-content">
+                            <span class="button-text">Documentation</span>
+                            <span class="button-icon">📚</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="terminal-preview">
+                    <div class="terminal-window">
+                        <div class="terminal-header-bar">
+                            <div class="window-controls">
+                                <span class="control red"></span>
+                                <span class="control yellow"></span>
+                                <span class="control green"></span>
+                            </div>
+                            <div class="window-title">mao@terminal</div>
+                        </div>
+                        <div class="terminal-body">
+                            <div class="terminal-prompt">
+                                <span class="prompt-symbol">$</span>
+                                <span class="command-text">mao orchestrate --workflow analysis</span>
+                                <span class="cursor-blink"></span>
+                            </div>
+                            <div class="terminal-output">
+                                <div class="output-line success">✓ Orchestrator initialized</div>
+                                <div class="output-line info">▶ Loading 3 parallel agents</div>
+                                <div class="output-line data">📊 Processing workflow data</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="section-header">
+                <h3 class="section-title">Modern Terminal Architecture</h3>
+                <p class="section-subtitle">Built with cutting-edge technologies for maximum performance and developer experience</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-feature="local">
+                    <div class="feature-icon">
+                        <div class="icon-gradient local"></div>
+                    </div>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Local First</h4>
+                        <p class="feature-description">
+                            Complete terminal application running entirely on your device. 
+                            No cloud dependencies, no data sharing, complete control.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">
+                                <span class="metric-value">100%</span>
+                                <span class="metric-label">Local</span>
+                            </span>
+                            <span class="metric">
+                                <span class="metric-value">0ms</span>
+                                <span class="metric-label">Latency</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card" data-feature="modular">
+                    <div class="feature-icon">
+                        <div class="icon-gradient modular"></div>
+                    </div>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Modular Ecosystem</h4>
+                        <p class="feature-description">
+                            Extensible tool system with JSON configuration, automatic discovery, 
+                            and hot-swappable components for ultimate flexibility.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">
+                                <span class="metric-value">1000+</span>
+                                <span class="metric-label">Tools</span>
+                            </span>
+                            <span class="metric">
+                                <span class="metric-value">∞</span>
+                                <span class="metric-label">Workflows</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card" data-feature="memory">
+                    <div class="feature-icon">
+                        <div class="icon-gradient memory"></div>
+                    </div>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Intelligent Memory</h4>
+                        <p class="feature-description">
+                            Context-aware memory system that maintains state across sessions, 
+                            enabling seamless workflow continuity.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">
+                                <span class="metric-value">24/7</span>
+                                <span class="metric-label">Context</span>
+                            </span>
+                            <span class="metric">
+                                <span class="metric-value">∞</span>
+                                <span class="metric-label">History</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card" data-feature="orchestration">
+                    <div class="feature-icon">
+                        <div class="icon-gradient orchestration"></div>
+                    </div>
+                    <div class="feature-content">
+                        <h4 class="feature-title">Agent Orchestration</h4>
+                        <p class="feature-description">
+                            Coordinate multiple AI agents with sophisticated routing, 
+                            parallel execution, and real-time monitoring.
+                        </p>
+                        <div class="feature-metrics">
+                            <span class="metric">
+                                <span class="metric-value">∞</span>
+                                <span class="metric-label">Agents</span>
+                            </span>
+                            <span class="metric">
+                                <span class="metric-value">Real-time</span>
+                                <span class="metric-label">Sync</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture-section">
+            <div class="section-header">
+                <h3 class="section-title">Technical Architecture</h3>
+                <p class="section-subtitle">Modern stack designed for performance, scalability, and developer productivity</p>
+            </div>
+            
+            <div class="architecture-flow">
+                <div class="arch-layer frontend">
+                    <div class="layer-header">
+                        <h4 class="layer-title">Frontend Layer</h4>
+                        <p class="layer-subtitle">TypeScript • Node.js • React • Ink</p>
+                    </div>
+                    <div class="layer-content">
+                        <div class="tech-item">
+                            <span class="tech-name">Terminal Interface</span>
+                            <span class="tech-description">Rich, responsive terminal UI</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">Real-time Updates</span>
+                            <span class="tech-description">Live status and progress tracking</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">Command Processing</span>
+                            <span class="tech-description">Intelligent command parsing and routing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-label">JSON IPC</div>
+                </div>
+
+                <div class="arch-layer backend">
+                    <div class="layer-header">
+                        <h4 class="layer-title">Backend Layer</h4>
+                        <p class="layer-subtitle">Python • Async • Multi-Agent</p>
+                    </div>
+                    <div class="layer-content">
+                        <div class="tech-item">
+                            <span class="tech-name">Orchestration Engine</span>
+                            <span class="tech-description">Core agent coordination system</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">Tool Ecosystem</span>
+                            <span class="tech-description">Modular, discoverable tools</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">Memory System</span>
+                            <span class="tech-description">Intelligent state management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="arch-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-label">API Calls</div>
+                </div>
+
+                <div class="arch-layer external">
+                    <div class="layer-header">
+                        <h4 class="layer-title">External APIs</h4>
+                        <p class="layer-subtitle">OpenAI • Anthropic • Search • Custom</p>
+                    </div>
+                    <div class="layer-content">
+                        <div class="tech-item">
+                            <span class="tech-name">AI Models</span>
+                            <span class="tech-description">GPT, Claude, and custom models</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">Search APIs</span>
+                            <span class="tech-description">Brave, Perplexity, and more</span>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-name">Custom Integrations</span>
+                            <span class="tech-description">Extensible external service support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="terminal-demo-section">
+            <div class="section-header">
+                <h3 class="section-title">Live Terminal Demo</h3>
+                <p class="section-subtitle">See Mao in action with real command execution and output</p>
+            </div>
+            
+            <div class="demo-terminal">
+                <div class="terminal-chrome">
+                    <div class="chrome-header">
+                        <div class="chrome-controls">
+                            <span class="chrome-dot red"></span>
+                            <span class="chrome-dot yellow"></span>
+                            <span class="chrome-dot green"></span>
+                        </div>
+                        <div class="chrome-title">mao@development:~</div>
+                        <div class="chrome-status">
+                            <span class="status-dot"></span>
+                            <span class="status-text">CONNECTED</span>
+                        </div>
+                    </div>
+                    <div class="terminal-interface">
+                        <div class="command-line active">
+                            <span class="prompt-indicator">❯</span>
+                            <span class="typed-command"></span>
+                            <span class="typing-cursor"></span>
+                        </div>
+                        <div class="output-container"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gradient-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="ascii-cat-footer">~(=^‥^)</div>
+                    <span class="footer-brand">Mao</span>
+                </div>
+                <p class="footer-description">
+                    Built for developers who value performance, elegance, and complete control 
+                    over their AI orchestration workflows.
+                </p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h5 class="link-title">Product</h5>
+                    <a href="#docs" class="footer-link">Documentation</a>
+                    <a href="#tools" class="footer-link">Tools</a>
+                    <a href="#workflows" class="footer-link">Workflows</a>
+                    <a href="#setup" class="footer-link">Getting Started</a>
+                </div>
+                <div class="link-group">
+                    <h5 class="link-title">Resources</h5>
+                    <a href="#guides" class="footer-link">Guides</a>
+                    <a href="#examples" class="footer-link">Examples</a>
+                    <a href="#community" class="footer-link">Community</a>
+                    <a href="#support" class="footer-link">Support</a>
+                </div>
+                <div class="link-group">
+                    <h5 class="link-title">Privacy</h5>
+                    <a href="#privacy" class="footer-link">Privacy Policy</a>
+                    <a href="#data" class="footer-link">Data Handling</a>
+                    <a href="#security" class="footer-link">Security</a>
+                    <a href="#gdpr" class="footer-link">GDPR Compliance</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="bottom-content">
+                <p class="copyright">Local-first AI orchestration for the modern developer</p>
+                <div class="footer-gradient-line"></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

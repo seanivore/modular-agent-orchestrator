@@ -1,0 +1,398 @@
+/* Mao Watercolor Terminal - Artistic bleeding effects */
+:root {
+    /* Mao 4-color semantic system */
+    --primary: #2D4A3E;    /* Deep forest green */
+    --secondary: #7A9B76;  /* Sage green */
+    --accent: #C8A882;     /* Warm beige */
+    --highlight: #F4E7D1;  /* Cream */
+    
+    /* Watercolor specific colors */
+    --watercolor-blue: rgba(45, 74, 62, 0.15);
+    --watercolor-green: rgba(122, 155, 118, 0.2);
+    --watercolor-beige: rgba(200, 168, 130, 0.18);
+    --watercolor-cream: rgba(244, 231, 209, 0.25);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background: linear-gradient(135deg, var(--highlight) 0%, #f8f5f0 100%);
+    color: var(--primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Watercolor bleeding background effects */
+.watercolor-container {
+    position: relative;
+    min-height: 100vh;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bleed-bg {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.bleed-1 {
+    width: 300px;
+    height: 300px;
+    background: var(--watercolor-blue);
+    top: 10%;
+    left: -10%;
+    animation-delay: 0s;
+}
+
+.bleed-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--watercolor-green);
+    top: 40%;
+    right: -15%;
+    animation-delay: -3s;
+}
+
+.bleed-3 {
+    width: 250px;
+    height: 250px;
+    background: var(--watercolor-beige);
+    bottom: 20%;
+    left: 20%;
+    animation-delay: -6s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -20px) scale(1.1); }
+    50% { transform: translate(-20px, 30px) scale(0.9); }
+    75% { transform: translate(20px, 20px) scale(1.05); }
+}
+
+/* Terminal header with watercolor effects */
+.terminal-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 10;
+}
+
+.cat-logo {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(122, 155, 118, 0.3);
+    position: relative;
+}
+
+.cat-logo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: var(--watercolor-cream);
+    border-radius: 50%;
+    filter: blur(20px);
+    z-index: -1;
+}
+
+.main-title {
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(45, 74, 62, 0.2);
+    letter-spacing: 0.1em;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    font-weight: 300;
+    opacity: 0.8;
+}
+
+/* Terminal content with watercolor cards */
+.terminal-content {
+    position: relative;
+    z-index: 10;
+}
+
+.prompt-section {
+    margin-bottom: 2rem;
+}
+
+.terminal-line {
+    font-size: 1.1rem;
+    color: var(--primary);
+    padding: 1rem;
+    background: rgba(244, 231, 209, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(200, 168, 130, 0.2);
+}
+
+.prompt {
+    color: var(--secondary);
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+.command {
+    color: var(--accent);
+}
+
+/* Watercolor cards with artistic bleeding */
+.watercolor-card {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(200, 168, 130, 0.3);
+    box-shadow: 0 8px 32px rgba(45, 74, 62, 0.1);
+    overflow: hidden;
+}
+
+.watercolor-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 20%, var(--watercolor-blue) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, var(--watercolor-green) 0%, transparent 50%),
+                radial-gradient(circle at 20% 70%, var(--watercolor-beige) 0%, transparent 50%);
+    opacity: 0.4;
+    filter: blur(40px);
+    z-index: -1;
+    animation: watercolor-shift 12s ease-in-out infinite;
+}
+
+@keyframes watercolor-shift {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    33% { transform: rotate(120deg) scale(1.1); }
+    66% { transform: rotate(240deg) scale(0.9); }
+}
+
+.watercolor-card h2,
+.watercolor-card h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.watercolor-card h2 {
+    font-size: 2rem;
+}
+
+.watercolor-card h3 {
+    font-size: 1.5rem;
+}
+
+.watercolor-card p {
+    color: var(--primary);
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* Feature list with watercolor accents */
+.feature-list {
+    list-style: none;
+}
+
+.feature-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(200, 168, 130, 0.2);
+    position: relative;
+}
+
+.feature-item::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+.feature-name {
+    font-weight: 500;
+    color: var(--primary);
+}
+
+.feature-desc {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Code block with watercolor background */
+.code-block {
+    background: rgba(45, 74, 62, 0.05);
+    border-radius: 8px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.code-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--watercolor-blue);
+    opacity: 0.1;
+    filter: blur(20px);
+}
+
+.code-block pre {
+    color: var(--primary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+}
+
+/* Navigation with watercolor hover effects */
+.nav-section {
+    margin: 3rem 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    color: var(--secondary);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 20px;
+    background: rgba(244, 231, 209, 0.3);
+    border: 1px solid rgba(200, 168, 130, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--watercolor-green);
+    border-radius: 50%;
+    transition: all 0.5s ease;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.nav-link:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(122, 155, 118, 0.2);
+}
+
+/* Footer with blinking cursor */
+.terminal-footer {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.footer-prompt {
+    font-size: 1.1rem;
+    color: var(--secondary);
+}
+
+.cursor {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Animations */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(12, end) infinite alternate;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.blinking {
+    animation: blink 1s infinite;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .watercolor-container {
+        padding: 1rem;
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .bleed-bg {
+        width: 200px !important;
+        height: 200px !important;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+}
