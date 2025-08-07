@@ -3,6 +3,10 @@
 
 ---
 
+**The note in "Update Documentation" section is helpful for all of the necessary tasks as we process through this document.**
+
+---
+
 ## Current State Assessment 
 
 * **✅ What Actually Works (Per Comprehensive Audit):**
@@ -20,6 +24,31 @@
 - Parallel agent execution (the 01a, 01b async stuff)
 - Timer-triggered workflows (the recurring automation)
 - Advanced UI features (but we're pivoting away from that anyway!)
+
+### Update Documentation 
+
+We need to remove the information about the old UI. Instead of adding information about the new UI here, we will include it as a step in the IMPL documents. 
+
+For the upcoming questions, the number 10 document is probably helpful. I think we'll want to update it to make the way to use MCP servers more clear, as I think we did something similar on that document for how to add each type of config collection items. 
+
+Also on that document you'll see that we keep a list of all the dependencies, all the class names for each file, and all the methods/functions for each class. This is *IMPORTANT* to keep up to date because it prevent AI from grep'ing around everywhere and then guessing at the rest of the code when they find part of what they wanted. 
+
+*NOTE: If you read using the retrieval method first, then you can either tell me what sections to delete outright, or if it is complicated (like if we're updating actual code after these docs), then you might want to either read_file and tell me the exact lines to delete, or read_file and then edit_file yourself; just be careful if you do that because we want to try to avoid you needed to write entire long files at all costs. The more we can avoid that, the longer we'll be able to keep this context window going.*
+
+```
+./documentation/
+├── 00_OVERVIEW.md
+├── 01_EVOLVING_AI.md
+├── 02_REFERENCE.md
+├── 03_USER_FLOW.md
+├── 04_MAOS_FLOW.md
+├── 05_INTERFACE.md
+├── 06_ORCHESTRATION.md
+├── 07_ANALYTICS_MEMORY.md
+├── 08_AUTOMATE_INTELLIGENCE.md
+├── 09_FUTURE_THINKING.md
+└── 10_AI_DEV_INDEX.md
+```
 
 ### Confirm All Tools Are Discoverable 
 
