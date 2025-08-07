@@ -453,6 +453,149 @@ def _load_json(file_path, default)
 def _save_data()
 ```
 
+---
+
+## MCP Server Configuration
+
+### Adding MCP Servers to Mao
+
+MCP (Model Context Protocol) servers extend Mao's capabilities by providing external tools and services. Mao uses STDIO-based MCP servers that run as subprocesses.
+
+#### Configuration Location
+All MCP server configurations are stored in:
+```
+./configs/connections/mcp_servers.json
+```
+
+#### Basic Configuration Format
+```json
+{
+  "description": "MCP Server Configurations for external tool integration",
+  "global_settings": {
+    "auto_start": false,
+    "log_level": "INFO",
+    "retry_attempts": 3,
+    "timeout_seconds": 30
+  },
+  "servers": {
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Memory MCP server for workflow state persistence",
+      "enabled": true
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/allowed/directory"],
+      "description": "File system operations MCP server",
+      "enabled": true
+    }
+  }
+}
+```
+
+#### Server Configuration Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `command` | string | Yes | Executable command (e.g., "npx", "python", "/usr/local/bin/custom-server") |
+| `args` | array | No | Command arguments (e.g., ["-y", "@modelcontextprotocol/server-memory"]) |
+| `description` | string | No | Human-readable description of the server's purpose |
+| `enabled` | boolean | No | Whether to start this server (default: true) |
+
+#### Common MCP Servers
+
+**Memory Server (Essential for Mao):**
+```json
+"memory": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-memory"],
+  "description": "Workflow state persistence and session recovery",
+  "enabled": true
+}
+```
+
+**File System Server:**
+```json
+"filesystem": {
+  "command": "npx", 
+  "args": ["-y", "@modelcontextprotocol/server-filesystem", "./workspace"],
+  "description": "Secure file operations within workspace",
+  "enabled": true
+}
+```
+
+**Brave Search Server:**
+```json
+"brave_search": {
+  "command": "npx",
+  "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+  "description": "Web search capabilities via Brave Search API",
+  "enabled": false
+}
+```
+
+#### How Mao Uses MCP Servers
+
+1. **Discovery:** Mao scans `mcp_servers.json` for enabled servers
+2. **Startup:** Each server runs as a subprocess with STDIO communication  
+3. **Integration:** Tools from MCP servers appear in Mao's tool discovery system
+4. **Fallback:** If MCP servers fail, Mao uses local fallback implementations
+
+#### Memory MCP Integration
+
+The Memory MCP server is essential for Mao's workflow state persistence:
+
+- **Workflow Context:** Stores workflow goals, progress, and metadata
+- **Session Recovery:** Enables resuming interrupted workflows
+- **State Tracking:** Maintains workflow observations and phase completion
+- **Fallback Storage:** Uses `./configs/memory_fallback/` when server unavailable
+
+#### Adding New MCP Servers
+
+1. **Install the server** (if it's an npm package):
+   ```bash
+   npm install -g @modelcontextprotocol/server-example
+   ```
+
+2. **Add to configuration:**
+   ```json
+   "example_server": {
+     "command": "npx",
+     "args": ["-y", "@modelcontextprotocol/server-example"],
+     "description": "Example MCP server functionality",
+     "enabled": true
+   }
+   ```
+
+3. **Restart Mao** to discover the new server and its tools
+
+#### Troubleshooting MCP Servers
+
+**Server Not Starting:**
+- Check that the command and args are correct
+- Ensure the server package is installed
+- Verify file permissions for local server executables
+
+**Tools Not Appearing:**
+- Confirm the server is enabled in configuration
+- Check Mao logs for server connection errors
+- Use `mao tools` to verify tool discovery
+
+**Performance Issues:**
+- Adjust `timeout_seconds` in global settings
+- Set `retry_attempts` to handle transient failures
+- Consider disabling unused servers
+
+#### Security Considerations
+
+- MCP servers run as subprocesses with the same permissions as Mao
+- File system servers should use restricted directory paths
+- Only enable trusted MCP servers from reputable sources
+- Review server documentation for security best practices
+
+---
+
 #### `orchestrator/user_memory_manager.py` - User Memory Storage
 **Classes:**
 - `UserMemoryManager` - User-specific memory storage and retrieval

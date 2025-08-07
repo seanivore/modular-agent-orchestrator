@@ -50,9 +50,31 @@ class MemoryMCPManager:
         """Lazy load MCP client to avoid import issues"""
         if self._client is None:
             try:
-                # This would connect to the actual Memory MCP server
-                # For now, using a mock implementation
-                self._client = MockMemoryMCP()
+                # Try to connect to Memory MCP server via STDIO subprocess
+                # Uses: npx -y @modelcontextprotocol/server-memory
+                import subprocess
+                import json
+                from pathlib import Path
+                
+                # Check if memory server is configured
+                config_file = Path.cwd() / "configs" / "connections" / "mcp_servers.json"
+                if config_file.exists():
+                    with open(config_file) as f:
+                        config = json.load(f)
+                    
+                    if "memory" in config.get("servers", {}):
+                        memory_config = config["servers"]["memory"]
+                        
+                        # Start the memory MCP server subprocess
+                        cmd = [memory_config.get("command", "npx")]
+                        cmd.extend(memory_config.get("args", ["-y", "@modelcontextprotocol/server-memory"]))
+                        
+                        # For now, we'll still use fallback until subprocess communication is implemented
+                        # TODO: Implement proper STDIO MCP client communication
+                        raise Exception("STDIO MCP client not yet implemented - using fallback")
+                
+                raise Exception("Memory MCP server not configured - using fallback")
+                
             except Exception:
                 # Fallback to local storage if MCP unavailable
                 self._client = LocalMemoryFallback()
@@ -86,7 +108,10 @@ class MemoryMCPManager:
             self.client.add_observations([observation_data])
             return True
         except Exception as e:
-            print(f"Warning: Failed to update workflow state: {e}")
+            # Use logging instead of print
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Failed to update workflow state: {e}")
             return False
     
     @handle_errors(operation_name="get_workflow_context", return_dict=False)
@@ -107,7 +132,9 @@ class MemoryMCPManager:
                 return result
             return None
         except Exception as e:
-            print(f"Warning: Failed to retrieve workflow context: {e}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Failed to retrieve workflow context: {e}")
             return None
     
     @handle_errors(operation_name="search_workflow_patterns", return_dict=False)
@@ -119,7 +146,9 @@ class MemoryMCPManager:
             workflows = [r for r in results if r.get('entityType') == 'active-workflow']
             return workflows
         except Exception as e:
-            print(f"Warning: Failed to search workflow patterns: {e}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Failed to search workflow patterns: {e}")
             return []
         
     @handle_errors(operation_name="handle_session_recovery", return_dict=False)
@@ -174,7 +203,9 @@ class MemoryMCPManager:
             active = [w for w in all_workflows if 'completed' not in w.get('observations', [])[-1].lower()]
             return active
         except Exception as e:
-            print(f"Warning: Failed to list active workflows: {e}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Failed to list active workflows: {e}")
             return []
     
     def mark_workflow_complete(self, workflow_id: str, final_results: Dict):
@@ -194,64 +225,12 @@ class MemoryMCPManager:
         return True
 
 
-class MockMemoryMCP:
-    """Mock implementation for development / testing"""
-    
-    def __init__(self):
-        self.entities = {}
-        self.observations = {}
-    
-    def create_entities(self, entities: List[Dict]) -> List[str]:
-        """Mock entity creation"""
-        created = []
-        for entity in entities:
-            entity_id = entity['name']
-            self.entities[entity_id] = entity
-            self.observations[entity_id] = entity.get('observations', [])
-            created.append(entity_id)
-        return created
-    
-    def add_observations(self, observations: List[Dict]) -> bool:
-        """Mock observation addition"""
-        for obs_data in observations:
-            entity_name = obs_data['entityName']
-            if entity_name in self.observations:
-                self.observations[entity_name].extend(obs_data['contents'])
-            else:
-                self.observations[entity_name] = obs_data['contents']
-        return True
-    
-    def open_nodes(self, names: List[str]) -> List[Dict]:
-        """Mock node opening"""
-        results = []
-        for name in names:
-            if name in self.entities:
-                entity = self.entities[name].copy()
-                entity['observations'] = self.observations.get(name, [])
-                results.append(entity)
-        return results
-    
-    def search_nodes(self, query: str) -> List[Dict]:
-        """Mock node search"""
-        results = []
-        for entity_id, entity in self.entities.items():
-            # Simple text search in entity data
-            entity_text = json.dumps(entity).lower()
-            obs_text = ' '.join(self.observations.get(entity_id, [])).lower()
-            
-            if query.lower() in entity_text or query.lower() in obs_text:
-                result = entity.copy()
-                result['observations'] = self.observations.get(entity_id, [])
-                results.append(result)
-        return results
-
-
 class LocalMemoryFallback:
     """Local file-based fallback when MCP unavailable"""
     
     def __init__(self):
         from pathlib import Path
-        self.storage_dir = Path.cwd()  /  "configs"  /  "memory_fallback"
+        self.storage_dir = Path.cwd() / "configs" / "memory_fallback"
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         
         # Load existing data

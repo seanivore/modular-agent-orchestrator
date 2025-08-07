@@ -126,6 +126,16 @@ Re: "4 MCP servers connected" from above.
 - Only the `memory` MCP server is essential, planned as Mao's 'one source of truth' for everything memory-related. 
 - That one *might* be hard-coded; we should confirm, and then make sure we change things so that it is not because who knows if that MCP will or will not always be available. 
 
+### Investigate and Eliminate "MOCK" Content In Code 
+
+- `./orchestrator/agent_callback.py`
+Line 159: "            file_content = f"Mock content for {file_ref}"
+
+- `./orchestrator/manager_tools.py`
+- `./orchestrator/memory_mcp.py`
+Starting at Line 427 in the first, then Line 50 in the second. 
+We have the `memory` MCP server, so there is no reason to have any mock code, not that "MOCK CODE" is ever acceptable. Seriously makes me so angry. 
+
 ---
 
 ## Two Main New IMPL Plans 
