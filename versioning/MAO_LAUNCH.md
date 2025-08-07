@@ -56,16 +56,15 @@
 
 * **STATUS:**
 - *memory_mcp.py* - FIXED (MockMemoryMCP deleted, STDIO MCP approach ready)
+- *mcp_servers.json* - UPDATED (memory MCP server added)
+- *agent_callback.py* - FIXED (Mock content generation removed, real file operations via Files API)
 
 ### To Be Fixed 
 
 #### 1. `agent_callback.py` (3,283 tokens)
+* **Violation:** Line 159 - `file_content = f"Mock content for {file_ref}"` **FIXED**
 
-* **Violation:** Line 159 - `file_content = f"Mock content for {file_ref}"`
-
-* **Fix:** Replace mock content generation with real file operations via Files API
-* **Lines to change:** Just line 159 in `_process_execution_file()` method
-* **Approach:** Simple line replacement - read real file content instead of generating mock
+--> NEED TO SEARCH AND REMOVE HARDCODED RECOMMENDATIONS; DEFINED: `./versioning/MEM_STATE.md`
 
 #### 2. `files_api.py` (4,563 tokens) 
 **Violations:** 
