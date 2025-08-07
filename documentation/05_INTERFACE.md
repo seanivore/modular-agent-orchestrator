@@ -5,152 +5,20 @@
 
 Communication with Mao is what makes it all work. No clunky forms to fill out. No navigation menus to memorize. No learning curve to overcome. Just conversation that feels as natural as messaging your most productive colleague.
 
-Type `mao mao` and witness something extraordinary; a polished TypeScript terminal application that transforms how you think about productivity software. This isn't just another command-line tool. This is a conversation-centric AI orchestrator that adapts to your needs from that very first interaction.
-
 ---
 
-## Mao's Sophisticated Terminal Experience 
+## The Mao Experience 
 
-When you launch Mao, the system immediately recognizes your context. First-time user? Welcome to the smoothest onboarding experience you've ever had. Returning user? Mao asks if you want to continue where you left off. Experienced power user? Execute specific commands with the efficiency you crave.
+When you load Mao, the system immediately recognizes your context. First-time user? Welcome to the smoothest onboarding experience you've ever had. Returning user? Mao asks if you want to continue where you left off. Experienced power user? Execute specific commands with the efficiency you crave.
 
 This sophisticated experience, designed for a future of constant change, relies on an intelligent user management system that tracks sessions, learns preferences, and creates contextually relevant interactions every single time.
 
 ### Chat Interface & Terminal UI Architecture
-*interfaces/ui_terminal.py, orchestrator/conversation_bridge.py*
+*interfaces/ui_web.py, orchestrator/conversation_bridge.py*
 
-Here's where the magic happens; a sophisticated bridge between TypeScript frontend brilliance and Python backend power:
+Here's where the magic happens; a sophisticated bridge between Mao's frontend and Python backend.
 
-**Terminal Interface Bridge** (`interfaces/ui_terminal.py`):
-
-```python
-class TerminalInterface:
-    """Main terminal interface coordinator for MAO conversations"""
-    
-    def __init__(self):
-        self.settings_manager = ApplicationSettingsManager()
-        self.username_manager = UsernameManager()
-        self.cli_manager = CLICommandsManager()
-    
-    @handle_errors(operation_name="process_user_input", return_dict=True)
-    def process_user_input(self, user_input: str, session_context: Dict[str, Any]) -> Dict[str, Any]:
-        """Process user input through conversational interface"""
-        
-        # Determine input type and route appropriately
-        if user_input.startswith('/'):
-            # Slash command routing
-            command = user_input[1:].split()[0]
-            args = user_input[1:].split()[1:] if len(user_input.split()) > 1 else []
-            return self.cli_manager.execute_command(command, args, session_context)
-        
-        elif user_input.startswith('mao '):
-            # CLI command routing 
-            command_parts = user_input[4:].split()
-            return self.cli_manager.execute_command_with_flags(command_parts, session_context)
-        
-        else:
-            # Natural language goal processing
-            return self._process_natural_language_goal(user_input, session_context)
-    
-    def generate_contextual_tips(self, session_state: Dict[str, Any]) -> List[str]:
-        """Generate contextually relevant tips for user guidance"""
-        tips = []
-        
-        # Workflow-specific tips
-        if session_state.get("has_active_workflow"):
-            tips.append("/continue to resume your last workflow")
-            tips.append("/workflow [id] to check workflow status")
-        
-        # New user tips
-        if session_state.get("is_new_user"):
-            tips.append("/help for available commands")
-            tips.append("/config to adjust your settings")
-        
-        return tips
-```
-
-**TypeScript Frontend Communication** (Implementation Guide):
-
-```typescript
-// ConversationInterface.tsx - Professional terminal UI
-export const ConversationInterface: React.FC = () => {
-  const [input, setInput] = useState('');
-  const pythonAPI = new PythonBridge();
-  
-  const handleInput = async (userInput: string) => {
-    if (userInput.startsWith('/')) {
-      // CLI command routing to Python backend
-      return await pythonAPI.executeCommand(userInput.slice(1));
-    } else {
-      // Natural language goal routing
-      return await pythonAPI.executeCommand('goal', userInput);
-    }
-  };
-  
-  return (
-    <Box flexDirection="column">
-      {/* Single conversation interface - NO menus, NO navigation */}
-      <ConversationDisplay messages={messages} />
-      <InputField onSubmit={handleInput} />
-      <ContextualTips tips={contextualTips} />
-    </Box>
-  );
-};
-
-// PythonBridge.ts - Subprocess communication
-class PythonBridge {
-  async executeCommand(command: string, args?: string): Promise<any> {
-    // 200ms immediate feedback threshold
-    this.showImmediateFeedback(`Executing ${command}...`);
-    
-    // Non-blocking HTTP call to Python cli_manager.py
-    const response = await fetch(`http://localhost:8000/cli/${command}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ args, source: 'typescript-terminal' })
-    });
-    
-    return response.json();
-  }
-}
-```
-
-**Subprocess Communication Bridge** (`interfaces/ui_terminal.py`):
-
-```python
-class SubprocessCommunicationBridge:
-    """Node.js ↔ Python subprocess communication bridge"""
-    
-    def handle_nodejs_message(self, message: Dict[str, Any]) -> Dict[str, Any]:
-        """Process incoming messages from Node.js terminal UI"""
-        message_type = message.get("type")
-        
-        if message_type == "command":
-            return self._handle_command_message(message)
-        elif message_type == "query":
-            return self._handle_query_message(message)
-        elif message_type == "ui_event":
-            return self._handle_ui_event(message)
-        
-        return {"success": False, "error": "Unknown message type"}
-    
-    def send_to_nodejs(self, response: Dict[str, Any]) -> None:
-        """Send structured responses to Node.js terminal UI"""
-        response_data = {
-            "success": response.get("success", True),
-            "data": response.get("data", {}),
-            "ui_updates": {
-                "display_state": response.get("display_state", "ready"),
-                "progress": response.get("progress", 0.0),
-                "status_message": response.get("status_message", "")
-            },
-            "timestamp": datetime.now().isoformat()
-        }
-        
-        # Send JSON to Node.js via stdout
-        print(json.dumps(response_data), flush=True)
-```
-
-This architecture creates a professional conversation-driven terminal experience while maintaining seamless integration with Mao's Python backend systems. Every interaction feels instant, every response feels intelligent, every workflow feels effortless.
+This architecture creates a professional conversation-driven experience while maintaining seamless integration with Mao's Python backend systems. Every interaction feels instant, every response feels intelligent, every workflow feels effortless.
 
 ---
 
@@ -192,22 +60,6 @@ class CLICommandsManager:
                     }
         
         return {"success": True, "commands": commands}
-```
-
-```typescript
-// PythonBridge.ts - Intelligence meets interface
-export class PythonBridge {
-  async getAutoCompleteOptions(partial: string): Promise<string[]> {
-    // Stream results as they arrive from Python CLI discovery
-    const response = await fetch(`${this.baseURL}/autocomplete?q=${partial}`);
-    return response.json();
-  }
-  
-  async executeCommand(command: string, args?: string): Promise<any> {
-    // Route to Python cli_manager.py via blazing fast local communication
-    return await this.localPythonCall(`cli/${command}`, { args });
-  }
-}
 ```
 
 The autocomplete system provides contextual suggestions by scanning our extensive `configs/cli/*` directory structure. Users get intelligent command completion and discovery without memorizing anything or navigating complex menus.
@@ -367,45 +219,17 @@ Settings personalization happens through the `ApplicationSettingsManager` which 
 
 ## Communication Bridge That Actually Bridges
 
-Mao's architecture maintains a robust Python orchestration backend while delivering a premium TypeScript terminal application. Node.js and Ink create the professional interface users expect from modern productivity software.
+Mao's architecture maintains a robust Python orchestration backend while delivering a premium web application. 
 
-Data exchange, status updates, and command execution flow through a sophisticated communication bridge using structured JSON protocols. The separation means updating the interface layer as trends shift over the years doesn't require touching any of the core orchestrator logic.
+Data exchange, status updates, and command execution flow through a sophisticated communication bridge using structured protocols. The separation means updating the interface layer as trends shift over the years doesn't require touching any of the core orchestrator logic.
 
 **Future-proof by design.**
 
 ### Communication Bridge System
-*interfaces/ui_terminal.py, mao_v4.py*
+*interfaces/ui_web.py, mao_v4.py*
 
-Local subprocess communication with JSON protocols that feel instantaneous:
+Local subprocess communication with protocols that feel instantaneous. 
 
-```typescript
-export class PythonBridge {
-  private pythonProcess: ChildProcess;
-  
-  constructor() {
-    // Launch Python backend as subprocess (local and secure)
-    this.pythonProcess = spawn('python', ['mao_v4.py', '--api-mode'], {
-      stdio: ['pipe', 'pipe', 'pipe']
-    });
-  }
-  
-  async executeCommand(command: string, args?: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      const request = JSON.stringify({ command, args });
-      
-      this.pythonProcess.stdin?.write(request + '\n');
-      this.pythonProcess.stdout?.once('data', (data) => {
-        try {
-          const response = JSON.parse(data.toString());
-          resolve(response);
-        } catch (error) {
-          reject(error);
-        }
-      });
-    });
-  }
-}
-```
 
 The result is lightning-fast response times and bulletproof local-only application security. No network dependencies or external services required for core functionality. Your data stays on your machine, your workflows stay private, and your experience stays fast.
 
@@ -414,7 +238,7 @@ The result is lightning-fast response times and bulletproof local-only applicati
 ## Progress That You Can actually See
 
 ### Progress Visualization System Architecture
-*orchestrator/real_time_metrics.py, interfaces/ui_terminal.py* 
+*orchestrator/real_time_metrics.py, interfaces/ui_web.py* 
 
 Real-time progress visualization keeps users informed during workflow execution through coordinated backend metrics and frontend display that actually matters:
 
@@ -467,30 +291,6 @@ class SystemMetricsProvider:
             "uptime": (datetime.now() - self.start_time).total_seconds(),
             "timestamp": datetime.now().isoformat()
         }
-```
-
-**Frontend Progress Display** (TypeScript):
-
-```typescript
-export const ProgressVisualization: React.FC<{ workflowId: string }> = ({ workflowId }) => {
-  const [progress, setProgress] = useState<WorkflowProgress>();
-  
-  useEffect(() => {
-    const progressStream = pythonAPI.streamWorkflowProgress(workflowId);
-    progressStream.on('data', (update) => {
-      setProgress(update);
-    });
-  }, [workflowId]);
-  
-  return (
-    <Box flexDirection="column">
-      <Text color={Colors.yellow}>Workflow Progress:</Text>
-      {progress?.phases.map(phase => (
-        <ProgressPhase key={phase.id} phase={phase} />
-      ))}
-    </Box>
-  );
-};
 ```
 
 **No more wondering what's happening behind the scenes. You see everything, in real-time, beautifully presented.**
@@ -550,28 +350,7 @@ def decorator(func: Callable) -> Callable:
 Even our carefully crafted design patterns, simple as they are, keep the focus on conversation. Visual elements semantically suggest where to look, ensuring you're never searching for information or drowning in information you don't need.
 
 **Visual Protocol Psychology**
-*interfaces/ui_terminal.py* 
-
-```typescript
-export const Colors = {
-  pink: '#ff49ff',        // AI actions (BOLD only) - cognitive interrupts that matter
-  yellow: '#f1d771',      // AI explanations and conversation flow
-  light_blue: '#82d0ff',  // Highlighted items and AI recommendations
-  white: '#ffffff',       // System responses that guide you
-  gray: '#bbbcbb',        // User input and secondary information
-  light_brown: '#7b714a'  // Tree/metadata and organizational context
-} as const;
-
-export const StyledText: React.FC<{
-  color: keyof typeof Colors;
-  bold?: boolean;  
-  children: React.ReactNode;
-}> = ({ color, bold, children }) => (
-  <Text color={Colors[color]} bold={bold && color === 'pink'}>
-    {children}
-  </Text>
-);
-```
+*interfaces/ui_web.py* 
 
 **Every color choice has semantic meaning. Every visual element guides rather than distracts.**
 
@@ -616,25 +395,4 @@ User pattern learning happens through continuous analytics tracking. Interface a
 
 ---
 
-## Technical Foundation That Just Works
-
-```
-PRODUCTION ARCHITECTURE:
-├── TypeScript/Node.js Frontend (Terminal UI using Ink 4.4+)
-├── React Components (Conversation interface, progress display, visual protocol)
-├── Python Backend Integration (Subprocess communication with JSON protocols)
-└── Local File System (All data stored securely on user's machine)
-
-IMPLEMENTED FEATURES:
-├── Dynamic command discovery and intelligent autocomplete
-├── Real-time workflow progress visualization with cost tracking
-├── Conversation-driven interface (absolutely no menus or navigation)
-├── Visual protocol with semantic color system and cognitive flow
-├── Session management and adaptive user preferences
-├── Comprehensive error handling with recovery guidance
-└── Adaptive intelligence that learns and evolves with usage
-```
-
----
-
-*Every piece of data, every user intention, every workflow goal flows through these carefully designed interface pathways into the orchestrator; Mao's brilliant core, where the magic of translating conversation into action and language into deliverables begins. And Mao's chat-centric application? It means you need zero technical knowledge, and there is absolutely no learning curve. We mean it.*
+*Every piece of data, every user intention, every workflow goal flows through these carefully designed interface pathways into the orchestrator; Mao's core, where the magic of translating conversation into action and language into deliverables begins. And Mao's chat-centric application? It means you need zero technical knowledge, and there is absolutely no learning curve. We mean it.*
