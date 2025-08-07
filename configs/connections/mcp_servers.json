@@ -1,10 +1,104 @@
 {
-  "description": "MCP Server Configurations for external tool integration",
-  "global_settings": {
-    "auto_start": false,
-    "log_level": "INFO",
-    "retry_attempts": 3,
-    "timeout_seconds": 30
-  },
-  "servers": {}
+    "description": "MCP Server Configurations for external tool integration",
+    "global_settings": {
+        "auto_start": false,
+        "log_level": "INFO",
+        "retry_attempts": 3,
+        "timeout_seconds": 30
+    },
+    "servers": {
+        "memory": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "description": "Memory MCP server for workflow state persistence and session recovery",
+            "enabled": true,
+            "essential": true
+        }
+    },
+    "server_types": {
+        "stdio": {
+            "description": "STDIO MCP servers run as subprocesses with stdin/stdout communication",
+            "required_fields": [
+                "command"
+            ],
+            "optional_fields": [
+                "args",
+                "env",
+                "working_directory"
+            ],
+            "example": {
+                "type": "stdio",
+                "command": "npx",
+                "args": [
+                    "-y",
+                    "@modelcontextprotocol/server-example"
+                ],
+                "description": "Example STDIO MCP server"
+            }
+        },
+        "http": {
+            "description": "HTTP MCP servers communicate via HTTP/SSE endpoints",
+            "required_fields": [
+                "url"
+            ],
+            "optional_fields": [
+                "authorization_token",
+                "tool_configuration"
+            ],
+            "example": {
+                "type": "http",
+                "url": "https://example-server.modelcontextprotocol.io/sse",
+                "authorization_token": "your_token_here",
+                "description": "Example HTTP MCP server",
+                "tool_configuration": {
+                    "enabled": true,
+                    "allowed_tools": [
+                        "tool1",
+                        "tool2"
+                    ]
+                }
+            }
+        }
+    },
+    "common_servers": {
+        "filesystem_stdio": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "./workspace"
+            ],
+            "description": "File system operations within workspace directory",
+            "enabled": false
+        },
+        "brave_search_stdio": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "description": "Web search via Brave Search API (requires API key)",
+            "enabled": false,
+            "env": {
+                "BRAVE_SEARCH_API_KEY": "your_api_key_here"
+            }
+        },
+        "example_http": {
+            "type": "http",
+            "url": "https://mcp.example.com/sse",
+            "authorization_token": "your_token_here",
+            "description": "Example HTTP MCP server",
+            "enabled": false,
+            "tool_configuration": {
+                "enabled": true,
+                "allowed_tools": []
+            }
+        }
+    }
 }
