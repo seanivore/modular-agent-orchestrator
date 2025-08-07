@@ -8,9 +8,13 @@ import json
 from datetime import datetime
 from typing import Dict, List, Optional, Any
 from pathlib import Path
+import logging
 
 from .cache.cache_system import CacheManager
 from .error_handling import handle_errors, retry_with_backoff, APIError
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 class AgentCallbackHandler:
     """Manages agent returns and workflow progression"""
@@ -117,7 +121,7 @@ class AgentCallbackHandler:
         if execution_data.get('files'):
             for file_ref in execution_data['files']:
                 try:
-                    # Files are accessible because uploaded via Code Execution
+                    # Process real execution files via Files API or Code Execution
                     file_info = self._process_execution_file(workflow_id, file_ref)
                     processed_files.append(file_info)
                     file_count += 1
@@ -154,10 +158,24 @@ class AgentCallbackHandler:
         """Process individual execution file"""
         
         try:
-            # In real implementation, would read from Files API or Code Execution
-            # For now, simulate file processing
-            file_content = f"Mock content for {file_ref}"
-            file_size = len(file_content)
+            # Read actual file content from Files API or Code Execution
+            file_content = ""
+            file_size = 0
+            
+            # Try to read from Files API first
+            try:
+                file_content = self.files_api.client.download(file_ref)
+                file_size = len(file_content)
+            except Exception:
+                # Try to read from Code Execution tool
+                try:
+                    file_content = self.code_execution.read_file(file_ref)
+                    file_size = len(file_content)
+                except Exception:
+                    # If both fail, log error and continue with empty content
+                    logger.warning(f"Unable to read file content for {file_ref}")
+                    file_content = ""
+                    file_size = 0
             
             # Extract file metadata
             file_info = {
@@ -165,20 +183,20 @@ class AgentCallbackHandler:
                 "filename": Path(file_ref).name,
                 "size": file_size,
                 "content_preview": file_content[:100] + "..." if len(file_content) > 100 else file_content,
-                "accessible": True,
+                "accessible": file_size > 0,
                 "file_type": Path(file_ref).suffix,
                 "processing_timestamp": datetime.now().isoformat()
             }
             
-            # Save to Files API for later access
-            draft_id = self.files_api.save_draft(
-                workflow_id,
-                file_content,
-                "agent-execution",
-                Path(file_ref).name
-            )
-            
-            file_info["draft_id"] = draft_id
+            # Save to Files API for later access if we got content
+            if file_content:
+                draft_id = self.files_api.save_draft(
+                    workflow_id,
+                    file_content,
+                    "agent-execution",
+                    Path(file_ref).name
+                )
+                file_info["draft_id"] = draft_id
             
             return file_info
             
@@ -222,14 +240,13 @@ class AgentCallbackHandler:
         # Count completed phases
         completed_phases = len([obs for obs in observations if "execution completed" in obs])
         
-        # Simple phase progression logic
-        # In real implementation, this would be more sophisticated
+        # Dynamic phase progression based on actual results
         if execution_results.get('success'):
             return {
                 "phase_available": True,
                 "next_phase_number": completed_phases + 1,
                 "phase_type": "continuation",
-                "recommendations": self._generate_phase_recommendations(execution_results),
+                "recommendations": self._generate_dynamic_recommendations(execution_results),
                 "ready_to_proceed": True
             }
         else:
@@ -237,12 +254,12 @@ class AgentCallbackHandler:
                 "phase_available": True,
                 "next_phase_number": completed_phases,
                 "phase_type": "retry",
-                "recommendations": ["Fix execution errors", "Review tool configuration"],
+                "recommendations": ["Address execution errors", "Review tool configuration"],
                 "ready_to_proceed": False
             }
     
-    def _generate_phase_recommendations(self, execution_results: Dict) -> List[str]:
-        """Generate recommendations for next phase"""
+    def _generate_dynamic_recommendations(self, execution_results: Dict) -> List[str]:
+        """Generate dynamic recommendations based on actual results"""
         
         recommendations = []
         
@@ -252,14 +269,13 @@ class AgentCallbackHandler:
             recommendations.append(f"Review {file_count} generated files")
             recommendations.append("Consider next workflow phase based on outputs")
         
-        # Tool-specific recommendations
-        tool_name = execution_results.get('tool_name', '')
-        if 'research' in tool_name.lower():
-            recommendations.append("Proceed to analysis phase")
-        elif 'analysis' in tool_name.lower():
-            recommendations.append("Proceed to creative / implementation phase")
-        elif 'creative' in tool_name.lower():
-            recommendations.append("Review and finalize deliverables")
+        # Success-based recommendations  
+        if execution_results.get('success'):
+            recommendations.append("Analyze results for next phase planning")
+            
+        # Error-based recommendations
+        if execution_results.get('error'):
+            recommendations.append("Address identified issues before proceeding")
         
         return recommendations[:3]  # Top 3 recommendations
     
