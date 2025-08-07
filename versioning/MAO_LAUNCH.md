@@ -3,138 +3,92 @@
 
 ---
 
-**The note in "Update Documentation" section is helpful for all of the necessary tasks as we process through this document.**
+- **FOR FILE UPDATE:** If you read using the retrieval method first, then you can either tell me what sections to delete outright, or if it is complicated (like if we're updating actual code after these docs), then you might want to either read_file and tell me the exact lines to delete, or read_file and then edit_file yourself; just be careful if you do that because we want to try to avoid you needed to write entire long files at all costs. The more we can avoid that, the longer we'll be able to keep this context window going.
 
 ---
 
-## Current State Assessment 
+## Launch Intentions  
 
-* **✅ What Actually Works (Per Comprehensive Audit):**
+  1. Files have been validated and tested 
+  2. The application has not actually been launched for real testing yet 
+  3. The application will be setup to work in the terminal just for development purposes 
+  4. Then we will implement it into a web app 
+
+### Progress 
+
+1. We've updated the documentation 
+   - To reflect that there is no "terminal" or "TypeScript" UI 
+   - We left gaps for the web UI info 
+2. Fixing MCP servers 
+   - Some "MOCK" code was added 
+   - MCP servers we do not use were added as "fallback" 
+   - There already is an actual fallback, so we're setting that up 
+   - All but the `memory` MCP server will be removed 
+   - All hardcoding is removed; MCP servers are a config collection item 
+   - The details for setting up STDIO MCP Servers was added to `./documentation/10_AI_DEV_INDEX.md` documentation 
+   - We've added a note to turn the MCP file into a directory on our `./versioning/v4_2_0/v4_2_0_MUST_UPDATE.md` document 
+
+### Current State Assessment 
+
+* **Audit Results:**
 
 - Python Backend: "PRODUCTION READY with 95%+ compliance"
-- Core System: 7 MCP tools discovered, 4 MCP servers connected
-- Entry Point: mao_v4.py with CLI routing working
-- Basic Orchestration: Core workflow execution functional
-- Tool System: Basic tool integration operational
-- Error Handling: Professional error handling implemented
-- Caching: CacheManager instances working
+- Entry Point: mao_v4.py with CLI routing 'working' (according to testing)
+- Basic Orchestration: Core workflow execution 'functional' 
+- Tool System: Basic tool integration 'operational'
+- Error Handling: Professional error handling 'implemented'
+- Caching: CacheManager instances 'working' (according to testing)
 
-* **❌ What's Still Missing:**
+* **What's Missing:**
 
 - Parallel agent execution (the 01a, 01b async stuff)
 - Timer-triggered workflows (the recurring automation)
-- Advanced UI features (but we're pivoting away from that anyway!)
 
-### Update Documentation 
+---
 
-We need to remove the information about the old UI. Instead of adding information about the new UI here, we will include it as a step in the IMPL documents. 
+## MCP Server 
 
-For the upcoming questions, the number 10 document is probably helpful. I think we'll want to update it to make the way to use MCP servers more clear, as I think we did something similar on that document for how to add each type of config collection items. 
+* **GOAL:** 
+- *Remove ALL Mock classes* - they block real functionality  
+- *Replace with proper fallbacks* - LocalFilesFallback, LocalMemoryFallback, empty configs
+- *Fix print statements* - use logging instead
+- *Remove hardcoded servers* - use config system only
 
-Also on that document you'll see that we keep a list of all the dependencies, all the class names for each file, and all the methods/functions for each class. This is *IMPORTANT* to keep up to date because it prevent AI from grep'ing around everywhere and then guessing at the rest of the code when they find part of what they wanted. 
+* **STATUS:**
+- *memory_mcp.py* - FIXED (MockMemoryMCP deleted, STDIO MCP approach ready)
 
-*NOTE: If you read using the retrieval method first, then you can either tell me what sections to delete outright, or if it is complicated (like if we're updating actual code after these docs), then you might want to either read_file and tell me the exact lines to delete, or read_file and then edit_file yourself; just be careful if you do that because we want to try to avoid you needed to write entire long files at all costs. The more we can avoid that, the longer we'll be able to keep this context window going.*
+### To Be Fixed 
 
-```
-./documentation/
-├── 00_OVERVIEW.md
-├── 01_EVOLVING_AI.md
-├── 02_REFERENCE.md
-├── 03_USER_FLOW.md
-├── 04_MAOS_FLOW.md
-├── 05_INTERFACE.md
-├── 06_ORCHESTRATION.md
-├── 07_ANALYTICS_MEMORY.md
-├── 08_AUTOMATE_INTELLIGENCE.md
-├── 09_FUTURE_THINKING.md
-└── 10_AI_DEV_INDEX.md
-```
+#### 1. `agent_callback.py` (3,283 tokens)
 
-### Confirm All Tools Are Discoverable 
+* **Violation:** Line 159 - `file_content = f"Mock content for {file_ref}"`
 
-Re: "7 MCP tools discovered" from above. 
-- There are 11 tools, though 'code_execution' and 'files_api' and only going to be used by Mao. 
-- Agents might use 'mcp_connector', however, as of now it is only planned to be used by Mao to access the `memory` MCP server, Mao's 'one source of truth' for everything memory-related. 
+* **Fix:** Replace mock content generation with real file operations via Files API
+* **Lines to change:** Just line 159 in `_process_execution_file()` method
+* **Approach:** Simple line replacement - read real file content instead of generating mock
 
-```
-./tools/
-├── brave_search
-│   ├── brave_search.py
-│   ├── button_brave_search.py
-│   ├── tool_brave_search.json
-│   └── ui_brave_search.py
-├── code_execution
-│   ├── button_code_execution.py
-│   ├── code_execution.py
-│   ├── tool_code_execution.json
-│   └── ui_code_execution.py
-├── dalle_generate
-│   ├── button_dalle_generate.py
-│   ├── dalle_generate.py
-│   ├── tool_dalle_generate.json
-│   └── ui_dalle_generate.py
-├── file_operations
-│   ├── button_file_operations.py
-│   ├── file_operations.py
-│   ├── tool_file_operations.json
-│   └── ui_file_operations.py
-├── files_api
-│   ├── button_files_api.py
-│   ├── files_api.json
-│   ├── files_api.py
-│   ├── tool_files_api.json
-│   └── ui_files_api.py
-├── graphic_design
-│   ├── button_graphic_design.py
-│   ├── fonts
-│   ├── graphic_design.py
-│   ├── tool_graphic_design.json
-│   └── ui_graphic_design.py
-├── mcp_connector
-│   ├── button_mcp_connector.py
-│   ├── mcp_connector.py
-│   ├── tool_mcp_connector.json
-│   └── ui_mcp_connector.py
-├── perplexity_search
-│   ├── button_perplexity_search.py
-│   ├── perplexity_search.py
-│   ├── tool_perplexity_search.json
-│   └── ui_perplexity_search.py
-├── text_editor
-│   ├── button_text_editor.py
-│   ├── text_editor.py
-│   ├── tool_text_editor.json
-│   └── ui_text_editor.py
-├── think
-│   ├── button_think.py
-│   ├── think.py
-│   ├── tool_think.json
-│   └── ui_think.py
-└── web_search
-    ├── button_web_search.py
-    ├── tool_web_search.json
-    ├── ui_web_search.py
-    └── web_search.py
-```
+#### 2. `files_api.py` (4,563 tokens) 
+**Violations:** 
+- `MockFilesAPI` class (lines ~430-500)
+- Print statements (lines 399, 415, 424)
 
-### Eliminate Unnecessary MCP Tools 
+* **Fix:** Delete MockFilesAPI class, keep LocalFilesFallback (documented fallback)
+* **Approach:** Delete entire Mock class, replace print statements with logging
 
-Re: "4 MCP servers connected" from above.
-- I'm feeling very weird about this, because I have no idea what they are. 
-- Meaning, I'm worried that they're probably hard-coded because we didn't set up a config system for MCP servers. 
-- *Note: We should set up a config system for MCP servers* 
-- Only the `memory` MCP server is essential, planned as Mao's 'one source of truth' for everything memory-related. 
-- That one *might* be hard-coded; we should confirm, and then make sure we change things so that it is not because who knows if that MCP will or will not always be available. 
+#### 3. `mcp_connector.py` (4,115 tokens)
+**Violations:**
+- Hardcoded server creation in `load_server_configs()` 
+- `MockServerConnection` class  
+- Print statements (lines 111, 113, 124, 272, 437, 441)
 
-### Investigate and Eliminate "MOCK" Content In Code 
+**Fix:** Remove hardcoded "aider" and "filesystem" servers, delete Mock class
+**Approach:** Clean up server config loading, remove all Mock implementations
 
-- `./orchestrator/agent_callback.py`
-Line 159: "            file_content = f"Mock content for {file_ref}"
+#### 4. `manager_tools.py` (4,935 tokens)
+* **Violation:** Need to check for mock implementations in tool discovery
 
-- `./orchestrator/manager_tools.py`
-- `./orchestrator/memory_mcp.py`
-Starting at Line 427 in the first, then Line 50 in the second. 
-We have the `memory` MCP server, so there is no reason to have any mock code, not that "MOCK CODE" is ever acceptable. Seriously makes me so angry. 
+* **Fix:** Ensure all tool discovery uses real file scanning, no mock data
+**Approach:** Read file first to identify specific mock violations
 
 ---
 
@@ -161,7 +115,7 @@ The directory is created. All of the remaining "IMPL-TO-LAUNCH" documents are in
 #### Focus On 
 
   1. What actually works NOW (basic CLI commands, workflow execution)
-  2. Core dogfooding functionality (goal → workflow → results)
+  2. Core dog-fooding functionality (goal → workflow → results)
   3. Basic tool integration (the 7 MCP tools that are discovered)
   4. Simple terminal interface (no fancy TypeScript, just Python CLI)
 
