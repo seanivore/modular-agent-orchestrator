@@ -60,3 +60,70 @@ If these were not included above, it would make sense to add them for launch. Th
 ```
 
 ---
+
+"Want to start with getting that Python CLI polished for your own dogfooding?" 
+
+LOL what is 'dogfooding'?!? 
+
+Okay, I just changed to a new branch in git and github so that I could leave all that TypeScript Terminal UI stuff there and delete it. 
+
+I think next we should probably assess the IMPL docs that were all prepared to go from current state through to publishing and clean them up to do the same, but this time, 1 - make sure all the things we need in the IMPL docs are complete, 2 - create a new IMPL doc for getting it finished to be able to run the tool in the terminal for us to try it out (1 and 2 sort of the same lol), 3 - new/updated IMPL doc for creating the new web app UI. 
+
+First I want to check if these were implemented if you could help me figure it out? 
+
+versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md
+versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md
+
+And then, let's go through these to create a new IMPL_DEV_LIVE.md for whatever we need to do to get it to a place where we can test the app on our own in the terminal. 
+
+./versioning/v4_0_0/V4_IMPL_TO_LAUNCH/
+├── COMPREHENSIVE_IMPLEMENTATION_ROADMAP.md   ← Strategic overview
+├── COMPLETION_PLAN.md                        ← You are here
+├── IMPL_SUBSCRIPTION_SYSTEM
+│   └── IMPL_SUBSCRIPTION_SYSTEM.md           ← Overseas launch system
+├── IMPL_UI_COMPLETE
+│   └── IMPL_UI_COMPLETE.md                   ← Every remaining component
+└── IMPL_UI_DETAILED
+    └── IMPL_UI_DETAILED.md                   ← Tools implementation
+
+I think we want to include these as well though, they should have been integrated into the above lists -- well, there also should have only been like one IMPL plan but CC was being crazy that day. 
+
+./versioning/v4_1_0/
+├── IMPL_ANALYTICS
+│   ├── IMPL_ANALYTICS_ACCESSIBILITY.md
+│   └── MULTI_INSTANCE_DATA.md
+├── IMPL_ANTHROPIC_TOOLS
+│   ├── TOOL_BASH.md
+│   ├── TOOL_FINE_GRAINED_STREAMING.md
+│   └── TOOL_PARALLEL_USE.md
+├── IMPL_CLAUDE_CODE
+│   ├── CLAUDE_CODE_SDK.md
+│   └── IMPL_CLAUDE_CODE.md
+└── IMPL_DATABASES
+    └── IMPL_DATABASES.md
+
+I think we'll need all of those items. If an IMPL document is already good-to-go, we can keep it a separate document (like IMPL_DATABASES.md for example, not that that one is done) and just list it at the top of our first new IMPL document as "must be done". The new doc I think we should put here. 
+
+./versioning/v4_0_0/IMPL_DEV_LIVE/IMPL_DEV_LIVE.md 
+
+And then anything for the actual web app, we should put somewhere like this. 
+
+./versioning/v4_1_0/IMPL_WEB_UI/IMPL_WEB_UI.md 
+
+And I'll move the IMPL docs that are separate to their appropriate sub-directory. 
+
+Oh and we have this one to look through and move to an appropriate home. 
+
+./versioning/v4_0_0/IMPL_UI/
+├── _NEW_USER_FLOW.md
+├── _VISUAL_BRAND_IDENTITY.md
+├── UI_PHASE_1_LOGIC.md
+└── wireframe_img
+    ├── 01-mao-terminal-wireframes.html
+    ├── 02-mao-terminal-wireframes.html
+    ├── after-typing-slash.png
+    ├── before-typing-slash.png
+    ├── config-enter-some-settings.png
+    └── config-slash-command-panel.png
+
+Wdyt? 
