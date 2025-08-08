@@ -412,6 +412,32 @@ SCRIPT COMMAND:
     - If an agent is doing *research*, they often will not know when to stop 
     - Mao can review the results, provide more guidance, what else to research, etc. 
 
+```Orchestrator Workers Diagram
+     
+          [INPUT]
+             |
+             ↓
+     +----------------+
+     |  Orchestrator  |
+     +----------------+
+    /        |         \
+   /         |          \
+  ↓          ↓           ↓
+LLM         LLM         LLM
+CALL 1     CALL 2      CALL 3
+ |           |           |
+ |...........|...........|
+ \           |          /
+  \          |         /
+   ↓         ↓        ↓
+    +----------------+
+    |  Synthesizer   |
+    +----------------+
+             |
+             ↓
+          [OUTPUT]
+``` 
+
 * **The evaluator-optimizer workflow** 
 
   - Not defaulted into every workflow, but extremely important when accuracy is critical 
@@ -427,6 +453,37 @@ SCRIPT COMMAND:
     - Remember that context is as important if not more important than the prompt 
   - Great for generating marketing copy, writing outlines that become documents, etc. 
 
+```Prompt Chaining Diagram
+      
+            [INPUT]
+               |
+               |
+               ↓
+          LLM CALL 1
+               |
+               | Output 1 
+               ↓
+         +------------+
+         |    Gate    |
+         +------------+
+          /           \
+        PASS          FAIL
+        /               \
+        |               |
+        ↓               |
+   LLM CALL 2           ↓
+        |             [EXIT]
+        |
+        | Output 2
+        |
+        ↓
+   LLM CALL 3
+        |
+        |
+        ↓
+    [OUTPUT]
+```
+
 * **The routing workflow** 
 
   - We do this naturally when carefully deciding what model to use 
@@ -434,6 +491,15 @@ SCRIPT COMMAND:
   - It is also part of our process when we write prompts 
     - They are always highly detailed 
     - Written specifically and uniquely for each task and model 
+
+```Routing Workflow Diagram
+     
+             +----------+       ┌→  LLM CALL 1  ┐
+             | LLM Call |       │               │
+[INPUT] ———→ | Router   | ————→ ├→  LLM CALL 2  ├ ——→ [OUTPUT]
+             +----------+       │               │
+                                └→  LLM CALL 3  ┘
+```
 
 * **The parallelization workflow**
 
@@ -447,6 +513,14 @@ SCRIPT COMMAND:
       - For example, each agent may review content using a different prompt 
       - Each agent looks for different aspects creating a more comprehensive result 
 
+```Parallelization Workflow Diagram
+  
+              ┌→  LLM CALL 1 —┌→ 
+              │               │  \     +------------+ 
+[INPUT] ————→ ├→  LLM CALL 2 —├——————→ | Aggregator | ——→ [OUTPUT]
+              │               │  /     +------------+
+              └→  LLM CALL 3 —└→
+```
 ### Best Practices  
 
 * **Clearly define necessary tools** 
