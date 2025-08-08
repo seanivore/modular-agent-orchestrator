@@ -116,7 +116,7 @@ Once we understand what the logic should be, and what the file's current logic i
 
 ---
 
-## 2. Start Chat & Setup
+## 2. Start Chat & Mao's Setup
 
 ### Core Objective 
 
@@ -126,38 +126,48 @@ Once we understand what the logic should be, and what the file's current logic i
 
 ### User's Role 
 
-* **Starts chat** by sending anything into the UI that isn't a slash command 
+* **Starts chat** by sending *anything* into the UI that isn't a slash command; even with the slash command exceptions, User still starts the chat; the exceptions are just cases where Mao replies to a slash command 
 
-  - Exceptions #1: *chat command* 
-    - `/chat 'your message'` can be run to jump into chat 
-    - Only truly helpful in terminal using `mao --chat 'your message'`
+  - Exceptions #1: `/chat 'your message'`
+    - Chat slash command can be run to jump right into chat 
+    - Only truly helpful if starting app from terminal, using `mao --chat 'your message'`
     - Otherwise, when in the app, the only UI is a chat so sending anything starts the chat 
 
-  - Exceptions #2: *goal command* 
-    - `/goal 'user project goal'` can be run to set a goal 
+  - Exceptions #2: `/goal 'user project goal'` 
+    - Goal slash command is run to create an instant workflow with nothing but the goal 
     - Terminal users can start app with `mao --goal 'user project goal'`
     - This effectively jumps Mao past any back-and-forth conversation 
     - It is the only provided variable; Mao determines the rest 
 
   - There may be *other exceptions* we need to work the logic out for 
-    - These would be primarily for better UX 
-    - Meaning, andy commands that get a response from Mao instead of from the system 
+    - We would create the logic for this primarily to improve the UX  
+      - As in, which slash commands are easier on the User to use a toggle popup? 
+      - Which slash command responses are easier on the User if Mao responds to their command? 
+
+  - Possible good examples for Mao to respond or for us to contemplate the UI/UX for     
     - Trying `/workflow 'workflow custom command'` to jump back into setting up a project 
-    - Using `/variables-explain` makes sense for Mao to facilitate 
-    - Using `/tools` or `/providers` or `/models` or just `/variables` could bring up UI or Mao to chat; examples that need logic 
+    - Using `/variables-explain` makes sense for Mao to facilitate instead of just DROPPING a bunch of text on them  
+    - Using `/tools` or `/providers` or `/models` or just `/variables` 
+      - These could bring up UI or Mao to chat 
+      - We should figure out what makes the most logical sense 
+      - Or how could one method combine UI in some way (like if models showed them all but also then let them set defaults)
 
 ### Mao's Role 
 
-* **First essential task** 
-  - When any new project is started, create a fresh WorkflowID 
+* **Getting the WorkflowID is Mao's first essential task**  
+
+  - Every new project needs a WorkflowID  
     - This is done on the backend, but it uses the terminal command script `uid` 
     - Every time you enter `uid` it comes up with a COMPLETELY DIFFERENT string of characters 
     - It is always `uid-ABC-123` starting with uid, then three letters, then three numbers 
-  - This is extremely important to ALL WORKFLOW PROCESSES 
-    - Mao uses it as their identification for saving memories about the workflow 
-    - Mao uses it to save the workflow details to the Files API  
+
+  - This is extremely important to ALL WORKFLOW PROCESSES  
+    - Mao uses it to label memories saved about the workflow 
+    - It labels items saved in the Files API (*we need to make sure it is set up to save files accordingly*)  
     - It is the string that connects all workflow pieces together 
-  - This 'WorkflowID' and the workflow's 'Custom Command' are the only two unique identifiers on every workflow project 
+    - Even the analytics likely use it in some ways 
+
+  - The 'WorkflowID' and the workflow's 'Custom Command' identified on the JSON workflow config are the only two unique identifiers available to the User on every single project; any other IDs used on the back end should be minimized and only used if absolutely necessary, and hidden from the User 
 
 
 ```bash 
@@ -167,39 +177,10 @@ Once we understand what the logic should be, and what the file's current logic i
   Generated UID: uid-afo-506     # Always different 
 ```
 
-* **Use WorkflowID to create first memory** 
-  - Mao will use the WorkflowID to create a first memory for this project 
-  - When any instance of Mao is started, all log files, and memories will be accessible using the WorkflowID 
-  - This is what give Mao the flow of seamless UX for us humans 
+* **IMPORTANT NOTE FOR CLARITY:** 
+  - *Be careful of the distinction between UserID and WorkflowID*
 
-* **Entry knowledge** 
-  - *New user* or *returning user* information
-    - AI looks up their user config file 
-    - The `user_seanivore.json` for at least their first name 
-    - We PUSH using the first name 
-  - *The variables needed to complete workflow JSON objects*
-    - The AI does NOT have a script 
-    - All the AI needs to know is the purpose of the chat: To fill in the blanks in the JSON objects 
-    - Everything else is natural AI behavior and MUST NOT BE MANIPULATED WITH 'SUGGESTIONS' 
-    - AI will not forget how to do this; it is what they're great at 
-
-* **Never a canned greeting**
-  - *Always dynamic*, meaning NO suggestions in codebase 
-    - AI doesn't need the help 
-    - Funny, random, goofy -- all of these are fun and we should encourage experimentation 
-    - We have analytics to adjust what works and doesn't over time 
-      > "It is 10pm on Thursday night. Do you know where your AI is?" 
-  - Returning user's *recent projects or interactions* 
-      > "Sean, are you ready to get back into setting up your applicant review workflow? We can build a whole tracking system." 
-  - AI can *scan the user's personally saved memories* 
-      > "Hello, Sean. I see it was your birthday last week. I hope you had a great day! What can I help you with today?" 
-  - The *AI also saves notable interactions with the user*; this is where UX really shines 
-      > "Sean, hello. I hope last week's analytics reporting was helpful. What are we working on today?" 
-
----
-
-## **FOR CLARITY:** Careful Distinctions to Be Aware of
-
+```
 INPUT:
 - unique identifier   # Unique email or phone number string that creates UserID from `meid` script
 NAME: 
@@ -208,6 +189,52 @@ NAME:
 SCRIPT COMMAND: 
 - UID                 # `uid` is the script that creates a *UNIQUE WORKFLOW ID* that is always different 
 - MEID                # The `meid` script you run to create a *UserID* 
+```
+
+* **Mao creates first project state memory entry tagged with the WorkflowID** 
+
+  - Or, pulls up materials from working on the project previously if this is a returning user 
+  - There are various orchestrator files that deal with "state" management; we should better understand how that works
+  - Mao will use the WorkflowID to create a first memory for this project 
+  - When any instance of Mao is started, all log files and memories will be accessible using the WorkflowID; this is how we get the seamless UX 
+  - This is what give Mao the flow of seamless UX for the human user experience 
+    - Thoughts: How and where is it standardized regarding what is entered 
+    - Also curious what the fallback looks like because long term we probably could create our own system instead of the MCP  
+
+* **Mao gathers knowledge before entering the chat or responding**
+
+  - *New user* or *returning user* information
+    - AI looks up their user config file 
+    - The `user_seanivore.json` for at least their first name 
+    - UX-wise, we should ALWAYS be using their firsts name (maybe should add note to create app setting to change "what to call you")
+
+  - *Identifying workflow JSON config object variables* 
+    - The AI does NOT have a script 
+    - AI understands the purpose of the chat is to 'fill in the blanks' of the workflow JSON config objects 
+    - Everything else in this process is completely natural AI behavior 
+      - As such it *MUST NOT BE MANIPULATED WITH 'SUGGESTIONS' IN THE CODE*
+      - AI isn't going to forget how to do this; you're about to see how incredible simple it is
+
+* **Mao sends first *NEVER CANNED* greeting**
+
+  - *Always dynamic* 
+    - NO suggestions in codebase 
+    - AI doesn't need the help 
+    - Funny, random, goofy 
+    - Be fun, be weird 
+    - Experimentation is ENCOURAGED because we have analytics
+
+  - Respond to User's first message with *1-3 short sentences that is 10 to 20 words in total* 
+      > "It is 10pm on Thursday night. Do you know where your AI is?" 
+
+  - Returning user's *recent projects or interactions* 
+      > "Sean, are you ready to get back into setting up your applicant review workflow? We can build a whole tracking system." 
+
+  - AI can *scan the user's personally saved memories* 
+      > "Hello, Sean. I see it was your birthday last week. I hope you had a great day! What can I help you with today?" 
+
+  - The *AI also saves notable interactions with the user*; this is where UX really shines 
+      > "Sean, hello. I hope last week's analytics reporting was helpful. What are we working on today?" 
 
 ---
 
@@ -249,11 +276,11 @@ SCRIPT COMMAND:
 
 * **To clarify things before building the workflow or not** 
   - After the discussion, AI should be able to tell how much more they can pull from the user 
-  - If they were clearly pushing things towards AI to complete, *don't push to clarify*, they can review after 
-  - If they were chatty, *and you have questions*, then clarify them 
-  - Do not come up with things to clarify if you are confident on your understanding 
-  - They will review the final workflow; so less is more, keep it simple and direct 
-  - Remember, you can always take more notes than needed; keep them to the side, and keep the workflow simple 
+    - If they were clearly pushing things towards AI to complete, *don't push to clarify*, they can review after 
+    - If they were chatty, *and you have questions*, then clarify them 
+  - *Do not come up with things to clarify* if you are confident on your understanding 
+    - They will review the final workflow; so less is more, keep it simple and direct 
+    - Remember, you can always take more notes than needed; keep them to the side for after they review 
 
 ---
 
@@ -263,17 +290,17 @@ SCRIPT COMMAND:
 
 * **Conversational confirmation statements** 
   - Phrase your closing in a way that *allows for the user to chime in* 
-  - *They might want to review* what you have before you build 
-  - *Do not try to review* what you have before you build unless they ask for it 
-    > "I think we have what we need here, Sean. Give me a moment to build a workflow for you to review?" 
-    > "This is great. I'm ready to build a workflow. It'll just take a moment if you want to review it now." 
-    > "Of course we can walk through it. Did you want to confirm what I have now? It might be easier to see once I clean things up." 
-  - Etc. any version of this simple dialog that doesn't push, but also doesn't ask for more 
-  - Remember: They can always change things after seeing a workflow 
+    - *They might want to review* what you have before you build 
+    - *Do not try to review* what you have before you build unless they ask for it 
+      > "I think we have what we need here, Sean. Give me a moment to build a workflow for you to review?" 
+      > "This is great. I'm ready to build a workflow. It'll just take a moment if you want to review it now." 
+      > "Of course we can walk through it. Did you want to confirm what I have now? It might be easier to see once I clean things up." 
+    - Etc. any version of this simple dialog that doesn't push, but also doesn't ask for more 
+    - Remember: They can always change things after seeing a workflow 
   - It *might be easier for humans to understand it in workflow format* 
-  - Basically, try to get them to be cool with you building a workflow (or more) 
-    > "This is great. If you have thoughts, it might be easier to rehash things after I build a workflow or two. What do you think?" 
-    > "I'm going to build a workflow draft now. We can always make changes later." 
+    - Basically, try to get them to be cool with you building a workflow (or more) 
+      > "This is great. If you have thoughts, it might be easier to rehash things after I build a workflow or two. What do you think?" 
+      > "I'm going to build a workflow draft now. We can always make changes later." 
 
 ### Build The Workflow 
 
