@@ -498,10 +498,10 @@ SCRIPT COMMAND:
 
   - All other standard JSON objects are still created as usual 
   - There are only a few other differences 
-    - File naming structure 
-    - What command is used to setup the workflow 
-    - They trigger on a reoccurring basis 
-    - Users or Mao may have been the creator of the workflow 
+    - File naming structure; this will be explained in full after this section so that the standard naming structure is easily compared to the reoccurring workflow file naming structures 
+    - What command is used to setup the workflow; all setup commands will be explained when this walkthrough gets to the point of setting up the approved project's workflow 
+    - They trigger on a reoccurring basis, obviously 
+    - Users or Mao may have been the creator of the workflow; how freaky AI-agentic is that 
 
 | Variable   | Purpose                                       | Value Example    | 
 |------------|-----------------------------------------------|------------------|
@@ -510,6 +510,71 @@ SCRIPT COMMAND:
 | Day        | Day of week workflow triggers on              | Tuesday          | 
 | Time       | 3 hour time block dedicated for the workflow  | 1800-2100        |
 
+### Validating **Calendaring** JSON Object Variable Values 
+
+* **This has been said in every section but here is the last time we'll say it: Validation parameters go in code, not suggestions or examples** 
+
+  - *Examples* do NOT go in code 
+  - Can go in code 
+    - The value's purpose so Mao understands it conceptually 
+    - How to make sure the value is the appropriate amount and type of information 
+
+  - Confirming each of the variable's values 
+    - *Type* can be one of four different reoccurring workflows types; these are defined in brief below, and extensively [in the "Automating Intelligence" section of our technical documentation](/documentation/08_AUTOMATE_INTELLIGENCE.md). Acceptable responses for this variable's value are 'Scheduled', 'Self-Assessment', 'Project-List', or 'Goal-Assessment'. 
+    - *Frequency* type is chosen from a chart and each of the 8 type sof frequencies are coded with number 1 to 8 
+    - *Day* can only be 1 of the 7 days of the week; they are also coded starting the week with Monday as 1 through to Sunday as 7 
+    - *Time* is one of 8 blocks of four-hour chunks each day has been broken into; they are defined specifically below and each also use a numerical code  
+
+      1. **Scheduled** 
+      2. **Self-Assessment** 
+      3. **Project-List**
+      4. **Goal-Assessment**
+
+```json
+{
+  "frequency": {
+    "1": "every week",
+    "2": "every other week", 
+    "3": "every month",
+    "4": "every other month",
+    "5": "every year",
+    "6": "every other year",
+    "7": "every day",
+    "8": "every other day"
+  }
+}
+```
+
+**Day of Week Codes**
+```json
+{
+  "day_of_week": {
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday",
+    "7": "Sunday"
+  }
+}
+```
+
+**Time Block Codes**
+```json
+{
+  "time_block": {
+    "1": "0000-0300",
+    "2": "0300-0600", 
+    "3": "0600-0900",
+    "4": "0900-1200",
+    "5": "1200-1500",
+    "6": "1500-1800",
+    "7": "1800-2100",
+    "8": "2100-0000"
+  }
+}
+```
 
 * **Automating Intelligence** 
 
