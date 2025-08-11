@@ -8,7 +8,7 @@
 
 ### Goal 
 
-Understand what the logic should be, then compare it to each file's current logic, so we can clean up files accordingly. 
+Outline comprehensive flow to understand what the logic should be, then compare it to each file's current logic, so we can clean up files accordingly. 
 
 ### Deliverables 
 
@@ -39,41 +39,72 @@ Understand what the logic should be, then compare it to each file's current logi
 
 ### Core Objective 
 
-  1. User gets a secure login 
-  2. For new user, automation creates a UserID for them and setups up a new User config directory  
-  3. For returning user, it looks up their UserID 
-  4. The UserID follows them around the application and will later be paired with the WorkflowID 
-  5. Starting at this point, their behavior is logged and tracked in analytics files in their User config directory 
-  6. Anonymous data and system data is also triggered and logged at various points 
+  1. Secure login 
+     - Setup passkey or traditional login 
+     - Passkey requires providing email or phone as unique identifier once 
+     - Traditional login requires email or phone unique identifier every time 
+  2. Locate or create UserID 
+     - Returning users, UserID is located from directory via unique identifier 
+     - New Users, automation creates a UserID during setup
+     - Automation also setups up their user config directory 
+  3. UserID follows User around application 
+     - Behavior logged and tracked in analytics files in their User config directory
+     - Anonymous data and system data is also triggered and logged at various points
+     - UserID used to obscure identity in some analytics 
 
-### New Users 
+### Secure Login Setup 
 
-* **Login with passkey or a unique identifier**
+* **User setup options**
 
-  - Passkey will require providing unique identifier once during setup 
-  - Other users enter unique identifier every time they log in 
-    - *Email* or *phone number* qualify as unique identifiers 
-    - They must provide their *first name* 
-    - They may optionally provide their *last name*  
-  - The *unique identifier is used to create their UserID* 
-    - Backend creates UserID from email using `meid` script 
-    - This ID is the *same every time you enter the unique identifier* 
-    - It will always be 'user-0000' for new users 
-    - Below I used my full email address (unique identifier) which always creates the same UserID: user-5253 
+  - Setup a *Passkey* and provide unique identifier once  
+  - Use *Traditional login* requiring unique identifier every time 
+    - And password creation 
+    - We *do not* do email link login; it is terrible UX 
+
+  - *Email* OR *phone number* can be a unique identifier 
+    - System validates there is no other user with that identifier 
+    - Duplicate identifier triggers error; try again or reset password 
+
+* **Other collected data** 
+
+  - *Required* information includes 
+    - *First name*
+    - *Last name* 
+  - Not required information collected *all on one page with prominent SKIP button* 
+    - Want us to use a *nickname* instead of your first name?  
+    - Will Mao be primarily helping you automate your *personal* or *work* life? This will help us improve your UX
+    - Drill-down of options for industry or types of personal project with 'other' option and then text field 
+  - *Marketing* notification, not an opt-in 
+    - That signing up includes giving permission for us to send important emails or texts 
+    - The frequency of which can be adjusted in settings 
+
+### Locate or Create UserID 
+
+* **Returning users** 
+
+  - The unique identifier is used to search directory/database 
+  - Their UserID is found and follows them around system 
+    - Analytics triggered 
+    - UserID passed off to Mao to ensure smart responses in chat 
+
+* **New Users UserID Creation**
+
+  - The *unique identifier* is used to create their UserID 
+  - Backend creates UserID using `meid` script 
+    - This ID is the *same every time you enter* the unique identifier 
+    - It will always be formatted as 'user-####' 
 
 ```bash 
-  > meid horvathaugust@gmail.com
-  Username 'horvathaugust@gmail.com' -> user-5253            # Follows user around application
+  > meid horvathaugust@gmail.com            # Used entire email address; must be single string of characters 
+  Username 'horvathaugust@gmail.com' -> user-5253    # Response; UserID follows user around application
 ```
 
-* **User uses phone number as unique identifier to log in every time** 
+* **Formatting is significant and must be exact every time** 
 
-  - It *must be formatted the same every time they log in* 
-    - We must make sure our input field *forces* the proper formatting 
-  - Users *using passkey will only enter the phone number once during setup*
-    - User logging in with the phone number will have to enter it every time
+  - We need to ensure our forms *force* proper formatting 
+  - Both for sign-up form, passkey or traditional, and on login form  
+  - For example, phone number must be single string, but 
     - *NO PARENTHESIS, NO + PLUS SIGN, NO SPACES* 
-    - As long as the numbers are connected in a single string it should work 
 
 ```bash
   > meid 424-744-7687
@@ -83,7 +114,7 @@ Understand what the logic should be, then compare it to each file's current logi
   Username '4247447687' -> user-0697        # No hyphens or periods has same result 
 ```
 
-* **Backend creates their file and directory automatically** 
+* **User directory setup automatically during New User Setup** 
 
   - User `./configs/user/` directory, *as structured below*
     - Includes other essential user data files 
@@ -104,18 +135,10 @@ configs/user/...
     └── user_seanivore.json             # Delta-only storage of User application preferences 
 ``` 
 
-**ALL JSON OBJECTS AND CURRENT FILES IN SYSTEM MUST BE UPDATED ACCORDING TO DETAILS ABOVE** 
+**USERNAME VERSUS UNIQUE IDENTIFIERS**     <-- REQUIRES UPDATES OF FILES 
   - We originally we using a random "username" 
-  - Using a unique identifier eliminates possibility of repeating usernames
-  - We should still confirm uniqueness of the unique identifier during login 
-    - They get an error message if they try to use a phone number or email already used 
-    - Error message should be helpful; you already have an account, reset password kind of deal 
-
-### Existing Users 
-
-  - *Login with preferred method* of passkey or unique identifier 
-    - Backend locates user details 
-    - UserID follows user around application 
+  - We must inspect code and template JSON objects in User directory to update 
+  - Using a unique identifier is more efficient, creates easy excuse to gather info., will always be unique 
 
 ### Project State **Memory Update Point**
 
@@ -127,39 +150,39 @@ configs/user/...
 
 ### Core Objective 
 
-  1. Setup the WorkflowID and memory system needed for the File API later 
-  2. Pull up the user's information using their UserID  
-  3. Create a truly unique UX using *memory* and *data analytics*     <-- This is the future, thanks to AI 
+  1. Chat is started 
+  2. Setup WorkflowID for new project 
+  3. Initiate Project State memory system use 
+     - New project requires first simple entry defined below 
+     - Returning users; Mao searches their UserID and pulls up information to facilitate chat 
+  4. Create a truly unique UX using *memory* and *data analytics*     <-- This is the future, thanks to AI 
 
-### User's Role 
+### User's Role: Initiate Project Chat 
 
-* **Starts chat** by sending *anything* into the UI that isn't a slash command; even with the slash command exceptions, User still starts the chat; the exceptions are just cases where Mao replies to a slash command 
+* **The User will always initiate a project chat first** 
 
-  - Exceptions #1: `/chat 'your message'`
-    - Chat slash command can be run to jump right into chat 
-    - Only truly helpful if starting app from terminal, using `mao --chat 'your message'`
-    - Otherwise, when in the app, the only UI is a chat so sending anything starts the chat 
+  - They can send *anything* into the chat to start the flow 
+    - Certain slash commands *DO* start flow 
+    - Most slash commands do not start flow and are just operational 
+    - Mao might respond to some operational slash commands, but this is not the same as initiating a project chat 
 
-  - Exceptions #2: `/goal 'user project goal'` 
-    - Goal slash command is run to create an instant workflow with nothing but the goal 
-    - Terminal users can start app with `mao --goal 'user project goal'`
-    - This effectively jumps Mao past any back-and-forth conversation 
-    - It is the only provided variable; Mao determines the rest 
+  - Slash commands that *DO* initiate project chat 
+    - Exception example #1: `/chat 'your message'` which jumps right to the chat and starts the first message; this was primarily created for the terminal app because using `mao --chat 'your message'` would start the app and send that chat; with a web app this command is sort of pointless but there is no need to remove it; users might use it to initiate a project chat after using some operational slash command, for example, not that it is necessary 
+    - Exceptions example #2: `/goal 'user project goal'` is the primary legitimate slash command that does initiate a project chat; this command is run to create an instant workflow where Mao uses nothing but the goal; this effectively jumps Mao past any back-and-forth conversation, as the goal is the only provided variable and Mao would respond with a simple 
+      > "Got it! Give me a moment to draft up a workflow for your review." 
 
-  - There may be *other exceptions* we need to work the logic out for 
-    - We would create the logic for this primarily to improve the UX  
-      - As in, which slash commands are easier on the User to use a toggle popup? 
-      - Which slash command responses are easier on the User if Mao responds to their command? 
+* **Sometimes the first message doesn't initiate a project chat** 
 
-  - Possible good examples for Mao to respond or for us to contemplate the UI/UX for     
+  - In certain cases, we may have Mao respond to operational slash commends where it makes sense to create a better UX 
+    - We need to work out the logic for these one by one, on a per-command basis 
+    - Some slash commands just pull up a toggle menu 
     - Trying `/workflow 'workflow custom command'` to jump back into setting up a project 
     - Using `/variables-explain` makes sense for Mao to facilitate instead of just DROPPING a bunch of text on them  
     - Using `/tools` or `/providers` or `/models` or just `/variables` 
-      - These could bring up UI or Mao to chat 
-      - We should figure out what makes the most logical sense 
+      - These could bring up UI or Mao to chat; we should figure out what makes the most logical sense 
       - Or how could one method combine UI in some way (like if models showed them all but also then let them set defaults)
 
-### Mao's Role 
+### Mao's Role: Come To Chat Prepared 
 
 * **Getting the WorkflowID is Mao's first essential task** 
 
@@ -168,24 +191,22 @@ configs/user/...
     - Every time you enter `uid` it comes up with a COMPLETELY DIFFERENT string of characters 
     - It is always `uid-ABC-123` starting with uid, then three letters, then three numbers 
 
-  - This is extremely important to ALL WORKFLOW PROCESSES  
+  - This is *extremely important to ALL WORKFLOW PROCESSES*
     - Mao uses it to label memories saved about the workflow 
-    - It labels items saved in the Files API (*we need to make sure it is set up to save files accordingly*)  
+    - It *labels items saved in the Files API*
     - It is the string that connects all workflow pieces together 
-    - Even the analytics likely use it in some ways 
 
-  - The 'WorkflowID' and the workflow's 'Custom Command' identified on the JSON workflow config are the only two unique identifiers available to the User on every single project; any other IDs used on the back end should be minimized and only used if absolutely necessary, and hidden from the User 
-
+  - The 'WorkflowID' and the workflow's 'Custom Command' identified on the JSON workflow config are the only two unique identifiers available to the User on every single project; any other IDs used on the back end should be minimized, only used if absolutely necessary, and hidden from the User 
 
 ```bash 
-  > uid                          # No input required 
-  Generated UID: uid-xhl-106
-  > uid 
-  Generated UID: uid-afo-506     # Always different response 
+  > uid                        # No input required 
+  Generated UID: uid-xhl-106   # Response is always 'uid' then 3 letters, 3 numbers 
+  > uid                        # Ran again right away 
+  Generated UID: uid-afo-506   # Still always different response 
 ```
 
 * **IMPORTANT NOTE FOR CLARITY:** 
-  - *Be careful of the distinction between UserID and WorkflowID terminology*
+  - *Be careful of the distinction between terminology surrounding the UserID and WorkflowID*
 
 ```
 INPUT:
@@ -198,24 +219,14 @@ SCRIPT COMMAND:
 - MEID                # The `meid` script you run to create a *UserID* 
 ```
 
-* **Mao creates first project state memory entry tagged with the WorkflowID** 
-
-  - Or, pulls up materials from working on the project previously if this is a returning user 
-  - There are various orchestrator files that deal with "state" management; we should better understand how that works
-  - Mao will use the WorkflowID to create a first memory for this project 
-  - When any instance of Mao is started, all log files and memories will be accessible using the WorkflowID; this is how we get the seamless UX 
-  - This is what give Mao the flow of seamless UX for the human user experience 
-    - Thoughts: How and where is it standardized regarding what is entered 
-    - Also curious what the fallback looks like because long term we probably could create our own system instead of the MCP  
-
-* **Mao gathers knowledge before entering the chat or responding**
+* **Mao gathers knowledge before entering the chat**
 
   - *New user* or *returning user* information
-    - AI looks up their user config file 
-    - The `user_seanivore.json` for at least their first name 
-    - UX-wise, we should ALWAYS be using their firsts name (maybe should add note to create app setting to change "what to call you")
+    - AI looks up their user config file `user_5253.json` 
+    - Finds the file for at least their first name 
+    - UX rule: We are ALWAYS using the User's firsts name 
 
-  - *Identifying workflow JSON config object variables* 
+  - Identifying *workflow JSON config object variables* 
     - The AI does NOT have a script 
     - AI understands the purpose of the chat is to 'fill in the blanks' of the workflow JSON config objects 
     - Everything else in this process is completely natural AI behavior 
@@ -245,6 +256,15 @@ SCRIPT COMMAND:
   - The *AI also saves notable interactions with the user*; this is where UX really shines 
       > "Sean, hello. I hope last week's analytics reporting was helpful. What are we working on today?" 
 
+* **Mao creates project state memory entry tagged with the WorkflowID** 
+
+  - For new users, Mao can do this before responding 
+  - For returning users, Mao must respond in the chat first to know they want to work on a previous or new project 
+  - These entries manage "State Management"  
+    - There are various orchestrator files that deal with "state" management 
+    - We should better understand how that works
+  - When any instance of Mao is started, all log files and memories will be accessible using the WorkflowID; this is how we get the seamless UX 
+
 ### Project State **Memory Update Point**
 `01-initiate-chat-001` 
 
@@ -263,7 +283,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 3. Throughout Chat 
+## 3. The Actual Chat 
 
 ### Core Objective 
 
@@ -274,6 +294,7 @@ SCRIPT COMMAND:
      - Use conversation to guide the process 
      - Find the details needed to understand full scope of project 
      - Define the core goal 
+  3. If we were to put any advice or "suggestions" hardcoded, this section provides what that would look like 
 
 ### Mao's Truly Simple Behavior 
 
@@ -302,6 +323,160 @@ SCRIPT COMMAND:
   - Are they struggling with the goal? 
     - Help the user *understand the best way to achieve their goal* 
     - In general, help the user get things in order
+
+### Variables Mao Seeks During Conversation 
+
+* **Note about variable value examples provided in next section below** 
+
+  - Example values have been intentionally truncated for ease of displaying examples in this document 
+    - This system was intentionally designed to be very open-ended 
+    - It allows for prompt engineering experimentation 
+    - You may find that you want to provided a highly detailed description, for example 
+    - You might even end up using a SPEC document to provide the entirety of a projects requirements 
+
+* **The types of workflow config file objects** 
+
+  - Every workflow will always use 
+    - 3 basic JSON objects 
+  - Reoccurring even workflows additionally use 
+    - 1 reoccurring even JSON object
+  
+  1. One `workflow config` object per project 
+  2. As many `phase config` objects as needed for tasks in the project's workflow 
+  3. A `handoff config` object set to follow every phase object 
+  4. A reoccurring event (trigger autonomous work or regularly completed work) requires one `calendar config` object 
+
+### Defining **Workflow JSON Object** Variable Values
+
+* **Workflows get 1 Workflow Object that describes the entire project** 
+
+  - Examples and defined purposes of each variable in this object 
+
+| Variable              | Purpose                                      | Value Example                                           |
+|-----------------------|----------------------------------------------|---------------------------------------------------------|
+| UserID                | Connect all your stuff                       | user-5709                                               |
+| Workflow ID           | Connect all of one project                   | uid-abd-123                                             |
+| Custom command        | Executes your completed workflow             | reporting monthly expenses                              |
+| Workflow goal         | Overarching project objective                | Help us understand company spending; automate payments  |
+| Workflow deliverables | What you get after all tasks                 | Receipt of credit card payments for all employees       | 
+| Workflow description  | How deliverables are created to achieve goal | *see below*                                             |
+
+  - The *Workflow description* example from above: 
+
+  1. Agents work in parallel to go and 
+     - Gather the employee's submitted expenses 
+     - Download their credit card statements 
+     - Confirm accuracy and that all expenses have a receipt 
+  2. Second batch of agents work in parallel to 
+     - Review the work for accuracy 
+     - Create specific detailing of any inaccuracies 
+  3. During handoff, Mao reviews the results and proceeds according to their accuracy 
+     - If all are accurate they execute next agent to make payment 
+     - If they are not accurate they will execute an agent to double check the work 
+     - If not accurate after second review agent they execute agent to email appropriate parties regarding expense report inconsistency 
+  4. Agent works sequentially through each report to make payments 
+     - They use the PayPal MCP tool to make payments one at a time for each of the employee's credit cards 
+     - They then downloads the statement showing payment  
+     - They return the paid statement back to Mao 
+
+### Validating **Workflow JSON Object** Variable Values
+
+* **Validation parameters go in code, not suggestions or examples** 
+
+  - *Examples* do NOT go in code 
+  - Can go in code 
+    - The value's purpose so Mao understands it conceptually 
+    - How to make sure the value is the appropriate amount and type of information 
+
+  - Confirming each variable's value 
+    - *UserID* and *WorkflowID* are accurate 
+    - *Custom command* follows command creation protocol directions detailed in documentation 
+    - *Workflow goal* is concise and explains entire purpose of all segments of the workflow 
+    - *Workflow deliverables* explain just what Mao should expect after the completion of entire workflow 
+    - *Workflow description* accurately defines each object or phase using bullets and in appropriate order 
+
+### Defining **Phase JSON Object** Variable Values
+
+* **A project's workflow has tasks in each 'phase'** 
+
+  - Each phase, parallel or sequential, has one of these objects, with one exception 
+  - EXCEPTION: Open-ended phases will not have an object 
+    - This is when certain phases are not defined in advance 
+    - Mao decides what the next phase should look like during the workflow running 
+    - They get the deliverables from the previous agent's handoff 
+    - They then create the next workflow on-the-fly based on what the agent provided them 
+    - Details for adding them to the workflow can be found after this section 
+  - Open-ended phases will be mentioned in the Workflow Object and the prior Handoff Object 
+
+
+| Variable           | Purpose                                         | Value Example                                  | 
+|--------------------|-------------------------------------------------|------------------------------------------------|
+| Phase number       | Order to execute each phase                     | 1-A, 1-B, 2, 3                                 |
+| Phase goal         | Objective purpose of phase                      | Compile expenses and CC statement into report  |
+| Phase deliverable  | What Agent will provide to Mao in handoff       | Expense report for employee                    |
+| Phase description  | How to create deliverable from resources, tools | Download receipts, get CC statement            |
+| Resources          | Where to get deliverable info                   | Directory for receipts, CC website login       |
+| Tools              | What gets resource info, makes deliverable      | Web browser, Google Sheets, Text edit, Vision  |
+| Choice Model       | LLM to be Agent for this task                   | Sonnet-4                                       |
+| Choice Provider    | Provider of Choice Model                        | Requesty                                       |
+| Fallback Model     | LLM to be Agent if first provider API fails     | Sonnet-4                                       |
+| Fallback Provider  | Provider of Fallback Model                      | Anthropic Direct                               |
+
+### Validating **Phase JSON Object** Variable Values
+
+* **Validation parameters go in code, not suggestions or examples** 
+
+  - *Examples* do NOT go in code 
+  - Can go in code 
+    - The value's purpose so Mao understands it conceptually 
+    - How to make sure the value is the appropriate amount and type of information 
+
+  - Confirming each variable's value 
+    - *Phase number* will be in proper order, and have the same number but include a letter if parallel 
+    - *Phase goal* provides context as to what the deliverable should provide the project 
+    - *Phase deliverable* explains what Mao will get in the handoff from the agent  
+    - *Phase description* should effectively define how the agent can create the deliverables; this might be long and that is okay, as long as it is clear and comprehensive ensuring all necessary info is provided to the Agent 
+    - *Resources* these could be paths to documents, directories, or they could be websites; they should adequately provide a way for the Agent to gather what is needed to fulfill the description and create the deliverable 
+    - *Tools* should be clear as to which tool they should use for what to eliminate any potential confusion 
+    - *Choice model* is which model the User prefers or Mao suggests is best to run the phase; best fit to complete the task 
+    - *Choice provider* is the API that should be called to execute the desired model as Agent 
+    - *Fallback model* is the model to use if the first provider API call fails after X number of tries 
+    - *Fallback provider* is the API to use if that first provider API didn't work   
+
+### Defining **Handoff JSON Object** Variable Values
+
+* **There is a Handoff Object that follows every phase in the workflow** 
+
+  - After an agent completes their phase tasks they call Mao so they can hand in their deliverables 
+  - The Handoff Object defines exactly what that process should look like 
+  - This object will provide any information Mao needs to decide if the deliverables are of adequate quality 
+  - If there is an open-ended phase, this will help Mao make a decision about what that phase will be 
+
+| Variable                     | Purpose                              | Value Example                               | 
+|------------------------------|--------------------------------------|---------------------------------------------| 
+| Handoff Number               | Keeps objects in order               | 1, 2, etc. matching Phase Object it follows | 
+| Handoff assessment questions | Helps Mao decide next steps          | *See below*                                 | 
+| Human in-the-loop            | Boolean for human to see deliverable | Default: No                                 |
+
+  - The *Handoff assessment questions* value example from above 
+    - Is every item on the employees CC statement addressed in the report? 
+    - Did the employee include a receipt for every single expense on the credit card report? 
+    - Does the math add up accurately? What did the review say, if anything, and were those issues fixed? 
+
+### Validating **Handoff JSON Object** Variable Values
+
+* **Validation parameters go in code, not suggestions or examples** 
+
+  - *Examples* do NOT go in code 
+  - Can go in code 
+    - The value's purpose so Mao understands it conceptually 
+    - How to make sure the value is the appropriate amount and type of information 
+
+  - Confirming each of the variable's values is adequate 
+    - *Handoff number* should make sense and match the appropriate Phase Object's number 
+    - *Handoff assessment questions* should be created when creating the workflow and should help make decisions 
+    - *Human-in-the-loop* is "No" unless otherwise indicated 
+
 
 ### Project State **Memory Update Point**
 `02-mid-chat-001` 
@@ -634,8 +809,8 @@ CALL 1     CALL 2      CALL 3
 
 ### Core Objective 
 
-  1. Get the user to review the workflow and provide feedback 
-  2. Confirm that both the User and Mao have been assuredly on the same page about what the deliverables are exactly  
+  1. Present the workflow to the User to review and provide feedback 
+  2. Confirm that both the User and Mao have been assuredly on the same page about what the deliverables are exactly 
   3. Gives User opportunity to provide any helpful insights or tips Mao might use to confirm quality during active workflow  
   4. Mao to create new version or make any changes requested and then start this section at the top again 
   5. Post workflow approval's next steps in next section 
@@ -658,6 +833,31 @@ CALL 1     CALL 2      CALL 3
     - Standardization should identify questions that they can use as a checklist 
 
 
----
+--- 
+
+## 7. Approved Workflow Setup 
+
+
+## Workflow Updates 
+
+Mao's modular design means workflows can evolve naturally as projects develop. This is especially powerful for creative workflows where it makes more sense to not predetermine the final phase. When the Agent completes their deliverable, Mao reviews it and then decides what should be done next, creating new workflow phases on the fly.
+
+### Creative Workflow Evolution
+
+For creative-type workflows, Mao uses the `/update` command when they need to create additional phases after reviewing an agent's work. The new workflow phases are created using JSON objects that follow the same structure, and the command can be executed from anywhere:
+
+```bash
+/update configs/workflows/this-project/this-project-config-update.json 
+mao --update configs/workflows/this-project/this-project-config-update.json
+```
+
+### Quality Control with Fix-It
+
+When Mao reviews an agent's work and decides it isn't up to par, they take responsibility and immediately create new workflow phases to address the issues. The `/fix-it` command handles this:
+
+```bash
+/fix-it configs/workflows/this-project/this-project-config-fix.json 
+mao --fix-it configs/workflows/this-project/this-project-config-fix.json
+```
 
 *There are examples of messages from the User and from Mao in this document. DO NOT LET THAT TEMPT YOU INTO CREATING EXAMPLES, or suggestions in the codebase. Do not SHOW examples in the codebase. Describe what Mao is to do, instead. THIS IS EXTREMELY IMPORTANT.*
