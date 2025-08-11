@@ -1,5 +1,12 @@
 # Flow of Data Through Mao 
 
+*IMPORTANT NOTE REGARDING TERMINOLOGY:* We are calling what the User is creating and working on with Mao a **PROJECT**. 
+- There has been confusion between the "Workflow JSON Config Object", of the collection of 4 total different JSON objects that come together to create a project's workflow, when the larger project is also referred to as a 'workflow'. 
+- Additionally, "PROJECT" is better for branding purposes because it helps conceptualize the true diversity of projects that can be set-up; writing Christmas Cards in bulk and personalizing them using a database, or Creating Fashion Editorial Images and Copy for a magazine. 
+- This is similar to how we wouldn't simply call what the tool creates "automations" because that is a very limiting term that can make the user assume projects like the two examples above might not be something Mao would create. 
+- This terminology is **key** because the more agentic and orchestrated applications get, the more they become better fits for those kind of complex, creative project, more-so than very simple automations that a company might get better value from another, simpler tool if automations are all they need to set up. 
+- This of it this way: We are *NOT COMPETING AGAINST ZAPIER OR MAKE (INTEGROMAT). They require intensive setup, a lot of work on the User, and are not dynamic, open-ended, cannot make decisions on their own, and certainly cannot evolve through self-improvement. 
+
 ## Overview 
 
 - When cleaning up 'mock data' we found hardcoded category suggestion that are woven through functionality. There are files with code I don't understand and AI has not been able to provide a simple definition of what is happening. We need that level of understanding, period. It is clear we are over engineered. 
@@ -326,27 +333,35 @@ SCRIPT COMMAND:
 
 ### Variables Mao Seeks During Conversation 
 
-* **Note about variable value examples provided in next section below** 
-
-  - Example values have been intentionally truncated for ease of displaying examples in this document 
-    - This system was intentionally designed to be very open-ended 
-    - It allows for prompt engineering experimentation 
-    - You may find that you want to provided a highly detailed description, for example 
-    - You might even end up using a SPEC document to provide the entirety of a projects requirements 
-
 * **The types of workflow config file objects** 
 
-  - Every workflow will always use 
-    - 3 basic JSON objects 
-  - Reoccurring even workflows additionally use 
-    - 1 reoccurring even JSON object
-  
-  1. One `workflow config` object per project 
-  2. As many `phase config` objects as needed for tasks in the project's workflow 
-  3. A `handoff config` object set to follow every phase object 
-  4. A reoccurring event (trigger autonomous work or regularly completed work) requires one `calendar config` object 
+  - Every workflow will always use 3 basic JSON object types 
+    1. One `workflow config` object per project 
+    2. As many `phase config` objects as needed for tasks in the project's workflow 
+    3. A `handoff config` object set to follow every phase object 
+  - Reoccurring event workflows use 1 additional JSON object type 
+    4. A reoccurring event (trigger autonomous work or regularly completed work) requires one `calendar config` object 
 
-### Defining **Workflow JSON Object** Variable Values
+* **Variables Not Mentioned**
+
+  - We won't be defining a few types of variables in the JSON objects 
+
+    1. Variables that are used on every object we'll mention once; e.g. `workflow_id` and `user_id`
+    2. Variables that are self explanatory; e.g. `start_date` and `created_on` 
+    3. Variables that only AI/Mao will be filling out; e.g. `schema_version` and `api_base` 
+
+  - Just know that the JSON object have more fields
+  - Here we're just focusing on the variables that Mao is looking to find values for during User chat 
+
+* **Note regarding variable value examples below** 
+
+  - Example values have been truncated for ease of display in this document 
+    - The system was intentionally designed to be very open-ended 
+    - This allows for prompt engineering experimentation 
+    - You may want to try a highly detailed description, for example 
+    - You might use a SPEC document for workflow description 
+
+### Defining **Workflow** JSON Object Variable Values
 
 * **Workflows get 1 Workflow Object that describes the entire project** 
 
@@ -354,8 +369,8 @@ SCRIPT COMMAND:
 
 | Variable              | Purpose                                      | Value Example                                           |
 |-----------------------|----------------------------------------------|---------------------------------------------------------|
-| UserID                | Connect all your stuff                       | user-5709                                               |
-| Workflow ID           | Connect all of one project                   | uid-abd-123                                             |
+| *UserID*              | Connect all your stuff                       | user-5709                                               |
+| *WorkflowID*          | Connect all of one project                   | uid-abd-123                                             |
 | Custom command        | Executes your completed workflow             | reporting monthly expenses                              |
 | Workflow goal         | Overarching project objective                | Help us understand company spending; automate payments  |
 | Workflow deliverables | What you get after all tasks                 | Receipt of credit card payments for all employees       | 
@@ -379,7 +394,7 @@ SCRIPT COMMAND:
      - They then downloads the statement showing payment  
      - They return the paid statement back to Mao 
 
-### Validating **Workflow JSON Object** Variable Values
+### Validating **Workflow** JSON Object Variable Values
 
 * **Validation parameters go in code, not suggestions or examples** 
 
@@ -395,7 +410,7 @@ SCRIPT COMMAND:
     - *Workflow deliverables* explain just what Mao should expect after the completion of entire workflow 
     - *Workflow description* accurately defines each object or phase using bullets and in appropriate order 
 
-### Defining **Phase JSON Object** Variable Values
+### Defining **Phase** JSON Object Variable Values
 
 * **A project's workflow has tasks in each 'phase'** 
 
@@ -422,7 +437,7 @@ SCRIPT COMMAND:
 | Fallback Model     | LLM to be Agent if first provider API fails     | Sonnet-4                                       |
 | Fallback Provider  | Provider of Fallback Model                      | Anthropic Direct                               |
 
-### Validating **Phase JSON Object** Variable Values
+### Validating **Phase** JSON Object Variable Values
 
 * **Validation parameters go in code, not suggestions or examples** 
 
@@ -443,7 +458,7 @@ SCRIPT COMMAND:
     - *Fallback model* is the model to use if the first provider API call fails after X number of tries 
     - *Fallback provider* is the API to use if that first provider API didn't work   
 
-### Defining **Handoff JSON Object** Variable Values
+### Defining **Handoff** JSON Object Variable Values
 
 * **There is a Handoff Object that follows every phase in the workflow** 
 
@@ -452,18 +467,18 @@ SCRIPT COMMAND:
   - This object will provide any information Mao needs to decide if the deliverables are of adequate quality 
   - If there is an open-ended phase, this will help Mao make a decision about what that phase will be 
 
-| Variable                     | Purpose                              | Value Example                               | 
-|------------------------------|--------------------------------------|---------------------------------------------| 
-| Handoff Number               | Keeps objects in order               | 1, 2, etc. matching Phase Object it follows | 
-| Handoff assessment questions | Helps Mao decide next steps          | *See below*                                 | 
-| Human in-the-loop            | Boolean for human to see deliverable | Default: No                                 |
+| Variable              | Purpose                      | Value Example                               | 
+|-----------------------|------------------------------|---------------------------------------------| 
+| Handoff Number        | Keeps objects in order       | 1, 2, etc. matching Phase Object it follows | 
+| Handoff assessment Qs | Helps Mao decide next steps  | *See below*                                 | 
+| Human in-the-loop     | Wait for human approval      | Default: No                                 |
 
   - The *Handoff assessment questions* value example from above 
     - Is every item on the employees CC statement addressed in the report? 
     - Did the employee include a receipt for every single expense on the credit card report? 
     - Does the math add up accurately? What did the review say, if anything, and were those issues fixed? 
 
-### Validating **Handoff JSON Object** Variable Values
+### Validating **Handoff** JSON Object Variable Values
 
 * **Validation parameters go in code, not suggestions or examples** 
 
@@ -477,6 +492,32 @@ SCRIPT COMMAND:
     - *Handoff assessment questions* should be created when creating the workflow and should help make decisions 
     - *Human-in-the-loop* is "No" unless otherwise indicated 
 
+### Defining **Calendaring** JSON Object Variable Values 
+
+* **Reoccurring workflow or triggered activity requires this 1 additional 'Calendaring' JSON object** 
+
+  - All other standard JSON objects are still created as usual 
+  - There are only a few other differences 
+    - File naming structure 
+    - What command is used to setup the workflow 
+    - They trigger on a reoccurring basis 
+    - Users or Mao may have been the creator of the workflow 
+
+| Variable   | Purpose                                       | Value Example    | 
+|------------|-----------------------------------------------|------------------|
+| Type       | Type of reoccurring workflow                  | *Defined below*  | 
+| Frequency  | How often the workflow is triggered           | Every week       |
+| Day        | Day of week workflow triggers on              | Tuesday          | 
+| Time       | 3 hour time block dedicated for the workflow  | 1800-2100        |
+
+
+* **Automating Intelligence** 
+
+  - The implementation of reoccurring workflows is detailed in full here `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md` 
+  - But the actual documentation might be easier to digest `./documentation/08_AUTOMATE_INTELLIGENCE.md` 
+
+* **Define their variables** 
+* **Explain how variable values can be validated conceptually for Mao** 
 
 ### Project State **Memory Update Point**
 `02-mid-chat-001` 
@@ -489,8 +530,8 @@ SCRIPT COMMAND:
   - Add to the process a self-evaluation as a secondary observation to add 
     - At each phase these self-evaluations will be added 
     - They will later be paired with observational evaluations 
-    - In this way it will be easy to say "hmm they were cranky at the end" -- glance up the notes -- maybe we should adjust how we handle X 
-
+    - In this way it will be easy to say "hmm they were cranky at the end" -- glance at the notes -- maybe we should adjust how we handle X 
+a
 ---
 
 ## 4. Ending The First Chat 

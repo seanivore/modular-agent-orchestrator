@@ -393,16 +393,17 @@ class CalendarManager:
 
 The following reference tables define the standardized codes used throughout the trigger workflow system:
 
-| **CODE** | **FREQUENCY**     | **DAY CODE** | **WEEKDAY** | **TIME CODE** | **TIME BLOCK** |
-| -------- | ----------------- | ------------ | ----------- | ------------- | -------------- |
-| 1        | Every week        | 1            | Monday      | 1             | 0000-0300      |
-| 2        | Every other week  | 2            | Tuesday     | 2             | 0300-0600      |
-| 3        | Every month       | 3            | Wednesday   | 3             | 0600-0900      |
-| 4        | Every other month | 4            | Thursday    | 4             | 0900-1200      |
-| 5        | Every year        | 5            | Friday      | 5             | 1200-1500      |
-| 6        | Every other year  | 6            | Saturday    | 6             | 1500-1800      |
-| 7        | Every day         | 7            | Sunday      | 7             | 1800-2100      |
-| 8        | Every other day   | 8            | Monday      | 8             | 2100-0000      |
+| **FREQUENCY**            | **DAY OF WEEK**   | **TIME BLOCK**    |
+| CODE | OCCURRENCE        | CODE | DAY        | CODE | TIME       |
+| ---- | ----------------- | ---- | ---------- | ---- | ---------- |
+| 1    | Every week        | 1    | Monday     | 1    | 0000-0300  |
+| 2    | Every other week  | 2    | Tuesday    | 2    | 0300-0600  |
+| 3    | Every month       | 3    | Wednesday  | 3    | 0600-0900  |
+| 4    | Every other month | 4    | Thursday   | 4    | 0900-1200  |
+| 5    | Every year        | 5    | Friday     | 5    | 1200-1500  |
+| 6    | Every other year  | 6    | Saturday   | 6    | 1500-1800  |
+| 7    | Every day         | 7    | Sunday     | 7    | 1800-2100  |
+| 8    | Every other day   |                   | 8    | 2100-0000  |
 
 ---
 
