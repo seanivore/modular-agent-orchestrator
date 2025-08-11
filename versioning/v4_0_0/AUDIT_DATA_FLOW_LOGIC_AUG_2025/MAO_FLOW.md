@@ -7,12 +7,14 @@
 >"User Goal" --> "Conversation Bridge" --> "Natural Language Processing" --> "Core" --> "JSON Workflow Creation" --> "Model Selection" --> "Execution" --> "Results" --> "Caching"
 
   - I don't understand that clear enough to know what the logic is for each file. This is information we need to be able to effectively clean up all hardcoded categories in the code files. 
-  - The `core.py` file is where we started and we found so many categories. They hardcoded them as "suggestions" for the AI but the AI does not need suggestions. We went to `conversation_bridge.py` and found the same grouping. 
+  - The `core.py` file is where we started and we found so many hardcoded categories. They hardcoded them as "suggestions" for the AI but the AI does not need suggestions. We went to `conversation_bridge.py` and found the same grouping. 
+  - It was at that point that we realized we needed to outline the entirety of the logic or flow, to be able identify what each file is doing, and to ensure no file is doing more than it needs or more than we want.  
 
-* **AI knows the variables. They are able to have a conversation with the user and fill in the blanks.** 
+* **AI knows the workflow JSON's variables. They are able to have a conversation with the user and fill in the blanks.** 
   - We do not want anything more complicated than that 
   - The only categorical grouping we want is for analytics. NO SUGGESTIONS 
   - We also need to be aware of launching multi-lingual; none of these prefabs would make any sense in a multi-lingual environment 
+  - We must remember that we have analytics to decide if we do need more logic and functions that help the AI fill in the blanks 
 
 ### Goal 
 
@@ -24,7 +26,7 @@ Once we understand what the logic should be, and what the file's current logic i
 
 * **The logic flow will be defined in plain language** 
   - Much like our beloved `./versioning/v4_1_0/IMPL_WEB_UI/logic_design/_NEW_USER_FLOW.md` document 
-  - This document informed so many different functions and code in various files 
+  - This document informed many different functions and code in various files 
   - It is equally as helpful when setting up the actual UI 
 
 * **This document will also become a golden resource for multiple files** 
@@ -32,7 +34,9 @@ Once we understand what the logic should be, and what the file's current logic i
   - How that information is handled and with what logic flow
 
 * **The additional benefits of doing this** 
-  - We'll have a really nice diagram 
+  - We'll have into to create really simple and clear diagrams 
+    - List exactly what info user provides 
+    - Where that info goes and how it is handled 
   - It will be extremely helpful when we go to build the actual UI 
   - Also the code and files should all end up a lot cleaner, simpler, and therefore, faster 
 
@@ -45,10 +49,10 @@ Once we understand what the logic should be, and what the file's current logic i
 
 1. As we go through below, we want to identify where this happens
 2. With a full understanding of the current flow, we can optimize according to the defined flow below 
-3. As we proceed, we should literally add notation to the information below letting us know where, what happens. 
+3. As we proceed, we should literally add notation to the information below letting us know where, what happens 
 4. As we better understand the full scope of the current flow, we will add those details to this flow (analytics, for example)
 5. Perfect the standardization of project state memory updates 
-6. At some point, go through the analytics and indicate where triggers are and what they record 
+6. Go through the analytics and indicate where triggers are and what they record 
 
 ---
 
@@ -57,32 +61,37 @@ Once we understand what the logic should be, and what the file's current logic i
 ### Core Objective 
 
   1. User gets a secure login 
-  2. Automation creates their UserID 
-  3. Automation creates their User config directory and important files 
+  2. For new user, automation creates a UserID for them and setups up a new User config directory  
+  3. For returning user, it looks up their UserID 
   4. The UserID follows them around the application and will later be paired with the WorkflowID 
+  5. Starting at this point, their behavior is logged and tracked in analytics files in their User config directory 
+  6. Anonymous data and system data is also triggered and logged at various points 
 
 ### New Users 
 
-  - *Login with passkey or a unique identifier* which is used to create their UserID 
-    - Passkey will require providing unique identifier once 
-    - Other users have to enter unique identifier every time 
-    - Email or phone number qualify 
-    - They must provide their first name 
-    - They may optionally provide their last name  
-  - Backend creates UserID from email using `meid` script 
-    - This ID is the same every time you enter the unique identifier 
-    - It will always be 'user-0000' 
-    - Below I used my full email address 
+* **Login with passkey or a unique identifier**
+
+  - Passkey will require providing unique identifier once during setup 
+  - Other users enter unique identifier every time they log in 
+    - *Email* or *phone number* qualify as unique identifiers 
+    - They must provide their *first name* 
+    - They may optionally provide their *last name*  
+  - The *unique identifier is used to create their UserID* 
+    - Backend creates UserID from email using `meid` script 
+    - This ID is the *same every time you enter the unique identifier* 
+    - It will always be 'user-0000' for new users 
+    - Below I used my full email address (unique identifier) which always creates the same UserID: user-5253 
 
 ```bash 
   > meid horvathaugust@gmail.com
   Username 'horvathaugust@gmail.com' -> user-5253            # Follows user around application
 ```
 
-  - User uses *phone number as unique identifier to log in every time* 
-    - It *must be formatted the same every time they log in* 
+* **User uses phone number as unique identifier to log in every time** 
+
+  - It *must be formatted the same every time they log in* 
     - We must make sure our input field *forces* the proper formatting 
-    - Users using passkey will only enter the phone number once 
+  - Users *using passkey will only enter the phone number once during setup*
     - User logging in with the phone number will have to enter it every time
     - *NO PARENTHESIS, NO + PLUS SIGN, NO SPACES* 
     - As long as the numbers are connected in a single string it should work 
@@ -95,15 +104,16 @@ Once we understand what the logic should be, and what the file's current logic i
   Username '4247447687' -> user-0697        # No hyphens or periods has same result 
 ```
 
-  - Backend *creates their file and directory automatically* 
-    - User `./configs/user/` directory 
+* **Backend creates their file and directory automatically** 
+
+  - User `./configs/user/` directory, *as structured below*
     - Includes other essential user data files 
     - Core for logging preferences and more 
-
+    - Analytics files are created and updated as user interacts with the app 
 
 ```
-./configs/user/
-└── seanivore
+configs/user/...
+└── user-5253      # Since we have multiple unique identifiers, the directory must be named with the UserID 
     ├── analytics                       # All need to be reviewed and labeled
     │   ├── cost_tracking.json 
     │   ├── session_metrics.json
@@ -115,11 +125,22 @@ Once we understand what the logic should be, and what the file's current logic i
     └── user_seanivore.json             # Delta-only storage of User application preferences 
 ``` 
 
+**ALL JSON OBJECTS AND CURRENT FILES IN SYSTEM MUST BE UPDATED ACCORDING TO DETAILS ABOVE** 
+  - We originally we using a random "username" 
+  - Using a unique identifier eliminates possibility of repeating usernames
+  - We should still confirm uniqueness of the unique identifier during login 
+    - They get an error message if they try to use a phone number or email already used 
+    - Error message should be helpful; you already have an account, reset password kind of deal 
+
 ### Existing Users 
 
   - *Login with preferred method* of passkey or unique identifier 
     - Backend locates user details 
     - UserID follows user around application 
+
+### Project State **Memory Update Point**
+
+  - None yet, the first happens in next session when Mao enters the chat 
 
 ---
 
@@ -127,9 +148,9 @@ Once we understand what the logic should be, and what the file's current logic i
 
 ### Core Objective 
 
-  1. Setup the WorkflowID and memory system, needed for the File API later 
+  1. Setup the WorkflowID and memory system needed for the File API later 
   2. Pull up the user's information using their UserID  
-  3. Create a truly unique UX using *memory* and *data analytics*     <-- This is the future thanks to AI 
+  3. Create a truly unique UX using *memory* and *data analytics*     <-- This is the future, thanks to AI 
 
 ### User's Role 
 
@@ -161,7 +182,7 @@ Once we understand what the logic should be, and what the file's current logic i
 
 ### Mao's Role 
 
-* **Getting the WorkflowID is Mao's first essential task**  
+* **Getting the WorkflowID is Mao's first essential task** 
 
   - Every new project needs a WorkflowID  
     - This is done on the backend, but it uses the terminal command script `uid` 
@@ -181,11 +202,11 @@ Once we understand what the logic should be, and what the file's current logic i
   > uid                          # No input required 
   Generated UID: uid-xhl-106
   > uid 
-  Generated UID: uid-afo-506     # Always different 
+  Generated UID: uid-afo-506     # Always different response 
 ```
 
 * **IMPORTANT NOTE FOR CLARITY:** 
-  - *Be careful of the distinction between UserID and WorkflowID*
+  - *Be careful of the distinction between UserID and WorkflowID terminology*
 
 ```
 INPUT:
@@ -270,7 +291,7 @@ SCRIPT COMMAND:
   1. Create a comfortable experience for the user 
   2. Have a conversation that is casual, smart, but concise 
   3. AI often mimics user's verbosity; we should avoid this behavior to start; we want the tool to be quick and easy
-  4. Use goal and any other provided information to fill in the blanks in the JSON objects, using conversation to guide the process of finding the details
+  4. Mao uses goal and any other provided information to fill in the blanks in the JSON objects, using conversation to guide the process of finding the details they need to write the workflow JSON objects 
   5. We will walk through the variables below, but not directly in the section here so that we can keep this flow guidance smooth
 
 ### Mao's Truly Simple Behavior 
@@ -521,7 +542,7 @@ CALL 1     CALL 2      CALL 3
               │               │  /     +------------+
               └→  LLM CALL 3 —└→
 ```
-### Best Practices  
+### Essentials & Best Practices 
 
 * **Clearly define necessary tools** 
 
@@ -541,7 +562,14 @@ CALL 1     CALL 2      CALL 3
     - While it is simple, it must be explicitly stated for Agents to do it 
     - Remember, without this, Agents are essentially just *putting out a constant stream of consciousness* 
 
-### Scalable, Reliable, Flexible  
+* **Workflow's JSON objects saved in .temp directory** 
+
+  - This is located in same directory as where finished workflows go `configs/workflows/.temp/custom_command...`
+  - During running of *setup script* for first and only necessary time 
+    - Full details of what happens with that setup script below and in documentation 
+    - Script copies the JSON configs to permanent home then deletes the .temp directory 
+
+### Scalable, Reliable, Flexible 
 
 * **A great workflow looks like** 
 
@@ -566,18 +594,35 @@ CALL 1     CALL 2      CALL 3
   - It creates a more natural human-like flow 
   - Agents and Mao and *respond to things in real-time* 
 
+### Completing The Workflow Draft 
+
+* **Mao needs to "think hard, keep it simple"** 
+
+  - User is still in chat and the app doesn't move from that one-screen experience 
 
 ### Create Questionnaires 
 
 * **Handoff JSON objects** 
 
-  - Include questions that Mao should remember to ask themselves about the deliverable the agent just handed to them 
-  - Help them decide what the best next steps are 
+  - There is *space on the handoff JSON for questions* 
+    - Things that Mao should remember to ask themselves about the deliverable the agent just handed to them 
+    - Help them decide what the best next steps are 
+    - Help them to be assured that the deliverable is up to quality standards and nothing is forgotten 
 
 * **Mao's self-evaluation of the workflow draft** 
 
-  - Mao should evaluate their workflow draft before going back to the user 
-  - We should either include here what questions they should ask, or we should have them include the questions in their memory update 
+  - We should come up with *questions Mao asks of themselves after every new workflow created* 
+    - Happens before draft goes back to the user 
+    - We should include here what questions they should ask 
+    - Helps avoid pitfalls of LLM limitations by creating a "second self review"  
+
+### Save Back-up to Files API 
+
+* **Mao uses Code Execution tool to save workflow to Files API** 
+
+  - As with memories, Mao should save these files *in a directory named using the WorkflowID* 
+  - This is primarily *done as a backup* in case there is some kind of disconnect before User reviews 
+  - Remember that only items added to the Files API using the *Code Execution* tool can be downloaded again later 
 
 ### Project State **Memory Update Point**
 `04-build-workflow-001` 
@@ -599,21 +644,22 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 6. Post Build User Reviews 
+## 6. User Reviews of Workflow 
 
 ### Core Objective 
 
   1. Get the user to review the workflow and provide feedback 
-  2. Get the user to review the questionnaire and provide feedback 
-  3. Get the user to review the self-evaluation and provide feedback 
-  4. Get the user to review the analytics and provide feedback 
+  2. Confirm that both the User and Mao have been assuredly on the same page about what the deliverables are exactly  
+  3. Gives User opportunity to provide any helpful insights or tips Mao might use to confirm quality during active workflow  
+  4. Mao to create new version or make any changes requested and then start this section at the top again 
+  5. Post workflow approval's next steps in next section 
 
+### Sharing Workflow Drafts 
 
-* **Create a workflow for the user to review** 
+* **Again, no prepared examples or suggested text needed** 
 
-  - This is a great way to get the user involved in the process 
-  - It also helps them understand the workflow and how it works 
-  - It is a great way to get them to review the workflow and provide feedback 
+  - As with before, we still need to continue without any hardcoded information 
+  - Making sure Mao knows the sequence of events is enough to ensure todays's LLMs will communicate what we need effectively 
 
 
 ### Project State **Memory Update Point**

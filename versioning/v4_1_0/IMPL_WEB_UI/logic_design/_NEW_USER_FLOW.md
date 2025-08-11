@@ -1,9 +1,15 @@
 ## New User Flow For Documentation Structuring  
 
+**ENTIRE DOCUMENT NEEDS TO BE UPDATED ACCORDING TO CHANGES IN UI PLANS**
+
 ### Getting Started 
 
-You have a use-case to create a workflow for. Start the Mao application. 
-  - By default Mao launches with the last session user's settings 
+* **Login to Mao application** 
+
+  - *First time users* 
+    - Setup passkey 
+    - Uses a *unique identifier* that is email or phone number 
+    - Must provide full name 
   - If that isn't you, you can launch with `--login` to enter your Username  
   - Or once the app is running, you in you can use `/login` to enter your Username 
   - If you've never used Mao before, you'll need to login and choose a couple settings 

@@ -1,35 +1,35 @@
 {
-  "handoff": [
-    {
-      "assessment_questions": [
-        "Does the research findings document contain sufficient data sources?",
-        "Are the key findings clearly articulated and supported by evidence?",
-        "Is there enough information to proceed with analysis phase?"
-      ],
-      "handoff_number": "01",
-      "human_in_loop": "no",
-      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
-    },
-    {
-      "assessment_questions": [
-        "Have patterns and insights been clearly identified from the research?",
-        "Are visual representations helpful and accurately reflect the data?",
-        "Is the analysis sufficient for creating final recommendations?"
-      ],
-      "handoff_number": "02",
-      "human_in_loop": "optional",
-      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
-    },
-    {
-      "assessment_questions": [
-        "Is the final report comprehensive and well-formatted?",
-        "Does it include all required sections and supporting materials?",
-        "Are the recommendations actionable and clearly presented?",
-        "Is the deliverable ready for client presentation?"
-      ],
-      "handoff_number": "03",
-      "human_in_loop": "yes",
-      "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
-    }
-  ]
+    "handoff": [
+        {
+            "assessment_questions": [
+                "Does the research findings document contain sufficient data sources?",
+                "Are the key findings clearly articulated and supported by evidence?",
+                "Is there enough information to proceed with analysis phase?"
+            ],
+            "handoff_number": "01",
+            "human_in_loop": "no",
+            "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
+        },
+        {
+            "assessment_questions": [
+                "Have patterns and insights been clearly identified from the research?",
+                "Are visual representations helpful and accurately reflect the data?",
+                "Is the analysis sufficient for creating final recommendations?"
+            ],
+            "handoff_number": "02",
+            "human_in_loop": "optional",
+            "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
+        },
+        {
+            "assessment_questions": [
+                "Is the final report comprehensive and well-formatted?",
+                "Does it include all required sections and supporting materials?",
+                "Are the recommendations actionable and clearly presented?",
+                "Is the deliverable ready for client presentation?"
+            ],
+            "handoff_number": "03",
+            "human_in_loop": "yes",
+            "workflow_id": "uid-REPLACE_WITH_GENERATED_ID"
+        }
+    ]
 }

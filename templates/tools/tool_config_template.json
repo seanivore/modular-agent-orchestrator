@@ -1,49 +1,49 @@
 {
-  "button_path": "tools/tool_name/button_tool_name.py",
-  "capabilities": [
-    "capability_1",
-    "capability_2",
-    "capability_3"
-  ],
-  "cost_estimate": 0.001,
-  "description": "Clear description of tool functionality and purpose",
-  "file_path": "tools/tool_name/tool_name.py",
-  "integration": {
-    "cache_system": true,
-    "error_handling": true,
-    "memory_mcp": true
-  },
-  "models_supported": [
-    "all"
-  ],
-  "name": "example_tool",
-  "operations": {
-    "operation_name_1": {
-      "description": "Clear description of what this operation does",
-      "optional_params": [
-        "optional_param1",
-        "optional_param2"
-      ],
-      "required_params": [
-        "param1",
-        "param2"
-      ]
+    "button_path": "tools/tool_name/button_tool_name.py",
+    "capabilities": [
+        "capability_1",
+        "capability_2",
+        "capability_3"
+    ],
+    "cost_estimate": 0.001,
+    "description": "Clear description of tool functionality and purpose",
+    "file_path": "tools/tool_name/tool_name.py",
+    "integration": {
+        "cache_system": true,
+        "error_handling": true,
+        "memory_mcp": true
     },
-    "operation_name_2": {
-      "description": "Description of second operation",
-      "optional_params": [
-        "optional_param1"
-      ],
-      "required_params": [
-        "param1"
-      ]
-    }
-  },
-  "tags": [
-    "category",
-    "feature",
-    "type"
-  ],
-  "ui_path": "tools/tool_name/ui_tool_name.py",
-  "version": "1.0.0"
+    "models_supported": [
+        "all"
+    ],
+    "name": "example_tool",
+    "operations": {
+        "operation_name_1": {
+            "description": "Clear description of what this operation does",
+            "optional_params": [
+                "optional_param1",
+                "optional_param2"
+            ],
+            "required_params": [
+                "param1",
+                "param2"
+            ]
+        },
+        "operation_name_2": {
+            "description": "Description of second operation",
+            "optional_params": [
+                "optional_param1"
+            ],
+            "required_params": [
+                "param1"
+            ]
+        }
+    },
+    "tags": [
+        "category",
+        "feature",
+        "type"
+    ],
+    "ui_path": "tools/tool_name/ui_tool_name.py",
+    "version": "1.0.0"
 }
