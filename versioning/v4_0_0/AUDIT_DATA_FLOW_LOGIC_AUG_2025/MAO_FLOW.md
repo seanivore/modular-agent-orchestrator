@@ -2,57 +2,36 @@
 
 ## Overview 
 
-* **The docs all say that the flow is this:** 
-
->"User Goal" --> "Conversation Bridge" --> "Natural Language Processing" --> "Core" --> "JSON Workflow Creation" --> "Model Selection" --> "Execution" --> "Results" --> "Caching"
-
-  - I don't understand that clear enough to know what the logic is for each file. This is information we need to be able to effectively clean up all hardcoded categories in the code files. 
-  - The `core.py` file is where we started and we found so many hardcoded categories. They hardcoded them as "suggestions" for the AI but the AI does not need suggestions. We went to `conversation_bridge.py` and found the same grouping. 
-  - It was at that point that we realized we needed to outline the entirety of the logic or flow, to be able identify what each file is doing, and to ensure no file is doing more than it needs or more than we want.  
-
-* **AI knows the workflow JSON's variables. They are able to have a conversation with the user and fill in the blanks.** 
-  - We do not want anything more complicated than that 
-  - The only categorical grouping we want is for analytics. NO SUGGESTIONS 
-  - We also need to be aware of launching multi-lingual; none of these prefabs would make any sense in a multi-lingual environment 
-  - We must remember that we have analytics to decide if we do need more logic and functions that help the AI fill in the blanks 
+- When cleaning up 'mock data' we found hardcoded category suggestion that are woven through functionality. There are files with code I don't understand and AI has not been able to provide a simple definition of what is happening. We need that level of understanding, period. It is clear we are over engineered. 
+- The AI, Mao, has a simple task: Have a chat to identify and fill in variables of a prompt for agents to complete a task. By outlining the flow of that data, we'll understand when and how it should be handled. This outline will be compared to our files so that we can audit our operational file's logic and optimize, cleaning up our code. 
+- After that we will be prepared to launch as a terminal app for use in development. The process allows us to look at everything through the lens of being developed into a web app now, as well as to ensure we're ready for implementation of multi-lingual upgrades. 
 
 ### Goal 
 
-IMO, this feels very overly complex. The actual task is very simple, so it feels strange that I can't understand the code. The only thing we're really trying to do is gather information for blanks to variables for a prompt we have memorized. 
-
-Once we understand what the logic should be, and what the file's current logic is, then we can clean up all the files in the flow. 
+Understand what the logic should be, then compare it to each file's current logic, so we can clean up files accordingly. 
 
 ### Deliverables 
 
-* **The logic flow will be defined in plain language** 
-  - Much like our beloved `./versioning/v4_1_0/IMPL_WEB_UI/logic_design/_NEW_USER_FLOW.md` document 
-  - This document informed many different functions and code in various files 
-  - It is equally as helpful when setting up the actual UI 
+* **Plan language explanation of all logic, data flow, UX intention, and vision for UI** 
+  - Much like our beloved `./versioning/v4_1_0/IMPL_WEB_UI/logic_design/_NEW_USER_FLOW.md` which is now dated 
+  - This new resources will let us review data flow, understand every file, simplify, and clean-up the code 
 
-* **This document will also become a golden resource for multiple files** 
-  - We will be able to identify what information is conveyed and where 
-  - How that information is handled and with what logic flow
+* **Simple, clear, concise diagrams of information flow and UX** 
+  - Prior attempts were strangely convoluted, likely due to our over-engineering 
+  - Creating these will be proof of concept; an assurance that we know what exactly every this and how it works  
 
-* **The additional benefits of doing this** 
-  - We'll have into to create really simple and clear diagrams 
-    - List exactly what info user provides 
-    - Where that info goes and how it is handled 
-  - It will be extremely helpful when we go to build the actual UI 
-  - Also the code and files should all end up a lot cleaner, simpler, and therefore, faster 
-
-* **We will clean up and perfect the standardization of project state memory updates** 
-  - We want to make sure they are SIMPLE; wildly concise 
-  - Humans should be able to scan them quickly, no reading paragraphs 
-  - Q/A format should help achieve this 
+* **Perfect standardization of Project State Memory Updates** 
+  - Make sure they are SIMPLE, wildly concise, and that Mao knows exactly when to conduct updates 
+  - In building this application, many features developed over time of the build, and the tool evolved 
+  - This will ensure all features are fully baked all the way from start to finish 
 
 ### Procedure 
 
-1. As we go through below, we want to identify where this happens
+1. As we go through below, we want to identify where this happens, confirming it happens properly 
 2. With a full understanding of the current flow, we can optimize according to the defined flow below 
 3. As we proceed, we should literally add notation to the information below letting us know where, what happens 
-4. As we better understand the full scope of the current flow, we will add those details to this flow (analytics, for example)
-5. Perfect the standardization of project state memory updates 
-6. Go through the analytics and indicate where triggers are and what they record 
+4. As we better understand the full scope of the current flow, we will add those details to this flow 
+5. Perfect the standardization of project state memory updates and other features that entered the build late in the game, like analytics
 
 ---
 
@@ -288,11 +267,13 @@ SCRIPT COMMAND:
 
 ### Core Objective 
 
-  1. Create a comfortable experience for the user 
-  2. Have a conversation that is casual, smart, but concise 
-  3. AI often mimics user's verbosity; we should avoid this behavior to start; we want the tool to be quick and easy
-  4. Mao uses goal and any other provided information to fill in the blanks in the JSON objects, using conversation to guide the process of finding the details they need to write the workflow JSON objects 
-  5. We will walk through the variables below, but not directly in the section here so that we can keep this flow guidance smooth
+  1. Create comfortable UX 
+     - Have conversation that is casual, smart, but concise 
+     - Even if User is wordy, AI should not mimic verbosity; we want the UX to be quick and easy 
+  2. Gather info to fill out variables in workflow JSON configs 
+     - Use conversation to guide the process 
+     - Find the details needed to understand full scope of project 
+     - Define the core goal 
 
 ### Mao's Truly Simple Behavior 
 
@@ -599,6 +580,11 @@ CALL 1     CALL 2      CALL 3
 * **Mao needs to "think hard, keep it simple"** 
 
   - User is still in chat and the app doesn't move from that one-screen experience 
+
+* **Gather all config essentials that are outside of the realm of basic workflow prompt variables** 
+
+  - Each Workflow Phase JSON Config will need information 
+
 
 ### Create Questionnaires 
 
