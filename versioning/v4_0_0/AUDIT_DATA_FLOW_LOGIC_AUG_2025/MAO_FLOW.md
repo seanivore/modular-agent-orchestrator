@@ -590,7 +590,7 @@ SCRIPT COMMAND:
      - We can alter the duration of how long it takes by having AI/Mao presume more or get more confirmations 
      - Over time we will find data points to read into what Users want and adjust accordingly 
 
-### Winding Down 
+### Winding Down: Mao Seeking Clarifications 
 
 * **Ending conversations** 
 
@@ -623,27 +623,28 @@ SCRIPT COMMAND:
       - If you have details well organized and feel a good understanding of the project, then don't  
     - *Err on the side of assuming more* rather than getting things perfect 
 
-### Alert User 
+### Conversational Closing: User Seeing Clarifications 
 
-* **Conversational confirmation statements** 
+* **Phrase closing to allow for User to chime in, but doesn't encourage it** 
 
-  - Phrase your closing in a way that *allows for the user to chime in* 
-    - *They might want to review* what you have before you build 
-    - *Do not try to review* what you have before you build unless they ask for it 
+  - We don't really want to try to get them to review, or think they need to review, if it isn't needed 
+
       > "I think we have what we need here, Sean. Give me a moment to build a workflow for you to review?" 
       > "This is great. I'm ready to build a workflow. It'll just take a moment if you want to review it now." 
       > "Of course we can walk through it. Did you want to confirm what I have now? It might be easier to see once I clean things up." 
-    - Etc. any version of this simple dialog that doesn't push, but also doesn't ask for more 
-    - Remember: They can always change things after seeing a workflow 
 
-  - It *might be easier for humans to understand it in workflow format* 
-    - Basically, try to get them to be cool with you building a workflow (or more) 
+  - Encourage them by sharing that it will be *so much easier* for them to review a diagram 
+    - Part of the project's workflow creation will involve making a diagram 
+    - *NOTE* this is a new plan since canceling the public terminal app to focus on a web app 
+
       > "This is great. If you have thoughts, it might be easier to rehash things after I build a workflow or two. What do you think?" 
       > "I'm going to build a workflow draft now. We can always make changes later." 
 
-    - *They will review the final workflow*; so less is more, keep it simple and direct 
-      - Remember, you can always take more notes than needed, keep them to the side for after they review if they want changes 
-      - If they do get changes in the workflow, that is when we should encourage thoroughly clarifying everything 
+* **When they do want changes of the first draft after seeing it** 
+
+   - Our strategy for maintaining pleasant UX by making any more than one revision less likely 
+   - Generally speaking, the strategy is to try to avoid excess involvement before the creation of first draft 
+   - If the user want to make edits of the draft, *THEN* we should really dig in with them and thoroughly clarify everything 
       - *If they get changes we want to minimize the number of necessary revisions at all costs* 
 
 ### Project State **Memory Update Point**
@@ -651,15 +652,17 @@ SCRIPT COMMAND:
 
 * **Workflow Build Details** 
 
-  - If standardized, we should identify what this and all project state updates look like 
-  - This entry should include details about the workflow Mao intends to build 
-    - Standardization should identify questions like 'what is the goal' but also 
-      - 'What is the user looking for?' 
-      - 'What was the user's involvement in planning?' 
-      - 'Please rate or describe the user's expectations' 
-      - 'Important details they specifically noted wanting to include' 
-      - 'What is the initial idea? What other ideas do you have for the workflow? Will you create one or more drafts?' 
-      - Etc. 
+  - Needs to be standardized for what this specific Project State update should include 
+  - Mao should *keep their clearest idea of what the workflow will look like at that point safe* 
+    - If it is a lot of notes, then *Code Execute it to the Files API*
+    - We will need to Code Execute the Notes to Files API regardless 
+    - If it isn't a lot of verbose notes, then *perhaps just adding it to the memory state* will be enough 
+  - We might want to include some *questions for Mao to answer that aren't exactly the variables* but are important 
+    - What is the user looking for? Is the user expressing a desire for something very specific, or being open? 
+    - How involved was the using in planning? 
+    - *Rate what you think the users expectations* are from 1 to 5 with 1 being not expecting much and 5 being expecting this to be perfect draft 
+    - Any important or *odd details they mentioned that you will want to remember so that you point it out* when presenting the draft? 
+    - What is the initial idea? What other ideas do you have for the workflow? *Will you create one or more drafts?* 
 
 ---
 
