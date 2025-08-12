@@ -361,6 +361,23 @@ SCRIPT COMMAND:
     - You may want to try a highly detailed description, for example 
     - You might use a SPEC document for workflow description 
 
+### Project State **Memory Update Point**
+`01-during-chat-001` 
+
+* **Taking notes; Pre-planning workflow to potentially confirm in chat closing** 
+
+  - This entry is optional 
+    - To be created during the chat if there is a moment to save notes 
+    - Record Mao's current understanding 
+    - Might be a good opportunity to note things that you want to remember to check or confirm or include late 
+  - Only create an entry now if 
+    - The details are extensive and there is worry of context window or User leaving before finishing 
+    - If you know why adding a memory now will help you later 
+
+---
+
+## All Project JSON Workflow Objects, Variables & Validation Defined 
+
 ### Defining **Workflow** JSON Object Variable Values
 
 * **Workflows get 1 Workflow Object that describes the entire project** 
@@ -519,84 +536,43 @@ SCRIPT COMMAND:
     - The value's purpose so Mao understands it conceptually 
     - How to make sure the value is the appropriate amount and type of information 
 
-  - Confirming each of the variable's values 
-    - *Type* can be one of four different reoccurring workflows types; these are defined in brief below, and extensively [in the "Automating Intelligence" section of our technical documentation](/documentation/08_AUTOMATE_INTELLIGENCE.md). Acceptable responses for this variable's value are 'Scheduled', 'Self-Assessment', 'Project-List', or 'Goal-Assessment'. 
-    - *Frequency* type is chosen from a chart and each of the 8 type sof frequencies are coded with number 1 to 8 
-    - *Day* can only be 1 of the 7 days of the week; they are also coded starting the week with Monday as 1 through to Sunday as 7 
-    - *Time* is one of 8 blocks of four-hour chunks each day has been broken into; they are defined specifically below and each also use a numerical code  
+* **Confirming each of the variable's values** 
 
-      1. **Scheduled** 
-      2. **Self-Assessment** 
-      3. **Project-List**
-      4. **Goal-Assessment**
+  - *Type* can be one of four different reoccurring workflows types 
+    - Types defined in brief below; [extensively in "Automating Intelligence"](/documentation/08_AUTOMATE_INTELLIGENCE.md) 
+    - Acceptable responses for this variable's value are `Scheduled`, `Self-Assessment`, `Project-List`, or `Goal-Assessment` 
+  - *Frequency* type is chosen from a chart and each of the 8 type sof frequencies are coded with number 1 to 8 
+  - *Day* can only be 1 of the 7 days of the week; they are also coded starting the week with Monday as 1 through to Sunday as 7 
+  - *Time* is one of 8 blocks of four-hour chunks each day has been broken into; they are defined specifically below and each also use a numerical code  
 
-```json
-{
-  "frequency": {
-    "1": "every week",
-    "2": "every other week", 
-    "3": "every month",
-    "4": "every other month",
-    "5": "every year",
-    "6": "every other year",
-    "7": "every day",
-    "8": "every other day"
-  }
-}
-```
+* **Types of Triggered Reoccurring Projects, Work, Planning, Etc.** 
 
-**Day of Week Codes**
-```json
-{
-  "day_of_week": {
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday",
-    "7": "Sunday"
-  }
-}
-```
+  1. **Scheduled** 
+     - Reoccurring, user-planned projects 
+     - Same project's workflow every time it runs 
+  2. **Self-Assessment** 
+     - Goal-based app improvements 
+     - Mao identifies via data and plans optimization workflows 
+  3. **Project-List**
+     - User-planned task list to work through 
+     - Completely variable, new task each time; a to-do list 
+  4. **Goal-Assessment**
+     - Goal-based project assessment and improvements 
+     - Mao or user identified; more open ended; AI has autonomy 
 
-**Time Block Codes**
-```json
-{
-  "time_block": {
-    "1": "0000-0300",
-    "2": "0300-0600", 
-    "3": "0600-0900",
-    "4": "0900-1200",
-    "5": "1200-1500",
-    "6": "1500-1800",
-    "7": "1800-2100",
-    "8": "2100-0000"
-  }
-}
-```
+* **Calendared reoccurring work scheduling**
 
-* **Automating Intelligence** 
+| Code | Frequency         || Code | Day       || Code | Time Block |
+| ---- | ----------------- || ---- | --------- || ---- | ---------- |
+| 1    | Every week        || 1    | Monday    || 1    | 0000-0300  |
+| 2    | Every other week  || 2    | Tuesday   || 2    | 0300-0600  |
+| 3    | Every month       || 3    | Wednesday || 3    | 0600-0900  |
+| 4    | Every other month || 4    | Thursday  || 4    | 0900-1200  |
+| 5    | Every year        || 5    | Friday    || 5    | 1200-1500  |
+| 6    | Every other year  || 6    | Saturday  || 6    | 1500-1800  |
+| 7    | Every day         || 7    | Sunday    || 7    | 1800-2100  |
+| 8    | Every other day   |                    | 8    | 2100-0000  |
 
-  - The implementation of reoccurring workflows is detailed in full here `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md` 
-  - But the actual documentation might be easier to digest `./documentation/08_AUTOMATE_INTELLIGENCE.md` 
-
-* **Define their variables** 
-* **Explain how variable values can be validated conceptually for Mao** 
-
-### Project State **Memory Update Point**
-`02-mid-chat-001` 
-
-* **Documenting for self-growth; confirming standardization** 
-
-  - If standardized, we should identify what this and all project state updates look like 
-    - Otherwise, we need to standardize this entry; we should name each entry by creating process phase names with a counter addendum 
-    - The standardization should also make it clear what kind of entry to create, how to tag the WorkflowID, etc. 
-  - Add to the process a self-evaluation as a secondary observation to add 
-    - At each phase these self-evaluations will be added 
-    - They will later be paired with observational evaluations 
-    - In this way it will be easy to say "hmm they were cranky at the end" -- glance at the notes -- maybe we should adjust how we handle X 
-a
 ---
 
 ## 4. Ending The First Chat 
