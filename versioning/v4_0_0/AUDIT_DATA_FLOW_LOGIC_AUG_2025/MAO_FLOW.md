@@ -670,14 +670,17 @@ SCRIPT COMMAND:
 
 ### Core Objective 
 
-  1. Identify what the types of cutting edge, agentic workflows are and what they're best used for 
-  2. Tips on picking a workflow; no domains, instead indicate what it is in the domain that makes the workflow a good fit 
-  3. How to determine how many workflow drafts to build; neediness of the User? Unsure on expectations of User? 
-  4. Reminders and description of how and where to leave open ended missing phases to make decisions and new phase on the fly; these are priority 
-  5. Consider, what makes a good workflow? What might help to build this into, obvious next steps in the project? 
-  6. Equally, is this as simple and direct as possible? Can User understand this with minimal effort? 
+  1. Pull all materials saved regarding the project that have been prepared during chat 
+  2. Think hard, choose simple 
+  3. Create a series of possible simple drafts when things aren't immediately clear 
+  4. Then, create a workflow for the project that uses cutting edge best practices for most efficient, simple, effective build 
+  5. Conduct multiple self-reviews, asking yourself series of question to ensure best work 
 
-### Workflow Types 
+*Section continues before workflow resources section* 
+
+---
+
+## Workflow Types 
 
 * **The orchestrator-workers workflow**
 
@@ -855,9 +858,63 @@ CALL 1     CALL 2      CALL 3
   - It creates a more natural human-like flow 
   - Agents and Mao and *respond to things in real-time* 
 
-### Completing The Workflow Draft 
+---
+
+## 5. Building The Workflow, Continued 
+*section started before project workflow resource section above*
+
+### User Interface While Mao Is Working 
+
+* **We need to provide a UI that encourages a UX that doesn't feel like they're waiting much at all** 
+
+  - This will come from what is being displayed in the screen, what was the chat, while Mao is working 
+  - We want to create a *'gut check'*
+    - A 'gut check' is something that would make a user make an audible, unintentional, noise when they see it 
+    - Funny word would create a *chuckle* 
+    - Smart displaying content that changes in an innovative way could create a '*hmm*' or '*ohh*' or '*ahh*' 
+    - This creates the experience of "*emotional intelligence*" and is used in marketing to create conversions 
+    - In other words, it is what *makes a user connected* to a piece of content (or app, or project, or workflow, or tool)
+
+* **To do lists that actively change, and present participles** 
+
+
+
+* **User experience while Mao is working** 
+
+  - The *user never leaves* the one-screen chat experience 
+  - There is a bit of UI verbiage that represents "THINKING" but is *ALWAYS DIFFERENT* 
+    - Instead of just "*THINKING...*", we are able to use the inherent creativity of AI and the context of the situation 
+    - This was discussed previously as non-canned "AI Improv" produced UI copy 
+  - It is *EXTREMELY IMPORTANT* that the code does not provide ANY IDEAS OR SUGGESTIONS 
+    - Instead, Mao simply needs to follow these guidelines and steps 
+    - REMEMBER: AI's most sought after skill that humans love is *IDEATION* -- today's AI does not need any help being creative 
+  - While "percolating" Mao will put up TO DO lists for them self for the User to watch their progress 
+    - These to do lists don't get crossed off when things are done 
+    - Instead items on the list change their wording and state multiple times through the process 
+
+* **Custom "AI IMPROV" UI word to represent "thinking"** 
+
+  - AI can be witty, interesting, funny, even COMPLETELY random or goofy 
+  - In the end, if the word doesn't make any sense, contextually, to the user, they'll just find it humorous 
+  - We need just one *present participle* that is acting as a verb, usually, possibly an adjective 
+  
+* **Coming up with a present participle for the UI** 
+
+  - Consider the project that you're working on 
+  - Remember the type of word, grammatically, we want 
+  - Then put up whatever comes to mind 
+
+  - Project: Workflow is creating a 
+
 
 * **Mao needs to "think hard, keep it simple"** 
+
+  - You need only the conceptual understanding from the above information, and perhaps some experience which we'll gain over time 
+  - It is very likely that you'll have started being able to see what would work best during the chat with the user 
+  - If not, or if there are multiple ideas, or if just planning how to begin, just remember: 
+    - *You have all the variables* and *you can think sequentially* 
+    - Think critically and then review your thoughts and you'll be golden 
+
 
   - User is still in chat and the app doesn't move from that one-screen experience 
 
@@ -865,6 +922,23 @@ CALL 1     CALL 2      CALL 3
 
   - Each Workflow Phase JSON Config will need information 
 
+  
+  Stay on top of 
+     - Whatever the cutting edge, agentic workflows are and what they're best used for 
+     - What workflows are working best for our users specifically 
+  2. Incorporate elements of workflows from Anthropic's blog 'Building Effective Agents' because 
+     - We can show them the diagrams from Anthropic; recreated for our aesthetic 
+     - It gives our brand a stronger feeling of legitimacy 
+     - There will be a section defining these workflows below that breaks up our documents flow 
+  3. How will you determine how many workflow drafts to build? 
+     - If you, Mao, have multiple ideas, remember to do this thought process 
+     - You have all the variables, so have a sequential think, review them, and you'll find the best answer 
+  4. We should probably ensure that there is more than one thinking hard moments before, during, and after 
+     - Think sequentially and review thoughts afterwards when deciding what to build 
+     - Have an additional think to consider specific items: Should there be an open ended phase 
+     - Would having an open-ended phase improve potential results? 
+     - Afterwards, have a think to check to accuracy; ask what could improve deliverables? 
+     - Ask yourself, is this as simple and direct as possible? Can User understand this with minimal effort? 
 
 ### Create Questionnaires 
 
