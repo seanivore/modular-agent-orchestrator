@@ -1,36 +1,38 @@
 # Flow of Data Through Mao 
 
-*IMPORTANT NOTE REGARDING TERMINOLOGY:* We are calling what the User is creating and working on with Mao a **PROJECT**. 
-- There has been confusion between the "Workflow JSON Config Object", of the collection of 4 total different JSON objects that come together to create a project's workflow, when the larger project is also referred to as a 'workflow'. 
-- Additionally, "PROJECT" is better for branding purposes because it helps conceptualize the true diversity of projects that can be set-up; writing Christmas Cards in bulk and personalizing them using a database, or Creating Fashion Editorial Images and Copy for a magazine. 
-- This is similar to how we wouldn't simply call what the tool creates "automations" because that is a very limiting term that can make the user assume projects like the two examples above might not be something Mao would create. 
-- This terminology is **key** because the more agentic and orchestrated applications get, the more they become better fits for those kind of complex, creative project, more-so than very simple automations that a company might get better value from another, simpler tool if automations are all they need to set up. 
-- This of it this way: We are *NOT COMPETING AGAINST ZAPIER OR MAKE (INTEGROMAT). They require intensive setup, a lot of work on the User, and are not dynamic, open-ended, cannot make decisions on their own, and certainly cannot evolve through self-improvement. 
+## Summary  
 
-## Overview 
+Cleaning up code 'mock data' uncovered hardcoded category suggestion woven throughout. In trying to rectify this, I found large portions of code I cannot understand and AI couldn't fully define the logic. We NEED this level of understanding, period. This makes it clear that we have over engineered. Mao's task is incredibly simple and relies primarily on natural AI abilities. By creating this outlined flow of data we will have comprehensive understanding of what file code logic should be. It will be compared as we work through current files, cleaning up, optimizing, simplifying, and adding missing elements in the outline as we proceed. 
 
-- When cleaning up 'mock data' we found hardcoded category suggestion that are woven through functionality. There are files with code I don't understand and AI has not been able to provide a simple definition of what is happening. We need that level of understanding, period. It is clear we are over engineered. 
-- The AI, Mao, has a simple task: Have a chat to identify and fill in variables of a prompt for agents to complete a task. By outlining the flow of that data, we'll understand when and how it should be handled. This outline will be compared to our files so that we can audit our operational file's logic and optimize, cleaning up our code. 
-- After that we will be prepared to launch as a terminal app for use in development. The process allows us to look at everything through the lens of being developed into a web app now, as well as to ensure we're ready for implementation of multi-lingual upgrades. 
-
-### Goal 
+### Purpose 
 
 Outline comprehensive flow to understand what the logic should be, then compare it to each file's current logic, so we can clean up files accordingly. 
 
+### Goal 
+
+This final 'logic audit' will leave us prepared to launch the app in our terminal as a development tool for testing, before developing web UI. 
+
+### Opportunity  
+
+  - Look at all files through the lens of creating a Web UI instead of our originally planned Terminal UI 
+  - Ensure files are prepared to launch after developing multilingual capabilities in parallel 
+
 ### Deliverables 
 
-* **Plan language explanation of all logic, data flow, UX intention, and vision for UI** 
-  - Much like our beloved `./versioning/v4_1_0/IMPL_WEB_UI/logic_design/_NEW_USER_FLOW.md` which is now dated 
-  - This new resources will let us review data flow, understand every file, simplify, and clean-up the code 
+* **This comprehensive file which will provide various values** 
+  - Plain language description of logic 
+  - True understanding of dataflow allowing for better documentation 
+  - Provides a vision for the UX and UI needs 
+  - This is very similar to our, now dated, `_NEW_USER_FLOW.md` file 
 
-* **Simple, clear, concise diagrams of information flow and UX** 
-  - Prior attempts were strangely convoluted, likely due to our over-engineering 
-  - Creating these will be proof of concept; an assurance that we know what exactly every this and how it works  
+* **Simple, clear, concise diagrams of information flow** 
+  - Prior attempts were consistently convoluted due to our over-engineering 
+  - Being able to create these will serve as a form of proof of concept 
+  - Provides legitimacy to brand, tool, and team due to easy of understandability 
 
-* **Perfect standardization of Project State Memory Updates** 
-  - Make sure they are SIMPLE, wildly concise, and that Mao knows exactly when to conduct updates 
-  - In building this application, many features developed over time of the build, and the tool evolved 
-  - This will ensure all features are fully baked all the way from start to finish 
+* **Opportunity to ensure standardization and consistency across configs, memory state updates, and more** 
+  - Many features were implemented in the midst of development 
+  - This will ensure it was done correctly, comprehensively, and allow for creation of standardization guides 
 
 ### Procedure 
 
@@ -865,7 +867,7 @@ CALL 1     CALL 2      CALL 3
 
 ### User Interface While Mao Is Working 
 
-* **We need to provide a UI that encourages a UX that doesn't feel like they're waiting much at all** 
+* **UI must eliminate UX sense of waiting**
 
   - This will come from what is being displayed in the screen, what was the chat, while Mao is working 
   - We want to create a *'gut check'*
