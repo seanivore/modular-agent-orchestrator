@@ -1,10 +1,10 @@
 # Flow of Data Through Mao 
 
-## Summary  
+## Overview   
 
 Cleaning up code 'mock data' uncovered hardcoded category suggestion woven throughout. In trying to rectify this, I found large portions of code I cannot understand and AI couldn't fully define the logic. We NEED this level of understanding, period. This makes it clear that we have over engineered. Mao's task is incredibly simple and relies primarily on natural AI abilities. By creating this outlined flow of data we will have comprehensive understanding of what file code logic should be. It will be compared as we work through current files, cleaning up, optimizing, simplifying, and adding missing elements in the outline as we proceed. 
 
-### Purpose 
+### Summary  
 
 Outline comprehensive flow to understand what the logic should be, then compare it to each file's current logic, so we can clean up files accordingly. 
 
@@ -75,22 +75,88 @@ This final 'logic audit' will leave us prepared to launch the app in our termina
 
 ### Secure Login Setup 
 
+  - I love PORKBUN DOMAIN'S login flow 
+    - We have replicated it in our `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` secure login implementation plan 
+    - The legal jargon has been edited slightly 
+    - This is how it works and how each element is displayed and when 
+
+* **Log in to an Existing Account** 
+
+  - This is the main page you are routed to 
+
+  - Field to *Enter your email or phone* user identification  
+  - Standard *password* field 
+
+  - *NOTE* under password it says "Leave password blank if using a passkey" 
+    - This is an extremely low risk precaution that is better than saying "you don't need to enter" 
+    - The passkey login works even if you enter something you think might be your password into the field 
+    - The system just ignores the password when using passkey; *this creates flawless UX*
+  - Cloudflare auto-secure anti-spam *requires no action by the user* 
+  - Included *Remember Me* check mark 
+
+  - Porkbun does not make it clear that clicking LOGIN will bring up the passkey 
+    - I suppose this is expected 
+    - Toy with wording to potentially use 
+
+  - *Legal jargon:* By continuing you agree to the following: I acknowledge that I have read and agree to all Product Terms of Service, the Marketplace Agreement, and the Privacy Policy. You consent to enroll new automatic monthly subscription renewal service, which can be cancelled at any time via the Personal Preferences Billing section of your account. Automatic renewals are billed to payment method(s) specified on your Account Settings page until cancelled. If paying by credit card, you authorize {{ENTITY}} to send instructions to the financial institution that issued your card to take payments from your card account in accordance with the terms of your agreement with us. 
+
+  - The *Create a New Account* is in a box above the field, as well as right next to the login button at the bottom of the field 
+  - *Forgotten password, 2FA, or security key* link is below the login and second create new account button 
+
+* **Create New Account**
+
+  - This is a separate page navigated to from the initial login page unless directly linked from elsewhere 
+
+  - This form also uses a Cloudflare auto-secure anti-spam *no action by user* widget thing -- NO CLICKING BIKES FOR GOOGLE CAPTCHA 
+
+  - Instead of *USERNAME* we should say *ACCOUNT ID* above text field 
+    - Under it says "Use a valid contact identification; you will be messaged to validate this ID one time during setup" 
+  - Then PASSWORD above a field 
+    - Under again in small text indicate parameters like *Must be 12 to 72 characters long, differ from your account ID, etc.* 
+
+  - Directly below the PASSWORD text field there is a button that says *USE PASSKEY* 
+    - Setting this up automatically provides all information we are requesting in this form 
+    - This is the best UX, we will feature it prominently 
+
+  - Traditional form *REQUIRED* fields 
+    - First Name 
+    - Last Name 
+    - Checkmark acknowledgement legal jargon regarding having read our terms of service and privacy policy 
+
+  - Traditional form fields that are *NOT REQUIRED* 
+    - Company Name 
+    - Standard 'will you be using this for personal, business, etc. 
+    - What do they play on working on to delegate to AI agents for completion 
+  - We should brainstorm these questions 
+    - So that we can be sure to NOT include many 
+    - Ensure we are only including the best 
+    - Heavily workshop the copywriting for wording that encourages users to submit the information 
+
+  - We should mention that they will need to set up subscription payment on the next page 
+    - Consider free trial 
+    - Or perhaps creating a login lets them look at all the different configs available and what the interface is like 
+    - The UX and design of our payment page will be handled by Stripe 
+
+  - The form has a *CREATE ACCOUNT* button at the bottom with a *LOGIN TO EXISTING ACCOUNT* button beside it 
+
+  - *Note:* "The word “passkey” *does not translate cleanly in every language*. Pair it with a short explanatory subtitle such as “Faster, one-tap sign-in with your device" advice given to me by AI when asking about pushing Passkey usage for our multilingual launch. Let this stand as a note reminder that we must check these kind of things, rather than just simply translating pages. It sounds like there might also be some issue with certain countries; this makes me think that we *likely will want to exclude our services to certain countries* as well. 
+
+
 * **User setup options**
 
-  - Setup a *Passkey* and provide unique identifier once  
+  - Setup a *Passkey* and provide unique identifier once 
   - Use *Traditional login* requiring unique identifier every time 
-    - And password creation 
+    - Requires password in traditional fashion  
     - We *do not* do email link login; it is terrible UX 
 
   - *Email* OR *phone number* can be a unique identifier 
     - System validates there is no other user with that identifier 
     - Duplicate identifier triggers error; try again or reset password 
 
-* **Other collected data** 
+* **Other setup form data collected**
 
-  - *Required* information includes 
-    - *First name*
-    - *Last name* 
+  - *Required* full first and last name  
+  - 
   - Not required information collected *all on one page with prominent SKIP button* 
     - Want us to use a *nickname* instead of your first name?  
     - Will Mao be primarily helping you automate your *personal* or *work* life? This will help us improve your UX
