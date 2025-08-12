@@ -1,6 +1,11 @@
 # Flow of Data Through Mao 
 
-## Overview   
+* I wonder if there is a way that we could create the Web UI so that users could optionally run the application locally in their terminal if they want. What would be the implications of this for development, functionality, and for ability to use complex subscription tiers? 
+  - I thought of this when adding the chart of slash commands back into the documentation's reference page 
+  - Then I was starting to delete the "In Terminal" column and realized that we might not want to if this is possible 
+  - If it isn't possible, we could still keep these docs as internal since we can use the application in the terminal for development and testing 
+
+## Overview 
 
 Cleaning up code 'mock data' uncovered hardcoded category suggestion woven throughout. In trying to rectify this, I found large portions of code I cannot understand and AI couldn't fully define the logic. We NEED this level of understanding, period. This makes it clear that we have over engineered. Mao's task is incredibly simple and relies primarily on natural AI abilities. By creating this outlined flow of data we will have comprehensive understanding of what file code logic should be. It will be compared as we work through current files, cleaning up, optimizing, simplifying, and adding missing elements in the outline as we proceed. 
 
@@ -75,7 +80,7 @@ This final 'logic audit' will leave us prepared to launch the app in our termina
 
 ### Secure Login Setup UX/UI 
 
-  - I love PORKBUN DOMAIN'S login flow 
+  - I love *PORKBUN DOMAIN*'S login flow 
     - We have replicated it in our `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` secure login implementation plan 
     - The legal jargon has been edited slightly 
     - This is how it works and how each element is displayed and when 
@@ -199,17 +204,26 @@ configs/user/...
     - They find their *UserID* in their user documents 
     - This will be needed throughout the process 
   - A *UserID can also be used to pull up any of the user's information* 
-    - Most recent workflows they were working on 
+    - Most recent workflows they were working on (in example below)
     - System settings and preferences 
     - Change their default model and provider of choice 
 
+```bash
+   /workflow user-1234
+``` 
+
 * **The first user analytics are triggered at this point** 
+
+  - *Details to come* when we review this flow and match up operations with files 
+    - Let's *detail each trigger* and when it goes off 
+    - Doing this will make it easier to come up with more, to manage them as their count grows 
+    - Might give us innovative ideas regarding what they could be used to inform about 
 
 ### Project State **Memory Update Point**
 
-  - None yet, the first happens in next session when Mao enters the chat 
+  - None yet, the *first happens in next session* when Mao enters the chat 
   - At the end of each section, like this H3, we will detail and name the Project State memory update 
-  - This is the start to ensuring they are standardized and planned 
+  - This is the *start to ensuring they are standardized and planned* 
 
 ---
 
