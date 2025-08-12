@@ -36,11 +36,23 @@ This final 'logic audit' will leave us prepared to launch the app in our termina
 
 ### Procedure 
 
-1. As we go through below, we want to identify where this happens, confirming it happens properly 
-2. With a full understanding of the current flow, we can optimize according to the defined flow below 
-3. As we proceed, we should literally add notation to the information below letting us know where, what happens 
-4. As we better understand the full scope of the current flow, we will add those details to this flow 
-5. Perfect the standardization of project state memory updates and other features that entered the build late in the game, like analytics
+1. We will proceed through the sections below 
+   - Identifying where this happens in current files 
+   - Ensure it is happening properly, without any additional functions or complexity 
+2. In first run we will catalog what changes need to be made 
+   - We want to see the full picture before we start editing any files 
+   - We might find opportunities to simplify or combine multiple, extremely similar purposed files 
+3. The update our code file making changes as needed 
+   - This also includes updating this outline with any missing information 
+   - Notion should also be added to this outline indicating what file handles each bit of the logic and data flow 
+4. Fill in all blanks, complete any missing information; "finish the job" 
+   - Shouldn't have to say this ever, but this IS real code implementation  
+   - Do not skip any concept expecting to come back later, each fix and completion should be handled in proper sequence 
+   - Standardize any of the newer features and confirm other features have already been standardized across-the-board 
+5. Implement the remaining items needed for launching the development terminal UI app 
+   - We have been detailing this information in `MAO_LAUNCH.md` 
+   - When complete we should be able to focus exclusively on bugs and then building web UI 
+   - Set ourselves up for success building web UI by thinking forward at all times 
 
 ---
 
