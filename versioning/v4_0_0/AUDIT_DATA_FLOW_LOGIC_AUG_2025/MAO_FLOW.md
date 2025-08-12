@@ -216,10 +216,6 @@ configs/user/...
     - System settings and preferences 
     - Change their default model and provider of choice 
 
-```bash
-   /workflow user-1234
-``` 
-
 * **The first user analytics are triggered at this point** 
 
   - *Details to come* when we review this flow and match up operations with files 
@@ -235,7 +231,186 @@ configs/user/...
 
 ---
 
-## 2. Application Loads 
+## 2. Application Main Screen Loads 
+
+### The Single-Screen Chat-Centric User Experience 
+
+* **Literally everything in the app happens in a chat interface** 
+
+  - *AI manages app operations;* Large Language Models 
+    - That makes chat the most natural option; it is what they were made for, first 
+    - Other than a very *occasional toggle menu*, *Mao answers slash commands* for help, debugging, lists of tools 
+    - Types of *message are subtly differentiated* keeping the *"devil in the details"* between these responses 
+
+  - *Users today have used headless applications* in their chats for a while now
+    - They are accustomed to *creating AI image generations in Discord* threads 
+    - They *talking to Slack-bot* for admin help 
+    - Play games or gather information from *Telegram Bots* 
+
+* **Visual design gracefully keeps user attention on just contents of the chat** 
+
+  - After the login screen the user sees the minimalistic chat interface 
+    - Think *computer terminal simplicity* with *character-based icons indicating input fields and messages*  
+    - *No retro nerdy vibe*; instead this is *high class,* by being timeless and classic 
+    - The chat contains UI is *minimalistic;* it *matches everything* 
+
+  - The UI is one *single container* that is just a *clean, simple, narrow line with polished depth* 
+    - The UI has *NO* buttons, menu text, or icons, indicators 
+    - There being *ABSOLUTELY NOTHING* creates "silence is loud" kind of concept; it is *clearly intentional* 
+    - This is clear because the edges and border drop-shadow onto canvas has sharp, realistic subtle shadow 
+    - As if it is an extremely narrow, think centimeters deep and wide, classic black picture frame 
+
+  - The shadow has an *ever-so-slight angle meant to mimic shadow from the sun/moonlight* 
+    - The direction and size of this angled shadow changes with the movement of the sun or moon hour to hour 
+    - *Motion is too slow to see happen;* it is only noticeable now and then when you're like, *Woa, this is wider now on this side*
+    - Dark mode shadows are a thing too 
+      - Deeper blacks or even subtle colored tints (very dark purple or deep blue) 
+      - Maintain the luxury depth without looking washed out 
+      - Should feel like expensive black velvet with rich depth, *NOT* flat gray 
+    - Uses time of day so that the shadow behaves just like it would IRL 
+      - Daylight has sharp, defined shadows 
+      - Evening has softer, deeper, maybe slightly blue-tinted from moonlight shadows 
+
+  - Think: The way expensive hotels adjust lighting imperceptibly throughout the day; make people feel good without knowing why 
+
+### Real-Time Shadow Movement; Creating Unconscious Luxury from Careful Details 
+
+* **Shadow has flow of continuous gradient motion** 
+
+  - *Do not change shadows in discrete phases* 
+  - Ensure the slowest motion possible 
+    - Avoid users easily seeing the motion, the magic, when watching 
+    - Better mimics real life experience of the passage of time 
+
+  - Continuous gradients have *signature moments*
+    - The shadow evolves over time 
+    - It has peak characteristics at specific times 
+
+* **More peaks = smoother interpolation just like in animations** 
+
+  - The more keyframes, the more natural in-between transitions become 
+  - Two peaks might seem similar until compared directly side-by-side 
+
+* **Decisions made through development** 
+
+  - By using subagents that run in parallel to build the website 
+    - We have them all create the same thing 
+    - This will show us what kind of variations result from these, otherwise very specific, design specs 
+
+  - We will also use this method of agentic developmental design to test variations 
+    - A shadow with peaks every 3 hours 
+    - Another every 2 hours 
+    - And then we'll even see if any subagents can create compelling results with peaks every hour 
+
+  - They can all build on and adjust their planning using these timings and the cinematic shadow design breakdowns 
+
+        | TIME   | SHADOW PEAK CHARACTERISTIC  | 
+        | ------ | --------------------------- |
+        | 06:00  | Dawn awakening              |
+        | 09:00  | Morning warmth              |
+        | 12:00  | Harsh midday precision      |
+        | 15:00  | Afternoon softening         |
+        | 18:00  | Golden hour magic           |
+        | 21:00  | Twilight mystery            |
+        | 00:00  | Deep night crispness        |
+        | 03:00  | Pre-dawn stillness          |
+
+### What Shadows Look Like Around-the-Clock 
+
+* **Day time** 
+
+  - The *day time basics* for the color, look, and feeling 
+    - Warm light creates cool shadows, but cool light creates warm; *be consistent* 
+    - Remember that *light bounces around, subtly illuminating shadows*, *adding complexity to value and colors* 
+    - Further away objects have lighter in value shadows, bluer in tone, and less definition 
+    - *Maintain consistent light source and shadow characteristics* throughout for believable and harmonious feeling  
+
+  - *Morning* 
+    - Shadows are warm, soft, and long, often described as golden; gradually shortening as the sun ascends 
+    - Colors tend to be cool, reflect ambient light off morning blue sky; illuminated areas carry more warmth 
+    - Evokes a mood or sense of fresh beginnings; awakening, but also tranquility  
+  - *Midday* 
+    - Shadows have high contrast and are well defined; shortness and sharpness; at zenith they're directly under objects 
+    - Light is harsh, direct creating strong highlights with intense vibrant colors in illuminated areas 
+    - Intense and awake, clear feeling 
+  - *Afternoon* 
+    - Sun descends so shadows lengthen; light takes on cooler, diffused quality 
+    - Light tints everything in warmer tones of purple and orange; shadows retain cooler blue hue 
+    - Soft light id dramatic and has a contemplative feel or a serene mood compared to midday intensity 
+  - *Evening at golden hour* 
+    - First and last hours of daylight; warm, soft, almost magical 
+    - Long, diffused shadows blending smoothly into surroundings which adds depth 
+  - *Evening at twilight* 
+    - Sun dipping below horizon; light is cooler, even more diffused as shadows continue to soften and blur 
+    - Moody atmosphere that combines tranquility with mystery; eerie elongated shadows 
+
+* **Night time** 
+
+  - The *night time basics* for shadow color, look, and feeling  
+    - Night shadows use *close range of values*, avoiding pure black 
+    - They balance light and dark values to *create depth and dimension even on smaller scale* 
+    - While shadows are darker, they possess *color variations of cooler tones* like blues and greens in moonlit areas 
+    - The soft-to-sharper shadow edges should *convey strength of moonlight* 
+    - Interplay of light and shadow to frame focal points, add depth, and *guide viewer eye* 
+
+  - *Early night with moon rising*
+    - Long, dramatic shadows stretching far, but with slightly softer edges from less direct light source 
+    - Feels mysterious and ethereal, often dramatic emphasizing day to night transition 
+  - *Mid-night with moon high in sky*
+    - Bright moon shines crisp, cooler light making shorter, more defined, sharper edged shadows 
+    - Clearer feeling as things are more defined; still, sometimes isolating; highlighting interplay of light and dark more 
+  - *Late night with moon nearing the horizon* 
+    - Redder or warmer glow and elongated shadows again like early night but in opposite direction 
+    - Sense of approaching dawn, closing, beginning soon, lingering magic still with just a bit of mystery hinting at fading night 
+
+### UI Design Philosophy 
+
+* **Minimalistic 'devil in the details' carefully executed**
+
+  - Micro details are very important
+    - Hermès doesn't add more features to their bags
+    - They make every stitch, every piece of leather flawless
+  - Shadow movement isn't to be cute 
+    - It should barely be noticed 
+    - The feature creates luxury minimalism that separates us from boring 
+    - It is to make people say "I don't know why, but this feels expensive" 
+  - Thus the cinematographer-level shadow specs 
+    - Shadow is 25% of the visual vocabulary 
+    - So it better be museum quality execution 
+
+* **Constraint list of only four element to control in our design** 
+
+  1. Shadow movement is an ever-present, too-slow-to-see-move with human eye feature 
+  2. Conceptual semantic text highlighting with 5 colors that lightens cognitive load 
+  3. Character choice like bullet icons; typography, a single font, is the interface 
+  4. White space; silence is loud 
+
+* **Simple, sharp, effective** 
+
+  - Limited constraint list allows for each element to be executed with obsessive precision 
+  - We do not dazzle with features 
+    - The features just work and are intuitive, quiet in this way 
+    - Instead, we hypnotize with perfection 
+
+
+
+
+
+
+    
+  - Everything in the app happens in chat interface 
+
+* **Custom AI 'Improv' Welcome Header** 
+
+  - Only thing on the screen after login 
+    - Context and memory aware AI written on-the-fly welcome message 
+    - Various tips and help messages as very subtle, secondary text 
+
+* **Mao Reviews User's Information** 
+
+```bash
+   /workflow user-1234
+``` 
 
 ---
 
