@@ -1,9 +1,17 @@
 # Flow of Data Through Mao 
 
-* I wonder if there is a way that we could create the Web UI so that users could optionally run the application locally in their terminal if they want. What would be the implications of this for development, functionality, and for ability to use complex subscription tiers? 
+---
+
+* I wonder if there is a *way that we could create the Web UI so that users could optionally run the application locally in their terminal* if they want. What would be the implications of this for development, functionality, and for ability to use complex subscription tiers? 
   - I thought of this when adding the chart of slash commands back into the documentation's reference page 
   - Then I was starting to delete the "In Terminal" column and realized that we might not want to if this is possible 
   - If it isn't possible, we could still keep these docs as internal since we can use the application in the terminal for development and testing 
+* We need to *formalize the use of the word "PROJECT"* regarding what is being created 
+  - Eliminates confusion with the "Workflow JSON Object" 
+  - Better illustrates the vast possible use cases of what Mao can do 
+  - "WORKFLOW" summons ideas of loops, prefab, etc., but Mao is more like a project manager for anything 
+
+---
 
 ## Overview 
 
@@ -227,20 +235,29 @@ configs/user/...
 
 ---
 
-## 2. Start Chat & Mao's Setup
+## 2. Application Loads 
+
+---
+
+## 3. Mao Gets Setup for Initiated Project Development Chat
 
 ### Core Objective 
 
-  1. Chat is started 
-  2. Setup WorkflowID for new project 
-  3. Initiate Project State memory system use 
-     - New project requires first simple entry defined below 
-     - Returning users; Mao searches their UserID and pulls up information to facilitate chat 
-  4. Create a truly unique UX using *memory* and *data analytics*     <-- This is the future, thanks to AI 
+  1. Project development chat is initiated 
+  2. New projects have their WorkflowID created 
+  3. Project State memory entry is initiated or accessed 
+  4. Create a truly unique chat UX 
+     - Combining *memory* with *data analytics* 
+     - This is SO FUTURE and not everyone has caught on yet 
 
-### User's Role: Initiate Project Chat 
+### User's Role Is To Initiate Project Chat 
 
-* **The User will always initiate a project chat first** 
+* **The User will always send the first message for creating a project** 
+
+  - The app is a single-screen chat interface and nothing else 
+    - This means the *User might not always be messaging looking to create a new project* or jump back into one 
+    - It also means that, when they message and aren't looking to work on a project, *Mao only occasionally responds; system sometimes does* 
+    - No matter what is happening, the user always messages first
 
   - They can send *anything* into the chat to start the flow 
     - Certain slash commands *DO* start flow 
@@ -364,7 +381,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 3. The Actual Chat 
+## 4. The Actual Chat 
 
 ### Core Objective 
 
@@ -450,7 +467,7 @@ SCRIPT COMMAND:
 
 ---
 
-## All Project JSON Workflow Objects, Variables & Validation Defined 
+## SIDEBAR FOR RESOURCES: All Project JSON Workflow Objects, Variables & Validation Defined 
 
 ### Defining **Workflow** JSON Object Variable Values
 
@@ -649,7 +666,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 4. Ending The First Chat 
+## 5. Ending The First Chat 
 
 ### Core Objective 
 
@@ -740,7 +757,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 5. Building The Workflow 
+## 6. Building The Workflow 
 
 ### Core Objective 
 
@@ -754,7 +771,7 @@ SCRIPT COMMAND:
 
 ---
 
-## Workflow Types 
+## SIDEBAR FOR RESOURCES: Workflow Types 
 
 * **The orchestrator-workers workflow**
 
@@ -934,7 +951,7 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 5. Building The Workflow, Continued 
+## 6. Building The Workflow, Continued 
 *section started before project workflow resource section above*
 
 ### User Interface While Mao Is Working 
@@ -1058,7 +1075,7 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 6. User Reviews of Workflow 
+## 7. User Reviews of Workflow 
 
 ### Core Objective 
 
@@ -1088,7 +1105,7 @@ CALL 1     CALL 2      CALL 3
 
 --- 
 
-## 7. Approved Workflow Setup 
+## 8. Approved Workflow Setup 
 
 
 ## Workflow Updates 
