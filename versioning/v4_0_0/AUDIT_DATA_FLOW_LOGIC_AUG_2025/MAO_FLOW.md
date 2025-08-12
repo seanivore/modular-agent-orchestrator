@@ -392,7 +392,31 @@ configs/user/...
     - The features just work and are intuitive, quiet in this way 
     - Instead, we hypnotize with perfection 
 
+### Tech Stack Specifics 
 
+* **The entire website will be HTML, CSS, and JS** 
+
+  - No framework needed
+    - Just simple web tech for maximum performance and simplicity
+  - Dynamic shadow system
+    - JavaScript: `new Date()` gets current time
+    - CSS: `box-shadow` properties can be dynamically updated 
+    - Smooth transitions: CSS `transition: box-shadow 0.5s ease`
+    - Geolocation: `navigator.geolocation` for real sun position (optional)
+
+* **Basic structure:**
+
+```javascript
+function updateShadow() {
+  const now = new Date();
+  const hour = now.getHours();
+  // Calculate shadow angle/intensity based on time
+  // Update CSS custom properties
+  document.documentElement.style.setProperty('--shadow-x', shadowX);
+  document.documentElement.style.setProperty('--shadow-y', shadowY);
+}
+setInterval(updateShadow, 60000); // Update every minute
+```
 
 
 
