@@ -73,7 +73,7 @@ This final 'logic audit' will leave us prepared to launch the app in our termina
      - Anonymous data and system data is also triggered and logged at various points
      - UserID used to obscure identity in some analytics 
 
-### Secure Login Setup 
+### Secure Login Setup UX/UI 
 
   - I love PORKBUN DOMAIN'S login flow 
     - We have replicated it in our `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` secure login implementation plan 
@@ -141,57 +141,23 @@ This final 'logic audit' will leave us prepared to launch the app in our termina
 
   - *Note:* "The word “passkey” *does not translate cleanly in every language*. Pair it with a short explanatory subtitle such as “Faster, one-tap sign-in with your device" advice given to me by AI when asking about pushing Passkey usage for our multilingual launch. Let this stand as a note reminder that we must check these kind of things, rather than just simply translating pages. It sounds like there might also be some issue with certain countries; this makes me think that we *likely will want to exclude our services to certain countries* as well. 
 
+### System Locates or Creates UserID with User Directory 
 
-* **User setup options**
+* **UserID is created at first login**
 
-  - Setup a *Passkey* and provide unique identifier once 
-  - Use *Traditional login* requiring unique identifier every time 
-    - Requires password in traditional fashion  
-    - We *do not* do email link login; it is terrible UX 
-
-  - *Email* OR *phone number* can be a unique identifier 
-    - System validates there is no other user with that identifier 
-    - Duplicate identifier triggers error; try again or reset password 
-
-* **Other setup form data collected**
-
-  - *Required* full first and last name  
-  - 
-  - Not required information collected *all on one page with prominent SKIP button* 
-    - Want us to use a *nickname* instead of your first name?  
-    - Will Mao be primarily helping you automate your *personal* or *work* life? This will help us improve your UX
-    - Drill-down of options for industry or types of personal project with 'other' option and then text field 
-  - *Marketing* notification, not an opt-in 
-    - That signing up includes giving permission for us to send important emails or texts 
-    - The frequency of which can be adjusted in settings 
-
-### Locate or Create UserID 
-
-* **Returning users** 
-
-  - The unique identifier is used to search directory/database 
-  - Their UserID is found and follows them around system 
-    - Analytics triggered 
-    - UserID passed off to Mao to ensure smart responses in chat 
-
-* **New Users UserID Creation**
-
-  - The *unique identifier* is used to create their UserID 
-  - Backend creates UserID using `meid` script 
-    - This ID is the *same every time you enter* the unique identifier 
-    - It will always be formatted as 'user-####' 
+  - It uses their *ACCOUNT ID* from the login information 
+  - The `meid` script is used 
+    - Provides the same UserID every time you enter the same Account ID 
+    - Will always be formatted as `user-####` 
+  - This example runs the `meid` as a script in the terminal for illustration 
+  - As you can see, various phone number formats work, as well as the entirety of my email address 
+    - the Account ID must always be *one single string of characters* 
+    - *Our form fields should be strict in forcing specific formatting* known to work 
 
 ```bash 
   > meid horvathaugust@gmail.com            # Used entire email address; must be single string of characters 
   Username 'horvathaugust@gmail.com' -> user-5253    # Response; UserID follows user around application
 ```
-
-* **Formatting is significant and must be exact every time** 
-
-  - We need to ensure our forms *force* proper formatting 
-  - Both for sign-up form, passkey or traditional, and on login form  
-  - For example, phone number must be single string, but 
-    - *NO PARENTHESIS, NO + PLUS SIGN, NO SPACES* 
 
 ```bash
   > meid 424-744-7687
@@ -208,6 +174,11 @@ This final 'logic audit' will leave us prepared to launch the app in our termina
     - Core for logging preferences and more 
     - Analytics files are created and updated as user interacts with the app 
 
+  - *NOTE:* we need to update the JSON objects and possible code 
+    - We shifted away from using a random user created 'username' 
+    - And instead will only use Account ID that we know will be unique by design 
+    - the file name and directory names are changed from username to UserID, for example  
+
 ```
 configs/user/...
 └── user-5253      # Since we have multiple unique identifiers, the directory must be named with the UserID 
@@ -222,14 +193,23 @@ configs/user/...
     └── user_seanivore.json             # Delta-only storage of User application preferences 
 ``` 
 
-**USERNAME VERSUS UNIQUE IDENTIFIERS**     <-- REQUIRES UPDATES OF FILES 
-  - We originally we using a random "username" 
-  - We must inspect code and template JSON objects in User directory to update 
-  - Using a unique identifier is more efficient, creates easy excuse to gather info., will always be unique 
+* **User login that has logged in before** 
+
+  - The system searches the `./configs/user/` directory for their *Account ID*
+    - They find their *UserID* in their user documents 
+    - This will be needed throughout the process 
+  - A *UserID can also be used to pull up any of the user's information* 
+    - Most recent workflows they were working on 
+    - System settings and preferences 
+    - Change their default model and provider of choice 
+
+* **The first user analytics are triggered at this point** 
 
 ### Project State **Memory Update Point**
 
   - None yet, the first happens in next session when Mao enters the chat 
+  - At the end of each section, like this H3, we will detail and name the Project State memory update 
+  - This is the start to ensuring they are standardized and planned 
 
 ---
 
