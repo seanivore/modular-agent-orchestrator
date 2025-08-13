@@ -2,17 +2,17 @@
 
 ---
 
-1. [User login, setup, creation of user files](#1-user-login)
-2. [UI design philosophy vibes with UX](#2-what-using-mao-looks--feels-like)
-3. [After login, User is free to start the chat](#3-screen-loads-after-login)
-4. [Mao's preparation protocol for starting a new project](#4-mao-prepares-for-initiated-project-chat)
-5. [Behavior protocol while gathering project workflow details](#5-chatting-to-gather-project-details)
-6. [Description of workflows; defined variables; validation methods](#6-review-of-workflow-json-objects--variables)
-7. [Leaving chat briefly when ready to build workflow draft](#7-ending-the-project-production-chat)
-8. [Advanced workflows and Mao's best practices](#8-reviewing-advanced-workflow-best-practices)
-9. [Building, reviewing, and preparing to present workflow](#9-building-the-projects-workflow)
-10. [Getting user feedback on project's workflow](#10-present-project-workflow-for-user-review)
-11. [Setting up an approved workflow with a simple command](#11-setup-of-approved-project-workflows)
+1. [**User login, setup,** creation of user files](#1-user-login)
+2. [**UI design** philosophy vibes with UX](#2-what-using-mao-looks--feels-like)
+3. [After login, User is free to **start the chat**](#3-screen-loads-after-login)
+4. [**Mao preps** to continue or start project in chat](#4-mao-prepares-for-initiated-project-chat)
+5. [Behavior protocol while **gathering project details**](#5-chatting-to-gather-project-details)
+6. [Description of workflows; defined **variables; validation methods**](#6-review-of-workflow-json-objects--variables)
+7. [**Telling user they'll brb** with the project's workflow draft](#7-ending-the-project-production-chat)
+8. [Advanced workflows and **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
+9. [**Building,** reviewing, and preparing to present workflow](#9-building-the-projects-workflow)
+10. [Getting **user feedback** on project's workflow](#10-present-project-workflow-for-user-review)
+11. [**Workflow setup** when approved using simple commands](#11-setup-of-approved-project-workflows)
 
 ---
 
