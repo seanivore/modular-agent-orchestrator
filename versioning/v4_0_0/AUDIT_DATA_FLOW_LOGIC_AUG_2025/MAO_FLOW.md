@@ -448,34 +448,94 @@ function updateShadow() {
 setInterval(updateShadow, 60000); // Update every minute
 ```
 
+---
+
 ## 3. Screen Loads After Login 
 
-### Greeting Messages That Are Never Repeated 
+### Core Objectives 
 
-* **Custom AI 'Improv' Welcome Header** 
+  1. Implement missing pieces needed for gathering information 
+  2. Build into current setup method to apply permission access to any config 
+  3. AI uses any available context to create unique welcome messages 
+  4. Other minimal help text is tucked around interface text fields 
+  5. User enters slash commands if looking for something 
+  6. Any other message sent will initiate the project chat with Mao 
 
-  - Only thing on the screen after login 
-    - Context and memory aware AI written on-the-fly welcome message 
-    - Various tips and help messages as very subtle, secondary text 
+### **URGENT: THIS MUST BE IMPLEMENTED ASAP WHEN GOING OVER THIS SECTION** 
+
+  1. *slash commands for contextual information* to be better defined below 
+  2. *config-wide permissions system* for entire system and all current JSONs 
+
+* **Some commands and info is only for specific User or Mao to see** 
+
+  - How do we implement this in a system-wide way that fits our modular build 
+  - Ideally it will default to applying to basically every single config; every type 
+    - Might require updating ALL JSON objects 
+    - Use this opportunity to create way to automate these kind of many file updates 
+
+* **Commands to gather logistical or administrative info** 
+
+  - Create system for general user access permissions 
+    - Some of these are okay slash commands for a user to use 
+    - Others are specifically for Mao or contain sensitive information 
+
+
+
+
+
+  - Mao needs to gather all files for comprehensive context aware information 
+  - Information from files 
+    - Pull from user directory 
+    - Need moore than their workflows 
+  - Gather memories of multiple types and displays for review 
+    - Brings forward memories about a user 
+    - Pulls up any memories created by user 
+
+
+
+  - Commands just for application administrators and Mao 
+    - Gather analytics in full, by type, or even by tool or any config, including users 
+    - Pull in current events added to databases for analytics insights 
+
+### Never Repeated Greetings  
 
 * **Mao Reviews User's Information** 
+
+  - AI pulls up user info using UserID 
+  - Currently we just have a way to see if the user has any workflows 
 
 ```bash
    /workflow user-1234
 ``` 
 
----
 
-## 4. Mao Prepares for Initiated Project Chat
 
-### Core Objective 
+* **Custom AI 'Improv' Welcome Header** 
 
-  1. Project development chat is initiated 
-  2. New projects have their WorkflowID created 
-  3. Project State memory entry is initiated or accessed 
-  4. Create a truly unique chat UX 
-     - Combining *memory* with *data analytics* 
-     - This is SO FUTURE and not everyone has caught on yet 
+  - *Only text on the screen* after login 
+    - Context and memory used to find any context 
+    - AI *writes a greeting message on-the-fly* 
+
+      > "It is 10pm on Thursday night. Do you know where your AI is, Sean?
+
+  - We have a *tech curve to our advantage* here  
+    - *Combining memory with analytics with intelligence is a completely new functionality* 
+    - Therefore *almost anything remotely contextual will impress* Users 
+
+  - These *welcome messages are NEVER PREPARED IN ADVANCE* 
+    - Ideation is quite possibly one of LLM's most lauded skill set 
+    - Ability to make extreme logic leaps or and cross disciplinary connections makes creativity 
+    - *No "fallbacks"*, no "suggestions" no *NOTHING in code allowed* 
+
+  - Literal *worst case scenario* would mean 
+    - Welcome message is a little boring 
+    - AI got really goofy or random and User's don't understand 
+    - BOTH of these are better than acceptable; *potentially still admired* by users 
+
+* **Secondary text neatly places pro-tips and helpful info**
+
+Various tips and help messages as very subtle, secondary text 
+
 
 ### User's Role Is To Initiate Project Chat 
 
@@ -506,6 +566,19 @@ setInterval(updateShadow, 60000); // Update every minute
     - Using `/tools` or `/providers` or `/models` or just `/variables` 
       - These could bring up UI or Mao to chat; we should figure out what makes the most logical sense 
       - Or how could one method combine UI in some way (like if models showed them all but also then let them set defaults)
+
+---
+
+## 4. Mao Prepares for Initiated Project Chat
+
+### Core Objective 
+
+  1. Project development was initiated by User 
+  2. New projects have their WorkflowID created 
+  3. Project State memory entry is initiated or accessed 
+  4. Create a truly unique chat UX 
+     - Combining *memory* with *data analytics* 
+     - This is SO FUTURE and not everyone has caught on yet 
 
 ### Mao's Role: Come To Chat Prepared 
 
@@ -570,7 +643,6 @@ SCRIPT COMMAND:
     * Note: I'm thinking that we want to create these contextual, analytics-memory-driven greeting already at the top on the chat on screen load. That way we'll always have that fun UX for the user, and Mao's actual first reply can/should be more specifically in response to their actual first message. I don't think we need to talk through examples of that message. 
 
   - Respond to User's first message with *1-3 short sentences that is 10 to 20 words in total* 
-      > "It is 10pm on Thursday night. Do you know where your AI is?" 
 
   - Returning user's *recent projects or interactions* 
       > "Sean, are you ready to get back into setting up your applicant review workflow? We can build a whole tracking system." 
