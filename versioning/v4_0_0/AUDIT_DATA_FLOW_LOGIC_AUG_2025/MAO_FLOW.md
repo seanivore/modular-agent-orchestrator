@@ -291,7 +291,7 @@ configs/user/...
   - The more keyframes, the more natural in-between transitions become 
   - Two peaks might seem similar until compared directly side-by-side 
 
-* **Decisions made through development** 
+* **Decisions made through a swarm of subagents in development** 
 
   - By using subagents that run in parallel to build the website 
     - We have them all create the same thing 
@@ -300,20 +300,28 @@ configs/user/...
   - We will also use this method of agentic developmental design to test variations 
     - A shadow with peaks every 3 hours 
     - Another every 2 hours 
-    - And then we'll even see if any subagents can create compelling results with peaks every hour 
+    - Try one every hour
 
-  - They can all build on and adjust their planning using these timings and the cinematic shadow design breakdowns 
+  - They can all build on timings and the cinematic shadow design breakdowns 
+    - Their own artistic interpretations of these shadows 
+    - Some subagents research known best practice to create the desired shadow effect 
 
-        | TIME   | SHADOW PEAK CHARACTERISTIC  | 
-        | ------ | --------------------------- |
-        | 06:00  | Dawn awakening              |
-        | 09:00  | Morning warmth              |
-        | 12:00  | Harsh midday precision      |
-        | 15:00  | Afternoon softening         |
-        | 18:00  | Golden hour magic           |
-        | 21:00  | Twilight mystery            |
-        | 00:00  | Deep night crispness        |
-        | 03:00  | Pre-dawn stillness          |
+  - Remember, this is the point the motion is trying to reach 
+    - The actual motion of all shadows never stops 
+
+  - Is there any way to work an ability for subagents to see a visual before fully completing their design work? 
+
+
+   | TIME   | SHADOW PEAK CHARACTERISTIC  | 
+   | ------ | --------------------------- |
+   | 06:00  | Dawn awakening              |
+   | 09:00  | Morning warmth              |
+   | 12:00  | Harsh midday precision      |
+   | 15:00  | Afternoon softening         |
+   | 18:00  | Golden hour magic           |
+   | 21:00  | Twilight mystery            |
+   | 00:00  | Deep night crispness        |
+   | 03:00  | Pre-dawn stillness          |
 
 ### What Shadows Look Like Around-the-Clock 
 
@@ -404,6 +412,14 @@ configs/user/...
     - Smooth transitions: CSS `transition: box-shadow 0.5s ease`
     - Geolocation: `navigator.geolocation` for real sun position (optional)
 
+* **CSS Animation Note** 
+
+  - Previous builds we've had a lot of trouble with lag 
+    - When the animation covered large portions of the screen 
+    - When there were a very, very large number of animations 
+  - We can engineer smart and avoid this 
+  - Create shadows only in necessary area, along lines, shapes 
+
 * **Basic structure:**
 
 ```javascript
@@ -418,11 +434,7 @@ function updateShadow() {
 setInterval(updateShadow, 60000); // Update every minute
 ```
 
-
-
-
-    
-  - Everything in the app happens in chat interface 
+### Greeting Messages That Are Never Repeated 
 
 * **Custom AI 'Improv' Welcome Header** 
 
