@@ -2,6 +2,20 @@
 
 ---
 
+1. [User login, setup, creation of user files](#1-user-login)
+2. [UI design philosophy vibes with UX](#2-what-using-mao-looks--feels-like)
+3. [After login, User is free to start the chat](#3-screen-loads-after-login)
+4. [Mao's preparation protocol for starting a new project](#4-mao-prepares-for-initiated-project-chat)
+5. [Behavior protocol while gathering project workflow details](#5-chatting-to-gather-project-details)
+6. [Description of workflows; defined variables; validation methods](#6-review-of-workflow-json-objects--variables)
+7. [Leaving chat briefly when ready to build workflow draft](#7-ending-the-project-production-chat)
+8. [Advanced workflows and Mao's best practices](#8-reviewing-advanced-workflow-best-practices)
+9. [Building, reviewing, and preparing to present workflow](#9-building-the-projects-workflow)
+10. [Getting user feedback on project's workflow](#10-present-project-workflow-for-user-review)
+11. [Setting up an approved workflow with a simple command](#11-setup-of-approved-project-workflows)
+
+---
+
 * I wonder if there is a *way that we could create the Web UI so that users could optionally run the application locally in their terminal* if they want. What would be the implications of this for development, functionality, and for ability to use complex subscription tiers? 
   - I thought of this when adding the chart of slash commands back into the documentation's reference page 
   - Then I was starting to delete the "In Terminal" column and realized that we might not want to if this is possible 
@@ -231,7 +245,7 @@ configs/user/...
 
 ---
 
-## 2. Application Main Screen Loads 
+## 2. What Using Mao Looks & Feels Like  
 
 ### The Single-Screen Chat-Centric User Experience 
 
@@ -434,6 +448,8 @@ function updateShadow() {
 setInterval(updateShadow, 60000); // Update every minute
 ```
 
+## 3. Screen Loads After Login 
+
 ### Greeting Messages That Are Never Repeated 
 
 * **Custom AI 'Improv' Welcome Header** 
@@ -450,7 +466,7 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ---
 
-## 3. Mao Gets Setup for Initiated Project Development Chat
+## 4. Mao Prepares for Initiated Project Chat
 
 ### Core Objective 
 
@@ -592,7 +608,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 4. The Actual Chat 
+## 5. Chatting to Gather Project Details 
 
 ### Core Objective 
 
@@ -678,7 +694,12 @@ SCRIPT COMMAND:
 
 ---
 
-## SIDEBAR FOR RESOURCES: All Project JSON Workflow Objects, Variables & Validation Defined 
+## 6. Review of Workflow JSON Objects & Variables 
+
+### Core Objectives 
+
+  - Ensure accurate understanding objects needed to create workflow 
+  - Validating JSON object variable values 
 
 ### Defining **Workflow** JSON Object Variable Values
 
@@ -686,14 +707,14 @@ SCRIPT COMMAND:
 
   - Examples and defined purposes of each variable in this object 
 
-| Variable              | Purpose                                      | Value Example                                           |
-|-----------------------|----------------------------------------------|---------------------------------------------------------|
-| *UserID*              | Connect all your stuff                       | user-5709                                               |
-| *WorkflowID*          | Connect all of one project                   | uid-abd-123                                             |
-| Custom command        | Executes your completed workflow             | reporting monthly expenses                              |
-| Workflow goal         | Overarching project objective                | Help us understand company spending; automate payments  |
-| Workflow deliverables | What you get after all tasks                 | Receipt of credit card payments for all employees       | 
-| Workflow description  | How deliverables are created to achieve goal | *see below*                                             |
+| Variable              | Purpose                                      | Value Example                                 |
+|-----------------------|----------------------------------------------|-----------------------------------------------|
+| *UserID*              | Connect all your stuff                       | user-5709                                     |
+| *WorkflowID*          | Connect all of one project                   | uid-abd-123                                   |
+| Custom command        | Executes your completed workflow             | reporting monthly expenses                    |
+| Workflow goal         | Overarching project objective                | Automate payments; expense report operations  |
+| Workflow deliverables | What you get after all tasks                 | Receipt for payment of employee CC            |
+| Workflow description  | How deliverables are created to achieve goal | *see below*                                   |
 
   - The *Workflow description* example from above: 
 
@@ -877,7 +898,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 5. Ending The First Chat 
+## 7. Ending The Project Production Chat 
 
 ### Core Objective 
 
@@ -968,21 +989,15 @@ SCRIPT COMMAND:
 
 ---
 
-## 6. Building The Workflow 
+## 8. Reviewing Advanced Workflow Best Practices 
 
-### Core Objective 
+### Core Objectives 
 
-  1. Pull all materials saved regarding the project that have been prepared during chat 
-  2. Think hard, choose simple 
-  3. Create a series of possible simple drafts when things aren't immediately clear 
-  4. Then, create a workflow for the project that uses cutting edge best practices for most efficient, simple, effective build 
-  5. Conduct multiple self-reviews, asking yourself series of question to ensure best work 
+  - Show which workflows are built into Mao 
+  - How to identify when to use other workflow tactics 
+  - Advanced practices and leaving open-ended workflow phases 
 
-*Section continues before workflow resources section* 
-
----
-
-## SIDEBAR FOR RESOURCES: Workflow Types 
+### Core Types of Agentic Workflows 
 
 * **The orchestrator-workers workflow**
 
@@ -1162,8 +1177,17 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 6. Building The Workflow, Continued 
-*section started before project workflow resource section above*
+## 9. Building The Project's Workflow 
+
+### Core Objectives 
+
+  1. Organize information gathered during chat and preliminary workflow build ideas 
+  2. Secure this information with Code Execution to Files API in case of disruptions; update memory  
+  3. Construct workflow draft or multiple drafts if necessary 
+  4. Stop work, think hard, choose simple; review materials and critique your own work 
+  5. Integrate feedback and complete draft of the project's workflow 
+  6. Secure all assets again and update memory in case user takes a break 
+  7. Prepare to present the project's workflow draft to User by creating diagram flow chart 
 
 ### User Interface While Mao Is Working 
 
@@ -1224,7 +1248,10 @@ CALL 1     CALL 2      CALL 3
 
   - Each Workflow Phase JSON Config will need information 
 
-  
+
+uses cutting edge best practices for most efficient, simple, effective build
+
+
   Stay on top of 
      - Whatever the cutting edge, agentic workflows are and what they're best used for 
      - What workflows are working best for our users specifically 
@@ -1286,7 +1313,7 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 7. User Reviews of Workflow 
+## 10. Present Project Workflow for User Review 
 
 ### Core Objective 
 
@@ -1316,7 +1343,7 @@ CALL 1     CALL 2      CALL 3
 
 --- 
 
-## 8. Approved Workflow Setup 
+## 11. Setup of Approved Project Workflows 
 
 
 ## Workflow Updates 
