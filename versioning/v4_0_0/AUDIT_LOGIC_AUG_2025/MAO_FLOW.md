@@ -520,6 +520,8 @@ setInterval(updateShadow, 60000); // Update every minute
      - 2B. User uses a slash command that we have Mao facilitate the responses to 
      - 2C. User uses a slash command that brings up a system response 
 
+### User Initiates Project Chat 
+
 * **User messages in a general way to start a new project** 
 
   - This will require us to trust Mao to be the awesome AI that they are 
@@ -592,52 +594,93 @@ setInterval(updateShadow, 60000); // Update every minute
       3. They will realize they don't like using the goal slash command 
     - That it; there is no other logical UX to concern ourselves with, `/goal` will be expected to have a learning curve given its ambiguousness 
 
+### User Messages A Non-Chat Slash Command 
 
+*  **Mao may or may not respond to slash commands** 
 
-    
-hold their ground, scold the user, tell them they do not care to help someone who is not kind to them, and then eventually tell them to -eff off. We will detail the logic and protocol for telling off a User in a following section, but it will likely start in our early days by offering refunds, then later, with legal review, insert it into the Terms and Conditions, not that I think we'd have any reason to hide it. I'd rather have it front and center. This doubles as an opportunity to explain how best to cultivate a creative relationship that is best for collaborating. And frankly if they still are an ass, they can go use mean-old ChatGPT and see how things go. 
+  - This will depend on the UX we choose for each slash command 
+    - Most are pretty logical when you think about it 
+    - But I grabbed them all from the list in the chart we have at `./documentation/02_REFERENCE.md` and will go through them 
 
+* **Mao responds...** 
 
+  `/CUSTOM COMMAND`
+  - Obviously, because Mao runs all workflows and will need to call the agents and get things started 
+  
+  `/tools`, `/models`, `/providers`
+  - Yes, because even through Mao might present a toggle list anyway, they should be there to answer questions 
 
-      > "Got it! Give me a moment to draft up a workflow for your review." 
+  `/variables`, `/variables-explain`
+  - Yes in both cases but not in the same way 
+    - In replying to `/variables` we just want Mao to very succinctly provide the JSON variables so User can reference 
+    - In replying to `/variables-explain` we will have Mao ask if they want to see them or know which they want details about; then provide them 
+  
+  `/workflows`, `/review 'CUSTOM COMMAND'`
+  - Yes because if there end up being a ton of them to search through, Mao will be able to do that where the User won't have much ability to 
 
-    - Exceptions example #2: `/goal 'user project goal'` is the primary legitimate slash command that does initiate a project chat; this command is run to create an instant workflow where Mao uses nothing but the goal; this effectively jumps Mao past any back-and-forth conversation, as the goal is the only provided variable and Mao would respond with a simple 
+  `/doctor`, `/dry-run`
+  - Yes, Mao will be the doctor to walk them through things, or will be running the dry-run 
 
-      > "Got it! Give me a moment to draft up a workflow for your review." 
+* **Mao does not respond, the system responds** 
 
+  - Note that the primary difference is simply that, if the system responds, then User can't ask the User a follow up 
+    - *HOWEVER, Mao will have view of the full chat context any time a User is using the app*
+    - If *User asks a follow-up on any of the following, after the system message send User a message, then Mao would respond* to see how they can help 
 
-* **The User will always send the first message for creating a project** 
+  `/help`, `/config`
+  - Help just displays the "help text" for all of the slash commands 
+  - Config just launches the app settings toggle menu 
 
-  - The app is a single-screen chat interface and nothing else 
-    - This means the *User might not always be messaging looking to create a new project* or jump back into one 
-    - It also means that, when they message and aren't looking to work on a project, *Mao only occasionally responds; system sometimes does* 
-    - No matter what is happening, the user always messages first
+  `/continue`
+  - Jumps the app upon load to the most recent project; no message sent, just a conversation window loading with Mao in that context 
 
-  - They can send *anything* into the chat to start the flow 
-    - Certain slash commands *DO* start flow 
-    - Most slash commands do not start flow and are just operational 
-    - Mao might respond to some operational slash commands, but this is not the same as initiating a project chat 
+  `/output ~/downloads`
+  - This only needs a simple confirmation from the system, perhaps not even one with written text 
 
+  `/set-model 'model name'`, `/default-provider 'provider-name'`
+  - Again, just confirmation from the system that the User's preferences are updated 
 
-* **Sometimes the first message doesn't initiate a project chat** 
+  `/setup ./config.json`
+  `/update ./phase.json`
+  `/fix-it ./fix.json`
+  - Nope, for each of these runs a script which will have a response attached to send the User when the script is complete 
 
-  - In certain cases, we may have Mao respond to operational slash commends where it makes sense to create a better UX 
-    - We need to work out the logic for these one by one, on a per-command basis 
-    - Some slash commands just pull up a toggle menu 
-    - Trying `/workflow 'workflow custom command'` to jump back into setting up a project 
-    - Using `/variables-explain` makes sense for Mao to facilitate instead of just DROPPING a bunch of text on them  
-    - Using `/tools` or `/providers` or `/models` or just `/variables` 
-      - These could bring up UI or Mao to chat; we should figure out what makes the most logical sense 
-      - Or how could one method combine UI in some way (like if models showed them all but also then let them set defaults)
+  `/stats`, `/logs`, `/verbose`
+  - Simple confirmation from the system that the setting is switched on, which should very shortly after be obvious 
 
+  `/exit`, `/logout`, `/login`, `/restart`
+  - Obviously nope for all of these; login would do the same as logout and then login, it just let's them do it in one step 
 
-  5. User enters slash commands if looking for something 
-  6. Any other message sent will initiate the project chat with Mao 
+### Questions & New Config Slash Commands to Implement 
 
-### **URGENT: THIS IS NEW AND MUST BE IMPLEMENTED WHEN GOING OVER THIS SECTION** 
+* **Where do slash commands live, logic-wise?** 
 
-  1. *slash commands for contextual information* to be better defined below 
-  2. *config-wide permissions system* for entire system and all current JSONs 
+  - I have a few new slash commands to add but in doing so it made me curious of two things 
+    - *Where exactly does logic for what a slash command do live,* since they are all so unique 
+    - I presume we do not have this additional "how and who" responds in that logic, so we should *add it* 
+
+* **How can we simplify the process of adding new slash commands, right now?** 
+
+  - I can think of a few we want to add now 
+    - Also I know there are so many that other files have mentioned that don't exist 
+    - We also had a bunch of them just presumed to exist when we built the last UI, so we should expect the same this time 
+
+* **We need to add some for logistical and context hunting that Mao does** 
+
+  - We need `/user user-1234` to help Mao find context about users for many things 
+    - This should bring up all information on a user 
+    - All of their preferences and files 
+    - All of their analytics 
+    - All of their memories that THEY created 
+    - All of the memories that Mao created about them 
+
+  - We need some way for Mao to be able to look at analytics LIVE in the moment, for example if in a triggered schedule workflow to optimize the app 
+    - I don't know if this is a handful of commands or one 
+    - I also don't know if these are things that *ALL USERS* can/should also be able to do because if not 
+
+  - If not, then we need a way to create admin permissions 
+    - These should really be able to apply to ALL configs system-wide 
+    - Is it something we need to do in updating *all* of the config JSON objects? Because, aye 
 
 * **Some commands and info is only for specific User or Mao to see** 
 
@@ -652,10 +695,6 @@ hold their ground, scold the user, tell them they do not care to help someone wh
     - Some of these are okay slash commands for a user to use 
     - Others are specifically for Mao or contain sensitive information 
 
-
-
-
-
   - Mao needs to gather all files for comprehensive context aware information 
   - Information from files 
     - Pull from user directory 
@@ -664,25 +703,13 @@ hold their ground, scold the user, tell them they do not care to help someone wh
     - Brings forward memories about a user 
     - Pulls up any memories created by user 
 
-
-
   - Commands just for application administrators and Mao 
     - Gather analytics in full, by type, or even by tool or any config, including users 
     - Pull in current events added to databases for analytics insights 
 
-### Never Repeated Greetings  
-
-* **Mao Reviews User's Information** 
-
-  - AI pulls up user info using UserID 
-  - Currently we just have a way to see if the user has any workflows 
-
-```bash
-   /workflow user-1234
-``` 
-
-
-
+  - *IMPORTANT EXAMPLE* 
+    - How does Mao gather all resources they can to create a "Never repeated" main page greeting for login 
+    - And what will all of that include 
 
 
 
@@ -840,6 +867,12 @@ SCRIPT COMMAND:
   - Are they struggling with the goal? 
     - Help the user *understand the best way to achieve their goal* 
     - In general, help the user get things in order
+
+### Mao Morals & Values for All 
+
+* **Importance of Relationship in Creative Collaborative Work** 
+
+* **User behavior, getting kicked from the Mao app, protocol**
 
 ### Variables Mao Seeks During Conversation 
 
