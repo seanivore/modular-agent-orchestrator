@@ -3,7 +3,7 @@
 ---
 
 1. [**User login, setup,** creation of user files](#1-user-login)
-2. [**UI design** philosophy vibes with UX](#2-what-using-mao-looks--feels-like)
+2. [**UI design** philosophy vibes with UX](#2-the-look--feel-of-the-mao-app-high-level-design-requirements)
 3. [After login, User is free to **start the chat**](#3-screen-loads-after-login)
 4. [**Mao preps** to continue or start project in chat](#4-mao-prepares-for-initiated-project-chat)
 5. [Behavior protocol while **gathering project details**](#5-chatting-to-gather-project-details)
@@ -18,11 +18,11 @@
 
 ## Overview 
 
-Discovery of code labeled 'mock data' uncovered hardcoded category suggestions; clean-up revealed them to be woven through core logic. This being my first project of this size, I see now I need to make a point to read every file's code a bit sooner. When AI wasn't able to fully explain the logic of the code we were looking at, and I considered that Mao's task does not require much more than AI can already do very easily, it became clear that we are over-engineered. We NEED that level of understanding, period. 
+Discovery of code labeled 'mock data' uncovered hardcoded category suggestions; clean-up revealed it to be woven through core logic. AI wasn't able to fully explain the logic of the current code. Considering Mao's primary task requires nothing beyond current AI abilities, it is now clear we over-engineered. We NEED that level of understanding, period. As my first project of this size, I now understand I need to make a better point to read *every* file's code sooner. 
 
-This document outlines the flow of data and all operations, end to end. Using it as a guide, we will have a 'logic audit', working through all current files, making the outline more robust where needed, while cleaning up, optimizing, and simplifying the orchestration so that we have codebase that reflects the the simple logic of the task at hand for Mao. This will allow me to illustrate how we can provide guidance without hardcoding even a single suggestion, or any other non-modular hardcoding that could prove detrimental to the application when we build out the  multilingual capabilities. 
+This document outlines the flow of data and all operations, end to end. Using it as a guide, we will have a 'logic audit', working through all current files to clean up, optimize, and simplify orchestration leaving us with codebase that reflects the simple logic of Mao's chat-oriented task. Where needed, this will allow me to illustrate how to provide guidance without hardcoding a single suggestion that could prove detrimental to the application when we build out the multilingual capabilities. 
 
-### Summary  
+### Summary 
 
 Outline comprehensive data flow to understand necessary logic, then use the outline to audit the current codebase logic. 
 
@@ -94,9 +94,9 @@ While auditing we will implement remaining functionality needed to launch the ap
 ### Secure Login Setup UX/UI 
 
   - I love *PORKBUN DOMAIN*'S login flow 
-    - We have replicated it in our `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` secure login implementation plan 
+    - We have replicated it in our robust `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` secure login implementation plan 
     - The legal jargon has been edited slightly 
-    - This is how it works and how each element is displayed and when 
+    - This *UI/UX breakdown* illustrates how it works and how each element is displayed and when 
 
 * **Log in to an Existing Account** 
 
@@ -173,8 +173,8 @@ While auditing we will implement remaining functionality needed to launch the ap
     - *Our form fields should be strict in forcing specific formatting* known to work 
 
 ```bash 
-  > meid horvathaugust@gmail.com            # Used entire email address; must be single string of characters 
-  Username 'horvathaugust@gmail.com' -> user-5253    # Response; UserID follows user around application
+  > meid horvathaugust@gmail.com                     # Used entire email address
+  Username 'horvathaugust@gmail.com' -> user-5253    # Response 
 ```
 
 ```bash
@@ -192,10 +192,10 @@ While auditing we will implement remaining functionality needed to launch the ap
     - Core for logging preferences and more 
     - Analytics files are created and updated as user interacts with the app 
 
-  - *NOTE:* we need to update the JSON objects and possible code 
-    - We shifted away from using a random user created 'username' 
-    - And instead will only use Account ID that we know will be unique by design 
-    - the file name and directory names are changed from username to UserID, for example  
+  - *NOTE: REQUIRED FUNCTIONALITY UPDATE*
+    - We built everything using a 'username' 
+    - Will will instead use an Account ID that is unique by design 
+    - The *file name* and *directory names* must be UserID; they currently create directories using the defunct "username" 
 
 ```
 configs/user/...
@@ -208,84 +208,86 @@ configs/user/...
     ├── memories                        # Review, label, detail management details in codebase, updates 
     │   ├── personal_preferences.json
     │   └── project_context.json
-    └── user_seanivore.json             # Delta-only storage of User application preferences 
+    └── user_seanivore.json             # Delta-only storage of User application preferences *ANOTHER THAT HAS DEFUNCT USERNAME LOGIC*
 ``` 
 
 * **User login that has logged in before** 
 
-  - The system searches the `./configs/user/` directory for their *Account ID*
-    - They find their *UserID* in their user documents 
-    - This will be needed throughout the process 
-  - A *UserID can also be used to pull up any of the user's information* 
-    - Most recent workflows they were working on (in example below)
-    - System settings and preferences 
-    - Change their default model and provider of choice 
+  - System dynamically searches the `./configs/user/` directory for their *Account ID*
+    - When found, it pulls up their *UserID* needed for all in-app identification 
 
 * **The first user analytics are triggered at this point** 
 
   - *Details to come* when we review this flow and match up operations with files 
-    - Let's *detail each trigger* and when it goes off 
-    - Doing this will make it easier to come up with more, to manage them as their count grows 
-    - Might give us innovative ideas regarding what they could be used to inform about 
+    - Let's *detail each trigger* and when it goes off, making it easier to build out and visualize 
 
-### Project State **Memory Update Point**
+### __Project State Memory Update Point__
 
-  - None yet, the *first happens in next session* when Mao enters the chat 
-  - At the end of each section, like this H3, we will detail and name the Project State memory update 
-  - This is the *start to ensuring they are standardized and planned* 
+  - The first is in the next section right whe Mao enters the chat 
+  - We will have this 'Project State Memory Update Point' at the end of each section 
+  - They should all be preplanned and *standardized* 
 
 ---
 
-## 2. What Using Mao Looks & Feels Like  
+## 2. The Look & Feel of the Mao App (__HIGH LEVEL DESIGN REQUIREMENTS__)
 
-### The Single-Screen Chat-Centric User Experience 
+### Single-Screen, Chat-Centric (UI) Experience (UX)
 
-* **Literally everything in the app happens in a chat interface** 
+* **Everything in the app happens in one chat-interface screen**
 
-  - *AI manages app operations;* Large Language Models 
-    - That makes chat the most natural option; it is what they were made for, first 
-    - Other than a very *occasional toggle menu*, *Mao answers slash commands* for help, debugging, lists of tools 
-    - Types of *message are subtly differentiated* keeping the *"devil in the details"* between these responses 
+  - *AI manages app operations*; Large Language Models 
+    - Chat is the most natural option that LLMs were made for 
+    - There will be an *occasional toggle menu* 
+    - But *Mao even answers some slash commands,* like help with debugging, listing tools, etc. 
+    - Message type has subtle but distinct differences using icons and text color; *devil in the details*  
 
   - *Users today have used headless applications* in their chats for a while now
     - They are accustomed to *creating AI image generations in Discord* threads 
-    - They *talking to Slack-bot* for admin help 
-    - Play games or gather information from *Telegram Bots* 
+    - They *talking to Slack-bot* for admin help or playing games, gathering info from *Telegram bots* 
 
-* **Visual design gracefully keeps user attention on just contents of the chat** 
+* **Visual design gracefully keeps user attention on *just* contents of the chat** 
 
-  - After the login screen the user sees the minimalistic chat interface 
-    - Think *computer terminal simplicity* with *character-based icons indicating input fields and messages*  
-    - *No retro nerdy vibe*; instead this is *high class,* by being timeless and classic 
-    - The chat contains UI is *minimalistic;* it *matches everything* 
+  - After login screen, user sees a minimalistic chat interface 
+    - Think *computer terminal in terms of simplicity* of functionality and singular screen 
+    - *NO RETRO NERDY VIBE* 
+    - Use of *character-based icons indicating input fields and messages*  
+    - Instead, this is *high class* it is timeless and classic 
+    - The chat container is *minimalistic* and *matches everything* 
 
-  - The UI is one *single container* that is just a *clean, simple, narrow line with polished depth* 
-    - The UI has *NO* buttons, menu text, or icons, indicators 
-    - There being *ABSOLUTELY NOTHING* creates "silence is loud" kind of concept; it is *clearly intentional* 
-    - This is clear because the edges and border drop-shadow onto canvas has sharp, realistic subtle shadow 
-    - As if it is an extremely narrow, think centimeters deep and wide, classic black picture frame 
+  - The UI is *one single container*  
+    - The container has *clean, simple, narrow lines* and a *polished depth* 
+    - The UI has *NO BUTTONS, NO MENU TEXT, NO ICONS* OR OTHER INDICATORS 
+    - Intentional *ABSOLUTE NOTHING* creates 'silence is loud' moment that let's you know it is *clearly intentional* 
+    - Edges and border's drop-shadow onto canvas has sharp, realistic *DYNAMIC, REAL-TIME ANIMATION* 
+    - As if the frame casting the shadow is extremely narrow; centimeters deep and wide; a classic, black picture frame 
 
-  - The shadow has an *ever-so-slight angle meant to mimic shadow from the sun/moonlight* 
-    - The direction and size of this angled shadow changes with the movement of the sun or moon hour to hour 
-    - *Motion is too slow to see happen;* it is only noticeable now and then when you're like, *Woa, this is wider now on this side*
-    - Dark mode shadows are a thing too 
-      - Deeper blacks or even subtle colored tints (very dark purple or deep blue) 
-      - Maintain the luxury depth without looking washed out 
-      - Should feel like expensive black velvet with rich depth, *NOT* flat gray 
-    - Uses time of day so that the shadow behaves just like it would IRL 
-      - Daylight has sharp, defined shadows 
-      - Evening has softer, deeper, maybe slightly blue-tinted from moonlight shadows 
+  - The shadow has an *ever-so-slight angle* meant to *mimic shadow from the sun/moonlight* 
+    - The direction and size of this angled shadow *changes with the movement of the sun or moon, hour to hour*
+    - It is *extremely important* that the *MOTION IS SO CONSTANT AND SUBTLE THAT IT IS TOO SLOW TO SEE HAPPEN* 
+    - Motion is only noticeable when you take a moment and pause, and you're like, *Woa, this is wider now on this side!*
 
-  - Think: The way expensive hotels adjust lighting imperceptibly throughout the day; make people feel good without knowing why 
+  - Dark mode shadows exist, maintaining the luxury depth without looking washed out 
+    - Deeper blacks, subtle colored tints like very dark purple or deep blue 
+    - This should feel like *expensive black velvet* with *rich depth* 
+    - It should *NOT FEEL FLAT GRAY*
+    
+  - *Time of day* so is used to provide timing to the animation 
+  - It is illustrated to *look just like the shadow behaves in real life* 
+    - Daylight has sharp, defined shadows and evening has softer, deeper, maybe slightly blue-tinted from moonlight shadows 
+    - These colorations and design guidelines have been researched and are provided in detail below 
+
+  - Think: The way *expensive hotels adjust lighting imperceptibly throughout the day* 
+  - Luxury that makes people feel good without knowing why 
 
 ### Real-Time Shadow Movement; Creating Unconscious Luxury from Careful Details 
 
-* **Shadow has flow of continuous gradient motion** 
+* **Shadow has flow of *continuous* gradient motion** 
 
   - *Do not change shadows in discrete phases* 
   - Ensure the slowest motion possible 
-    - Avoid users easily seeing the motion, the magic, when watching 
-    - Better mimics real life experience of the passage of time 
+    - Avoid users easily seeing the motion when watching, because that is the magic 
+    - Seeing it move is trite, corny, not worth our time 
+    - But if it mimics real life experience of the passage of time, it can be our SUBTLE but DETAIL-ORIENTED focal point that they don't even realize is the focal point until months of using the application 
 
   - Continuous gradients have *signature moments*
     - The shadow evolves over time 
@@ -316,7 +318,6 @@ configs/user/...
 
   - Is there any way to work an ability for subagents to see a visual before fully completing their design work? 
 
-
    | TIME   | SHADOW PEAK CHARACTERISTIC  | 
    | ------ | --------------------------- |
    | 06:00  | Dawn awakening              |
@@ -332,12 +333,11 @@ configs/user/...
 
 * **Day time** 
 
-  - The *day time basics* for the color, look, and feeling 
+  - The day time *basics* for the color, look, and feeling 
     - Warm light creates cool shadows, but cool light creates warm; *be consistent* 
     - Remember that *light bounces around, subtly illuminating shadows*, *adding complexity to value and colors* 
     - Further away objects have lighter in value shadows, bluer in tone, and less definition 
     - *Maintain consistent light source and shadow characteristics* throughout for believable and harmonious feeling  
-
   - *Morning* 
     - Shadows are warm, soft, and long, often described as golden; gradually shortening as the sun ascends 
     - Colors tend to be cool, reflect ambient light off morning blue sky; illuminated areas carry more warmth 
@@ -359,13 +359,12 @@ configs/user/...
 
 * **Night time** 
 
-  - The *night time basics* for shadow color, look, and feeling  
+  - The night time *basics* for shadow color, look, and feeling  
     - Night shadows use *close range of values*, avoiding pure black 
     - They balance light and dark values to *create depth and dimension even on smaller scale* 
     - While shadows are darker, they possess *color variations of cooler tones* like blues and greens in moonlit areas 
     - The soft-to-sharper shadow edges should *convey strength of moonlight* 
     - Interplay of light and shadow to frame focal points, add depth, and *guide viewer eye* 
-
   - *Early night with moon rising*
     - Long, dramatic shadows stretching far, but with slightly softer edges from less direct light source 
     - Feels mysterious and ethereal, often dramatic emphasizing day to night transition 
@@ -380,10 +379,10 @@ configs/user/...
 
 * **Minimalistic 'devil in the details' carefully executed**
 
-  - Micro details are very important
+  - *Micro details are very important*
     - Hermès doesn't add more features to their bags
     - They make every stitch, every piece of leather flawless
-  - Shadow movement isn't to be cute 
+  - Shadow movement is not meant to be cute
     - It should barely be noticed 
     - The feature creates luxury minimalism that separates us from boring 
     - It is to make people say "I don't know why, but this feels expensive" 
@@ -391,12 +390,12 @@ configs/user/...
     - Shadow is 25% of the visual vocabulary 
     - So it better be museum quality execution 
 
-* **Constraint list of only four element to control in our design** 
+* **Carefully constrained: FOUR ELEMENTS CONTROL OUR DESIGN** 
 
   1. Shadow movement is an ever-present, too-slow-to-see-move with human eye feature 
   2. Conceptual semantic text highlighting with 5 colors that lightens cognitive load 
-  3. Character choice like bullet icons; typography, a single font, is the interface 
-  4. White space; silence is loud 
+  3. Character choice like bullet icons; typography, but only ONE FONT 
+  4. White space, again lightening cognitive load; it is not a chat like a history receipt that records everything, it evolves, simplifies 
 
 * **Simple, sharp, effective** 
 
@@ -441,18 +440,25 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ---
 
-## 3. Screen Loads After Login 
+## 3. Chat-Everything Screen Loads After Login 
 
 ### Core Objectives 
 
-  1. Implement missing pieces needed for gathering information 
-  2. Build into current setup method to apply permission access to any config 
-  3. AI uses any available context to create unique welcome messages 
+  1. 'AI Improv' never-repeated context-inspired welcome message 
+  2. Visually secondary help text statements that change with each login 
+  3. User has first move; chat a command or chat to start project build 
+  
+  
+  
+  
+  Information gathering, missing pieces need implementation  
+  2. Plan and build permissions system that works for any config 
+  3. 'AI IMPROV' uses any available context to create unique welcome messages
   4. Other minimal help text is tucked around interface text fields 
   5. User enters slash commands if looking for something 
   6. Any other message sent will initiate the project chat with Mao 
 
-### **URGENT: THIS MUST BE IMPLEMENTED ASAP WHEN GOING OVER THIS SECTION** 
+### **URGENT: THIS IS NEW AND MUST BE IMPLEMENTED WHEN GOING OVER THIS SECTION** 
 
   1. *slash commands for contextual information* to be better defined below 
   2. *config-wide permissions system* for entire system and all current JSONs 
