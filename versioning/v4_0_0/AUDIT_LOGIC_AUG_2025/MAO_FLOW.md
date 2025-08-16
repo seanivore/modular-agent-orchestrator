@@ -16,33 +16,34 @@
 
 ---
 
-* I wonder if there is a *way that we could create the Web UI so that users could optionally run the application locally in their terminal* if they want. What would be the implications of this for development, functionality, and for ability to use complex subscription tiers? 
-  - I thought of this when adding the chart of slash commands back into the documentation's reference page 
-  - Then I was starting to delete the "In Terminal" column and realized that we might not want to if this is possible 
-  - If it isn't possible, we could still keep these docs as internal since we can use the application in the terminal for development and testing 
-* We need to *formalize the use of the word "PROJECT"* regarding what is being created 
-  - Eliminates confusion with the "Workflow JSON Object" 
-  - Better illustrates the vast possible use cases of what Mao can do 
-  - "WORKFLOW" summons ideas of loops, prefab, etc., but Mao is more like a project manager for anything 
-
----
-
 ## Overview 
 
-Cleaning up code 'mock data' uncovered hardcoded category suggestion woven throughout. In trying to rectify this, I found large portions of code I cannot understand and AI couldn't fully define the logic. We NEED this level of understanding, period. This makes it clear that we have over engineered. Mao's task is incredibly simple and relies primarily on natural AI abilities. By creating this outlined flow of data we will have comprehensive understanding of what file code logic should be. It will be compared as we work through current files, cleaning up, optimizing, simplifying, and adding missing elements in the outline as we proceed. 
+Discovery of code labeled 'mock data' uncovered hardcoded category suggestions; clean-up revealed them to be woven through core logic. This being my first project of this size, I see now I need to make a point to read every file's code a bit sooner. When AI wasn't able to fully explain the logic of the code we were looking at, and I considered that Mao's task does not require much more than AI can already do very easily, it became clear that we are over-engineered. We NEED that level of understanding, period. 
+
+This document outlines the flow of data and all operations, end to end. Using it as a guide, we will have a 'logic audit', working through all current files, making the outline more robust where needed, while cleaning up, optimizing, and simplifying the orchestration so that we have codebase that reflects the the simple logic of the task at hand for Mao. This will allow me to illustrate how we can provide guidance without hardcoding even a single suggestion, or any other non-modular hardcoding that could prove detrimental to the application when we build out the  multilingual capabilities. 
 
 ### Summary  
 
-Outline comprehensive flow to understand what the logic should be, then compare it to each file's current logic, so we can clean up files accordingly. 
+Outline comprehensive data flow to understand necessary logic, then use the outline to audit the current codebase logic. 
 
 ### Goal 
 
-This final 'logic audit' will leave us prepared to launch the app in our terminal as a development tool for testing, before developing web UI. 
+While auditing we will implement remaining functionality needed to launch the application as a development-focused terminal app for testing. After which we will be able to develop a web UI to launch Mao publicly. 
 
-### Opportunity  
+### Opportunistic Outlook 
 
-  - Look at all files through the lens of creating a Web UI instead of our originally planned Terminal UI 
-  - Ensure files are prepared to launch after developing multilingual capabilities in parallel 
+* **Consider all of the files through the lens of launching as a multilingual application** 
+  - Ensure we are fully developing capabilities in parallel 
+
+* **Look at all files through the lens of creating a Web UI** 
+  - As it stands now, everything is written for our originally planned Terminal application 
+  - We should explore the possibility of offering both web and optional local download; what are implications for timeline and complexity? 
+
+* **Cement in new, more marketing focused, clearer-from-the-big-picture application terminology** 
+  - We cannot call what User's come into the app to do a "Workflow" 
+  - It is limiting; summons ideas of loops, prefab, etc., but Mao is more of a Project Manager for anything 
+  - Formalize using the word *PROJECT* regarding what is being created; better illustrates vast possible use cases of what Mao can do 
+  - Eliminates confusion with the 'Workflow JSON Object', which is 1 of four JSON workflow object types 
 
 ### Deliverables 
 
