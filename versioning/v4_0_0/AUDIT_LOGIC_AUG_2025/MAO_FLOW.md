@@ -661,6 +661,8 @@ setInterval(updateShadow, 60000); // Update every minute
 
 * **We need to add some for logistical and context hunting that Mao does** 
 
+*NOTE: REQUIRED FUNCTIONALITY UPDATE KNOWN, Re: elimination of usernames and use of UserID instead, or CUSTOM COMMAND*
+
   - We need `/user user-1234` to help Mao find context about users for many things 
     - This should bring up all information on a user 
     - All of their preferences and files 
@@ -717,28 +719,39 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ### Core Objective 
 
-  1. Project development was initiated by User 
-  2. New projects have their WorkflowID created 
-  3. Project State memory entry is initiated or accessed 
-  4. Create a truly unique chat UX 
-     - Combining *memory* with *data analytics* 
+  1. An project chat has been initiated (#3)
+  2. Locate or create WorkflowID 
+  3. Initiate or locate Project State Memory using WorkflowID (other assets in Files API if return user)
+  4. Provide User with a truly unique chat UX 
+     - Combining *AI-created memory*, *user-created memory*, and *analytics* 
      - This is SO FUTURE and not everyone has caught on yet 
+     - Bonus points when we add a tool that gives Mao daily headlines or something otherwise temporal 
 
 ### Mao's Role: Come To Chat Prepared 
 
 * **Getting the WorkflowID is Mao's first essential task** 
 
-  - Every new project needs a WorkflowID  
-    - This is done on the backend, but it uses the terminal command script `uid` 
+  - Every new project needs a WorkflowID 
+    - This is done on the backend 
+    - It is also a script that can be used in the terminal by running `uid` 
     - Every time you enter `uid` it comes up with a COMPLETELY DIFFERENT string of characters 
     - It is always `uid-ABC-123` starting with uid, then three letters, then three numbers 
 
   - This is *extremely important to ALL WORKFLOW PROCESSES*
     - Mao uses it to label memories saved about the workflow 
     - It *labels items saved in the Files API*
-    - It is the string that connects all workflow pieces together 
+    - It is the string that connects all workflow pieces together, including to the UserID 
 
-  - The 'WorkflowID' and the workflow's 'Custom Command' identified on the JSON workflow config are the only two unique identifiers available to the User on every single project; any other IDs used on the back end should be minimized, only used if absolutely necessary, and hidden from the User 
+  - The only two unique identifiers available to the User on every single project
+    - 1. WorkflowID 
+    - 2. The Project's 'CUSTOM COMMAND' to execute a workflow 
+  - Both of these unique IDs can serve as a search query if needed by User 
+  - Any other IDs used on the back end should be 
+    - Minimized 
+    - Only used if absolutely necessary 
+    - Hidden from the User 
+  - Note that the important *UserID* is not something we want to ask Users to memorize 
+  - The mention of CUSTOM COMMAND here is because, of anything, that is what the user would remember of a project's workflow 
 
 ```bash 
   > uid                        # No input required 
@@ -748,7 +761,8 @@ setInterval(updateShadow, 60000); // Update every minute
 ```
 
 * **IMPORTANT NOTE FOR CLARITY:** 
-  - *Be careful of the distinction between terminology surrounding the UserID and WorkflowID*
+  - *Be careful of the distinction between terminology surrounding the UserID and WorkflowID* 
+  - Also, the CUSTOM COMMAND is unique to every Project 
 
 ```
 INPUT:
@@ -764,7 +778,7 @@ SCRIPT COMMAND:
 * **Mao gathers knowledge before entering the chat**
 
   - *New user* or *returning user* information
-    - AI looks up their user config file `user_5253.json` 
+    - AI looks up their user config file `user_5253.json`         # is this a command we can have?
     - Finds the file for at least their first name 
     - UX rule: We are ALWAYS using the User's firsts name 
 
@@ -777,16 +791,15 @@ SCRIPT COMMAND:
 
 * **Mao sends greeting**
 
-  - *Always dynamic, NEVER CANNED* 
-    - NO suggestions in codebase 
-    - AI doesn't need the help 
-    - Funny, random, goofy 
-    - Be fun, be weird 
-    - Experimentation is ENCOURAGED because we have analytics
-
-    * Note: I'm thinking that we want to create these contextual, analytics-memory-driven greeting already at the top on the chat on screen load. That way we'll always have that fun UX for the user, and Mao's actual first reply can/should be more specifically in response to their actual first message. I don't think we need to talk through examples of that message. 
-
-  - Respond to User's first message with *1-3 short sentences that is 10 to 20 words in total* 
+  - Respond to User's first message 
+    - *1-2 short sentences* 
+    - *10 to 20 words in total* 
+    - *Always dynamic, NEVER CANNED* 
+      - NO suggestions in codebase 
+      - AI doesn't need the help 
+      - Funny, random, goofy 
+      - Be fun, be weird 
+      - Experimentation is ENCOURAGED (in a future update we will dig into identifying statement sentiment and whatever other linguistic properties we can attribute to messages sent by the AI to get as technical as we can, *and then* we will be able to connect analytics to these messages)
 
   - Returning user's *recent projects or interactions* 
       > "Sean, are you ready to get back into setting up your applicant review workflow? We can build a whole tracking system." 
@@ -797,30 +810,30 @@ SCRIPT COMMAND:
   - The *AI also saves notable interactions with the user*; this is where UX really shines 
       > "Sean, hello. I hope last week's analytics reporting was helpful. What are we working on today?" 
 
-* **Mao creates project state memory entry tagged with the WorkflowID** 
+### Project State __Memory Update Point__ 
 
-  - For new users, Mao can do this before responding 
-  - For returning users, Mao must respond in the chat first to know they want to work on a previous or new project 
-  - These entries manage "State Management"  
-    - There are various orchestrator files that deal with "state" management 
-    - We should better understand how that works
-  - When any instance of Mao is started, all log files and memories will be accessible using the WorkflowID; this is how we get the seamless UX 
-
-### Project State **Memory Update Point**
-`01-initiate-chat-001` 
+  - Name of update: `01-initiate-chat-001` 
 
 * **Setting things up and setting the tone** 
 
   - This entry must be completed at the noted point above 
-    - Before the chat begins 
-    - Find or create the standardization for this entry 
-  - Is it worth recording the user's first message and Mao's planned response? 
-    - How can we track "setting the tone"? 
-  - The standardization should also make it clear what kind of entry to create, how to tag the WorkflowID, etc. 
+    - For new users, Mao can do this before responding 
+    - For returning users, Mao must respond in the chat first to know they want to work on a previous or new project 
+  - First entry so it should have 
+    - Minimal specifics details 
+    - Mostly record keeping things like date, user, etc. 
+
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+  
+  - Make it clear what kind of entry to create 
+    - How to tag the WorkflowID, etc. 
     - Create a new observation tagged to an entity named with WorkflowID 
-    - Start the first line with the name of the project state update entry point 
-    - The counter is for new (001) or returning (002+) users continuing a started project 
-    - Probably should be an entry with minimal specifics details and mostly record keeping things like date, user, etc. 
+  - Start the first line with the name of the project state update entry point 
+    - This entry is `01-initiate-chat-001` 
+    - The 01 before the name is because it is the first entry in the entire Project Workflow 
+    - The appended counter, starting at 001, and then 002+ for returning users 
+      - This is unlikely to go above 001 in this first section 
+      - But you never know when a User could drop out or internet cut out 
 
 ---
 
