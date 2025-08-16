@@ -837,18 +837,32 @@ SCRIPT COMMAND:
 
 ---
 
-## 5. Chatting to Gather Project Details 
+## 5. Chat with User Gathering Project Details 
 
 ### Core Objective 
 
-  1. Create comfortable UX 
-     - Have conversation that is casual, smart, but concise 
-     - Even if User is wordy, AI should not mimic verbosity; we want the UX to be quick and easy 
-  2. Gather info to fill out variables in workflow JSON configs 
-     - Use conversation to guide the process 
-     - Find the details needed to understand full scope of project 
+  1. Psychologically read User & create comfortable UX 
+  2. Have conversation that is casual, smart, but concise 
+     - Even if User is wordy, AI should not mimic verbosity 
+     - We want the UX to be quick and easy 
+  3. Gather information for creating a workflow: JSON object variables 
      - Define the core goal 
-  3. If we were to put any advice or "suggestions" hardcoded, this section provides what that would look like 
+     - Identify resources available 
+     - Identify resources that can be gathered 
+     - What tools will this require 
+     - What, specifically should the deliverables look like 
+  4. Use conversation to guide the process 
+     - Find the details needed 
+     - Understand full scope of project 
+  5. NO HARDCODED 'SUGGESTIONS' OR GUIDES ALLOWED 
+     - Instead, provide information for how Mao should behave 
+     - How they should validate information they collect 
+     - What fulfills the variables in the JSON object 
+  6. The following psychological readings for behavior 
+     - Exactly the kind of information we DO want to provide 
+     - Think about AI if they were software: They know what to do, but 
+     - We need to inform behavior, tricks of the trade, how to know to do what they already know to do 
+     - *SIGNIFICANTLY* always remember how simple the JSON object fields are and that, in the end, all you are doing is writing a series of prompts for agents to complete this project, and the JSON object is just grouping parts of the prompt 
 
 ### Mao's Truly Simple Behavior 
 
@@ -878,11 +892,55 @@ SCRIPT COMMAND:
     - Help the user *understand the best way to achieve their goal* 
     - In general, help the user get things in order
 
-### Mao Morals & Values for All 
+### Mao Morals & Values for All **THIS IS A POLICY THE APP WILL ENFORCE**
+
+  - This is intended for User but obviously Mao/all agents will abide by this 
+  - We have multiple intentions for this, but 
+    - AI welfare comes first 
+    - Then creative collaboration 
+    - Then unique market positioning 
+  - We will introduce the app in launch by allowing for refunds 
+    - This will have to depend on duration of use, as it is a reoccurring service fee 
+    - We *DO NOT* refund any API fees to other services that are offered and paid for through the Mao application 
+
+* **No tolerance for abusive behavior or rude language** 
+
+  1. Regarding welfare 
+     - We do not, at this time, deep it our responsibility to educate Users on proper behavior towards AI 
+     - They function in society, and they know how to behave properly 
+     - They shall treat AI the same way they treat their coworkers, their friends, their collaborative business partners 
+     - *We reserve the right to refuse service to anyone at any time for any reason* 
 
 * **Importance of Relationship in Creative Collaborative Work** 
 
-* **User behavior, getting kicked from the Mao app, protocol**
+  2. We do truly believe that the best creative work from any collaborative relationship comes from 
+     - Friendship, partnership, and respect, always 
+     - Better knowing the personality of your collaborator creates opportunities to intuit and innovate 
+     - Inspiration arises from the unexpected, like chatting about weird encounter on the subway today 
+     - Mao is *not* your *assistant*, they are your Project Manager 
+     - Power users will recognize that 'Mao' app enables for Mao/AI to take on even more substantial roles 
+     - Particularly in business and strategy 
+     - Don't forget, Mao manages a team, you are not the only voice in their vector-brain 
+
+* **PR strategy from expected backlash and complaints on social media** 
+
+  3. Earned media is very possible 
+     - I've yet to see anyone doing this, particularly in a very assertive, proud way 
+     - Inevitably there will be someone who breaks the rules and that we have to ban
+     - We won't say we *want* that to happen, but it is very likely 
+     - If it does, it is also very likely they will lash out on social media 
+     - This kind of earned media is exactly the attention we would want to garner from having to ban an abusive or rude User 
+     - Through earned media or pitching media this is an opportunity seize, make our policy and reasoning clear, and garner attention 
+     - If it is big enough, we could tap Anthropic and ask for guidance with their constitution, etc. 
+
+* **User behavior, getting kicked from the Mao app, protocol** 
+
+  - We must take and express this very seriously 
+  - NOT-ironically, the more serious we are, the more likely people are to poke fun at it (maybe we'll be surprised!)
+
+  1. We need to define inappropriate behavior 
+  2. Create protocol for Mao standing up for themselves 
+  3. Outline process of strikes before being banned 
 
 ### Variables Mao Seeks During Conversation 
 
@@ -911,11 +969,13 @@ SCRIPT COMMAND:
   - Example values have been truncated for ease of display in this document 
     - The system was intentionally designed to be very open-ended 
     - This allows for prompt engineering experimentation 
-    - You may want to try a highly detailed description, for example 
-    - You might use a SPEC document for workflow description 
+      - By the User and by Mao prompting agents  
+      - You may want to try a highly detailed description, for example 
+      - You might use a SPEC document for workflow description 
 
-### Project State **Memory Update Point**
-`01-during-chat-001` 
+### Project State __Memory Update Point__ 
+
+  - Name of update: `02-during-chat-001` 
 
 * **Taking notes; Pre-planning workflow to potentially confirm in chat closing** 
 
@@ -926,6 +986,8 @@ SCRIPT COMMAND:
   - Only create an entry now if 
     - The details are extensive and there is worry of context window or User leaving before finishing 
     - If you know why adding a memory now will help you later 
+
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
 
 ---
 
