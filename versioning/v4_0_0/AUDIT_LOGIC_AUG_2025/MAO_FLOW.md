@@ -47,40 +47,30 @@ While auditing we will implement remaining functionality needed to launch the ap
 
 ### Deliverables 
 
-* **This comprehensive file which will provide various values** 
-  - Plain language description of logic 
-  - True understanding of dataflow allowing for better documentation 
-  - Provides a vision for the UX and UI needs 
-  - This is very similar to our, now dated, `_NEW_USER_FLOW.md` file 
+* **Comprehensive plain-language description of logic for all application functionality**
+  - Very clear vision of dataflow for diagram in documentation 
+  - Provides an extremely detailed vision for UX/UI design requirements 
 
-* **Simple, clear, concise diagrams of information flow** 
-  - Prior attempts were consistently convoluted due to our over-engineering 
-  - Being able to create these will serve as a form of proof of concept 
-  - Provides legitimacy to brand, tool, and team due to easy of understandability 
-
-* **Opportunity to ensure standardization and consistency across configs, memory state updates, and more** 
-  - Many features were implemented in the midst of development 
-  - This will ensure it was done correctly, comprehensively, and allow for creation of standardization guides 
+* **Ensure consistent standardization across configs, memory state updates, etc.** 
+  - A large number of the Mao feature functionality was conceived during the v4 update development  
+  - There will probably be some disconnects we missed due to this process 
 
 ### Procedure 
 
-1. We will proceed through the sections below 
+1. Work through each section of this document 
    - Identifying where this happens in current files 
-   - Ensure it is happening properly, without any additional functions or complexity 
-2. In first run we will catalog what changes need to be made 
-   - We want to see the full picture before we start editing any files 
-   - We might find opportunities to simplify or combine multiple, extremely similar purposed files 
-3. The update our code file making changes as needed 
-   - This also includes updating this outline with any missing information 
-   - Notion should also be added to this outline indicating what file handles each bit of the logic and data flow 
-4. Fill in all blanks, complete any missing information; "finish the job" 
-   - Shouldn't have to say this ever, but this IS real code implementation  
-   - Do not skip any concept expecting to come back later, each fix and completion should be handled in proper sequence 
-   - Standardize any of the newer features and confirm other features have already been standardized across-the-board 
-5. Implement the remaining items needed for launching the development terminal UI app 
-   - We have been detailing this information in `MAO_LAUNCH.md` 
-   - When complete we should be able to focus exclusively on bugs and then building web UI 
-   - Set ourselves up for success building web UI by thinking forward at all times 
+   - Ensure it is happening properly 
+   - Remove any additional functions and complexity not in this document 
+2. First review will be more surface-oriented  
+   - See full picture before we start editing files 
+   - Leaves open the possibility of combining multiple, similar orchestration files for simplicity 
+3. Then proceed through making all necessary changes to codebase, especially orchestration files 
+   - We are already on a new branch called `mao-web` for this build 
+   - Equally, grow this outline to be comprehensive and all-accurate, adding notation to where each function's file is  
+4. Ensure all remaining functionality that requires implementation is completed 
+   - Shouldn't have to say this ever, but given what the 'mock code' said that led to this, *THIS IS ALL REAL CODE IMPLEMENTATION* 
+   - Do not skip any concept expecting to come back later; stop, we will work it out to completion in proper sequence, then move forward 
+   - Standardize any newer features; confirm other features have standardization 
 
 ---
 
