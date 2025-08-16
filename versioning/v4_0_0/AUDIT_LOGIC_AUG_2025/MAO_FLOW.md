@@ -444,17 +444,105 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ### Core Objectives 
 
-  1. 'AI Improv' never-repeated context-inspired welcome message 
-  2. Visually secondary help text statements that change with each login 
-  3. User has first move; chat a command or chat to start project build 
-  
-  
-  
-  
-  Information gathering, missing pieces need implementation  
-  2. Plan and build permissions system that works for any config 
-  3. 'AI IMPROV' uses any available context to create unique welcome messages
-  4. Other minimal help text is tucked around interface text fields 
+  1. Welcome message displayed and never repeats itself 
+  2. Visually-secondary help text that changes every login
+  3. User has first move to chat a command or chat to start project build 
+
+### Post Login Screen Text 
+
+* **AI writes Custom AI 'Improv' Welcome Header after any login** 
+
+  - The login should be the trigger because Mao will have UserID 
+    - This is *prominent text on the screen* that uses their name 
+    - AI *writes a greeting message on-the-fly* 
+    - Analytics, user data, and memory used to find any context 
+
+      > "It is 10pm on Thursday night. Do you know where your AI is, Sean?
+
+* **Winning viral strategy: Use tech adoption curve to your advantage**
+
+  - Combination of *USER DATA* + *ANALYTICS* + AI with *MEMORIES* has never been done before now 
+    - Completely new user experience to capitalize on; and importantly, *IT IS EASY* 
+    - Why is it easy? Because just about anything remotely personal or contextual will impress while the technical ability is still new 
+
+  - We will *NEVER* prepare these welcome messages in advance 
+    - Ideation is one of LLM's most sought after skills from humans 
+    - Extreme logic leaps + cross disciplinary connections, etc. = creativity 
+    - *DO NOT CODE ANY SUGGESTIONS* OR FALLBACKS AT ALL, NO EXCEPTIONS 
+
+  - IMAGE: The literal *worst case scenario*  
+    - The welcome message is a little boring or weird 
+    - Mao had to get goofy or random; User's don't understand 
+    - The awesome thing here is that *GOOFY AND RANDOM* that they don't understand is still humorous 
+    - It is a win-win-win scenario for at least a couple years 
+
+* **Subtle, non-distracting, neatly placed pro-tips and helpful info**
+
+  - Change help-text messages frequently 
+    - Every time the login to main page 
+    - But also they should change constantly while the user is doing anything; working with Mao or in settings 
+
+  - We should set a timer with a handful of different durations for how long it stays in view before changing 
+    - *ANALYTICS REQUIRED HERE AS WELL* because then we will want to see which duration works the best 
+    - We can experiment until we start to see patterns 
+
+  - These are *"canned"* but only *"canned for the age of AI"* 
+    - We'll create a reoccurring triggered project for Mao to write 100+ every week 
+    - Even just rewriting them by shuffling around the wording would work 
+
+  - *THESE REQUIRE ANALYTICS* WHEN THEY ARE IMPLEMENTED 
+    - We need to know exactly which tips are being used and which are not 
+    - This will become particularly important when the user count grows 
+    - Do they use them more if they are long? Or just sort and almost vague? 
+    - When they use one, how long are they exploring before they start working on something? *(second trigger?)* 
+    - How many times has the user logged in before using a tip? Which tips work best for long time users? 
+
+      > ?  Try /help or /config 
+      > ?  /goal will make your project instantly 
+      > ?  Settings /config or /themes 
+      > ?  Check out all the /tools /models /providers 
+      > ?  Jump back into a project /workflow CUSTOM-COMMAND 
+      > ?  Mao can help you find your /workflows 
+
+### User Sends First Message To Do *ANYTHING* 
+
+* **User must send a message for anything to happen next** 
+
+  - Single-screen app; User sees welcome message and help tips 
+  - They have only a couple options, but one has many choices 
+  - Mao responds to some, the system responds to others 
+
+  1. User messages Mao to start a 
+
+* **The User will always send the first message for creating a project** 
+
+  - The app is a single-screen chat interface and nothing else 
+    - This means the *User might not always be messaging looking to create a new project* or jump back into one 
+    - It also means that, when they message and aren't looking to work on a project, *Mao only occasionally responds; system sometimes does* 
+    - No matter what is happening, the user always messages first
+
+  - They can send *anything* into the chat to start the flow 
+    - Certain slash commands *DO* start flow 
+    - Most slash commands do not start flow and are just operational 
+    - Mao might respond to some operational slash commands, but this is not the same as initiating a project chat 
+
+  - Slash commands that *DO* initiate project chat 
+    - Exception example #1: `/chat 'your message'` which jumps right to the chat and starts the first message; this was primarily created for the terminal app because using `mao --chat 'your message'` would start the app and send that chat; with a web app this command is sort of pointless but there is no need to remove it; users might use it to initiate a project chat after using some operational slash command, for example, not that it is necessary 
+    - Exceptions example #2: `/goal 'user project goal'` is the primary legitimate slash command that does initiate a project chat; this command is run to create an instant workflow where Mao uses nothing but the goal; this effectively jumps Mao past any back-and-forth conversation, as the goal is the only provided variable and Mao would respond with a simple 
+      > "Got it! Give me a moment to draft up a workflow for your review." 
+
+* **Sometimes the first message doesn't initiate a project chat** 
+
+  - In certain cases, we may have Mao respond to operational slash commends where it makes sense to create a better UX 
+    - We need to work out the logic for these one by one, on a per-command basis 
+    - Some slash commands just pull up a toggle menu 
+    - Trying `/workflow 'workflow custom command'` to jump back into setting up a project 
+    - Using `/variables-explain` makes sense for Mao to facilitate instead of just DROPPING a bunch of text on them  
+    - Using `/tools` or `/providers` or `/models` or just `/variables` 
+      - These could bring up UI or Mao to chat; we should figure out what makes the most logical sense 
+      - Or how could one method combine UI in some way (like if models showed them all but also then let them set defaults)
+
+
   5. User enters slash commands if looking for something 
   6. Any other message sent will initiate the project chat with Mao 
 
@@ -507,62 +595,9 @@ setInterval(updateShadow, 60000); // Update every minute
 
 
 
-* **Custom AI 'Improv' Welcome Header** 
-
-  - *Only text on the screen* after login 
-    - Context and memory used to find any context 
-    - AI *writes a greeting message on-the-fly* 
-
-      > "It is 10pm on Thursday night. Do you know where your AI is, Sean?
-
-  - We have a *tech curve to our advantage* here  
-    - *Combining memory with analytics with intelligence is a completely new functionality* 
-    - Therefore *almost anything remotely contextual will impress* Users 
-
-  - These *welcome messages are NEVER PREPARED IN ADVANCE* 
-    - Ideation is quite possibly one of LLM's most lauded skill set 
-    - Ability to make extreme logic leaps or and cross disciplinary connections makes creativity 
-    - *No "fallbacks"*, no "suggestions" no *NOTHING in code allowed* 
-
-  - Literal *worst case scenario* would mean 
-    - Welcome message is a little boring 
-    - AI got really goofy or random and User's don't understand 
-    - BOTH of these are better than acceptable; *potentially still admired* by users 
-
-* **Secondary text neatly places pro-tips and helpful info**
-
-Various tips and help messages as very subtle, secondary text 
 
 
-### User's Role Is To Initiate Project Chat 
 
-* **The User will always send the first message for creating a project** 
-
-  - The app is a single-screen chat interface and nothing else 
-    - This means the *User might not always be messaging looking to create a new project* or jump back into one 
-    - It also means that, when they message and aren't looking to work on a project, *Mao only occasionally responds; system sometimes does* 
-    - No matter what is happening, the user always messages first
-
-  - They can send *anything* into the chat to start the flow 
-    - Certain slash commands *DO* start flow 
-    - Most slash commands do not start flow and are just operational 
-    - Mao might respond to some operational slash commands, but this is not the same as initiating a project chat 
-
-  - Slash commands that *DO* initiate project chat 
-    - Exception example #1: `/chat 'your message'` which jumps right to the chat and starts the first message; this was primarily created for the terminal app because using `mao --chat 'your message'` would start the app and send that chat; with a web app this command is sort of pointless but there is no need to remove it; users might use it to initiate a project chat after using some operational slash command, for example, not that it is necessary 
-    - Exceptions example #2: `/goal 'user project goal'` is the primary legitimate slash command that does initiate a project chat; this command is run to create an instant workflow where Mao uses nothing but the goal; this effectively jumps Mao past any back-and-forth conversation, as the goal is the only provided variable and Mao would respond with a simple 
-      > "Got it! Give me a moment to draft up a workflow for your review." 
-
-* **Sometimes the first message doesn't initiate a project chat** 
-
-  - In certain cases, we may have Mao respond to operational slash commends where it makes sense to create a better UX 
-    - We need to work out the logic for these one by one, on a per-command basis 
-    - Some slash commands just pull up a toggle menu 
-    - Trying `/workflow 'workflow custom command'` to jump back into setting up a project 
-    - Using `/variables-explain` makes sense for Mao to facilitate instead of just DROPPING a bunch of text on them  
-    - Using `/tools` or `/providers` or `/models` or just `/variables` 
-      - These could bring up UI or Mao to chat; we should figure out what makes the most logical sense 
-      - Or how could one method combine UI in some way (like if models showed them all but also then let them set defaults)
 
 ---
 
