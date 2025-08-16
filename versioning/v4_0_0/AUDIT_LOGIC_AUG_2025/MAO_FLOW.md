@@ -4,9 +4,9 @@
 
 1. [**User login, setup,** creation of user files](#1-user-login)
 2. [**UI design** philosophy vibes with UX](#2-the-look--feel-of-the-mao-app-high-level-design-requirements)
-3. [After login, User is free to **start the chat**](#3-screen-loads-after-login)
+3. [After login, User is free to **start the chat**](#3-main-app-screen-chat-loads)
 4. [**Mao preps** to continue or start project in chat](#4-mao-prepares-for-initiated-project-chat)
-5. [Behavior protocol while **gathering project details**](#5-chatting-to-gather-project-details)
+5. [Behavior protocol while **gathering project details**](#5-chat-with-user-gathering-project-details)
 6. [Description of workflows; defined **variables; validation methods**](#6-review-of-workflow-json-objects--variables)
 7. [**Telling user they'll brb** with the project's workflow draft](#7-ending-the-project-production-chat)
 8. [Advanced workflows and **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
@@ -71,6 +71,9 @@ While auditing we will implement remaining functionality needed to launch the ap
    - Shouldn't have to say this ever, but given what the 'mock code' said that led to this, *THIS IS ALL REAL CODE IMPLEMENTATION* 
    - Do not skip any concept expecting to come back later; stop, we will work it out to completion in proper sequence, then move forward 
    - Standardize any newer features; confirm other features have standardization 
+
+---
+[TOP](#overview)
 
 ---
 
@@ -220,6 +223,9 @@ configs/user/...
 
   - *Details to come* when we review this flow and match up operations with files 
     - Let's *detail each trigger* and when it goes off, making it easier to build out and visualize 
+
+---
+[TOP](#overview)
 
 ---
 
@@ -431,6 +437,9 @@ function updateShadow() {
 }
 setInterval(updateShadow, 60000); // Update every minute
 ```
+
+---
+[TOP](#overview)
 
 ---
 
@@ -714,6 +723,9 @@ setInterval(updateShadow, 60000); // Update every minute
   - They should all be preplanned and *standardized* 
 
 ---
+[TOP](#overview)
+
+---
 
 ## 4. Mao Prepares for Initiated Project Chat
 
@@ -834,6 +846,9 @@ SCRIPT COMMAND:
     - The appended counter, starting at 001, and then 002+ for returning users 
       - This is unlikely to go above 001 in this first section 
       - But you never know when a User could drop out or internet cut out 
+
+---
+[TOP](#overview)
 
 ---
 
@@ -988,6 +1003,9 @@ SCRIPT COMMAND:
     - If you know why adding a memory now will help you later 
 
 * **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+
+---
+[TOP](#overview)
 
 ---
 
@@ -1197,6 +1215,9 @@ SCRIPT COMMAND:
 | 8    | Every other day   |                    | 8    | 2100-0000  |
 
 ---
+[TOP](#overview)
+
+---
 
 ## 7. Ending The Project Production Chat 
 
@@ -1289,6 +1310,9 @@ SCRIPT COMMAND:
     - What is the initial idea? What other ideas do you have for the workflow? *Will you create one or more drafts?* 
 
 * **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+
+---
+[TOP](#overview)
 
 ---
 
@@ -1479,6 +1503,9 @@ CALL 1     CALL 2      CALL 3
   - Agents and Mao and *respond to things in real-time* 
 
 ---
+[TOP](#overview)
+
+---
 
 ## 9. Building The Project's Workflow 
 
@@ -1492,7 +1519,7 @@ CALL 1     CALL 2      CALL 3
   6. Secure all assets again and update memory in case user takes a break 
   7. Prepare to present the project's workflow draft to User by creating diagram flow chart 
 
-### User Interface While Mao Is Working 
+### UI and UX While Mao Is Working 
 
 * **UI must eliminate UX sense of waiting**
 
@@ -1596,8 +1623,9 @@ uses cutting edge best practices for most efficient, simple, effective build
   - This is primarily *done as a backup* in case there is some kind of disconnect before User reviews 
   - Remember that only items added to the Files API using the *Code Execution* tool can be downloaded again later 
 
-### Project State **Memory Update Point**
-`04-build-workflow-001` 
+### Project State __Memory Update Point__ 
+
+  - Name of update: `04-build-workflow-001` 
 
 * **Details about what the actual workflow looked like** 
 
@@ -1613,6 +1641,11 @@ uses cutting edge best practices for most efficient, simple, effective build
   - I really like the idea of having Mao try to predict what the user will say and think 
     - It will be interesting to see over time how accurate Mao is 
     - We can use analytics to figure out how to improve these predictions 
+
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+
+---
+[TOP](#overview)
 
 ---
 
@@ -1644,7 +1677,10 @@ uses cutting edge best practices for most efficient, simple, effective build
     - Standardization should identify questions that they can use as a checklist 
 
 
---- 
+---
+[TOP](#overview)
+
+---
 
 ## 11. Setup of Approved Project Workflows 
 
