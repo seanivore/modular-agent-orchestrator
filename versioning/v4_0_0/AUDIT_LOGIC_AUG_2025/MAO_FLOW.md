@@ -221,12 +221,6 @@ configs/user/...
   - *Details to come* when we review this flow and match up operations with files 
     - Let's *detail each trigger* and when it goes off, making it easier to build out and visualize 
 
-### __Project State Memory Update Point__
-
-  - The first is in the next section right whe Mao enters the chat 
-  - We will have this 'Project State Memory Update Point' at the end of each section 
-  - They should all be preplanned and *standardized* 
-
 ---
 
 ## 2. The Look & Feel of the Mao App (__HIGH LEVEL DESIGN REQUIREMENTS__)
@@ -440,7 +434,7 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ---
 
-## 3. Chat-Everything Screen Loads After Login 
+## 3. Main App Screen (Chat) Loads
 
 ### Core Objectives 
 
@@ -711,8 +705,11 @@ setInterval(updateShadow, 60000); // Update every minute
     - How does Mao gather all resources they can to create a "Never repeated" main page greeting for login 
     - And what will all of that include 
 
+### __Project State Memory Update Point__
 
-
+  - The first is in the next section right whe Mao enters the chat 
+  - We will have this 'Project State Memory Update Point' at the end of each section that requires a Project State Memory Update 
+  - They should all be preplanned and *standardized* 
 
 ---
 
