@@ -993,10 +993,13 @@ SCRIPT COMMAND:
 
 ## 6. Review of Workflow JSON Objects & Variables 
 
+* **NOTE: I WOULD LIKE TO REMOVE THE 3RD FALLBACK MODEL AND PROVIDER FROM THE WORKFLOW JSON OBJECT**
+
 ### Core Objectives 
 
   - Ensure accurate understanding objects needed to create workflow 
   - Validating JSON object variable values 
+  - Ensuring there is *NO NEED OR DESIRE TO PROVIDE SUGGESTIONS OR EXAMPLES* in the code
 
 ### Defining **Workflow** JSON Object Variable Values
 
@@ -1008,7 +1011,7 @@ SCRIPT COMMAND:
 |-----------------------|----------------------------------------------|-----------------------------------------------|
 | *UserID*              | Connect all your stuff                       | user-5709                                     |
 | *WorkflowID*          | Connect all of one project                   | uid-abd-123                                   |
-| Custom command        | Executes your completed workflow             | reporting monthly expenses                    |
+| Custom command        | Executes your completed workflow             | report expense monthly                        |
 | Workflow goal         | Overarching project objective                | Automate payments; expense report operations  |
 | Workflow deliverables | What you get after all tasks                 | Receipt for payment of employee CC            |
 | Workflow description  | How deliverables are created to achieve goal | *see below*                                   |
@@ -1267,8 +1270,9 @@ SCRIPT COMMAND:
    - If the user want to make edits of the draft, *THEN* we should really dig in with them and thoroughly clarify everything 
       - *If they get changes we want to minimize the number of necessary revisions at all costs* 
 
-### Project State **Memory Update Point**
-`03-end-chat-001` 
+### Project State __Memory Update Point__ 
+
+  - Name of update: `03-end-chat-001` 
 
 * **Workflow Build Details** 
 
@@ -1283,6 +1287,8 @@ SCRIPT COMMAND:
     - *Rate what you think the users expectations* are from 1 to 5 with 1 being not expecting much and 5 being expecting this to be perfect draft 
     - Any important or *odd details they mentioned that you will want to remember so that you point it out* when presenting the draft? 
     - What is the initial idea? What other ideas do you have for the workflow? *Will you create one or more drafts?* 
+
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
 
 ---
 
