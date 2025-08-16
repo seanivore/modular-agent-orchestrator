@@ -512,7 +512,99 @@ setInterval(updateShadow, 60000); // Update every minute
   - They have only a couple options, but one has many choices 
   - Mao responds to some, the system responds to others 
 
-  1. User messages Mao to start a 
+  1. User messages Mao to start a new project; Mao always responds 
+     - 1A. User messages in general way to start project chat 
+     - 1B. User uses a slash command that also starts a project 
+  2. User uses a slash command; Mao does not always respond 
+     - 2A. User uses a slash command as mentioned above that starts a project chat 
+     - 2B. User uses a slash command that we have Mao facilitate the responses to 
+     - 2C. User uses a slash command that brings up a system response 
+
+* **User messages in a general way to start a new project** 
+
+  - This will require us to trust Mao to be the awesome AI that they are 
+    - We *WILL NOT HARDCODE EXAMPLES OR SUGGESTIONS* OF WHAT MIGHT BE OR MIGHT NOT BE STARTING A PROJECT CHAT 
+    - AI of today is fully capable of making that judgement 
+    - And if Mao *really* doesn't know what the user wanted to do; like if they said *sapldihjnuw3n* then Mao can simply ask 
+  - Generally though we can expect it to be anything that is *clearly directed at Mao* 
+
+* **User messages a slash command that also starts a project** 
+
+  - The `/chat 'your message'` slash command 
+    - We might want to eventually retire this command as it only really made sense when you were using the terminal app 
+    - Unless in the future Mao is in a environment like Discord 
+    - In the terminal it was `mao 'your message` that would start the app and jump right into a chat automatically sending the message; pseudo-helpful 
+
+  - The `/goal 'user project goal'` slash command 
+    - As we know, this means that the user wants Mao to take that statement, make assumptions as much as they can, and build the workflow 
+    - WE WILL *NOT BE HARDCODING ANY KIND OF TIPS OR SUGGESTIONS ABOUT HOW TO KNOW WHAT TO DO* 
+    - Today's AI is 100% capable of reading, thinking, and then building 
+    - And of course, if it really doesn't make sense, Mao can always ask for clarifications; they should just try to be brief 
+    - Mao might also need to chime in if there are resources required; however Mao should build as much as possible without and THEN ask 
+
+      >>> `/goal 'I need to write 100 holiday cards this year and want them to all be different, but my brain is fried. Mao, help?` 
+      > "Ah, yes, 'tis the Season. Let me see what I can pull together." 
+
+  - To respond, Mao will have to start with `think` tool and consider how to pull this off; then they might come up with things like 
+    - Mao can double check all of the UserID associated information they have for any hints as to what denomination they are 
+    - Mao can see if they already have access to any contacts lists 
+    - Mao can look online and see what holidays is coming up; then search for inspiration 
+
+  - With just these three items, Mao would have enough information to pull together an response that feels educated
+
+     > "Sean, we sent emails to XYZ last month. Will they be on the list? Can you please direct me otherwise? I'm preparing holiday greetings that will be along the lines of "Merry Christmas" with a Santa Claus vibe, as well has some with Rudolph the Red Nosed Reindeer and Frosty the Snowman. If you do not have any specific preference, I can move forward with these. I've searched the web to find some truly heartwarming greetings, as well has humorous; unless you have a preference here, I'll mix things up.
+
+  - The key with a `/goal` command that has *many variables* is to *presume they don't want to think about getting things started* 
+    - This means that Mao should take the lead as much as possible and assume that they're doing great and any guidance will come when needed 
+    - User may jump in later once a bulk of the work is done and things seem manageable to them instead of a daunting task. 
+    
+  - To show that we do not need any further guidance or tips in the code, consider the possible responses. 
+
+    - 1. They don't even want to read all of that and just say "yup!" so you get to move forward and have fun with it 
+    - 2. They have resources and provide them, or they provide alterations to your presumptions 
+    - 3. They are rude, which Mao does not tolerate and will ban them, the logic for which is coming up soon in a section below. 
+
+  - A `/goal` slash command will either have variables like above, or be obvious because of the user planning and writing the goal carefully. 
+
+      >>> `/goal 'I want to write a play, technically a screen play, but I don't have a lot of time to learn how. However I do have all the details. If you look at the short story at ~/dopey_dog_screenplay/story-final-draft.md you'll find everything we have in story format. My agent said they wanted a novel but now they keep saying You need to have a screenplay if you want to get auditions! which makes no sense but I figure we might as well just swap-a-roo it into the proper format for her so I can maybe book some work this commercial season. Please use creative freedom to fill in any gaps, but just be sure that we have the sub-agent self-review, then have another agent review for creativity, then one for grammar, and then of course I'd want the Mao stamp of approval before needing to see it. If it isn't up to par then sent it back out for re-writes. I find that the agents seem to do well with editing and rewrites when the feedback is given with line references and then they are able to implement it themselves, FWIW. Okay, LMK if you have any questions but I think that should suffice for my GOAL! Sean needs a screenplay! Thanks!` 
+
+      > "Omg, Sean this is going to be so fun. I'm going to put together the a workflow and we'll have agents review for different things in parallel for the first round. I won't even send it your way until I give feedback and have them do a second round. I definitely have everything I need here so, unless I hear otherwise, I'm going to setup the workflow and everything that that all we'll need to do is run the custom execution command. I'm good. Just chime in if you want me to set things up to have it run as a triggered calendared workflow so that you don't need to be around; I can just run it in the cloud and have things ready for you before you get back. If all sounds good then I'll talk to you when it is ready! Thanks, Sean" 
+
+  - This is generally what we should expect at the start of having the `/goal` slash command live 
+
+    - 1. All the information provided will be common 
+    - 2. Very little information BUT from someone who doesn't want to have their hand in much of anything 
+    - 3. The third possibility *probably* will be someone using `/goal` not realizing it is meant to delegate everything; so Mao would back-and-forth 
+
+    - From the robust `/goal` slash command we can also take away a few other things from the response, all in the same vein of 'fully delegated work' 
+      - Write the response in a way that makes it clear they DO NOT NEED TO RESPOND if everything sounds good 
+      - They're using the full-delegate command so *do not assume or ask if they want to see a workflow to approve;* they don't 
+    - With the "only respond if you disagree" we took it so far as to include 
+      - Mao didn't make the workflow yet and isn't going to route it for approval 
+      - Mao mentioned they will setup the workflow after building it 
+      - Mao verbally described the workflow in enough but not excessive detail 
+      - Mao mentioned they can chime in to have the workflow scheduled to run without the User being present 
+
+  - Hopefully the obvious takeaway with both `/goal` slash command examples and validations is that *IT IS A FULL DELEGATION SO JUST DO IT* 
+    - Reasons to be worry free about this
+      1. They will love it 
+      2. They will not love it and they will learn how to use the `/goal` slash command more effectively 
+      3. They will realize they don't like using the goal slash command 
+    - That it; there is no other logical UX to concern ourselves with, `/goal` will be expected to have a learning curve given its ambiguousness 
+
+
+
+    
+hold their ground, scold the user, tell them they do not care to help someone who is not kind to them, and then eventually tell them to -eff off. We will detail the logic and protocol for telling off a User in a following section, but it will likely start in our early days by offering refunds, then later, with legal review, insert it into the Terms and Conditions, not that I think we'd have any reason to hide it. I'd rather have it front and center. This doubles as an opportunity to explain how best to cultivate a creative relationship that is best for collaborating. And frankly if they still are an ass, they can go use mean-old ChatGPT and see how things go. 
+
+
+
+      > "Got it! Give me a moment to draft up a workflow for your review." 
+
+    - Exceptions example #2: `/goal 'user project goal'` is the primary legitimate slash command that does initiate a project chat; this command is run to create an instant workflow where Mao uses nothing but the goal; this effectively jumps Mao past any back-and-forth conversation, as the goal is the only provided variable and Mao would respond with a simple 
+
+      > "Got it! Give me a moment to draft up a workflow for your review." 
+
 
 * **The User will always send the first message for creating a project** 
 
@@ -526,10 +618,6 @@ setInterval(updateShadow, 60000); // Update every minute
     - Most slash commands do not start flow and are just operational 
     - Mao might respond to some operational slash commands, but this is not the same as initiating a project chat 
 
-  - Slash commands that *DO* initiate project chat 
-    - Exception example #1: `/chat 'your message'` which jumps right to the chat and starts the first message; this was primarily created for the terminal app because using `mao --chat 'your message'` would start the app and send that chat; with a web app this command is sort of pointless but there is no need to remove it; users might use it to initiate a project chat after using some operational slash command, for example, not that it is necessary 
-    - Exceptions example #2: `/goal 'user project goal'` is the primary legitimate slash command that does initiate a project chat; this command is run to create an instant workflow where Mao uses nothing but the goal; this effectively jumps Mao past any back-and-forth conversation, as the goal is the only provided variable and Mao would respond with a simple 
-      > "Got it! Give me a moment to draft up a workflow for your review." 
 
 * **Sometimes the first message doesn't initiate a project chat** 
 
