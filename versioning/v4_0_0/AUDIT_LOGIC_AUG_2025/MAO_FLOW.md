@@ -12,7 +12,7 @@
 8. [Review of advanced agentic workflows; **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
 9. [**Building workflow, securing data,** reviews, diagram creation](#9-building-the-projects-workflow)
 10. [Long example of conversation; **robust UI visuals, UX descriptions**](#10-ui-unique-functioning-during-user-planning)
-11. [UI while **Mao is fully busy building;** similar UI behavior](#)
+11. [UI while **Mao is building or Orchestrating**](#11-ui-ux-while-mao-builds--orchestrates)
 11. [Getting **user feedback** on project's workflow](#)
 12. [**Workflow setup** when approved using simple commands](#12-setup-of-approved-project-workflows)
 
@@ -1952,14 +1952,16 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 10. UI Unique Functioning During User Planning  
+## 10. UI Unique Functioning During User Planning 
 
 ### Core Objectives 
 
-  1. UI will eliminate the UX of 'waiting' by cleaning up the space, illustrating speed, and creating a gut check 
-  2. Chat history cleans its self up showing only what must be known and retaining only the same 
-  3. Gut check with more present participle 'AI Improv' words for 'WORKING' 'THINKING' etc. 
-  4. Show *exactly* what Mao is doing in real, like literal, real-time; yes it will be to fast to read that is the point 
+  1. UI will eliminate the UX of 'waiting' by cleaning up the space 
+  2. Engaging experience created that also empowers the user 
+  3. Potential for improving the AI context window management 
+  4. Breakdown of the icons for each purpose and user
+  5. In this section we use the AI Improve, but it is during a planning chat 
+  6. Provides robust illustration of truncating conversation history; looks very nice at end 
 
 ### 'AI Improv' Present Participle for A Word Ending in -ING 
 
@@ -2282,10 +2284,6 @@ Flashing ○ to ● and back = active action
     - Nail down exactly what to do 
     - Then probably be a return user for more later 
 
-
-
-```
-
 * **We need to create a `/my-memories` command for users to see what Mao is recording about them**
 
   - We should have one that is just `/memory 'user enters what they want Mao to remember'` set up 
@@ -2298,6 +2296,65 @@ Flashing ○ to ● and back = active action
     - This will allow them to create better UX combining memory, analytics, history, etc. 
     - Might as well add `/view 'user-1234` as well so that it can be done when users are not logged in 
     - This last command was touched on in the section where Mao enters the chat and needs context 
+
+---
+[TOP](#overview)
+
+---
+
+## 11. UI UX While Mao Builds & Orchestrates 
+
+### Core Objectives 
+
+  1. Illustrate the *behavior of the UI conversation system messages* 
+  2. Connect them conceptually to the behavior described in the previous section 
+  3. Same use of last section's *'AI Improv' present participial*
+  4. *Chat cleans its information similarly*, but for tasks, tools, etc. 
+  5. *Create energy of SPEED* for user by showing what Mao is doing in real, *LITERALLY REAL, time* 
+  6. We'll cover the very *similar UI and UX when Mao is running a workflow* 
+  7. Finally, *color psychology that our typography* will use to lighten cognitive load of users with semantic highlighting 
+
+### What Do We See When Mao Is Busy But We Need Updates 
+
+* **Mao gets in-depth as to the [process of *building the draft* in section 9 above](#9-building-the-projects-workflow)** 
+
+  - And you can see the art of [*closing the build conversation with user* in section 7 above](#7-ending-the-project-production-chat) 
+
+* **This is what the UI looks like and UX feels like while Mao is occupied** 
+
+  - This is all very *similar in appearance, structure, notation as the conversation thread text in the previous section* 
+    - The main difference here is that *Mao will be making to do lists*
+    - They will create a *master* to do list 
+    - Then they will create *smaller to do lists, each of which are an item on the larger to do list*  
+  - User sees updating of the to do lists live, in real time 
+  
+  - Under drilled down to do tasks, user will see tool use 
+    - Rapid displays of information too fast to read, which is intentional 
+    - "Reads XYZ, ABC, APG, all in under 2 seconds 
+
+  - We *WILL NOT USE A TIMER TO UPDATE THESE LISTS* 
+    - They MUST update in actual, *ridiculously fast*, real time for multiple UX reasons 
+    - Humans are still unaware and then *blown away by how fast AI does things* 
+    - We need the Users to *truly feel and see "oh yeah, Mao is really working, damn!"* 
+
+* **Because of similarities, we'll also be covering what the UI looks like and UX feels like when Mao is running a workflow**
+
+  - Mao will still be creating and updating a large master to do lists 
+    - This time it is to *keep track of what the agents need to do and are doing* 
+  - Again, a master to do list of the full workflow 
+    - This *spawns smaller to do lists for each phase*, agent, task 
+    - Their tool use changes rapidly 
+    - Their *actual items on the list truncate when no longer relevant* 
+
+* **Then the magic that is conceptual semantic highlighting with color psychology** 
+
+  - A technique we use to *lighten cognitive load* of user watching 
+    - That is in addition to cleaning up the conversation thread regularly 
+    - *These are the reasons that a one-screen chat-centric application finally works* 
+  - The psychological color coding of all text happens throughout the application in every phase no matter what is going on 
+
+### Mao Is Building Your Workflow Draft 
+
 
 
 ````
