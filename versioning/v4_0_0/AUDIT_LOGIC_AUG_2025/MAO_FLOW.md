@@ -2380,8 +2380,8 @@ Flashing ○ to ● and back = active action
 
 * **What About When Mao Is Busy With Running A Workflow?** 
 
-  - Mao's large master to do list tracks tasks/phases/agents as a whole workflow 
-  - Then as agents are executed, sequentially or in parallel, small to do lists will populate 
+  - Mao's *large master to do list tracks tasks/phases/agents* as a whole workflow 
+  - Then as agents are executed, sequentially or in parallel, *small to do lists will populate* 
     - These are the actual steps in the task that the agent is completing 
     - All in real time as they complete each step 
   - Rapid tool use, completed items truncate after showing for a bit, all the same tricks and strategy 
@@ -2410,16 +2410,20 @@ Flashing ○ to ● and back = active action
     - We'll need to try other background 
     - Intention though is that it is classic in that it should not even be a second thought 
 
-* **Core highlighting** 
+* **NOTE: WE NEED TO USE QUANTIFY THE RELATIONSHIPS AS DESCRIBED BELOW AND COME UP WITH OTHER THEMES**
+
+* **Highlighting tier grouping for simplicity** 
 
   - I've broken them into tiers of importance to simplify how to think about them 
+    - But when you see text with the highlighting, it works well 
+    - Meaning you don't need to know the meaning as a User to benefit from the highlighting 
 
-    - Tier 1 is how AI talks to you; just normally, or conveying important information  
-    - Tier 2 is throw-away, from User perspective; is not meant for you to really even linger on 
-    - Tier 3 is meant to provide help, but be super chill about it; people are new to AI and the errors are NBD, Mao's got it 
-    - Tier 4 is it's own single highlight in a category because it is intentionally unusual, it is chill, but calls out 
-    - Tier 5 is background noise that makes the UX helpful if you're lost, but can be generally ignored 
-    - Tier 6 is meant to call out very specific intention or purpose; used very little 
+    - **Tier 1** is how AI talks to you; just *normally, or conveying important information*  
+    - **Tier 2** is *throw-away*, from User perspective; is not meant for you to really even linger on 
+    - **Tier 3** is an meant to provide help, but be super chill about it; you have *heads up that it is good news*  
+    - **Tier 4** is it's own single highlight because it is intentionally unusual; an *error, but it is chill*, but calls out 
+    - **Tier 5** is *background noise that makes the UX helpful* if you're lost, but can be generally ignored 
+    - **Tier 6** is meant to *call out very specific intentions* or purpose; used rarely or carefully 
 
 | NAME                      | COLOR             | RGB CODE              | INTENTION                                             |
 | ------------------------- | ----------------- | --------------------- | ----------------------------------------------------- |
@@ -2454,16 +2458,45 @@ Flashing ○ to ● and back = active action
   - But they're not screaming at you, they're just probably intriguing, entertaining, helpful 
   - Think of the AI Improv word or maybe when a setting like /goal is used that overrides everything 
 
+### Message Blocks Are Courteous to Each Other 
 
-* **Message Block Behavior - "Courteous" Space Management**
+* **The canvas is managed to encourage this idea of lessening cognitive load**
 
-  - All message blocks constantly re-evaluate and rewrite themselves in real-time
-  - Only use as much space as absolutely necessary
-  - Long text truncates with expansion options
-  - Completed tasks collapse to preserve viewing space
+  - We talked about this in the previous section with the conversation example where message history cleans itself up 
+  - The exact same thing happens for any messages from system, to do lists, etc. 
+    - Old information dissolves away when no longer relevant to make room 
+    - Sufficiently displayed and not hugely center to the messaging info. truncates over time 
 
+* **Expect this same behavior with the lists that Mao makes when working**
 
+  - AI constantly re-evaluates message blocks 
+    - If something new needs to go up, they rewrite to condense 
+    - If something is complete, is is removed and given a simple categorical term 
+    - If something is changing rapidly in sequence, then that is what we see happening 
 
+  - This is handled by AI 
+    - The speed that AI can process information allows them to complete a lot more than one might expect 
+    - IN the future we might employ Haiku to manage our chat boards depending on performance 
+    - But we know from our initial UI build that trying to write this very intuitive logic into code is a bit unwieldy 
+    
+  - What's most important is that message blocks only use the space they need, temporally, as that changes over time 
+    - You saw how well this worked by the end of the conversation in the previous section 
+    - You'll find it is similar here 
+
+* **Extending AI Context Windows** 
+
+  - Ideally the information that is condensed out of a message block has been processed 
+    - It is no longer needed by the AI to maintain the context of the situation 
+    - Or they've taken action on the information and logged in their Memory Project State Update 
+
+  - This concept was a bit simpler in the pervious example of a conversation 
+    - A lot of text is naturally filler in a normal, friendly conversation 
+    - This means there is a lot that can be removed without changing any of the meaning 
+
+  - When it comes to the to do lists and system messages, it happens to a lesser degree 
+    - For instance, there is no need to know what tools were used for an agents phase once complete 
+    - It could be expanded if there was found to be a problem with their deliverable 
+    - And just like normal to do lists, items get "crossed off" in their own modern, AI way 
 
 ### Mao Is Building Your Workflow Draft  
 
