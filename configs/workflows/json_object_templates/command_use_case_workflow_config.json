@@ -1,15 +1,15 @@
 {
-  "name": "command_use_case_workflow_config",
-  "schema_version": "1.0",
-  "workflow": [
-    {
-      "custom_command": "command-use-case",
-      "temp_directory": "{{TEMP_DIR}}/command-use-case/",
-      "user_id": "{{USER_ID}}",
-      "workflow_deliverable": "Use-case report",
-      "workflow_description": "Identify what is needed to complete the goal. Build a workflow that delegates the work to the appropriate agents, having them work in parallel if needed. Leave the last phase opened-ended. Detail that handoff before the last phase with a list of questions Orchestrator will use to assess if the deliverable is complete, and if not, what is needed to complete it.",
-      "workflow_goal": "Create comprehensive use case",
-      "workflow_id": "{{WORKFLOW_ID}}"
-    }
-  ]
+    "name": "command_use_case_workflow_config",
+    "schema_version": "1.0",
+    "workflow": [
+        {
+            "custom_command": "command-use-case",
+            "temp_directory": "{{TEMP_DIR}}/command-use-case/",
+            "user_id": "{{USER_ID}}",
+            "workflow_deliverable": "Use-case report",
+            "workflow_description": "Identify what is needed to complete the goal. Build a workflow that delegates the work to the appropriate agents, having them work in parallel if needed. Leave the last phase opened-ended. Detail that handoff before the last phase with a list of questions Orchestrator will use to assess if the deliverable is complete, and if not, what is needed to complete it.",
+            "workflow_goal": "Create comprehensive use case",
+            "workflow_id": "{{WORKFLOW_ID}}"
+        }
+    ]
 }

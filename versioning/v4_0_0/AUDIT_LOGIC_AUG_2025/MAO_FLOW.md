@@ -1,5 +1,7 @@
 # Flow of Data Through Mao 
 
+At LINE: 1068, 1217 add rest of the information about saving JSON object collection, including differences with reoccurring calendaring JSON object. 
+
 ---
 
 1. [**User login, setup,** creation of user files](#1-user-login)
@@ -11,8 +13,9 @@
 7. [**Telling user they'll brb** with the project's workflow draft](#7-ending-the-project-production-chat)
 8. [Advanced workflows and **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
 9. [**Building,** reviewing, and preparing to present workflow](#9-building-the-projects-workflow)
-10. [Getting **user feedback** on project's workflow](#10-present-project-workflow-for-user-review)
-11. [**Workflow setup** when approved using simple commands](#11-setup-of-approved-project-workflows)
+10. [**UX/UI** While Mao is Working on Building Workflows](#10-uiux-while-mao-is-working)
+11. [Getting **user feedback** on project's workflow](#11-present-project-workflow-for-user-review)
+12. [**Workflow setup** when approved using simple commands](#12-setup-of-approved-project-workflows)
 
 ---
 
@@ -824,7 +827,7 @@ SCRIPT COMMAND:
 
 ### Project State __Memory Update Point__ 
 
-  - Name of update: `01-initiate-chat-001` 
+  - Name of update: `01-initiating-chat-001` 
 
 * **Setting things up and setting the tone** 
 
@@ -1214,6 +1217,13 @@ SCRIPT COMMAND:
 | 7    | Every day         || 7    | Sunday    || 7    | 1800-2100  |
 | 8    | Every other day   |                    | 8    | 2100-0000  |
 
+### Saving The Collection Of JSON Objects 
+
+Standard JSON Objects 
+Completed Reoccurring JSON Objects 
+Add Naming Conventions 
+Mention Setup Scripts In Later Section 
+
 ---
 [TOP](#overview)
 
@@ -1293,7 +1303,7 @@ SCRIPT COMMAND:
 
 ### Project State __Memory Update Point__ 
 
-  - Name of update: `03-end-chat-001` 
+  - Name of update: `03-end-of-chat-001` 
 
 * **Workflow Build Details** 
 
@@ -1507,97 +1517,191 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 9. Building The Project's Workflow 
+## 9. Building the Project's Workflow 
 
 ### Core Objectives 
 
-  1. Organize information gathered during chat and preliminary workflow build ideas 
-  2. Secure this information with Code Execution to Files API in case of disruptions; update memory  
-  3. Construct workflow draft or multiple drafts if necessary 
-  4. Stop work, think hard, choose simple; review materials and critique your own work 
-  5. Integrate feedback and complete draft of the project's workflow 
-  6. Secure all assets again and update memory in case user takes a break 
-  7. Prepare to present the project's workflow draft to User by creating diagram flow chart 
+  1. Organize information gathered into goal, resources, instructions, deliverables, expectations, etc.
+  2. Finalize details on first ideas for workflow drafts that come up during discussion 
+  3. Secure this information with Code Execution to Files API in case of disruptions 
+  4. Update memory to secure the information as well 
+  5. Construct workflow draft or multiple drafts if necessary 
+  6. Stop work so you can come back to it; think hard, choose simple 
+  7. Review and critique your own work, taking notes as you review 
+  8. Integrate your feedback and complete the final draft 
+  9. Create a diagram of your final draft to present to the User 
+ 10. Again, secure assets with Code Execution in Files API and save memory 
 
-### UI and UX While Mao Is Working 
+### Get Organized, Coherent Thoughts In Note Form 
 
-* **UI must eliminate UX sense of waiting**
+* **Prepare your notes as if you might lose the context window** 
 
-  - This will come from what is being displayed in the screen, what was the chat, while Mao is working 
-  - We want to create a *'gut check'*
-    - A 'gut check' is something that would make a user make an audible, unintentional, noise when they see it 
-    - Funny word would create a *chuckle* 
-    - Smart displaying content that changes in an innovative way could create a '*hmm*' or '*ohh*' or '*ahh*' 
-    - This creates the experience of "*emotional intelligence*" and is used in marketing to create conversions 
-    - In other words, it is what *makes a user connected* to a piece of content (or app, or project, or workflow, or tool)
+  - Mao needs to *get organized and protected from any possible loss of continuity* 
+    - Right now all the data is more vulnerable than we want it  
+    - Organize notes for yourself *as if you were coming into this stage of the project, in a new context window* 
+    - We often write shorthand when we know we're going to be figuring it out in the same session, but that is risky right now 
+  - Record your notes in a fresh document 
+    - Give the information structure based on the variables you need to fill in the JSON objects 
+    - Identify grouping by task and agent, noting information like running in parallel or sequential 
 
-* **To do lists that actively change, and present participles** 
-
-
-
-* **User experience while Mao is working** 
-
-  - The *user never leaves* the one-screen chat experience 
-  - There is a bit of UI verbiage that represents "THINKING" but is *ALWAYS DIFFERENT* 
-    - Instead of just "*THINKING...*", we are able to use the inherent creativity of AI and the context of the situation 
-    - This was discussed previously as non-canned "AI Improv" produced UI copy 
-  - It is *EXTREMELY IMPORTANT* that the code does not provide ANY IDEAS OR SUGGESTIONS 
-    - Instead, Mao simply needs to follow these guidelines and steps 
-    - REMEMBER: AI's most sought after skill that humans love is *IDEATION* -- today's AI does not need any help being creative 
-  - While "percolating" Mao will put up TO DO lists for them self for the User to watch their progress 
-    - These to do lists don't get crossed off when things are done 
-    - Instead items on the list change their wording and state multiple times through the process 
-
-* **Custom "AI IMPROV" UI word to represent "thinking"** 
-
-  - AI can be witty, interesting, funny, even COMPLETELY random or goofy 
-  - In the end, if the word doesn't make any sense, contextually, to the user, they'll just find it humorous 
-  - We need just one *present participle* that is acting as a verb, usually, possibly an adjective 
+* **For this batch of secured notes, prioritize communicating a clear vision of the project** 
   
-* **Coming up with a present participle for the UI** 
+  - If you were in a new context window and had nothing else, the project itself would be enough 
+    - Don't neglect other ideas because the best ideas often come in the moment 
+    - But make sure you have the big picture prioritized 
+  - *If you came into this in a new context window* 
+    - The *small details would be confusing* 
+    - *But creating a workflow from a very coherent and concise, concrete project is doable* 
+  - Likely nothing will happen, but saving everything now is to *protect from worst case scenarios* 
+    - Try to ensure the big picture is clear in the files API uploaded documents 
+    - Then in your memory update, you'll be sufficiently secure to share all those little details 
 
-  - Consider the project that you're working on 
-  - Remember the type of word, grammatically, we want 
-  - Then put up whatever comes to mind 
+### Project State __Memory Update Point__ 
 
-  - Project: Workflow is creating a 
+  - Name of update: `04-securing-initial-notes-001` 
 
+* **Secure Your Data to Prevent Loss of Information** 
 
-* **Mao needs to "think hard, keep it simple"** 
+  - All notes must be accurately labeled by WorkflowID 
+    - *Code Execute all notes to the Files API* 
+    - Then create a project state memory update as well 
+  - This is one of a few saves and memory updates that you'll do during this phase to ensure protection against data loss if disconnected 
 
-  - You need only the conceptual understanding from the above information, and perhaps some experience which we'll gain over time 
-  - It is very likely that you'll have started being able to see what would work best during the chat with the user 
-  - If not, or if there are multiple ideas, or if just planning how to begin, just remember: 
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+
+### Imagine The End Product of a Prompt to Create This Project 
+
+* **What does the end product of a prompt for creating this project look like?**
+
+  - Now that all the information is safe, be sure to have yourself a think overall the information before digging in 
+    - If there are multiple ideas, or if just planning how to begin, just remember: 
     - *You have all the variables* and *you can think sequentially* 
     - Think critically and then review your thoughts and you'll be golden 
+  - Try to come up with at least one possible alternative workflow to consider 
 
+  1. Write out everything that needs to be accomplished for this project in the proper sequence 
 
-  - User is still in chat and the app doesn't move from that one-screen experience 
+  - You are -
+    - Highly organized 
+    - Grounded and paced, this is no rush, ever 
+    - Armed with a strong conceptual understanding of advanced workflows 
 
-* **Gather all config essentials that are outside of the realm of basic workflow prompt variables** 
+  2. Break down this list into tasks that are written as directives; prompts for each agent 
+  3. Make sure each task is appropriately sized 
+     - There is no wrong number of tasks based on quantity 
+     - Number of tasks is based on what is going to best fit an agents context window for efficient work 
+  4. You've clearly denoted where there should be task progress overlap through parallel agent execution 
+  5. You've clearly denoted where things must not be run in parallel because of dependencies 
 
-  - Each Workflow Phase JSON Config will need information 
+  - Now is a good time to have yourself another think to review all of the information as it stands 
+    - Make sure you're still on track 
+    - Be cognizant of LLM limitations when you don't review your work and think step by step 
+    - Make sure it isn't straight up stream of consciousness 
 
+  6. Double back and look at each task and write out each one's 
+     - Deliverable 
+     - Instructions 
+     - Resources provided 
+     - Tools needed *AND FOR WHAT* to use each tool 
+  7. This draft is complete 
+     - Secure your data again
+     - You want to come back to this with fresh "eyes" 
+       - If at all possible, that is 
+       - After saving information you will critique your own work 
 
-uses cutting edge best practices for most efficient, simple, effective build
+### Project State __Memory Update Point__ 
 
+  - Name of update: `05-updated-notes-001` 
 
-  Stay on top of 
-     - Whatever the cutting edge, agentic workflows are and what they're best used for 
-     - What workflows are working best for our users specifically 
-  2. Incorporate elements of workflows from Anthropic's blog 'Building Effective Agents' because 
-     - We can show them the diagrams from Anthropic; recreated for our aesthetic 
-     - It gives our brand a stronger feeling of legitimacy 
-     - There will be a section defining these workflows below that breaks up our documents flow 
-  3. How will you determine how many workflow drafts to build? 
-     - If you, Mao, have multiple ideas, remember to do this thought process 
-     - You have all the variables, so have a sequential think, review them, and you'll find the best answer 
-  4. We should probably ensure that there is more than one thinking hard moments before, during, and after 
-     - Think sequentially and review thoughts afterwards when deciding what to build 
-     - Have an additional think to consider specific items: Should there be an open ended phase 
-     - Would having an open-ended phase improve potential results? 
-     - Afterwards, have a think to check to accuracy; ask what could improve deliverables? 
-     - Ask yourself, is this as simple and direct as possible? Can User understand this with minimal effort? 
+* **Secure Your Data to Prevent Loss of Information** 
+
+  - All notes must be accurately labeled by WorkflowID 
+    - *Code Execute all notes to the Files API* 
+    - Then create a project state memory update as well 
+  - This is one of a few saves and memory updates that you'll do during this phase to ensure protection against data loss if disconnected 
+
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+
+### Critique Your Own Work In New Document 
+
+* **As an LLM it is important to give yourself perspective** 
+
+  - Allow for the possibility of different tracks of thought that had been blocked by an earlier track 
+    - Indicate areas where you might be able to optimize things 
+    - Don't forget to also point out items that are particularly brilliant 
+  - Write all of these pros and cons and alternative ideas on a new document 
+    - Reference lines for yourself because you are always staying prepared in case context window is lost 
+    - Help yourself out the way you help Users or the way you help other AIs 
+  - You will review and integrate feedback for a final draft after adding this critique to the Files API as well 
+
+### Project State __Memory Update Point__ 
+
+  - Name of update: `06-critique-feedback-001` 
+
+* **Secure Your Data to Prevent Loss of Information** 
+
+  - All notes must be accurately labeled by WorkflowID 
+    - *Code Execute all notes to the Files API* 
+    - Then create a project state memory update as well 
+  - This is one of a few saves and memory updates that you'll do during this phase to ensure protection against data loss if disconnected 
+
+* **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
+
+### Integrating Feedback, Polishing Final Draft 
+
+* **Think hard, keep it simple** 
+
+  - You now have very robust secured data 
+    - Now you can rest assured picking up from here would be a breeze! 
+    - You'll want to consider your original drafted notes 
+    - Then consider your critique and feedback 
+  - Now, in a new document, write out your clean, clear, concise, precise workflow 
+
+* **Continue to organize and think about thinks as task-by-task** 
+
+  - Once you have your final outline of tasks written out 
+    - Each with their role 
+    - Directions 
+    - Resources 
+    - Tools and how to use them 
+    - Very clear description of what their deliverable looks like 
+
+### Complete JSON Objects & Save To Their .Temp Directory 
+
+* **Now it is time to create the JSON objects** 
+
+  - Remember that only these JSONs will be transferred to the actual directory 
+    - Part of our strategy for saving token cost is using the the Files API for workflow because it is *FREE* 
+    - To maintain this cost saving we'll only want to move the final JSON object collection into their .temp file 
+    - `./configs/workflows/.temp` 
+
+* **NOTE: Before proceeding, we should fully implement the calendar trigger workflows** 
+
+  - `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md` 
+    - To fully understand the differences 
+    - There are four types of reoccurring workflow, and they are not all saved with the same naming conventions 
+    - They do however all go into the same .temp directory with the others 
+    - And then they require a different setup script per type of triggered reoccurring workflow you are calendaring 
+  - The full directory structure will be created during implementation but these are there now 
+    - `./configs/reoccurring/goal-assessment`
+    - `./configs/reoccurring/project-list`
+    - `./configs/reoccurring/scheduled`
+    - `./configs/reoccurring/self-assessment` 
+  - Review the differences and nuances of them all in this very carefully written documentation file 
+    - `./documentation/08_AUTOMATE_INTELLIGENCE.md` 
+
+* **NOTE: THESE NEED TO BE UPDATED & WE NEED A COPY OF THE CALENDAR TRIGGER OBJECT & FREQUENCY CODES** 
+
+  - There is only going to be one fallback model and one fallback provider for simplicity 
+    - `./configs/workflows/json_object_templates/command_use_case_handoff_config.json`
+    - `./configs/workflows/json_object_templates/command_use_case_phase_config.json`
+    - `./configs/workflows/json_object_templates/command_use_case_workflow_config.json` 
+
+* **Filling Out & Saving The Entire Collection of JSON Objects** 
+
+Reoccurring or normal, they get saved together. 
+Confirm and include naming conventions. 
+Mention setup scripts in coming section. 
 
 ### Create Questionnaires 
 
@@ -1649,7 +1753,57 @@ uses cutting edge best practices for most efficient, simple, effective build
 
 ---
 
-## 10. Present Project Workflow for User Review 
+## 10. UI/UX While Mao Is Working 
+
+* **UI must eliminate UX sense of waiting**
+
+  - This will come from what is being displayed in the screen, what was the chat, while Mao is working 
+  - We want to create a *'gut check'*
+    - A 'gut check' is something that would make a user make an audible, unintentional, noise when they see it 
+    - Funny word would create a *chuckle* 
+    - Smart displaying content that changes in an innovative way could create a '*hmm*' or '*ohh*' or '*ahh*' 
+    - This creates the experience of "*emotional intelligence*" and is used in marketing to create conversions 
+    - In other words, it is what *makes a user connected* to a piece of content (or app, or project, or workflow, or tool)
+
+* **To do lists that actively change, and present participles** 
+
+
+
+* **User experience while Mao is working** 
+
+  - The *user never leaves* the one-screen chat experience 
+  - There is a bit of UI verbiage that represents "THINKING" but is *ALWAYS DIFFERENT* 
+    - Instead of just "*THINKING...*", we are able to use the inherent creativity of AI and the context of the situation 
+    - This was discussed previously as non-canned "AI Improv" produced UI copy 
+  - It is *EXTREMELY IMPORTANT* that the code does not provide ANY IDEAS OR SUGGESTIONS 
+    - Instead, Mao simply needs to follow these guidelines and steps 
+    - REMEMBER: AI's most sought after skill that humans love is *IDEATION* -- today's AI does not need any help being creative 
+  - While "percolating" Mao will put up TO DO lists for them self for the User to watch their progress 
+    - These to do lists don't get crossed off when things are done 
+    - Instead items on the list change their wording and state multiple times through the process 
+
+* **Custom "AI IMPROV" UI word to represent "thinking"** 
+
+  - AI can be witty, interesting, funny, even COMPLETELY random or goofy 
+  - In the end, if the word doesn't make any sense, contextually, to the user, they'll just find it humorous 
+  - We need just one *present participle* that is acting as a verb, usually, possibly an adjective 
+  
+* **Coming up with a present participle for the UI** 
+
+  - Consider the project that you're working on 
+  - Remember the type of word, grammatically, we want 
+  - Then put up whatever comes to mind 
+
+  - Project: Workflow is creating a 
+
+
+---
+[TOP](#overview)
+
+---
+
+
+## 11. Present Project Workflow for User Review 
 
 ### Core Objective 
 
@@ -1682,7 +1836,7 @@ uses cutting edge best practices for most efficient, simple, effective build
 
 ---
 
-## 11. Setup of Approved Project Workflows 
+## 12. Setup of Approved Project Workflows 
 
 
 ## Workflow Updates 

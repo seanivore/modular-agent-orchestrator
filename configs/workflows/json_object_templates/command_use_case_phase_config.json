@@ -1,47 +1,47 @@
 {
-  "_metadata": {
-    "config_type": "provider_config",
+    "_metadata": {
+        "config_type": "provider_config",
+        "created_date": "2025-07-23T08:26:00.000000Z",
+        "last_updated": "2025-07-23T08:26:00.000000Z",
+        "schema_version": "2.0",
+        "version": "1.0.0"
+    },
+    "api_base": "https://api.example.com",
     "created_date": "2025-07-23T08:26:00.000000Z",
+    "data_collection": {
+        "default": true,
+        "description": "Enable provider analytics",
+        "type": "boolean"
+    },
+    "default": false,
+    "enabled": true,
     "last_updated": "2025-07-23T08:26:00.000000Z",
-    "schema_version": "2.0",
-    "version": "1.0.0"
-  },
-  "api_base": "https://api.example.com",
-  "created_date": "2025-07-23T08:26:00.000000Z",
-  "data_collection": {
-    "default": true,
-    "description": "Enable provider analytics",
-    "type": "boolean"
-  },
-  "default": false,
-  "enabled": true,
-  "last_updated": "2025-07-23T08:26:00.000000Z",
-  "name": "command_use_case_phase_config",
-  "phase": [
-    {
-      "model_1": "claude-sonnet-4",
-      "model_2": "claude-sonnet-3.7",
-      "model_3": "claude-sonnet-3.5",
-      "phase_deliverable": "Use-case report",
-      "phase_description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
-      "phase_goal": "Create use-case report",
-      "phase_number": "01",
-      "provider_1": "requesty",
-      "provider_2": "anthropic direct",
-      "provider_3": "anthropic direct",
-      "resources": [
-        "./directory/folder/file.md",
-        "https://file.com/folder"
-      ],
-      "tools": [
-        "web_search",
-        "text_editor"
-      ],
-      "workflow_id": "{{WORKFLOW_ID}}"
-    }
-  ],
-  "schema_version": "1.0",
-  "secure": true,
-  "timeout": 30,
-  "type": "api_provider"
+    "name": "command_use_case_phase_config",
+    "phase": [
+        {
+            "model_1": "claude-sonnet-4",
+            "model_2": "claude-sonnet-3.7",
+            "model_3": "claude-sonnet-3.5",
+            "phase_deliverable": "Use-case report",
+            "phase_description": "Research target market. Explore demographics in all socioeconomic status ranges, all geo-locations, all education level, but only females, married, and with a birthday coming up in the next 5 months. Research competitors; detail their marketing strategy.",
+            "phase_goal": "Create use-case report",
+            "phase_number": "01",
+            "provider_1": "requesty",
+            "provider_2": "anthropic direct",
+            "provider_3": "anthropic direct",
+            "resources": [
+                "./directory/folder/file.md",
+                "https://file.com/folder"
+            ],
+            "tools": [
+                "web_search",
+                "text_editor"
+            ],
+            "workflow_id": "{{WORKFLOW_ID}}"
+        }
+    ],
+    "schema_version": "1.0",
+    "secure": true,
+    "timeout": 30,
+    "type": "api_provider"
 }

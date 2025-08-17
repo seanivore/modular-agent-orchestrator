@@ -148,7 +148,7 @@ class TriggerWorkflowProcessor:
         # Process workflow files
         if self.workflow_type == "scheduled":
             return self._setup_scheduled_workflow(temp_dir, target_dir, calendar_config)
-        elif self.workflow_type.startswith("project-list"):
+        elif self.workflow_type == "project-list":
             return self._setup_project_list_workflow(temp_dir, target_dir, calendar_config)
         elif self.workflow_type == "self-assessment":
             return self._setup_self_assessment_workflow(temp_dir, target_dir, calendar_config)

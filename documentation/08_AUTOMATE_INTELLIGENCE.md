@@ -963,7 +963,7 @@ class TriggerWorkflowProcessor:
         # Process workflow files
         if self.workflow_type == "scheduled":
             return self._setup_scheduled_workflow(temp_dir, target_dir, calendar_config)
-        elif self.workflow_type.startswith("project-list"):
+        elif self.workflow_type == "project-list":
             return self._setup_project_list_workflow(temp_dir, target_dir, calendar_config)
         elif self.workflow_type == "self-assessment":
             return self._setup_self_assessment_workflow(temp_dir, target_dir, calendar_config)
@@ -978,7 +978,7 @@ class TriggerWorkflowProcessor:
         
         if self.workflow_type == "scheduled":
             return f"{self.reoccurring_base}/scheduled/{freq_code}_{day_code}_{time_code}"
-        elif self.workflow_type.startswith("project-list"):
+        elif self.workflow_type == "project-list":
             return f"{self.reoccurring_base}/project-list/{freq_code}_{day_code}_{time_code}"
         elif self.workflow_type == "self-assessment":
             return f"{self.reoccurring_base}/self-assessment/{freq_code}_{day_code}_{time_code}"
