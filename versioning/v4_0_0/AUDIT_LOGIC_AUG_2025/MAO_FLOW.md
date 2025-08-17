@@ -1,7 +1,5 @@
 # Flow of Data Through Mao 
 
-At LINE: 1068, 1217 add rest of the information about saving JSON object collection, including differences with reoccurring calendaring JSON object. 
-
 ---
 
 1. [**User login, setup,** creation of user files](#1-user-login)
@@ -1157,7 +1155,7 @@ SCRIPT COMMAND:
 
 * **Reoccurring workflow or triggered activity requires this 1 additional 'Calendaring' JSON object** 
 
-  - All other standard JSON objects are still created as usual 
+  - *All other standard JSON objects are still created as usual* 
   - There are only a few other differences 
     - File naming structure; this will be explained in full after this section so that the standard naming structure is easily compared to the reoccurring workflow file naming structures 
     - What command is used to setup the workflow; all setup commands will be explained when this walkthrough gets to the point of setting up the approved project's workflow 
@@ -1170,6 +1168,62 @@ SCRIPT COMMAND:
 | Frequency  | How often the workflow is triggered           | Every week       |
 | Day        | Day of week workflow triggers on              | Tuesday          | 
 | Time       | 3 hour time block dedicated for the workflow  | 1800-2100        |
+
+* **Calendared reoccurring work scheduling**
+
+| Code | Frequency         || Code | Day       || Code | Time Block |
+| ---- | ----------------- || ---- | --------- || ---- | ---------- |
+| 1    | Every week        || 1    | Monday    || 1    | 0000-0300  |
+| 2    | Every other week  || 2    | Tuesday   || 2    | 0300-0600  |
+| 3    | Every month       || 3    | Wednesday || 3    | 0600-0900  |
+| 4    | Every other month || 4    | Thursday  || 4    | 0900-1200  |
+| 5    | Every year        || 5    | Friday    || 5    | 1200-1500  |
+| 6    | Every other year  || 6    | Saturday  || 6    | 1500-1800  |
+| 7    | Every day         || 7    | Sunday    || 7    | 1800-2100  |
+| 8    | Every other day   |                    | 8    | 2100-0000  |
+
+* **Use `/avail <FREQUENCY> <DAY> <TIME-BLOCK>` to see if there is a calendar opening** 
+
+  - At most you need to check the frequency using `/avail`
+    - Do this if you don't have a huge preference on when the automation runs 
+    - The system will respond with the best fit based on the rest of the schedule 
+    - Frequency is first so just one number code works 
+
+```bash
+# Looking for any availability as long as it is once 'EVERY-MONTH' 
+# Check available time slots before scheduling
+ > /avail 2                   # using schedule code numbers 
+ > /avail only once a month   # using normal language 
+Response: Please schedule for calendar code: 2 6 2 which is every month on Saturday at 3am
+```
+
+  - If using all of them, use in that order 
+    - You can use normal language 
+    - But again, in the FREQUENCY, DAY, TIME, order 
+    - The system will respond with if the time is available 
+    - If not available, it will suggest the next best option 
+  - The calendar is dynamic 
+    - In the example you see "go ahead and pick one and create your workflow" 
+    - This is because once the workflow is ran with the setup script, it will be visible when the system does an `/avail` check 
+
+```bash
+# Looking for availability at 'EVERY-DAY' 
+# And on 'THURSDAY' at '1500-1800'
+# Check available time slots before scheduling
+ > /avail 1 4 6                             # using schedule code numbers 
+ > /avail every day on Thursday at 3pm      # use normal language 
+Response: There is nothing available at 1500-1800 on Thursday, but all other time blocks are available on Thursday. Choose one and go ahead and schedule it on your calendaring reoccurring workflow JSON object. 
+```
+
+| **SCHEDULING COMMANDS**                         | **DESCRIPTION**                                                 |
+| ----------------------------------------------- | --------------------------------------------------------------- |
+| `/avail <frequency> <day> <time>`               | Check calendar to scheduling trigger; min. variable <frequency> |
+| `/avail --reschedule <custom-command>`          | Change trigger time for repeating workflow                      |
+| `/avail --cancel <custom-command>`              | Cancel a repeating workflow                                     |
+| `/avail --update <custom-command>`              | Make changes to a repeating workflow                            |
+| `/avail --end-date <custom-command> 2025-07-21` | Update the end date on an active repeating workflow             |
+
+**You will need to include the STARTING-DATE for the reoccurring workflow JSON object to schedule it**
 
 ### Validating **Calendaring** JSON Object Variable Values 
 
@@ -1204,25 +1258,117 @@ SCRIPT COMMAND:
      - Goal-based project assessment and improvements 
      - Mao or user identified; more open ended; AI has autonomy 
 
-* **Calendared reoccurring work scheduling**
-
-| Code | Frequency         || Code | Day       || Code | Time Block |
-| ---- | ----------------- || ---- | --------- || ---- | ---------- |
-| 1    | Every week        || 1    | Monday    || 1    | 0000-0300  |
-| 2    | Every other week  || 2    | Tuesday   || 2    | 0300-0600  |
-| 3    | Every month       || 3    | Wednesday || 3    | 0600-0900  |
-| 4    | Every other month || 4    | Thursday  || 4    | 0900-1200  |
-| 5    | Every year        || 5    | Friday    || 5    | 1200-1500  |
-| 6    | Every other year  || 6    | Saturday  || 6    | 1500-1800  |
-| 7    | Every day         || 7    | Sunday    || 7    | 1800-2100  |
-| 8    | Every other day   |                    | 8    | 2100-0000  |
-
 ### Saving The Collection Of JSON Objects 
 
-Standard JSON Objects 
-Completed Reoccurring JSON Objects 
-Add Naming Conventions 
-Mention Setup Scripts In Later Section 
+* **All of the JSON objects go in the same *.temp* directory** 
+
+  - In the configs directory there is `./workflows` and `./reoccurring` 
+    - We only find the .temp folder in the `./workflows/.temp/` 
+    - This is for simplicity 
+    - Since they all use different setup scripts, it doesn't matter if they all start out in the .temp directory within workflows 
+
+* **JSON workflow file-naming conventions** 
+
+  1. If you have a normal workflow you set it up like below, but without the ` calendaring_config.json` object 
+
+```bash
+# {{TEMP_DIR}}/
+# ├── calendaring_config.json    # Calendaring JSON object
+# ├── workflow_config.json       # Workflow definition  
+# ├── phase_config.json          # Phase implementation
+# └── handoff_config.json        # Completion criteria 
+```
+
+  2. Run the appropriate script for the type of workflow you are setting up 
+  3. All files will be renamed and moved to their appropriate location in the directory 
+
+
+```bash 
+# Create a normal workflow 
+/setup {{TEMP_DIR}}/
+# configs/workflows/USE_CASE_COMMAND 
+
+# Create scheduled reoccurring workflow
+/repeat --scheduled {{TEMP_DIR}}/
+# configs/reoccurring/scheduled/2_3_7/
+
+# Creating a project-list reoccurring workflow 
+/repeat --list-new {{TEMP_DIR}}/
+# configs/reoccurring/project-list/1_2_4/001/
+
+# Adding a list time to an existing repeating workflow  
+/repeat --list-add {{TEMP_DIR}}/
+# configs/reoccurring/project-list/1_2_4/002/
+
+# Create self-assessment reoccurring workflow
+/repeat --self-assessment {{TEMP_DIR}}/
+# configs/reoccurring/self-assessment/1_7_1/
+
+# Create sub-task of self-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/
+# configs/reoccurring/self-assessment/1_7_1/sub_task_custom_command/
+
+# Create goal-assessment reoccurring workflow
+/repeat --goal-assessment {{TEMP_DIR}}/
+# configs/reoccurring/goal-assessment/2_3_7/
+
+# Create sub-task of goal-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/
+# configs/reoccurring/goal-assessment/2_3_7/sub_task_custom_command/
+```
+
+* **Example ordinary workflow directory base structure** 
+
+  - These are created by the setup script automation 
+
+```
+configs/workflows/marketing-strategy-startup/
+├── config-files/                                    # ← Mao creates this
+│   ├── marketing_strategy_startup_workflow.json     # ← Mao moves & renames
+│   ├── marketing_strategy_startup_phase.json        # ← Mao moves & renames  
+│   └── marketing_strategy_startup_handoff.json      # ← Mao moves & renames
+├── README_marketing_strategy_startup.md             # ← Mao writes this automatically
+├── marketing_strategy_startup.sh                    # ← Mao creates your custom script
+├── metadata/                                        # ← Mao creates tracking directory
+│   ├── marketing_strategy_startup_memory.json       # ← Mao links to Memory MCP
+│   └── marketing_strategy_startup_log.json          # ← Mao creates execution log
+└── deliverables/                                    # ← Mao creates output directory
+    └── marketing_strategy_startup_report.md         # ← Where your final report goes
+```
+
+* **Example reoccurring workflow directory base structure**
+
+  - These are created by the setup script automation 
+
+```
+configs/reoccurring/
+├── calendar_index.json                 # Master calendar tracking
+├── calendar_codes.json                 # Code reference
+├── scheduled/                          # Scheduled workflows
+│   └── 2_3_7/                         # freq_day_time codes  
+│       ├── scheduled_2_3_7.json       # Calendar config
+│       ├── scheduled_2_3_7_workflow_config.json
+│       ├── scheduled_2_3_7_phase_config.json
+│       ├── scheduled_2_3_7_handoff_config.json
+│       ├── scheduled_2_3_7_README.md
+│       └── trigger_scheduled_2_3_7.sh  # Execution command
+├── project-list/                       # Project list workflows
+│   └── 1_2_4/                         # freq_day_time codes
+│       ├── 001/                       # First project item
+│       │   ├── project_1_2_4-001.json # Calendar config (copied)
+│       │   ├── project_1_2_4-001_workflow_config.json
+│       │   └── ... (other configs)
+│       └── 002/                       # Second project item
+│           └── ... (similar structure)
+├── self-assessment/                     # Self-assessment workflows
+│   └── 3_1_5/                         # freq_day_time codes
+│       ├── self_assessment_3_1_5.json
+│       └── ... (standard configs)
+└── goal-assessment/                     # Goal assessment workflows
+    └── 5_6_2/                         # freq_day_time codes
+        ├── goal_assessment_5_6_2.json
+        └── ... (standard configs)
+```
 
 ---
 [TOP](#overview)
@@ -1668,12 +1814,143 @@ CALL 1     CALL 2      CALL 3
 
 ### Complete JSON Objects & Save To Their .Temp Directory 
 
-* **Now it is time to create the JSON objects** 
+* **Next, turn your tasks into JSON objects** 
+
+  - We went over them very thoroughly [in section 6 above](#6-review-of-workflow-json-objects--variables)
+
+* **Create an appropriate custom command to execute the workflow** 
+
+  - A custom command should be 2 to 3 words long 
+  - It is important to keep the command short and concise 
+  - Write it in reverse drill-down order, starting with the broadest category term 
+  - It often feels like you are writing the intent of your project workflow in reverse
+  - Mimic the structure of commands that we're used to already, like `git commit` or `git push`
+
+- **EXAMPLE** I'm creating a workflow for a project in which I need to research, analyze, and create a marketing strategy report for my fintech startup, 'Dog-Tech' 
+
+  1. The command is technically just the first, broadest category term: `marketing`
+     - Other workflows in marketing can be created with the same first command word
+     - This will make working on various related marketing projects easier 
+     - It will make remembering commands easier
+  2. For the second word, use a subcategory of marketing: `strategy`
+     - This is the argument to the marketing command 
+     - It is also likely that there will be other marketing strategy workflows
+     - This will make it easier to find the right command 
+  3. For the third word, I'm just going to drill down more: `report`
+     - This makes it extremely memorable 
+     - It also makes it clear for future workflow creation that this might be a workflow that can easily be repurposed for marketing strategy reports on other startup ideas 
+     - The workflow can be reused in the future simply by updating the JSON objects and running the setup script again 
+
+The idea here is that, if in the future I need to create another marketing strategy report, I can use the same command, and just adjust the workflow to include an $ARGUMENT. Not necessary for the first workflow, where it would be dog-tech, but a good habit to get into. 
+
+It isn't a perfect science. The conceptual reasoning is more important to understand rather than the exact rules as defined above. For example, for something as common as *creating a marketing strategy report* and for a popular command like *marketing* I would probably abbreviate, with the goal of making something easier to type, easier to be longer, but still easy to make simple for each specific use-case. 
+
+- **TWO FINAL STEPS** 
+
+  1. Type the command a few times to make sure it is easy to type 
+     - I like abbreviating mkt because it is well known and easy to type  
+     - I like keeping strategy it keeps thing clear and easy to understand  
+
+```bash
+mkt strategy report # This is the command 
+``` 
+
+  2. Take the first word, the actual command, and run it in the terminal 
+     - It will be colored (mine is green) if it is already being used 
+     - If it isn't colored, or to double check, use `which` before the command to confirm if it is/isn't being used 
+
+```bash 
+mkt # This is the command 
+zsh: command not found: mkt # This is the output telling me nothing is using the command 
+```
+```bash
+which mkt # This is the command 
+mkt not found # This is the output telling me nothing is using the command 
+```
+
+- **THE FORMULA** 
+
+```bash
+command category variant   # This is the command 
+```
+- **EXAMPLES**
+
+| **COMMAND** | **CATEGORY** | **VARIANT**  | **DESCRIPTION**                                |
+| ----------- | ------------ | ------------ | ---------------------------------------------- |
+| mkt         | strategy     | dogtech      | Research strategy for Dog-Tech startup         |
+| mkt         | content      | plan         | Social content plan for Dog-Tech startup       |
+| job         | app          | resume       | Create targeted resume for job applications    |
+| job         | app          | cover-letter | Create cover-letter for job applications       |
+| job         | app          | doc          | Create cover-letter and resume for job app     |
+| tag         | keyword      | t-shirts     | Come up with SEO keywords for my t-shirt store |
+| social      | caption      | ig           | Write Instagram captions                       |
+
+#### Command Writing Rules 
+
+**Always avoid** these in a command:
+
+  1. No plural (so you never have to wonder if it is singular or plural)
+  2. No present participle verbs (gerunds with helping verbs)
+  3. No punctuation like hyphens (standard UX expectation)
+  4. No past tense verbs (e.g. `wrote`, `finished`, just stick to one tense)
+
+**Always use** these in a command: 
+
+   1. Use the simplest grammatical form of the word 
+   2. Use present tense 
+   3. Abbreviate when it is sensible 
+   4. Be short and concise 
+
+**Always remember** these should be helpful for humans to remember and use. 
+
+## The Setup Script Does EVERYTHING For You
+
+Here's where the real magic happens. When you run that setup script, Mao doesn't just move some files around. They **build your entire custom workflow infrastructure** automatically. 
+
+No coding. No configuration files. No technical setup. You literally just run the script and **everything is ready**.
+
+
+
+
+* **Save each kind by the name of that object.json**
+
+    1. One `workflow_config.json` to define the entire workflow 
+    2. Only a `calendaring_config.json` if this workflow will be scheduled 
+       - Activate it to run later or if it is a reoccurring workflow 
+    3. As many `phase_config.json` objects as you have tasks for agents 
+       - Any agents run in parallel get the same phase number but with a letter, e.g. 2A and 2B 
+       - Sequential would just be 2 and 3 
+    4. And then one `handoff_config.json` to follow every `phase_config.json` 
+       - They coordinate handing the task deliverable to you 
+       - You assess it and make a decision if necessary 
+         - A. If it is fine to move to the next preplanned phase 
+         - B. If you didn't preplan the next phase, now you can use the deliverable to do so and then `/update` the workflow 
+         - C. Or have another agent either improve or redo the task 
+
+* **Set them and then use the appropriate setup script**
+
+  - Put them all in a .temp directory 
+    - It *is designed* to work from any .temp directory 
+    - But here is the prepared location `./configs/workflows/.temp`
+    - They should look like the directory directly below 
+
+```bash
+# {{TEMP_DIR}}/
+# ├── calendaring_config.json    # Calendaring JSON object
+# ├── workflow_config.json       # Workflow definition  
+# ├── phase_config.json          # Phase implementation
+# └── handoff_config.json        # Completion criteria 
+```
+
+| Command  | Use-case  | 
+| -------- | --------- |
+| `/setup
+
 
   - Remember that only these JSONs will be transferred to the actual directory 
     - Part of our strategy for saving token cost is using the the Files API for workflow because it is *FREE* 
     - To maintain this cost saving we'll only want to move the final JSON object collection into their .temp file 
-    - `./configs/workflows/.temp` 
+    -  
 
 * **NOTE: Before proceeding, we should fully implement the calendar trigger workflows** 
 
@@ -1702,6 +1979,65 @@ CALL 1     CALL 2      CALL 3
 Reoccurring or normal, they get saved together. 
 Confirm and include naming conventions. 
 Mention setup scripts in coming section. 
+
+
+* **All of the JSON objects go in the same *.temp* directory** 
+
+  - In the configs directory there is `./workflows` and `./reoccurring` 
+    - We only find the .temp folder in the `./workflows/.temp/` 
+    - This is for simplicity 
+    - Since they all use different setup scripts, it doesn't matter if they all start out in the .temp directory within workflows 
+
+* **JSON workflow file-naming conventions** 
+
+  1. If you have a normal workflow you set it up like below, but without the ` calendaring.json` object 
+
+```bash
+# {{TEMP_DIR}}/
+# ├── calendaring.json         # Calendaring JSON object
+# ├── workflow_config.json     # Workflow definition  
+# ├── phase_config.json        # Phase implementation
+# └── handoff_config.json      # Completion criteria 
+```
+
+  2. Run the appropriate script for the type of workflow you are setting up 
+  3. All files will be renamed and moved to their appropriate location in the directory 
+
+
+```bash 
+# Create a normal workflow 
+/setup {{TEMP_DIR}}/
+# configs/workflows/USE_CASE_COMMAND 
+
+# Create scheduled reoccurring workflow
+/repeat --scheduled {{TEMP_DIR}}/
+# configs/reoccurring/scheduled/2_3_7/
+
+# Creating a project-list reoccurring workflow 
+/repeat --list-new {{TEMP_DIR}}/
+# configs/reoccurring/project-list/1_2_4/001/
+
+# Adding a list time to an existing repeating workflow  
+/repeat --list-add {{TEMP_DIR}}/
+# configs/reoccurring/project-list/1_2_4/002/
+
+# Create self-assessment reoccurring workflow
+/repeat --self-assessment {{TEMP_DIR}}/
+# configs/reoccurring/self-assessment/1_7_1/
+
+# Create sub-task of self-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/
+# configs/reoccurring/self-assessment/1_7_1/sub_task_custom_command/
+
+# Create goal-assessment reoccurring workflow
+/repeat --goal-assessment {{TEMP_DIR}}/
+# configs/reoccurring/goal-assessment/2_3_7/
+
+# Create sub-task of goal-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/
+# configs/reoccurring/goal-assessment/2_3_7/sub_task_custom_command/
+```
+
 
 ### Create Questionnaires 
 

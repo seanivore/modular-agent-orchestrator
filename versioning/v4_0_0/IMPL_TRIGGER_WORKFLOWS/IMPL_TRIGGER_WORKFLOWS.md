@@ -3,6 +3,54 @@
 
 ---
 
+In looking through this a few weeks after creating it, there is one change I'd like to make ... or confirm if maybe I thought of it before. I cannot tell based on the code what it requires the ORIGINAL filenames of all the JSON objects needs to be when they're in the .TEMP file together. 
+
+I'm hoping we can simplify the UX in that light because figuring out the calendar code is annoying enough, putting it in file names just seems silly when we could do this. 
+
+```bash
+# {{TEMP_DIR}}/
+# ├── calendaring.json         # Calendaring JSON object
+# ├── workflow_config.json     # Workflow definition  
+# ├── phase_config.json        # Phase implementation
+# └── handoff_config.json      # Completion criteria 
+```
+
+Then, we can just adjust the script so that when it moves the files over, it pulls the type of reoccurring triggered workflow and the calendar code from the calendaring JSON. That JSON says the "type" and has the calendar code, and then the rest is determined by the flag used with the setup script. 
+
+HOWEVER — I think then we need to do the same thing to the normal setup script. In that case there would just be 'workflow', 'phase', and 'handoff' and instead of the type of workflow and the date code in the name, it just puts the CUSTOM COMMAND like expected as the file names. 
+
+```bash 
+# Create scheduled reoccurring workflow
+/repeat --scheduled {{TEMP_DIR}}/
+# configs/reoccurring/scheduled/2_3_7/
+
+# Creating a project-list reoccurring workflow 
+/repeat --list-new {{TEMP_DIR}}/
+# configs/reoccurring/project-list/1_2_4/001/
+
+# Adding a list time to an existing repeating workflow  
+/repeat --list-add {{TEMP_DIR}}/
+# configs/reoccurring/project-list/1_2_4/002/
+
+# Create self-assessment reoccurring workflow
+/repeat --self-assessment {{TEMP_DIR}}/
+# configs/reoccurring/self-assessment/1_7_1/
+
+# Create sub-task of self-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/
+# configs/reoccurring/self-assessment/1_7_1/sub_task_custom_command/
+
+# Create goal-assessment reoccurring workflow
+/repeat --goal-assessment {{TEMP_DIR}}/
+# configs/reoccurring/goal-assessment/2_3_7/
+
+# Create sub-task of goal-assessment reoccurring workflow
+/repeat --sub-task {{TEMP_DIR}}/
+# configs/reoccurring/goal-assessment/2_3_7/sub_task_custom_command/
+```
+
+---
+
 ## Implementation Overview
 
 This implementation creates Mao's timer-triggered autonomous workflow system that enables scheduling intelligent activity rather than just repetitive tasks. The system builds on existing workflow infrastructure while adding calendar-based scheduling, availability checking, and autonomous execution capabilities.
