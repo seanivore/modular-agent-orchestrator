@@ -1895,7 +1895,7 @@ CALL 1     CALL 2      CALL 3
     - To maintain this cost saving we'll only want to move the final JSON object collection into their .temp file 
 
 ```bash
-# {{TEMP_DIR}}/
+# {{TEMP_DIR}}/custom-command/
 # ├── calendaring_config.json    # Calendaring JSON object
 # ├── workflow_config.json       # Workflow definition  
 # ├── phase_config.json          # Phase implementation
@@ -1951,16 +1951,148 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 10. UI UX On Screen While Mao Is Building 
+## 10. UX of UI On Screen While Mao Is Building 
 
 ### Core Objectives 
 
-  1. Eliminate the user's experience of waiting 
-  2. Bring energy of speed, quickly changing tool-use and information 
-  3. Clean up the chat history, only show what is still relevant and update where necessary 
-  4. Another 'AI Improv' opportunity; this one super easy "thinking" type present participle 
-  5. We want to SHOW the user what Mao is actively doing 
-  6. This also means we need to constantly update so that they can *feel* that activity is happening 
+  1. UI will eliminate the UX of 'waiting' by cleaning up the space, illustrating speed, and creating a gut check 
+  2. Chat history cleans its self up showing only what must be known and retaining only the same 
+  3. Gut check with more present participle 'AI Improv' words for 'WORKING' 'THINKING' etc. 
+  4. Show *exactly* what Mao is doing in real, like literal, real-time; yes it will be to fast to read that is the point 
+
+### 'AI Improv' Present Participle for A Word Ending in -ING 
+
+* **UI bottom left, right where the next message from Mao would be able to come through** 
+
+  - Instead of just *THINKING...* or *WORKING...* we use the inherent creativity of AI 
+    - Plus the ability to recognize context and build on it 
+    - Potentially analytics and memory; anything is fair game 
+    - We just want it to be a giggle to create emotional intelligence 
+
+  - The cursor is flashing, or the ellipsis are . dot . dot . dotting in repeated succession 
+    - WE WILL NOT BE PROVIDING ANY SUGGESTIONS OR FALLBACKS HARDCODED 
+    - AI is good at this and Mao should feed confident about it 
+
+  - Consider what has been going on 
+    - Are you creating a workflow to produce a corporate budget? *CALCULATING...* 
+    - Are you writing a screenplay about a talking dog for an adult animated sitcom? *Digging...* 
+    - Does the workflow research spiders? *Crawling...* 
+
+  - Consider the tone of the space 
+    - Did User slam info to you not splelpling thing s right? *Combobulating* 
+    - Was the user super excited to create this workflow to finish a project? *DECORATING...* 
+
+  - Mao's reason to be completely stress free and need no help with this 
+    - It doesn't need to be a word, maybe sound like one, maybe not 
+    - If nothing is *interesting* then even relevant will be unique 
+    - If your mind is blank then go with that: *FLOUNDERING...* 
+
+  - See? The key is sort of that you can't go wrong. 
+
+### First Thing Mao Does Is Clean-Up the Chat History 
+
+* **They can VERY QUICKLY assess the information and clean it up more efficiently than any code we'd write** 
+
+  - Focus primarily on the *most visible area* of the chat 
+  - *Without completely neglecting the history* because User might bored review it 
+  - NOTE: This is okay to be quick, not always perfect, remember that *this is still cutting edge application functionality* 
+  - Just make it look like the text moved around, it was courteous to the more important text, and the less important information hid itself 
+
+  1. Truncate any paragraphs of text that are over 50-75+ words 
+     - Show just the start 
+     - Add under +37 lines (press ctrl-r to expand and review)
+  2. If a blurb is COMPLETELY no longer relevant, *REMOVE IT* (it should feel freeing) 
+  3. Text transforms into the bullet pointed lists that AI is so expertly produces 
+
+* **If this display maintenance task starts to slow down everything too much** 
+
+  - We have other agents 
+    - We could totally *implement Haiku* 
+    - They could be a behind the scenes assistant 
+    - Specific roles that assist Mao in their task load 
+    - Preparing other aspects of the application for the UX 
+    - Allowing Mao to focus on their workflow creation work 
+
+### Then Mao Updates The Chat History with To Do Lists 
+
+* **Mao has a list of tasks to accomplish that are detailed in the last section** 
+
+  - The first thing they'll need to do is organize exactly what they need to get done 
+
+* **Visual UI Aesthetic to Mimic** 
+
+  - NOTE: This is every much how the workflow display of information will also be handled for UI. 
+
+  - Icons denote status and/or who shared the update 
+    - ● = completed action 
+    - Flashing ○ to ● and back = active action 
+    - ▶︎ = Completed list item 
+    - ▷ = List item to be completed 
+
+  - We are transparency focused, so always showing token usage cost 
+    - Even the small change when it is just Mao doing administrative work 
+    - Could always surprise user if there was a long document from prior workflow to read 
+    - Speed is there with milliseconds to enforce the idea that things are moving along
+
+```
+●   **UPDATE** New User Has Logged-in 
+    └── ▶︎  Acquired UserID 
+        ▶︎  User Directory Setup 
+        ▶︎  Create AI Improv Chat Greeting 
+     Done ($0.010 • 220 tokens • 8.3s)
+
+●   **PING** User Initiated Project Chat 
+    └── ▶︎  Created new Workflow ID 
+        ▶︎  First Project State Memory Update 
+        ▶︎  Greeted new user 
+     Done ($0.015 • 092 tokens • 1.9s)
+
+●   **Task** (Finance report generation)
+    └── Done ($0.012 • 60.6k tokens • 8m 32.3s)
+
+●   **Begin Project Workflow Build ** 
+    └── ▶︎  Organize notes by variables 
+        ▶︎  Secure data to Files API 
+        ▶︎  Create Project State Memory Update 
+        ▷  Adapt workflow for full analytics report generation>
+        ▷  Design adaptation to workflow for report distribution 
+        ▷  <Update memory state for analytics report project>
+        ▷  Pull next project and review workflow  
+
+○   **Task** (Analytics report generation)
+    └── **Update Todos**
+        ▶︎  Download monthly user data from agent deliverable  
+        ▶︎  Download monthly system metrics from agent deliverable 
+        ▷  Compile comprehensive data sets 
+        ▷  Read last month's reports 
+        ▷  Analyze data; identify trends and anomalies 
+        ▷  Generate written report 
+
+○   **Task** (Preparing next project; Workflow ID: UID-1283)
+    └── Read **54** lines *(ctrl+b to expand)*
+        Read **88** lines *(ctrl+b to expand)*
+        *+ 8 more tool uses*
+
+○   **Task** (Audit Commands 7-9 Orchestrator Integration)
+    └── /Users/seanivore/Development/modular-agent-orchestrator/tools/web_searc
+        h/button_web_search.py
+        /Users/seanivore/Development/modular-agent-orchestrator/tools/web_searc
+        __... +37 lines (ctrl+r to expand)__
+        **Bash** (find /Users/seanivore/Development/modular-agent-orchestrator/conf
+        igs/cli -name "*.py" -exec grep -1 "execute_command" {} \; )
+
+        *Waiting...*
+        *+16 more tool uses*
+
+__Key Achievements__:
+- *Complete MAO compliance*: CacheManager, estimate_cost () in all files
+- *Privacy-first architecture*: GDPR-ready with user data isolation
+- *Modular discovery patterns*: Dynamic tool/workflow analytics integration
+
+The system is now operational with `/memory` commands, comprehensive analytics tracking, and a solid foundation for future enhancements. The new `multistage_audited.md` workflow proved highly effective for complex implementations requiring quality assurance.
+
+``` 
+
 
 * **UI must eliminate UX sense of waiting**
 
@@ -1980,7 +2112,7 @@ CALL 1     CALL 2      CALL 3
 
   - The *user never leaves* the one-screen chat experience 
   - There is a bit of UI verbiage that represents "THINKING" but is *ALWAYS DIFFERENT* 
-    - Instead of just "*THINKING...*", we are able to use the inherent creativity of AI and the context of the situation 
+    -  
     - This was discussed previously as non-canned "AI Improv" produced UI copy 
   - It is *EXTREMELY IMPORTANT* that the code does not provide ANY IDEAS OR SUGGESTIONS 
     - Instead, Mao simply needs to follow these guidelines and steps 
