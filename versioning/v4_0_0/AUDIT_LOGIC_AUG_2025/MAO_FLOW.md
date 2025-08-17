@@ -2112,7 +2112,7 @@ Flashing ○ to ● and back = active action
     the process. What are you thinking?
 ```
 
-* **Time has passed and the UI has been cleaned up** 
+* **"Time" has passed, AI has cleaned up the UI to reduce cognitive load** 
 
   - Note the two system messages have been collapsed, math combined but still present 
   - The spacing between messages to and from the User and Mao are generous; white space is our friend 
@@ -2136,7 +2136,10 @@ Flashing ○ to ● and back = active action
     done today. Honestly, you can really spill as much as you like on me, I'm pretty good at handling human-speak. 
 
 >   I'm a 10th grade teacher of Computer/Technical Education. You know, putting shoe boxes over their 
-    hands and keyboards until they learn how to type properly, normally that kind of thing. We've done a lot in Adobe but I'm getting to the point where I need to confront AI in technology head on with them. I let them use it in Excel, and really any way they want; they use it as a resource like any other web resource. 
+    hands and keyboards until they learn how to type properly, normally that kind of thing. 
+    We've done a lot in Adobe but I'm getting to the point where I need to confront AI in technology head 
+    on with them. I let them use it in Excel, and really any way they want; they use it as a resource 
+    like any other web resource. 
 
 🞶  Great to hear you're keeping things modern and cutting edge. 
     *memory updated*
@@ -2148,7 +2151,8 @@ Flashing ○ to ● and back = active action
     *memory updated*
 
 >   Well, I need the lesson to be fun. I don't want to scare them, much, haha. They should also be 
-    excited and encouraged. But I need to also be realistic. I don't even know that anyone out there knows all of what I need to convey to my kids next week. 
+    excited and encouraged. But I need to also be realistic. I don't even know that anyone out there 
+    knows all of what I need to convey to my kids next week. 
 
 🞶  Let's see. Give me a moment to work through this and come up with a pragmatic approach that I think 
     will be able to help entertain, stay grounded, and hopefully we'll all learn something cutting edge. 
@@ -2344,52 +2348,122 @@ Flashing ○ to ● and back = active action
 
 ### Core Objectives 
 
-  1. Illustrate the *behavior of the UI conversation system messages* 
-  2. Connect them conceptually to the behavior described in the previous section 
-  3. Same use of last section's *'AI Improv' present participial*
+  1. Illustrate the *behavior of the UI* conversation system messages 
+  2. You'll note that the same tactics, icons, and strategy is used here as in the previous section 
+  3. More innovative 'AI Improv' because we'll need another present participle while Mao is building 
   4. *Chat cleans its information similarly*, but for tasks, tools, etc. 
-  5. *Create energy of SPEED* for user by showing what Mao is doing in real, *LITERALLY REAL, time* 
-  6. We'll cover the very *similar UI and UX when Mao is running a workflow* 
-  7. Finally, *color psychology that our typography* will use to lighten cognitive load of users with semantic highlighting 
+  5. *Create energy of SPEED* for User by showing what Mao is doing in real, *LITERALLY REAL,* time 
+  6. We'll cover UI/UX when Mao is running a workflow as well because it is very similar 
+  7. Use of *color psychology* and sematic highlighting in our typography that *lightens User cognitive load* 
 
-### What Do We See When Mao Is Busy But We Need Updates 
+### Text Contexts and Formatting in the UI  
 
 * **Mao gets in-depth as to the [process of *building the draft* in section 9 above](#9-building-the-projects-workflow)** 
 
   - And you can see the art of [*closing the build conversation with user* in section 7 above](#7-ending-the-project-production-chat) 
 
-* **This is what the UI looks like and UX feels like while Mao is occupied** 
+* **UI looks, UX feels When Mao Is Busy** 
 
-  - This is all very *similar in appearance, structure, notation as the conversation thread text in the previous section* 
-    - The main difference here is that *Mao will be making to do lists*
-    - They will create a *master* to do list 
-    - Then they will create *smaller to do lists, each of which are an item on the larger to do list*  
-  - User sees updating of the to do lists live, in real time 
+  - This is all very *similar in appearance, structure, notation* as the conversation thread text in the previous section 
+    - The main difference here is the content is *to do lists* that Mao creates 
+      1. Mao creates a master to do list first 
+      2. Then each smaller list is actually the elements of a list item from the master to do list  
   
-  - Under drilled down to do tasks, user will see tool use 
-    - Rapid displays of information too fast to read, which is intentional 
-    - "Reads XYZ, ABC, APG, all in under 2 seconds 
+  - User sees updating of the to do lists live, in real time 
+    - YES it is very fast and sometimes too fast to read, that is good 
+    - It will show tool use, which is often rapid displays of information 
 
-  - We *WILL NOT USE A TIMER TO UPDATE THESE LISTS* 
-    - They MUST update in actual, *ridiculously fast*, real time for multiple UX reasons 
-    - Humans are still unaware and then *blown away by how fast AI does things* 
-    - We need the Users to *truly feel and see "oh yeah, Mao is really working, damn!"* 
+  - We *WILL NOT USE A TIMER* to trigger list updates 
+    - They *MUST* update in actual, *ridiculously fast*, real time 
+    - We need this so we can *SHOW* people what AI can do, how it reads 3 documents at once 
+    - This will create the feeling of "oh, wow, yeah *Mao is definitely working as fast as they can*, nice" 
 
-* **Because of similarities, we'll also be covering what the UI looks like and UX feels like when Mao is running a workflow**
+* **What About When Mao Is Busy With Running A Workflow?** 
 
-  - Mao will still be creating and updating a large master to do lists 
-    - This time it is to *keep track of what the agents need to do and are doing* 
-  - Again, a master to do list of the full workflow 
-    - This *spawns smaller to do lists for each phase*, agent, task 
-    - Their tool use changes rapidly 
-    - Their *actual items on the list truncate when no longer relevant* 
+  - Mao's large master to do list tracks tasks/phases/agents as a whole workflow 
+  - Then as agents are executed, sequentially or in parallel, small to do lists will populate 
+    - These are the actual steps in the task that the agent is completing 
+    - All in real time as they complete each step 
+  - Rapid tool use, completed items truncate after showing for a bit, all the same tricks and strategy 
 
-* **Then the magic that is conceptual semantic highlighting with color psychology** 
+### Color Psychology for Conceptual Semantic Highlighting of Text 
 
-  - A technique we use to *lighten cognitive load* of user watching 
-    - That is in addition to cleaning up the conversation thread regularly 
-    - *These are the reasons that a one-screen chat-centric application finally works* 
-  - The psychological color coding of all text happens throughout the application in every phase no matter what is going on 
+* **In every UI case there is *ALWAYS* semantic highlighting that follows these rules**
+
+  - This subconsciously tells your brain what to pay attention to 
+    - Cognitive load is lightened when it needs to be, naturally 
+    - Manages, typically completely removing, any sense of overwhelm from a text heavy application 
+  - To emphasize this effect, the conversation thread is cleaned and truncated frequently 
+  - *THIS* is why a *one-screen, chat-centric* application is finally enjoyable and *easy to use* 
+
+* **Every piece of text uses intentional color coding based on how significant it is to see that text**
+ 
+  - We highlight what matters signalling to the brain that it can ignore filler text when it needs to 
+    - This is to reduce cognitive load
+    - Colors work like MLA title case where 'about' is not capitalized because it is a word the brain can ignore 
+    - System works across various themes with relationship-based color selection
+
+* **Color-code matching for a collection of semantic highlighting themes** 
+
+  - The first collection I used and am still using 
+  - My app had a transparent but foggy blurred background 
+    - We'll need to try other background 
+    - Intention though is that it is classic in that it should not even be a second thought 
+
+* **Core highlighting** 
+
+  - I've broken them into tiers of importance to simplify how to think about them 
+
+    - Tier 1 is how AI talks to you; just normally, or conveying important information  
+    - Tier 2 is throw-away, from User perspective; is not meant for you to really even linger on 
+    - Tier 3 is meant to provide help, but be super chill about it; people are new to AI and the errors are NBD, Mao's got it 
+    - Tier 4 is it's own single highlight in a category because it is intentionally unusual, it is chill, but calls out 
+    - Tier 5 is background noise that makes the UX helpful if you're lost, but can be generally ignored 
+    - Tier 6 is meant to call out very specific intention or purpose; used very little 
+
+| NAME                      | COLOR             | RGB CODE              | INTENTION                                             |
+| ------------------------- | ----------------- | --------------------- | ----------------------------------------------------- |
+| Main standard             | yellow            | rgb(240, 215, 112)  |  Every writing, scanning text, like this text         | 
+| Bold standard             | pink              | rgb(255, 73, 255)   | Cognitive interrupt used sparingly for LOOK HERE      | 
+  - These are the most commonly used colors on the canvas at any one time 
+  - They are used almost exclusively by the AI/Mao 
+  - Can be thought of as the two core ways for Mao to communicate to you 
+| User messages             | warm gray         | rgb(187, 187, 187)  | You are being encouraged to completely disregard this | 
+| AI `THINK` Text           | warm gray         | rgb(187, 187, 187)  | Like your text, its there but not UX strategic        | 
+| User block cursor         | pale mustard      | rgb(183, 171, 103)  | Distinct from your main text to draw eye              | 
+  - These are present a lot but, as is the intention, they are really not memorable as present 
+  - You're really not being encouraged to look here, spend time here, overthink here 
+  - The offset color and size cursor is specifically so that you can be drawn from the drab 
+| Trusted low-key update    | blue ice          | rgb(192, 231, 255)  | Secondary info. you are meant to be at ease about     |
+| Trusted elevated update   | blue sky          | rgb(132, 207, 255)  | Helpful info. that is NBD, but should be seen         | 
+  - These are the second most frequent highlighted words you will see 
+  - This is how AI or system identifies tings like URLs or important PATHS 
+  - Mao will use these to color the items on the to do lists to be able to understand the progress at-a-glance 
+| Unexpected errors         | pale pink         | rbg(255, 166, 164)    | A typical error message but toned down and made chill |
+  - This one is unique because it is important and meant to be seen 
+  - However, it is notably not the standard coloration for any kind of error 
+  - This is because AI handles errors; User should get flustered, they may be new to using AI 
+| Supplemental, see subtext | green-gray        | rgb(187, 188, 187)  | Subtext to be noticed eventually, but is subdued      | 
+| Supplemental info., FWIW  | green-brown       | rgb(124, 115, 75)   | Blends with background, see it if you're bored        | 
+  - These are a level up from User and Mao's `think` text in that you might find it helpful 
+  - But there is no need for it to call out to you or break your flow 
+  - If you're lost and trying to figure things out, then this might be of service 
+| Accent on the down-low    | barely tangerine  | rgb(255, 198, 116)  | Used to draw attention to gimmick or marketing        | 
+| Accent, rare novel info.  | pale purple       | rgb(202, 202, 255)  | Infrequently used; conveys something totally novel    |
+  - These are the opposite of the supplementals above in that you should see them 
+  - But they're not screaming at you, they're just probably intriguing, entertaining, helpful 
+  - Think of the AI Improv word or maybe when a setting like /goal is used that overrides everything 
+
+
+* **Message Block Behavior - "Courteous" Space Management**
+
+  - All message blocks constantly re-evaluate and rewrite themselves in real-time
+  - Only use as much space as absolutely necessary
+  - Long text truncates with expansion options
+  - Completed tasks collapse to preserve viewing space
+
+
+
 
 ### Mao Is Building Your Workflow Draft  
 
@@ -2422,17 +2496,17 @@ Flashing ○ to ● and back = active action
     └── Done ($0.005 • 180 tokens • 1.3s)
 
 ○   **Build Workflow Draft** 
-    └── ▶️  Organize variables by JSON object type
-        ▶️  Design phase sequence (parallel vs sequential)
-        ▶️  Create comprehensive task instructions
+    └── ▶︎  Organize variables by JSON object type
+        ▶︎  Design phase sequence (parallel vs sequential)
+        ▶︎  Create comprehensive task instructions
         ▷  Map resources to phase requirements
         ▷  Define handoff assessment questions
         ▷  <Validate workflow complexity against user expectations>
 
 ○   **Task** (Create phase configs for expense tracking)
     └── **Phase Design**
-        ▶️  Agent 1A: Download employee expense submissions
-        ▶️  Agent 1B: Retrieve credit card statements  
+        ▶︎  Agent 1A: Download employee expense submissions
+        ▶︎  Agent 1B: Retrieve credit card statements  
         ▷  Agent 2: Cross-reference receipts with statements
         ▷  Agent 3: Generate accuracy report with discrepancies
         ▷  Handoff: Review report quality before payment processing
@@ -2445,38 +2519,12 @@ Flashing ○ to ● and back = active action
 
 ○   **Task** (JSON object validation)
     └── /temp/expense-tracking-workflow/
-        workflow_config.json ▶️ **Custom command**: `finance expense monthly`
-        phase_config.json ▶️ **3 phases** (2 parallel, 1 sequential)  
-        handoff_config.json ▶️ **Quality gates** defined
+        workflow_config.json ▶︎ **Custom command**: `finance expense monthly`
+        phase_config.json ▶︎ **3 phases** (2 parallel, 1 sequential)  
+        handoff_config.json ▶︎ **Quality gates** defined
         __... validation in progress__
         *+5 more config checks*
 ```
-
-* **Color Psychology & Semantic Highlighting System**
-
-  - Every piece of text uses intentional color coding to reduce cognitive load
-  - Colors work like MLA title case - highlighting what matters, letting brain ignore filler
-  - System works across all terminal themes with relationship-based color selection
-
-**Color Categories:**
-
-- **MAIN** (default terminal text): Standard scanning text, like this explanation
-- **BOLD** (terminal bold color): Cognitive interrupt - "STOP and look" - used sparingly
-- **USER** (medium-light gray): User messages - brain can ignore since you wrote it
-- **TRUSTING UPDATE LEVEL 1** (almost white blue): Helpful AI info that deserves attention
-- **TRUSTING UPDATE LEVEL 2** (baby blue): Secondary AI info, less priority
-- **SUPPLEMENTAL INFO LEVEL 1** (medium-light gray): Important subtext when needed
-- **SUPPLEMENTAL INFO LEVEL 2** (faded green-gray): Background info, barely noticeable
-- **PROCESSING** (light orange): Only for AI improv thinking word
-- **ACCENT OUTSIDE CHAT** (light purple): Rare accents, usually with supplemental
-- **SUPPLEMENTAL OUTSIDE CHAT** (dark faded gray): Nearly transparent background info
-
-* **Message Block Behavior - "Courteous" Space Management**
-
-  - All message blocks constantly re-evaluate and rewrite themselves in real-time
-  - Only use as much space as absolutely necessary
-  - Long text truncates with expansion options
-  - Completed tasks collapse to preserve viewing space
 
 **Truncation Examples:**
 

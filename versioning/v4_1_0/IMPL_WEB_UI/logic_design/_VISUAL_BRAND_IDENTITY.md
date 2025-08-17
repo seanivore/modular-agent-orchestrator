@@ -527,7 +527,7 @@ WORKFLOW: Content Strategy Development
 
 ### Text Colors 
 
-- Yellow --> #f1d771
+
   - Main text  
   - USER'S main terminal color
 - Pink --> #ff49ff
@@ -549,4 +549,20 @@ WORKFLOW: Content Strategy Development
 - Light brown --> #7b714a
   - Numbers in an ordered list 
   - Background information text ( └ to do list is empty)
+
+* **Themes that all fit the semantic highlighting's color psychology** 
+
+  - BACKGROUND: transparent blurred 
+  - MAIN > yellow > rgb(240, 215, 112)
+  - BOLD > pink > rgb(255, 73, 255)
+  - USER > warm gray > rgb(187, 187, 187) 
+  - USER CURSOR > pale yellow green > rgb(183, 171, 103)
+  - TRUSTED UPDATE LEVEL 1 > blue ice > rgb(192, 231, 255)
+  - TRUSTED UPDATE LEVEL 2 > blue sky > rgb(132, 207, 255) 
+  - SUPPLEMENTAL INFO LEVEL 1 > green-gray > rgb(187, 188, 187)
+  - SUPPLEMENTAL INFO LEVEL 2 > green-brown > rgb(124, 115, 75)
+  - UNEXPECTED > pale pink > rgb(255, 166, 164)
+  - PROCESSING > barely tangerine > rgb(255, 198, 116)
+  - ACCENT OUTSIDE CHAT > pale purple > rgb(202, 202, 255) 
+  - SUPPLEMENTAL OUTSIDE CHAT > gray stone > rgb(185, 185, 184)
 
