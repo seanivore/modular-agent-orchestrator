@@ -28,7 +28,7 @@ HOWEVER — I think then we need to do the same thing to the normal setup scrip
 /repeat --list-new {{TEMP_DIR}}/
 # configs/reoccurring/project-list/1_2_4/001/
 
-# Adding a list time to an existing repeating workflow  
+# Adding a list item to an existing repeating workflow  
 /repeat --list-add {{TEMP_DIR}}/
 # configs/reoccurring/project-list/1_2_4/002/
 

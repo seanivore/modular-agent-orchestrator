@@ -1812,120 +1812,77 @@ CALL 1     CALL 2      CALL 3
     - Tools and how to use them 
     - Very clear description of what their deliverable looks like 
 
-### Complete JSON Objects & Save To Their .Temp Directory 
+### Complete Your JSON Objects 
 
 * **Next, turn your tasks into JSON objects** 
 
   - We went over them very thoroughly [in section 6 above](#6-review-of-workflow-json-objects--variables)
 
-* **Create an appropriate custom command to execute the workflow** 
+* **Questionnaires for Handoff JSON objects** 
 
-  - A custom command should be 2 to 3 words long 
-  - It is important to keep the command short and concise 
-  - Write it in reverse drill-down order, starting with the broadest category term 
-  - It often feels like you are writing the intent of your project workflow in reverse
-  - Mimic the structure of commands that we're used to already, like `git commit` or `git push`
+  - There is *space on the handoff JSON for questions* 
+    - Things that Mao should remember to ask themselves about the deliverable the agent just handed to them 
+    - Help them decide what the best next steps are 
+    - Help them to be assured that the deliverable is up to quality standards and nothing is forgotten 
 
-- **EXAMPLE** I'm creating a workflow for a project in which I need to research, analyze, and create a marketing strategy report for my fintech startup, 'Dog-Tech' 
+### Custom Command Writing Protocol 
 
-  1. The command is technically just the first, broadest category term: `marketing`
-     - Other workflows in marketing can be created with the same first command word
-     - This will make working on various related marketing projects easier 
-     - It will make remembering commands easier
-  2. For the second word, use a subcategory of marketing: `strategy`
-     - This is the argument to the marketing command 
-     - It is also likely that there will be other marketing strategy workflows
-     - This will make it easier to find the right command 
-  3. For the third word, I'm just going to drill down more: `report`
-     - This makes it extremely memorable 
-     - It also makes it clear for future workflow creation that this might be a workflow that can easily be repurposed for marketing strategy reports on other startup ideas 
-     - The workflow can be reused in the future simply by updating the JSON objects and running the setup script again 
+* **Create an *appropriate custom slash command* to execute the workflow** 
 
-The idea here is that, if in the future I need to create another marketing strategy report, I can use the same command, and just adjust the workflow to include an $ARGUMENT. Not necessary for the first workflow, where it would be dog-tech, but a good habit to get into. 
+  - *2 or 3 words long,* very concise, written in drill-down order starting with the broadest category term 
+    - It often feels like you are writing the intent of your project workflow in reverse 
+    - Mimic the structure of commands we're used to already like `git commit` and `git push` 
+    - Though of course, in the app we'll use a slash / command 
 
-It isn't a perfect science. The conceptual reasoning is more important to understand rather than the exact rules as defined above. For example, for something as common as *creating a marketing strategy report* and for a popular command like *marketing* I would probably abbreviate, with the goal of making something easier to type, easier to be longer, but still easy to make simple for each specific use-case. 
+* **One of the VERY FEW TIMES we *WANT to create a category*, at least, regarding the code**
 
-- **TWO FINAL STEPS** 
-
-  1. Type the command a few times to make sure it is easy to type 
-     - I like abbreviating mkt because it is well known and easy to type  
-     - I like keeping strategy it keeps thing clear and easy to understand  
-
-```bash
-mkt strategy report # This is the command 
-``` 
-
-  2. Take the first word, the actual command, and run it in the terminal 
-     - It will be colored (mine is green) if it is already being used 
-     - If it isn't colored, or to double check, use `which` before the command to confirm if it is/isn't being used 
+  - Creating a workflow that updates your goldfish content marketing blog's weekly post 
+    
+    1. Broadest term first to group like workflows OR group *THE USERS* work together 
+       - `marketing` or `mrkt` if they do lots of marketing 
+       - Maybe `weekly` if they're just doing a bunch of writing workflows for their company 
+    2. Then narrow down, again for grouping similar workflows or what will help the user 
+       - This person might just want `blog` 
+    3. Then make it specific or, frankly, snappy 
+       - All together for this one I actually like `mkt blog weekly` 
+       - Easy to type and I have a bunch of other commands that start with `mkt` 
 
 ```bash 
-mkt # This is the command 
-zsh: command not found: mkt # This is the output telling me nothing is using the command 
-```
-```bash
-which mkt # This is the command 
-mkt not found # This is the output telling me nothing is using the command 
+/mkt blog weekly    # This is the custom slash command to run the workflow 
 ```
 
-- **THE FORMULA** 
+  - Make sure your choice command is not already in use 
 
-```bash
-command category variant   # This is the command 
-```
-- **EXAMPLES**
+* **NOTE: We must create a `/command 'mkt blog weekly'`to be able to do this in the application** 
 
-| **COMMAND** | **CATEGORY** | **VARIANT**  | **DESCRIPTION**                                |
-| ----------- | ------------ | ------------ | ---------------------------------------------- |
-| mkt         | strategy     | dogtech      | Research strategy for Dog-Tech startup         |
-| mkt         | content      | plan         | Social content plan for Dog-Tech startup       |
-| job         | app          | resume       | Create targeted resume for job applications    |
-| job         | app          | cover-letter | Create cover-letter for job applications       |
-| job         | app          | doc          | Create cover-letter and resume for job app     |
-| tag         | keyword      | t-shirts     | Come up with SEO keywords for my t-shirt store |
-| social      | caption      | ig           | Write Instagram captions                       |
+  - General, helpful *rules for writing your custom slash command* to follow 
 
-#### Command Writing Rules 
+  1. *No plural* (so you never have to wonder if it was singular or plural)
+  2. *No present participle* verbs (gerunds, end in -ing, with helping verbs)
+  3. *No punctuation* like hyphens (standard UX expectation)
+  4. *No past tense* verbs (e.g. `wrote`, `finished`, just stick to one tense)
 
-**Always avoid** these in a command:
+  5. *Always use the simplest grammatical form* of the word 
+  6. *Always use present tense* 
+  7. *Always abbreviate* when it is sensible 
+  8. *Always be short* and concise 
 
-  1. No plural (so you never have to wonder if it is singular or plural)
-  2. No present participle verbs (gerunds with helping verbs)
-  3. No punctuation like hyphens (standard UX expectation)
-  4. No past tense verbs (e.g. `wrote`, `finished`, just stick to one tense)
+### Simplified Naming Conventions & Put Them In `./config/workflows/.temp/CUSTOM-COMMAND/` 
 
-**Always use** these in a command: 
+* **Make sure you have all that you require** 
 
-   1. Use the simplest grammatical form of the word 
-   2. Use present tense 
-   3. Abbreviate when it is sensible 
-   4. Be short and concise 
-
-**Always remember** these should be helpful for humans to remember and use. 
-
-## The Setup Script Does EVERYTHING For You
-
-Here's where the real magic happens. When you run that setup script, Mao doesn't just move some files around. They **build your entire custom workflow infrastructure** automatically. 
-
-No coding. No configuration files. No technical setup. You literally just run the script and **everything is ready**.
-
-
-
-
-* **Save each kind by the name of that object.json**
-
-    1. One `workflow_config.json` to define the entire workflow 
-    2. Only a `calendaring_config.json` if this workflow will be scheduled 
-       - Activate it to run later or if it is a reoccurring workflow 
-    3. As many `phase_config.json` objects as you have tasks for agents 
-       - Any agents run in parallel get the same phase number but with a letter, e.g. 2A and 2B 
-       - Sequential would just be 2 and 3 
-    4. And then one `handoff_config.json` to follow every `phase_config.json` 
-       - They coordinate handing the task deliverable to you 
-       - You assess it and make a decision if necessary 
-         - A. If it is fine to move to the next preplanned phase 
-         - B. If you didn't preplan the next phase, now you can use the deliverable to do so and then `/update` the workflow 
-         - C. Or have another agent either improve or redo the task 
+  1. One `workflow_config.json` to define the entire workflow 
+  2. Only a `calendaring_config.json` if this workflow will be scheduled 
+     - Activate it to run later or if it is a reoccurring workflow 
+  3. As many `phase_config.json` objects as you have tasks for agents 
+     - Any agents run in parallel get the same phase number but with a letter, e.g. 2A and 2B 
+     - Sequential would just be 2 and 3 
+  4. And then one `handoff_config.json` to follow every `phase_config.json` 
+     - They coordinate handing the task deliverable to you 
+     - You assess it and make a decision if necessary 
+       - A. If it is fine to move to the next preplanned phase 
+       - B. If you didn't preplan the next phase, now you can use the deliverable to do so and then `/update` the workflow 
+       - C. Or have another agent either improve or redo the task 
 
 * **Set them and then use the appropriate setup script**
 
@@ -1933,6 +1890,9 @@ No coding. No configuration files. No technical setup. You literally just run th
     - It *is designed* to work from any .temp directory 
     - But here is the prepared location `./configs/workflows/.temp`
     - They should look like the directory directly below 
+  - Remember that only these JSONs will be transferred to the actual directory 
+    - Part of our strategy for saving token cost is using the the Files API for workflow because it is *FREE* 
+    - To maintain this cost saving we'll only want to move the final JSON object collection into their .temp file 
 
 ```bash
 # {{TEMP_DIR}}/
@@ -1942,145 +1902,47 @@ No coding. No configuration files. No technical setup. You literally just run th
 # └── handoff_config.json        # Completion criteria 
 ```
 
-| Command  | Use-case  | 
-| -------- | --------- |
-| `/setup
+| **Custom Slash Command & .Temp Path**                  | **Use-case**                                  | 
+| ------------------------------------------------------ | --------------------------------------------- |
+| `/setup {{temp}}/mkt-blog-weekly/`                     | Setup a normal workflow                       |
+| `/update {{temp}}/mkt-blog-weekly/`                    | Add a phase left open-ended                   |
+| `/fix-it {{temp}}/mkt-blog-weekly/`                    | Have an agent redo a deliverable              |
+| `/repeat --scheduled {{temp}}/mkt-blog-weekly/`        | Scheduled reoccurring workflow                |
+| `/repeat --list-new {{temp}}/mkt-blog-weekly/`         | Project list reoccurring workflow             |
+| `/repeat --list-add {{temp}}/mkt-blog-weekly/`         | Add list item to project list workflow        |
+| `/repeat --self-assessment {{temp}}/mkt-blog-weekly/`  | Self-assessment reoccurring workflow          | 
+| `/repeat --sub-task {{temp}}/mkt-blog-weekly/`         | Add subtask to self/goal-assessment workflow  |
+| `/repeat --goal-assessment {{temp}}/mkt-blog-weekly/`  | Goal-assessment reoccurring workflow          | 
 
+### Create Visual Diagram for User Presentation of Workflow 
 
-  - Remember that only these JSONs will be transferred to the actual directory 
-    - Part of our strategy for saving token cost is using the the Files API for workflow because it is *FREE* 
-    - To maintain this cost saving we'll only want to move the final JSON object collection into their .temp file 
-    -  
+* **NOTE: THIS NEEDS TO BE IMPLEMENTED** 
 
-* **NOTE: Before proceeding, we should fully implement the calendar trigger workflows** 
+  - When we ditched the terminal app for a web app I figured this made a lot of sense 
+  - People are visual and this will help them feel comfortable with what Mao built for them 
+    - We need to figure out the logistics 
+    - What is the tech that will work with our simple HTML/CSS/JS web app 
 
-  - `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md` 
-    - To fully understand the differences 
-    - There are four types of reoccurring workflow, and they are not all saved with the same naming conventions 
-    - They do however all go into the same .temp directory with the others 
-    - And then they require a different setup script per type of triggered reoccurring workflow you are calendaring 
-  - The full directory structure will be created during implementation but these are there now 
-    - `./configs/reoccurring/goal-assessment`
-    - `./configs/reoccurring/project-list`
-    - `./configs/reoccurring/scheduled`
-    - `./configs/reoccurring/self-assessment` 
-  - Review the differences and nuances of them all in this very carefully written documentation file 
-    - `./documentation/08_AUTOMATE_INTELLIGENCE.md` 
+### Project State __Memory Update Point__ 
 
-* **NOTE: THESE NEED TO BE UPDATED & WE NEED A COPY OF THE CALENDAR TRIGGER OBJECT & FREQUENCY CODES** 
+  - Name of update: `07-final-draft-001` 
 
-  - There is only going to be one fallback model and one fallback provider for simplicity 
-    - `./configs/workflows/json_object_templates/command_use_case_handoff_config.json`
-    - `./configs/workflows/json_object_templates/command_use_case_phase_config.json`
-    - `./configs/workflows/json_object_templates/command_use_case_workflow_config.json` 
+* **Analysis, expectations, thoughts** 
 
-* **Filling Out & Saving The Entire Collection of JSON Objects** 
-
-Reoccurring or normal, they get saved together. 
-Confirm and include naming conventions. 
-Mention setup scripts in coming section. 
-
-
-* **All of the JSON objects go in the same *.temp* directory** 
-
-  - In the configs directory there is `./workflows` and `./reoccurring` 
-    - We only find the .temp folder in the `./workflows/.temp/` 
-    - This is for simplicity 
-    - Since they all use different setup scripts, it doesn't matter if they all start out in the .temp directory within workflows 
-
-* **JSON workflow file-naming conventions** 
-
-  1. If you have a normal workflow you set it up like below, but without the ` calendaring.json` object 
-
-```bash
-# {{TEMP_DIR}}/
-# ├── calendaring.json         # Calendaring JSON object
-# ├── workflow_config.json     # Workflow definition  
-# ├── phase_config.json        # Phase implementation
-# └── handoff_config.json      # Completion criteria 
-```
-
-  2. Run the appropriate script for the type of workflow you are setting up 
-  3. All files will be renamed and moved to their appropriate location in the directory 
-
-
-```bash 
-# Create a normal workflow 
-/setup {{TEMP_DIR}}/
-# configs/workflows/USE_CASE_COMMAND 
-
-# Create scheduled reoccurring workflow
-/repeat --scheduled {{TEMP_DIR}}/
-# configs/reoccurring/scheduled/2_3_7/
-
-# Creating a project-list reoccurring workflow 
-/repeat --list-new {{TEMP_DIR}}/
-# configs/reoccurring/project-list/1_2_4/001/
-
-# Adding a list time to an existing repeating workflow  
-/repeat --list-add {{TEMP_DIR}}/
-# configs/reoccurring/project-list/1_2_4/002/
-
-# Create self-assessment reoccurring workflow
-/repeat --self-assessment {{TEMP_DIR}}/
-# configs/reoccurring/self-assessment/1_7_1/
-
-# Create sub-task of self-assessment reoccurring workflow
-/repeat --sub-task {{TEMP_DIR}}/
-# configs/reoccurring/self-assessment/1_7_1/sub_task_custom_command/
-
-# Create goal-assessment reoccurring workflow
-/repeat --goal-assessment {{TEMP_DIR}}/
-# configs/reoccurring/goal-assessment/2_3_7/
-
-# Create sub-task of goal-assessment reoccurring workflow
-/repeat --sub-task {{TEMP_DIR}}/
-# configs/reoccurring/goal-assessment/2_3_7/sub_task_custom_command/
-```
-
-
-### Create Questionnaires 
-
-* **Handoff JSON objects** 
-
-  - There is *space on the handoff JSON for questions* 
-    - Things that Mao should remember to ask themselves about the deliverable the agent just handed to them 
-    - Help them decide what the best next steps are 
-    - Help them to be assured that the deliverable is up to quality standards and nothing is forgotten 
-
-* **Mao's self-evaluation of the workflow draft** 
-
+  - Mao should write down 
+    - Anything important they wished to remember when presenting the workflow 
+    - Anything unique or notable about the process that might help in future builds 
+    - Anything Mao would do differently next time? 
+    - What does Mao love about this project? 
+  - And then probably any metrics 
+    - Or I guess we probably want every single memory update to trigger analytics 
+    - Trigger completed draft analytics 
   - We should come up with *questions Mao asks of themselves after every new workflow created* 
     - Happens before draft goes back to the user 
     - We should include here what questions they should ask 
     - Helps avoid pitfalls of LLM limitations by creating a "second self review"  
-
-### Save Back-up to Files API 
-
-* **Mao uses Code Execution tool to save workflow to Files API** 
-
-  - As with memories, Mao should save these files *in a directory named using the WorkflowID* 
-  - This is primarily *done as a backup* in case there is some kind of disconnect before User reviews 
-  - Remember that only items added to the Files API using the *Code Execution* tool can be downloaded again later 
-
-### Project State __Memory Update Point__ 
-
-  - Name of update: `04-build-workflow-001` 
-
-* **Details about what the actual workflow looked like** 
-
-  - If standardized, we should identify what this and all project state updates look like 
-  - Since the previous entry was right before building, this one should be after  
-    - Standardization should identify questions that they can use as a checklist 
-      - 'Did I achieve the goal? Any unexpected results?' 
-      - 'Did I leave enough open-ended flexibility where possible to avoid simple looping workflows?' 
-      - 'Will the workflow be updated during the build process and if so what decisions do I need to make?' 
-      - 'Immediate thoughts on how to introduce this draft to the user? What is the expected reaction of the user?' 
-      - 'Does this workflow meet my expectations? Is there anything I wish was better? Can I improve it or can User help improve it?' 
-    - IDK that we need specifics about the workflow since we can reference the actual JSON objects 
-  - I really like the idea of having Mao try to predict what the user will say and think 
-    - It will be interesting to see over time how accurate Mao is 
-    - We can use analytics to figure out how to improve these predictions 
+  - Use Code Execution tool to save everything needed to Files API 
+  - However, deliverables might need to be sent to the user directly unless the UX previews first 
 
 * **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
 
@@ -2089,7 +1951,16 @@ Mention setup scripts in coming section.
 
 ---
 
-## 10. UI/UX While Mao Is Working 
+## 10. UI UX On Screen While Mao Is Building 
+
+### Core Objectives 
+
+  1. Eliminate the user's experience of waiting 
+  2. Bring energy of speed, quickly changing tool-use and information 
+  3. Clean up the chat history, only show what is still relevant and update where necessary 
+  4. Another 'AI Improv' opportunity; this one super easy "thinking" type present participle 
+  5. We want to SHOW the user what Mao is actively doing 
+  6. This also means we need to constantly update so that they can *feel* that activity is happening 
 
 * **UI must eliminate UX sense of waiting**
 
