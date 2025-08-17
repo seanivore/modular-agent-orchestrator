@@ -3,16 +3,17 @@
 ---
 
 1. [**User login, setup,** creation of user files](#1-user-login)
-2. [**UI design** philosophy vibes with UX](#2-the-look--feel-of-the-mao-app-high-level-design-requirements)
-3. [After login, User is free to **start the chat**](#3-main-app-screen-chat-loads)
-4. [**Mao preps** to continue or start project in chat](#4-mao-prepares-for-initiated-project-chat)
-5. [Behavior protocol while **gathering project details**](#5-chat-with-user-gathering-project-details)
-6. [Description of workflows; defined **variables; validation methods**](#6-review-of-workflow-json-objects--variables)
-7. [**Telling user they'll brb** with the project's workflow draft](#7-ending-the-project-production-chat)
-8. [Advanced workflows and **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
-9. [**Building,** reviewing, and preparing to present workflow](#9-building-the-projects-workflow)
-10. [**UX/UI** While Mao is Working on Building Workflows](#10-uiux-while-mao-is-working)
-11. [Getting **user feedback** on project's workflow](#11-present-project-workflow-for-user-review)
+2. [**UI design**, high-level, and philosophy](#2-the-look--feel-of-the-mao-app-high-level-design-requirements)
+3. [User initiates chat; **slash command responses like /goal**](#3-main-app-screen-chat-loads)
+4. [**Mao preps**, sends response message to User](#4-mao-prepares-for-initiated-project-chat)
+5. [Behavior protocol; **psychological guidelines**](#5-chat-behavior--psychology)
+6. [Review of our JSON workflow types; **variables & validation methods**](#6-review-of-workflow-json-objects--variables)
+7. [Telling User **Mao is off to build** the workflow](#7-ending-the-project-production-chat)
+8. [Review of advanced agentic workflows; **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
+9. [**Building workflow, securing data,** reviews, diagram creation](#9-building-the-projects-workflow)
+10. [Long example of conversation; **robust UI visuals, UX descriptions**](#10-ui-unique-functioning-during-user-planning)
+11. [UI while **Mao is fully busy building;** similar UI behavior](#)
+11. [Getting **user feedback** on project's workflow](#)
 12. [**Workflow setup** when approved using simple commands](#12-setup-of-approved-project-workflows)
 
 ---
@@ -853,7 +854,7 @@ SCRIPT COMMAND:
 
 ---
 
-## 5. Chat with User Gathering Project Details 
+## 5. Chat Behavior & Psychology  
 
 ### Core Objective 
 
@@ -1951,7 +1952,7 @@ CALL 1     CALL 2      CALL 3
 
 ---
 
-## 10. UX of UI On Screen While Mao Is Building 
+## 10. UI Unique Functioning During User Planning  
 
 ### Core Objectives 
 
@@ -2118,12 +2119,188 @@ Flashing ○ to ● and back = active action
 🞶  TIME-TRAVELING... 
 ```
 
+* **Mao is now using `think` considering approaches to help guide Sven's lesson plan creation** 
 
+  - Hopefully you can see how much information we already have 
+    - If Sven fell off right now and needed this done, we could totally create the project 
+    - There is some nuance regarding current events, being sensitive, balancing truth for Mao to consider 
+  - The *memory updated* UI would be a very background secondary color not meant to grab attention 
+
+  - Mao used AI Improve to create a "Present Participle" for while they are busy 
+    - When working, the icon would blink 🞶 
+    - The ... would draw themselves sequentially in an aesthetically interesting way 
+    - the motion is important for UX so that the user knows that something is indeed still happening 
+
+  - In the next section, there has been more chat history simplification 
+    - Our initial system message is still there 
+    - You can see the initial greeting from each 
+
+  - The pleasantries, two messages from Mao and two from Sven, have been moved out of the way 
+    - They are clearly labeled as to what happened 
+    - A system icon shows this was a 'system' update 
+    - It is easy to see what is in there because ctrl-r (review) expands it like it was before 
+    - Then it will have UI telling them to use ctrl-r when done to shrink the messages again 
+  
+  - You'll notice that these messages may have provided some notes that Mao took on their own 
+    - There is nothing else of substance that will help us with the project  
+    - So they are moved out of the way to allow for more important information to fill up the screen 
+
+  - This is a very important of our UX 
+    - You are able to feel like you *always* know what is going on 
+    - In the big picture, because you can still essentially see all of it 
+
+  - It is very, intentionally different 
+    - Different than traditional instant messaging 
+    - Very unlike those terribly long email chains 
+    - Things we want to remove from our lives in time 
+  
+  - Additionally, it mirrors the idea of LLM's and their context window 
+    - Mao took notes they wanted, or added to memory 
+    - They then let the messages get truncated 
+    - Ideally, we can *LITERALLY* remove the larger messaging from Mao's context window 
+
+* **NOTE: TO IMPLEMENT, RESEARCH, ETC. Cursor and Claude Code do this, Cursor very well, removing documents that are no longer relevant from the start of the project. I am hoping we can look into doing this as well to really help provide an exceptional, above average even, UX that other apps cannot.** 
+
+  - Lastly, you'll see that the 'AI Improv' present participial term has transformed 
+    - Now part of Mao's first response message 
+    - This is for UX clarity 
+
+  - We also see "double texting" for the first time, first from Mao 
+    - Note that we loose the hard return line gap 
+    - But we keep their icon at the start of each of their messages 
+    - *Remember:* Users are able to turn off "double texting" in the system app configurations if they want 
+    - Its natural given other messaging services work so it seems like it will be preferred 
+
+```
+●   New user login, greeting, project initiated 
+    └── Success ($0.025 • 312 tokens • 10.2s)
+
+●   >   Hi, Mao. My first time using this tool. How are you? 
+    🞶  Happy to meet you, Sven. 
+    >  🞶  >  🞶 
+    └── +4 messages (ctrl-r to review)
+
+>   It has gotten to the point where I need to, head-on, cover AI and the future of technology, 
+    with a heavy focus on what they should study when they graduate in two years. 
+
+🞶  Ah, ha! I think I see where this is going. Go on. 
+    *memory updated*
+
+>   Well, I need the lesson to be fun. I don't want to scare them, much, haha. They should also be 
+    excited and encouraged. But I need to also be realistic. I don't even know that anyone out there knows all of what I need to convey to my kids next week. 
+
+🞶  Let's see. Give me a moment to work through this and come up with a pragmatic approach that I think 
+    will be able to help entertain, stay grounded, and hopefully we'll all learn something cutting edge. 
+    *memory updated*
+
+>   Sure! I'm super curious what the memory updates are all about too when you get back and settled. 
+
+🞶  Time-traveling completed. 
+🞶  I've got some great information for you, Sven. Let's break this down in a systematic way that 10th 
+    graders will find interesting, exciting even. And then I have a few ideas for class activities that we can create a project workflow to help prepare all the necessary documents they'll need. 
+🞶  You caught my memory captures! These are just little bits of information about you that I save so that, 
+    in the future, I can help you without you needed to explain much of anything. They'll also help to make your User experience particularly helpful, as it is catered to you specifically every time you log in. 
+🞶  If you're curious, you can see all memories I've added, edit, and delete them with the slash command 
+    `/view-user` which is referencing you as the only user logged in. Fun fact, you can add your own memories
+    you want me to remember by using `/memory 'My birthday is July 21st 1987 and I love cheesecake`. I can't promise to make you cheesecake just yet, but you never know how it'll come in handy in the future. Let me know if you have any questions about the memory functionality. It's really the future of application user-experience. Don't hesitate to share what you like, or hate. 
+
+>   That's wild! I mean, yes please, you added that I'm a teacher and all that information I'm sure. 
+
+🞶  And maybe a note about your naturally friendly demeanor! 
+
+>   Haha, glad to hear it, Mao. 
+>   So, let's dig into what you were thinking about how I can shake my kids up with some AI information. 
+```
+
+* **I'll paraphrase instead of continuing to write a full narrative for this part to illustrate** 
+
+  - But first, Mao has taken their notes and now look at this chat history 
+    - It still evokes all the same information 
+    - It can be accessed in full if the User desires 
+
+  - Because while conversation is perfect to gather information 
+    - It doesn't usually come provided to you in the more organized and compact format 
+    - So the Mao app and Mao does that for you 
+
+```
+●   New user login, greeting, project initiated 
+    └── Success ($0.025 • 312 tokens • 10.2s)
+
+●   >   Hi, Mao. My first time using this tool. How are you? 
+    🞶  Happy to meet you, Sven. 
+    >  🞶  >  🞶 
+    └── +4 messages (ctrl-r to review)
+
+●   >   ...cover AI and the future of technology, with a heavy focus on what they should study... Fun, 
+    not scary; encouraging but realistic [lesson plan]...
+    🞶  >  🞶  >  🞶  🞶  🞶  🞶  >  🞶  > 
+    └── +12 messages (ctrl-r to review)
+
+>   So, let's dig into what you were thinking about how I can shake my kids up with some AI information. 
+```
+
+* **What would Mao present to Sven, and where did they get the ideas** 
+
+  - Most of this AI could come up with just from thinking about it 
+    - But Mao can totally search online or use any tools while thinking 
+    - If Mao wanted, they could even continue the conversation and task a subagent to gather information 
+
+  - They might search online for things like the following 
+    - What age are 10th graders? 
+    - What do Junior High students like to use AI for? 
+    - What worries these students about AI? 
+
+  - I could go on but I'm not going to because literally, even if Mao draws a blank 
+    - Which I don't think is something that happens to LLMs? 
+    - Getting a robust answer is a simple as getting to Perplexity and asking 
+    - Or like I mentioned, tasking a subagent 
+
+* **Project ideas & presenting this information** 
+
+  - Without getting into the economics because I didn't actually research this just now 
+    - I would recommend that Mao prepare for the project workflows that create a few student projects 
+    - Things that they will be interested in, then let them choose 
+  - Then have another workflow or end of the workflow create an outline for Sven 
+    - The outline would define how each of the tasks they kids are working on are going to open doors 
+    - How they all lead to new career paths that aren't even there yet 
+  - Wrapping up with the *VERY IMPORTANT* especially if you don't want to get dementia 
+    - The key to the future is simply to not stop learning 
+    - Find passion, and chase it, and don't stop 
+    - Traditionalists are not wild about it 
+    - But most modern careers in marketing or coding are already like this 
+  - So have projects prepared in the workflows like 
+    - First coding projects for AI-pair development 
+    - Building a website 
+    - Using Claude Code to create 20 landing pages 
+  - For the nerds maybe have a debate with AI (Perplexity) about the future and governance  
+    - They can then use AI to make it into a presentation 
+    - And then they can tap in other students to use AI avatars and VO to create presenters 
+
+  - To be clear, I came up with all of that, just now, on the spot, without having to pause and think 
+    - AI, and your ideation, means you'll just be even better about this 
+    - The fun thing about this example is that Sven would probably keep working for a while 
+    - Nail down exactly what to do 
+    - Then probably be a return user for more later 
 
 
 
 ```
 
+* **We need to create a `/my-memories` command for users to see what Mao is recording about them**
+
+  - We should have one that is just `/memory 'user enters what they want Mao to remember'` set up 
+    - The review should bring up both memories created by Mao and by User 
+    - We will have to contemplate the UI; it should be a toggle, but 
+    - I'm picturing something with dates, maybe tabs, to keep things sorted 
+
+  - When adding this it would be a good time to add something like `/view-user` 
+    - This would pull *all* information about whatever user is logged in for Mao 
+    - This will allow them to create better UX combining memory, analytics, history, etc. 
+    - Might as well add `/view 'user-1234` as well so that it can be done when users are not logged in 
+    - This last command was touched on in the section where Mao enters the chat and needs context 
+
+
+````
 
 ●   **Task** (Finance report generation)
     └── Done ($0.012 • 60.6k tokens • 8m 32.3s)
