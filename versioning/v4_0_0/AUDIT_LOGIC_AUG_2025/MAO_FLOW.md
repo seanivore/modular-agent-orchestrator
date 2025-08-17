@@ -2353,8 +2353,228 @@ Flashing ○ to ● and back = active action
     - *These are the reasons that a one-screen chat-centric application finally works* 
   - The psychological color coding of all text happens throughout the application in every phase no matter what is going on 
 
-### Mao Is Building Your Workflow Draft 
+### Mao Is Building Your Workflow Draft  
 
+* **AI "Processing" Contextual Improv Word**
+
+  - Above the user's text field, Mao displays a contextually generated word that indicates processing
+  - The word is picked by AI based on context and project type - completely dynamic, never canned
+  - Uses alternating cat icons and PROCESSING color (light orange)
+  - Live metrics update in real-time to create sense of control and immediacy
+
+```
+ ~(=^‥^) 🟠 Architecting... 🟠 (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+```
+
+* **Master Todo List with Spawned Action Lists**
+
+  - Mao creates a master todo list that spawns smaller action lists
+  - Each item on the master list becomes its own detailed action list
+  - Lists "behave courteously" - using only necessary space, truncating when complete
+  - Real-time updates show immediate progress to create energy of speed
+
+```
+●   **Task** (Secure project notes to Files API)
+    └── Done ($0.003 • 420 tokens • 2.1s)
+
+●   **Task** (Project State Memory Update 04)
+    └── Done ($0.005 • 180 tokens • 1.3s)
+
+○   **Build Workflow Draft** 
+    └── ▶️  Organize variables by JSON object type
+        ▶️  Design phase sequence (parallel vs sequential)
+        ▶️  Create comprehensive task instructions
+        ▷  Map resources to phase requirements
+        ▷  Define handoff assessment questions
+        ▷  <Validate workflow complexity against user expectations>
+
+○   **Task** (Create phase configs for expense tracking)
+    └── **Phase Design**
+        ▶️  Agent 1A: Download employee expense submissions
+        ▶️  Agent 1B: Retrieve credit card statements  
+        ▷  Agent 2: Cross-reference receipts with statements
+        ▷  Agent 3: Generate accuracy report with discrepancies
+        ▷  Handoff: Review report quality before payment processing
+
+○   **Task** (Tool integration mapping)
+    └── Reading **PayPal MCP documentation** *(ctrl+b to expand)*
+        Reading **Vision tool capabilities** *(ctrl+b to expand)*
+        **Web Search** (enterprise expense management best practices)
+        *+ 12 more tool researches*
+
+○   **Task** (JSON object validation)
+    └── /temp/expense-tracking-workflow/
+        workflow_config.json ▶️ **Custom command**: `finance expense monthly`
+        phase_config.json ▶️ **3 phases** (2 parallel, 1 sequential)  
+        handoff_config.json ▶️ **Quality gates** defined
+        __... validation in progress__
+        *+5 more config checks*
+```
+
+* **Color Psychology & Semantic Highlighting System**
+
+  - Every piece of text uses intentional color coding to reduce cognitive load
+  - Colors work like MLA title case - highlighting what matters, letting brain ignore filler
+  - System works across all terminal themes with relationship-based color selection
+
+**Color Categories:**
+
+- **MAIN** (default terminal text): Standard scanning text, like this explanation
+- **BOLD** (terminal bold color): Cognitive interrupt - "STOP and look" - used sparingly
+- **USER** (medium-light gray): User messages - brain can ignore since you wrote it
+- **TRUSTING UPDATE LEVEL 1** (almost white blue): Helpful AI info that deserves attention
+- **TRUSTING UPDATE LEVEL 2** (baby blue): Secondary AI info, less priority
+- **SUPPLEMENTAL INFO LEVEL 1** (medium-light gray): Important subtext when needed
+- **SUPPLEMENTAL INFO LEVEL 2** (faded green-gray): Background info, barely noticeable
+- **PROCESSING** (light orange): Only for AI improv thinking word
+- **ACCENT OUTSIDE CHAT** (light purple): Rare accents, usually with supplemental
+- **SUPPLEMENTAL OUTSIDE CHAT** (dark faded gray): Nearly transparent background info
+
+* **Message Block Behavior - "Courteous" Space Management**
+
+  - All message blocks constantly re-evaluate and rewrite themselves in real-time
+  - Only use as much space as absolutely necessary
+  - Long text truncates with expansion options
+  - Completed tasks collapse to preserve viewing space
+
+**Truncation Examples:**
+
+```
+●   **Task** (Research optimal workflow patterns)
+    └── Done ($0.015 • 2.3k tokens • 45.2s)
+
+●   **Analysis** (Best practices for expense automation)
+    └── *Complete findings* *(ctrl+r to expand 127 lines)*
+
+○   **Active Research** 
+    └── **Web Search** (payroll integration apis 2025)
+        **Documentation** (stripe connect documentation)  
+        Read **43** lines *(ctrl+b to expand)*
+        *Comparing 8 payment processor APIs...*
+        *+23 more rapid tool uses*
+```
+
+* **Context Window Management**
+
+  - Pie chart indicator shows context window usage percentage
+  - At 10%: Brief warning notification
+  - At 5%: Persistent warning with countdown
+  - Auto-truncation during extended pause with summary creation
+
+```
+ Context: ████████░░ 85% ↗️
+
+○   **Build Workflow Draft**
+    └── ▶️  Final validation of JSON objects
+        ▷  Create visual diagram for user presentation  
+        ▷  Prepare Files API backup with workflow ID
+        ▷  <Generate Project State Memory Update 07>
+
+? Auto-truncation in 45s unless activity continues (ctrl+h to disable)
+```
+
+### When Mao Is Running Live Workflows
+
+* **Orchestrator Activity During Workflow Execution**
+
+  - Master workflow tracking with agent coordination
+  - Real-time agent handoffs and quality assessments  
+  - Dynamic phase creation for open-ended workflows
+  - Live tool usage across multiple parallel agents
+
+```
+●   **Workflow** `finance expense monthly` (Started 2m 15s ago)
+    └── **Phase Progress**
+        ●   Phase 1A: Employee expense gathering ▶️ **Agent complete**
+        ●   Phase 1B: Credit card statement download ▶️ **Agent complete**  
+        ○   Phase 2: Cross-reference validation ▶️ **Agent working**
+        ▷   Phase 3: Payment processing (awaiting handoff)
+
+○   **Active Agent** (Phase 2 - Data validation)
+    └── **Vision Tool** (analyzing 47 receipt images)
+        **Text Analysis** (parsing expense descriptions)
+        **Calculation** (cross-referencing amounts with statements)
+        *Current: Receipt #23 - "Lunch meeting with client - $127.34"*
+        *+ Agent reviewing 6 discrepancies found*
+
+○   **Handoff Assessment** (Phase 1A → Phase 2)
+    └── ▶️  Are all expense categories properly coded?
+        ▶️  Do receipt dates match credit card transaction dates?
+        ▶️  Are amounts within company policy limits?
+        **Assessment**: ✅ **Quality approved** - proceeding to Phase 2
+
+○   **Dynamic Phase Creation** 
+    └── **Mao Decision Point**: Found 6 discrepancies requiring review
+        ▶️  Creating Phase 2B: Discrepancy resolution workflow
+        ▶️  JSON object: `expense_discrepancy_review_phase.json`
+        ▷  Will require human approval before payment processing
+        <Update: Workflow extended by 1 phase for quality assurance>
+```
+
+* **Real-Time Speed Demonstration**
+
+  - Tool usage updates faster than human reading speed
+  - Creates visceral sense of AI working intensely
+  - Numbers, file names, and actions blur by intentionally
+  - User feels "Mao is really cranking on this!"
+
+```
+○   **Agent** (Expense categorization)
+    └── Receipt_2024_11_15_lunch.jpg → "Meals & Entertainment" 
+        Receipt_2024_11_16_gas.jpg → "Transportation"
+        Receipt_2024_11_16_office.jpg → "Office Supplies"
+        Receipt_2024_11_17_hotel.jpg → "Lodging" 
+        Receipt_2024_11_17_client.jpg → "Meals & Entertainment"
+        *Processing 42 more receipts...*
+        **Categorization complete**: 47 receipts in 3.2 seconds
+```
+
+* **Workflow State Persistence**
+
+  - All workflow progress automatically saved to memory with WorkflowID
+  - User can disconnect and reconnect without losing progress  
+  - Project State Memory updates at each major milestone
+  - Files API backup ensures recovery from any interruption
+
+```
+●   **Memory Update** `08-workflow-progress-001`
+    └── Done ($0.002 • 95 tokens • 0.8s)
+
+○   **Files API Backup** 
+    └── Workflow ID: uid-xhl-106
+        ▶️  Phase configs and current status saved
+        ▶️  Agent deliverables backed up  
+        ▷  Recovery state: 73% complete, Phase 2 active
+        <User can safely disconnect - progress preserved>
+```
+
+### UI Must Eliminate UX Sense of Waiting
+
+* **Creating "Gut Check" Emotional Intelligence**
+
+  - Every update designed to create unconscious positive reactions
+  - Smart display changes that make users audibly respond ("hmm", "ohh", "ahh")  
+  - Contextual AI improv words that create chuckles
+  - Real-time progress that feels faster than it actually is
+
+* **Energy of Speed Through Visual Velocity**
+
+  - Rapid file name scrolling
+  - Tool usage blurring by faster than reading speed
+  - Live metric updates (tokens, cost, time) changing constantly
+  - Task completion animations that feel snappy and immediate
+
+* **One-Screen Experience Never Breaks**
+
+  - User never leaves chat interface during any operation
+  - All complexity hidden behind elegant simplicity  
+  - Information appears and organizes itself automatically
+  - "Courteous" message management keeps view clean and relevant
+
+This UI system transforms workflow building and execution from passive waiting into active engagement, where users feel connected to the AI's work through carefully crafted visual feedback and psychological color coding.
 
 
 ````
