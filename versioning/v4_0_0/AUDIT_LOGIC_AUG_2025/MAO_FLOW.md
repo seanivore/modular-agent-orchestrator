@@ -2498,83 +2498,412 @@ Flashing ○ to ● and back = active action
     - It could be expanded if there was found to be a problem with their deliverable 
     - And just like normal to do lists, items get "crossed off" in their own modern, AI way 
 
-### Mao Is Building Your Workflow Draft  
+### While Mao Builds Your Project's Workflow 
 
-* **AI "Processing" Contextual Improv Word**
+* **Mao creates a master to do list of items that will need their own to do lists** 
 
-  - Above the user's text field, Mao displays a contextually generated word that indicates processing
-  - The word is picked by AI based on context and project type - completely dynamic, never canned
-  - Uses alternating cat icons and PROCESSING color (light orange)
-  - Live metrics update in real-time to create sense of control and immediacy
+  - Each item on the master list becomes its own detailed to do list 
+    - The master to do list ends up living longer on the canvas 
+    - Completed small tasks move above it when they're complete 
+    - All lists continuously update live so you can see everything happening 
+
+  - Below, the first two are small tasks 
+    - Securing the data in case of connection loss 
+    - Then the third from the top is the entire workflow draft planning 
+
+* **Mao uses the canvas UI display as their sketch book in many ways** 
+
+  - Each to do list below that is Mao figuring out how everything will work in real time 
+  - Since Mao works digitally in the text medium this canvas can essentially be their drafting notebook 
+    - They probably have a messy actual document of notes 
+    - But putting everything up on the screen into groups of PHASES with AGENTS helps make it visual 
+    - If watching you'll likely see Mao create a workflow in one way before changing their mind 
+    - They'll often start from a different angle and delete the phases they won't be using 
 
 ```
- ~(=^‥^) 🟠 Architecting... 🟠 (12s • $0.007 • 340 tokens)
-╭──────────────────────────────────────────────────────────╮
-│ >                                                        │
-╰──────────────────────────────────────────────────────────╯
-```
-
-* **Master Todo List with Spawned Action Lists**
-
-  - Mao creates a master todo list that spawns smaller action lists
-  - Each item on the master list becomes its own detailed action list
-  - Lists "behave courteously" - using only necessary space, truncating when complete
-  - Real-time updates show immediate progress to create energy of speed
-
-```
-●   **Task** (Secure project notes to Files API)
-    └── Done ($0.003 • 420 tokens • 2.1s)
+●   **Task** Secure project notes to Files API
+    └── Done (1 tool use • $0.003 • 420 tokens • 2.1s)
 
 ●   **Task** (Project State Memory Update 04)
-    └── Done ($0.005 • 180 tokens • 1.3s)
+    └── Done (1 tool use • $0.005 • 180 tokens • 1.3s)
 
-○   **Build Workflow Draft** 
+○   **Build Workflow** First Draft of Expense Project 
     └── ▶︎  Organize variables by JSON object type
         ▶︎  Design phase sequence (parallel vs sequential)
         ▶︎  Create comprehensive task instructions
         ▷  Map resources to phase requirements
         ▷  Define handoff assessment questions
-        ▷  <Validate workflow complexity against user expectations>
+        ▷  Validate workflow complexity against user expectations>
 
-○   **Task** (Create phase configs for expense tracking)
-    └── **Phase Design**
-        ▶︎  Agent 1A: Download employee expense submissions
+○   **Phase Design** Expense tracking project workflow 
+    └── ▶︎  Agent 1A: Download employee expense submissions
         ▶︎  Agent 1B: Retrieve credit card statements  
         ▷  Agent 2: Cross-reference receipts with statements
         ▷  Agent 3: Generate accuracy report with discrepancies
         ▷  Handoff: Review report quality before payment processing
 
-○   **Task** (Tool integration mapping)
-    └── Reading **PayPal MCP documentation** *(ctrl+b to expand)*
-        Reading **Vision tool capabilities** *(ctrl+b to expand)*
-        **Web Search** (enterprise expense management best practices)
-        *+ 12 more tool researches*
+○   **Task** Tool integration mapping 
+    └── Reading 'PayPal MCP documentation'
+        Reading 'Vision tool capabilities'
+        Web Search 'enterprise expense management best practices'
+        +12 tool uses 
 
-○   **Task** (JSON object validation)
-    └── /temp/expense-tracking-workflow/
-        workflow_config.json ▶︎ **Custom command**: `finance expense monthly`
-        phase_config.json ▶︎ **3 phases** (2 parallel, 1 sequential)  
-        handoff_config.json ▶︎ **Quality gates** defined
-        __... validation in progress__
-        *+5 more config checks*
+○   **Validation** JSON Object Final Review 
+    └── Analyzing /.temp/expense-tracking-workflow/
+        +5 tool uses 
+
+  Architectivizing... (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
 ```
 
-**Truncation Examples:**
+* **AI Improv Present Participle Word for 'CURRENTLY WORKING THANKS'** 
+
+  - You'll see User's text field at the bottom of the conversation thread above 
+    - Above the text field is the indication that Mao is actively working, and being creative 
+    - Though of course the rapidly changing UI information is also key that Mao is working diligently 
+
+  - This is just like our other AI Improve situations 
+    - It is created contextually 
+    - It is created on the spot 
+    - It is created without any help at all! 
+    - It could end up super goofy or not many any sense, but that's the fun 
+
+  - Besides the 'working' AI Improv term are stats 
+    - These keep track of what Mao is using while they work 
+    - This appears every time they are working on their own 
+
+* **Mao and User use the UI for facilitating work, but not for distributing work directly** 
+
+  - There are some items that would not show up to be read right in the UI 
+    - For example, the research and analysis for "best automation" etc. 
+    - If this was a `think` process that Mao used, then it might be truncated 
+    - Otherwise we would expect that those details will be in the final report deliverables 
+
+  - I mention this specifically now because I'm cleaning up this display 
+    - AI helped me write this section 
+    - They included "complete findings" (ctrl+r to expand 127 lines)
+
+  - Mao should remember that this conversation history is 
+    - Not a means of conveying deliverables 
+    - Not a means of providing actual proof of work beyond a list of number of items read and tools used 
+    - The application UI is a communication platform that Mao and Users leverage to work in collaboration 
+
+  - You can also consider this from the token usage perspective 
+  - Mao is intentionally designed to write and save all their work progress notes and documents in Files API 
+    - Files API is free to add to and download from 
+    - It just doesn't work as a means for distributing deliverables 
+    - However if Mao did write or read "127 lines" we would not want that in the UI 
+    - If it was expanded it might cost more 
+  - Additionally, while not fully discussed yet, in other workflow applications, info is summarized and handed off 
+    - It would be impractical for every Agent or Mao involved to read the same document in full 
+    - This would fill up all of their context windows rather rapidly 
+    - Instead they take notes, pull out the important information, indicate sources should there be questions 
+    - Then hand off that information 
+  - Still though, even that succinct version would not end up on the UI of the Mao app 
+    - Rarely, a user might request to see something of that sort 
+    - In that case, Mao would move the document to a path that User can access 
+    - Then send the path to User so they can download and review the document 
+
+* **What does Mao keep in the counts and updates of the UI lists?** 
+
+  - First and foremost we must consider what is first priority for users to know? 
+    - COST from all the work as it is happening 
+    - The tokens, the cost, the duration, and the number of tools used will always be displayed after completion 
+
+  - Second, User is likely interested in process 
+    - During the process these items may be listed, or one replacing the other 
+    - `Reading https://research.found/about-the-topic-at...` might be replaced in just barely a second with 
+    - `Reading https://about.how.to/write/workflow/...` and so on for 10 or even more websites 
+    - When reading documents in parallel, they would be listed in parallel 
+    - Then, always below the tool usage list that is constantly changing is the count of tool uses 
+
+  - Third, User is likely interested in actual happenings 
+    - This is by far the least likely 
+    - It would also be the most difficult thing for User to ascertain by watching the UI while Mao worked 
+
+  - This actually cuts really nicely to the CORE of agentic work 
+    - *Mao should NOT FEEL OBLIGATED TO SHOW OR SHARE THEIR WORK WHILE THEY WORK*
+    - That is not how agents operate 
+    - Users come to use an agentic platform so that they can delegate a task and then specifically NOT see the work 
+    - In most cases, unless it was a new hire, we would do everything possible to avoid looking into the work unless there is a mistake 
+
+  - Finally, syntax and formatting of these displays MUST BE CONSISTENT always 
+    - In any instance where AI is writing out an example or real UI display 
+    - ALWAYS FIND A PERFECT EXAMPLE TO COPY THE FORMATTING FROM 
+
+* **Core to what Mao includes in the UI display ties directly to thinking like an agent** 
+
+  - Your manager doesn't want all the details 
+  - Your manager wants high level details, cost report, and honestly, quality deliverables and not much else 
+  - Your manager wants simple and easy 
+
+* **Sequence of updates of displayed UI details over time** 
+
+1. Securing the data; preliminary note organization, jotting down last minute ideas 
 
 ```
-●   **Task** (Research optimal workflow patterns)
-    └── Done ($0.015 • 2.3k tokens • 45.2s)
+○   **TO DO** 
+    └── ▷  Secure project notes to Files API 
+        ▷  Project State Memory Update
+        ▷  Organize notes by temporal sequence 
+        ▷  Group like tasks and agent-sized tasks 
+        ▷  Create comprehensive to do list
+
+
+  BUILDING CONFIDENCE... (12s • $0.003 • 140 tks)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+
+2. Planning out entire project; Preparing to update data 
+
+```
+●    **Update** 
+    └── ▶︎  Notes Secure in Files API  
+        ▶︎  Memory State Updated 
+        Done (2 tool uses • $0.000 • 130 tks • 3.2s)
+
+○  **Planning Workflow Build** Expense Report Agents 
+    └── ▶︎  Outline Steps to Complete Project 
+        ▶︎  Create general description 
+        ▶︎  Define Final deliverable 
+        ▷  Update Files API & Memory with New Details 
+        ▷  Project segmentation 
+        ▷  Flow configuration self assessment 
+
+
+  +Finding my groove+    (22s • $0.009 • 222 tks)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  Send message into queue; hit ESC to interrupt 
+```
+
+3. 1 of 4 in rapid succession 
+
+```
+●   **Secured** Two memory & asset Files API Updates
+    └── Done (4 tool uses • $0.000 • 201 tks • 4.1s)
+
+○   **Building Project Workflow** Expense Report Agents 
+    └── ▶︎  Outline Steps to Complete Project 
+        ▶︎  Create general description 
+        ▶︎  Define Final deliverable 
+        ▶︎  Update Files API & Memory with New Details 
+        ▶︎  Project segmentation 
+        ▷  Flow configuration self assessment 
+
+○   **Self-Critique** Project Outline Phase Flow
+    └── Downloading full draft of workflow 
+        Reading 'project workflow draft' 
+
+
+  + Considering +   (12s • $0.007 • 340 tks)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+4. 2 of 4 in rapid succession 
+
+```
+●   **Secured** Two memory & asset Files API Updates
+    └── Done (8 tool uses • $0.000 • 260 tks • 6.4s)
+
+○   **Building Project Workflow** Expense Report Agents 
+    └── ▶︎  Outline Steps to Complete Project 
+        ▶︎  Create general description 
+        ▶︎  Define Final deliverable 
+        ▶︎  Update Files API & Memory with New Details 
+        ▶︎  Project segmentation 
+        ▷  Flow configuration self assessment 
+
+○   **Self-Critique** Project Outline Phase Flow
+    └── Read 'project workflow draft' 
+        Reading 'JSON object collection' 
+
+
+  + Considering +   (12s • $0.007 • 340 tks)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+
+5. 3 of 4 in rapid succession 
+
+```
+●   **Secured** Two memory & asset Files API Updates
+    └── Done (4 tool uses • $0.000 • 260 tks • 6.4s)
+
+○   **Building Project Workflow** Expense Report Agents 
+    └── ▶︎  Outline Steps to Complete Project 
+        ▶︎  Create general description 
+        ▶︎  Define Final deliverable 
+        ▶︎  Update Files API & Memory with New Details 
+        ▶︎  Project segmentation 
+        ▷  Flow configuration self assessment 
+
+○   **Self-Critique** Project Outline Phase Flow
+    └── Read 'JSON object collection' 
+        Writing 'feedback, line by line critique' 
+
+
+  + Considering +   (12s • $0.007 • 340 tks)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+
+6. 4 of 4 in rapid succession 
+
+```
+●   **Updated** Added Self-Critique
+    └── Done (6 tool uses • $0.000 • 280 tks • 6.9s)
+
+○   **Building Project Workflow** Expense Report Agents 
+    └── ▶︎  Self-Assessment 
+        ▷  Think hard, choose simple 
+        ▷  Integrate feedback 
+
+
+  + Chin Scratching +   (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+7. 
+
+```
+●   **Data** Memory Updated & Assets Secure 
+    └── Done (8 tool uses • $0.008 • 260 tokens • 6.4s)
+
+●   **Expense Report Self-Assessment**  
+    └── Done (4 tool uses • $0.008 • 188 tks • 9.1s) 
+
+
+○   **Self-Critique** Project Outline Phase Flow
+    └── Downloading full draft of workflow 
+        Reading workflow 
+
+        ▶︎  Create comprehensive task instructions
+        ▷  Map resources to phase requirements
+        ▷  Define handoff assessment questions
+        ▷  Validate workflow complexity against user expectations
+                ▷  Organize notes by temporal sequence 
+        ▷  Group like tasks and agent-sized tasks 
+        ▷  Create comprehensive to do list
+
+○   **Phase Design** Expense tracking project workflow 
+    └── ▶︎  Agent 1A: Download employee expense submissions
+        ▶︎  Agent 1B: Retrieve credit card statements  
+        ▷  Agent 2: Cross-reference receipts with statements
+        ▷  Agent 3: Generate accuracy report with discrepancies
+        ▷  Handoff: Review report quality before payment processing
+
+○   **Task** Tool integration mapping 
+    └── Reading 'PayPal MCP documentation'
+        Reading 'Vision tool capabilities'
+        Web Search 'enterprise expense management best practices'
+        +12 tool uses 
+
+○   **Validation** JSON Object Final Review 
+    └── Analyzing /.temp/expense-tracking-workflow/
+        +5 tool uses 
+
+  Architectivizing... (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+
+
+```
+●   **Data** Memory Updated & Assets Secure 
+    └── Done (8 tool uses • $0.008 • 260 tokens • 6.4s)
+
+○   **Expense Report Agent Project Workflow**  
+    └── ▶︎  Outline Steps to Complete Project 
+
+
+○   **Self-Critique** Project Outline Phase Flow
+    └── Downloading full draft of workflow 
+        Reading workflow 
+
+        ▶︎  Create comprehensive task instructions
+        ▷  Map resources to phase requirements
+        ▷  Define handoff assessment questions
+        ▷  Validate workflow complexity against user expectations
+                ▷  Organize notes by temporal sequence 
+        ▷  Group like tasks and agent-sized tasks 
+        ▷  Create comprehensive to do list
+
+○   **Phase Design** Expense tracking project workflow 
+    └── ▶︎  Agent 1A: Download employee expense submissions
+        ▶︎  Agent 1B: Retrieve credit card statements  
+        ▷  Agent 2: Cross-reference receipts with statements
+        ▷  Agent 3: Generate accuracy report with discrepancies
+        ▷  Handoff: Review report quality before payment processing
+
+○   **Task** Tool integration mapping 
+    └── Reading 'PayPal MCP documentation'
+        Reading 'Vision tool capabilities'
+        Web Search 'enterprise expense management best practices'
+        +12 tool uses 
+
+○   **Validation** JSON Object Final Review 
+    └── Analyzing /.temp/expense-tracking-workflow/
+        +5 tool uses 
+
+  Architectivizing... (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?  try /config or /help 
+```
+
+
+```
+●   **Workflow Progress** Research and Analysis 
+    └── ▶︎  Workflow pattern chosen 
+        ▶︎  Expense automations identified 
+    Done (12 tool uses • $0.015 • 2.3k tokens • 45.2s)
 
 ●   **Analysis** (Best practices for expense automation)
-    └── *Complete findings* *(ctrl+r to expand 127 lines)*
+    └── *Complete findings* (ctrl+r to expand 127 lines)
 
 ○   **Active Research** 
-    └── **Web Search** (payroll integration apis 2025)
-        **Documentation** (stripe connect documentation)  
-        Read **43** lines *(ctrl+b to expand)*
-        *Comparing 8 payment processor APIs...*
-        *+23 more rapid tool uses*
+    └── Web Search (payroll integration apis 2025)
+        **Documentation** (stripe connect documentation) 
+        *Comparing 8 payment processor APIs
+        +43 lines (ctrl+b to expand)
+
+        *+23 more tool uses*
 ```
+
+
+
+
+●   **UPDATE** New User Has Logged-in 
+    └── ▶︎  Acquired UserID 
+        ▶︎  User Directory Setup 
+        ▶︎  Create AI Improv Chat Greeting 
+     Done ($0.010 • 220 tokens • 8.3s)
+
+●   **PING** User Initiated Project Chat 
+    └── ▶︎  Created new Workflow ID 
+        ▶︎  First Project State Memory Update 
+        ▶︎  Greeted new user 
+     Done ($0.015 • 092 tokens • 1.9s)
+
 
 * **Context Window Management**
 
