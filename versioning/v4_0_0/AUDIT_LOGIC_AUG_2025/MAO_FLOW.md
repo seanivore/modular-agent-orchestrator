@@ -2764,10 +2764,10 @@ Flashing ○ to ● and back = active action
 6. 4 of 4 in rapid succession 
 
 ```
-●   **Updated** Added Self-Critique
+●   **Data** Added Self-Critique
     └── Done (6 tool uses • $0.000 • 280 tks • 6.9s)
 
-○   **Building Project Workflow** Expense Report Agents 
+○   **Building Project Workflow** Expense Report  
     └── ▶︎  Self-Assessment 
         ▷  Think hard, choose simple 
         ▷  Integrate feedback 
@@ -2779,27 +2779,20 @@ Flashing ○ to ● and back = active action
 ╰──────────────────────────────────────────────────────────╯
    ?  try /config or /help 
 ```
-7. 
+7. Now to the building
 
 ```
 ●   **Data** Memory Updated & Assets Secure 
-    └── Done (8 tool uses • $0.008 • 260 tokens • 6.4s)
+    └── Done (8 tool uses • $0.000 • 260 tks • 6.4s)
 
 ●   **Expense Report Self-Assessment**  
-    └── Done (4 tool uses • $0.008 • 188 tks • 9.1s) 
+    └── Done (5 tool uses • $0.008 • 188 tks • 9.1s) 
 
-
-○   **Self-Critique** Project Outline Phase Flow
-    └── Downloading full draft of workflow 
-        Reading workflow 
-
-        ▶︎  Create comprehensive task instructions
+○   **Project Workflow Build** 
+    └── ▶︎  Write phase directions & other variables 
         ▷  Map resources to phase requirements
         ▷  Define handoff assessment questions
-        ▷  Validate workflow complexity against user expectations
-                ▷  Organize notes by temporal sequence 
-        ▷  Group like tasks and agent-sized tasks 
-        ▷  Create comprehensive to do list
+        ▷  Validate workflow against user expectations
 
 ○   **Phase Design** Expense tracking project workflow 
     └── ▶︎  Agent 1A: Download employee expense submissions
@@ -2808,16 +2801,6 @@ Flashing ○ to ● and back = active action
         ▷  Agent 3: Generate accuracy report with discrepancies
         ▷  Handoff: Review report quality before payment processing
 
-○   **Task** Tool integration mapping 
-    └── Reading 'PayPal MCP documentation'
-        Reading 'Vision tool capabilities'
-        Web Search 'enterprise expense management best practices'
-        +12 tool uses 
-
-○   **Validation** JSON Object Final Review 
-    └── Analyzing /.temp/expense-tracking-workflow/
-        +5 tool uses 
-
   Architectivizing... (12s • $0.007 • 340 tokens)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
@@ -2825,84 +2808,8 @@ Flashing ○ to ● and back = active action
    ?  try /config or /help 
 ```
 
+8. Etc. 
 
-```
-●   **Data** Memory Updated & Assets Secure 
-    └── Done (8 tool uses • $0.008 • 260 tokens • 6.4s)
-
-○   **Expense Report Agent Project Workflow**  
-    └── ▶︎  Outline Steps to Complete Project 
-
-
-○   **Self-Critique** Project Outline Phase Flow
-    └── Downloading full draft of workflow 
-        Reading workflow 
-
-        ▶︎  Create comprehensive task instructions
-        ▷  Map resources to phase requirements
-        ▷  Define handoff assessment questions
-        ▷  Validate workflow complexity against user expectations
-                ▷  Organize notes by temporal sequence 
-        ▷  Group like tasks and agent-sized tasks 
-        ▷  Create comprehensive to do list
-
-○   **Phase Design** Expense tracking project workflow 
-    └── ▶︎  Agent 1A: Download employee expense submissions
-        ▶︎  Agent 1B: Retrieve credit card statements  
-        ▷  Agent 2: Cross-reference receipts with statements
-        ▷  Agent 3: Generate accuracy report with discrepancies
-        ▷  Handoff: Review report quality before payment processing
-
-○   **Task** Tool integration mapping 
-    └── Reading 'PayPal MCP documentation'
-        Reading 'Vision tool capabilities'
-        Web Search 'enterprise expense management best practices'
-        +12 tool uses 
-
-○   **Validation** JSON Object Final Review 
-    └── Analyzing /.temp/expense-tracking-workflow/
-        +5 tool uses 
-
-  Architectivizing... (12s • $0.007 • 340 tokens)
-╭──────────────────────────────────────────────────────────╮
-│ >                                                        │
-╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
-```
-
-
-```
-●   **Workflow Progress** Research and Analysis 
-    └── ▶︎  Workflow pattern chosen 
-        ▶︎  Expense automations identified 
-    Done (12 tool uses • $0.015 • 2.3k tokens • 45.2s)
-
-●   **Analysis** (Best practices for expense automation)
-    └── *Complete findings* (ctrl+r to expand 127 lines)
-
-○   **Active Research** 
-    └── Web Search (payroll integration apis 2025)
-        **Documentation** (stripe connect documentation) 
-        *Comparing 8 payment processor APIs
-        +43 lines (ctrl+b to expand)
-
-        *+23 more tool uses*
-```
-
-
-
-
-●   **UPDATE** New User Has Logged-in 
-    └── ▶︎  Acquired UserID 
-        ▶︎  User Directory Setup 
-        ▶︎  Create AI Improv Chat Greeting 
-     Done ($0.010 • 220 tokens • 8.3s)
-
-●   **PING** User Initiated Project Chat 
-    └── ▶︎  Created new Workflow ID 
-        ▶︎  First Project State Memory Update 
-        ▶︎  Greeted new user 
-     Done ($0.015 • 092 tokens • 1.9s)
 
 
 * **Context Window Management**
