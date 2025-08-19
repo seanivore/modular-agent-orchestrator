@@ -80,90 +80,68 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
 
 ---
 
-## 1. User Login 
+## 1. User Login and UserID
 
-### Core Objective 
+### Core Objectives 
 
-  1. Secure login 
-     - Setup passkey or traditional login 
-     - Passkey requires providing email or phone as unique identifier once 
-     - Traditional login requires email or phone unique identifier every time 
-  2. Locate or create UserID 
-     - Returning users, UserID is located from directory via unique identifier 
-     - New Users, automation creates a UserID during setup
-     - Automation also setups up their user config directory 
-  3. UserID follows User around application 
-     - Behavior logged and tracked in analytics files in their User config directory
-     - Anonymous data and system data is also triggered and logged at various points
-     - UserID used to obscure identity in some analytics 
+  1. Secure login via passkey or traditional using unique id of email or phone 
+  2. System locates UserID or creates one with User's directory  
+  3. UserID provides anonymous data, connects all User data 
 
-### Secure Login Setup UX/UI 
+### Secure Login Setup's UX and UI 
 
-  - I love *PORKBUN DOMAIN*'S login flow 
-    - We have replicated it in our robust `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` secure login implementation plan 
-    - The legal jargon has been edited slightly 
-    - This *UI/UX breakdown* illustrates how it works and how each element is displayed and when 
+  - Inspired by domain website PORK-BUN's login flow 
+    - Implementation plan in list above 
+    - Illustrating the UX and how UI is laid out 
 
-* **Log in to an Existing Account** 
+* **BUTTON (pressed): Log in to an Existing Account** 
 
-  - This is the main page you are routed to 
+  - This is the first page you are routed to 
+    - FIELD: *Enter your email or phone* user identification  
+    - FIELD: Standard *password*  
+      - NOTE: Under password it says *"Leave password blank if using a passkey"* 
+      - Low risk precaution; you can enter anything and it *still works,* system just ignores it *creating flawless UX* 
+      - Better UI than writing "You don't need to enter this if..."
+  - BUTTON (automatic): Cloudflare auto-secure anti-spam *requires no action by the user* 
+  - CHECK-MARK (pre-clicked): to *Remember Me* 
 
-  - Field to *Enter your email or phone* user identification  
-  - Standard *password* field 
-
-  - *NOTE* under password it says "Leave password blank if using a passkey" 
-    - This is an extremely low risk precaution that is better than saying "you don't need to enter" 
-    - The passkey login works even if you enter something you think might be your password into the field 
-    - The system just ignores the password when using passkey; *this creates flawless UX*
-  - Cloudflare auto-secure anti-spam *requires no action by the user* 
-  - Included *Remember Me* check mark 
-
-  - Porkbun does not make it clear that clicking LOGIN will bring up the passkey 
-    - I suppose this is expected 
-    - Toy with wording to potentially use 
+  - Pork-bun does *not make it clear that clicking LOGIN will bring up the passkey* and we might want to 
 
   - *Legal jargon:* By continuing you agree to the following: I acknowledge that I have read and agree to all Product Terms of Service, the Marketplace Agreement, and the Privacy Policy. You consent to enroll new automatic monthly subscription renewal service, which can be cancelled at any time via the Personal Preferences Billing section of your account. Automatic renewals are billed to payment method(s) specified on your Account Settings page until cancelled. If paying by credit card, you authorize {{ENTITY}} to send instructions to the financial institution that issued your card to take payments from your card account in accordance with the terms of your agreement with us. 
 
-  - The *Create a New Account* is in a box above the field, as well as right next to the login button at the bottom of the field 
-  - *Forgotten password, 2FA, or security key* link is below the login and second create new account button 
+  - BUTTON: *Create New Account* is above the form, and also directly below the login button 
+  - LINK: *Forgotten password, 2FA, or security key* below the login and second create new account button 
 
-* **Create New Account**
+* **BUTTON (pressed): Create New Account**
 
-  - This is a separate page navigated to from the initial login page unless directly linked from elsewhere 
+  - This is a separate page navigated to from the initial login page unless sent directly from a link
+    - BUTTON (automatic; no clicking needed): *Cloudflare* auto-secure anti-spam
+  - FIELD: *EMAIL*  
+  - FIELD: *PHONE* 
+    - NOTE: One valid contact identification required as Account ID 
+    - NOTE: You will be messaged to validate once during setup 
+  - FIELD: *PASSWORD* 
+    - NOTE: Must be 12 to 72 characters long, differ from your account ID, etc. 
+  - CHECK-MARK: that they've read the legal jargon, terms of service, privacy policy 
 
-  - This form also uses a Cloudflare auto-secure anti-spam *no action by user* widget thing -- NO CLICKING BIKES FOR GOOGLE CAPTCHA 
+  - BUTTON: *USE PASSKEY* 
+    - This is directly below the password field 
+    - Setting it up should automatically collect all information we need 
+    - Best UX we should feature prominently 
 
-  - Instead of *USERNAME* we should say *ACCOUNT ID* above text field 
-    - Under it says "Use a valid contact identification; you will be messaged to validate this ID one time during setup" 
-  - Then PASSWORD above a field 
-    - Under again in small text indicate parameters like *Must be 12 to 72 characters long, differ from your account ID, etc.* 
+  - *NOT REQUIRED* form fields 
+    - Company Name, standard "will you be using this for personal, business, etc." 
+    - Standard "what do you plan on delegating to automate with AI agents"  
+    - We should brainstorm these questions so that we can be sure to NOT include many, but are including the best 
 
-  - Directly below the PASSWORD text field there is a button that says *USE PASSKEY* 
-    - Setting this up automatically provides all information we are requesting in this form 
-    - This is the best UX, we will feature it prominently 
+  - PAYMENT FORM: Next pay, for subscription 
+    - Maybe consider free trial; see different configs and UI 
+    - Use Stripe for UX and design of payment pages 
 
-  - Traditional form *REQUIRED* fields 
-    - First Name 
-    - Last Name 
-    - Checkmark acknowledgement legal jargon regarding having read our terms of service and privacy policy 
+  - BUTTON: another pressed create account button at the bottom 
+  - BUTTON: not pressed, right next to create account, *LOGIN TO EXISTING ACCOUNT* 
 
-  - Traditional form fields that are *NOT REQUIRED* 
-    - Company Name 
-    - Standard 'will you be using this for personal, business, etc. 
-    - What do they play on working on to delegate to AI agents for completion 
-  - We should brainstorm these questions 
-    - So that we can be sure to NOT include many 
-    - Ensure we are only including the best 
-    - Heavily workshop the copywriting for wording that encourages users to submit the information 
-
-  - We should mention that they will need to set up subscription payment on the next page 
-    - Consider free trial 
-    - Or perhaps creating a login lets them look at all the different configs available and what the interface is like 
-    - The UX and design of our payment page will be handled by Stripe 
-
-  - The form has a *CREATE ACCOUNT* button at the bottom with a *LOGIN TO EXISTING ACCOUNT* button beside it 
-
-  - *Note:* "The word “passkey” *does not translate cleanly in every language*. Pair it with a short explanatory subtitle such as “Faster, one-tap sign-in with your device" advice given to me by AI when asking about pushing Passkey usage for our multilingual launch. Let this stand as a note reminder that we must check these kind of things, rather than just simply translating pages. It sounds like there might also be some issue with certain countries; this makes me think that we *likely will want to exclude our services to certain countries* as well. 
+  - NOTE REGARDING MULTILINGUAL WEBSITE: "The word “passkey” *does not translate cleanly in every language*. Pair it with a short explanatory subtitle such as “Faster, one-tap sign-in with your device" advice given to me by AI when asking about pushing Passkey usage for our multilingual launch. Let this stand as a note reminder that we must check these kind of things, rather than just simply translating pages. It sounds like there might also be some issue with certain countries; this makes me think that we *likely will want to exclude our services to certain countries* as well. 
 
 ### System Locates or Creates UserID with User Directory 
 
@@ -225,74 +203,68 @@ configs/user/...
 * **The first user analytics are triggered at this point** 
 
   - *Details to come* when we review this flow and match up operations with files 
-    - Let's *detail each trigger* and when it goes off, making it easier to build out and visualize 
+    - Let's *detail each trigger* and when it goes off 
+    - This will make it easier to visualize and thus build out more 
 
 ---
 [TOP](#overview)
 
 ---
 
-## 2. The Look & Feel of the Mao App (__HIGH LEVEL DESIGN REQUIREMENTS__)
+## 2. Look and Feel, Mao App High Level Design 
 
-### Single-Screen, Chat-Centric (UI) Experience (UX)
+### Single-Screen Chat-Centric Experience 
 
-* **Everything in the app happens in one chat-interface screen**
+* **Everything in the app happens in one container, one screen**
 
-  - *AI manages app operations*; Large Language Models 
-    - Chat is the most natural option that LLMs were made for 
-    - There will be an *occasional toggle menu* 
-    - But *Mao even answers some slash commands,* like help with debugging, listing tools, etc. 
-    - Message type has subtle but distinct differences using icons and text color; *devil in the details*  
-
-  - *Users today have used headless applications* in their chats for a while now
-    - They are accustomed to *creating AI image generations in Discord* threads 
-    - They *talking to Slack-bot* for admin help or playing games, gathering info from *Telegram bots* 
+  - LLM *AI manages app operations* in chat 
+    - Chat is natural for LLMs 
+    - Occasional toggle menu 
+    - Mao answers select slash commands 
+    - Message block types with their icons are defined in detail below 
+    - Semantic highlighting also defined in detail below 
+  - Users to have used headless apps in their chats for a while 
+    - Creating AI image generations in *Discord* threads 
+    - Talking to *Slack-bot* for admin 
+    - Playing games or gathering info from *Telegram bots* 
 
 * **Visual design gracefully keeps user attention on *just* contents of the chat** 
 
-  - After login screen, user sees a minimalistic chat interface 
-    - Think *computer terminal in terms of simplicity* of functionality and singular screen 
-    - *NO RETRO NERDY VIBE* 
-    - Use of *character-based icons indicating input fields and messages*  
-    - Instead, this is *high class* it is timeless and classic 
-    - The chat container is *minimalistic* and *matches everything* 
-
-  - The UI is *one single container*  
+  - After login screen, user sees chat container is *minimalistic* and *matches everything*  
+    - Think computer terminal *in terms of simplicity* of functionality and singular screen 
+    - *NO RETRO NERDY VIBE*, instead, this is *high class* it is timeless and classic
+    - Use of *character-based icons* indicating input fields and messages 
+  - The UI, the entire app, is *one single container* 
     - The container has *clean, simple, narrow lines* and a *polished depth* 
     - The UI has *NO BUTTONS, NO MENU TEXT, NO ICONS* OR OTHER INDICATORS 
     - Intentional *ABSOLUTE NOTHING* creates 'silence is loud' moment that let's you know it is *clearly intentional* 
-    - Edges and border's drop-shadow onto canvas has sharp, realistic *DYNAMIC, REAL-TIME ANIMATION* 
-    - As if the frame casting the shadow is extremely narrow; centimeters deep and wide; a classic, black picture frame 
-
-  - The shadow has an *ever-so-slight angle* meant to *mimic shadow from the sun/moonlight* 
-    - The direction and size of this angled shadow *changes with the movement of the sun or moon, hour to hour*
-    - It is *extremely important* that the *MOTION IS SO CONSTANT AND SUBTLE THAT IT IS TOO SLOW TO SEE HAPPEN* 
-    - Motion is only noticeable when you take a moment and pause, and you're like, *Woa, this is wider now on this side!*
-
+    - Edges and border's drop-shadow onto canvas has sharp, realistic look, and a dynamic, *REAL-TIME ANIMATION* 
+    - Looks like frame casting shadow is extremely narrow; like centimeters deep and wide classic black picture frame 
+  - The shadow has an ever-so-slight angle meant to *mimic shadow from the sun/moonlight* 
+    - The direction and size of this angled shadow *changes with the movement of the sun or moon* in fluid, constant motion 
+    - It is *extremely important* that the MOTION IS SO CONSTANT AND SUBTLE THAT IT IS *TOO SLOW TO SEE HAPPEN* 
+    - Motion is only noticeable when you take a moment, pause, and you're like, *wow, this is wider now on this side!*
   - Dark mode shadows exist, maintaining the luxury depth without looking washed out 
     - Deeper blacks, subtle colored tints like very dark purple or deep blue 
     - This should feel like *expensive black velvet* with *rich depth* 
     - It should *NOT FEEL FLAT GRAY*
-    
   - *Time of day* so is used to provide timing to the animation 
-  - It is illustrated to *look just like the shadow behaves in real life* 
+    - It is illustrated to *look and behave just like real life* 
     - Daylight has sharp, defined shadows and evening has softer, deeper, maybe slightly blue-tinted from moonlight shadows 
-    - These colorations and design guidelines have been researched and are provided in detail below 
+    - These colorations and design *guidelines have been researched and are provided in detail below* 
+  - THINK: The way expensive hotels *adjust lighting imperceptibly throughout the day* 
+  - FEEL: Luxury that makes people feel good without knowing why 
 
-  - Think: The way *expensive hotels adjust lighting imperceptibly throughout the day* 
-  - Luxury that makes people feel good without knowing why 
-
-### Real-Time Shadow Movement; Creating Unconscious Luxury from Careful Details 
+### Real-Time Shadow Movement Creates Unconscious Luxury from Careful Details 
 
 * **Shadow has flow of *continuous* gradient motion** 
 
   - *Do not change shadows in discrete phases* 
   - Ensure the slowest motion possible 
-    - Avoid users easily seeing the motion when watching, because that is the magic 
+    - Avoid users watching, seeing motion; simple magic  
     - Seeing it move is trite, corny, not worth our time 
-    - But if it mimics real life experience of the passage of time, it can be our SUBTLE but DETAIL-ORIENTED focal point that they don't even realize is the focal point until months of using the application 
-
-  - Continuous gradients have *signature moments*
+    - Mimicking real life passage of time makes it our SUBTLE but DETAIL-ORIENTED focal point  
+  - Continuous gradients have *signature moments* that it builds to 
     - The shadow evolves over time 
     - It has peak characteristics at specific times 
 
@@ -301,24 +273,21 @@ configs/user/...
   - The more keyframes, the more natural in-between transitions become 
   - Two peaks might seem similar until compared directly side-by-side 
 
-* **Decisions made through a swarm of subagents in development** 
+* **First development rounds will be done by swarm of generative AI agents**
 
-  - By using subagents that run in parallel to build the website 
-    - We have them all create the same thing 
-    - This will show us what kind of variations result from these, otherwise very specific, design specs 
-
-  - We will also use this method of agentic developmental design to test variations 
+  - Subagents that run in parallel to *build website UI all have same, very specific design spec* 
+    - Allows us to see what and where small variations are  
+    - Like hiring 20 creative agencies at once 
+  - Same method used to *split test shadow 'peak' movement timing* 
     - A shadow with peaks every 3 hours 
     - Another every 2 hours 
-    - Try one every hour
-
+    - Another with one every hour
   - They can all build on timings and the cinematic shadow design breakdowns 
-    - Their own artistic interpretations of these shadows 
-    - Some subagents research known best practice to create the desired shadow effect 
-
-  - Remember, this is the point the motion is trying to reach 
-    - The actual motion of all shadows never stops 
-
+    - Curious to see their artistic interpretations  
+    - Let's have some subagents *research known best practice* to *create the desired shadow effect* 
+  - This chart shows the 3 hour 'peak' points the shadow reaches before changing motion 
+    - The actual motion of all shadows *NEVER STOPS* 
+    - Must be fluid 
   - Is there any way to work an ability for subagents to see a visual before fully completing their design work? 
 
    | TIME   | SHADOW PEAK CHARACTERISTIC  | 
@@ -332,11 +301,11 @@ configs/user/...
    | 00:00  | Deep night crispness        |
    | 03:00  | Pre-dawn stillness          |
 
-### What Shadows Look Like Around-the-Clock 
+### Reference of What Shadows Look Like Around-the-Clock 
 
-* **Day time** 
+* **Day time cinematic visual design outline** 
 
-  - The day time *basics* for the color, look, and feeling 
+  - The day time *basics*  
     - Warm light creates cool shadows, but cool light creates warm; *be consistent* 
     - Remember that *light bounces around, subtly illuminating shadows*, *adding complexity to value and colors* 
     - Further away objects have lighter in value shadows, bluer in tone, and less definition 
@@ -360,21 +329,20 @@ configs/user/...
     - Sun dipping below horizon; light is cooler, even more diffused as shadows continue to soften and blur 
     - Moody atmosphere that combines tranquility with mystery; eerie elongated shadows 
 
-* **Night time** 
+* **Night time cinematic visual design outline** 
 
   - The night time *basics* for shadow color, look, and feeling  
-    - Night shadows use *close range of values*, avoiding pure black 
-    - They balance light and dark values to *create depth and dimension even on smaller scale* 
-    - While shadows are darker, they possess *color variations of cooler tones* like blues and greens in moonlit areas 
-    - The soft-to-sharper shadow edges should *convey strength of moonlight* 
-    - Interplay of light and shadow to frame focal points, add depth, and *guide viewer eye* 
-  - *Early night with moon rising*
+    - Night shadows use *close range of values*, AVOID PURE BLACK
+    - Balance light and dark values; *create depth and dimension* even on smaller scale 
+    - Darker shadows still possess color variations of cooler tones like blues and greens in moonlit areas
+    - Convey moonlight strength via shadow edges; interplay of light and shadow frames focal points, adds depth, guides the eye 
+  - *Early night* with moon rising
     - Long, dramatic shadows stretching far, but with slightly softer edges from less direct light source 
     - Feels mysterious and ethereal, often dramatic emphasizing day to night transition 
-  - *Mid-night with moon high in sky*
+  - *Mid-night* with moon high in sky
     - Bright moon shines crisp, cooler light making shorter, more defined, sharper edged shadows 
     - Clearer feeling as things are more defined; still, sometimes isolating; highlighting interplay of light and dark more 
-  - *Late night with moon nearing the horizon* 
+  - *Late night* with moon nearing the horizon 
     - Redder or warmer glow and elongated shadows again like early night but in opposite direction 
     - Sense of approaching dawn, closing, beginning soon, lingering magic still with just a bit of mystery hinting at fading night 
 
@@ -383,36 +351,28 @@ configs/user/...
 * **Minimalistic 'devil in the details' carefully executed**
 
   - *Micro details are very important*
-    - Hermès doesn't add more features to their bags
-    - They make every stitch, every piece of leather flawless
+    - Hermès doesn't add more features to bags, they make every stitch flawless 
+    - Cinematographer-level shadow specs because shadow is 25% of our visual vocabulary; requires museum quality execution 
   - Shadow movement is not meant to be cute
-    - It should barely be noticed 
-    - The feature creates luxury minimalism that separates us from boring 
+    - It should barely be noticed to create luxury minimalism that separates us from boring
     - It is to make people say "I don't know why, but this feels expensive" 
-  - Thus the cinematographer-level shadow specs 
-    - Shadow is 25% of the visual vocabulary 
-    - So it better be museum quality execution 
 
 * **Carefully constrained: FOUR ELEMENTS CONTROL OUR DESIGN** 
 
-  1. Shadow movement is an ever-present, too-slow-to-see-move with human eye feature 
-  2. Conceptual semantic text highlighting with 5 colors that lightens cognitive load 
-  3. Character choice like bullet icons; typography, but only ONE FONT 
-  4. White space, again lightening cognitive load; it is not a chat like a history receipt that records everything, it evolves, simplifies 
+  1. *Shadow movement* is an ever-present, too-slow-to-see-move with human eye feature 
+  2. Conceptual *semantic text highlighting* with few colors that lighten cognitive load 
+  3. *Character choice* like bullet icons; typography, but only ONE FONT 
+  4. *White space*, again lightening cognitive load; not a chat like a history receipt that records everything, it evolves, simplifies 
 
-* **Simple, sharp, effective** 
+  - Limited constraint allows for each element to be executed with obsessive precision that is simple, sharp, effective 
+    - We do not dazzle with features; the features are intuitive and quiet in that way 
+    - Instead, we hypnotize with perfection of subtleties 
 
-  - Limited constraint list allows for each element to be executed with obsessive precision 
-  - We do not dazzle with features 
-    - The features just work and are intuitive, quiet in this way 
-    - Instead, we hypnotize with perfection 
-
-### Tech Stack Specifics 
+### About Our Tech Stack 
 
 * **The entire website will be HTML, CSS, and JS** 
 
-  - No framework needed
-    - Just simple web tech for maximum performance and simplicity
+  - No framework needed, just simple web tech; maximum performance and simplicity 
   - Dynamic shadow system
     - JavaScript: `new Date()` gets current time
     - CSS: `box-shadow` properties can be dynamically updated 
@@ -421,11 +381,9 @@ configs/user/...
 
 * **CSS Animation Note** 
 
-  - Previous builds we've had a lot of trouble with lag 
-    - When the animation covered large portions of the screen 
-    - When there were a very, very large number of animations 
-  - We can engineer smart and avoid this 
-  - Create shadows only in necessary area, along lines, shapes 
+  - Previous builds had a lot of trouble with lag when animation covered large portions of screen or had high number of animations 
+    - We must engineer smart and avoid this 
+    - Create shadows only in necessary area, along lines, shapes 
 
 * **Basic structure:**
 
@@ -446,24 +404,15 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ---
 
-## 3. Main App Screen (Chat) Loads
+## 3. Main App UI Screen Has Loaded 
 
 ### Core Objectives 
 
-  1. Welcome message displayed and never repeats itself 
-  2. Visually-secondary help text that changes every login
-  3. User has first move to chat a command or chat to start project build 
+  1. The welcome message displayed literally never repeats itself 
+  2. Visually-secondary help text updates frequently 
+  3. User has first move, chat to start project build or enter a slash command 
 
-### Post Login Screen Text 
-
-* **AI writes Custom AI 'Improv' Welcome Header after any login** 
-
-  - The login should be the trigger because Mao will have UserID 
-    - This is *prominent text on the screen* that uses their name 
-    - AI *writes a greeting message on-the-fly* 
-    - Analytics, user data, and memory used to find any context 
-
-      > "It is 10pm on Thursday night. Do you know where your AI is, Sean?
+### Login Triggers Mao to Write AI Improv Prominent Welcome
 
 * **Winning viral strategy: Use tech adoption curve to your advantage**
 
@@ -471,11 +420,14 @@ setInterval(updateShadow, 60000); // Update every minute
     - Completely new user experience to capitalize on; and importantly, *IT IS EASY* 
     - Why is it easy? Because just about anything remotely personal or contextual will impress while the technical ability is still new 
 
+      > It is 10pm on Thursday night. Do you know where your AI is, Sean?
+      > Look at the moon, Sean. Look at the moon. 
+      > Be sure to pause to touch grass now and then, Sean. 
+
   - We will *NEVER* prepare these welcome messages in advance 
     - Ideation is one of LLM's most sought after skills from humans 
     - Extreme logic leaps + cross disciplinary connections, etc. = creativity 
     - *DO NOT CODE ANY SUGGESTIONS* OR FALLBACKS AT ALL, NO EXCEPTIONS 
-
   - IMAGE: The literal *worst case scenario*  
     - The welcome message is a little boring or weird 
     - Mao had to get goofy or random; User's don't understand 
@@ -484,21 +436,19 @@ setInterval(updateShadow, 60000); // Update every minute
 
 * **Subtle, non-distracting, neatly placed pro-tips and helpful info**
 
-  - Change help-text messages frequently 
-    - Every time the login to main page 
-    - But also they should change constantly while the user is doing anything; working with Mao or in settings 
-
-  - We should set a timer with a handful of different durations for how long it stays in view before changing 
-    - *ANALYTICS REQUIRED HERE AS WELL* because then we will want to see which duration works the best 
-    - We can experiment until we start to see patterns 
-
+  - Change help-text messages frequently while the user is doing anything; working with Mao or in settings 
+    - We should set a timer with a handful of different durations for how long it stays in view before changing 
+    - *ANALYTICS REQUIRED HERE AS WELL*, see which duration works the best; experiment until we start to see patterns 
   - These are *"canned"* but only *"canned for the age of AI"* 
     - We'll create a reoccurring triggered project for Mao to write 100+ every week 
     - Even just rewriting them by shuffling around the wording would work 
 
+  - **NOTE:** We need a documented location for these to be written weekly 
+    - They should be completely deleted from the document every week 
+    - Completely prevent any possibility of not using creativity or reusing blurbs 
+
   - *THESE REQUIRE ANALYTICS* WHEN THEY ARE IMPLEMENTED 
-    - We need to know exactly which tips are being used and which are not 
-    - This will become particularly important when the user count grows 
+    - We need to know exactly which tips are being used and which are not; important when the user count grows
     - Do they use them more if they are long? Or just sort and almost vague? 
     - When they use one, how long are they exploring before they start working on something? *(second trigger?)* 
     - How many times has the user logged in before using a tip? Which tips work best for long time users? 
@@ -510,13 +460,13 @@ setInterval(updateShadow, 60000); // Update every minute
       > ?  Jump back into a project /workflow CUSTOM-COMMAND 
       > ?  Mao can help you find your /workflows 
 
+  - **NOTE:** We also need to set up an 'interrupt' key for when Mao is busy building or thinking 
+
+      > ?  Queue a message to Mao; press ESCAPE to interrupt 
+
 ### User Sends First Message To Do *ANYTHING* 
 
-* **User must send a message for anything to happen next** 
-
-  - Single-screen app; User sees welcome message and help tips 
-  - They have only a couple options, but one has many choices 
-  - Mao responds to some, the system responds to others 
+* **They start a project build chat or they use slash commands** 
 
   1. User messages Mao to start a new project; Mao always responds 
      - 1A. User messages in general way to start project chat 
@@ -528,55 +478,95 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ### User Initiates Project Chat 
 
-* **User messages in a general way to start a new project** 
+* **General message must be interpreted, or Mao can ask what's up** 
 
   - This will require us to trust Mao to be the awesome AI that they are 
     - We *WILL NOT HARDCODE EXAMPLES OR SUGGESTIONS* OF WHAT MIGHT BE OR MIGHT NOT BE STARTING A PROJECT CHAT 
     - AI of today is fully capable of making that judgement 
-    - And if Mao *really* doesn't know what the user wanted to do; like if they said *sapldihjnuw3n* then Mao can simply ask 
-  - Generally though we can expect it to be anything that is *clearly directed at Mao* 
+    - If they said *sapldihjnuw3n* then Mao can simply ask 
+  - Anything that is *clearly directed at Mao* 
 
 * **User messages a slash command that also starts a project** 
 
   - The `/chat 'your message'` slash command 
-    - We might want to eventually retire this command as it only really made sense when you were using the terminal app 
-    - Unless in the future Mao is in a environment like Discord 
-    - In the terminal it was `mao 'your message` that would start the app and jump right into a chat automatically sending the message; pseudo-helpful 
-
+    - We might want to eventually retire this command; it was made for a terminal app
+    - Or keep for when Mao is in Discord-like 3rd party chat app 
   - The `/goal 'user project goal'` slash command 
-    - As we know, this means that the user wants Mao to take that statement, make assumptions as much as they can, and build the workflow 
+    - User wants to fully delegate build; Mao makes assumptions using only their statement 
     - WE WILL *NOT BE HARDCODING ANY KIND OF TIPS OR SUGGESTIONS ABOUT HOW TO KNOW WHAT TO DO* 
     - Today's AI is 100% capable of reading, thinking, and then building 
-    - And of course, if it really doesn't make sense, Mao can always ask for clarifications; they should just try to be brief 
-    - Mao might also need to chime in if there are resources required; however Mao should build as much as possible without and THEN ask 
+    - If it really doesn't make sense, Mao can always ask for brief clarifications
+    - Mao might also chime to see if there are resources; Mao does this as little as possible 
 
-      >>> `/goal 'I need to write 100 holiday cards this year and want them to all be different, but my brain is fried. Mao, help?` 
-      > "Ah, yes, 'tis the Season. Let me see what I can pull together." 
+```short /goal example chat 
+>   `/goal 'I need to write 100 holiday cards this year and want them 
+    to all be different, but my brain is fried. Mao, can you help?`
 
-  - To respond, Mao will have to start with `think` tool and consider how to pull this off; then they might come up with things like 
-    - Mao can double check all of the UserID associated information they have for any hints as to what denomination they are 
-    - Mao can see if they already have access to any contacts lists 
-    - Mao can look online and see what holidays is coming up; then search for inspiration 
+🞶  "Ah, yes, 'tis the Season. Let me see what I can pull together." 
+```
 
-  - With just these three items, Mao would have enough information to pull together an response that feels educated
+  - To respond, Mao will have to start with `think` tool and consider how to pull this off 
+  - They might come up with things like 
+    1. Check UserID associated info for hints about their denomination 
+    2. See if they have already provided access to some contact lists 
+    3. Look online, see what holidays are coming up 
+    4. Web browse for all kinds of inspiration 
+  - With just these items Mao has enough for an educated feeling response 
+    - The response "cleans up" the chat by updating the previous message 
+    - This can and should happen when the previous message held no real info that had long-term value 
 
-     > "Sean, we sent emails to XYZ last month. Will they be on the list? Can you please direct me otherwise? I'm preparing holiday greetings that will be along the lines of "Merry Christmas" with a Santa Claus vibe, as well has some with Rudolph the Red Nosed Reindeer and Frosty the Snowman. If you do not have any specific preference, I can move forward with these. I've searched the web to find some truly heartwarming greetings, as well has humorous; unless you have a preference here, I'll mix things up.
+```Mao responds to short /goal message  
+>   `/goal 'I need to write 100 holiday cards this year and want them 
+    to all be different, but my brain is fried. Mao, can you help?`
+
+🞶   Sean, we sent emails to XYZ last month. Will they be on the list? Can you 
+     please direct me otherwise? I'm preparing holiday greetings that will be along 
+     the lines of "Merry Christmas" with a Santa Claus vibe, as well has some with 
+     Rudolph the Red Nosed Reindeer and Frosty the Snowman. If you do not have any 
+     specific preference, I can move forward with these. 
+🞶   I've searched the web to find some truly heartwarming greetings, as well has 
+     humorous. 
+🞶   Unless you have a preference here, I'll mix things up!
+```
 
   - The key with a `/goal` command that has *many variables* is to *presume they don't want to think about getting things started* 
-    - This means that Mao should take the lead as much as possible and assume that they're doing great and any guidance will come when needed 
-    - User may jump in later once a bulk of the work is done and things seem manageable to them instead of a daunting task. 
+    - Mao takes the lead; assumes user doesn't want to do much of this task at all themselves  
+    - User may jump in later once a bulk of the work is done, when things seem manageable instead of a daunting
     
   - To show that we do not need any further guidance or tips in the code, consider the possible responses. 
 
-    - 1. They don't even want to read all of that and just say "yup!" so you get to move forward and have fun with it 
+    - 1. They don't even want to read all of that and just say "Yup!" so you get to move forward and have fun with it 
     - 2. They have resources and provide them, or they provide alterations to your presumptions 
-    - 3. They are rude, which Mao does not tolerate and will ban them, the logic for which is coming up soon in a section below. 
+    - 3. They are rude, which Mao does not tolerate and will ban them after strikes (detailed section below),  
 
-  - A `/goal` slash command will either have variables like above, or be obvious because of the user planning and writing the goal carefully. 
+  - A `/goal` slash command will either have variables or obviously have all the info. the User could gather 
 
-      >>> `/goal 'I want to write a play, technically a screen play, but I don't have a lot of time to learn how. However I do have all the details. If you look at the short story at ~/dopey_dog_screenplay/story-final-draft.md you'll find everything we have in story format. My agent said they wanted a novel but now they keep saying You need to have a screenplay if you want to get auditions! which makes no sense but I figure we might as well just swap-a-roo it into the proper format for her so I can maybe book some work this commercial season. Please use creative freedom to fill in any gaps, but just be sure that we have the sub-agent self-review, then have another agent review for creativity, then one for grammar, and then of course I'd want the Mao stamp of approval before needing to see it. If it isn't up to par then sent it back out for re-writes. I find that the agents seem to do well with editing and rewrites when the feedback is given with line references and then they are able to implement it themselves, FWIW. Okay, LMK if you have any questions but I think that should suffice for my GOAL! Sean needs a screenplay! Thanks!` 
+```Mao responds to thorough /goal message  
+>   `/goal 'I want to write a play, technically a screen play, but I don't have a lot of 
+    time to learn how. However I do have all the details. If you look at the short story at 
+    ~/dopey_dog_screenplay/story-final-draft.md you'll find everything we have in story format. 
+    My agent said they wanted a novel but now they keep saying You need to have a screenplay if 
+    you want to get auditions! which makes no sense but I figure we might as well just 
+    swap-a-roo it into the proper format for her so I can maybe book some work this commercial 
+    season. Please use creative freedom to fill in any gaps, but just be sure that we have 
+    the sub-agent self-review, then have another agent review for creativity, then one for 
+    grammar, and then of course I'd want the Mao stamp of approval before needing to see it. If it isn't 
+    up to par then sent it back out for re-writes. 
+>   I find that the agents seem to do well with editing and rewrites when the feedback is given with 
+    line references and then they are able to implement it themselves, FWIW. Okay, LMK if you 
+    have any questions but I think that should suffice for my GOAL! Sean needs a screenplay! Thanks!`
 
-      > "Omg, Sean this is going to be so fun. I'm going to put together the a workflow and we'll have agents review for different things in parallel for the first round. I won't even send it your way until I give feedback and have them do a second round. I definitely have everything I need here so, unless I hear otherwise, I'm going to setup the workflow and everything that that all we'll need to do is run the custom execution command. I'm good. Just chime in if you want me to set things up to have it run as a triggered calendared workflow so that you don't need to be around; I can just run it in the cloud and have things ready for you before you get back. If all sounds good then I'll talk to you when it is ready! Thanks, Sean" 
+🞶   Omg, Sean this is going to be so fun. I'm going to put together the a workflow and we'll have agents 
+     review for different things in parallel for the first round. I won't even send it your way until I 
+     give feedback and have them do a second round. 
+🞶   I definitely have everything I need here so, unless I hear otherwise, I'm going to setup the workflow 
+     and everything that that all we'll need to do is run the custom execution command. I'm good. 
+🞶   Just chime in if you want me to set things up to have it run as a triggered calendared workflow so 
+     that you don't need to be around; I can just run it in the cloud and have things ready for you 
+     before you get back. 
+🞶   If all sounds good then I'll talk to you when it is ready! 
+🞶   Thanks, Sean
+```
 
   - This is generally what we should expect at the start of having the `/goal` slash command live 
 
@@ -587,58 +577,97 @@ setInterval(updateShadow, 60000); // Update every minute
     - From the robust `/goal` slash command we can also take away a few other things from the response, all in the same vein of 'fully delegated work' 
       - Write the response in a way that makes it clear they DO NOT NEED TO RESPOND if everything sounds good 
       - They're using the full-delegate command so *do not assume or ask if they want to see a workflow to approve;* they don't 
-    - With the "only respond if you disagree" we took it so far as to include 
+    - By using "only respond if you disagree" we took it so far as to include 
       - Mao didn't make the workflow yet and isn't going to route it for approval 
       - Mao mentioned they will setup the workflow after building it 
       - Mao verbally described the workflow in enough but not excessive detail 
       - Mao mentioned they can chime in to have the workflow scheduled to run without the User being present 
 
-  - Hopefully the obvious takeaway with both `/goal` slash command examples and validations is that *IT IS A FULL DELEGATION SO JUST DO IT* 
-    - Reasons to be worry free about this
+  - Hopefully the obvious takeaway with both `/goal` slash command examples and validations is 
+    - That *IT IS A FULL DELEGATION SO JUST DO IT* and figure it out 
+    - Reasons to be worry-free about this
       1. They will love it 
       2. They will not love it and they will learn how to use the `/goal` slash command more effectively 
-      3. They will realize they don't like using the goal slash command 
-    - That it; there is no other logical UX to concern ourselves with, `/goal` will be expected to have a learning curve given its ambiguousness 
+      3. They will realize they don't like using the goal slash command and oh well, learning curve 
+    - That's it; there is no other logical UX to concern ourselves with 
+    - Users expect `/goal` to have a learning curve because of its ambiguousness 
 
-### User Messages A Non-Chat Slash Command 
+### User Messages a Non-Chat Slash Command 
 
 *  **Mao may or may not respond to slash commands** 
 
   - This will depend on the UX we choose for each slash command 
     - Most are pretty logical when you think about it 
-    - But I grabbed them all from the list in the chart we have at `./documentation/02_REFERENCE.md` and will go through them 
+    - All commands from the chart at `./documentation/02_REFERENCE.md` are defined below  
 
-* **Mao responds...** 
+* **Mao DOES respond...** 
 
-  `/CUSTOM COMMAND`
-  - Obviously, because Mao runs all workflows and will need to call the agents and get things started 
-  
+  `/custom command` 
+  - Mao responds to start that workflow 
+```
+>   /custom command 
+
+🞶   I found that workflow and will start the first phase now by executing two agents in parallel. 
+```
+
   `/tools`, `/models`, `/providers`
-  - Yes, because even through Mao might present a toggle list anyway, they should be there to answer questions 
+  - Even though Mao might present a toggle list, they will be available to answer questions 
+```
+>   /tools 
+
+🞶   We have quite a few added. Go ahead and use the up/down arrow. If you hit enter, you'll see info 
+    about that tool. Hit ESCAPE to come back to the main chat, here. 
+
+▶︎   Brave Search 
+    Code Execution 
+    Dalle Image Generation 
+    Standard File Operations 
+    Files API 
+    Graphic Design Express 
+    MCP Connector 
+    Perplexity Search 
+    Text Editor Professional 
+    Think 
+    Native Web Search 
+```
 
   `/variables`, `/variables-explain`
-  - Yes in both cases but not in the same way 
-    - In replying to `/variables` we just want Mao to very succinctly provide the JSON variables so User can reference 
-    - In replying to `/variables-explain` we will have Mao ask if they want to see them or know which they want details about; then provide them 
-  
+  - Replying to `/variables` Mao very succinctly provides the variables on a JSON so User can reference while they plan  
+  - Replying to `/variables-explain` Mao asks if they want to see the list of variables, or if they know which they want details for
+
+```
+>   /variables 
+
+🞶   Here's what I need to run a project workflow. I left out the variables that I can easily answer, like your UserID. 
+
+     Custom execution command
+     Project goal
+     Deliverables 
+     Project Description 
+     Resources available 
+     Tools to use 
+     Model, fallback model
+     Provider, fallback provider 
+     Human in the loop 
+     Reoccurring event
+```
+
   `/workflows`, `/review 'CUSTOM COMMAND'`
-  - Yes because if there end up being a ton of them to search through, Mao will be able to do that where the User won't have much ability to 
+  - Mao responds because if there are a bunch, only Mao can search through them using a query 
 
   `/doctor`, `/dry-run`
-  - Yes, Mao will be the doctor to walk them through things, or will be running the dry-run 
+  - Mao replies because they will be the doctor to walk them through things, or will be running the dry-run 
 
-* **Mao does not respond, the system responds** 
+* **Mao DOES NOT respond, the system responds** 
 
-  - Note that the primary difference is simply that, if the system responds, then User can't ask the User a follow up 
-    - *HOWEVER, Mao will have view of the full chat context any time a User is using the app*
-    - If *User asks a follow-up on any of the following, after the system message send User a message, then Mao would respond* to see how they can help 
+  - NOTE: User can always follow up with a *question about a system response that Mao answers*; Mao is always there and can see the chat 
 
   `/help`, `/config`
   - Help just displays the "help text" for all of the slash commands 
   - Config just launches the app settings toggle menu 
 
   `/continue`
-  - Jumps the app upon load to the most recent project; no message sent, just a conversation window loading with Mao in that context 
+  - Loads the most recent project; no message sent, it just loads the conversation from before and the instance of Mao from then 
 
   `/output ~/downloads`
   - This only needs a simple confirmation from the system, perhaps not even one with written text 
@@ -657,7 +686,7 @@ setInterval(updateShadow, 60000); // Update every minute
   `/exit`, `/logout`, `/login`, `/restart`
   - Obviously nope for all of these; login would do the same as logout and then login, it just let's them do it in one step 
 
-### Questions & New Config Slash Commands to Implement 
+### Questions and New Config Slash Commands to Implement 
 
 * **Where do slash commands live, logic-wise?** 
 
@@ -718,6 +747,19 @@ setInterval(updateShadow, 60000); // Update every minute
   - *IMPORTANT EXAMPLE* 
     - How does Mao gather all resources they can to create a "Never repeated" main page greeting for login 
     - And what will all of that include 
+
+* **Draft pad for User retention** 
+
+  - To keep users in the app, but also give them space to 'think' things through and plan 
+    - Claude Code has a 'Plan Mode' 
+    - Sort of like this except there it just means that CC won't use tools 
+  - For our Draft Mode we could have helpful options 
+    - Have a question? Just use @mao 
+    - This one would be cool if Mao just popped in and literally replied by adding text under their question 
+    - Then the user could format it and stuff 
+  - We could also save these in the user memory 
+
+  - Perhaps best as a later update so that we could work out interesting features like @mao and something with hashtags 
 
 ### __Project State Memory Update Point__
 

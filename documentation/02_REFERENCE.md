@@ -154,10 +154,8 @@ This list may not be accurate because all it takes is one file added to a direct
 | ------------ | -------------------- | ---------------------------------- | --------------------- |
 | `model_1`    | Primary model choice | `claude-sonnet-4`, `claude-opus-4` | Intelligent selection |
 | `model_2`    | Backup model         | `claude-sonnet-3.7`                | Auto-fallback         |
-| `model_3`    | Final fallback       | `claude-sonnet-3.5`                | Emergency option      |
 | `provider_1` | Primary provider     | `anthropic-direct`, `litellm`      | Provider switching    |
 | `provider_2` | Secondary provider   | Alternative provider               | Seamless handoff      |
-| `provider_3` | Tertiary provider    | Fallback provider                  | Reliability guarantee |
 
 ### Handoff Configuration Variables
 | Variable               | Description               | Format   | Example                        |
