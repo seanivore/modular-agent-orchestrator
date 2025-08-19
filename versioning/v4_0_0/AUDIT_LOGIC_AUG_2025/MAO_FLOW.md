@@ -2542,20 +2542,20 @@ Flashing ○ to ● and back = active action
         ▷  Create comprehensive to do list
 
 
-  BUILDING CONFIDENCE... (12s • $0.003 • 140 tks)
+  + BUILDING CONFIDENCE +   (12s • $0.003 • 140 tks)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+   ?  try /config or /help                              88%
 ```
 
 2. Planning out entire project; Preparing to update data 
 
 ```
-●    **Update** 
+●    **Data** Update • 33 sec ago 
     └── ▶︎  Notes Secure in Files API  
         ▶︎  Memory State Updated 
-        Done (2 tool uses • $0.000 • 130 tks • 3.2s)
+        Done (2 tool uses • $0.000 • 130 tks)
 
 ○  **Planning Workflow Build** Expense Report Agents 
     └── ▶︎  Outline Steps to Complete Project 
@@ -2570,14 +2570,14 @@ Flashing ○ to ● and back = active action
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  Send message into queue; hit ESC to interrupt 
+  ?  Send message into queue; hit ESC to interrupt      83%
 ```
 
 3. 1 of 4 in rapid succession 
 
 ```
-●   **Secured** Two memory & asset Files API Updates
-    └── Done (4 tool uses • $0.000 • 201 tks • 4.1s)
+●   **Data** Memory & Assets Updated • 3 sec ago 
+    └── Done (4 tool uses • $0.000 • 201 tks)
 
 ○   **Building Project Workflow** Expense Report Agents 
     └── ▶︎  Outline Steps to Complete Project 
@@ -2596,13 +2596,13 @@ Flashing ○ to ● and back = active action
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+  ?  try /config or /help                             68%
 ```
 4. 2 of 4 in rapid succession 
 
 ```
-●   **Secured** Two memory & asset Files API Updates
-    └── Done (8 tool uses • $0.000 • 260 tks • 6.4s)
+●   **Data** Memory & Assets Updated • 6 sec ago
+    └── Done (8 tool uses • $0.000 • 260 tks)
 
 ○   **Building Project Workflow** Expense Report Agents 
     └── ▶︎  Outline Steps to Complete Project 
@@ -2621,14 +2621,14 @@ Flashing ○ to ● and back = active action
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+  ?  message to add to queue or hit ESC to interrupt    55% 
 ```
 
 5. 3 of 4 in rapid succession 
 
 ```
-●   **Secured** Two memory & asset Files API Updates
-    └── Done (4 tool uses • $0.000 • 260 tks • 6.4s)
+●   **Data** Memory & Assets • 9 sec ago 
+    └── Done (4 tool uses • $0.000 • 260 tks)
 
 ○   **Building Project Workflow** Expense Report Agents 
     └── ▶︎  Outline Steps to Complete Project 
@@ -2647,14 +2647,14 @@ Flashing ○ to ● and back = active action
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+ ?  try /config or /help                                44%
 ```
 
 6. 4 of 4 in rapid succession 
 
 ```
-●   **Data** Added Self-Critique
-    └── Done (6 tool uses • $0.000 • 280 tks • 6.9s)
+●   **Data** Added Self-Critique • 2 sec ago 
+    └── Done (6 tool uses • $0.000 • 280 tks)
 
 ○   **Building Project Workflow** Expense Report  
     └── ▶︎  Self-Assessment 
@@ -2666,160 +2666,233 @@ Flashing ○ to ● and back = active action
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+   ?  try /config or /help                              40%
 ```
 7. Now to the building
 
 ```
-●   **Data** Memory Updated & Assets Secure 
-    └── Done (8 tool uses • $0.000 • 260 tks • 6.4s)
+●   **Data** Memory Updated & Assets Secure • 12 sec ago
+    └── Done (8 tool uses • $0.000 • 260 tks)
 
-●   **Expense Report Self-Assessment**  
+●   **Self-Assessment** Expense Report
     └── Done (5 tool uses • $0.008 • 188 tks • 9.1s) 
 
-○   **Project Workflow Build** 
+●   **Project Workflow Build** 
     └── ▶︎  Write phase directions & other variables 
-        ▷  Map resources to phase requirements
-        ▷  Define handoff assessment questions
+        ▶︎  Map resources to phase requirements
+        ▶︎  Define handoff assessment questions
         ▷  Validate workflow against user expectations
 
 ○   **Phase Design** Expense tracking project workflow 
-    └── ▶︎  Agent 1A: Download employee expense submissions
-        ▶︎  Agent 1B: Retrieve credit card statements  
+    └── ▷  Agent 1A: Download employee expense submissions
+        ▷  Agent 1B: Retrieve credit card statements  
         ▷  Agent 2: Cross-reference receipts with statements
         ▷  Agent 3: Generate accuracy report with discrepancies
         ▷  Handoff: Review report quality before payment processing
 
-  Architectivizing... (12s • $0.007 • 340 tokens)
+  + Architectivizing +   (12s • $0.007 • 340 tokens)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help                             85% 
+  ?  try /config or /help                              35% 
 ```
 
-8. Etc. 
-
-* **Context Window Management**
-
-  - Shown at bottom right below the User text input field 
-    - At 5%: Brief warning notification
-    - Auto-truncation during extended pause with summary creation
+8. Master task list spawning baby task lists 
 
 ```
+●   **Data** Memory Updated & Assets • 22 sec ago
+    └── Done (12 tool uses • $0.000 • 422 tks)
 
-○   **Build Workflow Draft**
-    └── ▷  Create visual diagram for user presentation  
-        ▷  Prepare Files API backup with workflow ID
-        ▷  Generate Project State Memory Update 
+○   **Updating To Do** Expense Report  
+    └── ▶︎  Agent 1A: Download employee expense submissions
+        ▶︎  Agent 1B: Retrieve credit card statements 
+        ▷  Handoff: Review Phase 1 Deliverables 
+        ▷  Decide: Activate Next Phase  
+        ▷  Agent 2: Cross-reference receipts with statements
+        ▷  Agent 3: Generate accuracy report with discrepancies
+        ▷  Final Handoff: Review report quality before payment processing
 
+○   **Agent 1A** 
+    └── ▶︎  Downloading expense reports 
+        ▷  Confirm reports are completed 
+        ▷  Handoff reports to Mao
+        +1 tool use
 
+○   **Agent 1B** 
+    └── ▶︎  Navigate to company credit cart portal  
+        ▷  Export statements to PDF 
+        ▷  Handoff statements to Mao 
+        +2 tool uses 
 
-  + INTELLIGENT-ING + (12s • $0.007 • 340 tokens)
+  + Delegating +   (12s • $0.007 • 340 tokens)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?   Auto-truncation at 3% or ctrl-t to run now       10%
+  ?  try /config or /help                             25% 
+```
+
+9. As agents complete work and deliverables are approved 
+
+```
+●   **Data** Memory Updated & Assets • 2 sec ago 
+    └── Done (14 tool uses • $0.000 • 550 tks)
+
+●   **Agent 1A** Submissions 
+    └── Done (4 tool uses • $0.015 • 1200 tks • 4.1s)
+
+●   **Agent 1B** Statements 
+    └── Done (4 tool uses • $0.011 • 1001 tks • 3.9s)
+
+○   **Updating To Do** Expense Report  
+    └── ▶︎  Agent 1A: Deliverable approved 
+        ▶︎  Agent 1B: Deliverable approved 
+        ▶︎  Agent 2: Reviewing deliverables
+        ▷  Agent 3: Generate accuracy report with discrepancies
+        ▷  Final Handoff: Review report quality before payment processing
+
+●   **Agent 2** 
+    └── ▶︎  Download employee receipt submissions 
+        ▶︎  View receipts and cross reference  
+        ▶︎  Handoff reports to Mao
+        +13 tool uses
+
+○   **Agent 3** 
+    └── ▷  Review employee reports 
+        ▷  Detail feedback 
+        ▷  Handoff final reports to Mao 
+        +2 tool uses 
+
+  + Delegating +   (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+  ?  Auto-compact at 3% or ctrl-t to run now            10% 
+```
+
+* **Smart Context Window Management**
+
+  - We mentioned chat history cleaning itself up removes info from Mao's actual context window 
+    - This is in addition to that 
+    - Even with that, particularly with planning, the chat history can get rather long 
+    - It is monitored and remaining space is shown to the User 
+  
+  - Bottom right under the User text input field 
+    - At 10% the ? Help message changes to warning 
+    - User is always able to save the context history via the device's OS menus 
+    - User can push the context to truncate early 
+    - Auto-truncation or pushed will create a summary in the chat 
+
+  - For best performance, Users should ctrl-t whenever they're at a good stopping point, instead of waiting 
+
+```
+●   **Data** Memory & Assets • 10s ago 
+    └── Done (14 tool uses • $0.000 • 550 tks)
+
+●   **Phase Completion** Submissions 
+    └── ▶︎  Agent 1A • Employee reports  
+        ▶︎  Agent 1B • Credit statements 
+        ▶︎  Agent 2 • Receipts cross-referencing 
+        ▶︎  Agent 3 • Report accuracy reviews 
+    Done (22 tool uses • $0.145 • 2022 tks • 13.9s)
+
+○   **Updating To Do** Expense Report  
+    └── ▶︎  Agent 1A: Deliverable approved 
+        ▶︎  Agent 1B: Deliverable approved 
+        ▶︎  Agent 2: Deliverable approved 
+        ▷  Agent 3: Reviewing reports 
+        ▷  Final Handoff: Send for payment processing
+
+
+  + Cleaning +   (32s • $0.170 • 1345 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+  ?  Auto-compact at 3% or ctrl-t to run now          7%
 ```
 
 ### When Mao Is Running Live Workflows
 
-* **Orchestrator Activity During Workflow Execution**
+* **The above series is a great overview of a live workflow**
 
-  - Master workflow tracking with agent coordination
-  - Real-time agent handoffs and quality assessments  
-  - Dynamic phase creation for open-ended workflows
-  - Live tool usage across multiple parallel agents
-
-```
-●   **Workflow** `finance expense monthly` (Started 2m 15s ago)
-    └── **Phase Progress**
-        ●   Phase 1A: Employee expense gathering ▶️ **Agent complete**
-        ●   Phase 1B: Credit card statement download ▶️ **Agent complete**  
-        ○   Phase 2: Cross-reference validation ▶️ **Agent working**
-        ▷   Phase 3: Payment processing (awaiting handoff)
-
-○   **Active Agent** (Phase 2 - Data validation)
-    └── **Vision Tool** (analyzing 47 receipt images)
-        **Text Analysis** (parsing expense descriptions)
-        **Calculation** (cross-referencing amounts with statements)
-        *Current: Receipt #23 - "Lunch meeting with client - $127.34"*
-        *+ Agent reviewing 6 discrepancies found*
-
-○   **Handoff Assessment** (Phase 1A → Phase 2)
-    └── ▶️  Are all expense categories properly coded?
-        ▶️  Do receipt dates match credit card transaction dates?
-        ▶️  Are amounts within company policy limits?
-        **Assessment**: ✅ **Quality approved** - proceeding to Phase 2
-
-○   **Dynamic Phase Creation** 
-    └── **Mao Decision Point**: Found 6 discrepancies requiring review
-        ▶️  Creating Phase 2B: Discrepancy resolution workflow
-        ▶️  JSON object: `expense_discrepancy_review_phase.json`
-        ▷  Will require human approval before payment processing
-        <Update: Workflow extended by 1 phase for quality assurance>
-```
+  1. First Mao always creates a Master Task List 
+  2. Mao spawns smaller to do lists as each agent phase is executed 
+  3. Agent coordination is updated on Master Task list 
+  4. Real-time agent handoffs and quality assessments  
+  5. Dynamic phase creation for open-ended workflows
+  6. Live tool usage across multiple parallel agents
+  7. When one agent is finished, their message block condenses and moves above the main task list, but remains 
+  8. When the workflow is just about complete, the agents condensed into one block entry 
 
 * **Real-Time Speed Demonstration**
 
   - Tool usage updates faster than human reading speed
   - Creates visceral sense of AI working intensely
-  - Numbers, file names, and actions blur by intentionally
+  - Numbers, file names, URLs, paths update 
+  - Only a handful are shown at any one time as they are updated so quickly 
+  - In the example below, the 4 shown receipts would be visible of under a second 
   - User feels "Mao is really cranking on this!"
 
 ```
-○   **Agent** (Expense categorization)
+○   **Agent 2** Receipt Review, Expense Categorization
     └── Receipt_2024_11_15_lunch.jpg → "Meals & Entertainment" 
         Receipt_2024_11_16_gas.jpg → "Transportation"
         Receipt_2024_11_16_office.jpg → "Office Supplies"
-        Receipt_2024_11_17_hotel.jpg → "Lodging" 
         Receipt_2024_11_17_client.jpg → "Meals & Entertainment"
-        *Processing 42 more receipts...*
-        **Categorization complete**: 47 receipts in 3.2 seconds
+        Processing (47 of 42 receipts • 3.2 secs) 
 ```
 
-* **Workflow State Persistence**
+* **Mao continuously updates the memory for workflow state persistence**
 
-  - All workflow progress automatically saved to memory with WorkflowID
-  - User can disconnect and reconnect without losing progress  
-  - Project State Memory updates at each major milestone
-  - Files API backup ensures recovery from any interruption
+  - All workflow progress saved to memory with WorkflowID
+  - All assets, deliverable drafts, notes, code executed to Files API 
+  - User can disconnect and reconnect without losing progress 
 
 ```
-●   **Memory Update** `08-workflow-progress-001`
-    └── Done ($0.002 • 95 tokens • 0.8s)
-
-○   **Files API Backup** 
-    └── Workflow ID: uid-xhl-106
-        ▶️  Phase configs and current status saved
-        ▶️  Agent deliverables backed up  
-        ▷  Recovery state: 73% complete, Phase 2 active
-        <User can safely disconnect - progress preserved>
+●   **Data** Memory & Assets • 10s ago 
+    └── Done (14 tool uses • $0.000 • 550 tks)
 ```
 
-### UI Must Eliminate UX Sense of Waiting
+### UI Effectively Eliminates the UX Sense of Waiting
 
-* **Creating "Gut Check" Emotional Intelligence**
+* **Multi-pronged strategy for managing User expectations regarding speed**
 
-  - Every update designed to create unconscious positive reactions
-  - Smart display changes that make users audibly respond ("hmm", "ohh", "ahh")  
-  - Contextual AI improv words that create chuckles
-  - Real-time progress that feels faster than it actually is
+  - Strategic mood influence 
+    - Via updates of the 'AI Improv' contextual verbs 
+    - Constantly updating conversation history cleaning visually appears like not a lot of "things happened" as a result 
+    - Milliseconds are included in the time metric of each completed message block and on the thinking improv verb 
 
-* **Energy of Speed Through Visual Velocity**
+  - Actual real-time updates provide backing to feeling of legitimacy 
+    - There is no need to be faster than it actually is because AI is that fast; faster than people know 
+    - The amount of data each agent is processing is inherently impressive 
+    - The key here is literally just actual transparency as to what is going on; no product manipulation needed 
 
-  - Rapid file name scrolling
-  - Tool usage blurring by faster than reading speed
-  - Live metric updates (tokens, cost, time) changing constantly
-  - Task completion animations that feel snappy and immediate
+  - Energy of speed through velocity 
+    - In addition to the legitimacy provided by actual real-time events 
+    - The metrics (cost, tks, time in seconds) play into this as well 
+    - The help message is updating casually 
+    - Meanwhile, the shadow UI design is changing with real-time as well 
+    - Entries on task lists are updated so the same bullet point might have 3 or more updates 
 
-* **One-Screen Experience Never Breaks**
+  - Lack of clutter 
+    - The UI app container is very intentionally clean and classic 
+    - There are no menus or icons or buttons on the toolbar or borders of the app UI 
+    - The UI display, while changing rapidly, is also constantly clean and relevant 
 
-  - User never leaves chat interface during any operation
-  - All complexity hidden behind elegant simplicity  
-  - Information appears and organizes itself automatically
-  - "Courteous" message management keeps view clean and relevant
+* **The ultimate, main UI visual goal is that the user** 
 
-*This UI system transforms workflow building and execution from passive waiting into active engagement, where users feel connected to the AI's work through carefully crafted visual feedback and psychological color coding*
+  - Never would look at the chat history and not see relevant information 
+  - Also, they can't ever look away and look back without the chat history having been updated and looking different 
+  - The one-screen experience cuts down on processing load because only rendering that happens is the one screen 
+  - The color highlighting doubles down on the efforts to display speed, without conveying any anxiety or "rushed" feeling 
+
+* **Turning passive waiting into active-feeling engagement** 
+
+  - UI transforms the two main periods of time where the user is inactive: the build and execution 
+  - Display changing a lot, is all relevant, like updating your manager with bits of info you know they'd be happy to hear 
+  - Without giving them any info they really don't need, like the actually long-form information 
+  - The chat is maintained as a communication tool *ONLY* 
+  - Info about info preparations of deliverables is provided 
+  - But info that is inside or part of the deliverables is almost never shared (except file names, websites, etc.)
 
 ---
 [TOP](#overview)
