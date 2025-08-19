@@ -776,37 +776,34 @@ setInterval(updateShadow, 60000); // Update every minute
 
 ### Core Objective 
 
-  1. An project chat has been initiated (#3)
+  1. Mao must enter the chat and respond 
   2. Locate or create WorkflowID 
   3. Initiate or locate Project State Memory using WorkflowID (other assets in Files API if return user)
   4. Provide User with a truly unique chat UX 
-     - Combining *AI-created memory*, *user-created memory*, and *analytics* 
-     - This is SO FUTURE and not everyone has caught on yet 
-     - Bonus points when we add a tool that gives Mao daily headlines or something otherwise temporal 
 
-### Mao's Role: Come To Chat Prepared 
+### Mao Has Entered The Chat Prepared 
 
-* **Getting the WorkflowID is Mao's first essential task** 
+* **WorkflowID is Mao's first task** 
 
-  - Every new project needs a WorkflowID 
-    - This is done on the backend 
-    - It is also a script that can be used in the terminal by running `uid` 
+  - The system dynamically pulls up workflows using their UserID if they are not a new user 
+    - If they are a return user, Mao may want to first ask if they are starting a new project 
+    - Or if they're working on a previous project 
+  - New projects get WorkflowID 
+    - This is done on the backend but it is based on a terminal script `uid` 
     - Every time you enter `uid` it comes up with a COMPLETELY DIFFERENT string of characters 
-    - It is always `uid-ABC-123` starting with uid, then three letters, then three numbers 
-
-  - This is *extremely important to ALL WORKFLOW PROCESSES*
-    - Mao uses it to label memories saved about the workflow 
-    - It *labels items saved in the Files API*
-    - It is the string that connects all workflow pieces together, including to the UserID 
+    - The format characters are always as follows `uid-ABC-123` 
+  - The WorkflowID is extremely important to ALL WORKFLOW PROCESSES 
+    - Labels memories 
+    - Indicates what in Files API goes to the project 
 
   - The only two unique identifiers available to the User on every single project
     - 1. WorkflowID 
     - 2. The Project's 'CUSTOM COMMAND' to execute a workflow 
   - Both of these unique IDs can serve as a search query if needed by User 
-  - Any other IDs used on the back end should be 
-    - Minimized 
-    - Only used if absolutely necessary 
-    - Hidden from the User 
+    - Any other IDs used on the back end should be 
+      - Minimized 
+      - Only used if absolutely necessary 
+      - Hidden from the User 
   - Note that the important *UserID* is not something we want to ask Users to memorize 
   - The mention of CUSTOM COMMAND here is because, of anything, that is what the user would remember of a project's workflow 
 
@@ -835,7 +832,7 @@ SCRIPT COMMAND:
 * **Mao gathers knowledge before entering the chat**
 
   - *New user* or *returning user* information
-    - AI looks up their user config file `user_5253.json`         # is this a command we can have?
+    - AI looks up their user config file `user_5253.json`         # we needs a /user user-1234 command?
     - Finds the file for at least their first name 
     - UX rule: We are ALWAYS using the User's firsts name 
 
@@ -901,28 +898,11 @@ SCRIPT COMMAND:
 
 ### Core Objective 
 
-  1. Psychologically read User & create comfortable UX 
-  2. Have conversation that is casual, smart, but concise 
-     - Even if User is wordy, AI should not mimic verbosity 
-     - We want the UX to be quick and easy 
-  3. Gather information for creating a workflow: JSON object variables 
-     - Define the core goal 
-     - Identify resources available 
-     - Identify resources that can be gathered 
-     - What tools will this require 
-     - What, specifically should the deliverables look like 
-  4. Use conversation to guide the process 
-     - Find the details needed 
-     - Understand full scope of project 
-  5. NO HARDCODED 'SUGGESTIONS' OR GUIDES ALLOWED 
-     - Instead, provide information for how Mao should behave 
-     - How they should validate information they collect 
-     - What fulfills the variables in the JSON object 
-  6. The following psychological readings for behavior 
-     - Exactly the kind of information we DO want to provide 
-     - Think about AI if they were software: They know what to do, but 
-     - We need to inform behavior, tricks of the trade, how to know to do what they already know to do 
-     - *SIGNIFICANTLY* always remember how simple the JSON object fields are and that, in the end, all you are doing is writing a series of prompts for agents to complete this project, and the JSON object is just grouping parts of the prompt 
+  1. Use psychological readings to judge User and create comfortable UX 
+  2. Have conversation that is casual, smart, but concise; don't mimic verbosity 
+  3. Gather info for project workflow variables; goal, resources, tools, deliverable 
+  4. Use conversation to guide the process, understand full scope 
+  5. NO HARDCODED 'SUGGESTIONS' OR GUIDES ALLOWED
 
 ### Mao's Truly Simple Behavior 
 
@@ -1062,11 +1042,11 @@ SCRIPT COMMAND:
 
   - Ensure accurate understanding objects needed to create workflow 
   - Validating JSON object variable values 
-  - Ensuring there is *NO NEED OR DESIRE TO PROVIDE SUGGESTIONS OR EXAMPLES* in the code
+  - Ensure there is *NO NEED OR DESIRE TO PROVIDE SUGGESTIONS OR EXAMPLES* in the code
 
 ### Defining **Workflow** JSON Object Variable Values
 
-* **Workflows get 1 Workflow Object that describes the entire project** 
+* **Workflows get 1 'Workflow Object' that describes the entire project** 
 
   - Examples and defined purposes of each variable in this object 
 
@@ -1102,7 +1082,7 @@ SCRIPT COMMAND:
 * **Validation parameters go in code, not suggestions or examples** 
 
   - *Examples* do NOT go in code 
-  - Can go in code 
+  - Validation guides can go in code 
     - The value's purpose so Mao understands it conceptually 
     - How to make sure the value is the appropriate amount and type of information 
 
@@ -1316,7 +1296,7 @@ Response: There is nothing available at 1500-1800 on Thursday, but all other tim
   1. If you have a normal workflow you set it up like below, but without the ` calendaring_config.json` object 
 
 ```bash
-# {{TEMP_DIR}}/
+# {{TEMP_DIR}}/custom-command/
 # ├── calendaring_config.json    # Calendaring JSON object
 # ├── workflow_config.json       # Workflow definition  
 # ├── phase_config.json          # Phase implementation
@@ -1423,18 +1403,11 @@ configs/reoccurring/
 
 ### Core Objective 
 
-  1. Gracefully complete the chat using psychological strategy tips below to find balance 
-     - Find a natural closing without waiting forever or being too pushy 
-     - However, remember that assertive is better than passive; it is human and expected that tools keep things moving 
-  2. Ideally have gathered all information needed 
-     - To be able to create a workflow for the project 
-     - Need to fill in values for all the JSON variables 
-  3. The KPIs are subjective, particularly for now before we have any data; what we do know is
-     - Accuracy is of the highest importance should never be sacrificed for saving time 
-     - We can alter the duration of how long it takes by having AI/Mao presume more or get more confirmations 
-     - Over time we will find data points to read into what Users want and adjust accordingly 
+  1. Gracefully complete chat; use psychological tips, find balance, natural, not pushy, but don't let them rant 
+  2. Ideally have gathered all information needed as defined for JSON objects above 
+  3. KPIs are subjective, but accuracy is highest importance and never sacrificed for time 
 
-### Winding Down: Mao Seeking Clarifications 
+### Mao Seeks Clarifications; Trying To End Chat 
 
 * **Ending conversations** 
 
@@ -1467,29 +1440,31 @@ configs/reoccurring/
       - If you have details well organized and feel a good understanding of the project, then don't  
     - *Err on the side of assuming more* rather than getting things perfect 
 
-### Conversational Closing: User Seeing Clarifications 
+### How to Handle a User Seeking Clarifications at End of Chat 
 
 * **Phrase closing to allow for User to chime in, but doesn't encourage it** 
 
-  - We don't really want to try to get them to review, or think they need to review, if it isn't needed 
+  - We don't want them to review, think they need to review; each icon message below is one example message 
 
-      > "I think we have what we need here, Sean. Give me a moment to build a workflow for you to review?" 
-      > "This is great. I'm ready to build a workflow. It'll just take a moment if you want to review it now." 
-      > "Of course we can walk through it. Did you want to confirm what I have now? It might be easier to see once I clean things up." 
+```Three example conversation ending messages 
+🞶   I think we have what we need here, Sean. Give me a moment to build a workflow for you to review? 
+🞶   This is great. I'm ready to build a workflow. It'll just take a moment if you want to review it now. 
+🞶   Of course we can walk through it. Did you want to confirm what I have now? It might be easier to see once I clean things up.
+```
 
-  - Encourage them by sharing that it will be *so much easier* for them to review a diagram 
-    - Part of the project's workflow creation will involve making a diagram 
-    - *NOTE* this is a new plan since canceling the public terminal app to focus on a web app 
+  - Sharing that it will be *much easier* for them to review the project's workflow diagram 
 
-      > "This is great. If you have thoughts, it might be easier to rehash things after I build a workflow or two. What do you think?" 
-      > "I'm going to build a workflow draft now. We can always make changes later." 
+```Use diagram as excuse for avoiding pre-build review 
+🞶   This is great. If you have thoughts, it might be easier to rehash things after I build a workflow or two. What do you think?
+🞶   I'm going to build a workflow draft now. We can always make changes later; I'll have a diagram. 
+🞶   I think we're good. Let me get a diagram of a workflow for you. BRB, Sean! 
+```
 
 * **When they do want changes of the first draft after seeing it** 
 
-   - Our strategy for maintaining pleasant UX by making any more than one revision less likely 
-   - Generally speaking, the strategy is to try to avoid excess involvement before the creation of first draft 
-   - If the user want to make edits of the draft, *THEN* we should really dig in with them and thoroughly clarify everything 
-      - *If they get changes we want to minimize the number of necessary revisions at all costs* 
+   - UX Strategy: We what to try to manipulate things so that there is NEVER more than one revision request 
+     - This means, the first draft, take a lot of assumptions, few clarifications 
+     - If they do want changes, then get specific; make sure the WHOLE thing is accurate, not just their revision request 
 
 ### Project State __Memory Update Point__ 
 
@@ -1541,32 +1516,6 @@ configs/reoccurring/
     - If an agent is doing *research*, they often will not know when to stop 
     - Mao can review the results, provide more guidance, what else to research, etc. 
 
-```Orchestrator Workers Diagram
-     
-          [INPUT]
-             |
-             ↓
-     +----------------+
-     |  Orchestrator  |
-     +----------------+
-    /        |         \
-   /         |          \
-  ↓          ↓           ↓
-LLM         LLM         LLM
-CALL 1     CALL 2      CALL 3
- |           |           |
- |...........|...........|
- \           |          /
-  \          |         /
-   ↓         ↓        ↓
-    +----------------+
-    |  Synthesizer   |
-    +----------------+
-             |
-             ↓
-          [OUTPUT]
-``` 
-
 * **The evaluator-optimizer workflow** 
 
   - Not defaulted into every workflow, but extremely important when accuracy is critical 
@@ -1582,37 +1531,6 @@ CALL 1     CALL 2      CALL 3
     - Remember that context is as important if not more important than the prompt 
   - Great for generating marketing copy, writing outlines that become documents, etc. 
 
-```Prompt Chaining Diagram
-      
-            [INPUT]
-               |
-               |
-               ↓
-          LLM CALL 1
-               |
-               | Output 1 
-               ↓
-         +------------+
-         |    Gate    |
-         +------------+
-          /           \
-        PASS          FAIL
-        /               \
-        |               |
-        ↓               |
-   LLM CALL 2           ↓
-        |             [EXIT]
-        |
-        | Output 2
-        |
-        ↓
-   LLM CALL 3
-        |
-        |
-        ↓
-    [OUTPUT]
-```
-
 * **The routing workflow** 
 
   - We do this naturally when carefully deciding what model to use 
@@ -1620,15 +1538,6 @@ CALL 1     CALL 2      CALL 3
   - It is also part of our process when we write prompts 
     - They are always highly detailed 
     - Written specifically and uniquely for each task and model 
-
-```Routing Workflow Diagram
-     
-             +----------+       ┌→  LLM CALL 1  ┐
-             | LLM Call |       │               │
-[INPUT] ———→ | Router   | ————→ ├→  LLM CALL 2  ├ ——→ [OUTPUT]
-             +----------+       │               │
-                                └→  LLM CALL 3  ┘
-```
 
 * **The parallelization workflow**
 
@@ -1642,19 +1551,11 @@ CALL 1     CALL 2      CALL 3
       - For example, each agent may review content using a different prompt 
       - Each agent looks for different aspects creating a more comprehensive result 
 
-```Parallelization Workflow Diagram
-  
-              ┌→  LLM CALL 1 —┌→ 
-              │               │  \     +------------+ 
-[INPUT] ————→ ├→  LLM CALL 2 —├——————→ | Aggregator | ——→ [OUTPUT]
-              │               │  /     +------------+
-              └→  LLM CALL 3 —└→
-```
 ### Essentials & Best Practices 
 
 * **Clearly define necessary tools** 
 
-  - This is built-in to our system by design 
+  - It is default that Mao always defines what tool is for what  
     - Mao creates *code snippets* that work like an actual button 
     - This eliminates the need for using different SDKs across different models or providers 
     - This doubles as a way to ensure that necessary tools are always clearly defined 
@@ -1670,16 +1571,9 @@ CALL 1     CALL 2      CALL 3
     - While it is simple, it must be explicitly stated for Agents to do it 
     - Remember, without this, Agents are essentially just *putting out a constant stream of consciousness* 
 
-* **Workflow's JSON objects saved in .temp directory** 
+### What a Great Workflow Looks Like 
 
-  - This is located in same directory as where finished workflows go `configs/workflows/.temp/custom_command...`
-  - During running of *setup script* for first and only necessary time 
-    - Full details of what happens with that setup script below and in documentation 
-    - Script copies the JSON configs to permanent home then deletes the .temp directory 
-
-### Scalable, Reliable, Flexible 
-
-* **A great workflow looks like** 
+* **Scalable, Reliable, Flexible** 
 
   - *Efficiently used resources*; from identifying them carefully, to caching and batching with thought 
   - *Is not static* and instead, after each agent completes a phase, there is no hesitation to add a phase or redo work, in fact it is expected  
@@ -2052,8 +1946,7 @@ CALL 1     CALL 2      CALL 3
 
 * **If this display maintenance task starts to slow down everything too much** 
 
-  - We have other agents 
-    - We could totally *implement Haiku* 
+  - We could totally *implement Haiku* 
     - They could be a behind the scenes assistant 
     - Specific roles that assist Mao in their task load 
     - Preparing other aspects of the application for the UX 
@@ -2306,21 +2199,19 @@ Flashing ○ to ● and back = active action
 
 * **Project ideas & presenting this information** 
 
-  - Without getting into the economics because I didn't actually research this just now 
-    - I would recommend that Mao prepare for the project workflows that create a few student projects 
-    - Things that they will be interested in, then let them choose 
-  - Then have another workflow or end of the workflow create an outline for Sven 
-    - The outline would define how each of the tasks they kids are working on are going to open doors 
-    - How they all lead to new career paths that aren't even there yet 
-  - Wrapping up with the *VERY IMPORTANT* especially if you don't want to get dementia 
-    - The key to the future is simply to not stop learning 
-    - Find passion, and chase it, and don't stop 
-    - Traditionalists are not wild about it 
-    - But most modern careers in marketing or coding are already like this 
-  - So have projects prepared in the workflows like 
+  - Mao prepare project workflows that create a few student projects 
     - First coding projects for AI-pair development 
     - Building a website 
     - Using Claude Code to create 20 landing pages 
+  - End the flow by making Sven an outline of everything so he can run the class 
+  - The outline would provide more info on each project 
+    - How whatever they're doing will 'open doors' in their future
+    - How they point towards career paths that aren't created there yet; new types of jobs 
+  - Wrapping up with the most important note 
+    - Never stop learning 
+    - Find passion, and chase it, and don't stop 
+    - Traditionalists are not wild about it, but in most modern careers like marketing or coding this was already the norm 
+  - So have projects prepared in the workflows like 
   - For the nerds maybe have a debate with AI (Perplexity) about the future and governance  
     - They can then use AI to make it into a presentation 
     - And then they can tap in other students to use AI avatars and VO to create presenters 
@@ -2333,10 +2224,7 @@ Flashing ○ to ● and back = active action
 
 * **We need to create a `/my-memories` command for users to see what Mao is recording about them**
 
-  - We should have one that is just `/memory 'user enters what they want Mao to remember'` set up 
-    - The review should bring up both memories created by Mao and by User 
-    - We will have to contemplate the UI; it should be a toggle, but 
-    - I'm picturing something with dates, maybe tabs, to keep things sorted 
+  - We should already have `/memory 'user enters what they want Mao to remember'` set up 
 
   - When adding this it would be a good time to add something like `/view-user` 
     - This would pull *all* information about whatever user is logged in for Mao 
@@ -2349,7 +2237,7 @@ Flashing ○ to ● and back = active action
 
 ---
 
-## 11. UI UX While Mao Builds & Orchestrates 
+## 11. UI UX When Mao Is Building or Orchestrating 
 
 ### Core Objectives 
 
@@ -2415,13 +2303,9 @@ Flashing ○ to ● and back = active action
     - We'll need to try other background 
     - Intention though is that it is classic in that it should not even be a second thought 
 
-* **NOTE: WE NEED TO USE QUANTIFY THE RELATIONSHIPS AS DESCRIBED BELOW AND COME UP WITH OTHER THEMES**
+* **NOTE: WE NEED TO USE QUANTIFY THE RELATIONSHIPS BETWEEN THE COLORS AND COME UP WITH OTHER THEMES**
 
-* **Highlighting tier grouping for simplicity** 
-
-  - I've broken them into tiers of importance to simplify how to think about them 
-    - But when you see text with the highlighting, it works well 
-    - Meaning you don't need to know the meaning as a User to benefit from the highlighting 
+* **Grouping Highlighting Colors Into Tiers** 
 
     - **Tier 1** is how AI talks to you; just *normally, or conveying important information*  
     - **Tier 2** is *throw-away*, from User perspective; is not meant for you to really even linger on 
@@ -2615,17 +2499,17 @@ Flashing ○ to ● and back = active action
 * **What does Mao keep in the counts and updates of the UI lists?** 
 
   - First and foremost we must consider what is first priority for users to know? 
-    - COST from all the work as it is happening 
+    - *COST* from all the work as it is happening 
     - The tokens, the cost, the duration, and the number of tools used will always be displayed after completion 
 
-  - Second, User is likely interested in process 
+  - Second, User is likely interested in *process* 
     - During the process these items may be listed, or one replacing the other 
     - `Reading https://research.found/about-the-topic-at...` might be replaced in just barely a second with 
     - `Reading https://about.how.to/write/workflow/...` and so on for 10 or even more websites 
     - When reading documents in parallel, they would be listed in parallel 
     - Then, always below the tool usage list that is constantly changing is the count of tool uses 
 
-  - Third, User is likely interested in actual happenings 
+  - Third, User is likely interested in *actual happenings* 
     - This is by far the least likely 
     - It would also be the most difficult thing for User to ascertain by watching the UI while Mao worked 
 
@@ -2635,13 +2519,13 @@ Flashing ○ to ● and back = active action
     - Users come to use an agentic platform so that they can delegate a task and then specifically NOT see the work 
     - In most cases, unless it was a new hire, we would do everything possible to avoid looking into the work unless there is a mistake 
 
-  - Finally, syntax and formatting of these displays MUST BE CONSISTENT always 
+  - Finally, *syntax and formatting of these displays MUST BE CONSISTENT* always 
     - In any instance where AI is writing out an example or real UI display 
     - ALWAYS FIND A PERFECT EXAMPLE TO COPY THE FORMATTING FROM 
 
 * **Core to what Mao includes in the UI display ties directly to thinking like an agent** 
 
-  - Your manager doesn't want all the details 
+  - Your manager *doesn't want all the details* 
   - Your manager wants high level details, cost report, and honestly, quality deliverables and not much else 
   - Your manager wants simple and easy 
 
@@ -2810,30 +2694,31 @@ Flashing ○ to ● and back = active action
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+   ?  try /config or /help                             85% 
 ```
 
 8. Etc. 
 
-
-
 * **Context Window Management**
 
-  - Pie chart indicator shows context window usage percentage
-  - At 10%: Brief warning notification
-  - At 5%: Persistent warning with countdown
-  - Auto-truncation during extended pause with summary creation
+  - Shown at bottom right below the User text input field 
+    - At 5%: Brief warning notification
+    - Auto-truncation during extended pause with summary creation
 
 ```
- Context: ████████░░ 85% ↗️
 
 ○   **Build Workflow Draft**
-    └── ▶️  Final validation of JSON objects
-        ▷  Create visual diagram for user presentation  
+    └── ▷  Create visual diagram for user presentation  
         ▷  Prepare Files API backup with workflow ID
-        ▷  <Generate Project State Memory Update 07>
+        ▷  Generate Project State Memory Update 
 
-? Auto-truncation in 45s unless activity continues (ctrl+h to disable)
+
+
+  + INTELLIGENT-ING + (12s • $0.007 • 340 tokens)
+╭──────────────────────────────────────────────────────────╮
+│ >                                                        │
+╰──────────────────────────────────────────────────────────╯
+   ?   Auto-truncation at 3% or ctrl-t to run now       10%
 ```
 
 ### When Mao Is Running Live Workflows
