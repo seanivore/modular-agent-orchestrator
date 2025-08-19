@@ -420,9 +420,15 @@ setInterval(updateShadow, 60000); // Update every minute
     - Completely new user experience to capitalize on; and importantly, *IT IS EASY* 
     - Why is it easy? Because just about anything remotely personal or contextual will impress while the technical ability is still new 
 
-      > It is 10pm on Thursday night. Do you know where your AI is, Sean?
-      > Look at the moon, Sean. Look at the moon. 
-      > Be sure to pause to touch grass now and then, Sean. 
+```
+🞶   It is 10pm on Thursday night. Do you know where your AI is, Sean?
+```
+```
+🞶   Look at the moon, Sean. Look at the moon! 
+```
+```
+🞶   Be sure to pause to touch grass now and then, Sean. 
+```
 
   - We will *NEVER* prepare these welcome messages in advance 
     - Ideation is one of LLM's most sought after skills from humans 
@@ -462,7 +468,7 @@ setInterval(updateShadow, 60000); // Update every minute
 
   - **NOTE:** We also need to set up an 'interrupt' key for when Mao is busy building or thinking 
 
-      > ?  Queue a message to Mao; press ESCAPE to interrupt 
+      > ?  message will add to queue; press ESC to interrupt 
 
 ### User Sends First Message To Do *ANYTHING* 
 
@@ -548,7 +554,8 @@ setInterval(updateShadow, 60000); // Update every minute
     My agent said they wanted a novel but now they keep saying You need to have a screenplay if 
     you want to get auditions! which makes no sense but I figure we might as well just 
     swap-a-roo it into the proper format for her so I can maybe book some work this commercial 
-    season. Please use creative freedom to fill in any gaps, but just be sure that we have 
+    season. 
+>   Please use creative freedom to fill in any gaps, but just be sure that we have 
     the sub-agent self-review, then have another agent review for creativity, then one for 
     grammar, and then of course I'd want the Mao stamp of approval before needing to see it. If it isn't 
     up to par then sent it back out for re-writes. 
@@ -1150,11 +1157,11 @@ SCRIPT COMMAND:
   - This object will provide any information Mao needs to decide if the deliverables are of adequate quality 
   - If there is an open-ended phase, this will help Mao make a decision about what that phase will be 
 
-| Variable              | Purpose                      | Value Example                               | 
-|-----------------------|------------------------------|---------------------------------------------| 
-| Handoff Number        | Keeps objects in order       | 1, 2, etc. matching Phase Object it follows | 
-| Handoff assessment Qs | Helps Mao decide next steps  | *See below*                                 | 
-| Human in-the-loop     | Wait for human approval      | Default: No                                 |
+| Variable              | Purpose                      | Value Example                          | 
+|-----------------------|------------------------------|----------------------------------------| 
+| Handoff Number        | Keeps objects in order       | Number matches Phase Object it follows | 
+| Handoff assessment Qs | Helps Mao decide next steps  | *See below*                            | 
+| Human in-the-loop     | Wait for human approval      | Default: No                            |
 
   - The *Handoff assessment questions* value example from above 
     - Is every item on the employees CC statement addressed in the report? 
@@ -1239,13 +1246,13 @@ Response: Please schedule for calendar code: 2 6 2 which is every month on Satur
 Response: There is nothing available at 1500-1800 on Thursday, but all other time blocks are available on Thursday. Choose one and go ahead and schedule it on your calendaring reoccurring workflow JSON object. 
 ```
 
-| **SCHEDULING COMMANDS**                         | **DESCRIPTION**                                                 |
-| ----------------------------------------------- | --------------------------------------------------------------- |
-| `/avail <frequency> <day> <time>`               | Check calendar to scheduling trigger; min. variable <frequency> |
-| `/avail --reschedule <custom-command>`          | Change trigger time for repeating workflow                      |
-| `/avail --cancel <custom-command>`              | Cancel a repeating workflow                                     |
-| `/avail --update <custom-command>`              | Make changes to a repeating workflow                            |
-| `/avail --end-date <custom-command> 2025-07-21` | Update the end date on an active repeating workflow             |
+| **SCHEDULING COMMANDS**                         | **DESCRIPTION**                                       |
+| ----------------------------------------------- | ----------------------------------------------------- |
+| `/avail <frequency> <day> <time>`               | Check calendar to schedule; min. variable <frequency> |
+| `/avail --reschedule <custom-command>`          | Change trigger time for repeating workflow            |
+| `/avail --cancel <custom-command>`              | Cancel a repeating workflow                           |
+| `/avail --update <custom-command>`              | Make changes to a repeating workflow                  |
+| `/avail --end-date <custom-command> 2025-07-21` | Update the end date on an active repeating workflow   |
 
 **You will need to include the STARTING-DATE for the reoccurring workflow JSON object to schedule it**
 
@@ -1369,27 +1376,27 @@ configs/reoccurring/
 ├── calendar_index.json                 # Master calendar tracking
 ├── calendar_codes.json                 # Code reference
 ├── scheduled/                          # Scheduled workflows
-│   └── 2_3_7/                         # freq_day_time codes  
-│       ├── scheduled_2_3_7.json       # Calendar config
+│   └── 2_3_7/                          # freq_day_time codes  
+│       ├── scheduled_2_3_7.json        # Calendar config
 │       ├── scheduled_2_3_7_workflow_config.json
 │       ├── scheduled_2_3_7_phase_config.json
 │       ├── scheduled_2_3_7_handoff_config.json
 │       ├── scheduled_2_3_7_README.md
 │       └── trigger_scheduled_2_3_7.sh  # Execution command
 ├── project-list/                       # Project list workflows
-│   └── 1_2_4/                         # freq_day_time codes
-│       ├── 001/                       # First project item
-│       │   ├── project_1_2_4-001.json # Calendar config (copied)
+│   └── 1_2_4/                          # freq_day_time codes
+│       ├── 001/                        # First project item
+│       │   ├── project_1_2_4-001.json  # Calendar config (copied)
 │       │   ├── project_1_2_4-001_workflow_config.json
 │       │   └── ... (other configs)
-│       └── 002/                       # Second project item
+│       └── 002/                        # Second project item
 │           └── ... (similar structure)
-├── self-assessment/                     # Self-assessment workflows
-│   └── 3_1_5/                         # freq_day_time codes
+├── self-assessment/                    # Self-assessment workflows
+│   └── 3_1_5/                          # freq_day_time codes
 │       ├── self_assessment_3_1_5.json
 │       └── ... (standard configs)
-└── goal-assessment/                     # Goal assessment workflows
-    └── 5_6_2/                         # freq_day_time codes
+└── goal-assessment/                    # Goal assessment workflows
+    └── 5_6_2/                          # freq_day_time codes
         ├── goal_assessment_5_6_2.json
         └── ... (standard configs)
 ```
@@ -1967,9 +1974,12 @@ configs/reoccurring/
   - Icons indicate status of items in lists of messages needing action 
 ```
 ● = completed action 
+○ = upcoming action not started 
 Flashing ○ to ● and back = active action 
+
 ▶︎ = Completed list item 
 ▷ = List item to be completed 
+Flashing ▷ to ▶︎ and back repeatedly = active list item
 ```
 
 * **System started update that Mao added updates to** 
@@ -2004,7 +2014,7 @@ Flashing ○ to ● and back = active action
 
 >   Hi, Mao. My first time using this tool. How are you? 
 
-🞶  Happy to meet you, Sven. I'm well; eager to hear what you're interesting in 
+🞶   Happy to meet you, Sven. I'm well; eager to hear what you're interesting in 
     working on today. Feel free to message, even double-text me, all you like if 
     you're the type to spill your thoughts. Otherwise, if you like, I can walk you through 
     the process. What are you thinking?
@@ -2058,7 +2068,7 @@ Flashing ○ to ● and back = active action
 
 >   Sure! I'm super curious what the memory updates are all about too when you get back and settled. 
 
-🞶  TIME-TRAVELING... 
+🞶  + TIME-TRAVELING + 
 ```
 
 * **Mao is now using `think` considering approaches to help guide Sven's lesson plan creation** 
@@ -2068,9 +2078,9 @@ Flashing ○ to ● and back = active action
     - There is some nuance regarding current events, being sensitive, balancing truth for Mao to consider 
   - The *memory updated* UI would be a very background secondary color not meant to grab attention 
 
-  - Mao used AI Improve to create a "Present Participle" for while they are busy 
+  - Mao used AI Improv to create a "Present Participle" for while they are busy 
     - When working, the icon would blink 🞶 
-    - The ... would draw themselves sequentially in an aesthetically interesting way 
+    - There is a + before the word and a + after 
     - the motion is important for UX so that the user knows that something is indeed still happening 
 
   - In the next section, there has been more chat history simplification 
@@ -2131,16 +2141,16 @@ Flashing ○ to ● and back = active action
 >   Well, I need the lesson to be fun. I don't want to scare them, much, haha. They should also be 
     excited and encouraged. But I need to also be realistic. I don't even know that anyone out there knows all of what I need to convey to my kids next week. 
 
-🞶  Let's see. Give me a moment to work through this and come up with a pragmatic approach that I think 
-    will be able to help entertain, stay grounded, and hopefully we'll all learn something cutting edge. 
-    *memory updated*
+🞶   Let's see. Give me a moment to work through this and come up with a pragmatic approach that I think 
+     will be able to help entertain, stay grounded, and hopefully we'll all learn something cutting edge. 
+     *memory updated*
 
 >   Sure! I'm super curious what the memory updates are all about too when you get back and settled. 
 
-🞶  Time-traveling completed. 
-🞶  I've got some great information for you, Sven. Let's break this down in a systematic way that 10th 
+🞶   Time-traveling completed. 
+🞶   I've got some great information for you, Sven. Let's break this down in a systematic way that 10th 
     graders will find interesting, exciting even. And then I have a few ideas for class activities that we can create a project workflow to help prepare all the necessary documents they'll need. 
-🞶  You caught my memory captures! These are just little bits of information about you that I save so that, 
+🞶   You caught my memory captures! These are just little bits of information about you that I save so that, 
     in the future, I can help you without you needed to explain much of anything. They'll also help to make your User experience particularly helpful, as it is catered to you specifically every time you log in. 
 🞶  If you're curious, you can see all memories I've added, edit, and delete them with the slash command 
     `/view-user` which is referencing you as the only user logged in. Fun fact, you can add your own memories
@@ -2308,46 +2318,58 @@ Flashing ○ to ● and back = active action
 * **Grouping Highlighting Colors Into Tiers** 
 
     - **Tier 1** is how AI talks to you; just *normally, or conveying important information*  
+      - Main text; so scan it, read like normal 
+      - Bold text; read that first and see it if you're scanning 
     - **Tier 2** is *throw-away*, from User perspective; is not meant for you to really even linger on 
-    - **Tier 3** is an meant to provide help, but be super chill about it; you have *heads up that it is good news*  
+      - User text; you can ignore, just there for normalcy 
+      - AI think; text, no UX value just ignore unless bored 
+      - User cursor; is a subtle cue to catch your eye when you're looking to send a message 
+    - **Tier 3** is an meant to provide help, but be super chill about it; you have *heads up that it is good news* 
+      - Trusted update;  or info. about your project that is no worries 
+      - Trusted elevated; An update about your project that you should check out but there's no urgency 
     - **Tier 4** is it's own single highlight because it is intentionally unusual; an *error, but it is chill*, but calls out 
+      - Error message; but its NBD because our tech is amazing, be calm 
     - **Tier 5** is *background noise that makes the UX helpful* if you're lost, but can be generally ignored 
+      - Subdued subtext; about a message, info. or app functioning to see when you can 
+      - Extra FYI FWIW info.; about less relevant app functioning, layout, or info. to see if you're bored or want to learn more 
     - **Tier 6** is meant to *call out very specific intentions* or purpose; used rarely or carefully 
+      - Quiet but notable accent; you will notice and maybe, hopefully, think is interesting 
+      - Rare, novel info.; that is intriguing, we want you to be excited to see it 
 
-| NAME                      | COLOR             | RGB CODE              | INTENTION                                             |
-| ------------------------- | ----------------- | --------------------- | ----------------------------------------------------- |
-| Main standard             | yellow            | rgb(240, 215, 112)  |  Every writing, scanning text, like this text         | 
-| Bold standard             | pink              | rgb(255, 73, 255)   | Cognitive interrupt used sparingly for LOOK HERE      | 
+| NAME                      | COLOR             | RGB CODE              | INTENTION                                         |
+| ------------------------- | ----------------- | --------------------- | ------------------------------------------------- |
+| Main standard             | yellow            | rgb(240, 215, 112)  | Normal writing, scan the message, like this text  | 
+| Bold standard             | pink              | rgb(255, 73, 255)   | Cognitive interrupt used sparingly; LOOK HERE!    | 
   - These are the most commonly used colors on the canvas at any one time 
   - They are used almost exclusively by the AI/Mao 
   - Can be thought of as the two core ways for Mao to communicate to you 
-| User messages             | warm gray         | rgb(187, 187, 187)  | You are being encouraged to completely disregard this | 
-| AI `THINK` Text           | warm gray         | rgb(187, 187, 187)  | Like your text, its there but not UX strategic        | 
-| User block cursor         | pale mustard      | rgb(183, 171, 103)  | Distinct from your main text to draw eye              | 
+| User messages             | warm gray         | rgb(187, 187, 187)  | Encouraged to completely disregard this           | 
+| AI `THINK` Text           | warm gray         | rgb(187, 187, 187)  | Same as User text; ignore, no UX value            | 
+| User block cursor         | pale mustard      | rgb(183, 171, 103)  | Distinct from User main text to draw eye          | 
   - These are present a lot but, as is the intention, they are really not memorable as present 
   - You're really not being encouraged to look here, spend time here, overthink here 
   - The offset color and size cursor is specifically so that you can be drawn from the drab 
-| Trusted low-key update    | blue ice          | rgb(192, 231, 255)  | Secondary info. you are meant to be at ease about     |
-| Trusted elevated update   | blue sky          | rgb(132, 207, 255)  | Helpful info. that is NBD, but should be seen         | 
+| Trusted low-key update    | blue ice          | rgb(192, 231, 255)  | Secondary info. you are meant to be at ease about |
+| Trusted elevated update   | blue sky          | rgb(132, 207, 255)  | Helpful info. that is NBD, but should be seen     | 
   - These are the second most frequent highlighted words you will see 
   - This is how AI or system identifies tings like URLs or important PATHS 
   - Mao will use these to color the items on the to do lists to be able to understand the progress at-a-glance 
-| Unexpected errors         | pale pink         | rbg(255, 166, 164)    | A typical error message but toned down and made chill |
+| Unexpected errors         | pale pink         | rbg(255, 166, 164)    | Typical error message; toned down, made chill     |
   - This one is unique because it is important and meant to be seen 
   - However, it is notably not the standard coloration for any kind of error 
   - This is because AI handles errors; User should get flustered, they may be new to using AI 
-| Supplemental, see subtext | green-gray        | rgb(187, 188, 187)  | Subtext to be noticed eventually, but is subdued      | 
-| Supplemental info., FWIW  | green-brown       | rgb(124, 115, 75)   | Blends with background, see it if you're bored        | 
+| Supplemental, see subtext | green-gray        | rgb(187, 188, 187)  | Subtext to notice eventually; subdued             | 
+| Supplemental info., FWIW  | green-brown       | rgb(124, 115, 75)   | Blends with background; read if you're bored      | 
   - These are a level up from User and Mao's `think` text in that you might find it helpful 
   - But there is no need for it to call out to you or break your flow 
   - If you're lost and trying to figure things out, then this might be of service 
-| Accent on the down-low    | barely tangerine  | rgb(255, 198, 116)  | Used to draw attention to gimmick or marketing        | 
-| Accent, rare novel info.  | pale purple       | rgb(202, 202, 255)  | Infrequently used; conveys something totally novel    |
+| Accent on the down-low    | barely tangerine  | rgb(255, 198, 116)  | Used to draw attention to gimmick or marketing    | 
+| Accent, rare novel info.  | pale purple       | rgb(202, 202, 255)  | Infrequently used; conveys something novel        |
   - These are the opposite of the supplementals above in that you should see them 
   - But they're not screaming at you, they're just probably intriguing, entertaining, helpful 
   - Think of the AI Improv word or maybe when a setting like /goal is used that overrides everything 
 
-### Message Blocks Are Courteous to Each Other 
+### Message Blocks Are Smart, Courteous to Each Other 
 
 * **The canvas is managed to encourage this idea of lessening cognitive load**
 
@@ -2410,11 +2432,11 @@ Flashing ○ to ● and back = active action
     - They'll often start from a different angle and delete the phases they won't be using 
 
 ```
-●   **Task** Secure project notes to Files API
-    └── Done (1 tool use • $0.003 • 420 tokens • 2.1s)
+●   **Data** Secure project notes to Files API • 3 sec ago
+    └── Done (1 tool use • $0.000 • 420 tokens)
 
-●   **Task** (Project State Memory Update 04)
-    └── Done (1 tool use • $0.005 • 180 tokens • 1.3s)
+●   **Data** Project State Memory Update • 3 sec ago
+    └── Done (1 tool use • $0.005 • 180 tokens)
 
 ○   **Build Workflow** First Draft of Expense Project 
     └── ▶︎  Organize variables by JSON object type
@@ -2431,7 +2453,7 @@ Flashing ○ to ● and back = active action
         ▷  Agent 3: Generate accuracy report with discrepancies
         ▷  Handoff: Review report quality before payment processing
 
-○   **Task** Tool integration mapping 
+○   **Planning Task** Tool integration mapping 
     └── Reading 'PayPal MCP documentation'
         Reading 'Vision tool capabilities'
         Web Search 'enterprise expense management best practices'
@@ -2441,11 +2463,11 @@ Flashing ○ to ● and back = active action
     └── Analyzing /.temp/expense-tracking-workflow/
         +5 tool uses 
 
-  Architectivizing... (12s • $0.007 • 340 tokens)
+  + Architectivizing +   (12s • $0.007 • 340 tokens)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
-   ?  try /config or /help 
+  ?  try /config or /help                               89%
 ```
 
 * **AI Improv Present Participle Word for 'CURRENTLY WORKING THANKS'** 
@@ -2552,7 +2574,7 @@ Flashing ○ to ● and back = active action
 2. Planning out entire project; Preparing to update data 
 
 ```
-●    **Data** Update • 33 sec ago 
+●    **Data** Updated • 33 sec ago 
     └── ▶︎  Notes Secure in Files API  
         ▶︎  Memory State Updated 
         Done (2 tool uses • $0.000 • 130 tks)
@@ -2566,7 +2588,7 @@ Flashing ○ to ● and back = active action
         ▷  Flow configuration self assessment 
 
 
-  +Finding my groove+    (22s • $0.009 • 222 tks)
+  + Finding my groove +    (22s • $0.009 • 222 tks)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
@@ -2803,7 +2825,7 @@ Flashing ○ to ● and back = active action
         ▷  Final Handoff: Send for payment processing
 
 
-  + Cleaning +   (32s • $0.170 • 1345 tokens)
+  + Cleaning +      (32s • $0.170 • 1345 tokens)
 ╭──────────────────────────────────────────────────────────╮
 │ >                                                        │
 ╰──────────────────────────────────────────────────────────╯
@@ -2844,9 +2866,11 @@ Flashing ○ to ● and back = active action
 * **Mao continuously updates the memory for workflow state persistence**
 
   - All workflow progress saved to memory with WorkflowID
-  - All assets, deliverable drafts, notes, code executed to Files API 
-  - User can disconnect and reconnect without losing progress 
+    - All assets, deliverable drafts, notes, code executed to Files API 
+    - User can disconnect and reconnect without losing progress 
   - UI is always right at the top of the viewport canvas chat history 
+    - Always will say **Data** and how long ago it was updated 
+    - Since it is Files API it is free; memory may have small cost
 
 ```
 ●   **Data** Memory & Assets • 10s ago 
