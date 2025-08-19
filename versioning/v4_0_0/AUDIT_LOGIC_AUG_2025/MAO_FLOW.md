@@ -2,95 +2,58 @@
 
 ---
 
-1. [**User login, setup,** creation of user files](#1-user-login)
-2. [**UI design**, high-level, and philosophy](#2-the-look--feel-of-the-mao-app-high-level-design-requirements)
-3. [User initiates chat; **slash command responses like /goal**](#3-main-app-screen-chat-loads)
-4. [**Mao preps**, sends response message to User](#4-mao-prepares-for-initiated-project-chat)
-5. [Behavior protocol; **psychological guidelines**](#5-chat-behavior--psychology)
-6. [Review of our JSON workflow types; **variables & validation methods**](#6-review-of-workflow-json-objects--variables)
-7. [Telling User **Mao is off to build** the workflow](#7-ending-the-project-production-chat)
-8. [Review of advanced agentic workflows; **Mao's best practices**](#8-reviewing-advanced-workflow-best-practices)
-9. [**Building workflow, securing data,** reviews, diagram creation](#9-building-the-projects-workflow)
-10. [Long example of conversation; **robust UI visuals, UX descriptions**](#10-ui-unique-functioning-during-user-planning)
-11. [UI while **Mao is building or Orchestrating**](#11-ui-ux-while-mao-builds--orchestrates)
-12. [Getting **user feedback** & finalizing the workflow](#12-present-project-workflow-for-user-review)
+## Sections 
+
+1. [What happens after a **User login**](#1-user-login)
+2. [Our **UI design** and philosophy](#2-the-look--feel-of-the-mao-app-high-level-design-requirements)
+3. [Handling the initial **User message**](#3-main-app-screen-chat-loads)
+4. [**Mao responds** to the User's message](#4-mao-prepares-for-initiated-project-chat)
+5. [Psychological guidelines and **behavior protocol**](#5-chat-behavior--psychology)
+6. [**Validating the variables** of JSON objects](#6-review-of-workflow-json-objects--variables)
+7. [Communicating to User that **planning chat is over**](#7-ending-the-project-production-chat)
+8. [Mao's favorite **advanced agentic workflows**](#8-reviewing-advanced-workflow-best-practices)
+9. [**Creating a project's workflow** from conversation notes](#9-building-the-projects-workflow)
+10. [Feeling **UX of the project planning** chat UI](#10-ui-unique-functioning-during-user-planning)
+11. [Chat UI and UX when **Mao is away building a workflow**](#11-ui-ux-while-mao-builds--orchestrates)
+12. [Project workflow **User review** and communication guide](#12-present-project-workflow-for-user-review)
 
 ---
 
 ## Overview 
 
-Discovery of code labeled 'mock data' uncovered hardcoded category suggestions; clean-up revealed them to be woven through core logic. AI wasn't able to fully explain the logic of the current code. Considering Mao's primary task requires nothing beyond current AI abilities, it is now clear we are over-engineered. We NEED that level of understanding, period. As my first project of this size, I now understand I need to make a better point to read *every* file's code sooner. 
+We found multiple files that said 'mock data'. That led to discovering hardcoded project category suggestions. Removal illuminated the extent of this unacceptable code. I couldn't read large portions and AI couldn't explain it. The combination of these factors make it evident we over-engineered when you consider Mao's chat-based task is simple enough for AI to do with no training. This document details application operations exactly; an end-to-end flow of User's data. The logic audit will be completed by identifying where functions in this file happen in our orchestration codebase. The result will be cleaned-up code and optimized code. If needed I can illustrate how to provide guidance without hardcoding a single suggestion; a violation that would prove detrimental to the app's multilingual functioning. 
 
-This document outlines the flow of data and all operations, end to end, with an additional focus on UX and UI to help building the web app. Using it as a guide, we will complete a 'logic audit' by working through all current files to clean up, optimize, and simplify orchestration leaving us with codebase that reflects the simple logic of Mao's chat-oriented task. Where needed, this will allow me to illustrate how to provide guidance without hardcoding a single suggestion that could prove detrimental to the application when we build out the multilingual capabilities. 
+### Summarized Purpose 
 
-### Summary 
+   1. Enabling logic auditing of orchestration files 
+   2. Illustrating our UI with high-fidelity 
+   3. Describing how our web app UI UX feels 
+   4. Identifying remaining todo items to start testing in-terminal 
 
-Outline comprehensive data flow to understand necessary logic, then use the outline to audit the current codebase logic so that it can be simplified. 
+### Secondary Goals  
 
-### Goal 
-
-While auditing we will implement remaining functionality needed to launch the application as a development-focused terminal app for testing. After which we will be able to develop a web UI to launch Mao publicly. 
-
-### Opportunistic Outlook 
-
-* **We will have the opportunity to now consider all of the files through the lens of launching as a multilingual application** 
-  - Ensure we are fully developing capabilities in parallel 
-
-* **Similarly, we should now look at our code and files knowing we are building a web app, and only a terminal app for developmental internal testing.**
-  - As it stands now, everything is written for our originally planned Terminal application 
-    - Explore the possibility of offering the web app subscription service beside an optional local terminal app for heavy users. 
-    - What are implications for timeline and complexity? 
-
-* **Cement in new, more marketing focused, clearer-from-the-big-picture application terminology** 
-  - We cannot call what User's come into the app to do a "Workflow" 
-  - It is limiting; summons ideas of loops, prefab, etc., but Mao is more of a Project Manager for anything 
-  - Formalize using the word *PROJECT* regarding what is being created; it better illustrates vast possible use cases of what Mao can do 
-  - It'll help eliminate confusion with having just one of four JSON object called the 'Workflow Object'. 
+   1. Integrate the multilingual functionality in parallel of app development
+   2. Review all files knowing Mao will be a web app; terminal-based functionality will be for internal development only 
+   3. Clean up the terminology used; Mao App creates 'PROJECTS' that have workflows 
 
 ### Deliverables 
 
-* **Comprehensive plain-language description of logic for all application functionality**
-  - Very clear vision of dataflow for diagram in documentation 
-  - Provides an extremely detailed vision for UX/UI design requirements 
-
-* **Ensure consistent standardization across configs, memory state updates, etc.** 
-  - A large number of the Mao feature functionality was conceived during the v4 update development  
-  - There will probably be some disconnects we missed due to this process 
+   1. Comprehensive plain-language description of logic for all application functionality
+   2. Confirm consistent config and memory standardization; updating where necessary 
+   3. Fully implemented application functionality ready for terminal-based testing 
+   4. Clear understanding of Mao app's UX and the UI that produced it 
 
 ### To Be Implemented 
 
-  1. Parallel Agent Execution 
-     - Requires change to recognition of phase numbers to allow for 2A and 2B which are phases that run at the same time 
-     - Comprehensive implementation plan: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
-  2. Triggered Calendared Reoccurring Workflows 
-     - Requires update to the current setup script with simplified naming logic for UX improvement 
-     - Then creation of a new setup script with different outcomes depending on the slash command's flag for reoccurring workflow type 
-     - Comprehensive implementation plan: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md` 
-  3. All of the four JSON object types must be reviewed and placed in template folder 
-     - There are currently the original workflow JSON object templates here: `./configs/workflows/json_object_templates/` 
-     - We need to update them to only have one fallback model and provider 
-     - Then the one calendaring object needs to be equally as polished and placed in the template directory 
-  4. We need the commands for setting up calendaring workflows 
-     - There are also a handful of slash commands throughout the document we need implemented 
-     - Many deal with allowing Mao or us to see all user data, see analytics and leverage other admin privileges needed for operations 
-  5. There is a multilingual setup to complete to be able to develop in parallel with english 
-     - There is another document but is has information about setting up for TypeScrip which we no longer need 
-     - Comprehensive implementation plan: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
-  6. We need to setup the implementation of Claude Code 
-     - In doing this, we must create a new system config setting to allow the choice of model for who is "Mao" and who is "Claude Code" 
-     - Initial comprehensive implementation plan: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
-  7. Much of the web app is not made into implementation documents, but we have very robust plans for our secure login system 
-     - It is based on an actual great UX website that uses passkey 
-     - We'll want to create accounts and then set up the ability for users to put their API keys in the online account 
-     - Comprehensive secure login implementation plan: `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md`
-  8. We had an implementation plan for connecting all local machines analytics for the terminal application 
-     - We need a new one that is specifically for web app 
-  9. Along with having robust analytics and collecting login information we will need a database 
-     - We have a prepared implementation plan here: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md`
-  10. When we are ready, we need to create our own memory service instead of relying on an MCP server 
-     - We have a fairly strong implementation plan prepared for this 
-     - Here: `./versioning/v4_2_0/IMPL_MEMORY/IMPL_MEMORY_CLOUD.md` 
-  11. Finally, other recent implementations should include the newest Anthropic tools 
+  1. Implement parallel agent execution: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
+  2. Implement calendaring and reoccurring workflows: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
+  3. Update and confirm all four JSON workflow objects are in templates: `./configs/workflows/json_object_templates/` 
+  4. Implement and develop multilingual in parallel: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
+  5. Implement Claude Code and add a 'select model' for Mao option: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
+  6. Turn secure login implementation into web app UI plan: `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md`
+  7. Add analytics collection plan then implement databases: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md`
+  8. Review and plan when to update native memory tool: `./versioning/v4_2_0/IMPL_MEMORY/IMPL_MEMORY_CLOUD.md` 
+  9. Implement recent Anthropic tool releases 
       - The BASH tool: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_BASH.md` 
       - The Fine Grained Streaming: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_FINE_GRAINED_STREAMING.md` 
       - The parallel tool use: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_PARALLEL_USE.md` 
