@@ -75,6 +75,20 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
    - Do not skip any concept expecting to come back later; stop, we will work it out to completion in proper sequence, then move forward 
    - Standardize any newer features; confirm other features have standardization 
 
+### Resources 
+
+  - There is a more detailed procedure guide 
+    - Full **file directory** tree
+    - File: `./versioning/v4_0_0/AUDIT_LOGIC_AUG_2025/FILE_ANALYSIS_PROCESS.md`
+
+  - We have an index created specifically for AI developers 
+    - All files, their **classes and functions**, detailed 
+    - File: `./documentation/10_AI_DEV_INDEX.md` 
+
+  - References that include all the charts and quick docs 
+    - Lists of **every orchestrator file** including what it does! 
+    - File: `./documentation/02_REFERENCE.md` 
+
 ---
 [TOP](#overview)
 
