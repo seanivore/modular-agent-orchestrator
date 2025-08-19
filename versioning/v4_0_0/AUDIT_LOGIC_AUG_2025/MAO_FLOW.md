@@ -30,7 +30,7 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
    3. Describing how our web app UI UX feels 
    4. Identifying remaining todo items to start testing in-terminal 
 
-### Secondary Goals  
+### Secondary Goals 
 
    1. Integrate the multilingual functionality in parallel of app development
    2. Review all files knowing Mao will be a web app; terminal-based functionality will be for internal development only 
@@ -223,6 +223,7 @@ configs/user/...
     - Mao answers select slash commands 
     - Message block types with their icons are defined in detail below 
     - Semantic highlighting also defined in detail below 
+
   - Users to have used headless apps in their chats for a while 
     - Creating AI image generations in *Discord* threads 
     - Talking to *Slack-bot* for admin 
@@ -234,24 +235,29 @@ configs/user/...
     - Think computer terminal *in terms of simplicity* of functionality and singular screen 
     - *NO RETRO NERDY VIBE*, instead, this is *high class* it is timeless and classic
     - Use of *character-based icons* indicating input fields and messages 
+
   - The UI, the entire app, is *one single container* 
     - The container has *clean, simple, narrow lines* and a *polished depth* 
     - The UI has *NO BUTTONS, NO MENU TEXT, NO ICONS* OR OTHER INDICATORS 
     - Intentional *ABSOLUTE NOTHING* creates 'silence is loud' moment that let's you know it is *clearly intentional* 
     - Edges and border's drop-shadow onto canvas has sharp, realistic look, and a dynamic, *REAL-TIME ANIMATION* 
     - Looks like frame casting shadow is extremely narrow; like centimeters deep and wide classic black picture frame 
+
   - The shadow has an ever-so-slight angle meant to *mimic shadow from the sun/moonlight* 
     - The direction and size of this angled shadow *changes with the movement of the sun or moon* in fluid, constant motion 
     - It is *extremely important* that the MOTION IS SO CONSTANT AND SUBTLE THAT IT IS *TOO SLOW TO SEE HAPPEN* 
     - Motion is only noticeable when you take a moment, pause, and you're like, *wow, this is wider now on this side!*
+
   - Dark mode shadows exist, maintaining the luxury depth without looking washed out 
     - Deeper blacks, subtle colored tints like very dark purple or deep blue 
     - This should feel like *expensive black velvet* with *rich depth* 
     - It should *NOT FEEL FLAT GRAY*
+
   - *Time of day* so is used to provide timing to the animation 
     - It is illustrated to *look and behave just like real life* 
     - Daylight has sharp, defined shadows and evening has softer, deeper, maybe slightly blue-tinted from moonlight shadows 
     - These colorations and design *guidelines have been researched and are provided in detail below* 
+
   - THINK: The way expensive hotels *adjust lighting imperceptibly throughout the day* 
   - FEEL: Luxury that makes people feel good without knowing why 
 
@@ -264,6 +270,7 @@ configs/user/...
     - Avoid users watching, seeing motion; simple magic  
     - Seeing it move is trite, corny, not worth our time 
     - Mimicking real life passage of time makes it our SUBTLE but DETAIL-ORIENTED focal point  
+
   - Continuous gradients have *signature moments* that it builds to 
     - The shadow evolves over time 
     - It has peak characteristics at specific times 
@@ -278,16 +285,20 @@ configs/user/...
   - Subagents that run in parallel to *build website UI all have same, very specific design spec* 
     - Allows us to see what and where small variations are  
     - Like hiring 20 creative agencies at once 
+
   - Same method used to *split test shadow 'peak' movement timing* 
     - A shadow with peaks every 3 hours 
     - Another every 2 hours 
     - Another with one every hour
+
   - They can all build on timings and the cinematic shadow design breakdowns 
     - Curious to see their artistic interpretations  
     - Let's have some subagents *research known best practice* to *create the desired shadow effect* 
+
   - This chart shows the 3 hour 'peak' points the shadow reaches before changing motion 
     - The actual motion of all shadows *NEVER STOPS* 
     - Must be fluid 
+
   - Is there any way to work an ability for subagents to see a visual before fully completing their design work? 
 
    | TIME   | SHADOW PEAK CHARACTERISTIC  | 
