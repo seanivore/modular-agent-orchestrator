@@ -2,67 +2,83 @@
 
 ---
 
-* **FINISHED**
-  - WOAH, WOAH, WOAH HUGE IDEA @ LINE 1072 
-  - Re: Section of User Profile that allows Users to offer their services for people to hire them to build Mao Projects 
-  - We could create a whole ecosystem or economy inside the app that goes beyond just sharing configs 
+## Primary Task 
 
-* **I think the only think that really isn't discussed is**
-  - Hybrid caching 
-  - Error handling 
-  - Specifics about configs and how they're managed 
+To understand the logic of Mao's codebase files by comparison to detailed normal language description of app functioning so that we can remove over-engineering as well as hardcoded 'suggestions' woven through orchestration functioning, or notes of 'mock' code. As wel look at this code through the lens of it now being a web app instead of terminal app, know that THIS IS REAL, FINAL DRAFT IMPLEMENTATION; BEST WORK IS REQUIRED. I should be alerted immediately if there is any missing data that one might think warrants 'mock' data. 
 
----
+### Secondary Tasks  
 
-## Sections 
-
-1. [What happens after a **User login**](#1-user-login-and-userid)
-2. [Our **UI design** and philosophy](#2-look-and-feel-mao-app-high-level-design)
-3. [Handling the initial **User message**](#3-main-app-ui-screen-has-loaded)
-4. [**Mao responds** to the User's message](#4-mao-prepares-for-initiated-project-chat)
-5. [Psychological guidelines and **behavior protocol**](#5-chat-behavior--psychology)
-6. [**Validating the variables** of JSON objects](#6-review-of-workflow-json-objects--variables)
-7. [Communicating to User that **planning chat is over**](#7-ending-the-project-production-chat)
-8. [Mao's favorite **advanced agentic workflows**](#8-reviewing-advanced-workflow-best-practices)
-9. [High-Tech UX of Mao **Agent Conveniences**](#9-improving-mao-agents-ui-and-ux-improves-human-ux) 
-10. [**Creating a project's workflow** from conversation notes](#10-building-the-projects-workflow)
-11. [Feeling **UX of the project planning** chat UI](#11-ui-unique-functioning-during-user-planning)
-12. [Chat UI and UX when **Mao is orchestrating a workflow**](#12-ui-ux-when-mao-is-building-or-orchestrating)
-13. [Project workflow **User review** and communication guide](#13-present-projects-workflow-for-user-review)
-
----
-
-## Overview 
-
-We found multiple files that said 'mock data'. That led to discovering hardcoded project category suggestions. Removal illuminated the extent of this unacceptable code. I couldn't read large portions and AI couldn't explain it. The combination of these factors make it evident we over-engineered when you consider Mao's chat-based task is simple enough for AI to do with no training. This document details application operations exactly; an end-to-end flow of User's data. The logic audit will be completed by identifying where functions in this file happen in our orchestration codebase. The result will be cleaned-up code and optimized code. If needed I can illustrate how to provide guidance without hardcoding a single suggestion; a violation that would prove detrimental to the app's multilingual functioning. 
-
-### Summarized Purpose 
-
-   1. Enabling logic auditing of orchestration files 
-   2. Illustrating our UI with high-fidelity 
-   3. Describing how our web app UI UX feels 
-   4. Identifying remaining todo items to start testing in-terminal 
-
-### Secondary Goals 
-
-   1. Integrate the multilingual functionality in parallel of app development
-   2. Review all files knowing Mao will be a web app; terminal-based functionality will be for internal development only 
-   3. Clean up the terminology used; Mao App creates 'PROJECTS' that have workflows 
+   1. Illustrate high-fidelity vision of web app UI and description of UX 
+   2. Reviewing and organizing remaining functionality to implement with pragmatic approach 
 
 ### Deliverables 
 
-   1. Comprehensive plain-language description of logic for all application functionality
-   2. Confirm consistent config and memory standardization; updating where necessary 
-   3. Fully implemented application functionality ready for terminal-based testing 
-   4. Clear understanding of Mao app's UX and the UI that produced it 
+   1. Cleaned, simplified code that launches in terminal for development testing 
+   2. Required functionality like multilingual functioning and reoccurring workflows implemented 
+   3. All UI description organized and developed into a web app UI implementation plan 
+   4. Consolidation of all website implementation plans and integrated into larger web app UI implementation plan 
 
-### Procedure 
+---
 
-1. Work through each section of this document 
-   - Identifying where this happens in current files by using `./documentation/10_AI_DEV_INDEX.md` 
+## App Functionality Not Included In this Document 
+
+  1. Hybrid caching method using traditional caching and 'fingerprinting'
+     - We must review these files thoroughly given the rampant "mock" code and hardcoding 
+       - Ensure the distinction and how to decide what content gets which treatment is in our documentation 
+       - I *did* however grab the updated cost and caching cost charts for leading models 
+     - This needs to be made into a config file that can be updated from Anthropic docs over time easily 
+     - I also saw a lot of "estimated" cost calculations in the codebase and we need to use real math everywhere 
+       - Any areas that we cannot use the real numbers and match, I need us to collect on a list 
+       - We cannot use fabricated information when we start marketing the product 
+
+  2. Any information about our shared error handling strategy 
+     - While less concerning we must also thoroughly review these files 
+     - Ensure that the process is comprehensively detailed in our technical documentation 
+     - Do these files have written what error messages would say? 
+       - If so we need to treat those as high-value marketing copy 
+       - We should make a list of all of it's locations so that we can later perfect strategy 
+
+  3. UI Files distributed throughout our codebase for most every file 
+     - We need to review these documents and consider our copywriting strategy 
+     - Compare what the UI copy looks like in this document to that information 
+     - We probably need to have an actual discussion regarding the purpose for these files 
+       - In the UI section below we discuss how AI will be writing and very frequently updating the UI
+       - I do think it is worth considering if we might want to actually task Haiku 3.5 with this 
+
+  4. Comprehensive specifics about config file management 
+     - Only mentioned regarding looking up the UserID and creating slash commands 
+     - I would like to identify this kind of functionality to place in the MAO_FLOW.md document 
+     - Then we will denote the presence of the functionality, in which files, and what the logic is 
+     - In the same way that we are going to handle the rest of the application functionality 
+
+---
+
+
+
+
+
+### Logic Audit Procedure 
+
+1. Use the copy of the data flow document named `MAO_FLOW_CUT_UP.md`
+2. Working top to bottom, isolate and select one conceptual code responsibility at a time 
+3. Use our file index, `./documentation/10_AI_DEV_INDEX.md`, and find that functionality in our codebase 
+4. Provide the file name and identify the line numbers that indicate the relevant code 
+5. Next, cut the detailed written logic text directly from `MAO_FLOW_CUT_UP.md` to paste it in a Logic Audit Batch File 
+6. Ensure the pasted text is labeled with the name of the file and the line numbers of code 
+7. Create these Logic Audit Batch Files by grouping pasted text for the same codebase files together 
+8. Place the Logic Audit Batch Files in the following directory: `./AUDIT_LOGIC_AUG_2025/files_clean_flow_logic/...`
+9. Place similar codebase file type groups near each other on the Audit Logic Batch File documents 
+10. Create as many separate Audit Logic Batch File documents, or as few, longer Audit Logic Batch File documents as makes sense 
+11. Do this for all of the conceptual, functionality logic in this document; cutting the actual text away should help focus 
+
+10. When you come upon information not been implemented yet, paste it at the top of the Audit Logic Batch File Group it belongs to 
+7. UI/UX design breakdowns should be organized similarly, but pasted in a document meant for creation of an implementation plan 
+
+   - Lists files, their classes, functions, and orchestrator file responsibilities: 
+   - Organize file-specific groups/docs with pasted clean logic this flow doc here: 
+
    - Ensure it is happening properly and remove any additional functions and complexity not in this documents basic logic requirements 
-   - **Complete File Index's** Orchestrator file responsibilities @ LINE 274 
-   - **Perhaps part of this will be to take stuff like the UI design information and create and more comprehensive website implementation plan** 
+=   - **Perhaps part of this will be to take stuff like the UI design information and create and more comprehensive website implementation plan** 
 2. Review and decide plan of attack for all updates and implementations 
    - In section directly below "Updates and Must Implement Items" 
 2. First review will be more surface-oriented  
@@ -79,10 +95,6 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
 
 ### Resources 
 
-  1. "Complete File Index" 
-     - Orchestrator file responsibilities 
-     - LINE 274: `./documentation/10_AI_DEV_INDEX.md` 
-     - Also find all files, their **classes and functions**, detailed
 
   2. There is a more detailed procedure guide 
     - Full **file directory** tree
@@ -121,6 +133,10 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
 | Prompts ≤ 200K       | $3 / MTok  | $15 / MTok    |
 | Prompts > 200K       | $6 / MTok  | $22.50 / MTok |
 
+  - New Opus and other pricing for Cached Tokens 
+    - Claude Sonnet 3.5 depreciated 
+    - Claude Opus 3 depreciated
+
 |                    | Base          | 5m Cache      | 1h Cache     | Cache Hits    | Output        |
 | Model              | Input Tokens  | Writes        | Writes       | & Refreshes   | Tokens        |
 | ------------------ | ------------- | ------------- | ------------ | ------------- | ------------- | 
@@ -130,10 +146,6 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
 | Claude Sonnet 3.7  | $3 / MTok     | $3.75 / MTok  | $6 / MTok    | $0.30 / MTok  | $15 / MTok    | 
 | Claude Haiku 3.5   | $0.80 / MTok  | $1 / MTok     | $1.6 / MTok  | $0.08 / MTok  | $4 / MTok     |
 | Claude Haiku 3     | $0.25 / MTok  | $0.30 / MTok  | $0.50 / MTok | $0.03 / MTok  | $1.25 / MTok  |
-
-  - New Opus and other pricing for Cached Tokens 
-    - Claude Sonnet 3.5 depreciated 
-    - Claude Opus 3 depreciated
 
   - The table reflects pricing multipliers for prompt caching 
     - 5-minute cache write tokens are 1.25 times the base input tokens price 
@@ -355,6 +367,25 @@ print(response.json())
     - But that was for when were going to have a terminal app 
     - Though since it is the website for A APP maybe it doesn't matter 
     - Document: `./versioning/v4_0_0/IMPL_DEV_LIVE/IMPL_SUBSCRIPTION_SYSTEM.md` 
+
+
+------------
+------------
+## Sections 
+
+1. [What happens after a **User login**](#1-user-login-and-userid)
+2. [Our **UI design** and philosophy](#2-look-and-feel-mao-app-high-level-design)
+3. [Handling the initial **User message**](#3-main-app-ui-screen-has-loaded)
+4. [**Mao responds** to the User's message](#4-mao-prepares-for-initiated-project-chat)
+5. [Psychological guidelines and **behavior protocol**](#5-chat-behavior--psychology)
+6. [**Validating the variables** of JSON objects](#6-review-of-workflow-json-objects--variables)
+7. [Communicating to User that **planning chat is over**](#7-ending-the-project-production-chat)
+8. [Mao's favorite **advanced agentic workflows**](#8-reviewing-advanced-workflow-best-practices)
+9. [High-Tech UX of Mao **Agent Conveniences**](#9-improving-mao-agents-ui-and-ux-improves-human-ux) 
+10. [**Creating a project's workflow** from conversation notes](#10-building-the-projects-workflow)
+11. [Feeling **UX of the project planning** chat UI](#11-ui-unique-functioning-during-user-planning)
+12. [Chat UI and UX when **Mao is orchestrating a workflow**](#12-ui-ux-when-mao-is-building-or-orchestrating)
+13. [Project workflow **User review** and communication guide](#13-present-projects-workflow-for-user-review)
 
 ---
 [TOP](#overview)
