@@ -2,6 +2,18 @@
 
 ---
 
+* **FINISHED**
+  - WOAH, WOAH, WOAH HUGE IDEA @ LINE 1072 
+  - Re: Section of User Profile that allows Users to offer their services for people to hire them to build Mao Projects 
+  - We could create a whole ecosystem or economy inside the app that goes beyond just sharing configs 
+
+* **I think the only think that really isn't discussed is**
+  - Hybrid caching 
+  - Error handling 
+  - Specifics about configs and how they're managed 
+
+---
+
 ## Sections 
 
 1. [What happens after a **User login**](#1-user-login-and-userid)
@@ -69,16 +81,13 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
   1. "Complete File Index" 
      - Orchestrator file responsibilities 
      - LINE 274: `./documentation/10_AI_DEV_INDEX.md` 
+     - Also find all files, their **classes and functions**, detailed
 
   2. There is a more detailed procedure guide 
     - Full **file directory** tree
     - File: `./versioning/v4_0_0/AUDIT_LOGIC_AUG_2025/FILE_ANALYSIS_PROCESS.md`
 
-  3. We have an index created specifically for AI developers 
-    - All files, their **classes and functions**, detailed 
-    - File: `./documentation/10_AI_DEV_INDEX.md` 
-
-  4. References that include all the charts and quick docs 
+  3. References that include all the charts and quick docs 
     - Lists of **every orchestrator file** including what it does! 
     - File: `./documentation/02_REFERENCE.md` 
 
@@ -89,6 +98,9 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
   - We should assess this and outline what exactly it will entail: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
      - That way we can best decide when it needs to be implemented 
      - Consider timing of updating codebase files and of other implementations 
+  - It might be worth at least looking at this version it might have ideas 
+    - Though it was for the TypeScript/Node.js Terminal App 
+    - Document: `./versioning/v4_0_0/IMPL_DEV_LIVE/IMPL_MULTILINGUAL_UI.md`
 
 * **2. Implement Claude Code and add Mao model selection necessity** 
 
@@ -333,6 +345,15 @@ print(response.json())
   - UI files for tools are defined in the index @ LINE 120, 197; must find all others 
   - Based on the UI description of this document, we need to outline what kind of adjustments need to be made 
   - We want the Terminal version for internal development purposes to still use the same wording as much as we can  
+
+* **9. Review and Update Website Implementation Plan Parts** 
+
+  - We have a detailed Storefront Website Implementation document: `./versioning/v4_1_0/IMPL_WEBSITE/IMPL_WEBSITE_STOREFRONT.md` 
+  - And there is a Secure Login Implementation document: `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` 
+  - There is this Subscription System Implementation document 
+    - But that was for when were going to have a terminal app 
+    - Though since it is the website for A APP maybe it doesn't matter 
+    - Document: `./versioning/v4_0_0/IMPL_DEV_LIVE/IMPL_SUBSCRIPTION_SYSTEM.md` 
 
 ---
 [TOP](#overview)
@@ -1037,6 +1058,179 @@ setInterval(updateShadow, 60000); // Update every minute
   - We could also save these in the user memory 
 
   - Perhaps best as a later update so that we could work out interesting features like @mao and something with hashtags 
+
+### User Can Update Application Configuration Settings 
+
+* **These are a config collection which makes creating them super easy** 
+
+  - They are like creating new CLI commands though 
+    - You can't just DROP in a new application setting 
+    - It will always require more setup 
+    - It will always be unique to the configuration 
+  - But it does mean that adding more options to settings will be super easy 
+    - Changing the tone when Mao is done working 
+    - Adding VO for announcing subagent completed tasks 
+
+* **Users will be quietly prompted to update their settings using one of the `?  try /config to update app settings`**
+
+  - This is a case that should bring up a toggle menu 
+    - Hitting enter would cycle through the options OR 
+    - It could take you to another toggle menu, like in the instance of setting the theme 
+  - Note that this is very likely an incomplete list of what settings we need 
+    - We need to consider if and what settings we might need now that it is a web app 
+
+
+| **SETTING**       | **DEFAULT**                  | **DESCRIPTION**                                        |
+| ----------------- | ---------------------------- | ------------------------------------------------------ |
+| Default Agent     | `claude-sonnet-4`            | Default subagent to run in workflows unless discussed  |
+| Default provider  | `anthropic direct`           | I prefer this provider; discuss to change              |
+| App Theme         | `dark mode`                  | Dark computer theme; use high legibility colors        |
+| Notifications     | `once, no push notification` | When a workflow is complete a simple tone is played    |
+| Cat vibes         | `I love it`                  | We'll meow it up for you                               |
+| Double-texting    | `always`                     | Interrupt Mao like any messenger experience            |
+
+  - **Default Agent** 
+    - Add any model with slash command 
+    - Put nickname or full name after `/model` 
+    - Run `/model-list` to see current available models 
+
+  - **Default Provider** 
+    - Add any provider with slash command 
+    - Put nickname or full name after `/provider` 
+    - Run `/provider-list` to see current available providers 
+ 
+   - **App Theme** 
+     - Options yet to be defined 
+     - Hitting enter doesn't need to open new toggle list if it cycles through them and actually shows the changes live 
+
+  - **Notifications** 
+    1. `once, no push notification` = I think these are pretty self explanatory 
+    2. `silent with push notification` 
+    3. `silent and no push notification` 
+    4. `notifications on` = Both push notification and the ping 
+
+  - **Cat Vibes** 
+    1. `I love it` = They don't mind us using cat language now and then 
+    2. `Be serious please` = No meowing at all
+
+  - **Double-texting** 
+    1. `always` = You both can message as much as you like just as in texting 
+    2. `user only`= Exclusive to User 
+    3. `Mao only` = User cannot but Mao can 
+    4. `never` = Both User and Mao have to wait until the other messages back to be able to send another message 
+    5. `queue` = Messages will be held until Mao is done or pauses 
+    - **NOTE:** Users can hit ESC twice at any time to interrupt Mao 
+    If User has a queued message, hitting ESC once will push the message through 
+
+
+### Removals and New Setting Additions That Will Need Implementation 
+
+- Depending on the layout of the website, the functionality of this UI might change or relocate. 
+  - For example, the payment frequency; technically fine here. 
+  - But when I thought about "Where should I put API keys" it seemed like this was either not the place 
+  - Or that the default and only choice would just say "UPDATE" and when selected with ENTER/RETURN goes to the website 
+
+
+| **SETTING**           | **DEFAULT**      | **DESCRIPTION**                                                                |
+| --------------------- | ---------------- | ------------------------------------------------------------------------------ |
+| Remember credentials  | `false`          | App remember login; still need password; doesn't apply for passkey             | 
+| Productive startup    | `false`          | If true, app startup in most recent project with chat history context          | 
+| Public profile        | `true`           | Share your profile with Mao App users including GitHub-like project list       | 
+| Public contact        | `true`           | Allows other Mao App users to message you about your work                      | 
+| Offer my services     | `false`          | Setup a profile section where others can hire you to build Mao Projects        | 
+| User analytics        | `true`           | All Mao App to collect data to improve the user experience                     | 
+| Latest models         | `true`           | Your default model will automatically update to the newest releases            | 
+| Mao Model             | `sonnet-latest`  | Mao will be run by the latest Claude Sonnet model                              |
+| Claude Code Model     | `opus-latest`    | When Mao is set to Claude Code, the latest Opus model will be used             |
+| Code Nudges           | `true`           | If a development task is mentioned Mao may ask if they should get Claude Code  | 
+| Choose a currency     | `USD`            | Your billing transactions and in United States dollars                         | 
+| Payment frequency     | `Yearly`         | You're charged $96.00 every August 20; a 20% discount for paying yearly        | 
+| Language              | `English`        | Mao's messages, the app interface, and any correspondence will be in English   | 
+| Local data backup     | `Setup`          | Select to choose where to save your backup on your computer                    |  
+
+  - **Remember credentials** = boolean 
+  - **Productive startup** = boolean 
+  - **Public profile** = boolean 
+  - **Public contact** = boolean 
+  - **Offer my services** = boolean 
+  - **User analytics** = boolean 
+  - **Latest models** = boolean 
+
+  - **Mao Model** 
+    1. Sonnet-latest 
+    2. Opus-latest 
+    3. Claude Code as Mao 
+
+  - **Claude Code Model** 
+    1. Sonnet-latest 
+    2. Opus-latest 
+    3. Secondary Sonnet 
+    4. Secondary Opus  
+
+  - **Code Nudges** = boolean 
+
+  - **Choose a currency** 
+    - "Regional pricing matrix"
+       - Pulled from the code; I left the cost that CC put because I didn't want to mess with the multipliers 
+       - Seems like we would want a dynamic, always accurate, exchange rate system 
+    - regional_multipliers
+    1. 'US': 1.0,    # $29.99
+    2. 'EU': 0.9,    # €26.99  
+    3. 'UK': 0.95,   # £28.49
+    4. 'CA': 1.1,    # $32.99 CAD
+    5. 'AU': 1.15,   # $34.49 AUD
+    6. 'BR': 3.0,    # R$89.99
+    7. 'MX': 20.0,   # $599 MXN
+    8. 'CN': 6.7,    # ¥199.99
+    9. 'JP': 110.0,  # ¥3299
+    10. 'KR': 1200.0, # ₩35,999
+    11. 'IN': 75.0,   # ₹2249
+
+  - **Payment frequency** 
+    1. Monthly = no discount 
+    2. Quarterly = 10% discount 
+    2. 6-Months = 1 month free 
+    3. Yearly = 20% discount 
+
+  - **Language** 
+    - Again, these are just what CC has chosen 
+    - I think because of quality of Anthropic translation 
+    - This is actually from the website structure plan  
+      ├── en/          # English (US/UK/AU/CA)
+      ├── es/          # Spanish (Spain + Latin America)
+      ├── pt/          # Portuguese (Brazil)
+      ├── fr/          # French (France + Francophone)
+      ├── de/          # German (DACH region)
+      ├── zh/          # Chinese (Simplified)
+      ├── ja/          # Japanese
+      └── ar/          # Arabic (MENA)
+
+  - **Local Data Backup** 
+    - After writing this I thought, hmm maybe we do this regardless and it just tells them we do it in small print of Terms of Service 
+    - So LMK thoughts; would it make things faster, etc? Would it help?  
+
+* **Settings we had to remove or alter** 
+
+  - We need to find where else these settings were set up 
+    - Obviously the config directory 
+    - But anywhere else? 
+
+  - I removed the "Quick Launch" 
+    - It was to login as the user last logged in 
+    - This doesn't make any sense for for Web App like it did for terminal app 
+
+  - I changed the model setting to be the default choice for AGENTS 
+    - Because we will have a different setting specifically for Mao model in the new batch 
+    - Though Mao should probably confirm it every time they create a workflow  
+
+  - For cat vibes setting 
+    - There were three settings 
+    - I don't think we'd do it often so I changed it so the "yes" is now and then
+    - The other option is just NO MEOWING 
+
+  - I added more options for "double texting" 
+    - People like the "queue" feature in Cursor and now they just added it to Claude Code too 
+    - But I took it a step further and let them decide if just User or just Mao could double text  
 
 ### __Project State Memory Update Point__
 
@@ -2600,7 +2794,7 @@ Flashing ▷ to ▶︎ and back repeatedly = active list item
 
 ### Text Contexts and Formatting in the UI  
 
-* **Mao gets in-depth as to the [process of *building the draft* in section 9 above](#9-building-the-projects-workflow)** 
+* **Mao gets in-depth as to the [process of *building the draft* in section 10 above](#10-building-the-projects-workflow)** 
 
   - And you can see the art of [*closing the build conversation with user* in section 7 above](#7-ending-the-project-production-chat) 
 
@@ -2653,6 +2847,25 @@ Flashing ▷ to ▶︎ and back repeatedly = active list item
     - Intention though is that it is classic in that it should not even be a second thought 
 
 * **NOTE: WE NEED TO USE QUANTIFY THE RELATIONSHIPS BETWEEN THE COLORS AND COME UP WITH OTHER THEMES**
+
+  - Potential theme categories though we could name them more interestingly 
+
+    1. Dark mode
+    2. Light mode
+    3. Dark mode (CVD)
+    4. Light mode (CVD)
+    5. Dark mode (ANSI colors only)
+    6. Light mode (ANSI colors only)
+
+  - Actually, we should definitely make sure the theme's and colors are set up as configs 
+    - That will make it super easy for people to download or delete themes from their app 
+    - It also means they'll be able to create their own themes 
+  - We will do this in a VERY OLD-SCHOOL APPLE WAY by controlling the variables they can change fairly strictly 
+    - Perhaps like the brightness and hue or saturation of each color are what is identified 
+    - Users would then only be able to pick colors that fit in those parameters 
+    - This will protect our sematic highlighting 
+    - We could even provide the entire palette based on their choosing one color of one of the variables 
+    - I don't have the app anymore but Adobe Illustrator had a generative palette creator like this it was rad 
 
 * **Grouping Highlighting Colors Into Tiers** 
 
