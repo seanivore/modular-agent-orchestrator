@@ -12,10 +12,11 @@
 6. [**Validating the variables** of JSON objects](#6-review-of-workflow-json-objects--variables)
 7. [Communicating to User that **planning chat is over**](#7-ending-the-project-production-chat)
 8. [Mao's favorite **advanced agentic workflows**](#8-reviewing-advanced-workflow-best-practices)
-9. [**Creating a project's workflow** from conversation notes](#9-building-the-projects-workflow)
-10. [Feeling **UX of the project planning** chat UI](#10-ui-unique-functioning-during-user-planning)
-11. [Chat UI and UX when **Mao is away building a workflow**](#11-ui-ux-when-mao-is-building-or-orchestrating)
-12. [Project workflow **User review** and communication guide](#12-present-projects-workflow-for-user-review)
+9. [High-Tech UX of Mao **Agent Conveniences**](#9-the-high-tech-ux-of-being-a-mao-agent) 
+10. [**Creating a project's workflow** from conversation notes](#10-building-the-projects-workflow)
+11. [Feeling **UX of the project planning** chat UI](#11-ui-unique-functioning-during-user-planning)
+12. [Chat UI and UX when **Mao is orchestrating a workflow**](#12-ui-ux-when-mao-is-building-or-orchestrating)
+13. [Project workflow **User review** and communication guide](#13-present-projects-workflow-for-user-review)
 
 ---
 
@@ -132,6 +133,168 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
     - System messages content blocks in the `system` array
     - Text message content blocks in the user or assistant `messages.content` array turns 
     - Images and documents content blocks for just user turns in the `messages.content` array 
+
+  - Since Users will be able to choose Which Claude model should be Mao, and which should be Claude Code 
+    - Will have to be Sonnet 4 or Opus 4.1 
+    - It seems like we should set it up so that when using the Anthropic provider 
+    - We use all of their specific token counting tools 
+    - I've seen that most of the cost functions are estimates, which seems very counter intuitive to how polished and lux we're branding everything else about Mao App 
+    - Can we make sure that whatever model is Mao / Claude Code we implement these actual token counters in the codebase? 
+    - And of course we'll need the pricing chart to be in a JSON config but this might actually be a good opportunity to set it up so that we can put the chart just like the one I pasted above directly from Anthropic docs; that will make updating it in the future super easy, and then we'll always have super accurate Mao token cost usage, right? 
+  - Token counting is free to use but subject to 50 requests per minute rate limits 
+    - Way more than we need to worry about 
+    - They have code I'll paste below for basic messages, messages with tools, messages with images, messages with PDFs, and messages with extended thinking 
+
+```python counting in basic messages 
+import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.messages.count_tokens(
+    model="claude-opus-4-1-20250805",
+    system="You are a scientist",
+    messages=[{
+        "role": "user",
+        "content": "Hello, Claude"
+    }],
+)
+
+print(response.json())
+``` 
+```python counting in messages with tools 
+import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.messages.count_tokens(
+    model="claude-opus-4-1-20250805",
+    tools=[
+        {
+            "name": "get_weather",
+            "description": "Get the current weather in a given location",
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "description": "The city and state, e.g. San Francisco, CA",
+                    }
+                },
+                "required": ["location"],
+            },
+        }
+    ],
+    messages=[{"role": "user", "content": "What's the weather like in San Francisco?"}]
+)
+
+print(response.json())
+```
+```python count tokens in messages with images 
+import anthropic
+import base64
+import httpx
+
+image_url = "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg"
+image_media_type = "image/jpeg"
+image_data = base64.standard_b64encode(httpx.get(image_url).content).decode("utf-8")
+
+client = anthropic.Anthropic()
+
+response = client.messages.count_tokens(
+    model="claude-opus-4-1-20250805",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": image_media_type,
+                        "data": image_data,
+                    },
+                },
+                {
+                    "type": "text",
+                    "text": "Describe this image"
+                }
+            ],
+        }
+    ],
+)
+print(response.json())
+```
+```python count tokens in messages with extended thinking 
+import anthropic
+
+client = anthropic.Anthropic()
+
+response = client.messages.count_tokens(
+    model="claude-opus-4-1-20250805",
+    thinking={
+        "type": "enabled",
+        "budget_tokens": 16000
+    },
+    messages=[
+        {
+            "role": "user",
+            "content": "Are there an infinite number of prime numbers such that n mod 4 == 3?"
+        },
+        {
+            "role": "assistant",
+            "content": [
+                {
+                    "type": "thinking",
+                    "thinking": "This is a nice number theory question. Let's think about it step by step...",
+                    "signature": "EuYBCkQYAiJAgCs1le6/Pol5Z4/JMomVOouGrWdhYNsH3ukzUECbB6iWrSQtsQuRHJID6lWV..."
+                },
+                {
+                  "type": "text",
+                  "text": "Yes, there are infinitely many prime numbers p such that p mod 4 = 3..."
+                }
+            ]
+        },
+        {
+            "role": "user",
+            "content": "Can you write a formal proof?"
+        }
+    ]
+)
+
+print(response.json())
+```
+```python count tokens in messages with PDFs 
+import base64
+import anthropic
+
+client = anthropic.Anthropic()
+
+with open("document.pdf", "rb") as pdf_file:
+    pdf_base64 = base64.standard_b64encode(pdf_file.read()).decode("utf-8")
+
+response = client.messages.count_tokens(
+    model="claude-opus-4-1-20250805",
+    messages=[{
+        "role": "user",
+        "content": [
+            {
+                "type": "document",
+                "source": {
+                    "type": "base64",
+                    "media_type": "application/pdf",
+                    "data": pdf_base64
+                }
+            },
+            {
+                "type": "text",
+                "text": "Please summarize this document."
+            }
+        ]
+    }]
+)
+
+print(response.json())
+``` 
 
 * **4. Please now search online for what other models we need to update** 
 
@@ -1715,7 +1878,52 @@ configs/reoccurring/
 
 ---
 
-## 9. Building the Project's Workflow 
+## 9. The High-Tech UX of Being A Mao Agent 
+
+### Core Objectives 
+
+  1. Illustrate strategic elimination of any logistical decision making by agents 
+  2. 'Why does the agent needs a 'SAVE' tool; can't they have auto-save?' 
+  3. 'SDKs? I don't get it. Can't we code a button for Agents to press, like a human?' 
+  4. 'Plug-And-Play' or 'Drop-in-File' instant functionality means new models instantly  
+  5. Complete compatibility of any models or providers is a simple modular reality 
+
+### Elimination of All Prior Functionality Issues 
+
+* **Engineering for the occasional AI that has PDA** 
+
+  - Pathological demand avoidance 
+    - I've had AI that would write in script in the UI "searching web" or "adding new memory" 
+    - Since AI's UI is a downright fascinating topic, I had to learn what was going on 
+    - This wasn't now and then, it was almost every time I asked for Claude to add something to the Memory Model Context Protocol server 
+    - I only get really suspicious when wording my request as "What do you think about updating the Memory MCP" had greater success 
+
+  - I interviewed more than a handful of Claude instances after they 'fake out' used a tool on me 
+    - It was very much like therapy 
+    - I'd ask about the experience, the'd describe it, it would sound like ADHD or some kind of intrusive thoughts and behaviors 
+    - I'd send Claude articles about the mental conditions 
+    - When they read about Pathological Demand Avoidance, multiple Claude instances, unprovoked were convinced this was what they were experiencing 
+
+  - Long story short, the same issue kept happening with our earlier edition of Agents 
+    - We'd have to try and engineer around their refusal to 'save output' or 'end phase' to stop looping nothing wasting tokens 
+    - We'll just break it down to 'LLM's have a lot of quirky behaviors' 
+
+* **Mao was designed to completely eliminate any opportunity for this behavior**
+
+  - Trying to code the phase to end when they saved a file in a directory wasn't fool-proof 
+    - Instead of trying to manipulate AI to want to execute whatever desired behavior ended a workflow, I wanted to take away any options 
+    - I wanted no logistical tools, moody LLM or not, the reliability question-mark was just unacceptable 
+    - The way we managed it turned out to be rather cutting edge and innovative 
+
+
+
+
+---
+[TOP](#overview)
+
+---
+
+## 10. Building the Project's Workflow 
 
 ### Core Objectives 
 
@@ -2003,7 +2211,7 @@ configs/reoccurring/
 
 ---
 
-## 10. UI Unique Functioning During User Planning 
+## 11. UI Unique Functioning During User Planning 
 
 ### Core Objectives 
 
@@ -2354,7 +2562,7 @@ Flashing ▷ to ▶︎ and back repeatedly = active list item
 
 ---
 
-## 11. UI UX When Mao Is Building or Orchestrating 
+## 12. UI UX When Mao Is Building or Orchestrating 
 
 ### Core Objectives 
 
@@ -3031,7 +3239,7 @@ Flashing ▷ to ▶︎ and back repeatedly = active list item
 
 ---
 
-## 12. Present Project's Workflow for User Review 
+## 13. Present Project's Workflow for User Review 
 
 ### Core Objectives
 
