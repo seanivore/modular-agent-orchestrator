@@ -43,30 +43,18 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
    3. Fully implemented application functionality ready for terminal-based testing 
    4. Clear understanding of Mao app's UX and the UI that produced it 
 
-### To Be Implemented 
-
-  1. Implement parallel agent execution: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
-  2. Implement calendaring and reoccurring workflows: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
-  3. Update and confirm all four JSON workflow objects are in templates: `./configs/workflows/json_object_templates/` 
-  4. Implement and develop multilingual in parallel: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
-  5. Implement Claude Code and add a 'select model' for Mao option: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
-  6. Turn secure login implementation into web app UI plan: `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md`
-  7. Add analytics collection plan then implement databases: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md`
-  8. Review and plan when to update native memory tool: `./versioning/v4_2_0/IMPL_MEMORY/IMPL_MEMORY_CLOUD.md` 
-  9. Implement recent Anthropic tool releases 
-      - The BASH tool: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_BASH.md` 
-      - The Fine Grained Streaming: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_FINE_GRAINED_STREAMING.md` 
-      - The parallel tool use: `./versioning/v4_1_0/IMPL_ANTHROPIC_TOOLS/TOOL_PARALLEL_USE.md` 
-
 ### Procedure 
 
 1. Work through each section of this document 
-   - Identifying where this happens in current files 
-   - Ensure it is happening properly 
-   - Remove any additional functions and complexity not in this document 
+   - Identifying where this happens in current files by using `./documentation/10_AI_DEV_INDEX.md` 
+   - Ensure it is happening properly and remove any additional functions and complexity not in this documents basic logic requirements 
+   - **Complete File Index's** Orchestrator file responsibilities @ LINE 274 
+2. Review and decide plan of attack for all updates and implementations 
+   - In section directly below "Updates and Must Implement Items" 
 2. First review will be more surface-oriented  
-   - See full picture before we start editing files 
-   - Leaves open the possibility of combining multiple, similar orchestration files for simplicity 
+   - See full picture before we start editing files; get through this document with notation of where things are for each section 
+   - Note things that don't exist as well; they should be added to the list for implementation 
+   - For example the **CLI Command Creation Guide** is in that same index @ LINE 167  
 3. Then proceed through making all necessary changes to codebase, especially orchestration files 
    - We are already on a new branch called `mao-web` for this build 
    - Equally, grow this outline to be comprehensive and all-accurate, adding notation to where each function's file is  
@@ -77,17 +65,111 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
 
 ### Resources 
 
-  - There is a more detailed procedure guide 
+  1. "Complete File Index" 
+     - Orchestrator file responsibilities 
+     - LINE 274: `./documentation/10_AI_DEV_INDEX.md` 
+
+  2. There is a more detailed procedure guide 
     - Full **file directory** tree
     - File: `./versioning/v4_0_0/AUDIT_LOGIC_AUG_2025/FILE_ANALYSIS_PROCESS.md`
 
-  - We have an index created specifically for AI developers 
+  3. We have an index created specifically for AI developers 
     - All files, their **classes and functions**, detailed 
     - File: `./documentation/10_AI_DEV_INDEX.md` 
 
-  - References that include all the charts and quick docs 
+  4. References that include all the charts and quick docs 
     - Lists of **every orchestrator file** including what it does! 
     - File: `./documentation/02_REFERENCE.md` 
+
+### Updates and Must Implement Items 
+
+* **1. First priority is planning development of multilingual abilities in parallel** 
+
+  - We should assess this and outline what exactly it will entail: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
+     - That way we can best decide when it needs to be implemented 
+     - Consider timing of updating codebase files and of other implementations 
+
+* **2. Implement Claude Code and add Mao model selection necessity** 
+
+  - Original implementation plan; please confirm it is still valid and ready for implementation 
+     - Plan: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
+  - Then we will need to create some kind of boolean variable and add it to all of the model JSON objects 
+     - In index, "Configuration File Templates" @ LINE 221 are the templates 
+
+* **3. While touching on model selection we need to update Models for Anthropic, including cost changes** 
+
+  - Change the Context Window for Sonnet 4 to 1 Million** 
+    - Find the 'Configuration File Templates' in the index @ LINE 221 
+    - See chart for price changes after 200k tokens 
+
+| Context Window Size  | Input      | Output        | 
+| -------------------- | ---------- | ------------- |
+| Prompts ≤ 200K       | $3 / MTok  | $15 / MTok    |
+| Prompts > 200K       | $6 / MTok  | $22.50 / MTok |
+
+|                    | Base          | 5m Cache      | 1h Cache     | Cache Hits    | Output        |
+| Model              | Input Tokens  | Writes        | Writes       | & Refreshes   | Tokens        |
+| ------------------ | ------------- | ------------- | ------------ | ------------- | ------------- | 
+| Claude Opus 4.1    | $15 / MTok    | $18.75 / MTok | $30 / MTok   | $1.50 / MTok  | $75 / MTok    | 
+| Claude Opus 4      | $15 / MTok    | $18.75 / MTok | $30 / MTok   | $1.50 / MTok  | $75 / MTok    |
+| Claude Sonnet 4    | $3 / MTok     | $3.75 / MTok  | $6 / MTok    | $0.30 / MTok  | $15 / MTok    | 
+| Claude Sonnet 3.7  | $3 / MTok     | $3.75 / MTok  | $6 / MTok    | $0.30 / MTok  | $15 / MTok    | 
+| Claude Haiku 3.5   | $0.80 / MTok  | $1 / MTok     | $1.6 / MTok  | $0.08 / MTok  | $4 / MTok     |
+| Claude Haiku 3     | $0.25 / MTok  | $0.30 / MTok  | $0.50 / MTok | $0.03 / MTok  | $1.25 / MTok  |
+
+  - New Opus and other pricing for Cached Tokens 
+    - Claude Sonnet 3.5 depreciated 
+    - Claude Opus 3 depreciated
+
+  - The table reflects pricing multipliers for prompt caching 
+    - 5-minute cache write tokens are 1.25 times the base input tokens price 
+    - 1-hour cache write tokens are 2 times the base input tokens price 
+    - Cache read tokens are 0.1 times the base input tokens price 
+
+  - What can be cached using `cache_control` in the request 
+    - Tool definitions in the `tools` array
+    - Tool use, tool result content blocks in the user or assistant `messages.content` array turns 
+    - System messages content blocks in the `system` array
+    - Text message content blocks in the user or assistant `messages.content` array turns 
+    - Images and documents content blocks for just user turns in the `messages.content` array 
+
+* **4. Please now search online for what other models we need to update** 
+
+  - Do we have the lates information for Gemini 
+  - Add the new GPT/OpenAI Models 
+
+* **5. Implement parallel agent execution**
+
+  - Review initial plan and ensure it is still valid: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
+     - See **Parallel Agent Role** in the Complete File Index LINE 323 
+     - And **Parallel Agent Execution System** @ LINE 942 
+
+* **6. Implement calendaring and reoccurring workflows**
+
+  - Review original implementation plan to confirm if it is still good to go: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
+  - Add the finalized 'Calendaring JSON Workflow Object' to "JSON Configuration Schemas"
+    - Same index document LINE 1103 
+    - Add "reoccurring" directory to `/configs/reoccurring` 
+    - Under "Configuration Directory Structure" @ LINE 1195 
+    - Update and confirm all four JSON workflow objects are in templates: `./configs/workflows/json_object_templates/` 
+
+* **7. Please add the Analytics Trigger Points to this document for better understanding** 
+
+  - Same index document @ LINE 1071 
+  - We also need to review the implementation plans that we stated to create but are now not applicable  
+    - It is from when all analytics across apps back when they were going to be local apps on everyone's systems 
+    - Now we need to focus on the Web App so presumably Cloud? 
+    - `./versioning/v4_1_0/IMPL_ANALYTICS/IMPL_ANALYTICS_ACCESSIBILITY.md`
+    - `./versioning/v4_1_0/IMPL_ANALYTICS/MULTI_INSTANCE_DATA.md`
+  - And then I don't know that it makes sense to implement fully our analytics collection system without database 
+    - Database implementation plan: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md` 
+    - We should also consider marketing and user info. 
+
+* **8. UI files now that we're not building a terminal public app** 
+
+  - UI files for tools are defined in the index @ LINE 120, 197; must find all others 
+  - Based on the UI description of this document, we need to outline what kind of adjustments need to be made 
+  - We want the Terminal version for internal development purposes to still use the same wording as much as we can  
 
 ---
 [TOP](#overview)

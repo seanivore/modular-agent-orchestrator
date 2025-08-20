@@ -496,12 +496,12 @@ All MCP server configurations are stored in:
 
 #### Server Configuration Fields
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `command` | string | Yes | Executable command (e.g., "npx", "python", "/usr/local/bin/custom-server") |
-| `args` | array | No | Command arguments (e.g., ["-y", "@modelcontextprotocol/server-memory"]) |
-| `description` | string | No | Human-readable description of the server's purpose |
-| `enabled` | boolean | No | Whether to start this server (default: true) |
+| Field         | Type    | Required | Description                                                                |
+| ------------- | ------- | -------- | -------------------------------------------------------------------------- |
+| `command`     | string  | Yes      | Executable command (e.g., "npx", "python", "/usr/local/bin/custom-server") |
+| `args`        | array   | No       | Command arguments (e.g., ["-y", "@modelcontextprotocol/server-memory"])    |
+| `description` | string  | No       | Human-readable description of the server's purpose                         |
+| `enabled`     | boolean | No       | Whether to start this server (default: true)                               |
 
 #### Common MCP Servers
 
@@ -913,23 +913,6 @@ Each tool follows the same pattern:
 - **UI Function:** `display_web_search_result()`
 
 ## Interface File Index
-
-### `interfaces/ui_terminal.py` - Terminal Interface
-**Classes:**
-- `TerminalInterface` - Main terminal UI coordination
-- `SubprocessCommunicationBridge` - Node.js bridge communication
-
-**Key Methods:**
-```python
-def process_user_input(user_input: str, session_context: Dict) -> Dict[str, Any]
-def generate_contextual_tips(session_state: Dict) -> List[str]
-def handle_nodejs_message(message: Dict) -> Dict[str, Any]
-def send_to_nodejs(response: Dict) -> bool
-def execution_start() -> None
-def phase_start(phase_num: int, total_phases: int, phase_name: str, model: str, estimated_cost: float) -> None
-def phase_complete(result: ExecutionResult) -> None
-def workflow_complete(workflow: WorkflowPlan, results: Dict[str, Any]) -> None
-```
 
 ### `interfaces/ui_web.py` - Web Interface
 **Classes:**
