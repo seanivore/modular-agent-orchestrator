@@ -62,6 +62,7 @@ We found multiple files that said 'mock data'. That led to discovering hardcoded
    - Identifying where this happens in current files by using `./documentation/10_AI_DEV_INDEX.md` 
    - Ensure it is happening properly and remove any additional functions and complexity not in this documents basic logic requirements 
    - **Complete File Index's** Orchestrator file responsibilities @ LINE 274 
+   - **Perhaps part of this will be to take stuff like the UI design information and create and more comprehensive website implementation plan** 
 2. Review and decide plan of attack for all updates and implementations 
    - In section directly below "Updates and Must Implement Items" 
 2. First review will be more surface-oriented  
