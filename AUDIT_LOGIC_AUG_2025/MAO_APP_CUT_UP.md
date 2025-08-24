@@ -1,108 +1,74 @@
-# Flow of Data Through Mao 
-
----
+# App Functioning, AI Behavior, and UI/UX in Normal Language 
 
 ## Primary Task 
 
-To understand the logic of Mao's codebase files by comparison to detailed normal language description of app functioning so that we can remove over-engineering as well as hardcoded 'suggestions' woven through orchestration functioning, or notes of 'mock' code. As wel look at this code through the lens of it now being a web app instead of terminal app, know that THIS IS REAL, FINAL DRAFT IMPLEMENTATION; BEST WORK IS REQUIRED. I should be alerted immediately if there is any missing data that one might think warrants 'mock' data. 
-
-### Secondary Tasks  
-
-   1. Illustrate high-fidelity vision of web app UI and description of UX 
-   2. Reviewing and organizing remaining functionality to implement with pragmatic approach 
+   1. Identify the simplest core logic of Mao's orchestrator codebase files by writing it out in normal language 
+   2. Then, through comparison, remove over-engineering, hardcoded 'suggestions', and any 'mock' code; BEST REAL CODE ONLY
+   3. Through this document, illustrate high-fidelity vision of web app UI and description of UX 
 
 ### Deliverables 
 
-   1. Cleaned, simplified code that launches in terminal for development testing 
-   2. Required functionality like multilingual functioning and reoccurring workflows implemented 
-   3. All UI description organized and developed into a web app UI implementation plan 
-   4. Consolidation of all website implementation plans and integrated into larger web app UI implementation plan 
-
----
-
-## App Functionality Not Included In this Document 
-
-  1. Hybrid caching method using traditional caching and 'fingerprinting'
-     - We must review these files thoroughly given the rampant "mock" code and hardcoding 
-       - Ensure the distinction and how to decide what content gets which treatment is in our documentation 
-       - I *did* however grab the updated cost and caching cost charts for leading models 
-     - This needs to be made into a config file that can be updated from Anthropic docs over time easily 
-     - I also saw a lot of "estimated" cost calculations in the codebase and we need to use real math everywhere 
-       - Any areas that we cannot use the real numbers and match, I need us to collect on a list 
-       - We cannot use fabricated information when we start marketing the product 
-
-  2. Any information about our shared error handling strategy 
-     - While less concerning we must also thoroughly review these files 
-     - Ensure that the process is comprehensively detailed in our technical documentation 
-     - Do these files have written what error messages would say? 
-       - If so we need to treat those as high-value marketing copy 
-       - We should make a list of all of it's locations so that we can later perfect strategy 
-
-  3. UI Files distributed throughout our codebase for most every file 
-     - We need to review these documents and consider our copywriting strategy 
-     - Compare what the UI copy looks like in this document to that information 
-     - We probably need to have an actual discussion regarding the purpose for these files 
-       - In the UI section below we discuss how AI will be writing and very frequently updating the UI
-       - I do think it is worth considering if we might want to actually task Haiku 3.5 with this 
-
-  4. Comprehensive specifics about config file management 
-     - Only mentioned regarding looking up the UserID and creating slash commands 
-     - I would like to identify this kind of functionality to place in the MAO_FLOW.md document 
-     - Then we will denote the presence of the functionality, in which files, and what the logic is 
-     - In the same way that we are going to handle the rest of the application functionality 
-
----
-
-
-
-
+   1. Cleaned, simplified code that launches in terminal for development testing
+   2. Required functionality like multilingual functioning and reoccurring workflows implemented
+   3. All UI description organized and developed into a web app UI implementation plan
+   4. Consolidation of all website implementation plans and integrated into larger web app UI implementation plan
 
 ### Logic Audit Procedure 
 
-1. Use the copy of the data flow document named `MAO_FLOW_CUT_UP.md`
-2. Working top to bottom, isolate and select one conceptual code responsibility at a time 
-3. Use our file index, `./documentation/10_AI_DEV_INDEX.md`, and find that functionality in our codebase 
-4. Provide the file name and identify the line numbers that indicate the relevant code 
-5. Next, cut the detailed written logic text directly from `MAO_FLOW_CUT_UP.md` to paste it in a Logic Audit Batch File 
-6. Ensure the pasted text is labeled with the name of the file and the line numbers of code 
-7. Create these Logic Audit Batch Files by grouping pasted text for the same codebase files together 
-8. Place the Logic Audit Batch Files in the following directory: `./AUDIT_LOGIC_AUG_2025/files_clean_flow_logic/...`
-9. Place similar codebase file type groups near each other on the Audit Logic Batch File documents 
-10. Create as many separate Audit Logic Batch File documents, or as few, longer Audit Logic Batch File documents as makes sense 
-11. Do this for all of the conceptual, functionality logic in this document; cutting the actual text away should help focus 
+* **BATCH 1: Matching normal language functionality with filename** 
+   1. Start at the top of this document `MAO_APP_CUT_UP.md`; isolate and select 1 conceptual code responsibility at a time 
+   2. Then, find that functionality in our codebase using the file index `./documentation/10_AI_DEV_INDEX.md`
+   3. Note the **file name(s)** and identify the **line numbers** that show the relevant code 
+   4. Create a Logic Audit Batch File `./AUDIT_LOGIC_AUG_2025/files_clean_flow_logic/...`
+   5. Name these documents based on their file, following a `BATCH_FILENAME.md`
+   6. Literally **CUT the normal language** written functionality from `MAO_APP_CUT_UP.md` 
+   7. Paste it in a Logic Audit Batch File labeled with **file name(s)** and relevant **line numbers of code**
+   8. When creating the Logic Audit Batch Files, **group pasted text for the same codebase files together** 
+   9. Do this for all functionality logic in this `MAO_APP_CUT_UP.md` document  
 
-10. When you come upon information not been implemented yet, paste it at the top of the Audit Logic Batch File Group it belongs to 
-7. UI/UX design breakdowns should be organized similarly, but pasted in a document meant for creation of an implementation plan 
+* **BATCH 2: Gathering of AI behavioral guidance, validation methods, and any other psychological guidance**
+   1. Again, this is very similar to gathering the above three types of information from `MAO_APP_CUT_UP.md`
+   2. Paste the **AI protocol** text **WITH THE CODE FROM BATCH 1**, so that it is **paired with that filename** it is relevant to 
+   3. Psychological tips for how to read the user and what their behavior means to how Mao should behave 
+   4. Methods of validating the information that Mao needs to collect, **without using examples** 
+   5. Anything that is helpful to an AI that **IS NOT examples, suggestions,** or anything else that would be considered hardcoding 
 
-   - Lists files, their classes, functions, and orchestrator file responsibilities: 
-   - Organize file-specific groups/docs with pasted clean logic this flow doc here: 
+* **BATCH 3 & 4: Gathering not-implemented features and UI/UX Design**
+   1. This is very similar to gathering the normal language functions from `MAO_APP_CUT_UP.md`
+   2. Paste **non-implemented** text from this document, grouping it by feature or function
+   3. Paste **UI and UX** information from this document, grouping it in an equally sensible way
+   4. Call these documents `BATCH_IMPLEMENT.md` and `BATCH_UI_UX.md` 
+   5. The organization of information should make sense for the creation of implementation plans upon completion 
 
-   - Ensure it is happening properly and remove any additional functions and complexity not in this documents basic logic requirements 
-=   - **Perhaps part of this will be to take stuff like the UI design information and create and more comprehensive website implementation plan** 
-2. Review and decide plan of attack for all updates and implementations 
-   - In section directly below "Updates and Must Implement Items" 
-2. First review will be more surface-oriented  
-   - See full picture before we start editing files; get through this document with notation of where things are for each section 
-   - Note things that don't exist as well; they should be added to the list for implementation 
-   - For example the **CLI Command Creation Guide** is in that same index @ LINE 167  
-3. Then proceed through making all necessary changes to codebase, especially orchestration files 
-   - We are already on a new branch called `mao-web` for this build 
-   - Equally, grow this outline to be comprehensive and all-accurate, adding notation to where each function's file is  
-4. Ensure all remaining functionality that requires implementation is completed 
-   - Shouldn't have to say this ever, but given what the 'mock code' said that led to this, *THIS IS ALL REAL CODE IMPLEMENTATION* 
-   - Do not skip any concept expecting to come back later; stop, we will work it out to completion in proper sequence, then move forward 
-   - Standardize any newer features; confirm other features have standardization 
+* **BATCH 5: Collecting function of unreferenced snippets of code from files that have logic audit text**
+   1. At this point all of the 4 types of information in the batches above have been removed from `MAO_APP_CUT_UP.md` 
+   2. Start reviewing and **simplifying the logic of the orchestrator files mentioned in BATCH 1 and 2** 
+   3. When you come across something that was not accounted for, place it on an `BATCH_UNREFERENCED.md` document 
+   4. This does not include ENTIRE FILES, those will be handled in BATCH 6 
+   5. By placing the unreferenced code on the batch, you should write the function/logic in normal language like we collected in BATCH 1 
+   6. Doing this serves the same purpose as the other batches: checking that the logic is simple and sound 
+   7. When through all BATCH 1 and 2 files, **everything should be accounted for** or **identified as over-engineering and deleted** 
 
-### Resources 
+* **BATCH 6: Gathering remaining entire files that were not included in the logic audit**
+   1. By first compiling a list of all the files that were audited, then create a list of files that were not audited 
+   2. Place this second list on a new document named `BATCH_MISSED_FILE.md` 
+   3. Write the name of each file, followed by the functioning and logic in normal language 
+   4. As you do this, review each file thoroughly given the rampant 'mock' code and hardcoding; **make sure the logic is simple and sound** 
+   5. FYI I know I missed the **traditional and fingerprinting caching system**, the **shared error handling**, and our **UI files**
+
+   - **NOTE:** make sure all estimated costs are using ACTUAL COSTS using REAL MATH everywhere 
+     - Any areas we cannot use the real numbers and match, I need us to collect on a list
+     - We cannot use fabricated information when we start marketing the product
+     - There is a chart from Anthropic pasted below, we should create a JSON config file that can be updated over time easily 
+
+   - **NOTE:** conversation required for the UI files distributed throughout our codebase for most every file
+     - Review files and consider our copywriting strategy; compare it to what the UI copy looks like in `MAO_APP_CUT_UP.md` 
+     - In the UI section below we discuss how AI will be writing and very frequently updating the UI
+     - I do think it is worth considering if we might want to actually task Haiku 3.5 with this 
+
+---
 
 
-  2. There is a more detailed procedure guide 
-    - Full **file directory** tree
-    - File: `./versioning/v4_0_0/AUDIT_LOGIC_AUG_2025/FILE_ANALYSIS_PROCESS.md`
-
-  3. References that include all the charts and quick docs 
-    - Lists of **every orchestrator file** including what it does! 
-    - File: `./documentation/02_REFERENCE.md` 
 
 ### Updates and Must Implement Items 
 
