@@ -20,7 +20,7 @@
    2. Then, find that functionality in our codebase using the file index `./documentation/10_AI_DEV_INDEX.md`
    3. Note the **file name(s)** and identify the **line numbers** that show the relevant code 
    4. Create a Logic Audit Batch File `./AUDIT_LOGIC_AUG_2025/files_clean_flow_logic/...`
-   5. Name these documents based on their file, following a `BATCH_FILENAME.md`
+   5. Name these documents based on their file, following a `BATCH_1_FILENAME.md`
    6. Literally **CUT the normal language** written functionality from `MAO_APP_CUT_UP.md` 
    7. Paste it in a Logic Audit Batch File labeled with **file name(s)** and relevant **line numbers of code**
    8. When creating the Logic Audit Batch Files, **group pasted text for the same codebase files together** 
@@ -28,7 +28,7 @@
 
 * **BATCH 1B: Gathering of AI behavioral guidance, validation methods, and any other psychological guidance**
    1. Again, this is very similar to gathering the above three types of information from `MAO_APP_CUT_UP.md`
-   2. Paste **AI protocol** text paired **WITH RELEVANT BATCH 1A CODE** in same `BATCH_FILENAME.md` filename 
+   2. Paste **AI protocol** text paired **WITH RELEVANT BATCH 1A CODE** in same `BATCH_1_FILENAME.md` filename 
    3. Psychological tips for how to read the user and what their behavior means to how Mao should behave 
    4. Methods of validating the information that Mao needs to collect, **without using examples** 
    5. Anything that is helpful to an AI that **IS NOT examples, suggestions,** or anything else that would be considered hardcoding 
@@ -43,29 +43,29 @@
 
 * **BATCH 4: Actual implementation plans to organize and consolidate**
    1. This is different than missing features in BATCH 2, these are the entire documents 
-   2. These should be reviewed, understood, and then consolidated into ONE final implementation plan that can then be executed  
+   2. Review, understand, consolidate into ONE final implementation plan that can then be executed `IMPL_DEV_LAUNCH.md` 
    3. First priority is planning parallel multilingual dev: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
    4. Implement Claude Code and select Mao model option: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
-   5. For other models as Mao, note the charts in the CACHING actual cost bullet below BATCH 7 directions 
+   5. For other models as Mao, note the charts in the CACHING actual cost bullet below BATCH 6 directions 
    6. Parallel agent execution; ensure initial plan valid: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
    7. Implement calendaring reoccurring workflows; validate original doc: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
    8. Old collection analytics was for local apps, need update: `IMPL_ANALYTICS_ACCESSIBILITY.md` and `MULTI_INSTANCE_DATA.md`
    9. It doesn't make sense to implement analytics without database: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md`
    10. Update website implementation plan parts: `IMPL_WEBSITE_STOREFRONT.md`, `IMPL_SECURE_LOGIN.md`, `IMPL_SUBSCRIPTION_SYSTEM.md`
-   11. Finally, create Web App implementation plan, separate of the above combined and consolidated (mentioning because of website build)
+   11. Finally, create Web App implementation plan, separate of above (mentioning because of website build); `IMPL_WEB_UI.md`
 
 * **BATCH 5: Collecting function of unreferenced snippets of code from files that have logic audit text**
    1. At this point all of the 4 types of information in the batches above have been removed from `MAO_APP_CUT_UP.md` 
    2. Start reviewing and **simplifying the logic of the orchestrator files mentioned in BATCH 1A and 1B** 
-   3. When you come across something that was not accounted for, place it on an `BATCH_UNREFERENCED.md` document 
+   3. When you come across something that was not accounted for, place it on an `BATCH_5_SNIP_MISSED.md` document 
    4. This does not include ENTIRE FILES, those will be handled in BATCH 6 
    5. By placing the unreferenced code on the batch, you should write the function/logic in normal language like we collected in BATCH 1 
    6. Doing this serves the same purpose as the other batches: checking that the logic is simple and sound 
    7. When through all BATCH 1A and 1B files, **everything should be accounted for** or **identified as over-engineering and deleted** 
 
-* **BATCH 7: Gathering remaining entire files that were not included in the logic audit**
+* **BATCH 6: Gathering remaining entire files that were not included in the logic audit**
    1. By first compiling a list of all the files that were audited, then create a list of files that were not audited 
-   2. Place this second list on a new document named `BATCH_MISSED_FILE.md` 
+   2. Place this second list on a new document named `BATCH_6_MISSED_FILE.md` 
    3. Write the name of each file, followed by the functioning and logic in normal language 
    4. As you do this, review each file thoroughly given the rampant 'mock' code and hardcoding; **make sure the logic is simple and sound** 
    5. FYI I know I missed the **traditional and fingerprinting caching system**, the **shared error handling**, and our **UI files**
