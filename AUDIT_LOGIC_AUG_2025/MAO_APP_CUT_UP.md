@@ -15,7 +15,7 @@
 
 ### Logic Audit Procedure 
 
-* **BATCH 1: Matching normal language functionality with filename** 
+* **BATCH 1A: Matching normal language functionality with filename** 
    1. Start at the top of this document `MAO_APP_CUT_UP.md`; isolate and select 1 conceptual code responsibility at a time 
    2. Then, find that functionality in our codebase using the file index `./documentation/10_AI_DEV_INDEX.md`
    3. Note the **file name(s)** and identify the **line numbers** that show the relevant code 
@@ -26,82 +26,68 @@
    8. When creating the Logic Audit Batch Files, **group pasted text for the same codebase files together** 
    9. Do this for all functionality logic in this `MAO_APP_CUT_UP.md` document  
 
-* **BATCH 2: Gathering of AI behavioral guidance, validation methods, and any other psychological guidance**
+* **BATCH 1B: Gathering of AI behavioral guidance, validation methods, and any other psychological guidance**
    1. Again, this is very similar to gathering the above three types of information from `MAO_APP_CUT_UP.md`
-   2. Paste the **AI protocol** text **WITH THE CODE FROM BATCH 1**, so that it is **paired with that filename** it is relevant to 
+   2. Paste **AI protocol** text paired **WITH RELEVANT BATCH 1A CODE** in same `BATCH_FILENAME.md` filename 
    3. Psychological tips for how to read the user and what their behavior means to how Mao should behave 
    4. Methods of validating the information that Mao needs to collect, **without using examples** 
    5. Anything that is helpful to an AI that **IS NOT examples, suggestions,** or anything else that would be considered hardcoding 
 
-* **BATCH 3 & 4: Gathering not-implemented features and UI/UX Design**
+* **BATCH 2 & 3: Gathering missing features and UI/UX Design**
    1. This is very similar to gathering the normal language functions from `MAO_APP_CUT_UP.md`
-   2. Paste **non-implemented** text from this document, grouping it by feature or function
-   3. Paste **UI and UX** information from this document, grouping it in an equally sensible way
-   4. Call these documents `BATCH_IMPLEMENT.md` and `BATCH_UI_UX.md` 
-   5. The organization of information should make sense for the creation of implementation plans upon completion 
+   2. Paste **missing** features or functions text from this document, grouping it by feature or function
+   3. By missing this means one-off items like a mentioned slash command or an application setting 
+   4. Paste **UI and UX** information from this document, grouping it in an equally sensible way
+   5. Call these documents `BATCH_2_MISSING.md` and `BATCH_3_UI_UX.md` 
+   6. The organization of information should make sense for the creation of implementation plans upon completion 
+
+* **BATCH 4: Actual implementation plans to organize and consolidate**
+   1. This is different than missing features in BATCH 2, these are the entire documents 
+   2. These should be reviewed, understood, and then consolidated into ONE final implementation plan that can then be executed  
+   3. First priority is planning parallel multilingual dev: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
+   4. Implement Claude Code and select Mao model option: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
+   5. For other models as Mao, note the charts in the CACHING actual cost bullet below BATCH 7 directions 
+   6. Parallel agent execution; ensure initial plan valid: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
+   7. Implement calendaring reoccurring workflows; validate original doc: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
+   8. Old collection analytics was for local apps, need update: `IMPL_ANALYTICS_ACCESSIBILITY.md` and `MULTI_INSTANCE_DATA.md`
+   9. It doesn't make sense to implement analytics without database: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md`
+   10. Update website implementation plan parts: `IMPL_WEBSITE_STOREFRONT.md`, `IMPL_SECURE_LOGIN.md`, `IMPL_SUBSCRIPTION_SYSTEM.md`
+   11. Finally, create Web App implementation plan, separate of the above combined and consolidated (mentioning because of website build)
 
 * **BATCH 5: Collecting function of unreferenced snippets of code from files that have logic audit text**
    1. At this point all of the 4 types of information in the batches above have been removed from `MAO_APP_CUT_UP.md` 
-   2. Start reviewing and **simplifying the logic of the orchestrator files mentioned in BATCH 1 and 2** 
+   2. Start reviewing and **simplifying the logic of the orchestrator files mentioned in BATCH 1A and 1B** 
    3. When you come across something that was not accounted for, place it on an `BATCH_UNREFERENCED.md` document 
    4. This does not include ENTIRE FILES, those will be handled in BATCH 6 
    5. By placing the unreferenced code on the batch, you should write the function/logic in normal language like we collected in BATCH 1 
    6. Doing this serves the same purpose as the other batches: checking that the logic is simple and sound 
-   7. When through all BATCH 1 and 2 files, **everything should be accounted for** or **identified as over-engineering and deleted** 
+   7. When through all BATCH 1A and 1B files, **everything should be accounted for** or **identified as over-engineering and deleted** 
 
-* **BATCH 6: Gathering remaining entire files that were not included in the logic audit**
+* **BATCH 7: Gathering remaining entire files that were not included in the logic audit**
    1. By first compiling a list of all the files that were audited, then create a list of files that were not audited 
    2. Place this second list on a new document named `BATCH_MISSED_FILE.md` 
    3. Write the name of each file, followed by the functioning and logic in normal language 
    4. As you do this, review each file thoroughly given the rampant 'mock' code and hardcoding; **make sure the logic is simple and sound** 
    5. FYI I know I missed the **traditional and fingerprinting caching system**, the **shared error handling**, and our **UI files**
 
-   - **NOTE:** make sure all estimated costs are using ACTUAL COSTS using REAL MATH everywhere 
-     - Any areas we cannot use the real numbers and match, I need us to collect on a list
-     - We cannot use fabricated information when we start marketing the product
-     - There is a chart from Anthropic pasted below, we should create a JSON config file that can be updated over time easily 
-
    - **NOTE:** conversation required for the UI files distributed throughout our codebase for most every file
      - Review files and consider our copywriting strategy; compare it to what the UI copy looks like in `MAO_APP_CUT_UP.md` 
      - In the UI section below we discuss how AI will be writing and very frequently updating the UI
      - I do think it is worth considering if we might want to actually task Haiku 3.5 with this 
 
----
-
-
-
-### Updates and Must Implement Items 
-
-* **1. First priority is planning development of multilingual abilities in parallel** 
-
-  - We should assess this and outline what exactly it will entail: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
-     - That way we can best decide when it needs to be implemented 
-     - Consider timing of updating codebase files and of other implementations 
-  - It might be worth at least looking at this version it might have ideas 
-    - Though it was for the TypeScript/Node.js Terminal App 
-    - Document: `./versioning/v4_0_0/IMPL_DEV_LIVE/IMPL_MULTILINGUAL_UI.md`
-
-* **2. Implement Claude Code and add Mao model selection necessity** 
-
-  - Original implementation plan; please confirm it is still valid and ready for implementation 
-     - Plan: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
-  - Then we will need to create some kind of boolean variable and add it to all of the model JSON objects 
-     - In index, "Configuration File Templates" @ LINE 221 are the templates 
-
-* **3. While touching on model selection we need to update Models for Anthropic, including cost changes** 
-
-  - Change the Context Window for Sonnet 4 to 1 Million** 
-    - Find the 'Configuration File Templates' in the index @ LINE 221 
-    - See chart for price changes after 200k tokens 
+   - **NOTE:** make sure all estimated costs are using ACTUAL COSTS using REAL MATH everywhere 
+     - Any areas we cannot use the real numbers and match, I need us to collect on a list
+     - We cannot use fabricated information when we start marketing the product
+     - There is a chart from Anthropic pasted below, we should create a JSON config file that can be updated over time easily 
+     - Change Context Window for Sonnet 4 to 1 Million; needs update of Configuration File Templates index @ LINE 221
+     - New Opus and other pricing for Cached Tokens; Sonnet 3.5 and Opus 3 depreciated 
+     - Pricing multipliers are 5 min cache write are 1.25 times the base input, 1h are 2 times, and cache read are 0.1 time base 
+     - Search online for any other models to update like GPT/OpenAI
 
 | Context Window Size  | Input      | Output        | 
 | -------------------- | ---------- | ------------- |
 | Prompts ≤ 200K       | $3 / MTok  | $15 / MTok    |
 | Prompts > 200K       | $6 / MTok  | $22.50 / MTok |
-
-  - New Opus and other pricing for Cached Tokens 
-    - Claude Sonnet 3.5 depreciated 
-    - Claude Opus 3 depreciated
 
 |                    | Base          | 5m Cache      | 1h Cache     | Cache Hits    | Output        |
 | Model              | Input Tokens  | Writes        | Writes       | & Refreshes   | Tokens        |
@@ -113,230 +99,8 @@
 | Claude Haiku 3.5   | $0.80 / MTok  | $1 / MTok     | $1.6 / MTok  | $0.08 / MTok  | $4 / MTok     |
 | Claude Haiku 3     | $0.25 / MTok  | $0.30 / MTok  | $0.50 / MTok | $0.03 / MTok  | $1.25 / MTok  |
 
-  - The table reflects pricing multipliers for prompt caching 
-    - 5-minute cache write tokens are 1.25 times the base input tokens price 
-    - 1-hour cache write tokens are 2 times the base input tokens price 
-    - Cache read tokens are 0.1 times the base input tokens price 
+---
 
-  - What can be cached using `cache_control` in the request 
-    - Tool definitions in the `tools` array
-    - Tool use, tool result content blocks in the user or assistant `messages.content` array turns 
-    - System messages content blocks in the `system` array
-    - Text message content blocks in the user or assistant `messages.content` array turns 
-    - Images and documents content blocks for just user turns in the `messages.content` array 
-
-  - Since Users will be able to choose Which Claude model should be Mao, and which should be Claude Code 
-    - Will have to be Sonnet 4 or Opus 4.1 
-    - It seems like we should set it up so that when using the Anthropic provider 
-    - We use all of their specific token counting tools 
-    - I've seen that most of the cost functions are estimates, which seems very counter intuitive to how polished and lux we're branding everything else about Mao App 
-    - Can we make sure that whatever model is Mao / Claude Code we implement these actual token counters in the codebase? 
-    - And of course we'll need the pricing chart to be in a JSON config but this might actually be a good opportunity to set it up so that we can put the chart just like the one I pasted above directly from Anthropic docs; that will make updating it in the future super easy, and then we'll always have super accurate Mao token cost usage, right? 
-  - Token counting is free to use but subject to 50 requests per minute rate limits 
-    - Way more than we need to worry about 
-    - They have code I'll paste below for basic messages, messages with tools, messages with images, messages with PDFs, and messages with extended thinking 
-
-```python counting in basic messages 
-import anthropic
-
-client = anthropic.Anthropic()
-
-response = client.messages.count_tokens(
-    model="claude-opus-4-1-20250805",
-    system="You are a scientist",
-    messages=[{
-        "role": "user",
-        "content": "Hello, Claude"
-    }],
-)
-
-print(response.json())
-``` 
-```python counting in messages with tools 
-import anthropic
-
-client = anthropic.Anthropic()
-
-response = client.messages.count_tokens(
-    model="claude-opus-4-1-20250805",
-    tools=[
-        {
-            "name": "get_weather",
-            "description": "Get the current weather in a given location",
-            "input_schema": {
-                "type": "object",
-                "properties": {
-                    "location": {
-                        "type": "string",
-                        "description": "The city and state, e.g. San Francisco, CA",
-                    }
-                },
-                "required": ["location"],
-            },
-        }
-    ],
-    messages=[{"role": "user", "content": "What's the weather like in San Francisco?"}]
-)
-
-print(response.json())
-```
-```python count tokens in messages with images 
-import anthropic
-import base64
-import httpx
-
-image_url = "https://upload.wikimedia.org/wikipedia/commons/a/a7/Camponotus_flavomarginatus_ant.jpg"
-image_media_type = "image/jpeg"
-image_data = base64.standard_b64encode(httpx.get(image_url).content).decode("utf-8")
-
-client = anthropic.Anthropic()
-
-response = client.messages.count_tokens(
-    model="claude-opus-4-1-20250805",
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "base64",
-                        "media_type": image_media_type,
-                        "data": image_data,
-                    },
-                },
-                {
-                    "type": "text",
-                    "text": "Describe this image"
-                }
-            ],
-        }
-    ],
-)
-print(response.json())
-```
-```python count tokens in messages with extended thinking 
-import anthropic
-
-client = anthropic.Anthropic()
-
-response = client.messages.count_tokens(
-    model="claude-opus-4-1-20250805",
-    thinking={
-        "type": "enabled",
-        "budget_tokens": 16000
-    },
-    messages=[
-        {
-            "role": "user",
-            "content": "Are there an infinite number of prime numbers such that n mod 4 == 3?"
-        },
-        {
-            "role": "assistant",
-            "content": [
-                {
-                    "type": "thinking",
-                    "thinking": "This is a nice number theory question. Let's think about it step by step...",
-                    "signature": "EuYBCkQYAiJAgCs1le6/Pol5Z4/JMomVOouGrWdhYNsH3ukzUECbB6iWrSQtsQuRHJID6lWV..."
-                },
-                {
-                  "type": "text",
-                  "text": "Yes, there are infinitely many prime numbers p such that p mod 4 = 3..."
-                }
-            ]
-        },
-        {
-            "role": "user",
-            "content": "Can you write a formal proof?"
-        }
-    ]
-)
-
-print(response.json())
-```
-```python count tokens in messages with PDFs 
-import base64
-import anthropic
-
-client = anthropic.Anthropic()
-
-with open("document.pdf", "rb") as pdf_file:
-    pdf_base64 = base64.standard_b64encode(pdf_file.read()).decode("utf-8")
-
-response = client.messages.count_tokens(
-    model="claude-opus-4-1-20250805",
-    messages=[{
-        "role": "user",
-        "content": [
-            {
-                "type": "document",
-                "source": {
-                    "type": "base64",
-                    "media_type": "application/pdf",
-                    "data": pdf_base64
-                }
-            },
-            {
-                "type": "text",
-                "text": "Please summarize this document."
-            }
-        ]
-    }]
-)
-
-print(response.json())
-``` 
-
-* **4. Please now search online for what other models we need to update** 
-
-  - Do we have the lates information for Gemini 
-  - Add the new GPT/OpenAI Models 
-
-* **5. Implement parallel agent execution**
-
-  - Review initial plan and ensure it is still valid: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
-     - See **Parallel Agent Role** in the Complete File Index LINE 323 
-     - And **Parallel Agent Execution System** @ LINE 942 
-
-* **6. Implement calendaring and reoccurring workflows**
-
-  - Review original implementation plan to confirm if it is still good to go: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
-  - Add the finalized 'Calendaring JSON Workflow Object' to "JSON Configuration Schemas"
-    - Same index document LINE 1103 
-    - Add "reoccurring" directory to `/configs/reoccurring` 
-    - Under "Configuration Directory Structure" @ LINE 1195 
-    - Update and confirm all four JSON workflow objects are in templates: `./configs/workflows/json_object_templates/` 
-
-* **7. Please add the Analytics Trigger Points to this document for better understanding** 
-
-  - Same index document @ LINE 1071 
-  - We also need to review the implementation plans that we stated to create but are now not applicable  
-    - It is from when all analytics across apps back when they were going to be local apps on everyone's systems 
-    - Now we need to focus on the Web App so presumably Cloud? 
-    - `./versioning/v4_1_0/IMPL_ANALYTICS/IMPL_ANALYTICS_ACCESSIBILITY.md`
-    - `./versioning/v4_1_0/IMPL_ANALYTICS/MULTI_INSTANCE_DATA.md`
-  - And then I don't know that it makes sense to implement fully our analytics collection system without database 
-    - Database implementation plan: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md` 
-    - We should also consider marketing and user info. 
-
-* **8. UI files now that we're not building a terminal public app** 
-
-  - UI files for tools are defined in the index @ LINE 120, 197; must find all others 
-  - Based on the UI description of this document, we need to outline what kind of adjustments need to be made 
-  - We want the Terminal version for internal development purposes to still use the same wording as much as we can  
-
-* **9. Review and Update Website Implementation Plan Parts** 
-
-  - We have a detailed Storefront Website Implementation document: `./versioning/v4_1_0/IMPL_WEBSITE/IMPL_WEBSITE_STOREFRONT.md` 
-  - And there is a Secure Login Implementation document: `./versioning/v4_1_0/IMPL_SECURE_LOGIN/IMPL_SECURE_LOGIN.md` 
-  - There is this Subscription System Implementation document 
-    - But that was for when were going to have a terminal app 
-    - Though since it is the website for A APP maybe it doesn't matter 
-    - Document: `./versioning/v4_0_0/IMPL_DEV_LIVE/IMPL_SUBSCRIPTION_SYSTEM.md` 
-
-
-------------
-------------
 ## Sections 
 
 1. [What happens after a **User login**](#1-user-login-and-userid)
