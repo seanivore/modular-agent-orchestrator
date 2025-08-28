@@ -842,10 +842,8 @@ When chatting with Mao, you will be helping them to fill out a JSON config file.
 | tools                | Tools the agent can use to complete the phase's tasks         |
 | model_1              | Choice model to be the agent of this phase                    |
 | model_2              | Backup model agent should choice agent be unavailable         |
-| model_3              | Fail-safe model agent should choice and backup be unavailable |
 | provider_1           | Provides for the choice model                                 |
 | provider_2           | Provider for the backup model                                 |
-| provider_3           | Provider for the fail-safe model                              |
 | handoff_number       | Count of the handoffs as they're added to the workflow        |
 | assessment_questions | Questions to assess if the deliverable is complete            |
 | human_in_loop        | Whether the orchestrator should get human feedback            |

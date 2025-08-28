@@ -13,7 +13,9 @@
    3. All UI description organized and developed into a web app UI implementation plan
    4. Consolidation of all website implementation plans and integrated into larger web app UI implementation plan
 
-### Logic Audit Procedure 
+---
+
+## Logic Audit Procedure 
 
 * **BATCH 1A: Matching normal language functionality with filename** 
    1. Start at the top of this document `MAO_APP_CUT_UP.md`; isolate and select 1 conceptual code responsibility at a time 
