@@ -13,7 +13,35 @@
    3. All UI description organized and developed into a web app UI implementation plan
    4. Consolidation of all website implementation plans and integrated into larger web app UI implementation plan
 
-### Logic Audit Procedure 
+---
+
+## Logic Audit Procedure 
+
+### STEP 1. Gather Batches 
+
+  - AI call-out the next heading in `MAO_APP_CUT_UP.md` to User
+  - User looks & then provides any helpful info. known from memory about content below that heading 
+  - AI locates in codebase using index, reads entire file for lines to gather 
+  - AI adds CUT and PASTE to appropriate batch with appropriate labeling 
+
+### STEP 2. Write Clean Code with Behavioral & Validation Guidance or Implementation Plans from Batches 
+
+  - AI call-out next file to create while working through batches in order 
+  - User looks at gathered batch info. to confirm there is no in appropriate suggested hardcoding 
+  - I/A, AI compares batch info. with actual file, identifies anything dropped from code & if it can be dropped 
+  - AI compiles all gathered info. and writes new codebase file or implementation plan section 
+
+### STEP 3. Implement Any Implementation Plans, Updating Documentation & Index 
+
+  - Finish building all that needs to be built for full testing in terminal before web app UI build and launch 
+  - Use updating documentation and AI DEV INDEX as way to ensure all proper protocols are followed in code 
+  - Polish Documentation and AI DEV INDEX; prepare and polish Web App & Site Dev Impl Plan 
+
+### STEP 4. Get Mao App Running In Terminal for Real, Live Testing 
+
+---
+
+## Batch Definitions 
 
 * **BATCH 1A: Matching normal language functionality with filename** 
    1. Start at the top of this document `MAO_APP_CUT_UP.md`; isolate and select 1 conceptual code responsibility at a time 
