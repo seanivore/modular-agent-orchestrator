@@ -20,6 +20,8 @@
 ## Implementation Notes
 
 - **CRITICAL**: Edit existing orchestrator files directly rather than creating new files to avoid generating unwanted new code/classes/functions
+- **SCOPE BOUNDARY**: Reference `./documentation/10_AI_DEV_INDEX.md` for complete architecture understanding. Focus audit ONLY on orchestrator files plus `mao_v4.py` main entry point. DO NOT audit tool files, config collections, or interface files - those are separate systems
+- **CONTEXT NOTE**: ui_terminal.py was deleted during web app pivot - this audit focuses on cleaning orchestrator logic only, not interface implementation
 - Must read MAO_FLOW.md completely to understand intended functionality before analyzing code
 - Must read ALL orchestrator files listed in prime.md to understand current implementation
 - Use Sequential Thinking MCP for complex analysis and decision making
@@ -34,14 +36,16 @@
 ### Beginning Context
 - MAO_FLOW.md document exists with complete natural language specifications
 - Orchestrator directory with 20+ files containing over-engineered logic
+- Main entry point mao_v4.py with complex routing that needs simplification
+- ui_terminal.py was deleted during web app pivot - terminal interface needed for testing
 - Current codebase has hardcoded English categories, mock implementations, and excessive complexity
 - Files contain "suggestions" and "examples" that break modularity and multilingual support
 
 ### Ending Context
-- All orchestrator files edited to implement clean, simple logic matching MAO_FLOW.md specifications
+- All orchestrator files + mao_v4.py edited to implement clean, simple logic matching MAO_FLOW.md specifications
 - Documentation files created explaining what each file does in plain language
 - Comprehensive audit report showing before/after comparison
-- System ready for basic terminal implementation testing
+- Clean orchestrator logic ready for separate terminal interface implementation and testing
 
 ## Low-Level Tasks
 > Ordered from start to finish
@@ -55,9 +59,10 @@ Read prime.md for development rules and file list
 Document initial understanding of intended vs actual functionality
 ```
 
-2. **Read All Orchestrator Files**
+2. **Read All Orchestrator Files and Main Entry Point**
 ```
-Read each orchestrator file completely (22 files total):
+Read each orchestrator file completely (23 files total):
+./mao_v4.py
 ./orchestrator/__init__.py
 ./orchestrator/agent_callback.py  
 ./orchestrator/agent_orchestrator.py

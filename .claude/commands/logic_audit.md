@@ -9,7 +9,7 @@ audit_spec: $ARGUMENTS
 **ARGUMENTS PARSING:**
 Parse the following arguments from "$ARGUMENTS":
 1. `flow_spec` - Path to MAO_FLOW.md document containing intended functionality specifications
-2. `audit_spec` - Path to mao_logic_audit_spec.md logic audit specification file defining the audit process
+2. `audit_spec` - Path to the logic audit specification file defining the audit process
 
 **PHASE 1: CONTEXT PRIMING & PROJECT STATE MANAGEMENT**
 
@@ -57,8 +57,9 @@ Read and thoroughly analyze the audit specification at `audit_spec`:
 
 **PHASE 3: ORCHESTRATOR CODEBASE COMPLETE ANALYSIS**
 
-**Read All Orchestrator Files Completely:**
-Following the exact file list from prime.md, read each file in full:
+**Read All Orchestrator Files and Main Entry Point Completely:**
+Following the exact file list from prime.md, plus the main CLI entry point, read each file in full:
+- `./mao_v4.py`
 - `./orchestrator/__init__.py`
 - `./orchestrator/agent_callback.py`
 - `./orchestrator/agent_orchestrator.py`
