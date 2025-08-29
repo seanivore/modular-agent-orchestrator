@@ -4,11 +4,11 @@
 
    1. Identify the simplest core logic of Mao's orchestrator codebase files by writing it out in normal language 
    2. Then, through comparison, remove over-engineering, hardcoded 'suggestions', and any 'mock' code; BEST REAL CODE ONLY
-   3. Through this document, illustrate high-fidelity vision of web app UI and description of UX 
+   3. Additionally, throughout this document, illustrate high-fidelity vision of web app UI and description of UX 
 
 ### Deliverables 
 
-   1. Cleaned, simplified code that launches in terminal for development testing
+   1. Cleaned, simplified code with app that launches in terminal for development testing
    2. Required functionality like multilingual functioning and reoccurring workflows implemented
    3. All UI description organized and developed into a web app UI implementation plan
    4. Consolidation of all website implementation plans and integrated into larger web app UI implementation plan
