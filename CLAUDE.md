@@ -35,17 +35,7 @@ Find: Core principles, production and development guidelines, CRITICAL implement
 - Conversation-driven interfaces only - no menus, navigation, or complex UI chrome
 
 ## UI Development Guidelines
-**Terminal Interface Stack: TypeScript/Node.js + Ink + React**
-- Single conversation interface in `interfaces/mao/` - ChatInterface.tsx as primary component
-- PythonBridge.ts handles subprocess communication via JSON stdin/stdout to ui_terminal.py
-- Use Ink 6.1+ with React 19.1+ - same professional stack as Claude Code
-- Terminal-native design: 4 semantic colors, character choice, whitespace only
-- Message-driven architecture: user input → PythonBridge → Python backend → structured response
-- All Python backend CLI commands accessible via `/command` slash syntax
-- Real backend integration with graceful mock fallbacks for development
-- useCallback hooks for performance, useState for message history and connection status
-- Component structure: ChatInterface → PythonBridge → ui_terminal.py → orchestrator/*
-- No complex UI chrome - conversation flow with embedded progress visualization
+**Previously contained planning for a public terminal app; needs new bullet points**
 
 ---
 

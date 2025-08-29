@@ -17,6 +17,11 @@
 
 ## Logic Audit Procedure 
 
+  - AI review batch definitions in full first to proceed through them synchronously as info. is encountered 
+  - Faster is not better; proceed with paced intention to complete this final cleanup of files 
+  - Record each session by creating `./AUDIT_LOGIC_AUG_2025/SESSION_252808_01` etc. for seamless AI flow across context windows 
+  - Record what will be done first, then update after completion to minimize mid-work context window cutoff confusion 
+
 ### STEP 1. Gather Batches 
 
   - AI call-out the next heading in `MAO_APP_CUT_UP.md` to User
@@ -167,15 +172,15 @@
 * **BUTTON (pressed): Log in to an Existing Account** 
 
   - This is the first page you are routed to 
-    - FIELD: *Enter your email or phone* user identification  
-    - FIELD: Standard *password*  
-      - NOTE: Under password it says *"Leave password blank if using a passkey"* 
-      - Low risk precaution; you can enter anything and it *still works,* system just ignores it *creating flawless UX* 
-      - Better UI than writing "You don't need to enter this if..."
+    - FIELD: *Enter your email or phone* user identification 
+    - FIELD: Standard *password* 
+      - TEXT: Under password it says *"Leave password blank if using a passkey"* 
+      - ACTUAL UX: Low risk precaution; you can enter anything and it *still works,* system just ignores it *creating flawless UX* 
+      - Better UI than writing nothing or writing "You don't need to enter this if..." so it is sort of necessary even if it isn't adhered to 
   - BUTTON (automatic): Cloudflare auto-secure anti-spam *requires no action by the user* 
   - CHECK-MARK (pre-clicked): to *Remember Me* 
 
-  - Pork-bun does *not make it clear that clicking LOGIN will bring up the passkey* and we might want to 
+  - Pork-bun does *not make it clear that clicking LOGIN will bring up the passkey* and we might want to, though in retrospect it is obvious 
 
   - *Legal jargon:* By continuing you agree to the following: I acknowledge that I have read and agree to all Product Terms of Service, the Marketplace Agreement, and the Privacy Policy. You consent to enroll new automatic monthly subscription renewal service, which can be cancelled at any time via the Personal Preferences Billing section of your account. Automatic renewals are billed to payment method(s) specified on your Account Settings page until cancelled. If paying by credit card, you authorize {{ENTITY}} to send instructions to the financial institution that issued your card to take payments from your card account in accordance with the terms of your agreement with us. 
 

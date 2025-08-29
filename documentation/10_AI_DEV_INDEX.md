@@ -1273,6 +1273,6 @@ configs/
 
 ---
 
-This primer eliminates the need for AI file exploration and provides the complete development context for MAO. Reference `CLAUDE.md` for coding standards and principles.
+This primer eliminates the need for AI file exploration and provides the complete development context for Mao. Reference `CLAUDE.md` for coding standards and principles.
 
 ---
