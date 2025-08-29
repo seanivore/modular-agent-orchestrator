@@ -123,6 +123,11 @@
      - It will be a web app UI 
      - BE AWARE of this as progressing through files 
 
+* **Part 8. Updating File Index & Documentation** 
+
+   1. Most important to update and keep accurate is the `./documentation/10_AI_DEV_INDEX.md` 
+   2. Decide or provide thoughts on if this MAO_FLOW.md document should be made into the new documentation 
+
 ---
 
 ## Final Implementation Process 
