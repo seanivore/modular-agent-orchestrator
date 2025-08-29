@@ -24,7 +24,11 @@
    2. Find that functionality in our codebase using the file index `./documentation/10_AI_DEV_INDEX.md`
    3. Compare the functionality described against the orchestrator files 
 
-```
+```CONTEXT 
+./documentation/10_AI_DEV_INDEX.md
+
+.AUDIT_LOGIC/MAO_FLOW.md
+
 ./orchestrator/...
 ├── __init__.py
 ├── agent_callback.py
