@@ -15,6 +15,138 @@
 
 ---
 
+## Logic Audit Process 
+
+### PHASE 1: Matching Normal Language Functionality & Directions With Actual Code 
+
+* **Part 1. Read and compare** 
+   1. Review this document `MAO_FLOW.md` and identify one item of functionality at a time 
+   2. Find that functionality in our codebase using the file index `./documentation/10_AI_DEV_INDEX.md`
+   3. Compare the functionality described against the orchestrator files 
+
+```
+./orchestrator/...
+├── __init__.py
+├── agent_callback.py
+├── agent_orchestrator.py
+├── cache
+│   ├── __init__.py
+│   └── cache_system.py
+├── cli_manager.py
+├── conversation_bridge.py
+├── core.py
+├── error_handling.py
+├── manager_buttons.py
+├── manager_models.py
+├── manager_tools.py
+├── mcp_hub.py
+├── memory_mcp.py
+├── protocol.md
+├── real_time_metrics.py
+├── settings_manager.py
+├── system_analytics_manager.py
+├── user_analytics_manager.py
+├── user_memory_manager.py
+├── username_manager.py
+├── workflow_manager.py
+└── workflow_state.py
+```
+
+* **Part 2. Document with details** 
+   1. Document, grouping using `<filename>` or `cache_<filename>` as a label in the filename of the file created 
+   2. Create the files at `./AUDIT_LOGIC/DETAILS/...`
+   3. Record each item of functionality matched to codebase 
+   4. Detail any miss-matching, explaining the miss-match 
+      - Hardcoding, etc. that will be removed 
+      - Something that is functionally necessary and neglected in this `MAO_FLOW.md` document 
+      - Something that is different in code versus written here 
+      - We will be using what is written here as the final, intended implementation, and updating accordingly 
+
+* **Part 3. Include AI protocol and validation guidance**
+   1. Beside relevant code please include AI behavioral guidance, validation methods, or any psychological guidance 
+   2. This information includes: 
+      - Psychological tips for how to read the user and what their behavior means 
+      - How that influences how Mao should behave 
+      - Methods of validating the information that Mao needs to collect, **without using examples** 
+      - Anything that is helpful to an AI that **IS NOT examples, suggestions or anything else that would be considered hardcoding** 
+   3. This information could be considered a novel, modern, AI-app form of normal language code 
+      - It is necessary for app functioning 
+      - It does not provide examples, suggestions, or groups 
+      - It is only conceptual, maintaining the essential modular, variable-based, build of Mao App 
+
+### PHASE 2: Collections & Creation of New Codebase Files 
+
+* **Part 4. Recreate clean codebase files with modern AI guides** 
+   1. Recreate each of the orchestrator codebase files in `./AUDIT_LOGIC/CODE/...` 
+   2. Name each file the same as it is currently named in the codebase, but with `_clean` appended before the extension 
+   3. This clean, simple, functionally accurate code 
+      - Without any code that is over-engineered 
+      - No hardcoded categories or anything beyond this document's scope 
+      - Current "suggestions" that are woven through the codebase functionality completely removed 
+   4. Regarding mismatches  
+      - Use your best judgement 
+      - Include if it is likely missed functionality that is necessary, e.g. just not mentioned in `MAO_FLOW.md` 
+      - It might involve caching, UI, or error handling, for example 
+   5. If it is something that differs in details here versus code, update the code according to the details in this document 
+      - For example, we ELIMINATED use of a 'username' 
+      - Things will need to be updated accordingly as described in this document 
+   6. Include the AI-protocol guidance 
+      - Use similar if not the same language as used in this document, made more concise where applicable 
+      - As this is rather novel when it comes to code, implement it in a novel way that makes logical sense for its purpose 
+      - The AI should be able to very easily review it when needed; just detailed enough 
+      - NO examples, suggestions, or grouping; all considered 'hardcoding' that break modularity and multilingual functioning 
+      - It should be provided near the relevant code that will also be operational at that time in app flow 
+
+* **Part 5. Collect and detail any functionality to be added, that isn't a full implementation guide** 
+   1. This would include new slash commands that are described in the UI/UX details of this document 
+   2. The list of changes that need to be made to application configuration user settings, etc. 
+   3. Name these document appropriately and save them in directory `./AUDIT_LOGIC/MISSING/...` 
+   4. For each, use the file index `./documentation/10_AI_DEV_INDEX.md` to detail all touch-points that must be updated 
+
+* **Part 6. Collect and organize all UI/UX design guidance** 
+   1. This document has intentionally robust UI and UX description 
+   2. Collect this information and organize it in a document titled and located at `./AUDIT_LOGIC/UX_UI_OVERVIEW.md` 
+   3. The organization of information should make sense for the creation of implementation plans upon completion
+
+### PHASE 3: Overview Document & Final Thoughts 
+
+* **Part 7. Create a document for any feedback and overview of the process, etc.** 
+
+  1. How did things go, how much was fixed, what is the new current state of things. 
+  2. Are there many things to implement 
+     - NOTE: all of the below topics are implementation plans 
+     - Some of which were partially or presumed implemented 
+     - They are not currently in this context window, but next task will be consolidating them and implementing them 
+  3. Any files that were not mentioned or updated at all; if so list them 
+  4. UI was terminal app and now is not 
+     - We are now only going to have the app run in terminal for testing 
+     - It will be a web app UI 
+     - BE AWARE of this as progressing through files 
+
+---
+
+## Final Implementation Process 
+
+* **Actual implementation plans to organize and consolidate**
+   1. This is different than missing features in BATCH 2, these are the entire documents 
+   2. Review, understand, consolidate into ONE final implementation plan that can then be executed `IMPL_DEV_LAUNCH.md` 
+   3. First priority is planning parallel multilingual dev: `./versioning/v4_1_0/IMPL_MULTILINGUAL/IMPL_MULTILINGUAL.md` 
+   4. Implement Claude Code and select Mao model option: `./versioning/v4_1_0/IMPL_CLAUDE_CODE/IMPL_CLAUDE_CODE.md` 
+   5. For other models as Mao, note the charts in the CACHING actual cost bullet below BATCH 6 directions 
+   6. Parallel agent execution; ensure initial plan valid: `./versioning/v4_0_0/IMPL_PARALLEL_AGENTS/IMPL_PARALLEL_AGENTS.md` 
+   7. Implement calendaring reoccurring workflows; validate original doc: `./versioning/v4_0_0/IMPL_TRIGGER_WORKFLOWS/IMPL_TRIGGER_WORKFLOWS.md`
+   8. Old collection analytics was for local apps, need update: `IMPL_ANALYTICS_ACCESSIBILITY.md` and `MULTI_INSTANCE_DATA.md`
+   9. It doesn't make sense to implement analytics without database: `./versioning/v4_1_0/IMPL_DATABASES/IMPL_DATABASES.md`
+   10. Update website implementation plan parts: `IMPL_WEBSITE_STOREFRONT.md`, `IMPL_SECURE_LOGIN.md`, `IMPL_SUBSCRIPTION_SYSTEM.md`
+   11. Finally, create Web App implementation plan, separate of above (mentioning because of website build); `IMPL_WEB_UI.md`
+
+* **NOTE: Conversation required for the UI files distributed throughout our codebase for most every file**
+     - Review files and consider our copywriting strategy; compare it to what the UI copy looks like in `MAO_FLOW.md` 
+     - In the UI section below we discuss how AI will be writing and very frequently updating the UI
+     - I do think it is worth considering if we might want to actually task Haiku 3.5 with this 
+
+---
+
 ## Sections 
 
 1. [What happens after a **User login**](#1-user-login-and-userid)
@@ -365,6 +497,44 @@ function updateShadow() {
 }
 setInterval(updateShadow, 60000); // Update every minute
 ```
+
+### Hybrid Caching Best Practices & Fingerprinting 
+
+* **All models and/or providers config JSON objects have pricing** 
+
+  - This information is used to dynamically calculate accurate usage costs regardless of what model the agent is 
+  - This includes differences in counting tokens 
+
+* **NECESSARY UPDATE: 'Estimated' costs must be ACTUAL COSTS using REAL MATH everywhere** 
+
+  - Any areas we cannot use the real numbers and match, I need us to collect on a list
+    - We cannot use fabricated information when we start marketing the product
+    
+  - Provider-Specific JSON Objects for Regular Updating 
+    - There is a chart from Anthropic pasted below, we need this as a JSON config file that can be updated over time easily 
+    - Find and create the same for any other models that do caching 
+
+| Context Window Size  | Input      | Output        | 
+| -------------------- | ---------- | ------------- |
+| Prompts ≤ 200K       | $3 / MTok  | $15 / MTok    |
+| Prompts > 200K       | $6 / MTok  | $22.50 / MTok |
+
+|                    | Base          | 5m Cache      | 1h Cache     | Cache Hits    | Output        |
+| Model              | Input Tokens  | Writes        | Writes       | & Refreshes   | Tokens        |
+| ------------------ | ------------- | ------------- | ------------ | ------------- | ------------- | 
+| Claude Opus 4.1    | $15 / MTok    | $18.75 / MTok | $30 / MTok   | $1.50 / MTok  | $75 / MTok    | 
+| Claude Opus 4      | $15 / MTok    | $18.75 / MTok | $30 / MTok   | $1.50 / MTok  | $75 / MTok    |
+| Claude Sonnet 4    | $3 / MTok     | $3.75 / MTok  | $6 / MTok    | $0.30 / MTok  | $15 / MTok    | 
+| Claude Sonnet 3.7  | $3 / MTok     | $3.75 / MTok  | $6 / MTok    | $0.30 / MTok  | $15 / MTok    | 
+| Claude Haiku 3.5   | $0.80 / MTok  | $1 / MTok     | $1.6 / MTok  | $0.08 / MTok  | $4 / MTok     |
+| Claude Haiku 3     | $0.25 / MTok  | $0.30 / MTok  | $0.50 / MTok | $0.03 / MTok  | $1.25 / MTok  |
+
+* **OTHER MODEL UPDATES: Context windows, etc.** 
+
+  - Change Context Window for Sonnet 4 to 1 Million; needs update of Configuration File Templates index @ LINE 221
+    - New Opus and other pricing for Cached Tokens; Sonnet 3.5 and Opus 3 depreciated 
+    - Pricing multipliers are 5 min cache write are 1.25 times the base input, 1h are 2 times, and cache read are 0.1 time base 
+    - Search online for any other models to update like GPT/OpenAI
 
 ---
 [TOP](#overview)
