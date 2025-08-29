@@ -149,7 +149,7 @@ Focus on modular, multilingual-friendly approaches
 Edit remaining orchestrator files:
 - memory_mcp.py: Remove mock code, clean Memory MCP integration
 - user_memory_manager.py: Clean user-specific memory management  
-- username_manager.py: Update for UserID system (not username)
+- username_manager.py: Update for UserID system to use email or phone (not username)
 - mcp_hub.py: Clean MCP integration
 - cache/cache_system.py: Clean caching implementation
 - All remaining files: Remove mock code and over-engineering
