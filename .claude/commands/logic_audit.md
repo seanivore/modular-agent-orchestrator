@@ -228,7 +228,9 @@ Edit the most critical orchestrator files:
 
 This is the only phase that may be completed in a single, fresh context window. 
 
-**STEP 1: Re-read MAO_FLOW.md for Conceptual Verification:**
+**STEP 1: Re-reading for Conceptual Verification:**
+- First, re-read the `MAO_FLOW.md` 
+- Then re-read *AND UPDATE DIRECTLY IF NEEDED* the AI DEV FILE INDEX `documentation/10_AI_DEV_INDEX.md` 
 - Refresh complete understanding of intended app functionality
 - Compare edited code against written app functionality specifications
 - Confirm each file's code is functionally as simple, direct, and complete as necessary with nothing more
