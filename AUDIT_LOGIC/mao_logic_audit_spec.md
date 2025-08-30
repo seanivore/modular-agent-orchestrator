@@ -23,7 +23,21 @@
    - These reflect record-keeping of your changes 
    - It is still understood that those other orchestration files will be focused on by an AI in a future session 
 
-### Your File to Focus On is `./orchestrator/__init__.py`
+### Tasks 
+
+* **YOUR TASK** 
+
+  - Focus on doing a logic audit specifically for this assigned file:  `./orchestrator/__init__.py`
+
+* **REMAINING TASKS**
+
+  - 22 files for logic audit task flow 
+  - 1 UX/UI file creation task 
+  - 1 final overview task 
+
+* **COMPLETED TASKS** 
+
+  - None yet 
 
 ### When All Logic Audit Files Are Complete 
 
