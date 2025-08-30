@@ -2,9 +2,9 @@
 
 ## Your Role 
 
-### Overview 
+### Logic Audit File Task Overview  
 
-1. Your role is to perfect ONE orchestration file. 
+1. Your role is to perfect ONE logic audit 'orchestration' file. 
    - Proceed in order down the list in order 
    - User will update the list before activation each workflow 
 
@@ -23,7 +23,12 @@
    - These reflect record-keeping of your changes 
    - It is still understood that those other orchestration files will be focused on by an AI in a future session 
 
-### Tasks 
+### When All Logic Audit Files Are Complete 
+
+  1. The final documentation task after logic audit files is creation of the UX/UI file: `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md`
+  2. The absolute final task is an overview: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
+
+### Tasks Tracker 
 
 * **YOUR TASK** 
 
@@ -38,11 +43,6 @@
 * **COMPLETED TASKS** 
 
   - None yet 
-
-### When All Logic Audit Files Are Complete 
-
-  1. The final documentation task after logic audit files is creation of the UX/UI file: `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md`
-  2. The absolute final task is an overview: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
 
 ---
 
@@ -210,7 +210,7 @@ DO NOT SKIP ANY; the workflow is designed to work with you having all of this co
 - Read `./mao_v4.py` 
 ```
 
-2. **Write initial notes about your file** 
+2. **Write initial working-notes (drafting, not a deliverable) about your file** 
 ```LOGIC AUDIT FILES
 For your assigned file. 
 
@@ -276,7 +276,7 @@ Save the file: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
 ```
 
 5. **Create File Documentation and Conceptual Review**
-```LOGIC AUDIT FILE ONLY, UX/UI FILE SKIP THIS STEP, FINAL OVERVIEW SKIP THIS STEP 
+```LOGIC AUDIT FILE ONLY; UX/UI FILE & FINAL OVERVIEW SKIP TO COMPLETION  
 FIRST: Re-read MAO_FLOW.md completely to refresh understanding of the intended app functionality
 
 THEN: For your specific orchestrator file:
@@ -302,3 +302,4 @@ Save as: `./AUDIT_LOGIC/DETAILS/<filename>_clean.md`
 For cache files use: 
 AUDIT_LOGIC/DETAILS/cache_<filename>_clean.md 
 ```
+6. **COMPLETE** 
