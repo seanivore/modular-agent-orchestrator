@@ -19,7 +19,7 @@ Parse the following arguments from "$ARGUMENTS":
 To be completely clear, this means: 
 
   1. Look at the `./AUDIT_LOGIC/DETAILS/...` directory
-  2. Compare the `<filename>` in the directory with the list of Logic Audit Files in STEP 3, the next in the list that is not is the directory is next 
+  2. Compare the `<filename>` files in the directory with the Logic Audit Files list in STEP 3. The next file from the list that is NOT in the directory is the next file to process 
   3. Confirm this by using the `memory` MCP Project State where the AI lists the completed and remaining files after each round 
   4. Complete STEP 1 through STEP 5 for that next Logic Audit File 
   5. You will see that STEP 5 is updating the Memory MCP and wiping the context window to start with the next file 
@@ -137,13 +137,13 @@ Create analysis documents comparing intended vs actual functionality:
 
 **PHASE 2: DIRECT FILE EDITING FOR CLEAN LOGIC**
 - Complete PHASE 2 in 3 grouped batches of the 23 Orchestrator Logic Audit Files completed in PHASE 1 
-- Complete PHASE 2 for each GROUP 1 through 4 below, one at a time; after finishing a group, STEPS 1 through 4, flag the user
+- Complete PHASE 2 for each GROUP 1 through 3 below, one at a time; after finishing a group, STEPS 1 through 4, flag the user
 
 To be completely clear, this means: 
 
-  1. Search the memory MCP project state exact query's `mao-web` and `mao-logic-audit`  to see what group you are working on 
+  1. Search the memory MCP project state exact query's `mao-web` and `mao-logic-audit` to see what group you are working on 
   2. Confirm your group by looking at the files in `./AUDIT_LOGIC/DETAILS/...` to see which "GROUP_X.md" is present and which is not 
-  3. If GROUP_1.md is in there and no GROUP_2.md then you have confirmed you need to do GROUP 2, etc. 
+  3. If GROUP_1.md exists but GROUP_2.md does not, then GROUP 2 is next to complete 
   4. Complete STEP 1 through 4 below for all of the files in that GROUP 
   5. You will see that STEP 4 is updating the Memory MCP and wiping the context window to start with the next group or move on 
 
@@ -216,11 +216,11 @@ Edit the most critical orchestrator files:
   - It should now be clear for a new AI to know what group to start or to move on next 
 
 **AT THIS POINT, AFTER EACH GROUP, YOU SHOULD:**
-  1. Let the User know you have completed a X file 
+  1. Let the User know you have completed a X group 
   2. They will wipe the context window 
   3. A new AI instance and new context window will start at STEP 1 with the next GROUP 
   4. OR the new AI instance will start the next phase, PHASE 3, at step 1  
-  4. Do not proceed beyond this point until all 3 GROUPS on the list above been completed 
+  5. Do not proceed beyond this point until all 3 GROUPS on the list above have been completed 
 
 ---
 
