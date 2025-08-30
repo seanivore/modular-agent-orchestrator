@@ -32,7 +32,7 @@
 
 * **YOUR TASK** 
 
-  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/cache/cache_system.py`
+  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/cli_manager.py`
 
 * **REMAINING TASKS**
 
@@ -46,6 +46,7 @@
   2. Logic audit of `./orchestrator/agent_callback.py`
   3. Logic audit of `./orchestrator/agent_orchestrator.py`
   4. Logic audit of `./orchestrator/cache/__init__.py` 
+  5. Logic audit of `./orchestrator/cache/cache_system.py` 
 
 ---
 

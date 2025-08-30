@@ -12,8 +12,8 @@ from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List
 from dataclasses import dataclass, asdict
 
-# MAO error handling  
-from ..error_handling import handle_errors
+# Standard MAO imports
+from ..error_handling import handle_errors, retry_with_backoff, APIError
 
 
 @dataclass
@@ -29,7 +29,7 @@ class CacheEntry:
 class CacheManager:
     """🔄 Dual-layer caching: Files API + Local fingerprinting"""
     
-    def __init__(self, cache_dir: str = "~/.oc_cache", verbose: bool = False):
+    def __init__(self, cache_dir: str = "./.cache", verbose: bool = False):
         self.cache_dir = Path(cache_dir).expanduser()
         self.cache_dir.mkdir(exist_ok=True)
         self.verbose = verbose
@@ -59,8 +59,28 @@ class CacheManager:
     # LAYER 1: LOCAL FINGERPRINT CACHE (Permanent)
     # ========================================================================
     
-    def cache_content_analysis(self, content: str, analysis: str, cache_type: str = "content_analysis") -> str:
-        """💾 Cache content analysis permanently"""
+    @handle_errors(operation_name="cache_content_analysis", return_dict=False)
+    def cache_content_analysis(self, cache_key: str, content: str, component_name: str) -> None:
+        """💾 Cache content analysis using MAO standard key format"""
+        key_hash = self.generate_content_hash(cache_key)
+        
+        cache_entry = CacheEntry(
+            content=content,
+            created_at=datetime.now().isoformat(),
+            content_hash=key_hash,
+            cache_type=component_name
+        )
+        
+        cache_file = self.cache_dir / component_name / f"{key_hash}.json"
+        cache_file.parent.mkdir(exist_ok=True)  # Ensure directory exists
+        with open(cache_file, 'w') as f:
+            json.dump(asdict(cache_entry), f, indent=2)
+        
+        if self.verbose:
+            print(f"💾 Cached {cache_key} ({component_name})")
+    
+    def cache_content_analysis_legacy(self, content: str, analysis: str, cache_type: str = "content_analysis") -> str:
+        """💾 Legacy method for backward compatibility"""
         content_hash = self.generate_content_hash(content)
         
         cache_entry = CacheEntry(
@@ -70,7 +90,7 @@ class CacheManager:
             cache_type=cache_type
         )
         
-        cache_file = self.cache_dir / cache_type  /  f"{content_hash}.json"
+        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
         cache_file.parent.mkdir(exist_ok=True)  # Ensure directory exists
         with open(cache_file, 'w') as f:
             json.dump(asdict(cache_entry), f, indent=2)
@@ -79,10 +99,29 @@ class CacheManager:
             print(f"💾 Cached {cache_type}: {content_hash}")
         return content_hash
     
-    def get_cached_analysis(self, content: str, cache_type: str = "content_analysis") -> Optional[str]:
-        """📄 Get cached content analysis"""
+    @handle_errors(operation_name="get_cached_analysis", return_dict=False)
+    def get_cached_analysis(self, cache_key: str, component_name: str) -> Optional[str]:
+        """📄 Get cached content analysis using MAO standard key format"""
+        # Generate file-safe cache key hash
+        key_hash = self.generate_content_hash(cache_key)
+        cache_file = self.cache_dir / component_name / f"{key_hash}.json"
+        
+        if cache_file.exists():
+            with open(cache_file, 'r') as f:
+                cache_entry = json.load(f)
+            
+            if self.verbose:
+                print(f"💾 Cache HIT: {cache_key} ({component_name})")
+            return cache_entry["content"]
+        
+        if self.verbose:
+            print(f"💾 Cache MISS: {cache_key} ({component_name})")
+        return None
+    
+    def get_cached_analysis_legacy(self, content: str, cache_type: str = "content_analysis") -> Optional[str]:
+        """📄 Legacy method for backward compatibility"""
         content_hash = self.generate_content_hash(content)
-        cache_file = self.cache_dir / cache_type  /  f"{content_hash}.json"
+        cache_file = self.cache_dir / cache_type / f"{content_hash}.json"
         
         if cache_file.exists():
             with open(cache_file, 'r') as f:
@@ -107,7 +146,7 @@ class CacheManager:
             cache_type="tool_definition"
         )
         
-        cache_file = self.cache_dir  /  "tool_definitions"  /  f"{tool_name}_{tool_hash}.json"
+        cache_file = self.cache_dir / "tool_definitions" / f"{tool_name}_{tool_hash}.json"
         with open(cache_file, 'w') as f:
             json.dump(asdict(cache_entry), f, indent=2)
         
@@ -118,7 +157,7 @@ class CacheManager:
     def get_cached_tool(self, tool_name: str, tool_definition: Dict) -> Optional[Dict]:
         """🔧 Get cached tool definition"""
         tool_hash = self.generate_tool_hash(tool_name, tool_definition)
-        cache_file = self.cache_dir  /  "tool_definitions"  /  f"{tool_name}_{tool_hash}.json"
+        cache_file = self.cache_dir / "tool_definitions" / f"{tool_name}_{tool_hash}.json"
         
         if cache_file.exists():
             with open(cache_file, 'r') as f:
@@ -136,6 +175,8 @@ class CacheManager:
     # LAYER 2: FILES API WORKFLOW HANDOFFS (Free Inter-Agent Communication)
     # ========================================================================
     
+    @handle_errors(operation_name="store_workflow_file", return_dict=False)
+    @retry_with_backoff(max_retries=3, base_delay=1.0, exceptions=(APIError,))
     async def store_workflow_file(self, content: str, filename: str, anthropic_client) -> str:
         """📁 Store content in Files API for free inter-agent handoffs"""
         try:
@@ -143,7 +184,7 @@ class CacheManager:
             file_response = await anthropic_client.files.create(
                 content=content.encode(),
                 name=filename,
-                type="text / plain"
+                type="text/plain"
             )
             
             file_id = file_response.id
@@ -264,7 +305,7 @@ class CacheManager:
         }
         
         for cache_type in ["content_analysis", "tool_definitions", "workflow_memory"]:
-            cache_path = self.cache_dir  /  cache_type
+            cache_path = self.cache_dir / cache_type
             if cache_path.exists():
                 files = list(cache_path.glob("*.json"))
                 stats[cache_type] = len(files)
@@ -273,7 +314,7 @@ class CacheManager:
                 for file in files:
                     stats["total_size_mb"] += file.stat().st_size
         
-        stats["total_size_mb"] = round(stats["total_size_mb"]  /  (1024 * 1024), 2)
+        stats["total_size_mb"] = round(stats["total_size_mb"] / (1024 * 1024), 2)
         return stats
     
     def cleanup_old_cache(self, days_old: int = 30):
@@ -282,7 +323,7 @@ class CacheManager:
         cleaned = 0
         
         for cache_type in ["content_analysis", "tool_definitions", "workflow_memory"]:
-            cache_path = self.cache_dir  /  cache_type
+            cache_path = self.cache_dir / cache_type
             if not cache_path.exists():
                 continue
                 
