@@ -40,7 +40,7 @@ This process is necessary because, to audit each file, the AI must have a full u
 - Follow the protocol from prime.md for detailed notes and memory updates
 
 **Prime Protocol Implementation:**
-- Read `prime.md` completely for development rules and orchestrator file list
+- Read `./.claude/commands/prime.md` completely for development rules and orchestrator file list
 - Read `CLAUDE.md` for complete development rules including UI Development Guidelines
 - Read `./documentation/10_AI_DEV_INDEX.md` for Python backend architecture understanding
 
