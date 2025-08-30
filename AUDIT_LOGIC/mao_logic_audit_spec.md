@@ -25,6 +25,11 @@
 
 ### Your File to Focus On is `./orchestrator/__init__.py`
 
+### When All Logic Audit Files Are Complete 
+
+  1. The final documentation task after logic audit files is creation of the UX/UI file: `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md`
+  2. The absolute final task is an overview: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
+
 ---
 
 ## Overall Goals 
@@ -156,10 +161,10 @@
 ---
 
 ## Low-Level Tasks
-> Ordered from start to finish
+> Ordered from start to finish, complete every step for all logic files, UI/UX documentation and final overview unless otherwise indicated below. 
 
 1. **Necessary reading** 
-```
+```APPLICABLE TO LOGIC AUDIT FILES, UX/UI FILE, AND FINAL OVERVIEW TASK 
 DO NOT SKIP ANY; the workflow is designed to work with you having all of this context knowledge.
 
 - Think; using the think tool between each step and to review work 
@@ -192,16 +197,23 @@ DO NOT SKIP ANY; the workflow is designed to work with you having all of this co
 ```
 
 2. **Write initial notes about your file** 
-```
-Do this for your specific, chosen, single orchestration file.
+```LOGIC AUDIT FILES
+For your assigned file. 
 
 - Write; detailed notes on the implementation of your file and any other files that are relevant to the functionality you're looking at 
 - Write; document initial understanding of intended vs actual functionality
 ```
+```UX/UI FILE
+- Write; gather all notes, often verbatim and collect them in one notes document 
+```
+```FINAL OVERVIEW 
+Notes; confirm verification that all cleaned logic audit files match the MAO_FLOW.md app functionality specifications. 
+```
 
 3. **Create analysis and documentation**
-```
-For your specific, provided, chosen single orchestration file, create analysis document comparing things. 
+```LOGIC AUDIT FILES
+
+For your assigned file, create an analysis document comparing things. 
 
 - What MAO_FLOW.md says this functionality should do
 - What the current code actually does
@@ -218,18 +230,39 @@ For cache files use:
 
 Any other files you made small edits to need an analysis document as well.
 ```
+```UX/UI FILE
+Edit; organize the notes into a first draft of all the detailed UI and UX information in a way that would be helpful when creating the UI-Web-App Implementation file. 
+```
+```FINAL OVERVIEW 
+
+Create; write the analysis for the final overview. 
+
+Include: 
+  1. Gap Analysis: What the audit discovered about intended vs actual functionality gaps
+  2. Change Summary: Summary of changes made to each file with before/after complexity comparison
+  3. System Flow: Plain language architecture showing flow from user interaction to workflow execution
+  4. Compliance Check: Assessment of whether code is now as simple, direct, and complete as necessary
+  5. Implementation Readiness: Readiness assessment for terminal implementation testing
+  6. Next Steps: Recommended next steps for development/testing
+```
 
 4. **File Editing Phase**
-```
-For your specific file, any any other files that are necessarily related to the functionality and changes to the code you are making, edit the files to implement the clean logic. 
+```LOGIC AUDIT FILE
+For your assigned file, and any other files that are necessarily related to the functionality and changes to the code you are making, edit the files to implement the clean logic. 
 
 Update the actual files 
-
-(Unless this is the final step where you are creating a UI/UX document.)
+```
+```UX/UI FILE 
+Finalize the document into an official Mao App UI/UX Design Guide document. 
+Save the file: `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
+```
+```FINAL OVERVIEW 
+Please conduct a comprehensive review of your work to ensure your deliverable overview is of the highest quality possible. 
+Save the file: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
 ```
 
 5. **Create File Documentation and Conceptual Review**
-```
+```LOGIC AUDIT FILE ONLY, UX/UI FILE SKIP THIS STEP, FINAL OVERVIEW SKIP THIS STEP 
 FIRST: Re-read MAO_FLOW.md completely to refresh understanding of the intended app functionality
 
 THEN: For your specific orchestrator file:
@@ -254,12 +287,4 @@ Save as: `./AUDIT_LOGIC/DETAILS/<filename>_clean.md`
 
 For cache files use: 
 AUDIT_LOGIC/DETAILS/cache_<filename>_clean.md 
-
-If this is the final task and you're gathering UI/UX then: 
-`./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
-```
-
-6. **You are done when** 
-```
-You have done these steps for your one, single, provided orchestration file (or UX/UI collection if this is the final task). 
 ```
