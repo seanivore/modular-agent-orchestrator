@@ -366,30 +366,33 @@ class WorkflowOrchestrator:
         return selected_model
     
     def _estimate_phase_cost(self, phase: WorkflowPhase) -> Tuple[int, float]:
-        """💰 Estimate tokens and cost for a phase"""
+        """💰 Estimate tokens and cost for a phase dynamically"""
         
-        # Rough estimation based on phase complexity
+        # Base estimation without hardcoded English categories
         base_tokens = 2000  # Base prompt and response
         
         # Add tokens for input sources
         input_tokens = len(phase.input_sources) * 1000  # Assume 1K tokens per input
         
-        # Add tokens based on task complexity
-        task_multiplier = {
-            "research": 3.0,  # Lots of web search results
-            "reasoning": 2.0,  # Detailed analysis
-            "creative": 2.5,  # Rich content creation
-            "coding": 3.0,    # Code + documentation
-            "vision": 1.5     # Image analysis
-        }
+        # Dynamic complexity estimation based on actual phase characteristics
+        complexity_multiplier = 2.0  # Default
         
-        task_type = "research"
-        for task in task_multiplier.keys():
-            if task in phase.name:
-                task_type = task
-                break
+        # Analyze phase task instructions length and complexity
+        task_length = len(phase.task_instructions)
+        if task_length > 500:
+            complexity_multiplier = 3.0  # Long instructions = complex task
+        elif task_length > 200:
+            complexity_multiplier = 2.5  # Medium instructions = medium complexity
         
-        estimated_tokens = int(base_tokens * task_multiplier.get(task_type, 2.0) + input_tokens)
+        # Factor in number of output files expected
+        if len(phase.output_files) > 3:
+            complexity_multiplier += 0.5  # Multiple outputs increase complexity
+        
+        # Factor in agent role complexity
+        role_complexity = len(phase.agent_role) / 100  # Longer role descriptions = more complex
+        complexity_multiplier += min(role_complexity, 1.0)  # Cap at +1.0
+        
+        estimated_tokens = int(base_tokens * complexity_multiplier + input_tokens)
         
         # Estimate cost (rough 70% input, 30% output split)
         input_tokens_est = int(estimated_tokens * 0.7)
@@ -404,11 +407,19 @@ class WorkflowOrchestrator:
         return estimated_tokens, estimated_cost
     
     def _generate_workflow_name(self, goal: str) -> str:
-        """Generate a clean workflow name"""
-        # Extract key words and create a name
+        """Generate a clean workflow name without English assumptions"""
+        # Extract meaningful words using language-neutral approach
         words = re.findall(r'\b\w+\b', goal.lower())
-        key_words = [w for w in words if len(w) > 3 and w not in ["and", "the", "for", "with", "that", "this"]]
-        return "-".join(key_words[:4])  # Max 4 words
+        
+        # Filter by length only - no hardcoded English stop words
+        # This works for any language and avoids cultural assumptions
+        key_words = [w for w in words if len(w) > 3][:4]  # Take first 4 meaningful words
+        
+        if not key_words:
+            # Fallback for very short goals or special characters
+            return "workflow-" + str(abs(hash(goal)))[:8]
+        
+        return "-".join(key_words)
     
     def _sanitize_name(self, name: str) -> str:
         """🧹 Create filesystem-safe name"""

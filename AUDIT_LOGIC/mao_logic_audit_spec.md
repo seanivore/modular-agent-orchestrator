@@ -1,97 +1,208 @@
-# MAO Logic Audit Specification
-> Ingest the information from this file, implement the Low-Level Tasks, and generate the code that will satisfy the High and Mid-Level Objectives.
+# Mao App Logic Audit Procedure 
 
-## High-Level Objective
+## Your Role 
 
-- Audit the MAO orchestrator codebase by comparing intended functionality from MAO_FLOW.md against actual implementation
-- Clean up over-engineering, hardcoded suggestions, and mock code
-- Edit orchestrator files directly to implement the simplest core logic that matches the natural language specifications
-- Document the cleaned functionality in plain language for each file
+### Overview 
 
-## Mid-Level Objectives
+1. Your role is to perfect ONE orchestration file. 
+   - Proceed in order down the list in order 
+   - User will update the list before activation each workflow 
 
-- Compare each piece of functionality described in MAO_FLOW.md against the actual orchestrator code implementation
-- Identify mismatches, over-engineering, hardcoded categories/suggestions, and mock code violations
-- Edit the orchestrator files directly to remove complexity and implement clean, simple logic
-- Create comprehensive documentation of what each file actually does vs what it should do
-- Generate a plain language overview of the cleaned system architecture
-- Use Memory MCP to track progress and maintain context across potential context window limits
+2. To do this you must first fully and thoroughly read the complete collection of 23 orchestration files, the MAO_FLOW.md document, and an AI DEV INDEX. 
+   - These are detailed in the CONTEXT section below 
+   - They are over 140,000 tokens total, but a full understanding of all functioning is needed to be able to clean each, single, orchestration file 
+   - Read it thoroughly, do not skip any parts
 
-## Implementation Notes
+3. Once all context is absorbed, focus on your one orchestration file; review it meticulously. 
+   - Create the requested `_analysis` comparisons 
+   - And the requested `_clean` documentation 
+   - Make your cleaning code updates to the files directly 
 
-- **CRITICAL**: Edit existing orchestrator files directly rather than creating new files to avoid generating unwanted new code/classes/functions
-- **SCOPE BOUNDARY**: Reference `./documentation/10_AI_DEV_INDEX.md` for complete architecture understanding. Focus audit ONLY on orchestrator files plus `mao_v4.py` main entry point. DO NOT audit tool files, config collections, or interface files - those are separate systems
-- **CONTEXT NOTE**: ui_terminal.py was deleted during web app pivot - this audit focuses on cleaning orchestrator logic only, not interface implementation
-- Must read MAO_FLOW.md completely to understand intended functionality before analyzing code
-- Must read ALL orchestrator files listed in prime.md to understand current implementation
-- Use Sequential Thinking MCP for complex analysis and decision making
-- Update Memory MCP at key milestones to prevent context loss
-- Entity names: Use `mao-web` and `mao-logic-audit` for Memory MCP updates
-- Follow the "double sequence" pattern: document/understand first, then edit/fix
-- Remove ALL hardcoded suggestions, categories, examples, and mock code - trust AI intelligence completely
-- Focus on multilingual functionality by eliminating English-specific assumptions
+4. You may make updates or changes to other orchestration files if it is for flow of data and functionality to make sense. 
+   - When/if you do, create a `_analysis` and `_clean` documentation for them  as well 
+   - These reflect record-keeping of your changes 
+   - It is still understood that those other orchestration files will be focused on by an AI in a future session 
 
-## Context
+### Your File to Focus On is `./orchestrator/__init__.py`
 
-### Beginning Context
-- MAO_FLOW.md document exists with complete natural language specifications
-- Orchestrator directory with 20+ files containing over-engineered logic
-- Main entry point mao_v4.py with complex routing that needs simplification
-- ui_terminal.py was deleted during web app pivot - terminal interface needed for testing
-- Current codebase has hardcoded English categories, mock implementations, and excessive complexity
-- Files contain "suggestions" and "examples" that break modularity and multilingual support
+---
 
-### Ending Context
-- All orchestrator files + mao_v4.py edited to implement clean, simple logic matching MAO_FLOW.md specifications
-- Documentation files created explaining what each file does in plain language
-- Comprehensive audit report showing before/after comparison
-- Clean orchestrator logic ready for separate terminal interface implementation and testing
+## Overall Goals 
+
+### Audit High-Level Objectives 
+
+1. Ensure simplest core logic necessary in orchestrator codebase files, described in natural language of MAO_FLOW.md 
+  - Identify an app function in natural language 
+  - Match it to the orchestrator codebase file(s) 
+  - Editing orchestrator files directly, remove over-engineering 
+2. Leave only production ready, clean, simple code in orchestration codebase files 
+  - Remove hardcoded examples or suggestions which break modularity rules 
+  - Carefully review every line to remove sloppy 'mock code' additions 
+3. Include new, relatively novel, AI protocol and validation guidance as permitted 
+  - This is carefully defined in MAO_FLOW.md 
+  - Beside relevant code the AI behavioral guidance, validation methods, or any psychological guidance should be placed, contextually 
+  - This includes behavior to look for in User, suggested Mao AI behavior 
+  - Psychological tips for how to read the user and what their behavior means 
+  - Means for validating what the user provides WITHOUT ANY EXAMPLES OR SUGGESTIONS 
+  - Anything that is helpful to the AI that IS NOT examples, suggestions, or anything else considered hardcoding 
+  - You should consider this code as well, because in the same way that python provides the app with functionality logic, this more subjective information provides the AI their own functionality logic; it is equally important 
+
+### Audit Mid-Level Objectives
+
+1. Create comprehensive documentation pulling from the MAO_FLOW.md resource and clean files 
+  - Tell exactly what each file does; then each function in the file 
+  - Someone with basic understanding of what Mao App should understand; plain language overview  
+  - For example, "oh this is where our conversation is turned into variables and placed into the JSON objects needed to run a workflow" 
+2. Collect and organize all UI descriptions and UX breakdowns 
+  - Find UI illustrated with intentionally high-fidelity descriptions throughout MAO_FLOW.md 
+  - Organize the gathered information in a way that will facilitate it being made into an implementation plan in a later session 
+3. As expert for your specific orchestration file, include any new additions detailed in MAO_FLOW.md 
+  - For example there are many changes to settings that are details but
+  - There are also new settings 
+  - Your `_analysis` document should include all touch-points found using `./documentation/10_AI_DEV_INDEX.md`, as well as any other details necessary for full implementation of new CLI slash commands or updated models, etc. to be completed after the audit, as they deal with changes to more than just the orchestration files 
+  - Any orchestration file changes however should have been made 
+
+--- 
+
+## Implementation Details 
+
+* **ALWAYS USE `THINK` TOOL BETWEEN STEPS** 
+   - This is essential for minimizing LLM limitations 
+   - Use these moments to review prior work as well 
+   - Feel that you have really reviewed, perfected, and have high confidence in your deliverables and completed file; the tool will help greatly expanding your capabilities here 
+
+* **EDIT EXISTING ORCHESTRATOR CODE FILES DIRECTLY** 
+  - Do not create any new codebase files 
+  - Help us avoid creating any unwanted new code/classes/functions 
+
+* **SCOPE BOUNDARY**: 
+  - Use `./documentation/10_AI_DEV_INDEX.md` complete architecture index to find matches of codebase with natural language functions
+  - Focus audit ONLY on orchestrator files plus `mao_v4.py` main entry point; DO NOT audit tool files, config collections, or interface files 
+  - ui_terminal.py was deleted during web app pivot - this audit focuses on cleaning orchestrator logic only, not interface implementation
+
+* **OUR INTENTION AND UNDERSTANDING** 
+  - The AI's role in Mao app is simple 
+  - Eliminate all hardcoded suggestions, categories, examples, and mock code
+  - Trust the AI completely 
+  - We will be implementing multilingual functionality after this audit 
+  - While the code will still be in English, it means cultural specific assumptions are also removed, along with any other hardcoding 
+
+---
+
+## Context 
+
+### Beginning Context 
+
+* **Our `./AUDIT_LOGIC/MAO_FLOW.md` golden compass document** 
+  - Natural language functionality logic 
+  - AI protocol, behavior guides, and validation methods 
+  - Descriptions of UI and how the UX should feel 
+
+* **The `./documentation/10_AI_DEV_INDEX.md` IA FILE INDEX** 
+  - This is golden and serves as a way to search without grepping around 
+  - Final all files detail along with their classes and functions 
+
+* **The ORCHESTRATOR files + entry point file**
+  - The following will not be final unless indicated as completed above where your file to focus on was provided 
+  - There is mock code still, and hardcoding woven through; AI does not need suggested category ideas at all 
+
+  1. `./orchestrator/__init__.py`
+  2. `./orchestrator/agent_callback.py`
+  3. `./orchestrator/agent_orchestrator.py`
+  4. `./orchestrator/cache/__init__.py` 
+  5. `./orchestrator/cache/cache_system.py`
+  6. `./orchestrator/cli_manager.py`
+  7. `./orchestrator/conversation_bridge.py`
+  8. `./orchestrator/core.py`
+  9. `./orchestrator/error_handling.py`
+  10. `./orchestrator/manager_buttons.py`
+  11. `./orchestrator/manager_models.py`
+  12. `./orchestrator/manager_tools.py`
+  13. `./orchestrator/mcp_hub.py`
+  14. `./orchestrator/memory_mcp.py`
+  15. `./orchestrator/real_time_metrics.py`
+  16. `./orchestrator/settings_manager.py`
+  17. `./orchestrator/system_analytics_manager.py`
+  18. `./orchestrator/user_analytics_manager.py`
+  19. `./orchestrator/user_memory_manager.py`
+  20. `./orchestrator/username_manager.py`
+  21. `./orchestrator/workflow_manager.py`
+  22. `./orchestrator/workflow_state.py`
+  23. `./mao_v4.py` 
+
+### Ending Context 
+
+* **Edited above 23 files** 
+  - Clean, simple logic matching MAO_FLOW.md specifications
+  - Included AI protocol behavioral logic 
+
+* **Each of the following 2 documents for all 23 files** 
+
+  1. Document `./AUDIT_LOGIC/DETAILS/<filename>_analysis.md` 
+     - Identifying what needed to be fixed 
+     - Describing before/after ideal comparison 
+     - Notes on behavior details 
+     - Any notes on missing or to-be-implemented functionality relevant to your file 
+  2. Document `./AUDIT_LOGIC/DETAILS/<filename>_clean` 
+     - File explaining what the file does in plain language 
+     - Guide for implementing any need to implement relevant functionality 
+
+* **Collected and organized UX/UI details**
+  4. Document `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
+     - Compiled as the "24th" file to produce 
+     - Pulled from all throughout the MAO_FLOW.md file 
+     - Organized in a way that will make creating an implementation document easier 
+
+---
 
 ## Low-Level Tasks
 > Ordered from start to finish
 
-1. **Setup and Context Priming**
+1. **Necessary reading** 
 ```
-Initialize Sequential Thinking and Memory MCP tools
-Create memory entities: `mao-web` and `mao-logic-audit`
-Read MAO_FLOW.md completely to understand intended functionality
-Read prime.md for development rules and file list
-Document initial understanding of intended vs actual functionality
+DO NOT SKIP ANY; the workflow is designed to work with you having all of this context knowledge.
+
+- Think; using the think tool between each step and to review work 
+- Read `./AUDIT_LOGIC/MAO_FLOW.md` completely to understand intended functionality
+- Read `./CLAUDE.md` development rules 
+- Read `./documentation/10_AI_DEV_INDEX.md` file index document 
+- Read `./orchestrator/__init__.py`
+- Read `./orchestrator/agent_callback.py`
+- Read `./orchestrator/agent_orchestrator.py`
+- Read `./orchestrator/cache/__init__.py` 
+- Read `./orchestrator/cache/cache_system.py`
+- Read `./orchestrator/cli_manager.py`
+- Read `./orchestrator/conversation_bridge.py`
+- Read `./orchestrator/core.py`
+- Read `./orchestrator/error_handling.py`
+- Read `./orchestrator/manager_buttons.py`
+- Read `./orchestrator/manager_models.py`
+- Read `./orchestrator/manager_tools.py`
+- Read `./orchestrator/mcp_hub.py`
+- Read `./orchestrator/memory_mcp.py`
+- Read `./orchestrator/real_time_metrics.py`
+- Read `./orchestrator/settings_manager.py`
+- Read `./orchestrator/system_analytics_manager.py`
+- Read `./orchestrator/user_analytics_manager.py`
+- Read `./orchestrator/user_memory_manager.py`
+- Read `./orchestrator/username_manager.py`
+- Read `./orchestrator/workflow_manager.py`
+- Read `./orchestrator/workflow_state.py`
+- Read `./mao_v4.py` 
 ```
 
-2. **Read All Orchestrator Files and Main Entry Point**
+2. **Write initial notes about your file** 
 ```
-Read each orchestrator file completely (23 files total):
-./mao_v4.py
-./orchestrator/__init__.py
-./orchestrator/agent_callback.py  
-./orchestrator/agent_orchestrator.py
-./orchestrator/cache/__init__.py
-./orchestrator/cache/cache_system.py
-./orchestrator/cli_manager.py
-./orchestrator/conversation_bridge.py
-./orchestrator/core.py
-./orchestrator/error_handling.py
-./orchestrator/manager_buttons.py
-./orchestrator/manager_models.py
-./orchestrator/manager_tools.py
-./orchestrator/mcp_hub.py
-./orchestrator/memory_mcp.py
-./orchestrator/real_time_metrics.py
-./orchestrator/settings_manager.py
-./orchestrator/system_analytics_manager.py
-./orchestrator/user_analytics_manager.py
-./orchestrator/user_memory_manager.py
-./orchestrator/username_manager.py
-./orchestrator/workflow_manager.py
-./orchestrator/workflow_state.py
+Do this for your specific, chosen, single orchestration file.
 
-Take detailed notes on current implementation of each file
+- Write; detailed notes on the implementation of your file and any other files that are relevant to the functionality you're looking at 
+- Write; document initial understanding of intended vs actual functionality
 ```
 
-3. **Analysis and Documentation Phase**
+3. **Create analysis and documentation**
 ```
-For each orchestrator file, create analysis document comparing:
+For your specific, provided, chosen single orchestration file, create analysis document comparing things. 
+
 - What MAO_FLOW.md says this functionality should do
 - What the current code actually does
 - Identify specific violations: hardcoded suggestions, mock code, over-engineering
@@ -99,81 +210,38 @@ For each orchestrator file, create analysis document comparing:
 - Note AI behavioral guidance and validation methods needed (without examples)
 
 Save analysis documents as:
-./AUDIT_LOGIC/DETAILS/<filename>_analysis.md (e.g., core_analysis.md, workflow_manager_analysis.md)
+./AUDIT_LOGIC/DETAILS/<filename>_analysis.md 
+(e.g., core_analysis.md, workflow_manager_analysis.md)
 
-For cache files use: ./AUDIT_LOGIC/DETAILS/cache_<filename>_analysis.md
-Group related files logically but maintain individual file analysis
-```
+For cache files use: 
+./AUDIT_LOGIC/DETAILS/cache_<filename>_analysis.md
 
-4. **Memory MCP Checkpoint - Analysis Complete**
-```
-Update Memory MCP with analysis findings
-Document critical issues found across all files
-Secure analysis data against context window loss
-Note which files need the most significant changes
+Any other files you made small edits to need an analysis document as well.
 ```
 
-5. **File Editing Phase - Core System Files**
+4. **File Editing Phase**
 ```
-Edit the core orchestrator files to implement clean logic:
-- core.py: Remove hardcoded workflow patterns and categories
-- conversation_bridge.py: Ensure clean natural language processing  
-- agent_orchestrator.py: Implement simple agent coordination
-- workflow_manager.py: Clean workflow management logic
-- workflow_state.py: Simple state tracking with Memory MCP integration
+For your specific file, any any other files that are necessarily related to the functionality and changes to the code you are making, edit the files to implement the clean logic. 
 
-For each edit:
-- Remove ALL hardcoded suggestions, examples, categories
-- Remove ALL mock code implementations
-- Implement the simplest logic that matches MAO_FLOW.md specifications
-- Add AI behavioral guidance as code comments (no examples)
-- Preserve error handling and caching patterns
-- Maintain integration points with MCP systems
+Update the actual files 
+
+(Unless this is the final step where you are creating a UI/UX document.)
 ```
 
-6. **File Editing Phase - Manager Files**
-```
-Edit the manager files to implement clean logic:
-- manager_tools.py: Dynamic tool discovery without hardcoded categories
-- manager_models.py: Intelligent model selection without suggestions
-- manager_buttons.py: Clean code snippet generation
-- settings_manager.py: Directory-based settings discovery
-- cli_manager.py: CLI command discovery and integration
-
-Remove complexity, hardcoded lists, and mock implementations
-Focus on modular, multilingual-friendly approaches
-```
-
-7. **File Editing Phase - Support Files**
-```
-Edit remaining orchestrator files:
-- memory_mcp.py: Remove mock code, clean Memory MCP integration
-- user_memory_manager.py: Clean user-specific memory management  
-- username_manager.py: Update for UserID system to use email or phone (not username)
-- mcp_hub.py: Clean MCP integration
-- cache/cache_system.py: Clean caching implementation
-- All remaining files: Remove mock code and over-engineering
-```
-
-8. **Memory MCP Checkpoint - Editing Complete**
-```
-Update Memory MCP with editing results
-Document all changes made to each file
-Note any issues encountered during editing
-Prepare for final documentation phase
-```
-
-10. **Create File Documentation and Conceptual Review**
+5. **Create File Documentation and Conceptual Review**
 ```
 FIRST: Re-read MAO_FLOW.md completely to refresh understanding of the intended app functionality
 
-THEN: For each edited orchestrator file, perform conceptual review:
+THEN: For your specific orchestrator file:
+
 - Look at the edited code
 - Compare it against the written app functionality from MAO_FLOW.md  
 - Confirm the file's code is functionally as simple, direct, and complete as necessary with nothing more
-- Write in plain language what each file does based on understanding the app
+
+WRITE: In plain language what each file does based on understanding the app. 
 
 Create documentation explaining in simple terms:
+
 - "This file is what takes all the notes that Mao took during the chat and puts them into workflow JSON objects"
 - Brief description of what the file does in the context of the overall app
 - Key functions and their purposes in plain language
@@ -181,29 +249,17 @@ Create documentation explaining in simple terms:
 - Any important behavioral guidelines for AI usage
 - What was removed/simplified during the audit
 
-Save as: AUDIT_LOGIC/DETAILS/<filename>_clean.md (e.g., core_clean.md, workflow_manager_clean.md)
-For cache files use: AUDIT_LOGIC/DETAILS/cache_<filename>_clean.md
+Save as: `./AUDIT_LOGIC/DETAILS/<filename>_clean.md`
+(e.g., core_clean.md, workflow_manager_clean.md)
+
+For cache files use: 
+AUDIT_LOGIC/DETAILS/cache_<filename>_clean.md 
+
+If this is the final task and you're gathering UI/UX then: 
+`./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
 ```
 
-10. **Create System Overview and Final Assessment**
+6. **You are done when** 
 ```
-Create comprehensive overview document explaining:
-- What the audit process discovered about the gap between intended vs actual functionality
-- Summary of changes made to each file with before/after complexity comparison
-- How the cleaned system now works in the context of MAO_FLOW.md specifications
-- Plain language architecture description showing the flow from user login to workflow execution
-- Assessment of whether the code is now functionally as simple, direct, and complete as necessary
-- Readiness assessment for terminal implementation testing
-- Any remaining concerns or recommendations
-
-Save as: AUDIT_LOGIC/SYSTEM_OVERVIEW.md
-```
-
-11. **Final Memory MCP Update and Quality Check**
-```
-Final Memory MCP update with complete results
-Review all edited files for consistency
-Verify all mock code and hardcoded suggestions removed
-Confirm system maintains essential functionality while being dramatically simplified  
-Document next steps for terminal implementation testing
+You have done these steps for your one, single, provided orchestration file (or UX/UI collection if this is the final task). 
 ```

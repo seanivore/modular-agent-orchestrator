@@ -75,21 +75,26 @@ def find_used_command(args, commands):
     return None, None
 
 def bootstrap_interface():
-    """Bootstrap interface with error recovery"""
+    """Bootstrap interface with error recovery - Web app mode"""
     try:
-        from interfaces.ui_terminal import TerminalInterface
-        
         # Initialize MCP Integration Hub during bootstrap
         logger.info("Initializing MCP Integration Hub...")
         from orchestrator.mcp_hub import create_mcp_hub
         mcp_hub = create_mcp_hub()
         
-        interface = TerminalInterface()
-        interface.mcp_hub = mcp_hub  # Provide MCP Hub access to interface
+        # Web app mode - interface handled by TypeScript frontend
+        # Return a simple object that can handle basic operations
+        class WebInterface:
+            def __init__(self):
+                self.mcp_hub = mcp_hub
+            
+            def launch_terminal_ui_smart(self):
+                print("MAO Web App - Interface handled by TypeScript frontend")
+                print("Use the web interface or specific commands")
         
-        return interface
-    except ImportError:
-        sys.stderr.write("Bootstrap error: Cannot import Mao interface\n")
+        return WebInterface()
+    except Exception as e:
+        sys.stderr.write(f"Bootstrap error: {e}\n")
         sys.exit(1)
 
 @handle_errors(operation_name="main", return_dict=True)
@@ -98,9 +103,9 @@ def main():
     
     # Special handling for UI mode (TypeScript frontend communication)
     if len(sys.argv) >= 2 and '--ui-mode' in sys.argv:
-        from interfaces.ui_terminal import TerminalInterface
-        interface = TerminalInterface()
-        interface.start_ui_mode()
+        print("MAO Web App - UI Mode")
+        print("Interface handled by TypeScript frontend")
+        # Web app communication will be handled by the frontend
         return
     
     # Special handling for 'mao mao' command

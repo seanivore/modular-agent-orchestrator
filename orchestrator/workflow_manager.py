@@ -359,7 +359,7 @@ class WorkflowManager:
             # Extract tags from README content
             tags = []
             
-            # Look for tags in various formats
+            # Look for explicit tags in various formats
             if "Tags:" in content:
                 # Extract tags after "Tags:" line
                 lines = content.splitlines()
@@ -374,13 +374,9 @@ class WorkflowManager:
             hashtags = re.findall(r'#(\w+)', content)
             tags.extend(hashtags)
             
-            # Look for workflow type indicators
-            if "parallel" in content.lower():
-                tags.append("parallel")
-            if "research" in content.lower():
-                tags.append("research")
-            if "analysis" in content.lower():
-                tags.append("analysis")
+            # NO hardcoded English keyword detection
+            # Let users explicitly tag their workflows instead of assuming categories
+            # This supports multilingual workflows and avoids cultural assumptions
             
             # Remove duplicates and return
             return list(set(tags))

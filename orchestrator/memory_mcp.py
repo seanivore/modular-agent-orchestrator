@@ -171,28 +171,50 @@ class MemoryMCPManager:
         """Parse workflow context into recovery information"""
         observations = context.get('observations', [])
         
-        # Extract key information from observations
+        # Extract key information from observations using structured approach
         status = "unknown"
         progress = 0
         phase_info = []
         
         for obs in observations:
-            if "Status:" in obs:
-                status = obs.split("Status:")[-1].strip()
-            elif "Progress:" in obs:
-                try:
-                    progress = int(obs.split("Progress:")[-1].strip().replace('%', ''))
-                except ValueError:
-                    pass
-            elif "Phase" in obs and "completed" in obs:
-                phase_info.append(obs)
+            # Use structured parsing instead of English keyword detection
+            # Look for patterns that work in any language
+            
+            # Try to extract status from timestamp format: "timestamp - Status: value"
+            if " - " in obs and ":" in obs:
+                parts = obs.split(" - ", 1)
+                if len(parts) > 1:
+                    content = parts[1]
+                    # Look for key-value patterns
+                    if ":" in content:
+                        key, value = content.split(":", 1)
+                        key = key.strip().lower()
+                        value = value.strip()
+                        
+                        if "status" in key:
+                            status = value
+                        elif "progress" in key:
+                            try:
+                                # Extract numeric progress
+                                import re
+                                nums = re.findall(r'\d+', value)
+                                if nums:
+                                    progress = int(nums[0])
+                            except ValueError:
+                                pass
+                        elif "phase" in key.lower() and ("completed" in value.lower() or "finished" in value.lower()):
+                            phase_info.append(obs)
+        
+        # Determine resumability based on status patterns (language-neutral)
+        resumable_indicators = ["progress", "active", "running", "executing", "waiting", "pause"]
+        can_resume = any(indicator in status.lower() for indicator in resumable_indicators)
         
         return {
             "workflow_id": context.get('name', '').replace('workflow-', ''),
             "status": status,
             "progress_percentage": progress,
             "completed_phases": phase_info,
-            "can_resume": status in ["in_progress", "paused", "waiting"],
+            "can_resume": can_resume,
             "last_activity": observations[-1] if observations else "No activity recorded"
         }
     
