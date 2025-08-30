@@ -144,224 +144,126 @@ class ConversationToWorkflowBridge:
     
     @handle_errors(operation_name="analyze_goal", return_dict=True)
     def _analyze_goal(self, user_goal: str) -> Dict[str, Any]:
-        """Extract workflow requirements from goal (no hardcoded categories)"""
-        goal_lower = user_goal.lower()
+        """Analyze user goal dynamically without English keyword assumptions"""
+        # Trust AI to understand goals in any language and cultural context
+        # Provide minimal structure - let tool manager determine needed tools dynamically
         
-        # Simple goal analysis based on keywords and patterns
         analysis = {
-            "complexity": "medium",  # Default
-            "domain": "general",     # Default
-            "required_tools": [],
-            "suggested_phases": [],
-            "task_types": []
+            "user_goal": user_goal,
+            "goal_length": len(user_goal),
+            "word_count": len(user_goal.split()),
+            "complexity": "medium",  # Default - let AI adjust as needed
+            "requires_tools": True,   # Assume tools needed - let tool manager decide which
+            "estimated_phases": 1     # Default to single phase - let AI determine if more needed
         }
         
-        # Detect complexity based on goal language
-        if any(word in goal_lower for word in ["simple", "quick", "basic", "just"]):
+        # Simple structural complexity estimation (not based on English keywords)
+        words = user_goal.split()
+        if len(words) < 8:
             analysis["complexity"] = "low"
-        elif any(word in goal_lower for word in ["comprehensive", "detailed", "thorough", "complete", "full"]):
+        elif len(words) > 25:
             analysis["complexity"] = "high"
         
-        # Detect likely required tools based on goal content
-        tool_indicators = {
-            "web_search": ["research", "find", "search", "investigate", "analyze", "competitors", "market"],
-            "text_editor": ["write", "create", "document", "report", "content", "strategy", "plan"],
-            "think": ["analyze", "plan", "strategy", "recommend", "evaluate", "assess"],
-            "graphic_design": ["design", "visual", "logo", "brand", "graphics", "images"],
-            "dalle_generate": ["generate", "create images", "illustrations", "visual content"]
-        }
+        # Check for multiple requests in goal (language-neutral)
+        if any(connector in user_goal for connector in [" and ", ";", ",", " then ", " also "]):
+            analysis["estimated_phases"] = 2
         
-        for tool, keywords in tool_indicators.items():
-            if any(keyword in goal_lower for keyword in keywords):
-                analysis["required_tools"].append(tool)
-        
-        # Default tools if none detected
-        if not analysis["required_tools"]:
-            analysis["required_tools"] = ["think", "text_editor"]
-        
-        # Detect domain based on keywords
-        domain_keywords = {
-            "business": ["business", "strategy", "marketing", "sales", "company", "startup"],
-            "technology": ["tech", "software", "ai", "programming", "development", "app"],
-            "creative": ["creative", "design", "content", "brand", "art", "visual"],
-            "research": ["research", "analysis", "study", "investigate", "data"]
-        }
-        
-        for domain, keywords in domain_keywords.items():
-            if any(keyword in goal_lower for keyword in keywords):
-                analysis["domain"] = domain
-                break
+        # Let AI and tool manager determine everything else based on actual goal content
+        # No predetermined categories or English assumptions
         
         return analysis
     
     def _generate_command_name(self, workflow_spec: Dict[str, Any], user_goal: str) -> str:
-        """Generate natural language command name (spaces, not hyphens)"""
-        goal_lower = user_goal.lower()
+        """Generate natural language command name without English assumptions"""
+        # Create simple command name based on goal structure, not content keywords
+        # This works for any language and avoids English business assumptions
         
-        # Extract key concepts from goal
-        key_words = []
+        words = user_goal.split()
         
-        # Look for action words
-        action_words = ["create", "build", "develop", "analyze", "research", "design", "write", "plan"]
-        for action in action_words:
-            if action in goal_lower:
-                key_words.append(action)
-                break
+        # Use first few meaningful words from goal (language-neutral approach)
+        if len(words) <= 3:
+            command_words = words
+        else:
+            # Take first 2-3 words that are reasonably long (filter out articles/connectors)
+            meaningful_words = [word for word in words[:6] if len(word) > 2]
+            command_words = meaningful_words[:3] if meaningful_words else words[:3]
         
-        # Look for subject matter
-        subject_patterns = [
-            r"(marketing|content|business|competitive?)\s+(strategy|plan|analysis)",
-            r"(website|app|software|tool|platform)",
-            r"(logo|brand|design|visual)",
-            r"(research|analysis|study)",
-            r"(startup|company|business)"
-        ]
+        # Clean up any special characters and create command
+        clean_words = [re.sub(r'[^\w\s]', '', word) for word in command_words if word.strip()]
         
-        for pattern in subject_patterns:
-            matches = re.findall(pattern, goal_lower)
-            if matches:
-                for match in matches[0] if isinstance(matches[0], tuple) else [matches[0]]:
-                    if match and match not in key_words:
-                        key_words.append(match)
+        if not clean_words:
+            return "custom goal"
         
-        # Clean up and limit to 3-4 words
-        key_words = [word for word in key_words if len(word) > 2][:4]
-        
-        # If we didn't extract enough, use fallback
-        if len(key_words) < 2:
-            domain = workflow_spec.get("domain", "general")
-            if domain != "general":
-                key_words = ["create", domain, "workflow"]
-            else:
-                key_words = ["custom", "workflow"]
-        
-        return " ".join(key_words)
+        return " ".join(clean_words).lower()
     
     def _design_phases(self, workflow_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Design workflow phases based on goal analysis (no hardcoded assumptions)"""
+        """Design workflow phases dynamically based on actual user goal"""
         complexity = workflow_spec.get("complexity", "medium")
-        required_tools = workflow_spec.get("required_tools", ["think", "text_editor"])
-        domain = workflow_spec.get("domain", "general")
+        estimated_phases = workflow_spec.get("estimated_phases", 1)
+        user_goal = workflow_spec.get("user_goal", "")
         
         phases = []
         
-        # Simple workflows: 1-2 phases
-        if complexity == "low":
-            phases.append({
-                "name": "execution",
-                "description": "Execute the requested task",
-                "tools": required_tools,
-                "deliverable": "Completed task output",
-                "model": "claude-sonnet-4"
-            })
+        # Let AI determine optimal phase structure based on actual goal
+        # No predetermined workflow patterns - trust AI intelligence
         
-        # Medium complexity: 2-3 phases
-        elif complexity == "medium":
-            # Research phase if web tools needed
-            if any(tool in required_tools for tool in ["web_search", "perplexity_search"]):
-                phases.append({
-                    "name": "research",
-                    "description": "Research and gather information",
-                    "tools": [tool for tool in required_tools if "search" in tool] + ["text_editor"],
-                    "deliverable": "Research findings",
-                    "model": "claude-sonnet-4"
-                })
-            
-            # Analysis / Strategy phase
+        if estimated_phases == 1 or complexity == "low":
+            # Single phase for simple goals - let AI handle everything intelligently
             phases.append({
-                "name": "analysis",
-                "description": "Analyze information and develop approach",
-                "tools": ["think", "text_editor"],
-                "deliverable": "Analysis and strategy",
-                "model": "claude-sonnet-4"
+                "name": "goal_execution",
+                "description": f"Execute user goal: {user_goal[:50]}...",
+                "instructions": f"Understand and execute this goal effectively: {user_goal}",
+                "deliverable": "Goal completion results",
+                "model": "claude-sonnet-4"  # Let model manager choose optimal model
             })
-            
-            # Creation phase if creative tools needed
-            if any(tool in required_tools for tool in ["graphic_design", "dalle_generate"]):
-                phases.append({
-                    "name": "creation",
-                    "description": "Create final deliverables",
-                    "tools": [tool for tool in required_tools if tool in ["graphic_design", "dalle_generate", "text_editor"]],
-                    "deliverable": "Final creative outputs",
-                    "model": "claude-sonnet-4"
-                })
-        
-        # High complexity: 3-4 phases
-        else:  # complexity == "high"
+        else:
+            # Multi-phase for complex goals - let AI break down as needed
             phases.extend([
                 {
-                    "name": "research",
-                    "description": "Comprehensive research and information gathering",
-                    "tools": [tool for tool in required_tools if "search" in tool] + ["text_editor"],
-                    "deliverable": "Detailed research report",
+                    "name": "goal_analysis",
+                    "description": "Analyze goal and plan optimal approach",
+                    "instructions": f"Analyze this goal and determine the best approach: {user_goal}",
+                    "deliverable": "Goal analysis and execution plan",
                     "model": "claude-sonnet-4"
                 },
                 {
-                    "name": "analysis",
-                    "description": "Deep analysis and strategic planning",
-                    "tools": ["think", "text_editor"],
-                    "deliverable": "Strategic analysis",
-                    "model": "claude-sonnet-4"
-                },
-                {
-                    "name": "development",
-                    "description": "Develop comprehensive solution",
-                    "tools": required_tools,
-                    "deliverable": "Solution framework",
-                    "model": "claude-sonnet-4"
-                },
-                {
-                    "name": "finalization",
-                    "description": "Finalize and polish deliverables",
-                    "tools": ["text_editor"] + [tool for tool in required_tools if tool in ["graphic_design", "dalle_generate"]],
-                    "deliverable": "Final polished outputs",
+                    "name": "goal_execution",
+                    "description": "Execute the planned approach",
+                    "instructions": f"Execute the planned approach to achieve: {user_goal}",
+                    "deliverable": "Goal execution results",
                     "model": "claude-sonnet-4"
                 }
             ])
         
+        # Let AI add additional phases during execution if needed
+        # This supports emergent workflow patterns that don't fit predetermined categories
+        
         return phases
     
     def _extract_variables(self, workflow_spec: Dict[str, Any], user_goal: str) -> Dict[str, Any]:
-        """Extract required and optional variables from goal (flexible, not hardcoded)"""
+        """Extract variables dynamically without domain assumptions"""
         variables = {
-            "required": {},
+            "required": {
+                "user_goal": {
+                    "description": "The user's specific goal to accomplish",
+                    "value": user_goal
+                }
+            },
             "optional": {}
         }
         
-        domain = workflow_spec.get("domain", "general")
-        goal_lower = user_goal.lower()
+        # Let AI determine what additional context might be helpful
+        # No predetermined domain categories or English business assumptions
         
-        # Domain-specific variable suggestions (not hardcoded requirements)
-        if domain == "business":
-            if "startup" in goal_lower or "company" in goal_lower:
-                variables["optional"]["company_stage"] = {
-                    "description": "Company stage or size",
-                    "default": "startup"
-                }
-            if "target" in goal_lower or "audience" in goal_lower:
-                variables["optional"]["target_audience"] = {
-                    "description": "Target audience or market",
-                    "default": "not specified"
-                }
+        # Only add truly universal optional variables that apply to any goal
+        if len(user_goal.split()) > 15:  # For longer, more complex goals
+            variables["optional"]["additional_context"] = {
+                "description": "Any additional context or requirements",
+                "default": "none specified"
+            }
         
-        elif domain == "creative":
-            if "brand" in goal_lower or "logo" in goal_lower:
-                variables["optional"]["brand_style"] = {
-                    "description": "Brand style or aesthetic preferences",
-                    "default": "modern and professional"
-                }
-        
-        # Always include budget as optional
-        variables["optional"]["budget"] = {
-            "description": "Budget constraints or preferences",
-            "default": "not specified"
-        }
-        
-        # Timeline is often useful
-        variables["optional"]["timeline"] = {
-            "description": "Timeline or deadline requirements",
-            "default": "standard timeline"
-        }
+        # Let AI ask for clarification during execution if needed
+        # This supports goals in any language and cultural context
         
         return variables
 

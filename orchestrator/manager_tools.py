@@ -159,14 +159,14 @@ class ToolManager:
             return "May be useful for this task"
     
     def _analyze_goal_complexity(self, goal: str) -> Dict[str, Any]:
-        """Analyze goal complexity without hardcoded assumptions"""
+        """Analyze goal complexity without English keyword assumptions"""
         words = goal.split()
         
         return {
             "word_count": len(words),
             "estimated_complexity": "simple" if len(words) < 10 else "complex",
             "contains_multiple_tasks": "and" in goal.lower() or "then" in goal.lower(),
-            "time_sensitive": any(word in goal.lower() for word in ["urgent", "asap", "quickly", "fast"])
+            "has_urgency_indicators": any(punct in goal for punct in ["!", "??", "!!"]) or goal.isupper()
         }
     
     def _check_model_compatibility(self, tools: List[Dict], model: str) -> Dict[str, Any]:

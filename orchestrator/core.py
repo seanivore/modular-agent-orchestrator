@@ -125,18 +125,14 @@ class WorkflowOrchestrator:
                 # Fall back to defaults if JSON is invalid
                 pass
         
-        # Default protocol if file doesn't exist or is invalid
+        # Default protocol - no hardcoded workflow patterns, trust AI intelligence
         return {
             "cost_optimization": {
                 "always_try_free_first": True,
                 "max_cost_per_workflow": 1.00,
                 "warn_at_cost": 0.50
-            },
-            "workflow_patterns": {
-                "research_then_create": ["research", "reasoning", "creative"],
-                "analyze_and_recommend": ["research", "reasoning"],
-                "multimedia_project": ["research", "creative", "vision"]
             }
+            # Removed hardcoded workflow_patterns - let AI design optimal workflows
         }
     
     async def create_workflow_from_goal(
@@ -217,61 +213,29 @@ class WorkflowOrchestrator:
     
     def _analyze_goal(self, goal: str) -> Dict[str, Any]:
         """
-        Analyze user goal to understand requirements
+        Analyze user goal dynamically without hardcoded English assumptions
+        Let AI understand the goal in user's language and cultural context
         """
-        goal_lower = goal.lower()
-        
+        # Provide minimal structure - let AI fill in requirements dynamically
         analysis = {
-            "task_types": [],
-            "complexity": "medium",
-            "requires_tools": False,
-            "requires_vision": False,
-            "requires_web_access": False,
-            "output_format": "markdown",
-            "domain": "general"
+            "user_goal": goal,
+            "goal_length": len(goal),
+            "word_count": len(goal.split()),
+            "has_multiple_sentences": len([s for s in goal.split('.') if s.strip()]) > 1,
+            "estimated_complexity": "medium",  # Default only
+            "requires_tools": True,  # Assume tools needed - let tool manager decide which
+            "output_format": "markdown"
         }
         
-        # Detect task types
-        if any(word in goal_lower for word in ["research", "analyze", "study", "investigate", "find", "look up"]):
-            analysis["task_types"].append("research")
-            analysis["requires_web_access"] = True
+        # Simple complexity estimation based on goal structure, not content
+        words = goal.split()
+        if len(words) < 10:
+            analysis["estimated_complexity"] = "low"
+        elif len(words) > 30:
+            analysis["estimated_complexity"] = "high"
         
-        if any(word in goal_lower for word in ["create", "write", "design", "draft", "compose", "generate"]):
-            analysis["task_types"].append("creative")
-        
-        if any(word in goal_lower for word in ["strategy", "plan", "recommend", "decide", "evaluate", "assess"]):
-            analysis["task_types"].append("reasoning")
-        
-        if any(word in goal_lower for word in ["code", "program", "develop", "build", "implement"]):
-            analysis["task_types"].append("coding")
-        
-        if any(word in goal_lower for word in ["image", "photo", "visual", "picture", "graphic", "generate", "create", "paint", "draw", "art", "logo", "design"]):
-            analysis["task_types"].append("vision")
-            analysis["requires_vision"] = True
-            
-            # Special detection for image GENERATION (not just analysis)
-            if any(word in goal_lower for word in ["generate", "create", "paint", "draw", "design", "make"]):
-                analysis["task_types"].append("image_generation")
-                analysis["requires_image_generation"] = True
-        
-        # Detect complexity
-        if len(analysis["task_types"]) > 2 or any(word in goal_lower for word in ["comprehensive", "detailed", "thorough", "complete"]):
-            analysis["complexity"] = "high"
-        elif len(analysis["task_types"]) == 1 and any(word in goal_lower for word in ["simple", "quick", "brief"]):
-            analysis["complexity"] = "low"
-        
-        # Detect domain
-        domains = {
-            "business": ["marketing", "strategy", "sales", "business", "company", "revenue"],
-            "technology": ["ai", "software", "tech", "programming", "data", "algorithm"],
-            "creative": ["design", "art", "creative", "brand", "content", "copy"],
-            "research": ["study", "analysis", "research", "investigation", "report"]
-        }
-        
-        for domain, keywords in domains.items():
-            if any(keyword in goal_lower for keyword in keywords):
-                analysis["domain"] = domain
-                break
+        # Let AI determine everything else dynamically based on actual goal content
+        # No English keyword detection - trust AI to understand goal in any language
         
         return analysis
     
@@ -282,114 +246,43 @@ class WorkflowOrchestrator:
         tool_suggestions: Dict[str, Any]
     ) -> List[WorkflowPhase]:
         """
-        Design optimal workflow structure with tools
+        Let AI design optimal workflow phases dynamically based on actual user goal
+        No predetermined patterns - trust AI intelligence to create appropriate workflow structure
         """
         phases = []
-        task_types = analysis["task_types"]
         selected_tools = tool_suggestions.get("core_tools", [])
         
-        # Add tool-specific phases based on selected tools
+        # Add tool-specific phases based on selected tools (if tools define phase structure)
         tool_phases = self._create_tool_phases(selected_tools, analysis)
         phases.extend(tool_phases)
         
-        # Single task type workflows
-        if len(task_types) == 1:
-            task_type = task_types[0]
+        # For goals without tool-defined phases, create a single intelligent phase
+        # Let AI determine the optimal approach without predetermined workflow patterns
+        if not phases:
             phases.append(WorkflowPhase(
-                name=f"{task_type}_phase",
-                model="",  # Will be selected later
-                agent_role=self._get_agent_role(task_type, analysis["domain"]),
-                task_instructions=self._get_task_instructions(task_type, analysis),
+                name="intelligent_execution",
+                model="",  # Will be selected by model manager
+                agent_role="Expert agent capable of understanding and executing user goals dynamically",
+                task_instructions=f"Analyze and execute the following goal using appropriate methods and tools: {analysis.get('user_goal', '')}",
                 input_sources=[],
-                output_files=[f"{task_type}_result.md"]
+                output_files=["goal_execution_results.md"]
             ))
         
-        # Multi-task workflows
-        else:
-            # Research-driven workflows
-            if "research" in task_types:
-                phases.append(WorkflowPhase(
-                    name="research_phase",
-                    model="",
-                    agent_role=self._get_agent_role("research", analysis["domain"]),
-                    task_instructions=self._get_task_instructions("research", analysis),
-                    input_sources=[],
-                    output_files=["research_findings.md", "key_data.json"]
-                ))
-            
-            # Analysis / reasoning phase
-            if "reasoning" in task_types:
-                input_sources = ["research_findings.md"] if "research" in task_types else []
-                phases.append(WorkflowPhase(
-                    name="analysis_phase",
-                    model="",
-                    agent_role=self._get_agent_role("reasoning", analysis["domain"]),
-                    task_instructions=self._get_task_instructions("reasoning", analysis),
-                    input_sources=input_sources,
-                    output_files=["analysis_report.md", "recommendations.md"]
-                ))
-            
-            # Creative / implementation phase
-            if "creative" in task_types:
-                input_sources = []
-                if "research" in task_types:
-                    input_sources.append("research_findings.md")
-                if "reasoning" in task_types:
-                    input_sources.append("analysis_report.md")
-                
-                phases.append(WorkflowPhase(
-                    name="creative_phase",
-                    model="",
-                    agent_role=self._get_agent_role("creative", analysis["domain"]),
-                    task_instructions=self._get_task_instructions("creative", analysis),
-                    input_sources=input_sources,
-                    output_files=["creative_output.md", "final_deliverable.md"]
-                ))
-            
-            # Vision phase (if needed)
-            if "vision" in task_types:
-                phases.append(WorkflowPhase(
-                    name="vision_phase",
-                    model="",
-                    agent_role="Visual content specialist with expertise in image analysis and generation",
-                    task_instructions=self._get_task_instructions("vision", analysis),
-                    input_sources=["creative_output.md"] if "creative" in task_types else [],
-                    output_files=["visual_content.md", "image_specifications.json"]
-                ))
-            
-            # Image Generation phase (if needed) 
-            if "image_generation" in task_types:
-                input_sources = []
-                if "research" in task_types:
-                    input_sources.append("research_findings.md")
-                if "creative" in task_types:
-                    input_sources.append("creative_output.md")
-                if "vision" in task_types:
-                    input_sources.append("visual_content.md")
-                    
-                phases.append(WorkflowPhase(
-                    name="image_generation_phase",
-                    model="",
-                    agent_role="AI artist specialist with expertise in visual creation and DALL-E prompting",
-                    task_instructions=self._get_task_instructions("image_generation", analysis),
-                    input_sources=input_sources,
-                    output_files=["generated_images.md", "image_prompts.json"]
-                ))
-            
-            # Coding phase (if needed)
-            if "coding" in task_types:
-                input_sources = []
-                if "reasoning" in task_types:
-                    input_sources.append("analysis_report.md")
-                
-                phases.append(WorkflowPhase(
-                    name="coding_phase",
-                    model="",
-                    agent_role=self._get_agent_role("coding", analysis["domain"]),
-                    task_instructions=self._get_task_instructions("coding", analysis),
-                    input_sources=input_sources,
-                    output_files=["implementation.py", "technical_docs.md"]
-                ))
+        # Let AI add additional phases if needed based on goal complexity
+        # This allows for emergent workflow patterns that don't fit predetermined categories
+        complexity = analysis.get("estimated_complexity", "medium")
+        if complexity == "high" and len(phases) == 1:
+            # For complex goals, suggest AI might want to break into planning + execution phases
+            phases.insert(0, WorkflowPhase(
+                name="planning_analysis",
+                model="",
+                agent_role="Strategic planning agent for complex goal analysis",
+                task_instructions=f"Analyze and plan the optimal approach for: {analysis.get('user_goal', '')}",
+                input_sources=[],
+                output_files=["execution_plan.md"]
+            ))
+            # Update main phase to use planning input
+            phases[1].input_sources = ["execution_plan.md"]
         
         return phases
     
@@ -410,11 +303,12 @@ class WorkflowOrchestrator:
                 continue
             
             # Create dynamic workflow phase from JSON configuration
+            # Tools define their own optimal integration patterns
             tool_phases.append(WorkflowPhase(
-                name=phase_config.get("phase_name", f"{tool_id}_phase"),
+                name=phase_config.get("phase_name", f"{tool_id}_execution"),
                 model=phase_config.get("preferred_model", ""),  # Will be selected later if empty
-                agent_role=phase_config.get("agent_role", f"Specialist with {tool_id} capabilities"),
-                task_instructions=phase_config.get("task_instructions", f"Use {tool_id} to complete the assigned task."),
+                agent_role=phase_config.get("agent_role", f"Agent specialized in using {tool_id} effectively"),
+                task_instructions=phase_config.get("task_instructions", f"Apply {tool_id} capabilities to help achieve: {analysis.get('user_goal', 'the user goal')}"),
                 input_sources=phase_config.get("input_sources", []),
                 output_files=phase_config.get("output_files", [f"{tool_id}_results.md"])
             ))
@@ -422,57 +316,29 @@ class WorkflowOrchestrator:
         return tool_phases
     
     def _get_agent_role(self, task_type: str, domain: str) -> str:
-        """🎭 Generate appropriate agent role description"""
-        
-        roles = {
-            "research": {
-                "business": "Business intelligence analyst with expertise in market research and competitive analysis",
-                "technology": "Technology research specialist with deep knowledge of AI and software trends",
-                "creative": "Creative industry research expert with understanding of design and brand trends",
-                "general": "Professional research analyst with broad domain expertise"
-            },
-            "reasoning": {
-                "business": "Strategic business consultant with expertise in data-driven decision making",
-                "technology": "Technical architect with strong analytical and problem-solving skills",
-                "creative": "Creative strategist with analytical thinking and brand expertise",
-                "general": "Strategic analyst with critical thinking and synthesis capabilities"
-            },
-            "creative": {
-                "business": "Marketing strategist and content creator with business acumen",
-                "technology": "Technical writer and content strategist with tech industry knowledge",
-                "creative": "Creative director with expertise in content creation and brand development",
-                "general": "Creative professional with strong writing and content development skills"
-            },
-            "coding": {
-                "business": "Business application developer with understanding of commercial requirements",
-                "technology": "Senior software engineer with expertise in modern development practices",
-                "creative": "Creative technologist with skills in interactive and visual programming",
-                "general": "Full-stack developer with broad technical expertise"
-            }
-        }
-        
-        return roles.get(task_type, {}).get(domain, f"Expert {task_type} specialist")
+        """Generate agent role description dynamically without hardcoded assumptions"""
+        # Instead of hardcoded roles, provide behavioral guidance for AI to generate appropriate role
+        # AI should create role description based on actual user goal and context
+        return f"Expert agent capable of {task_type} tasks with deep understanding of user requirements"
     
     def _get_task_instructions(self, task_type: str, analysis: Dict[str, Any]) -> str:
-        """📋 Generate specific task instructions"""
+        """Generate task instructions dynamically based on actual user goal"""
+        # Instead of hardcoded instructions, provide guidance for AI to understand what to do
+        # Let AI generate appropriate instructions based on user's actual goal and context
         
-        base_instructions = {
-            "research": "Conduct comprehensive research using web search and analysis tools. Gather current, relevant information and organize findings clearly.",
-            "reasoning": "Analyze the provided information critically. Identify patterns, draw insights, and develop strategic recommendations based on evidence.",
-            "creative": "Create compelling, high-quality content that meets the specified requirements. Focus on clarity, engagement, and achieving the stated goals.",
-            "coding": "Develop clean, efficient, and well-documented code that solves the specified problem. Follow best practices and include appropriate error handling.",
-            "vision": "Analyze visual content and create detailed specifications for image generation or editing. Focus on composition, style, and technical requirements.",
-            "image_generation": "Create detailed, artistic prompts for DALL-E 3 image generation. Focus on style, composition, lighting, and artistic techniques. Generate multiple creative variations."
-        }
+        user_goal = analysis.get('user_goal', '')
+        complexity = analysis.get('estimated_complexity', 'medium')
         
-        instruction = base_instructions.get(task_type, "Complete the assigned task professionally and thoroughly.")
+        # Generate context-aware instructions without predetermined examples
+        instruction = f"Execute the following user goal effectively: {user_goal}"
         
-        # Add dynamic complexity modifiers based on analysis
-        complexity = analysis.get("complexity", "medium")
+        # Add complexity guidance without hardcoded assumptions
         if complexity == "high":
-            instruction += " This is a complex task requiring thorough analysis and detailed output."
+            instruction += " Take time to thoroughly understand requirements and provide comprehensive results."
         elif complexity == "low":
-            instruction += " Focus on providing a clear, concise response that addresses the core requirements."
+            instruction += " Focus on clear, direct execution that addresses the core need."
+        else:
+            instruction += " Use professional judgment to determine the appropriate level of detail and approach."
         
         return instruction
     
