@@ -32,17 +32,17 @@
 
 * **YOUR TASK** 
 
-  - Focus on doing a logic audit specifically for this assigned file:  `./orchestrator/__init__.py`
+  - Focus on doing a logic audit specifically for this assigned file:  `./orchestrator/agent_callback.py`
 
 * **REMAINING TASKS**
 
-  - 22 files for logic audit task flow 
+  - 21 files for logic audit task flow 
   - 1 UX/UI file creation task 
   - 1 final overview task 
 
 * **COMPLETED TASKS** 
 
-  - None yet 
+  - `./orchestrator/__init__.py` 
 
 ---
 
@@ -182,7 +182,16 @@
 DO NOT SKIP ANY; the workflow is designed to work with you having all of this context knowledge.
 
 - Think; using the think tool between each step and to review work 
-- Read `./AUDIT_LOGIC/MAO_FLOW.md` completely to understand intended functionality
+
+- Read `./AUDIT_LOGIC/MAO_FLOW.md` completely to understand intended functionality; you will need to read it in chunks 
+    - CRITICAL: This 45,777 token document MUST be read in its entirety for accurate audit
+    - Read in 4 sequential chunks due to token limits:
+      - CHUNK 1: Sections 1-3 (lines 1-952) - User login, UI design, initial user messages
+      - CHUNK 2: Sections 4-6 (lines 953-1579) - Mao preparation, behavior, workflow validation
+      - CHUNK 3: Sections 7-11 (lines 1580-2489) - Planning completion, workflows, UI during execution
+      - CHUNK 4: Sections 12-13 (lines 2490-3352) - Project review and communication
+    - Do not proceed with audit until all 4 chunks have been read completely
+
 - Read `./CLAUDE.md` development rules 
 - Read `./documentation/10_AI_DEV_INDEX.md` file index document 
 - Read `./orchestrator/__init__.py`
