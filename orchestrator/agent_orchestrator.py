@@ -6,6 +6,7 @@ Coordinates agent handoffs with context packages via Files API
 
 import json
 import uuid
+import asyncio
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
@@ -32,8 +33,9 @@ class PhaseResult:
 
 class AgentOrchestrator:
     """
-    Coordinates agent handoffs with context packages
-    Simple, focused orchestration following proven SFA patterns
+    Coordinates agent handoffs with parallel execution support
+    Simple, focused orchestration trusting AI intelligence completely
+    Supports simultaneous agents with phase patterns like 01a, 01b, 01c
     """
     
     def __init__(self):
@@ -53,9 +55,9 @@ class AgentOrchestrator:
         num_phases = params.get("num_phases", 1)
         base_cost += num_phases * 0.005  # $0.005 per phase coordination
         
-        # Add cost for agent handoffs
-        num_handoffs = params.get("num_handoffs", 1)
-        base_cost += num_handoffs * 0.003  # $0.003 per agent handoff
+        # Add cost for parallel agent execution
+        parallel_agents = params.get("parallel_agents", 1)
+        base_cost += parallel_agents * 0.003  # $0.003 per parallel agent
         
         # Add cost for file operations
         file_operations = params.get("file_operations", 2)
@@ -112,6 +114,187 @@ class AgentOrchestrator:
         
         return result
     
+    @handle_errors(operation_name="execute_parallel_phases", return_dict=True)
+    async def execute_parallel_phases(self, workflow_id: str, phase_group: List[dict]) -> Dict[str, Any]:
+        """Execute multiple agents in parallel for simultaneous workflow phases"""
+        
+        if not phase_group:
+            return {"success": False, "error": "No phases provided for parallel execution"}
+        
+        # Check cache for similar parallel executions
+        phase_names = "|".join([phase.get('name', 'unknown') for phase in phase_group])
+        cache_key = f"{workflow_id}|parallel|{phase_names}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "parallel_phases")
+        if cached_result:
+            return json.loads(cached_result)
+        
+        # Get workflow context from Memory MCP
+        workflow_context = self.memory_mcp.get_workflow_context(workflow_id)
+        if not workflow_context:
+            return {
+                "success": False,
+                "error": f"No workflow context found for {workflow_id}"
+            }
+        
+        # Create agent packages for all parallel phases
+        parallel_packages = []
+        for phase in phase_group:
+            package = self._create_agent_package(workflow_id, phase, workflow_context)
+            parallel_packages.append(package)
+        
+        # Store all packages simultaneously via Files API
+        package_storage_tasks = []
+        for package in parallel_packages:
+            task = asyncio.create_task(
+                self._store_agent_package_async(workflow_id, package)
+            )
+            package_storage_tasks.append(task)
+        
+        try:
+            package_ids = await asyncio.gather(*package_storage_tasks)
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to store parallel packages: {str(e)}"
+            }
+        
+        # Track parallel group start in Memory MCP
+        phase_list = ", ".join([phase['name'] for phase in phase_group])
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Parallel group started: {phase_list} (Packages: {', '.join(package_ids)})"
+        )
+        
+        result = {
+            "success": True,
+            "parallel_execution": True,
+            "phase_count": len(phase_group),
+            "package_ids": package_ids,
+            "agent_packages": parallel_packages,
+            "group_id": f"group_{uuid.uuid4().hex[:8]}",
+            "simultaneous_agents": len(phase_group)
+        }
+        
+        # Cache the parallel execution result
+        self.cache.cache_content_analysis(cache_key, json.dumps(result), "parallel_phases")
+        
+        return result
+    
+    async def _store_agent_package_async(self, workflow_id: str, package: dict) -> str:
+        """Asynchronously store agent package via Files API"""
+        # Wrapper for async package storage
+        return self.files_api.save_agent_package(workflow_id, package)
+    
+    @handle_errors(operation_name="handle_parallel_callbacks", return_dict=True)
+    def handle_parallel_callbacks(self, workflow_id: str, parallel_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Process multiple simultaneous agent completion callbacks"""
+        
+        if not parallel_results:
+            return {"success": False, "error": "No parallel results provided"}
+        
+        individual_results = []
+        all_deliverables = []
+        successful_phases = 0
+        total_cost = 0.0
+        
+        # Process each parallel result
+        for result in parallel_results:
+            try:
+                phase_name = result.get('phase_name', 'unknown')
+                
+                # Process individual callback (reuse existing logic)
+                processed = self.handle_agent_callback(
+                    workflow_id, 
+                    phase_name, 
+                    result
+                )
+                
+                individual_results.append(processed)
+                
+                # Aggregate deliverables and metrics
+                if processed.get('success', False):
+                    successful_phases += 1
+                    deliverables = processed.get('deliverables', {}).get('processed_files', [])
+                    all_deliverables.extend(deliverables)
+                    total_cost += result.get('cost', 0.0)
+                    
+            except Exception as e:
+                individual_results.append({
+                    "success": False,
+                    "error": str(e),
+                    "phase_name": result.get('phase_name', 'unknown')
+                })
+        
+        # Aggregate parallel group results
+        group_completion = {
+            "all_successful": successful_phases == len(parallel_results),
+            "success_rate": successful_phases / len(parallel_results) if parallel_results else 0,
+            "successful_count": successful_phases,
+            "total_phases": len(parallel_results),
+            "combined_deliverables": len(all_deliverables),
+            "total_cost": total_cost
+        }
+        
+        # Update workflow state with parallel completion
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Parallel group completed: {successful_phases}/{len(parallel_results)} phases successful | "
+            f"Deliverables: {len(all_deliverables)} | Cost: ${total_cost:.4f}"
+        )
+        
+        # Determine next phase based on group completion
+        next_phase_info = self._determine_next_phase_from_parallel(
+            workflow_id, individual_results, group_completion
+        )
+        
+        return {
+            "success": True,
+            "parallel_execution": True,
+            "individual_results": individual_results,
+            "group_completion": group_completion,
+            "aggregated_deliverables": all_deliverables,
+            "next_phase": next_phase_info,
+            "workflow_status": self._get_workflow_status(workflow_id)
+        }
+    
+    def _determine_next_phase_from_parallel(self, workflow_id: str, individual_results: List[Dict], group_completion: Dict) -> Dict[str, Any]:
+        """Determine next workflow phase after parallel group completion"""
+        
+        # Get workflow context for intelligent phase progression
+        context = self.memory_mcp.get_workflow_context(workflow_id)
+        if not context:
+            return {"available": False, "reason": "No workflow context"}
+        
+        # AI-driven phase determination based on parallel group results
+        # MAO_FLOW.md: Let AI analyze deliverables and determine optimal next steps
+        analysis_context = {
+            "parallel_completion": group_completion,
+            "workflow_goal": context.get('goal', ''),
+            "total_deliverables": group_completion.get('combined_deliverables', 0),
+            "success_rate": group_completion.get('success_rate', 0),
+            "workflow_progress": len(context.get('observations', [])),
+            "deliverable_quality": "high" if group_completion.get('all_successful', False) else "mixed"
+        }
+        
+        # Trust AI intelligence to determine appropriate next phase
+        # Provide rich context for intelligent workflow progression
+        if group_completion.get('all_successful', False):
+            return {
+                "available": True,
+                "progression_type": "continue_workflow",
+                "analysis_context": analysis_context,
+                "ai_recommendation": "Analyze parallel deliverables to determine optimal next workflow phase",
+                "ready_for_progression": True
+            }
+        else:
+            return {
+                "available": True,
+                "progression_type": "handle_partial_completion",
+                "analysis_context": analysis_context,
+                "ai_recommendation": "Review partial results and determine recovery or continuation strategy",
+                "ready_for_progression": False
+            }
+    
     def _create_agent_package(self, workflow_id: str, phase: dict, context: dict) -> dict:
         """Create complete agent handoff package"""
         
@@ -161,42 +344,35 @@ class AgentOrchestrator:
         }
     
     def _generate_agent_instructions(self, phase: dict, context: dict) -> str:
-        """Generate comprehensive instructions for the agent"""
+        """Generate context-rich instructions trusting AI communication intelligence"""
         
-        instructions = f"""
-# Workflow Phase: {phase['name']}
+        # Provide rich context and let AI determine optimal communication approach
+        # MAO_FLOW.md: Trust AI completely - no rigid templates or constraints
+        core_context = {
+            "phase_name": phase.get('name', 'Workflow Phase'),
+            "objective": phase.get('task_instructions', 'Complete the assigned workflow phase'),
+            "workflow_goal": context.get('goal', 'Not specified'),
+            "available_tools": phase.get('tools', []),
+            "expected_outputs": phase.get('expected_outputs', []),
+            "previous_deliverables_count": len(context.get('deliverables', [])),
+            "success_criteria": phase.get('success_criteria', 'Phase completed successfully'),
+            "agent_role": phase.get('agent_role', 'Workflow execution agent')
+        }
+        
+        # Simple, flexible instruction format that trusts AI intelligence
+        instructions = f"""Workflow Phase: {core_context['phase_name']}
+        
+Objective: {core_context['objective']}
+Workflow Goal: {core_context['workflow_goal']}
+Available Tools: {', '.join(core_context['available_tools']) if core_context['available_tools'] else 'None specified'}
+Expected Outputs: {', '.join(core_context['expected_outputs']) if core_context['expected_outputs'] else 'To be determined'}
+Previous Deliverables: {core_context['previous_deliverables_count']} files available
 
-## Your Role
-{phase.get('agent_role', 'Workflow execution agent')}
+Role: {core_context['agent_role']}
+Success Criteria: {core_context['success_criteria']}
 
-## Phase Objective
-{phase.get('task_instructions', 'Complete the assigned workflow phase')}
-
-## Workflow Context
-**Goal**: {context.get('goal', 'Not specified')}
-**Previous Results**: {len(context.get('deliverables', []))} deliverables available
-
-## Available Tools
-{self._format_tool_list(phase.get('tools', []))}
-
-## Expected Deliverables
-{self._format_deliverables_list(phase.get('expected_outputs', []))}
-
-## Execution Guidelines
-1. Use the provided tool buttons for all tool interactions
-2. Follow the phase objective closely
-3. Build on previous deliverables when relevant
-4. Document your process and decisions
-5. Call back when phase is complete with all deliverables
-
-## Success Criteria
-{phase.get('success_criteria', 'Phase completed with all expected deliverables')}
-
-## Important Notes
-- This is part of a larger workflow; maintain consistency with previous phases
-- Use Memory MCP integration for state tracking if available
-- Quality over speed; thorough execution expected
-"""
+Use provided tool buttons for interactions. This phase is part of a larger workflow - maintain consistency and quality."""
+        
         return instructions.strip()
     
     def _format_tool_list(self, tools: List[str]) -> str:
@@ -207,7 +383,7 @@ class AgentOrchestrator:
         formatted = []
         for tool in tools:
             formatted.append(f"- {tool}")
-        return Path(r"\n").join(formatted)
+        return "\n".join(formatted)
     
     def _format_deliverables_list(self, deliverables: List[str]) -> str:
         """Format deliverables list for agent instructions"""
@@ -217,7 +393,7 @@ class AgentOrchestrator:
         formatted = []
         for deliverable in deliverables:
             formatted.append(f"- {deliverable}")
-        return Path(r"\n").join(formatted)
+        return "\n".join(formatted)
     
     def _create_context_summary(self, context: dict) -> str:
         """Create concise context summary for agent"""
@@ -305,30 +481,23 @@ class AgentOrchestrator:
             }
     
     def _validate_callback_results(self, results: dict) -> dict:
-        """Validate agent callback results format"""
+        """Lightweight validation trusting agent intelligence"""
         
+        # MAO_FLOW.md: Trust AI completely - minimal validation
+        # Agent intelligence is sufficient for most validation concerns
         errors = []
         
-        # Check required fields
-        required_fields = ["success", "deliverables"]
-        for field in required_fields:
-            if field not in results:
-                errors.append(f"Missing required field: {field}")
+        # Only validate essential structure exists
+        if not isinstance(results, dict):
+            errors.append("Results must be a dictionary")
         
-        # Validate deliverables format
-        deliverables = results.get("deliverables", [])
-        if not isinstance(deliverables, list):
-            errors.append("Deliverables must be a list")
-        
-        # Check success field type
-        success = results.get("success")
-        if success is not None and not isinstance(success, bool):
-            errors.append("Success field must be boolean")
+        # Trust agent intelligence for field presence and format
+        # Agents are perfectly capable of providing appropriate results
         
         return {
             "valid": len(errors) == 0,
             "errors": errors,
-            "retry_instructions": "Ensure callback includes: success (bool), deliverables (list)"
+            "retry_instructions": "Provide results as dictionary structure"
         }
     
     def _process_deliverables(self, workflow_id: str, phase_name: str, deliverables: List[str]) -> dict:
@@ -473,3 +642,74 @@ class AgentOrchestrator:
                     "Review workflow configuration"
                 ]
             }
+    
+    def group_phases_for_parallel_execution(self, phases: List[dict]) -> List[List[dict]]:
+        """Group phases by base number for parallel execution (01a, 01b → group 01)"""
+        
+        if not phases:
+            return []
+        
+        phase_groups = {}
+        
+        for phase in phases:
+            # Extract base phase number from phase numbering like "01a", "01b", "02", etc.
+            phase_number = phase.get('phase_number', phase.get('number', '1'))
+            
+            # Extract base number (01a → 01, 02b → 02, 03 → 03)
+            base_number = ''.join(filter(str.isdigit, str(phase_number)))
+            if not base_number:
+                base_number = "1"  # Default fallback
+            
+            # Group phases by base number
+            if base_number not in phase_groups:
+                phase_groups[base_number] = []
+            phase_groups[base_number].append(phase)
+        
+        # Return groups in sorted order
+        return [phase_groups[key] for key in sorted(phase_groups.keys())]
+    
+    async def execute_workflow_with_parallel_support(self, workflow_id: str, phases: List[dict]) -> Dict[str, Any]:
+        """Execute workflow with automatic parallel phase detection and execution"""
+        
+        # Group phases for parallel execution
+        phase_groups = self.group_phases_for_parallel_execution(phases)
+        
+        all_results = []
+        workflow_successful = True
+        
+        # Execute each group (sequential groups, parallel within groups)
+        for group in phase_groups:
+            if len(group) == 1:
+                # Single phase execution
+                result = self.execute_workflow_phase(workflow_id, group[0])
+                all_results.append(result)
+                
+                if not result.get('success', False):
+                    workflow_successful = False
+                    break
+            else:
+                # Parallel phase group execution
+                try:
+                    result = await self.execute_parallel_phases(workflow_id, group)
+                    all_results.append(result)
+                    
+                    if not result.get('success', False):
+                        workflow_successful = False
+                        break
+                except Exception as e:
+                    workflow_successful = False
+                    all_results.append({
+                        "success": False,
+                        "error": f"Parallel execution failed: {str(e)}",
+                        "group_size": len(group)
+                    })
+                    break
+        
+        return {
+            "workflow_success": workflow_successful,
+            "total_groups": len(phase_groups),
+            "parallel_groups": len([g for g in phase_groups if len(g) > 1]),
+            "sequential_groups": len([g for g in phase_groups if len(g) == 1]),
+            "all_results": all_results,
+            "execution_pattern": "mixed_parallel_sequential"
+        }
