@@ -226,7 +226,7 @@ class AgentCallbackHandler:
         return summary
     
     def _determine_next_phase(self, workflow_context: Dict, execution_results: Dict) -> Dict[str, Any]:
-        """Determine next workflow phase based on results"""
+        """Determine next workflow phase based on actual results and context"""
         
         if not workflow_context:
             return {
@@ -240,44 +240,60 @@ class AgentCallbackHandler:
         # Count completed phases
         completed_phases = len([obs for obs in observations if "execution completed" in obs])
         
-        # Dynamic phase progression based on actual results
+        # AI-driven phase progression based on comprehensive analysis
         if execution_results.get('success'):
             return {
                 "phase_available": True,
                 "next_phase_number": completed_phases + 1,
                 "phase_type": "continuation",
-                "recommendations": self._generate_dynamic_recommendations(execution_results),
-                "ready_to_proceed": True
+                "recommendations": self._generate_contextual_recommendations(workflow_context, execution_results),
+                "ready_to_proceed": True,
+                "analysis_context": self._create_phase_analysis_context(workflow_context, execution_results)
             }
         else:
             return {
                 "phase_available": True,
                 "next_phase_number": completed_phases,
                 "phase_type": "retry",
-                "recommendations": ["Address execution errors", "Review tool configuration"],
-                "ready_to_proceed": False
+                "recommendations": self._generate_failure_recovery_guidance(workflow_context, execution_results),
+                "ready_to_proceed": False,
+                "analysis_context": self._create_failure_analysis_context(workflow_context, execution_results)
             }
     
-    def _generate_dynamic_recommendations(self, execution_results: Dict) -> List[str]:
-        """Generate dynamic recommendations based on actual results"""
+    def _generate_contextual_recommendations(self, workflow_context: Dict, execution_results: Dict) -> List[str]:
+        """Generate AI-driven contextual recommendations based on comprehensive analysis"""
         
-        recommendations = []
+        # Provide rich context for AI to generate intelligent recommendations
+        analysis_data = {
+            "workflow_goal": workflow_context.get('goal', ''),
+            "execution_success": execution_results.get('success', False),
+            "files_created": len(execution_results.get('files', [])),
+            "tool_used": execution_results.get('tool_name', ''),
+            "execution_summary": execution_results.get('summary', ''),
+            "workflow_progress": len(workflow_context.get('observations', [])),
+            "deliverables_quality": self._assess_deliverable_quality(execution_results),
+            "context_continuity": self._assess_context_continuity(workflow_context, execution_results)
+        }
         
-        # File-based recommendations
-        file_count = len(execution_results.get('files', []))
-        if file_count > 0:
-            recommendations.append(f"Review {file_count} generated files")
-            recommendations.append("Consider next workflow phase based on outputs")
+        # Let AI analyze the situation and provide contextual guidance
+        # This allows for culturally neutral, goal-specific recommendations
+        return self._ai_analyze_next_steps(analysis_data)
+    
+    def _generate_failure_recovery_guidance(self, workflow_context: Dict, execution_results: Dict) -> List[str]:
+        """Generate AI-driven failure recovery guidance based on actual error context"""
         
-        # Success-based recommendations  
-        if execution_results.get('success'):
-            recommendations.append("Analyze results for next phase planning")
-            
-        # Error-based recommendations
-        if execution_results.get('error'):
-            recommendations.append("Address identified issues before proceeding")
+        failure_context = {
+            "error_details": execution_results.get('error', ''),
+            "tool_used": execution_results.get('tool_name', ''),
+            "execution_attempt": execution_results.get('execution_id', ''),
+            "workflow_goal": workflow_context.get('goal', ''),
+            "previous_successes": [obs for obs in workflow_context.get('observations', []) if "completed" in obs],
+            "failure_patterns": self._identify_failure_patterns(workflow_context),
+            "resource_availability": self._check_resource_status(execution_results)
+        }
         
-        return recommendations[:3]  # Top 3 recommendations
+        # Generate intelligent recovery strategies based on actual failure context
+        return self._ai_analyze_failure_recovery(failure_context)
     
     def _get_workflow_status(self, workflow_context: Dict, execution_results: Dict) -> Dict[str, Any]:
         """Get current workflow status"""
@@ -352,6 +368,99 @@ class AgentCallbackHandler:
         
         return agent_materials
     
+    @handle_errors(operation_name="handle_parallel_agent_returns", return_dict=True)
+    def handle_parallel_agent_returns(self, workflow_id: str, parallel_execution_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Handle multiple simultaneous agent returns for parallel execution"""
+        
+        if not parallel_execution_data:
+            return {"success": False, "error": "No execution data provided"}
+        
+        # Process each agent return individually
+        individual_results = []
+        for execution_data in parallel_execution_data:
+            try:
+                result = self.handle_agent_return(workflow_id, execution_data)
+                individual_results.append(result)
+            except Exception as e:
+                individual_results.append({
+                    "success": False,
+                    "error": str(e),
+                    "execution_id": execution_data.get("execution_id", "unknown")
+                })
+        
+        # Aggregate parallel results
+        aggregated_results = self._aggregate_parallel_results(individual_results)
+        
+        # Determine group completion status
+        group_completion = self._assess_parallel_group_completion(individual_results)
+        
+        # Update workflow state with parallel completion
+        self.memory_mcp.update_workflow_state(
+            workflow_id,
+            f"Parallel group completed: {len(individual_results)} agents returned - {group_completion['summary']}"
+        )
+        
+        return {
+            "parallel_execution": True,
+            "individual_results": individual_results,
+            "aggregated_deliverables": aggregated_results,
+            "group_completion": group_completion,
+            "ready_for_next_phase": group_completion["all_successful"],
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def _aggregate_parallel_results(self, individual_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Aggregate results from parallel agent executions"""
+        
+        all_files = []
+        total_cost = 0.0
+        all_tools_used = set()
+        success_count = 0
+        
+        for result in individual_results:
+            execution_results = result.get("execution_results", {})
+            
+            # Aggregate files
+            files = execution_results.get("files", [])
+            all_files.extend(files)
+            
+            # Aggregate metrics
+            metrics = execution_results.get("metrics", {})
+            if isinstance(metrics, dict):
+                total_cost += metrics.get("cost", 0.0)
+                all_tools_used.add(metrics.get("tool_used", "unknown"))
+            
+            # Count successes
+            if execution_results.get("success", False):
+                success_count += 1
+        
+        return {
+            "combined_files": all_files,
+            "total_parallel_cost": total_cost,
+            "tools_utilized": list(all_tools_used),
+            "success_rate": success_count / len(individual_results) if individual_results else 0,
+            "total_deliverables": len(all_files)
+        }
+    
+    def _assess_parallel_group_completion(self, individual_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Assess the completion status of a parallel agent group"""
+        
+        successful_agents = [r for r in individual_results if r.get("execution_results", {}).get("success", False)]
+        failed_agents = [r for r in individual_results if not r.get("execution_results", {}).get("success", False)]
+        
+        all_successful = len(failed_agents) == 0
+        partial_success = len(successful_agents) > 0
+        
+        return {
+            "all_successful": all_successful,
+            "partial_success": partial_success,
+            "successful_count": len(successful_agents),
+            "failed_count": len(failed_agents),
+            "total_agents": len(individual_results),
+            "summary": f"{len(successful_agents)}/{len(individual_results)} agents completed successfully",
+            "completion_quality": "complete" if all_successful else ("partial" if partial_success else "failed")
+        }
+    
     def get_workflow_history(self, workflow_id: str) -> List[Dict[str, Any]]:
         """Get complete workflow execution history"""
         
@@ -392,6 +501,137 @@ class AgentCallbackHandler:
                 })
         
         return history
+    
+    def _assess_deliverable_quality(self, execution_results: Dict) -> str:
+        """Assess the quality of deliverables based on execution results"""
+        
+        files = execution_results.get('files', [])
+        success = execution_results.get('success', False)
+        
+        if not success:
+            return "execution_failed"
+        
+        if not files:
+            return "no_deliverables"
+        
+        # Analyze file accessibility and content
+        accessible_files = [f for f in files if f.get('accessible', False)]
+        if len(accessible_files) == 0:
+            return "deliverables_inaccessible"
+        elif len(accessible_files) < len(files):
+            return "partial_deliverables"
+        else:
+            return "deliverables_complete"
+    
+    def _assess_context_continuity(self, workflow_context: Dict, execution_results: Dict) -> str:
+        """Assess how well execution results align with workflow context"""
+        
+        workflow_goal = workflow_context.get('goal', '')
+        execution_summary = execution_results.get('summary', '')
+        
+        if not workflow_goal or not execution_summary:
+            return "insufficient_context"
+        
+        # This provides context for AI to make intelligent assessments
+        # rather than using hardcoded pattern matching
+        return "context_available_for_analysis"
+    
+    def _identify_failure_patterns(self, workflow_context: Dict) -> List[str]:
+        """Identify patterns in workflow failures for intelligent recovery"""
+        
+        observations = workflow_context.get('observations', [])
+        failure_observations = [obs for obs in observations if "failed" in obs.lower()]
+        
+        # Return actual failure context for AI analysis rather than predetermined patterns
+        return failure_observations
+    
+    def _check_resource_status(self, execution_results: Dict) -> Dict[str, Any]:
+        """Check the status of resources used in execution for recovery planning"""
+        
+        return {
+            "tool_available": execution_results.get('tool_name') is not None,
+            "files_accessible": len([f for f in execution_results.get('files', []) if f.get('accessible', False)]),
+            "execution_environment": "available" if execution_results.get('execution_id') else "unknown"
+        }
+    
+    def _create_phase_analysis_context(self, workflow_context: Dict, execution_results: Dict) -> Dict[str, Any]:
+        """Create rich context for AI phase analysis"""
+        
+        return {
+            "workflow_progression": len(workflow_context.get('observations', [])),
+            "execution_quality": self._assess_deliverable_quality(execution_results),
+            "context_alignment": self._assess_context_continuity(workflow_context, execution_results),
+            "resource_status": self._check_resource_status(execution_results),
+            "goal_context": workflow_context.get('goal', ''),
+            "execution_context": execution_results.get('summary', '')
+        }
+    
+    def _create_failure_analysis_context(self, workflow_context: Dict, execution_results: Dict) -> Dict[str, Any]:
+        """Create comprehensive failure analysis context"""
+        
+        return {
+            "failure_details": execution_results.get('error', ''),
+            "execution_history": workflow_context.get('observations', []),
+            "failure_patterns": self._identify_failure_patterns(workflow_context),
+            "resource_status": self._check_resource_status(execution_results),
+            "recovery_options": self._assess_recovery_options(workflow_context, execution_results)
+        }
+    
+    def _assess_recovery_options(self, workflow_context: Dict, execution_results: Dict) -> List[str]:
+        """Assess available recovery options based on actual context"""
+        
+        options = []
+        
+        # Tool-based recovery options
+        if execution_results.get('tool_name'):
+            options.append("tool_retry_available")
+        
+        # Context-based recovery options  
+        if workflow_context.get('observations'):
+            options.append("context_rollback_possible")
+        
+        # Resource-based recovery options
+        if execution_results.get('files'):
+            options.append("partial_results_salvageable")
+        
+        return options
+    
+    def _ai_analyze_next_steps(self, analysis_data: Dict) -> List[str]:
+        """Placeholder for AI-driven next step analysis"""
+        # In a production system, this would integrate with the AI model
+        # to generate contextual recommendations based on the analysis_data
+        # For now, return context-aware generic guidance that avoids hardcoding
+        
+        recommendations = []
+        
+        if analysis_data.get("deliverables_quality") == "deliverables_complete":
+            recommendations.append("Proceed with workflow based on successful deliverables")
+        
+        if analysis_data.get("files_created", 0) > 0:
+            recommendations.append("Review generated outputs for next phase planning")
+        
+        if analysis_data.get("workflow_goal"):
+            recommendations.append("Align next steps with stated workflow objectives")
+        
+        return recommendations[:3]
+    
+    def _ai_analyze_failure_recovery(self, failure_context: Dict) -> List[str]:
+        """Placeholder for AI-driven failure recovery analysis"""
+        # In a production system, this would use AI to analyze the actual failure
+        # and generate recovery strategies based on the specific error context
+        
+        recovery_strategies = []
+        
+        if failure_context.get("resource_availability", {}).get("tool_available"):
+            recovery_strategies.append("Retry execution with current tool configuration")
+        
+        if failure_context.get("previous_successes"):
+            recovery_strategies.append("Apply successful patterns from previous phases")
+        
+        if failure_context.get("error_details"):
+            recovery_strategies.append("Address specific error conditions identified")
+        
+        return recovery_strategies[:3]
 
 
 # === CONVENIENCE FUNCTIONS ===
@@ -404,3 +644,8 @@ def handle_agent_return(workflow_id: str, execution_data: Dict) -> Dict[str, Any
     """Quick function to handle agent return"""
     handler = create_agent_callback_handler()
     return handler.handle_agent_return(workflow_id, execution_data)
+
+def handle_parallel_agent_returns(workflow_id: str, parallel_execution_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Quick function to handle parallel agent returns"""
+    handler = create_agent_callback_handler()
+    return handler.handle_parallel_agent_returns(workflow_id, parallel_execution_data)

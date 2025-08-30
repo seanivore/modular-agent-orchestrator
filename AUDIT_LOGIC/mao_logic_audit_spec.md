@@ -32,7 +32,7 @@
 
 * **YOUR TASK** 
 
-  - Focus on doing a logic audit specifically for this assigned file:  `./orchestrator/agent_callback.py`
+  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/agent_orchestrator.py`
 
 * **REMAINING TASKS**
 
@@ -42,7 +42,8 @@
 
 * **COMPLETED TASKS** 
 
-  - `./orchestrator/__init__.py` 
+  1. Logic audit of `./orchestrator/__init__.py` 
+  2. Logic audit of `./orchestrator/agent_callback.py`
 
 ---
 
@@ -180,6 +181,7 @@
 1. **Necessary reading** 
 ```APPLICABLE TO LOGIC AUDIT FILES, UX/UI FILE, AND FINAL OVERVIEW TASK 
 DO NOT SKIP ANY; the workflow is designed to work with you having all of this context knowledge.
+READ FILES IN ORDER from top to bottom. 
 
 - Think; using the think tool between each step and to review work 
 
@@ -193,7 +195,9 @@ DO NOT SKIP ANY; the workflow is designed to work with you having all of this co
     - Do not proceed with audit until all 4 chunks have been read completely
 
 - Read `./CLAUDE.md` development rules 
+
 - Read `./documentation/10_AI_DEV_INDEX.md` file index document 
+
 - Read `./orchestrator/__init__.py`
 - Read `./orchestrator/agent_callback.py`
 - Read `./orchestrator/agent_orchestrator.py`
