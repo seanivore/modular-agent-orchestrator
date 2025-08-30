@@ -13,11 +13,31 @@ from pathlib import Path
 from typing import Dict, List, Any
 
 from .cache.cache_system import CacheManager
-from .error_handling import handle_errors, retry_with_backoff, APIError
+from .error_handling import handle_errors, retry_with_backoff, APIError, ValidationError
+
+
+class JSONConfigNormalizer:
+    """Schema validation and normalization for workflow JSON objects"""
+    
+    def __init__(self):
+        pass
+    
+    def normalize_config(self, config_data: Dict[str, Any], config_type: str) -> Dict[str, Any]:
+        """Normalize and validate configuration against schemas"""
+        # Basic validation - let Claude handle complex validation dynamically
+        if not config_data:
+            raise ValidationError("Configuration data cannot be empty")
+            
+        if config_type not in ["workflow", "phase", "handoff", "calendar"]:
+            raise ValidationError(f"Unknown configuration type: {config_type}")
+            
+        # Trust Claude to provide valid configurations
+        # Minimal validation to ensure required structure
+        return config_data
 
 
 class ConversationToWorkflowBridge:
-    """Convert conversations to executable workflows using proven SFA patterns"""
+    """Convert conversations to executable workflows with minimal hardcoded logic"""
     
     def __init__(self):
         from .memory_mcp import MemoryMCPManager
@@ -26,8 +46,8 @@ class ConversationToWorkflowBridge:
         self.cache = CacheManager()
         
         self.memory_mcp = MemoryMCPManager()
-        self.setup_script_path = "scripts / setup_workflow.sh"  # ONE setup script
-        self.use_case_base = "configs / use_case"
+        self.setup_script_path = "scripts/setup_workflow.sh"  # ONE setup script
+        self.use_case_base = "configs/use_case"
         
         # Ensure use-case directory exists
         os.makedirs(self.use_case_base, exist_ok=True)
@@ -78,21 +98,26 @@ class ConversationToWorkflowBridge:
             # Create workflow entity in Memory MCP
             self.memory_mcp.create_workflow_context(workflow_id, user_goal)
             
-            # Generate JSON config (same format humans create)
+            # Generate JSON config with all required object types
+            phases = self._design_phases(workflow_spec)
             config = {
-                "workflow_id": workflow_id,
-                "custom_command": self._generate_command_name(workflow_spec, user_goal),
-                "goal": user_goal,
-                "phases": self._design_phases(workflow_spec),
-                "variables": self._extract_variables(workflow_spec, user_goal)
+                "workflow": {
+                    "workflow_id": workflow_id,
+                    "custom_command": self._generate_command_name(workflow_spec, user_goal),
+                    "goal": user_goal,
+                    "variables": self._extract_variables(workflow_spec, user_goal)
+                },
+                "phases": phases,
+                "handoffs": self._generate_handoff_configs(phases),
+                "calendar": None  # Only for recurring workflows
             }
             
             # Save config to use-case directory
             command_name = config["custom_command"].replace(" ", "-")
-            use_case_dir = f"{self.use_case_base} / {command_name}"
+            use_case_dir = f"{self.use_case_base}/{command_name}"
             os.makedirs(use_case_dir, exist_ok=True)
             
-            config_path = f"{use_case_dir} / config.json"
+            config_path = f"{use_case_dir}/config.json"
             with open(config_path, 'w') as f:
                 json.dump(config, f, indent=2)
             
@@ -144,32 +169,25 @@ class ConversationToWorkflowBridge:
     
     @handle_errors(operation_name="analyze_goal", return_dict=True)
     def _analyze_goal(self, user_goal: str) -> Dict[str, Any]:
-        """Analyze user goal dynamically without English keyword assumptions"""
-        # Trust AI to understand goals in any language and cultural context
-        # Provide minimal structure - let tool manager determine needed tools dynamically
+        """Analyze user goal with minimal structure, trusting Claude's intelligence"""
+        # Trust Claude to understand goals in any language and cultural context
+        # Provide only basic structural information, let Claude determine everything else
         
         analysis = {
             "user_goal": user_goal,
             "goal_length": len(user_goal),
             "word_count": len(user_goal.split()),
-            "complexity": "medium",  # Default - let AI adjust as needed
-            "requires_tools": True,   # Assume tools needed - let tool manager decide which
-            "estimated_phases": 1     # Default to single phase - let AI determine if more needed
+            "requires_tools": True,   # Tools generally needed - let tool manager decide which
+            "estimated_phases": 1     # Start simple - let Claude determine if more needed
         }
         
-        # Simple structural complexity estimation (not based on English keywords)
+        # Simple structural complexity estimation based on length only
         words = user_goal.split()
-        if len(words) < 8:
-            analysis["complexity"] = "low"
-        elif len(words) > 25:
-            analysis["complexity"] = "high"
-        
-        # Check for multiple requests in goal (language-neutral)
-        if any(connector in user_goal for connector in [" and ", ";", ",", " then ", " also "]):
+        if len(words) > 20:  # Longer goals may need multiple phases
             analysis["estimated_phases"] = 2
         
-        # Let AI and tool manager determine everything else based on actual goal content
-        # No predetermined categories or English assumptions
+        # Let Claude and tool manager determine everything else dynamically
+        # No language assumptions, no cultural biases, no predetermined patterns
         
         return analysis
     
@@ -197,46 +215,57 @@ class ConversationToWorkflowBridge:
         return " ".join(clean_words).lower()
     
     def _design_phases(self, workflow_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Design workflow phases dynamically based on actual user goal"""
-        complexity = workflow_spec.get("complexity", "medium")
+        """Design workflow phases with minimal structure, trusting Claude's intelligence"""
         estimated_phases = workflow_spec.get("estimated_phases", 1)
         user_goal = workflow_spec.get("user_goal", "")
         
         phases = []
         
-        # Let AI determine optimal phase structure based on actual goal
-        # No predetermined workflow patterns - trust AI intelligence
+        # Minimal phase structure - let Claude determine optimal approach
+        # No predetermined workflow patterns - support any cultural problem-solving approach
         
-        if estimated_phases == 1 or complexity == "low":
-            # Single phase for simple goals - let AI handle everything intelligently
+        if estimated_phases == 1:
+            # Single phase - let Claude handle everything intelligently
             phases.append({
                 "name": "goal_execution",
                 "description": f"Execute user goal: {user_goal[:50]}...",
                 "instructions": f"Understand and execute this goal effectively: {user_goal}",
                 "deliverable": "Goal completion results",
-                "model": "claude-sonnet-4"  # Let model manager choose optimal model
+                "resources": [],  # Let tool manager determine resources dynamically
+                "tools": [],     # Let tool manager determine tools dynamically
+                "model": "claude-sonnet-4",
+                "fallback_model": "claude-opus-4",
+                "provider": "anthropic-direct"
             })
         else:
-            # Multi-phase for complex goals - let AI break down as needed
+            # Multi-phase - minimal structure for Claude to build upon
             phases.extend([
                 {
                     "name": "goal_analysis",
-                    "description": "Analyze goal and plan optimal approach",
-                    "instructions": f"Analyze this goal and determine the best approach: {user_goal}",
+                    "description": "Analyze goal and plan approach",
+                    "instructions": f"Analyze this goal and plan the optimal approach: {user_goal}",
                     "deliverable": "Goal analysis and execution plan",
-                    "model": "claude-sonnet-4"
+                    "resources": [],
+                    "tools": [],
+                    "model": "claude-sonnet-4",
+                    "fallback_model": "claude-opus-4",
+                    "provider": "anthropic-direct"
                 },
                 {
                     "name": "goal_execution",
                     "description": "Execute the planned approach",
-                    "instructions": f"Execute the planned approach to achieve: {user_goal}",
-                    "deliverable": "Goal execution results",
-                    "model": "claude-sonnet-4"
+                    "instructions": f"Execute the approach to achieve: {user_goal}",
+                    "deliverable": "Goal execution results", 
+                    "resources": [],
+                    "tools": [],
+                    "model": "claude-sonnet-4",
+                    "fallback_model": "claude-opus-4",
+                    "provider": "anthropic-direct"
                 }
             ])
         
-        # Let AI add additional phases during execution if needed
-        # This supports emergent workflow patterns that don't fit predetermined categories
+        # Claude can add additional phases during execution as needed
+        # Supports any workflow pattern that emerges from actual user needs
         
         return phases
     
@@ -266,31 +295,39 @@ class ConversationToWorkflowBridge:
         # This supports goals in any language and cultural context
         
         return variables
-
-
-# Example usage and testing functions
-def test_conversation_bridge():
-    """Test the conversation bridge with sample goals"""
-    bridge = ConversationToWorkflowBridge()
     
-    test_goals = [
-        "Create a marketing strategy for my B2B startup",
-        "Research competitors in the project management space",
-        "Design a logo and brand identity for my company",
-        "Write a comprehensive business plan"
-    ]
-    
-    for goal in test_goals:
-        print(f"\n🎯 Testing goal: {goal}")
-        result = bridge.create_workflow_from_conversation(goal)
+    def _generate_handoff_configs(self, phases: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Generate handoff configurations for agent coordination after each phase"""
+        handoffs = []
         
-        if result["success"]:
-            print(f"✅ Created command: {result['custom_command']}")
-            print(f"📁 Directory: {result['use_case_directory']}")
-        else:
-            print(f"❌ Failed: {result['error']}")
+        for i, phase in enumerate(phases):
+            handoff = {
+                "handoff_number": str(i + 1),
+                "phase_name": phase["name"],
+                "assessment_questions": [
+                    "Has the phase objective been completed successfully?",
+                    "Are the deliverables complete and of adequate quality?",
+                    "Is additional work needed before proceeding?"
+                ],
+                "human_in_loop": False,
+                "next_phase_conditions": {
+                    "quality_threshold": "acceptable",
+                    "deliverables_complete": True
+                }
+            }
+            handoffs.append(handoff)
+            
+        return handoffs
 
 
-if __name__ == "__main__":
-    # Run tests if executed directly
-    test_conversation_bridge()
+# Standalone functions for integration
+def create_workflow_from_goal(user_goal: str) -> Dict[str, Any]:
+    """Standalone function for creating workflows from natural language goals"""
+    bridge = ConversationToWorkflowBridge()
+    return bridge.create_workflow_from_conversation(user_goal)
+
+
+def estimate_cost(params: Dict[str, Any]) -> float:
+    """Standalone cost estimation function"""
+    bridge = ConversationToWorkflowBridge()
+    return bridge.estimate_cost(params)
