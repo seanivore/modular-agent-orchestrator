@@ -4,11 +4,17 @@ Universal Model Manager
 Loads JSON configs and provides intelligent model selection
 """
 
+# Standard Mao imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError, ValidationError
+
 import json
-# import os  # Removed - was only used for sys.path.append
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from pathlib import Path
+
+# Standard cache instance
+cache = CacheManager()
 
 
 @dataclass
@@ -393,3 +399,74 @@ if __name__ == "__main__":
     print(f"Recommended model: {recommendation['recommended_model']}")
     print(f"Detected requirements: {recommendation['detected_requirements']}")
     print(f"Goal analysis: {recommendation['goal_analysis']}")
+
+
+# ========================================================================
+# STANDALONE FUNCTIONS FOR BUTTON IMPORTS
+# ========================================================================
+
+def standalone_model_selection(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Standalone function for button file imports - model selection"""
+    manager = ModelManager()
+    task_description = params.get("task_description")
+    preferences = params.get("preferences", {})
+    
+    selected_model = manager.get_best_model_for_task(task_description, preferences)
+    
+    return {
+        "selected_model": selected_model,
+        "task_description": task_description,
+        "preferences": preferences
+    }
+
+
+def standalone_model_recommendation(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Standalone function for button file imports - goal-based recommendation"""
+    manager = ModelManager()
+    goal = params.get("goal", "")
+    preferences = params.get("preferences", {})
+    
+    return manager.get_dynamic_model_recommendation(goal, preferences)
+
+
+def standalone_cost_estimation(params: Dict[str, Any]) -> Dict[str, Any]:
+    """Standalone function for button file imports - cost estimation"""
+    manager = ModelManager()
+    model_name = params.get("model_name")
+    input_tokens = params.get("input_tokens", 0)
+    output_tokens = params.get("output_tokens", 0)
+    image_tokens = params.get("image_tokens", 0)
+    
+    if not model_name:
+        return {"error": "model_name is required", "cost": 0.0}
+    
+    cost = manager.estimate_cost(model_name, input_tokens, output_tokens, image_tokens)
+    
+    return {
+        "model_name": model_name,
+        "estimated_cost": cost,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "image_tokens": image_tokens
+    }
+
+
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """REQUIRED: Standard MAO estimate_cost function signature"""
+    if not params:
+        return 0.001  # Base operation cost
+    
+    # Use internal cost estimation if parameters provided
+    model_name = params.get("model_name")
+    if model_name:
+        manager = ModelManager()
+        return manager.estimate_cost(
+            model_name,
+            params.get("input_tokens", 1000),
+            params.get("output_tokens", 500),
+            params.get("image_tokens", 0)
+        )
+    
+    # Default cost for model management operations
+    complexity = params.get("complexity", 1.0)
+    return 0.001 * complexity
