@@ -111,7 +111,7 @@ class UserAnalyticsManager:
                 return json.load(f)
         except (json.JSONDecodeError, IOError) as e:
             # Return default structure if file is corrupted
-            return self._create_default_analytics_file(username, filename)
+            return self._create_default_analytics_file(user_id, filename)
     
     @handle_errors
     def _write_analytics_file(self, username: str, filename: str, data: Dict) -> bool:
@@ -459,10 +459,10 @@ class UserAnalyticsManager:
             return {}
     
     @handle_errors
-    def delete_user_analytics(self, username: str) -> bool:
+    def delete_user_analytics(self, user_id: str) -> bool:
         """Delete all user analytics data for GDPR compliance"""
         try:
-            analytics_dir = self._get_user_analytics_dir(username)
+            analytics_dir = self._get_user_analytics_dir(user_id)
             if analytics_dir.exists():
                 for file_path in analytics_dir.glob("*.json"):
                     file_path.unlink()
@@ -472,3 +472,39 @@ class UserAnalyticsManager:
             
         except Exception as e:
             return False
+    
+# Standalone functions for button imports - UserID-based
+def track_session(user_id: str, session_id: str, action: str, **kwargs) -> bool:
+    """Standalone function for session tracking"""
+    manager = UserAnalyticsManager()
+    return manager.track_session(user_id, session_id, action, **kwargs)
+
+def track_tool_usage(user_id: str, tool_name: str, success: bool, response_time: float) -> bool:
+    """Standalone function for tool usage tracking"""
+    manager = UserAnalyticsManager()
+    return manager.track_tool_usage(user_id, tool_name, success, response_time)
+
+def track_workflow(user_id: str, workflow_id: str, workflow_command: str, action: str, **kwargs) -> bool:
+    """Standalone function for workflow tracking"""
+    manager = UserAnalyticsManager()
+    return manager.track_workflow(user_id, workflow_id, workflow_command, action, **kwargs)
+
+def track_costs(user_id: str, date: str, model_name: str, cost: float, session_id: str = None) -> bool:
+    """Standalone function for cost tracking"""
+    manager = UserAnalyticsManager()
+    return manager.track_costs(user_id, date, model_name, cost, session_id)
+
+def get_user_analytics_summary(user_id: str) -> Dict:
+    """Standalone function for analytics summary"""
+    manager = UserAnalyticsManager()
+    return manager.get_user_analytics_summary(user_id)
+
+def delete_user_analytics(user_id: str) -> bool:
+    """Standalone function for analytics deletion"""
+    manager = UserAnalyticsManager()
+    return manager.delete_user_analytics(user_id)
+
+def estimate_cost(operation: str = "analytics_operation") -> float:
+    """Standalone function for cost estimation"""
+    manager = UserAnalyticsManager()
+    return manager.estimate_cost(operation)
