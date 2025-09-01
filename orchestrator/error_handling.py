@@ -48,6 +48,113 @@ class APIError(OrchestrationError):
         super().__init__(message, "API_ERROR", details)
 
 
+# ========================================================================
+# SPECIALIZED ERROR HANDLERS (Single Responsibility)
+# ========================================================================
+
+def _handle_orchestration_error(e: OrchestrationError, operation_name: str, log_errors: bool) -> Dict[str, Any]:
+    """Handle known orchestration errors"""
+    error_info = {
+        "error": e.message,
+        "error_code": e.error_code,
+        "operation": operation_name,
+        "timestamp": e.timestamp,
+        "details": e.details
+    }
+    
+    if log_errors:
+        logging.error(f"Orchestration Error in {operation_name}: {e.message}", extra=e.details)
+    
+    return error_info
+
+
+def _handle_file_error(e: FileNotFoundError, operation_name: str, log_errors: bool) -> Dict[str, Any]:
+    """Handle file not found errors"""
+    error_info = {
+        "error": f"File not found: {str(e)}",
+        "error_code": "FILE_NOT_FOUND",
+        "operation": operation_name,
+        "timestamp": datetime.now().isoformat(),
+        "details": {"file_path": str(e).split("'")[1] if "'" in str(e) else str(e)}
+    }
+    
+    if log_errors:
+        logging.error(f"File not found in {operation_name}: {str(e)}")
+    
+    return error_info
+
+
+def _handle_permission_error(e: PermissionError, operation_name: str, log_errors: bool) -> Dict[str, Any]:
+    """Handle permission denied errors"""
+    error_info = {
+        "error": f"Permission denied: {str(e)}",
+        "error_code": "PERMISSION_DENIED",
+        "operation": operation_name,
+        "timestamp": datetime.now().isoformat(),
+        "details": {"resource": str(e)}
+    }
+    
+    if log_errors:
+        logging.error(f"Permission denied in {operation_name}: {str(e)}")
+    
+    return error_info
+
+
+def _handle_key_error(e: KeyError, operation_name: str, log_errors: bool) -> Dict[str, Any]:
+    """Handle configuration/key missing errors"""
+    error_info = {
+        "error": f"Required key missing: {str(e)}",
+        "error_code": "KEY_ERROR",
+        "operation": operation_name,
+        "timestamp": datetime.now().isoformat(),
+        "details": {"missing_key": str(e)}
+    }
+    
+    if log_errors:
+        logging.error(f"Key error in {operation_name}: {str(e)}")
+    
+    return error_info
+
+
+def _handle_value_error(e: ValueError, operation_name: str, log_errors: bool) -> Dict[str, Any]:
+    """Handle value/type validation errors"""
+    error_info = {
+        "error": f"Invalid value: {str(e)}",
+        "error_code": "VALUE_ERROR",
+        "operation": operation_name,
+        "timestamp": datetime.now().isoformat(),
+        "details": {"value_error": str(e)}
+    }
+    
+    if log_errors:
+        logging.error(f"Value error in {operation_name}: {str(e)}")
+    
+    return error_info
+
+
+def _handle_unexpected_error(e: Exception, operation_name: str, log_errors: bool) -> Dict[str, Any]:
+    """Handle unexpected/unknown errors"""
+    error_info = {
+        "error": f"Unexpected error: {str(e)}",
+        "error_code": "UNEXPECTED_ERROR",
+        "operation": operation_name,
+        "timestamp": datetime.now().isoformat(),
+        "details": {
+            "exception_type": type(e).__name__,
+            "traceback": traceback.format_exc()
+        }
+    }
+    
+    if log_errors:
+        logging.error(f"Unexpected error in {operation_name}: {str(e)}", exc_info=True)
+    
+    return error_info
+
+
+# ========================================================================
+# MAIN ERROR HANDLING DECORATOR (Orchestrates Specialized Handlers)
+# ========================================================================
+
 def handle_errors(operation_name: str = "operation", 
                  return_dict: bool = True,
                  log_errors: bool = True) -> Callable:
@@ -68,111 +175,42 @@ def handle_errors(operation_name: str = "operation",
                 return func(*args, **kwargs)
             
             except OrchestrationError as e:
-                # Handle known orchestration errors
-                error_info = {
-                    "error": e.message,
-                    "error_code": e.error_code,
-                    "operation": operation_name,
-                    "timestamp": e.timestamp,
-                    "details": e.details
-                }
-                
-                if log_errors:
-                    logging.error(f"Orchestration Error in {operation_name}: {e.message}", extra=e.details)
-                
+                error_info = _handle_orchestration_error(e, operation_name, log_errors)
                 if return_dict:
                     return error_info
                 else:
                     raise
             
             except FileNotFoundError as e:
-                # Handle file / resource errors
-                error_info = {
-                    "error": f"File not found: {str(e)}",
-                    "error_code": "FILE_NOT_FOUND",
-                    "operation": operation_name,
-                    "timestamp": datetime.now().isoformat(),
-                    "details": {"file_path": str(e).split("'")[1] if "'" in str(e) else str(e)}
-                }
-                
-                if log_errors:
-                    logging.error(f"File not found in {operation_name}: {str(e)}")
-                
+                error_info = _handle_file_error(e, operation_name, log_errors)
                 if return_dict:
                     return error_info
                 else:
                     raise ResourceError(f"File not found: {str(e)}", "file", str(e))
             
             except PermissionError as e:
-                # Handle permission errors
-                error_info = {
-                    "error": f"Permission denied: {str(e)}",
-                    "error_code": "PERMISSION_DENIED",
-                    "operation": operation_name,
-                    "timestamp": datetime.now().isoformat(),
-                    "details": {"resource": str(e)}
-                }
-                
-                if log_errors:
-                    logging.error(f"Permission denied in {operation_name}: {str(e)}")
-                
+                error_info = _handle_permission_error(e, operation_name, log_errors)
                 if return_dict:
                     return error_info
                 else:
                     raise ResourceError(f"Permission denied: {str(e)}", "permission", str(e))
             
             except KeyError as e:
-                # Handle configuration / key errors
-                error_info = {
-                    "error": f"Required key missing: {str(e)}",
-                    "error_code": "KEY_ERROR",
-                    "operation": operation_name,
-                    "timestamp": datetime.now().isoformat(),
-                    "details": {"missing_key": str(e)}
-                }
-                
-                if log_errors:
-                    logging.error(f"Key error in {operation_name}: {str(e)}")
-                
+                error_info = _handle_key_error(e, operation_name, log_errors)
                 if return_dict:
                     return error_info
                 else:
                     raise ValidationError(f"Required key missing: {str(e)}", "configuration", str(e))
             
             except ValueError as e:
-                # Handle value / type errors
-                error_info = {
-                    "error": f"Invalid value: {str(e)}",
-                    "error_code": "VALUE_ERROR",
-                    "operation": operation_name,
-                    "timestamp": datetime.now().isoformat(),
-                    "details": {"value_error": str(e)}
-                }
-                
-                if log_errors:
-                    logging.error(f"Value error in {operation_name}: {str(e)}")
-                
+                error_info = _handle_value_error(e, operation_name, log_errors)
                 if return_dict:
                     return error_info
                 else:
                     raise ValidationError(f"Invalid value: {str(e)}", "value", str(e))
             
             except Exception as e:
-                # Handle unexpected errors
-                error_info = {
-                    "error": f"Unexpected error: {str(e)}",
-                    "error_code": "UNEXPECTED_ERROR",
-                    "operation": operation_name,
-                    "timestamp": datetime.now().isoformat(),
-                    "details": {
-                        "exception_type": type(e).__name__,
-                        "traceback": traceback.format_exc()
-                    }
-                }
-                
-                if log_errors:
-                    logging.error(f"Unexpected error in {operation_name}: {str(e)}", exc_info=True)
-                
+                error_info = _handle_unexpected_error(e, operation_name, log_errors)
                 if return_dict:
                     return error_info
                 else:
@@ -182,26 +220,31 @@ def handle_errors(operation_name: str = "operation",
     return decorator
 
 
-def retry_on_failure(max_retries: int = 3,
-                    delay: float = 1.0,
-                    backoff_factor: float = 2.0,
-                    exceptions: tuple = (Exception,)) -> Callable:
+def retry_with_backoff(max_retries: int = 3,
+                      delay: float = 1.0,
+                      base_delay: float = None,  # Backward compatibility
+                      backoff_factor: float = 2.0,
+                      exceptions: tuple = (Exception,)) -> Callable:
     """
     Decorator for retrying operations with exponential backoff
     
     Args:
         max_retries: Maximum number of retry attempts
         delay: Initial delay between retries (seconds)
+        base_delay: Alternative name for delay (backward compatibility)
         backoff_factor: Multiplier for delay after each failure
         exceptions: Tuple of exceptions to retry on
         
     Returns:
         Decorated function with retry logic
     """
+    # Use base_delay if provided for backward compatibility
+    actual_delay = base_delay if base_delay is not None else delay
+    
     def decorator(func: Callable) -> Callable:
         def wrapper(*args, **kwargs) -> Any:
             last_exception = None
-            current_delay = delay
+            current_delay = actual_delay
             
             for attempt in range(max_retries + 1):
                 try:
@@ -236,31 +279,49 @@ def retry_on_failure(max_retries: int = 3,
     return decorator
 
 
-def validate_params(required_fields: List[str] = None,
-                   field_validators: Dict[str, Callable] = None) -> Dict[str, Any]:
+def retry_on_failure(max_retries: int = 3,
+                    delay: float = 1.0,
+                    backoff_factor: float = 2.0,
+                    exceptions: tuple = (Exception,)) -> Callable:
     """
-    Validate operation parameters with comprehensive error handling
+    Alias for retry_with_backoff - consolidated to eliminate duplication
+    
+    Args:
+        max_retries: Maximum number of retry attempts
+        delay: Initial delay between retries (seconds)
+        backoff_factor: Multiplier for delay after each failure
+        exceptions: Tuple of exceptions to retry on
+        
+    Returns:
+        Decorated function with retry logic
+    """
+    return retry_with_backoff(max_retries, delay, None, backoff_factor, exceptions)
+
+
+def validate_params(required_fields: List[str] = None,
+                   field_validators: Dict[str, Callable] = None) -> Callable:
+    """
+    Validate operation parameters with simplified parameter detection
     
     Args:
         required_fields: List of required parameter names
         field_validators: Dict mapping field names to validation functions
         
     Returns:
-        Validated parameters
+        Decorated function with parameter validation
         
     Raises:
         ValidationError: If validation fails
     """
     def decorator(func: Callable) -> Callable:
         def wrapper(*args, **kwargs) -> Any:
-            # Extract params dict from args or kwargs
-            params = kwargs.get('params', {})
-            if not params and args:
-                # Try to find dict in args
-                for arg in args:
-                    if isinstance(arg, dict):
-                        params = arg
-                        break
+            # Simplified parameter extraction - check kwargs first, then first dict arg
+            params = kwargs.get('params')
+            if params is None and args and isinstance(args[0], dict):
+                params = args[0]
+            
+            if params is None:
+                params = {}
             
             # Validate required fields
             if required_fields:
@@ -268,7 +329,7 @@ def validate_params(required_fields: List[str] = None,
                     if field not in params or params[field] is None:
                         raise ValidationError(f"Required field missing: {field}", field, None)
             
-            # Run field validators
+            # Run field validators  
             if field_validators:
                 for field, validator in field_validators.items():
                     if field in params and params[field] is not None:
