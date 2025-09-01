@@ -9,15 +9,35 @@ from datetime import datetime, timedelta
 import json
 from pathlib import Path
 
+# Standard Mao imports
+from orchestrator.cache.cache_system import CacheManager
+from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+
+# Standard cache instance
+cache = CacheManager()
+
 class SystemMetricsProvider:
     """Provides real-time system metrics for UI components"""
     
     def __init__(self, orchestrator):
         self.orchestrator = orchestrator
         self.start_time = datetime.now()
+        self.cache = cache
     
+    def estimate_cost(self, params: Dict[str, Any] = None) -> float:
+        """Estimate operation cost for budget planning"""
+        operations = params.get("operations", 1) if params else 1
+        return operations * 0.001  # Minimal cost for metrics queries
+    
+    @handle_errors(operation_name="get_dashboard_metrics", return_dict=True)
     def get_dashboard_metrics(self) -> Dict[str, Any]:
-        """Live metrics for dashboard display"""
+        """Live metrics for dashboard display with caching"""
+        # Cache expensive dashboard calculations for 1 minute
+        cache_key = f"dashboard|{datetime.now().strftime('%Y%m%d%H%M')}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "real_time_metrics")
+        if cached_result:
+            return json.loads(cached_result)
+        
         try:
             model_stats = self.orchestrator.model_manager.get_stats()
             tool_stats = self.orchestrator.tool_discovery.get_stats()
@@ -60,11 +80,23 @@ class SystemMetricsProvider:
                 "cache": self._get_cache_metrics(),
                 "timestamp": datetime.now().isoformat()
             }
+            
+            # Cache the result
+            self.cache.cache_content_analysis(cache_key, json.dumps(result), "real_time_metrics")
+            return result
+            
         except Exception as e:
             return {"error": str(e), "timestamp": datetime.now().isoformat()}
     
+    @handle_errors(operation_name="get_workflow_progress", return_dict=True)
     def get_workflow_progress(self, workflow_id: str) -> Dict[str, Any]:
-        """Real-time workflow execution progress"""
+        """Real-time workflow execution progress with caching"""
+        # Cache workflow progress for 10 seconds for real-time feel
+        cache_key = f"workflow_progress|{workflow_id}|{int(datetime.now().timestamp()) // 10}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "real_time_metrics")
+        if cached_result:
+            return json.loads(cached_result)
+        
         try:
             workflow_status = self.orchestrator.get_workflow_status(workflow_id)
             if workflow_status.get('error'):
@@ -90,27 +122,45 @@ class SystemMetricsProvider:
                 "phases": self._get_phase_details(workflow_id, execution_history),
                 "timestamp": datetime.now().isoformat()
             }
+            
+            # Cache the result
+            self.cache.cache_content_analysis(cache_key, json.dumps(result), "real_time_metrics")
+            return result
+            
         except Exception as e:
             return {"error": str(e), "timestamp": datetime.now().isoformat()}
     
+    @handle_errors(operation_name="get_live_stats", return_dict=True) 
     def get_live_stats(self) -> Dict[str, Any]:
-        """Simplified live stats for frequent polling"""
+        """Simplified live stats for frequent polling with minimal caching"""
+        # Very short cache for live stats (5 seconds)
+        cache_key = f"live_stats|{int(datetime.now().timestamp()) // 5}"
+        cached_result = self.cache.get_cached_analysis(cache_key, "real_time_metrics")
+        if cached_result:
+            return json.loads(cached_result)
+        
         try:
             workflows = self.orchestrator.list_workflows()
             active_count = len([w for w in workflows if w['status'] == 'in_progress'])
             
-            return {
+            result = {
                 "active_workflows": active_count,
                 "total_workflows": len(workflows),
                 "system_status": "operational",
                 "last_update": datetime.now().isoformat()
             }
+            
+            # Cache the result
+            self.cache.cache_content_analysis(cache_key, json.dumps(result), "real_time_metrics")
+            return result
+            
         except Exception as e:
-            return {
+            error_result = {
                 "system_status": "error",
                 "error": str(e),
                 "last_update": datetime.now().isoformat()
             }
+            return error_result
     
     def _calculate_today_cost(self, workflows: List[Dict]) -> float:
         """Calculate cost for workflows executed today"""
@@ -258,60 +308,5 @@ class WorkflowMonitor:
                 print(f"Error notifying subscriber: {e}")
 
 
-class CostTracker:
-    """Real-time cost tracking and budget management"""
-    
-    def __init__(self, daily_budget: float = 10.0):
-        self.daily_budget = daily_budget
-        self.costs_today = 0.0
-        self.cost_history = []
-        self.last_reset = datetime.now().date()
-    
-    def add_cost(self, amount: float, workflow_id: str, phase_name: str = None):
-        """Add a cost entry"""
-        self._check_daily_reset()
-        
-        cost_entry = {
-            "amount": amount,
-            "workflow_id": workflow_id,
-            "phase_name": phase_name,
-            "timestamp": datetime.now()
-        }
-        
-        self.cost_history.append(cost_entry)
-        self.costs_today += amount
-    
-    def get_budget_status(self) -> Dict[str, Any]:
-        """Get current budget status"""
-        self._check_daily_reset()
-        
-        remaining = max(0, self.daily_budget - self.costs_today)
-        percentage_used = (self.costs_today / self.daily_budget * 100) if self.daily_budget > 0 else 0
-        
-        return {
-            "daily_budget": self.daily_budget,
-            "spent_today": self.costs_today,
-            "remaining": remaining,
-            "percentage_used": percentage_used,
-            "status": self._get_budget_status_level(percentage_used),
-            "last_reset": self.last_reset.isoformat(),
-            "entries_today": len([c for c in self.cost_history if c["timestamp"].date() == datetime.now().date()])
-        }
-    
-    def _check_daily_reset(self):
-        """Reset daily costs if it's a new day"""
-        today = datetime.now().date()
-        if today > self.last_reset:
-            self.costs_today = 0.0
-            self.last_reset = today
-    
-    def _get_budget_status_level(self, percentage_used: float) -> str:
-        """Get budget status level"""
-        if percentage_used >= 100:
-            return "budget_exceeded"
-        elif percentage_used >= 80:
-            return "budget_warning"
-        elif percentage_used >= 50:
-            return "budget_watch"
-        else:
-            return "budget_ok"
+# CostTracker class removed - functionality handled by UserAnalyticsManager
+# This eliminates code duplication and ensures single source of truth for cost tracking
