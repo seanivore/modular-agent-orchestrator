@@ -32,11 +32,11 @@
 
 * **YOUR TASK** 
 
-  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/mcp_hub.py`
+  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/memory_mcp.py`
 
 * **REMAINING TASKS**
 
-  - 10 files for logic audit task flow 
+  - 9 files for logic audit task flow 
   - 1 UX/UI file creation task 
   - 1 final overview task 
 
@@ -54,6 +54,7 @@
   10. Logic audit of `./orchestrator/manager_buttons.py` 
   11. Logic audit of `./orchestrator/manager_models.py`
   12. Logic audit of `./orchestrator/manager_tools.py`
+  13. Logic audit of `./orchestrator/mcp_hub.py`
 
 ---
 
