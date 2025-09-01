@@ -1,179 +1,119 @@
 """
-Mao Application JSON Configuration System Settings Manager
-Dynamic settings discovery and management using directory-based scanning of individual setting files
+Application Settings Manager
+Manages user application settings with UserID-based storage and delta-only persistence.
 """
 
 import json
-# import os  # Removed - was only used for sys.path.append
 from pathlib import Path
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass
+from typing import Dict, Any, Optional
 
-# Standard MAO imports (following standardization pattern)
+# Standard Mao imports
 from orchestrator.cache.cache_system import CacheManager
-from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
+from orchestrator.error_handling import handle_errors, APIError
 
 # Standard cache instance
 cache = CacheManager()
 
-@dataclass
-class SettingDefinition:
-    """Individual setting configuration"""
-    name: str
-    default: Any
-    description: str
-    type: str
-    options: List[Dict] = None
-    source: str = None
-    fallback_options: List[str] = None
-    ui_metadata: Dict = None
+# Core application settings as defined in MAO_FLOW.md
+CORE_SETTINGS = {
+    "default_agent": "claude-sonnet-4",
+    "default_provider": "anthropic_direct",
+    "app_theme": "dark_mode",
+    "notifications": "once_no_push",
+    "cat_vibes": "i_love_it",
+    "double_texting": "always",
+    "remember_credentials": False,
+    "productive_startup": False,
+    "public_profile": True,
+    "public_contact": True,
+    "offer_my_services": False,
+    "user_analytics": True,
+    "latest_models": True,
+    "mao_model": "sonnet-latest",
+    "claude_code_model": "opus-latest",
+    "code_nudges": True,
+    "currency": "USD",
+    "payment_frequency": "yearly",
+    "language": "english",
+    "local_data_backup": "setup"
+}
+
+# Setting validation rules
+SETTING_OPTIONS = {
+    "app_theme": ["dark_mode", "light_mode"],
+    "notifications": ["once_no_push", "silent_with_push", "silent_no_push", "notifications_on"],
+    "cat_vibes": ["i_love_it", "be_serious_please"],
+    "double_texting": ["always", "user_only", "mao_only", "never", "queue"],
+    "mao_model": ["sonnet-latest", "opus-latest", "claude_code_as_mao"],
+    "claude_code_model": ["sonnet-latest", "opus-latest", "secondary_sonnet", "secondary_opus"],
+    "currency": ["USD", "EUR", "GBP", "CAD", "AUD", "BRL", "MXN", "CNY", "JPY", "KRW", "INR"],
+    "payment_frequency": ["monthly", "quarterly", "six_months", "yearly"],
+    "language": ["english", "spanish", "portuguese", "french", "german", "chinese", "japanese", "arabic"]
+}
 
 class ApplicationSettingsManager:
     """
-    Manages modular application settings with dynamic discovery.
+    Manages application settings with UserID-based storage and delta-only persistence.
     
     Core Principles:
-    1. All settings are individual JSON files
-    2. Directory scanning for live discovery  
-    3. Delta-only user storage
-    4. Template-based validation
+    1. UserID-based directory structure (not username)
+    2. Delta-only storage - only store changes from defaults
+    3. Predefined settings structure from MAO_FLOW.md
+    4. Simple validation against known setting options
     """
     
-    def __init__(self, settings_dir: str = "./configs/settings / "):
-        self.settings_dir = Path(settings_dir)
-        self.user_dir = Path("./configs/user / ")
-        self.examples_dir = Path("./configs/examples / ")
+    def __init__(self):
+        self.user_base_dir = Path("./configs/user")
         
-        # Ensure directories exist
-        self.settings_dir.mkdir(parents=True, exist_ok=True)
-        self.user_dir.mkdir(parents=True, exist_ok=True)
+        # Ensure base user directory exists
+        self.user_base_dir.mkdir(parents=True, exist_ok=True)
     
-    @handle_errors(operation_name="discover_settings", return_dict=True)
-    def discover_settings(self, force_refresh: bool = False) -> Dict[str, SettingDefinition]:
+    def get_available_settings(self) -> Dict[str, Any]:
         """
-        Dynamically discover all settings from directory.
-        Uses MAO CacheManager for efficient caching.
-        
-        Returns:
-            Dict mapping setting names to SettingDefinition objects
-        """
-        cache_key = f"settings_discovery|{self.settings_dir}|{force_refresh}"
-        
-        # Check cache first (MAO standard caching pattern)
-        if not force_refresh:
-            cached_result = cache.get_cached_analysis(cache_key, "settings_discovery")
-            if cached_result:
-                cached_data = json.loads(cached_result)
-                # Convert cached data back to SettingDefinition objects
-                settings = {}
-                for name, data in cached_data.items():
-                    settings[name] = SettingDefinition(**data)
-                return settings
-        
-        settings = {}
-        
-        # Scan all *_app_settings.json files
-        for settings_file in self.settings_dir.glob("*_app_settings.json"):
-            try:
-                with open(settings_file, 'r') as f:
-                    setting_data = json.load(f)
-                
-                # Extract setting name (first key in JSON)
-                setting_name = list(setting_data.keys())[0]
-                setting_config = setting_data[setting_name]
-                
-                # Create SettingDefinition
-                settings[setting_name] = SettingDefinition(
-                    name=setting_name,
-                    default=setting_config.get('default'),
-                    description=setting_config.get('description', ''),
-                    type=setting_config.get('type', 'select'),
-                    options=setting_config.get('options', []),
-                    source=setting_config.get('source'),
-                    fallback_options=setting_config.get('fallback_options', []),
-                    ui_metadata=setting_config.get('ui_metadata', {})
-                )
-                
-            except Exception as e:
-                continue  # Skip malformed files
-        
-        # Cache the results (MAO standard pattern)
-        cache_data = {}
-        for name, setting in settings.items():
-            cache_data[name] = {
-                'name': setting.name,
-                'default': setting.default,
-                'description': setting.description,
-                'type': setting.type,
-                'options': setting.options,
-                'source': setting.source,
-                'fallback_options': setting.fallback_options,
-                'ui_metadata': setting.ui_metadata
-            }
-        
-        cache.cache_content_analysis(cache_key, json.dumps(cache_data), "settings_discovery")
-        
-        return settings
-    
-    def estimate_cost(self, params: Dict[str, Any]) -> float:
-        """
-        Estimate operation cost for budget planning.
-        Required function following MAO standardization pattern.
-        
-        Args:
-            params: Operation parameters
-            
-        Returns:
-            Estimated cost in USD
-        """
-        # Settings operations are essentially free (local file operations)
-        operation = params.get('operation', 'get_settings')
-        
-        if operation in ['discover_settings', 'get_default_settings']:
-            return 0.0001  # Minimal cost for file scanning
-        elif operation in ['get_user_settings', 'update_user_setting']:
-            return 0.0001  # Minimal cost for file read / write
-        else:
-            return 0.0001  # Default minimal cost
-    
-    @handle_errors(operation_name="get_default_settings", return_dict=True)
-    def get_default_settings(self) -> Dict[str, Any]:
-        """
-        Get all default settings values with caching.
+        Get available settings with their default values.
+        Returns the core settings structure defined in MAO_FLOW.md.
         
         Returns:
             Dict mapping setting names to default values
         """
-        cache_key = "default_settings"
-        
-        # Check cache first
-        cached_result = cache.get_cached_analysis(cache_key, "default_settings")
-        if cached_result:
-            return json.loads(cached_result)
-        
-        # Get settings and extract defaults
-        settings = self.discover_settings()
-        defaults = {name: setting.default for name, setting in settings.items()}
-        
-        # Cache the results
-        cache.cache_content_analysis(cache_key, json.dumps(defaults), "default_settings")
-        
-        return defaults
+        return CORE_SETTINGS.copy()
     
-    @handle_errors(operation_name="get_user_settings", return_dict=True)
-    def get_user_settings(self, username: str) -> Dict[str, Any]:
+    def estimate_cost(self, params: Dict[str, Any] = None) -> float:
         """
-        Get user settings with delta-only storage.
-        Merges user changes with current application defaults.
-        Supports both legacy (flat) and new (nested) directory structures.
+        Estimate operation cost for budget planning.
         
         Args:
-            username: User's username
+            params: Operation parameters (optional)
+            
+        Returns:
+            Estimated cost in USD
+        """
+        # Settings operations are local file operations with minimal cost
+        return 0.0001
+    
+    @handle_errors(operation_name="get_default_settings", return_dict=True)
+    def get_default_settings(self) -> Dict[str, Any]:
+        """
+        Get all default settings values.
+        
+        Returns:
+            Dict mapping setting names to default values
+        """
+        return CORE_SETTINGS.copy()
+    
+    @handle_errors(operation_name="get_user_settings", return_dict=True)
+    def get_user_settings(self, user_id: str) -> Dict[str, Any]:
+        """
+        Get user settings with delta-only storage using UserID-based structure.
+        Merges user changes with application defaults.
+        
+        Args:
+            user_id: User's ID (format: user-1234)
             
         Returns:
             Complete settings dict (defaults + user changes)
         """
-        cache_key = f"user_settings|{username}"
+        cache_key = f"user_settings|{user_id}"
         
         # Check cache first
         cached_result = cache.get_cached_analysis(cache_key, "user_settings")
@@ -183,17 +123,17 @@ class ApplicationSettingsManager:
         # Get current defaults
         defaults = self.get_default_settings()
         
-        # Load user deltas - check both new and legacy paths
-        user_file = self._get_user_file_path(username)
+        # Load user deltas from UserID directory
+        user_file = self._get_user_file_path(user_id)
         user_deltas = {}
         
         if user_file and user_file.exists():
             try:
                 with open(user_file, 'r') as f:
                     user_data = json.load(f)
-                    # Extract only setting changes (exclude username, user_id, created_at, last_login, etc.)
+                    # Extract only setting changes (exclude metadata)
                     user_deltas = {k: v for k, v in user_data.items() 
-                                 if k not in ['username', 'user_id', 'first_name', 'last_name', 'email', 'dob', 'created_at', 'last_login', 'last_updated']}
+                                 if k in CORE_SETTINGS}
             except Exception:
                 user_deltas = {}  # Use empty deltas on error
         
@@ -207,13 +147,12 @@ class ApplicationSettingsManager:
         return merged_settings
     
     @handle_errors(operation_name="update_user_setting", return_dict=True)
-    def update_user_setting(self, username: str, setting_name: str, value: Any) -> bool:
+    def update_user_setting(self, user_id: str, setting_name: str, value: Any) -> bool:
         """
-        Update a single user setting (delta-only storage).
-        Supports both legacy (flat) and new (nested) directory structures.
+        Update a single user setting using UserID-based delta-only storage.
         
         Args:
-            username: User's username
+            user_id: User's ID (format: user-1234)
             setting_name: Name of setting to update
             value: New value for setting
             
@@ -221,101 +160,57 @@ class ApplicationSettingsManager:
             True if successful, False otherwise
         """
         try:
-            # Validate setting exists
-            settings = self.discover_settings()
-            if setting_name not in settings:
+            # Validate setting exists and value is valid
+            if setting_name not in CORE_SETTINGS:
+                return False
+                
+            if not self._validate_setting_value(setting_name, value):
                 return False
             
-            # Load existing user file or create new
-            user_file = self._get_user_file_path(username)
+            # Get user directory and file path
+            user_dir = self.user_base_dir / user_id
+            username = self._extract_username_from_file(user_dir)
+            
+            if not username:
+                return False
+                
+            user_file = user_dir / f"user_{username}.json"
             user_data = {}
             
-            if user_file and user_file.exists():
+            # Load existing user data
+            if user_file.exists():
                 with open(user_file, 'r') as f:
                     user_data = json.load(f)
-            else:
-                # Initialize with username and user_id if new file
-                from scripts.user_id_generator.user_id_generator import UserIDGenerator
-                generator = UserIDGenerator()
-                user_id, _ = generator.generate_user_id(username)
-                user_data = {
-                    "username": username,
-                    "user_id": user_id
-                }
-                
-                # Ensure nested directory exists if using new structure
-                nested_dir = self.user_dir / username
-                if not nested_dir.exists():
-                    nested_dir.mkdir(parents=True, exist_ok=True)
-                    # Create memories and analytics subdirectories
-                    (nested_dir / "memories").mkdir(exist_ok=True)
-                    (nested_dir / "analytics").mkdir(exist_ok=True)
             
             # Update setting (delta-only - only store if different from default)
-            default_value = settings[setting_name].default
+            default_value = CORE_SETTINGS[setting_name]
             if value != default_value:
                 user_data[setting_name] = value
             elif setting_name in user_data:
                 # Remove setting if it matches default (clean delta storage)
                 del user_data[setting_name]
             
-            # Save updated user file
-            if not user_file:
-                # Default to new nested structure if no existing file
-                user_file = self.user_dir / username / f"user_{username}.json"
-                user_file.parent.mkdir(parents=True, exist_ok=True)
-                (user_file.parent / "memories").mkdir(exist_ok=True)
-                (user_file.parent / "analytics").mkdir(exist_ok=True)
+            # Ensure user directory structure exists
+            if not user_dir.exists():
+                user_dir.mkdir(parents=True, exist_ok=True)
+                (user_dir / "memories").mkdir(exist_ok=True)
+                (user_dir / "analytics").mkdir(exist_ok=True)
             
+            # Save updated user file
             with open(user_file, 'w') as f:
                 json.dump(user_data, f, indent=2)
             
-            # Clear relevant caches
-            cache_keys = [
-                f"user_settings|{username}",
-                "default_settings"
-            ]
-            for key in cache_keys:
-                cache.clear_cache(key)
+            # Clear user settings cache
+            cache.clear_cache(f"user_settings|{user_id}")
             
             return True
             
         except Exception:
             return False
     
-    @handle_errors(operation_name="get_settings_by_section", return_dict=True)
-    def get_settings_by_section(self) -> Dict[str, List[str]]:
+    def _validate_setting_value(self, setting_name: str, value: Any) -> bool:
         """
-        Group settings by UI section for organized display.
-        
-        Returns:
-            Dict mapping section names to lists of setting names
-        """
-        cache_key = "settings_by_section"
-        
-        # Check cache first
-        cached_result = cache.get_cached_analysis(cache_key, "settings_sections")
-        if cached_result:
-            return json.loads(cached_result)
-        
-        settings = self.discover_settings()
-        sections = {}
-        
-        for name, setting in settings.items():
-            section = setting.ui_metadata.get('section', 'Other')
-            if section not in sections:
-                sections[section] = []
-            sections[section].append(name)
-        
-        # Cache the results
-        cache.cache_content_analysis(cache_key, json.dumps(sections), "settings_sections")
-        
-        return sections
-    
-    @handle_errors(operation_name="validate_setting_value", return_dict=True)
-    def validate_setting_value(self, setting_name: str, value: Any) -> bool:
-        """
-        Validate a setting value against its definition.
+        Validate a setting value against defined options.
         
         Args:
             setting_name: Name of setting
@@ -324,103 +219,82 @@ class ApplicationSettingsManager:
         Returns:
             True if valid, False otherwise
         """
-        settings = self.discover_settings()
-        if setting_name not in settings:
+        if setting_name not in CORE_SETTINGS:
             return False
-        
-        setting = settings[setting_name]
-        
-        # For select types, validate against options
-        if setting.type == 'select' and setting.options:
-            valid_values = [opt['value'] for opt in setting.options]
-            return value in valid_values
-        
-        # For dynamic source types, validate against fallback options
-        if setting.source and setting.fallback_options:
-            return value in setting.fallback_options
-        
-        # Basic type validation
-        if setting.type in ['model_select', 'provider_select']:
+            
+        # Check against predefined options if they exist
+        if setting_name in SETTING_OPTIONS:
+            return value in SETTING_OPTIONS[setting_name]
+            
+        # For boolean settings
+        if isinstance(CORE_SETTINGS[setting_name], bool):
+            return isinstance(value, bool)
+            
+        # For string settings without specific options
+        if isinstance(CORE_SETTINGS[setting_name], str):
             return isinstance(value, str)
-        
+            
         return True
     
-    @handle_errors(operation_name="create_setting_template", return_dict=True)
-    def create_setting_template(self, setting_name: str) -> Optional[str]:
+    def _get_user_file_path(self, user_id: str) -> Optional[Path]:
         """
-        Create a new setting file from template.
+        Get user file path based on UserID directory structure.
         
         Args:
-            setting_name: Name for new setting
-            
-        Returns:
-            Path to created file or None if failed
-        """
-        template_file = self.examples_dir / "setting_name_app_settings.json"
-        new_file = self.settings_dir / f"{setting_name}_app_settings.json"
-        
-        if template_file.exists():
-            try:
-                # Copy template and update setting name
-                with open(template_file, 'r') as f:
-                    template_data = json.load(f)
-                
-                # Update template with actual setting name
-                updated_data = {setting_name: template_data['setting_name']}
-                
-                with open(new_file, 'w') as f:
-                    json.dump(updated_data, f, indent=2)
-                
-                # Clear discovery cache
-                cache.clear_cache("settings_discovery")
-                
-                return str(new_file)
-            except Exception:
-                return None
-        
-        return None
-    
-    def _get_user_file_path(self, username: str) -> Optional[Path]:
-        """
-        Get user file path, checking both new nested structure and legacy flat structure.
-        Prioritizes nested structure for forward compatibility.
-        
-        Args:
-            username: User's username
+            user_id: User's ID (format: user-1234)
             
         Returns:
             Path to user file or None if not found
         """
-        # First check new nested structure: ./configs/user/[username]/user_[username].json
-        nested_path = self.user_dir / username / f"user_{username}.json"
-        if nested_path.exists():
-            return nested_path
+        user_dir = self.user_base_dir / user_id
+        if not user_dir.exists():
+            return None
+            
+        # Find the user file in the UserID directory
+        for file_path in user_dir.glob("user_*.json"):
+            return file_path
+            
+        return None
         
-        # Fallback to legacy flat structure: ./configs/user/user_[username].json
-        legacy_path = self.user_dir / f"user_{username}.json"
-        if legacy_path.exists():
-            return legacy_path
+    def _extract_username_from_file(self, user_dir: Path) -> Optional[str]:
+        """
+        Extract username from existing user file in UserID directory.
         
-        # Return None if neither exists
+        Args:
+            user_dir: Path to user's directory
+            
+        Returns:
+            Username if found, None otherwise
+        """
+        if not user_dir.exists():
+            return None
+            
+        for file_path in user_dir.glob("user_*.json"):
+            try:
+                with open(file_path, 'r') as f:
+                    user_data = json.load(f)
+                    return user_data.get('username')
+            except Exception:
+                continue
+                
         return None
 
-# Standalone functions for button file imports (Mao standardization pattern)
+# Standalone functions for button file imports
 def get_default_settings() -> Dict[str, Any]:
     """Standalone function for getting default settings"""
     manager = ApplicationSettingsManager()
     return manager.get_default_settings()
 
-def get_user_settings(username: str) -> Dict[str, Any]:
+def get_user_settings(user_id: str) -> Dict[str, Any]:
     """Standalone function for getting user settings"""
     manager = ApplicationSettingsManager()
-    return manager.get_user_settings(username)
+    return manager.get_user_settings(user_id)
 
-def update_user_setting(username: str, setting_name: str, value: Any) -> bool:
+def update_user_setting(user_id: str, setting_name: str, value: Any) -> bool:
     """Standalone function for updating user setting"""
     manager = ApplicationSettingsManager()
-    return manager.update_user_setting(username, setting_name, value)
+    return manager.update_user_setting(user_id, setting_name, value)
 
-def discover_settings() -> Dict[str, SettingDefinition]:
-    """Standalone function for discovering settings"""
-    manager = ApplicationSettingsManager()
-    return manager.discover_settings()
+def estimate_cost(params: Dict[str, Any] = None) -> float:
+    """Estimate operation cost for budget planning"""
+    return 0.0001
