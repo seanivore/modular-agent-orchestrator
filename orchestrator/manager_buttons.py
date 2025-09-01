@@ -9,16 +9,28 @@ import os
 from typing import Dict, List, Optional, Any
 from .manager_models import ModelManager
 
+# Standard Mao imports
+from .cache.cache_system import CacheManager
+from .error_handling import handle_errors, APIError
+
+# Standard cache instance
+cache = CacheManager()
+
 
 class ButtonManager:
     """
-    🎭 THE MAGIC MAKER!
+    CORE SNIPPET GENERATOR
     Generates executable code snippets that Claude 4 can run via Code Execution Tool
     """
     
     def __init__(self, model_manager: ModelManager):
         self.models = model_manager
+    
+    def estimate_cost(self, params: Dict[str, Any] = None) -> float:
+        """REQUIRED: Estimate operation cost for budget planning"""
+        return 0.001  # Button generation is very low cost
         
+    @handle_errors(operation_name="create_api_call_snippet", return_dict=True)
     def create_api_call_snippet(
         self, 
         model_name: str, 
@@ -29,7 +41,7 @@ class ButtonManager:
         temperature: float = 0.3
     ) -> str:
         """
-        🎯 HUMAN BUTTON MAGIC!
+        PRIMARY BUTTON GENERATOR
         Generate executable code snippet for ANY model / provider combo
         """
         model = self.models.get_model_config(model_name)
@@ -57,10 +69,10 @@ class ButtonManager:
     def _create_anthropic_snippet(
         self, model, provider, prompt, system_message, tools, max_tokens, temperature
     ) -> str:
-        """🤖 Generate Anthropic API snippet"""
+        """PROVIDER: Generate Anthropic API snippet"""
         
         snippet = f'''
-# 🎯 HUMAN BUTTON: {model.display_name}
+# PRIMARY BUTTON: {model.display_name}
 import anthropic
 import os
 import json
@@ -160,10 +172,10 @@ result
     def _create_openai_snippet(
         self, model, provider, prompt, system_message, tools, max_tokens, temperature
     ) -> str:
-        """🤖 Generate OpenAI-compatible snippet (Requesty, LM Studio, etc.)"""
+        """PROVIDER: Generate OpenAI-compatible snippet (Requesty, LM Studio, etc.)"""
         
         snippet = f'''
-# 🎯 HUMAN BUTTON: {model.display_name} via {provider.display_name}
+# PRIMARY BUTTON: {model.display_name} via {provider.display_name}
 import openai
 import os
 import json
@@ -281,10 +293,10 @@ result
     def _create_gemini_snippet(
         self, model, provider, prompt, system_message, tools, max_tokens, temperature
     ) -> str:
-        """🤖 Generate Gemini SDK snippet"""
+        """PROVIDER: Generate Gemini SDK snippet"""
         
         snippet = f'''
-# 🎯 HUMAN BUTTON: {model.display_name}
+# PRIMARY BUTTON: {model.display_name}
 import google.generativeai as genai
 import os
 import json
@@ -355,12 +367,13 @@ result
 '''
         return snippet.strip()
     
+    @handle_errors(operation_name="create_workflow_snippet", return_dict=True)  
     def create_workflow_snippet(self, workflow_plan: Dict[str, Any]) -> str:
         """
-        🚀 Generate complete workflow execution snippet
+        WORKFLOW: Generate complete workflow execution snippet
         """
         snippet = '''
-# 🎭 WORKFLOW ORCHESTRATION
+# CORE WORKFLOW ORCHESTRATION
 import asyncio
 import json
 from datetime import datetime
@@ -371,8 +384,8 @@ async def execute_workflow():
     workflow_results = {}
     total_cost = 0.0
     
-    print(f"🚀 Starting workflow: {workflow_plan.get('name', 'Unnamed')}")
-    print(f"📅 Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"WORKFLOW: Starting workflow: {workflow_plan.get('name', 'Unnamed')}")
+    print(f"TIMESTAMP: Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("-" * 50)
 '''
         
@@ -382,8 +395,8 @@ async def execute_workflow():
             
             snippet += f'''
     
-    # 📋 Phase: {phase_name}
-    print(f"\\n🎯 Executing {phase_name} with {model_name}")
+    # PHASE: {phase_name}
+    print(f"\\nEXECUTING: {phase_name} with {model_name}")
     
     {self.create_api_call_snippet(model_name, prompt).replace("result", f"{phase_name}_result")}
     
@@ -391,15 +404,15 @@ async def execute_workflow():
     if "usage" in {{phase_name}}_result:
         total_cost += {{phase_name}}_result["usage"].get("total_cost", 0)
     
-    print(f"✅ {phase_name} completed")
+    print(f"COMPLETED: {phase_name}")
 '''
         
         snippet += f'''
     
     print("-" * 50)
-    print(f"🎉 Workflow completed!")
-    print(f"💰 Total cost: ${{{total_cost:.6f}}}")
-    print(f"📅 Finished at: {{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}}")
+    print(f"SUCCESS: Workflow completed!")
+    print(f"COST: Total cost: ${{{total_cost:.6f}}}")
+    print(f"TIMESTAMP: Finished at: {{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}}")
     
     return workflow_results
 
@@ -409,12 +422,13 @@ workflow_results
 '''
         return snippet.strip()
     
+    @handle_errors(operation_name="create_tool_execution_snippet", return_dict=True)
     def create_tool_execution_snippet(self, tool_name: str, params: Dict[str, Any]) -> str:
         """
-        🔧 Generate tool execution snippet
+        TOOL: Generate tool execution snippet
         """
         return f'''
-# 🔧 TOOL EXECUTION: {tool_name}
+# TOOL EXECUTION: {tool_name}
 import json
 
 def execute_{tool_name}():
@@ -451,8 +465,8 @@ def execute_{tool_name}():
         else:
             result = f"Tool '{{tool_name}}' execution placeholder"
         
-        print(f"🔧 Tool {{tool_name}} executed successfully")
-        print(f"📝 Result: {{result}}")
+        print(f"TOOL: {{tool_name}} executed successfully")
+        print(f"RESULT: {{result}}")
         
         return {{
             "success": True,
@@ -462,7 +476,7 @@ def execute_{tool_name}():
         }}
         
     except Exception as e:
-        print(f"❌ Tool {{tool_name}} failed: {{str(e)}}")
+        print(f"ERROR: Tool {{tool_name}} failed: {{str(e)}}")
         return {{
             "success": False,
             "error": str(e),
@@ -477,16 +491,16 @@ tool_result
 
     def get_execution_summary(self, model_name: str) -> str:
         """
-        📊 Get a summary of what executing this model will do
+        SUMMARY: Get a summary of what executing this model will do
         """
         model = self.models.get_model_config(model_name)
         provider = self.models.get_provider_for_model(model_name)
         
         if not model or not provider:
-            return f"❌ Model '{model_name}' not found"
+            return f"ERROR: Model '{model_name}' not found"
         
         summary = f"""
-🎯 Execution Summary for {model.display_name}
+EXECUTION SUMMARY: {model.display_name}
 
 Provider: {provider.display_name} ({provider.api_type})
 Context Window: {model.context_window:,} tokens
@@ -494,16 +508,16 @@ Max Output: {model.max_output:,} tokens
 Cost: ${model.input_price}/M input, ${model.output_price} / M output
 
 Capabilities:
-{"✅" if model.capabilities.tools else "❌"} Tools
-{"✅" if model.capabilities.vision else "❌"} Vision  
-{"✅" if model.capabilities.caching else "❌"} Caching
-{"✅" if model.capabilities.code_execution else "❌"} Code Execution
+{"SUPPORTED" if model.capabilities.tools else "NOT SUPPORTED"} Tools
+{"SUPPORTED" if model.capabilities.vision else "NOT SUPPORTED"} Vision  
+{"SUPPORTED" if model.capabilities.caching else "NOT SUPPORTED"} Caching
+{"SUPPORTED" if model.capabilities.code_execution else "NOT SUPPORTED"} Code Execution
 
 Optimal for: {", ".join(model.optimal_use_cases)}
 """
         
         if model.privacy_note:
-            summary += f"\n🔒 Privacy: {model.privacy_note}"
+            summary += f"\nPRIVACY: {model.privacy_note}"
         
         return summary.strip()
 
@@ -516,27 +530,22 @@ if __name__ == "__main__":
     manager = ModelManager()
     buttons = ButtonManager(manager)
     
-    print("🎭 HUMAN BUTTON EXAMPLES:")
+    print("BUTTON GENERATOR EXAMPLES:")
     print("=" * 50)
     
-    # Example 1: Research with free model
-    research_model = manager.get_best_model_for_task("research")
-    print(f"\\n📚 Research Button ({research_model}):")
-    snippet = buttons.create_api_call_snippet(
-        research_model, 
-        "Research the latest trends in renewable energy"
-    )
-    print(snippet[:200] + "...")
-    
-    # Example 2: Reasoning with Claude
-    reasoning_model = manager.get_best_model_for_task("reasoning")
-    print(f"\\n🧠 Reasoning Button ({reasoning_model}):")
-    snippet = buttons.create_api_call_snippet(
-        reasoning_model,
-        "Analyze this data and provide strategic recommendations"
-    )
-    print(snippet[:200] + "...")
-    
-    # Example 3: Execution summary
-    print(f"\\n📊 Execution Summary:")
-    print(buttons.get_execution_summary(research_model))
+    # Example 1: General model usage
+    available_models = manager.get_available_models()
+    if available_models:
+        example_model = available_models[0]['name']
+        print(f"\\nTEST: Button Generation ({example_model}):")
+        snippet = buttons.create_api_call_snippet(
+            example_model, 
+            "Test prompt for button generation"
+        )
+        print(snippet[:200] + "...")
+        
+        # Example 2: Execution summary
+        print(f"\\nSUMMARY: Execution Details:")
+        print(buttons.get_execution_summary(example_model))
+    else:
+        print("No models available for testing")
