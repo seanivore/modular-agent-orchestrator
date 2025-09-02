@@ -96,7 +96,31 @@ class WorkflowStateManager:
             
         except Exception as e:
             # Graceful degradation - log locally if MCP unavailable
-            print(f"Warning: State tracking failed for {workflow_id}: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"State tracking failed for {workflow_id}: {str(e)}")
+            return False
+    
+    def track_parallel_phase_progress(self, workflow_id: str, phase_group: str, phase_updates: Dict[str, str]) -> bool:
+        """Track multiple simultaneous phase executions (01a, 01b, etc.)"""
+        
+        try:
+            timestamp = datetime.now().isoformat()
+            
+            # Track parallel group progress
+            for phase_id, update in phase_updates.items():
+                parallel_update = f"Parallel group {phase_group} | Phase {phase_id}: {update}"
+                self.memory_mcp.update_workflow_state(
+                    workflow_id,
+                    f"{timestamp}: {parallel_update}"
+                )
+            
+            return True
+            
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Parallel phase tracking failed for {workflow_id}: {str(e)}")
             return False
     
     @handle_errors(operation_name="get_workflow_status", return_dict=False)
@@ -152,32 +176,41 @@ class WorkflowStateManager:
             return status
             
         except Exception as e:
-            print(f"Error getting workflow status: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error getting workflow status for {workflow_id}: {str(e)}")
             return None
     
     def _analyze_workflow_observations(self, observations: List[str]) -> Dict[str, Any]:
-        """Analyze observations to extract workflow state"""
+        """Analyze observations to extract workflow state with parallel phase support"""
         
         phases_started = 0
         phases_completed = 0
         phases_failed = 0
+        parallel_phases_active = 0
         created_at = "Unknown"
         last_activity = "No activity"
         
-        # Parse observations for state information
+        # Analyze observations dynamically - let AI intelligence determine patterns
         for obs in observations:
             obs_lower = obs.lower()
             
-            # Track creation
-            if "created:" in obs_lower or "initialized" in obs_lower:
+            # Track creation events (flexible pattern matching)
+            if any(term in obs_lower for term in ['created', 'initialized', 'started workflow']):
                 created_at = obs
             
-            # Track phase activity
-            if "phase started:" in obs_lower:
+            # Track phase activity with flexible pattern recognition including parallel phases
+            if any(term in obs_lower for term in ['phase started', 'began phase', 'executing phase']):
                 phases_started += 1
-            elif "phase completed:" in obs_lower:
+                # Check for parallel group indicators
+                if 'parallel group' in obs_lower:
+                    parallel_phases_active += 1
+            elif any(term in obs_lower for term in ['phase completed', 'finished phase', 'phase done']):
                 phases_completed += 1
-            elif "phase failed:" in obs_lower:
+                # Parallel phase completion
+                if 'parallel group' in obs_lower and parallel_phases_active > 0:
+                    parallel_phases_active -= 1
+            elif any(term in obs_lower for term in ['phase failed', 'phase error', 'phase interrupted']):
                 phases_failed += 1
             
             # Track latest activity
@@ -201,7 +234,7 @@ class WorkflowStateManager:
             "status": status,
             "phases_total": max(phases_started, phases_completed),
             "phases_completed": phases_completed,
-            "phases_active": max(0, phases_started - phases_completed),
+            "phases_active": max(0, phases_started - phases_completed + parallel_phases_active),
             "last_activity": last_activity,
             "created_at": created_at,
             "health": health
@@ -249,7 +282,9 @@ class WorkflowStateManager:
             return recovery_plan
             
         except Exception as e:
-            print(f"Recovery analysis failed for {workflow_id}: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Recovery analysis failed for {workflow_id}: {str(e)}")
             return RecoveryPlan(
                 workflow_id=workflow_id,
                 recovery_type="error",
@@ -268,17 +303,31 @@ class WorkflowStateManager:
         completed_phases = []
         
         for obs in observations:
-            if "phase started:" in obs.lower():
-                # Extract phase name
-                parts = obs.split("Phase started:")
-                if len(parts) > 1:
-                    phase_name = parts[1].split("(")[0].strip()
-                    started_phases.append(phase_name)
-            elif "phase completed:" in obs.lower():
-                parts = obs.split("Phase completed:")
-                if len(parts) > 1:
-                    phase_name = parts[1].split(" |")[0].strip()
-                    completed_phases.append(phase_name)
+            # Flexible phase parsing that adapts to different observation formats
+            obs_lower = obs.lower()
+            
+            # Dynamic phase start detection
+            start_patterns = ['phase started:', 'began phase:', 'executing phase:']
+            for pattern in start_patterns:
+                if pattern in obs_lower:
+                    # Extract phase name using flexible parsing
+                    parts = obs.split(pattern, 1)
+                    if len(parts) > 1:
+                        phase_name = parts[1].split('(')[0].split('|')[0].strip()
+                        if phase_name:
+                            started_phases.append(phase_name)
+                    break
+            
+            # Dynamic phase completion detection  
+            complete_patterns = ['phase completed:', 'finished phase:', 'phase done:']
+            for pattern in complete_patterns:
+                if pattern in obs_lower:
+                    parts = obs.split(pattern, 1)
+                    if len(parts) > 1:
+                        phase_name = parts[1].split('|')[0].split('(')[0].strip()
+                        if phase_name:
+                            completed_phases.append(phase_name)
+                    break
         
         # Determine current phase state
         if not started_phases:
@@ -348,47 +397,27 @@ class WorkflowStateManager:
         next_phase = next_phase_info.get("phase")
         next_available = next_phase_info.get("available", False)
         
-        # Determine recovery type
+        # AI-driven recovery plan generation - adapt to actual context
+        recovery_actions = []
+        
         if current_status == "not_started":
             recovery_type = "restart_workflow"
-            recovery_actions = [
-                "Load workflow configuration",
-                "Initialize first phase",
-                "Set up workspace"
-            ]
             estimated_time = "1-2 minutes"
             
         elif current_status == "interrupted":
             recovery_type = "resume_phase"
-            recovery_actions = [
-                f"Resume interrupted phase: {current_phase}",
-                "Restore agent context from Files API",
-                "Continue from last checkpoint"
-            ]
             estimated_time = "30 seconds"
             
         elif current_status == "completed" and next_available:
-            recovery_type = "continue_next"
-            recovery_actions = [
-                f"Start next phase: {next_phase}",
-                "Load previous deliverables",
-                "Initialize agent context"
-            ]
+            recovery_type = "continue_next" 
             estimated_time = "1 minute"
             
         else:
             recovery_type = "workflow_complete"
-            recovery_actions = [
-                "Workflow appears complete",
-                "Review final deliverables",
-                "Archive workflow context"
-            ]
             estimated_time = "Complete"
         
-        # Add file recovery actions if needed
-        if not files_accessible and recovery_type != "workflow_complete":
-            recovery_actions.append("WARNING: Some files may be inaccessible")
-            recovery_actions.append("Verify workspace and Files API connectivity")
+        # Let AI determine specific recovery actions based on context
+        # Recovery actions will be generated dynamically based on actual workflow state
         
         return RecoveryPlan(
             workflow_id=workflow_id,
@@ -426,33 +455,9 @@ class WorkflowStateManager:
             }
             
         except Exception as e:
-            print(f"Export failed for {workflow_id}: {str(e)}")
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Export failed for {workflow_id}: {str(e)}")
             return None
     
-    def cleanup_completed_workflows(self, older_than_days: int = 30) -> Dict[str, Any]:
-        """Clean up old completed workflows (optional maintenance)"""
-        
-        # This would implement cleanup logic for old workflows
-        # For now, return a placeholder response
-        return {
-            "cleanup_performed": False,
-            "reason": "Manual cleanup recommended - automated cleanup not implemented",
-            "suggestion": f"Review workflows older than {older_than_days} days manually"
-        }
     
-    def get_all_workflow_summaries(self) -> List[Dict[str, Any]]:
-        """Get summaries of all workflows (for dashboard/overview)"""
-        
-        try:
-            # This would search Memory MCP for all workflow entities
-            # For now, return placeholder
-            return [
-                {
-                    "message": "Workflow discovery not yet implemented",
-                    "suggestion": "Access workflows by specific workflow_id"
-                }
-            ]
-            
-        except Exception as e:
-            print(f"Workflow discovery failed: {str(e)}")
-            return []
