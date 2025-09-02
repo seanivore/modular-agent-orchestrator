@@ -115,7 +115,7 @@
   - Do not create any new codebase files 
   - Help us avoid creating any unwanted new code/classes/functions 
 
-* **SCOPE BOUNDARY**: 
+* **SCOPE BOUNDARY** 
   - Use `./documentation/10_AI_DEV_INDEX.md` complete architecture index to find matches of codebase with natural language functions
   - Focus audit ONLY on orchestrator files plus `mao_v4.py` main entry point; DO NOT audit tool files, config collections, or interface files 
   - ui_terminal.py was deleted during web app pivot - this audit focuses on cleaning orchestrator logic only, not interface implementation
@@ -284,6 +284,8 @@ Edit; organize the notes into a first draft of all the detailed UI and UX inform
 
 Create; write the analysis for the final overview. 
 
+Review; read any `<filename>_analysis.md` and `<filename>_clean.md` files necessary for accurate analysis completion. 
+
 Include: 
   1. Gap Analysis: What the audit discovered about intended vs actual functionality gaps
   2. Change Summary: Summary of changes made to each file with before/after complexity comparison
@@ -291,6 +293,8 @@ Include:
   4. Compliance Check: Assessment of whether code is now as simple, direct, and complete as necessary
   5. Implementation Readiness: Readiness assessment for terminal implementation testing
   6. Next Steps: Recommended next steps for development/testing
+
+Update; edit the `./documentation/10_AI_DEV_INDEX.md` to reflect changes to files', particularly the classes and functions. 
 ```
 
 4. **File Editing Phase**
@@ -301,11 +305,17 @@ Update the actual files
 ```
 ```UX/UI FILE 
 Finalize the document into an official Mao App UI/UX Design Guide document. 
+
 Save the file: `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
+
+UX/UI file task is now complete. 
 ```
 ```FINAL OVERVIEW 
 Please conduct a comprehensive review of your work to ensure your deliverable overview is of the highest quality possible. 
+
 Save the file: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
+
+Final overview task is now complete. 
 ```
 
 5. **Create File Documentation and Conceptual Review**
