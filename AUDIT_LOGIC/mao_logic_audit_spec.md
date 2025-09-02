@@ -32,14 +32,14 @@
 
 * **YOUR TASK** 
 
-  - Focus on the documentation task, creating: `./AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md`
-  *You'll find steps under the LOW LEVEL TASKS section categorized for "UX/UI FILE"* 
+  - Focus on the absolute final task, the overview: `./AUDIT_LOGIC/SYSTEM_OVERVIEW.md`
+  *You'll find steps under the LOW LEVEL TASKS section categorized for "FINAL OVERVIEW"* 
 
 * **REMAINING TASKS**
 
-  - 0 files for logic audit task flow **COMPLETE**
-  - 1 UX/UI file creation task **NOW**
-  - 1 final overview task **NEXT**
+  - 23 files for logic audit task flow **COMPLETE**
+  - 1 UX/UI file creation task **COMPLETE**
+  - 1 final overview task **NOW**
 
 * **COMPLETED TASKS** 
 
@@ -66,6 +66,7 @@
   21. Logic audit of `./orchestrator/workflow_manager.py`
   22. Logic audit of `./orchestrator/workflow_state.py`
   23. Logic audit of `./mao_v4.py`
+  24. UI/UX document `ui_ux_mao_app.md` 
 
 ---
 
