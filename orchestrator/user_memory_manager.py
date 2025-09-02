@@ -45,12 +45,12 @@ class UserMemoryManager:
     def store_memory(self, user_id: str, content: str, category: str = None, 
                     tags: List[str] = None, priority: str = "medium") -> Dict[str, Any]:
         """
-        Store a new memory for the user with automatic categorization.
+        Store a new memory for the user.
         
         Args:
-            user_id: User identifier
+            user_id: User identifier (format: user-####)
             content: Memory content to store
-            category: Optional category (auto-categorized if None)
+            category: Optional category (defaults to "general" if None)
             tags: Optional tags list
             priority: Memory priority (low, medium, high)
             
@@ -60,21 +60,15 @@ class UserMemoryManager:
         if not user_id or not content:
             raise ValueError("User ID and content are required")
         
-        # Get username from user_id
-        username = self._get_username_from_user_id(user_id)
-        if not username:
-            raise APIError(f"Could not find username for user_id: {user_id}")
+        if not user_id.startswith("user-"):
+            raise ValueError("Invalid user_id format. Must be format: user-####")
         
         # Generate memory ID
         memory_id = f"mem_{uuid4().hex[:8]}"
         
-        # Auto-categorize if not provided
+        # Use provided category or default to "general"
         if not category:
-            category = self._auto_categorize_content(content)
-        
-        # Auto-generate tags if not provided
-        if not tags:
-            tags = self._auto_generate_tags(content)
+            category = "general"
         
         # Create memory object
         memory = {
@@ -87,18 +81,15 @@ class UserMemoryManager:
             "last_accessed": datetime.now().isoformat(),
             "access_count": 0,
             "relevance_score": 1.0,
-            "context_triggers": self._extract_context_triggers(content),
             "source": "user_input",
             "metadata": {
-                "auto_categorized": category != category,
-                "confidence_score": 0.85,
                 "related_memories": [],
                 "embedding_vector": None
             }
         }
         
-        # Store in file system
-        self._store_memory_to_file(username, memory, category)
+        # Store in file system using user_id
+        self._store_memory_to_file(user_id, memory, category)
         
         # Store in Memory MCP for persistence
         self._store_memory_to_mcp(user_id, memory)
@@ -110,9 +101,8 @@ class UserMemoryManager:
             "success": True,
             "memory_id": memory_id,
             "category": category,
-            "tags": tags,
-            "message": "Memory stored successfully",
-            "auto_categorized": category != category
+            "tags": tags or [],
+            "message": "Memory stored successfully"
         }
     
     @handle_errors(operation_name="retrieve_memories", return_dict=True)
@@ -140,13 +130,11 @@ class UserMemoryManager:
         if cached_result:
             return json.loads(cached_result)
         
-        # Get username from user_id
-        username = self._get_username_from_user_id(user_id)
-        if not username:
+        if not user_id.startswith("user-"):
             return []
         
         # Load user memories from files
-        memories = self._load_user_memories(username, category)
+        memories = self._load_user_memories(user_id, category)
         
         # Search and score memories
         matching_memories = []
@@ -173,7 +161,7 @@ class UserMemoryManager:
         results = matching_memories[:limit]
         
         # Update access counts in storage
-        self._update_memory_access_counts(username, results)
+        self._update_memory_access_counts(user_id, results)
         
         # Cache results for 5 minutes
         cache.cache_content_analysis(cache_key, json.dumps(results), "user_memory")
@@ -204,13 +192,11 @@ class UserMemoryManager:
         if cached_result:
             return json.loads(cached_result)
         
-        # Get username from user_id
-        username = self._get_username_from_user_id(user_id)
-        if not username:
+        if not user_id.startswith("user-"):
             return []
         
         # Load user memories from files
-        memories = self._load_user_memories(username, category)
+        memories = self._load_user_memories(user_id, category)
         
         # Sort memories
         if sort_by == "created_at":
@@ -243,13 +229,11 @@ class UserMemoryManager:
         if not user_id or not memory_id:
             raise ValueError("User ID and memory ID are required")
         
-        # Get username from user_id
-        username = self._get_username_from_user_id(user_id)
-        if not username:
-            raise APIError(f"Could not find username for user_id: {user_id}")
+        if not user_id.startswith("user-"):
+            raise ValueError("Invalid user_id format. Must be format: user-####")
         
         # Find and delete memory from files
-        deleted = self._delete_memory_from_files(username, memory_id)
+        deleted = self._delete_memory_from_files(user_id, memory_id)
         
         if not deleted:
             return {
@@ -292,13 +276,11 @@ class UserMemoryManager:
         if cached_result:
             return json.loads(cached_result)
         
-        # Get username from user_id
-        username = self._get_username_from_user_id(user_id)
-        if not username:
+        if not user_id.startswith("user-"):
             return []
         
         # Load user memories from files
-        memories = self._load_user_memories(username)
+        memories = self._load_user_memories(user_id)
         
         # Score memories for contextual relevance
         suggestions = []
@@ -331,24 +313,11 @@ class UserMemoryManager:
         
         return results
     
-    def _get_username_from_user_id(self, user_id: str) -> Optional[str]:
-        """Get username from user_id using username manager"""
-        try:
-            from orchestrator.username_manager import list_users
-            users = list_users()
-            
-            for user in users:
-                if user.get("user_id") == user_id:
-                    return user.get("username")
-            
-            return None
-        except Exception:
-            return None
     
-    def _load_user_memories(self, username: str, category: str = None) -> List[Dict[str, Any]]:
+    def _load_user_memories(self, user_id: str, category: str = None) -> List[Dict[str, Any]]:
         """Load user memories from file system"""
         memories = []
-        user_memories_dir = self.base_path / username / "memories"
+        user_memories_dir = self.base_path / user_id / "memories"
         
         if not user_memories_dir.exists():
             return memories
@@ -375,9 +344,9 @@ class UserMemoryManager:
         
         return memories
     
-    def _store_memory_to_file(self, username: str, memory: Dict[str, Any], category: str):
+    def _store_memory_to_file(self, user_id: str, memory: Dict[str, Any], category: str):
         """Store memory to appropriate category file"""
-        user_memories_dir = self.base_path / username / "memories"
+        user_memories_dir = self.base_path / user_id / "memories"
         user_memories_dir.mkdir(parents=True, exist_ok=True)
         
         category_file = user_memories_dir / f"{category}.json"
@@ -388,9 +357,9 @@ class UserMemoryManager:
                 with open(category_file, 'r') as f:
                     data = json.load(f)
             except (json.JSONDecodeError, IOError):
-                data = self._create_empty_category_data(category, memory["metadata"].get("user_id", ""))
+                data = self._create_empty_category_data(category, user_id)
         else:
-            data = self._create_empty_category_data(category, username)
+            data = self._create_empty_category_data(category, user_id)
         
         # Add memory
         data["memories"].append(memory)
@@ -427,99 +396,22 @@ class UserMemoryManager:
             }
         }
     
-    def _auto_categorize_content(self, content: str) -> str:
-        """Auto-categorize content based on keywords and patterns"""
-        content_lower = content.lower()
-        
-        # Define category keywords
-        category_keywords = {
-            "personal_preferences": ["prefer", "like", "favorite", "usually", "tend to", "always"],
-            "project_context": ["project", "architecture", "pattern", "structure", "system"],
-            "technical_knowledge": ["code", "function", "api", "database", "algorithm"],
-            "work_habits": ["work", "schedule", "routine", "process", "method"],
-            "goals_objectives": ["goal", "objective", "target", "achieve", "accomplish"],
-            "contacts_relationships": ["contact", "person", "colleague", "team", "client"],
-            "tools_software": ["tool", "software", "application", "platform", "service"],
-            "general": []  # Default fallback
-        }
-        
-        # Score each category
-        category_scores = {}
-        for category, keywords in category_keywords.items():
-            score = sum(1 for keyword in keywords if keyword in content_lower)
-            if score > 0:
-                category_scores[category] = score
-        
-        # Return highest scoring category, or "general" if none match
-        if category_scores:
-            return max(category_scores.items(), key=lambda x: x[1])[0]
-        else:
-            return "general"
     
-    def _auto_generate_tags(self, content: str) -> List[str]:
-        """Auto-generate tags from content"""
-        content_lower = content.lower()
-        tags = []
-        
-        # Common tag patterns
-        tag_patterns = {
-            "productivity": ["productive", "efficiency", "organize", "focus"],
-            "schedule": ["morning", "afternoon", "evening", "time", "schedule"],
-            "preferences": ["prefer", "like", "favorite", "choose"],
-            "work": ["work", "job", "task", "project"],
-            "ai": ["ai", "model", "claude", "gpt", "anthropic"],
-            "development": ["code", "development", "programming", "software"],
-            "planning": ["plan", "strategy", "approach", "method"],
-            "documentation": ["document", "notes", "record", "track"]
-        }
-        
-        for tag, keywords in tag_patterns.items():
-            if any(keyword in content_lower for keyword in keywords):
-                tags.append(tag)
-        
-        return tags[:5]  # Limit to 5 tags
     
-    def _extract_context_triggers(self, content: str) -> List[str]:
-        """Extract context triggers from content"""
-        content_lower = content.lower()
-        triggers = []
-        
-        # Extract key phrases and words
-        words = content_lower.split()
-        
-        # Look for trigger patterns
-        trigger_patterns = [
-            "when", "if", "during", "while", "after", "before",
-            "working", "planning", "creating", "building", "designing"
-        ]
-        
-        for pattern in trigger_patterns:
-            if pattern in words:
-                triggers.append(pattern)
-        
-        # Extract nouns and adjectives as potential triggers
-        common_triggers = [
-            "project", "task", "work", "morning", "schedule", "planning",
-            "development", "coding", "meeting", "documentation", "research"
-        ]
-        
-        for trigger in common_triggers:
-            if trigger in content_lower:
-                triggers.append(trigger)
-        
-        return list(set(triggers))  # Remove duplicates
     
     def _calculate_relevance_score(self, memory: Dict[str, Any], query: str) -> float:
-        """Calculate relevance score for a memory against a query"""
+        """Calculate relevance score for a memory against a query using content similarity"""
         score = 0.0
         
-        # Content matching
+        # Content matching - simple word overlap
         content_lower = memory.get("content", "").lower()
-        query_words = query.split()
+        query_words = set(query.split())
+        content_words = set(content_lower.split())
         
-        for word in query_words:
-            if word in content_lower:
-                score += 0.3
+        # Calculate word overlap score
+        if query_words and content_words:
+            overlap = len(query_words.intersection(content_words))
+            score = overlap / len(query_words.union(content_words))
         
         # Tag matching
         tags = memory.get("tags", [])
@@ -532,31 +424,21 @@ class UserMemoryManager:
         if category.lower() in query:
             score += 0.15
         
-        # Context triggers matching
-        triggers = memory.get("context_triggers", [])
-        for trigger in triggers:
-            if trigger in query:
-                score += 0.1
-        
         return min(score, 1.0)  # Cap at 1.0
     
     def _calculate_contextual_relevance(self, memory: Dict[str, Any], context: str) -> float:
-        """Calculate contextual relevance score"""
+        """Calculate contextual relevance score using content similarity"""
         score = 0.0
         
-        # Context trigger matching
-        triggers = memory.get("context_triggers", [])
-        for trigger in triggers:
-            if trigger in context:
-                score += 0.4
-        
-        # Content similarity
+        # Content similarity - word overlap
         content_lower = memory.get("content", "").lower()
-        context_words = context.split()
+        context_words = set(context.split())
+        content_words = set(content_lower.split())
         
-        for word in context_words:
-            if word in content_lower:
-                score += 0.2
+        # Calculate word overlap score
+        if context_words and content_words:
+            overlap = len(context_words.intersection(content_words))
+            score = overlap / len(context_words.union(content_words))
         
         # Tag relevance
         tags = memory.get("tags", [])
@@ -569,12 +451,6 @@ class UserMemoryManager:
     def _get_relevance_reason(self, memory: Dict[str, Any], context: str) -> str:
         """Get explanation for why memory is relevant"""
         reasons = []
-        
-        # Check context triggers
-        triggers = memory.get("context_triggers", [])
-        matching_triggers = [t for t in triggers if t in context]
-        if matching_triggers:
-            reasons.append(f"Context triggers: {', '.join(matching_triggers)}")
         
         # Check content similarity
         content_lower = memory.get("content", "").lower()
@@ -589,7 +465,7 @@ class UserMemoryManager:
         if matching_tags:
             reasons.append(f"Related tags: {', '.join(matching_tags)}")
         
-        return " | ".join(reasons) if reasons else "General relevance"
+        return " | ".join(reasons) if reasons else "Content similarity"
     
     def _store_memory_to_mcp(self, user_id: str, memory: Dict[str, Any]):
         """Store memory to Memory MCP for persistence"""
@@ -623,9 +499,9 @@ class UserMemoryManager:
         except Exception as e:
             print(f"Warning: Failed to delete memory from MCP: {e}")
     
-    def _delete_memory_from_files(self, username: str, memory_id: str) -> bool:
+    def _delete_memory_from_files(self, user_id: str, memory_id: str) -> bool:
         """Delete memory from file system"""
-        user_memories_dir = self.base_path / username / "memories"
+        user_memories_dir = self.base_path / user_id / "memories"
         
         if not user_memories_dir.exists():
             return False
@@ -658,18 +534,19 @@ class UserMemoryManager:
         
         return False
     
-    def _update_memory_access_counts(self, username: str, memories: List[Dict[str, Any]]):
+    def _update_memory_access_counts(self, user_id: str, memories: List[Dict[str, Any]]):
         """Update access counts for memories"""
         # This would update the access counts in the files
-        # For now, just log the access
+        # Implementation would update the stored files with new access counts
         memory_ids = [m.get("memory_id") for m in memories]
-        print(f"Updated access counts for memories: {memory_ids}")
+        # Log access for debugging - could be enhanced to actually update files
+        pass
     
     def _clear_user_memory_cache(self, user_id: str):
         """Clear all cached entries for a user"""
         # This would clear cache entries matching the user pattern
-        # For now, just log the cache clear
-        print(f"Cleared memory cache for user: {user_id}")
+        # Implementation would clear cache keys that start with user_memory_*_{user_id}
+        pass
     
     def estimate_cost(self, params: Dict[str, Any]) -> float:
         """Estimate operation cost for budget planning"""
