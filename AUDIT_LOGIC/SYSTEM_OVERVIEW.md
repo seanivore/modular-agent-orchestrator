@@ -3,6 +3,85 @@
 
 ---
 
+## Human Review Feedback 
+
+### File Functional-Logic Understanding 
+
+  - Please better explain purpose of the `__init__.py` orchestrator file 
+    - What are those listed under "all" 
+    - How are those chosen; is that list complete? 
+
+  - Please explain to me the difference and need for these files 
+    - Both seem to construct a workflow 
+    - Both seem to be able to do so from just a goal 
+    - See: `conversation_bridge.py` versus `core.py` 
+    - If I remember correctly the conversation bridge was originally created for the UI connection, nothing more 
+    - `core.py` seems to handle workflow execution so what is separate need for `agent_callback.py` and `agent_orchestrator.py`? 
+
+  - Explain to me what gets printed in `error_handling.py` 
+    - It seems like we create specific things to print 
+    - But Mao should be conveying this information conversationally
+    - Mao should also be including what the User should do, etc. 
+    - Maybe this is information needed for the UI implementation? 
+
+  - I'm so curious how `manager_buttons.py` works and how it integrates with `core.py` mention of buttons 
+
+### Code Questions 
+
+* **Placeholder Code in `agent_callback.py`**
+
+  - Functions: "Placeholder for AI-driven next step analysis" and "Placeholder for AI-driven failure recovery analysis" 
+    - See: Lines 599 to 634 
+    - What is the meaning of "In a production system" here? 
+    - Compare this to starting at lines 269 in `agent_orchestrator.py` because why can the AI provide analysis here without placeholder? 
+
+* **References "previous phase" MCP build in `agent_orchestrator.py`** 
+
+  - Right at the top it says "Import MCP components built in previous phases" 
+    - See: Line 14 
+    - What does this mean? Did they implement some kind of new MCP system? 
+    - It almost sounds like they're talking about MCP built in the User's workflow 
+
+* **Cost estimates seem arbitrary in many files; start while in `agent_orchestrator.py`** 
+
+  - This is a concern/question for the cost estimate in many files 
+    - See: Lines 49 to 66 
+    - Aren't these "estimates" essentially hardcoded? Why can't they be actual costs pulled from live token usage? 
+    - All models should have costs on their JSON, right? 
+    - Users are going to look at how much they spent in the app and compare it to logged usage with their model provider... 
+
+  - Also see file `core.py` 
+    - See: 232 to 259 
+    - I see hardcoded numbers instead of pulling dynamically from a JSON for the model 
+    - Maybe there is no implementation for choosing Mao model yet, but obviously it won't always be Sonnet 4 
+    - Line 241 we even have number of estimated tokens for a phase which is *VERY* strange 
+    - Line 311 we are mentioning ANTHROPIC specifically which is also questionable 
+
+* **CLI from our terminal build versus App Command in `cli_manager.py`** 
+
+  - Do we need to be concerned that the logic here is based off our planning to have a terminal app at first? 
+  - I suppose we do want to use it in terminal, but are we leading with the right type of command then, as in app type? 
+
+* **Only "ONE" setup script mentioned in `conversation_bridge.py`** 
+
+  - Right at the start, in the "ConversationToWorkflowBridge" function 
+    - See: Lines 49, 50 
+    - We have more than one setup script; how implemented are scheduled workflows, not at all? 
+    - Also, is this pulling the conversation from memory? Shouldn't Mao be able to pull it from chat in that moment first? 
+    - See: Line 124 
+    - Also, it is mentioning the directory as "configs/use-case"
+    - It is configs/workflows and configs/reoccurring/goal-assessment or project-list or scheduled or self-assessment 
+
+* **We "generate command name" in a function in `conversation_bridge.py`** 
+
+  - This might be necessary but it might also be provided by the user, is that clear in the code? 
+    - See: 194 
+    - If anything, maybe it can be simpler and the guidelines just written text to Mao? 
+
+* **Line 261: `core.py` function "_ai_generate_workflow_name" should be based on the custom command** 
+
+---
+
 ## Executive Summary
 
 The Mao App logic audit has been successfully completed across all 23 orchestrator files plus the main entry point (`mao_v4.py`). The audit identified and addressed critical violations of MAO principles, particularly the toxic hardcoded workflow categories that would have prevented true multilingual functionality and cultural adaptation.
