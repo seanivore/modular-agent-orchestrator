@@ -113,7 +113,7 @@ class UsernameManager:
     
     @handle_errors(operation_name="load_user", return_dict=True)
     def load_user(self, username: str) -> Optional[Dict[str, Any]]:
-        """Load user data by username, checking both new nested and legacy flat structures"""
+        """Load user data by UserID from UserID-based directory structure"""
         if not username:
             return None
         
@@ -354,59 +354,166 @@ class UsernameManager:
         # Return None if neither exists
         return None
     
+    def _normalize_account_id(self, account_id: str) -> Optional[str]:
+        """
+        Normalize Account ID (email or phone number) for consistent processing
+        Returns normalized string or None if invalid format
+        """
+        if not account_id:
+            return None
+            
+        account_id = account_id.strip().lower()
+        
+        # Email validation
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if re.match(email_pattern, account_id):
+            return account_id
+        
+        # Phone number normalization (remove all non-digits, then validate)
+        phone_digits = re.sub(r'[^\d]', '', account_id)
+        if 10 <= len(phone_digits) <= 15:  # Reasonable phone number length
+            return phone_digits
+            
+        return None
+    
+    def _validate_user_id_format(self, user_id: str) -> bool:
+        """Validate UserID format (user-####)"""
+        if not user_id:
+            return False
+        return bool(re.match(r'^user-\d{4}$', user_id))
+    
+    def _generate_user_id_from_account_id(self, account_id: str) -> str:
+        """
+        Generate UserID from Account ID using meid script
+        This should call the actual meid script when implemented
+        For now, creates a deterministic mapping
+        """
+        # TODO: Replace with actual meid script call
+        # For now, creating deterministic UserID from Account ID
+        import hashlib
+        
+        # Create consistent hash from Account ID
+        hash_object = hashlib.md5(account_id.encode())
+        hash_hex = hash_object.hexdigest()
+        
+        # Extract 4 digits from hash
+        digits = ''.join(filter(str.isdigit, hash_hex))
+        if len(digits) >= 4:
+            user_number = int(digits[:4]) % 10000
+        else:
+            user_number = abs(hash(account_id)) % 10000
+        
+        # Ensure it's not 0000
+        if user_number == 0:
+            user_number = 1
+            
+        return f"user-{user_number:04d}"
+    
+    def search_users(self, search_term: str) -> List[Dict[str, Any]]:
+        """
+        Search users by UserID, Account ID, or name
+        Backward compatibility method for general search
+        """
+        if not search_term:
+            return []
+        
+        search_lower = search_term.strip().lower()
+        matches = []
+        
+        # First try exact Account ID match
+        exact_match = self.find_user_by_account_id(search_term)
+        if exact_match:
+            matches.append(exact_match)
+        
+        # Then search all users for partial matches
+        for user_data in self.list_users():
+            # Skip if already matched by Account ID
+            if exact_match and user_data.get("user_id") == exact_match.get("user_id"):
+                continue
+                
+            searchable_fields = [
+                user_data.get("user_id", "").lower(),
+                user_data.get("account_id", "").lower(),
+                user_data.get("first_name", "").lower(),
+                user_data.get("last_name", "").lower(),
+                f"{user_data.get('first_name', '')} {user_data.get('last_name', '')}".lower().strip()
+            ]
+            
+            if any(search_lower in field for field in searchable_fields if field):
+                matches.append(user_data)
+        
+        return matches
+
     def estimate_cost(self, params: Dict[str, Any]) -> float:
         """Estimate operation cost for budget planning"""
         operation = params.get("operation", "unknown")
         
         cost_map = {
             "create_user": 0.001,
-            "load_user": 0.0005,
+            "get_user_by_id": 0.0005,
             "update_settings": 0.002,
             "list_users": 0.001,
-            "find_user": 0.002,
+            "find_user_by_account_id": 0.001,
+            "search_users": 0.002,
             "session_management": 0.0005
         }
         
         return cost_map.get(operation, 0.001)
 
-# Standalone functions for button imports
-def create_user(username: str, first_name: str = "", last_name: str = "", 
-                email: str = "", dob: str = "") -> Dict[str, Any]:
-    """Standalone function for creating a new user"""
-    manager = UsernameManager()
-    return manager.create_user(username, first_name, last_name, email, dob)
+# Standalone functions for button imports (updated for UserID-first architecture)
+def create_user(account_id: str, first_name: str = "", last_name: str = "", 
+                metadata: Dict[str, Any] = None) -> Dict[str, Any]:
+    """Standalone function for creating a new user with Account ID"""
+    manager = UserManager()
+    return manager.create_user(account_id, first_name, last_name, metadata)
 
-def load_user(username: str) -> Optional[Dict[str, Any]]:
-    """Standalone function for loading user data"""
-    manager = UsernameManager()
-    return manager.load_user(username)
+def get_user_by_id(user_id: str) -> Optional[Dict[str, Any]]:
+    """Standalone function for loading user data by UserID"""
+    manager = UserManager()
+    return manager.get_user_by_id(user_id)
+
+def find_user_by_account_id(account_id: str) -> Optional[Dict[str, Any]]:
+    """Standalone function for finding user by Account ID (primary lookup method)"""
+    manager = UserManager()
+    return manager.find_user_by_account_id(account_id)
 
 def get_session_user() -> Optional[Dict[str, Any]]:
     """Standalone function for getting current session user"""
-    manager = UsernameManager()
+    manager = UserManager()
     return manager.get_session_user()
 
-def set_session_user(username: str) -> Dict[str, Any]:
-    """Standalone function for setting session user"""
-    manager = UsernameManager()
-    return manager.set_session_user(username)
+def set_session_user(user_id: str) -> Dict[str, Any]:
+    """Standalone function for setting session user by UserID"""
+    manager = UserManager()
+    return manager.set_session_user(user_id)
 
-def update_user_settings(username: str, settings_changes: Dict[str, Any]) -> Dict[str, Any]:
-    """Standalone function for updating user settings"""
-    manager = UsernameManager()
-    return manager.update_user_settings(username, settings_changes)
+def update_user_settings(user_id: str, settings_changes: Dict[str, Any]) -> Dict[str, Any]:
+    """Standalone function for updating user settings by UserID"""
+    manager = UserManager()
+    return manager.update_user_settings(user_id, settings_changes)
 
 def list_users() -> List[Dict[str, Any]]:
     """Standalone function for listing all users"""
-    manager = UsernameManager()
+    manager = UserManager()
     return manager.list_users()
 
-def find_user(search_term: str) -> List[Dict[str, Any]]:
-    """Standalone function for finding users"""
-    manager = UsernameManager()
-    return manager.find_user(search_term)
+def search_users(search_term: str) -> List[Dict[str, Any]]:
+    """Standalone function for searching users"""
+    manager = UserManager()
+    return manager.search_users(search_term)
 
 def logout_user() -> Dict[str, Any]:
     """Standalone function for logging out current user"""
-    manager = UsernameManager()
+    manager = UserManager()
     return manager.logout_user()
+
+# Backward compatibility aliases (marked for deprecation)
+def load_user(username: str) -> Optional[Dict[str, Any]]:
+    """DEPRECATED: Use find_user_by_account_id() instead"""
+    manager = UserManager()
+    return manager.find_user_by_account_id(username)
+
+def find_user(search_term: str) -> List[Dict[str, Any]]:
+    """DEPRECATED: Use search_users() instead"""
+    manager = UserManager()
+    return manager.search_users(search_term)
