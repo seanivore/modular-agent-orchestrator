@@ -32,11 +32,11 @@
 
 * **YOUR TASK** 
 
-  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/workflow_manager.py`
+  - Focus on doing a logic audit specifically for this assigned file: `./orchestrator/workflow_state.py`
 
 * **REMAINING TASKS**
 
-  - 2 files for logic audit task flow 
+  - 1 files for logic audit task flow 
   - 1 UX/UI file creation task 
   - 1 final overview task 
 
@@ -62,6 +62,7 @@
   18. Logic audit of `./orchestrator/user_analytics_manager.py`
   19. Logic audit of `./orchestrator/user_memory_manager.py`
   20. Logic audit of `./orchestrator/username_manager.py` 
+  21. Logic audit of `./orchestrator/workflow_manager.py`
 
 ---
 
