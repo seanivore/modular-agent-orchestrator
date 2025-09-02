@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 MAO v4 - Main Entry Point
-Local terminal AI orchestration system with user authentication and workflow management
+Web UI AI orchestration system with user authentication and workflow management
+Prepares backend logic for web UI integration (UI implementation to follow)
 """
 
 import sys
@@ -97,8 +98,8 @@ def find_used_command(args, commands):
     
     return None, None
 
-class MAOTerminalInterface:
-    """Main MAO terminal interface - local AI orchestration system"""
+class MAOBackendInterface:
+    """Main MAO backend interface - prepares for web UI integration"""
     
     def __init__(self):
         self.memory_mcp = MemoryMCPManager()
@@ -116,109 +117,186 @@ class MAOTerminalInterface:
             logger.error(f"MCP Hub initialization error: {e}")
             self.mcp_hub = None
     
-    def launch_terminal_ui_smart(self):
-        """Launch intelligent terminal UI with user authentication"""
-        print("\n🤖 MAO - Modular Agent Orchestrator")
-        print("Local AI Workflow Orchestration System")
-        print("" + "="*50)
-        
-        # User authentication
-        if not self.current_user_id:
-            self.authenticate_user()
-        
-        # Display welcome message  
-        self.display_welcome_message()
-        
-        # Main chat loop
-        self.start_chat_session()
-    
-    def launch_terminal_ui_onboarding(self):
-        """Launch onboarding flow for new users"""
-        print("\n🚀 Welcome to MAO!")
-        print("Let's get you set up with AI workflow orchestration.\n")
-        
-        # User registration
-        self.authenticate_user()
-        
-        # Onboarding tutorial
-        self.show_onboarding_tutorial()
-        
-        # Start main interface
-        self.launch_terminal_ui_smart()
-    
-    def authenticate_user(self):
-        """Authenticate user and generate UserID following MAO_FLOW.md spec"""
-        print("\n📝 User Authentication")
-        
-        # Get email or phone for UserID generation (MAO_FLOW.md spec)
-        contact_info = input("Enter email or phone for UserID generation: ").strip()
-        
-        if not contact_info:
-            print("❌ Contact information required for UserID generation")
-            sys.exit(1)
-        
-        # Generate UserID using MAO_FLOW.md specification (user-####)
-        user_hash = hashlib.md5(contact_info.encode()).hexdigest()[:4]
-        self.current_user_id = f"user-{user_hash}"
-        
-        # Create user profile in Memory MCP
-        user_profile = {
-            "user_id": self.current_user_id,
-            "contact_hash": user_hash,
-            "created_at": datetime.now().isoformat(),
-            "last_login": datetime.now().isoformat()
+    def initialize_web_session(self, user_contact_info: str = None) -> Dict[str, Any]:
+        """Initialize web session with user authentication - returns session data for web UI"""
+        session_data = {
+            "status": "initializing",
+            "timestamp": datetime.now().isoformat(),
+            "system_name": "MAO - Modular Agent Orchestrator",
+            "system_description": "Web AI Workflow Orchestration System"
         }
         
-        # Store in Memory MCP for persistence
-        self.memory_mcp.create_user_context(self.current_user_id, user_profile)
+        # User authentication if contact info provided
+        if user_contact_info and not self.current_user_id:
+            auth_result = self.authenticate_user_web(user_contact_info)
+            session_data.update(auth_result)
         
-        print(f"✅ Authenticated as UserID: {self.current_user_id}")
+        # Generate welcome message data
+        if self.current_user_id:
+            welcome_data = self.generate_welcome_data()
+            session_data.update(welcome_data)
+            session_data["status"] = "authenticated"
+        else:
+            session_data["status"] = "awaiting_authentication"
+        
+        return session_data
     
-    def display_welcome_message(self):
-        """Display AI-generated unique welcome message (never repeated)"""
+    def initialize_onboarding(self) -> Dict[str, Any]:
+        """Initialize onboarding flow for new users - returns onboarding data for web UI"""
+        onboarding_data = {
+            "status": "onboarding",
+            "welcome_message": "🚀 Welcome to MAO!",
+            "description": "Let's get you set up with AI workflow orchestration.",
+            "steps": [
+                {
+                    "step": 1,
+                    "title": "Authentication",
+                    "description": "Provide email or phone for UserID generation",
+                    "status": "pending"
+                },
+                {
+                    "step": 2,
+                    "title": "Tutorial",
+                    "description": "Learn how to create AI workflows",
+                    "status": "pending"
+                },
+                {
+                    "step": 3,
+                    "title": "First Workflow",
+                    "description": "Try creating your first AI workflow",
+                    "status": "pending"
+                }
+            ],
+            "current_step": 1
+        }
+        
+        return onboarding_data
+    
+    def authenticate_user_web(self, contact_info: str) -> Dict[str, Any]:
+        """Authenticate user and generate UserID following MAO_FLOW.md spec - returns auth data for web UI"""
+        auth_result = {
+            "authentication_status": "processing",
+            "timestamp": datetime.now().isoformat()
+        }
+        
+        try:
+            if not contact_info or not contact_info.strip():
+                auth_result.update({
+                    "authentication_status": "failed",
+                    "error": "Contact information required for UserID generation"
+                })
+                return auth_result
+            
+            # Generate UserID using MAO_FLOW.md specification (user-####)
+            user_hash = hashlib.md5(contact_info.strip().encode()).hexdigest()[:4]
+            self.current_user_id = f"user-{user_hash}"
+            
+            # Create user profile in Memory MCP
+            user_profile = {
+                "user_id": self.current_user_id,
+                "contact_hash": user_hash,
+                "created_at": datetime.now().isoformat(),
+                "last_login": datetime.now().isoformat()
+            }
+            
+            # Store in Memory MCP for persistence
+            self.memory_mcp.create_user_context(self.current_user_id, user_profile)
+            
+            auth_result.update({
+                "authentication_status": "success",
+                "user_id": self.current_user_id,
+                "user_profile": user_profile
+            })
+            
+        except Exception as e:
+            auth_result.update({
+                "authentication_status": "error",
+                "error": str(e)
+            })
+            logger.error(f"Authentication error: {e}")
+        
+        return auth_result
+    
+    def generate_welcome_data(self) -> Dict[str, Any]:
+        """Generate AI-generated unique welcome data (never repeated) - returns welcome data for web UI"""
         # Generate unique welcome based on current time and user
         time_seed = datetime.now().strftime("%H%M%S")
         welcome_hash = hashlib.md5(f"{self.current_user_id}{time_seed}".encode()).hexdigest()[:6]
         
-        print(f"\n👋 Welcome back, {self.current_user_id}!")
-        print(f"Session: {welcome_hash} | {datetime.now().strftime('%H:%M:%S')}")
-        print("\nI can help you create and execute AI workflows from natural language goals.")
-        print("Type your goal, or 'help' for commands.\n")
+        welcome_data = {
+            "welcome_message": f"👋 Welcome back, {self.current_user_id}!",
+            "session_id": welcome_hash,
+            "session_time": datetime.now().strftime('%H:%M:%S'),
+            "system_message": "I can help you create and execute AI workflows from natural language goals.",
+            "helpful_hints": [
+                "Describe any goal in natural language",
+                "Try 'help' for available commands",
+                "View 'status' for your workflows"
+            ],
+            "user_id": self.current_user_id
+        }
+        
+        return welcome_data
     
-    def start_chat_session(self):
-        """Main chat session loop with workflow orchestration"""
-        while True:
-            try:
-                # Get user input
-                user_input = input(f"{self.current_user_id}> ").strip()
-                
-                if not user_input:
-                    continue
-                    
-                # Handle special commands
-                if user_input.lower() in ['exit', 'quit', 'bye']:
-                    print("👋 Goodbye! Your workflows are saved and can be resumed anytime.")
-                    break
-                elif user_input.lower() == 'help':
-                    self.show_help()
-                    continue
-                elif user_input.lower() == 'status':
-                    self.show_workflow_status()
-                    continue
-                
+    def process_user_message(self, user_input: str, message_context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Process user message and return response data for web UI"""
+        response_data = {
+            "timestamp": datetime.now().isoformat(),
+            "user_id": self.current_user_id,
+            "message_type": "response",
+            "status": "processing"
+        }
+        
+        try:
+            if not user_input or not user_input.strip():
+                response_data.update({
+                    "status": "empty_input",
+                    "message": "Please provide a message or goal to process."
+                })
+                return response_data
+            
+            user_input = user_input.strip()
+            
+            # Handle special commands
+            if user_input.lower() in ['exit', 'quit', 'bye']:
+                response_data.update({
+                    "status": "session_end",
+                    "message": "👋 Goodbye! Your workflows are saved and can be resumed anytime."
+                })
+            elif user_input.lower() == 'help':
+                response_data.update({
+                    "status": "help",
+                    "data": self.get_help_data()
+                })
+            elif user_input.lower() == 'status':
+                response_data.update({
+                    "status": "workflow_status",
+                    "data": self.get_workflow_status_data()
+                })
+            else:
                 # Process as workflow goal
-                self.process_workflow_goal(user_input)
+                workflow_result = self.process_workflow_goal_web(user_input)
+                response_data.update({
+                    "status": "workflow_processed",
+                    "data": workflow_result
+                })
                 
-            except KeyboardInterrupt:
-                print("\n👋 Session interrupted. Your workflows are saved.")
-                break
-            except Exception as e:
-                print(f"❌ Error: {e}")
-                logger.error(f"Chat session error: {e}")
+        except Exception as e:
+            response_data.update({
+                "status": "error",
+                "error": str(e)
+            })
+            logger.error(f"Message processing error: {e}")
+        
+        return response_data
     
-    def process_workflow_goal(self, goal: str):
-        """Convert natural language goal into executable workflow"""
-        print(f"\n🔄 Processing goal: {goal}")
+    def process_workflow_goal_web(self, goal: str) -> Dict[str, Any]:
+        """Convert natural language goal into executable workflow - returns workflow data for web UI"""
+        workflow_data = {
+            "processing_status": "started",
+            "goal": goal,
+            "timestamp": datetime.now().isoformat()
+        }
         
         try:
             # Use conversation bridge to create workflow
@@ -228,27 +306,50 @@ class MAOTerminalInterface:
                 workflow_id = workflow_result["workflow_id"]
                 command_name = workflow_result["custom_command"]
                 
-                print(f"✅ Workflow created: {workflow_id}")
-                print(f"📋 Custom command: '{command_name}'")
-                
-                # Ask user if they want to execute immediately
-                execute = input("\n▶️  Execute workflow now? (y/N): ").strip().lower()
-                
-                if execute in ['y', 'yes']:
-                    self.execute_workflow(workflow_id, goal)
-                else:
-                    print(f"💾 Workflow saved. Execute later with: mao execute {workflow_id}")
+                workflow_data.update({
+                    "processing_status": "success",
+                    "workflow_id": workflow_id,
+                    "custom_command": command_name,
+                    "workflow_result": workflow_result,
+                    "message": f"✅ Workflow created: {workflow_id}",
+                    "actions_available": [
+                        {
+                            "action": "execute",
+                            "label": "Execute workflow now",
+                            "workflow_id": workflow_id
+                        },
+                        {
+                            "action": "save",
+                            "label": "Save for later execution",
+                            "workflow_id": workflow_id
+                        }
+                    ]
+                })
             else:
-                print(f"❌ Workflow creation failed: {workflow_result.get('error')}")
+                workflow_data.update({
+                    "processing_status": "failed",
+                    "error": workflow_result.get('error', 'Unknown error'),
+                    "message": f"❌ Workflow creation failed: {workflow_result.get('error')}"
+                })
                 
         except Exception as e:
-            print(f"❌ Goal processing error: {e}")
+            workflow_data.update({
+                "processing_status": "error",
+                "error": str(e),
+                "message": f"❌ Goal processing error: {str(e)}"
+            })
             logger.error(f"Goal processing error: {e}")
+        
+        return workflow_data
     
-    def execute_workflow(self, workflow_id: str, goal: str):
-        """Execute workflow with real-time progress display"""
-        print(f"\n🚀 Executing workflow: {workflow_id}")
-        print("📊 Progress updates will appear here...\n")
+    def execute_workflow_web(self, workflow_id: str, goal: str) -> Dict[str, Any]:
+        """Execute workflow and return execution data for web UI real-time updates"""
+        execution_data = {
+            "execution_status": "started",
+            "workflow_id": workflow_id,
+            "goal": goal,
+            "timestamp": datetime.now().isoformat()
+        }
         
         try:
             # Create workflow plan from goal
@@ -256,9 +357,13 @@ class MAOTerminalInterface:
                 self.workflow_orchestrator.create_workflow_from_goal(goal)
             )
             
-            print(f"📋 Plan created: {workflow_plan.name}")
-            print(f"📊 Estimated cost: ${workflow_plan.total_estimated_cost:.4f}")
-            print(f"⏱️  Estimated time: {workflow_plan.estimated_duration_minutes} minutes\n")
+            execution_data.update({
+                "execution_status": "plan_created",
+                "plan_name": workflow_plan.name,
+                "estimated_cost": workflow_plan.total_estimated_cost,
+                "estimated_duration_minutes": workflow_plan.estimated_duration_minutes,
+                "phases": len(workflow_plan.phases)
+            })
             
             # Execute workflow
             execution_result = asyncio.run(
@@ -266,67 +371,134 @@ class MAOTerminalInterface:
             )
             
             if execution_result.get("success"):
-                print(f"✅ Workflow completed successfully!")
-                print(f"💰 Total cost: ${execution_result['total_cost']:.4f}")
-                
-                # Show results
-                for result in execution_result['results']:
-                    if result['success']:
-                        print(f"📝 {result['phase_name']}: Success")
-                    else:
-                        print(f"❌ {result['phase_name']}: {result.get('error', 'Failed')}")
+                execution_data.update({
+                    "execution_status": "completed",
+                    "success": True,
+                    "total_cost": execution_result['total_cost'],
+                    "results": execution_result['results'],
+                    "message": "✅ Workflow completed successfully!"
+                })
             else:
-                print(f"❌ Workflow execution failed")
+                execution_data.update({
+                    "execution_status": "failed",
+                    "success": False,
+                    "message": "❌ Workflow execution failed"
+                })
                 
         except Exception as e:
-            print(f"❌ Execution error: {e}")
+            execution_data.update({
+                "execution_status": "error",
+                "success": False,
+                "error": str(e),
+                "message": f"❌ Execution error: {str(e)}"
+            })
             logger.error(f"Workflow execution error: {e}")
+        
+        return execution_data
     
-    def show_help(self):
-        """Show help information"""
-        print("\n📚 MAO Help")
-        print("" + "="*30)
-        print("• Type any goal in natural language to create a workflow")
-        print("• 'status' - Show active workflows")
-        print("• 'help' - Show this help message")
-        print("• 'exit' - Exit MAO (workflows are saved)")
-        print("\nExample goals:")
-        print("• 'Research market trends for electric vehicles'")
-        print("• 'Create a marketing plan for my new product'")
-        print("• 'Analyze customer feedback and suggest improvements'\n")
+    def get_help_data(self) -> Dict[str, Any]:
+        """Get help information data for web UI"""
+        help_data = {
+            "title": "📚 MAO Help",
+            "commands": [
+                {
+                    "command": "Natural Language Goals",
+                    "description": "Type any goal in natural language to create a workflow",
+                    "example": "Research market trends for electric vehicles"
+                },
+                {
+                    "command": "status", 
+                    "description": "Show active workflows",
+                    "example": "status"
+                },
+                {
+                    "command": "help",
+                    "description": "Show this help message",
+                    "example": "help"
+                }
+            ],
+            "example_goals": [
+                "Research market trends for electric vehicles",
+                "Create a marketing plan for my new product", 
+                "Analyze customer feedback and suggest improvements",
+                "Write a business proposal for sustainable packaging",
+                "Develop a social media strategy for my startup"
+            ],
+            "tips": [
+                "Be specific about your goals for better results",
+                "You can create multiple workflows simultaneously", 
+                "All workflows are saved and can be resumed anytime",
+                "Costs are estimated upfront for transparency"
+            ]
+        }
+        
+        return help_data
     
-    def show_workflow_status(self):
-        """Show status of user's workflows"""
-        print("\n📊 Workflow Status")
-        print("" + "="*30)
+    def get_workflow_status_data(self) -> Dict[str, Any]:
+        """Get workflow status data for web UI"""
+        status_data = {
+            "title": "📊 Workflow Status",
+            "timestamp": datetime.now().isoformat(),
+            "user_id": self.current_user_id
+        }
         
         try:
             workflows = self.workflow_orchestrator.list_workflows()
             
             if not workflows:
-                print("No workflows created yet.")
-                print("Type a goal to create your first workflow!\n")
-                return
-            
-            for workflow in workflows:
-                status_icon = "✅" if workflow['status'] == 'completed' else "🔄"
-                print(f"{status_icon} {workflow['name']}")
-                print(f"   ID: {workflow['id'][:8]}...")
-                print(f"   Phases: {workflow['phases']} | Cost: ${workflow['estimated_cost']:.4f}")
-                print(f"   Status: {workflow['status']}\n")
+                status_data.update({
+                    "status": "no_workflows",
+                    "message": "No workflows created yet.",
+                    "suggestion": "Type a goal to create your first workflow!",
+                    "workflows": []
+                })
+            else:
+                formatted_workflows = []
+                for workflow in workflows:
+                    status_icon = "✅" if workflow['status'] == 'completed' else "🔄"
+                    formatted_workflows.append({
+                        "id": workflow['id'],
+                        "name": workflow['name'],
+                        "short_id": workflow['id'][:8] + "...",
+                        "phases": workflow['phases'],
+                        "estimated_cost": workflow['estimated_cost'],
+                        "status": workflow['status'],
+                        "status_icon": status_icon,
+                        "description": workflow.get('description', '')
+                    })
+                
+                status_data.update({
+                    "status": "workflows_found",
+                    "total_workflows": len(workflows),
+                    "workflows": formatted_workflows
+                })
                 
         except Exception as e:
-            print(f"❌ Error retrieving workflow status: {e}")
+            status_data.update({
+                "status": "error",
+                "error": str(e),
+                "message": f"❌ Error retrieving workflow status: {str(e)}"
+            })
+            logger.error(f"Workflow status error: {e}")
+        
+        return status_data
     
-    def error(self, message: str):
-        """Display error message"""
-        print(f"❌ Error: {message}")
+    def get_error_response(self, message: str) -> Dict[str, Any]:
+        """Generate error response data for web UI"""
+        error_response = {
+            "status": "error",
+            "message": f"❌ Error: {message}",
+            "timestamp": datetime.now().isoformat(),
+            "user_id": self.current_user_id
+        }
+        
         logger.error(f"Interface error: {message}")
+        return error_response
 
 def bootstrap_interface():
-    """Bootstrap MAO terminal interface with error recovery"""
+    """Bootstrap MAO backend interface with error recovery - prepares for web UI integration"""
     try:
-        return MAOTerminalInterface()
+        return MAOBackendInterface()
     except Exception as e:
         sys.stderr.write(f"Bootstrap error: {e}\n")
         logger.error(f"Bootstrap error: {e}")
@@ -336,10 +508,11 @@ def bootstrap_interface():
 def main():
     """MAO main entry point - Local terminal AI orchestration system"""
     
-    # Special handling for 'mao mao' command - smart launch
+    # Special handling for 'mao mao' command - return session initialization data
     if len(sys.argv) == 2 and sys.argv[1] == "mao":
         interface = bootstrap_interface()
-        interface.launch_terminal_ui_smart()
+        session_data = interface.initialize_web_session()
+        print(json.dumps(session_data, indent=2))
         return
     
     # Load all CLI commands and create parser
@@ -370,25 +543,38 @@ def main():
                 
                 # Call with appropriate arguments based on type
                 if cmd_config["type"] == "standalone":
-                    method()
+                    result = method()
                 else:
-                    method(value)
+                    result = method(value)
+                
+                # For web UI integration, print results as JSON if they're data structures
+                if isinstance(result, dict):
+                    print(json.dumps(result, indent=2))
+                elif result:
+                    print(result)
             else:
                 # Method doesn't exist - show available commands
-                print(f"❌ Command method '{method_name}' not implemented")
-                print(f"Available interface methods:")
-                methods = [m for m in dir(interface) if not m.startswith('_') and callable(getattr(interface, m))]
-                for method in methods:
-                    print(f"  • {method}")
+                error_data = {
+                    "status": "method_not_found",
+                    "error": f"Command method '{method_name}' not implemented",
+                    "available_methods": [m for m in dir(interface) if not m.startswith('_') and callable(getattr(interface, m))]
+                }
+                print(json.dumps(error_data, indent=2))
         else:
-            # No command provided - default to onboarding
-            interface.launch_terminal_ui_onboarding()
+            # No command provided - return onboarding data
+            onboarding_data = interface.initialize_onboarding()
+            print(json.dumps(onboarding_data, indent=2))
             
     except KeyboardInterrupt:
-        print("\n👋 MAO session interrupted. Goodbye!")
+        goodbye_data = {
+            "status": "interrupted",
+            "message": "👋 MAO session interrupted. Goodbye!"
+        }
+        print(json.dumps(goodbye_data, indent=2))
         sys.exit(0)
     except Exception as e:
-        interface.error(f"Command execution error: {str(e)}")
+        error_data = interface.get_error_response(f"Command execution error: {str(e)}")
+        print(json.dumps(error_data, indent=2))
         logger.error(f"Main execution error: {e}")
 
 @handle_errors(operation_name="estimate_cost", return_dict=True)

@@ -151,15 +151,15 @@ mcp_hub = create_mcp_hub()
 
 ## Specific Code Issues
 
-### Issue 1: Web App Confusion
+### Issue 1: Backend Integration Gap
 ```python
-# Line 85-94: Incorrect architecture assumption
+# Original stub implementation  
 class WebInterface:
     def launch_terminal_ui_smart(self):
         print("MAO Web App - Interface handled by TypeScript frontend")
 ```
 
-**Problem:** CLAUDE.md explicitly states MAO is a local terminal app, not a web app. This fundamental misunderstanding affects the entire architecture.
+**Problem:** Stub implementation with print statements instead of proper backend API for web UI integration. Missing data structures and response formatting for frontend consumption.
 
 ### Issue 2: Method Routing to Non-Existent Methods
 ```python
@@ -186,25 +186,25 @@ method = getattr(interface, method_name)
 ## Implementation Requirements
 
 ### Phase 1: Foundation (Required for basic functionality)
-1. **Remove Web App References** - Replace with proper terminal UI
-2. **Implement User Authentication** - UserID generation and session management
-3. **Create Real Terminal Interface** - Replace stub with actual chat UI
+1. **Implement Web UI Backend APIs** - Replace stubs with proper data structures
+2. **Implement User Authentication** - UserID generation and session management  
+3. **Create Backend Response System** - Return structured data for frontend
 4. **Integrate Memory MCP** - State persistence and workflow context
 5. **Connect to Orchestrator** - Use existing WorkflowOrchestrator
 
 ### Phase 2: Core Features (Required for MVP)
-6. **Natural Language Processing** - Goal to workflow conversion
-7. **WorkflowID Management** - Unique workflow tracking
-8. **Agent Coordination** - Multi-agent execution support
-9. **Files API Integration** - Agent handoffs and deliverables
-10. **Error Recovery** - Resume interrupted workflows
+6. **Natural Language Processing** - Goal to workflow conversion with web responses
+7. **WorkflowID Management** - Unique workflow tracking via API responses
+8. **Agent Coordination** - Multi-agent execution with progress data
+9. **Files API Integration** - Agent handoffs and deliverable APIs
+10. **Error Recovery** - Resume interrupted workflows via web interface
 
 ### Phase 3: Advanced Features (Required for full specification)
-11. **Parallel Agent Execution** - 01a, 01b, 01c pattern support
-12. **Real-Time UI Updates** - Live workflow progress display
-13. **Semantic Highlighting** - Color psychology system
-14. **Context Management** - Smart chat history handling
-15. **Analytics Integration** - User behavior tracking
+11. **Parallel Agent Execution** - 01a, 01b, 01c pattern with web progress APIs
+12. **Real-Time Progress APIs** - Live workflow progress data for web UI
+13. **Web UI State Management** - Frontend state synchronization
+14. **Context Management APIs** - Chat history and context via web interface
+15. **Analytics Integration** - User behavior tracking through web APIs
 
 ---
 
@@ -257,4 +257,4 @@ The current `mao_v4.py` implementation is a well-designed CLI command router tha
 
 While the foundation is solid, substantial implementation work is required to deliver the AI orchestration system described in the project specifications. The existing orchestrator modules provide much of the needed functionality; they simply need to be properly integrated into the main entry point.
 
-**This audit recommends prioritizing terminal UI implementation and orchestrator integration to bridge the gap between specification and reality.**
+**This audit recommends prioritizing web UI backend preparation and orchestrator integration to bridge the gap between specification and reality.**
