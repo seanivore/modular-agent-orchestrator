@@ -85,6 +85,7 @@
       - Particularly some of my specific wording guides 
       - Basically I didn't see anything that didn't look like JUST TEXT in the code 
       - Except a few bits that seemed more like randomly adding the guidelines on writing code, not guidelines for Mao 
+    - Find more behavioral details to add (small version of mao_flow.md document): `AUDIT_LOGIC/MAO_APP_FUNCTION_FLOW.md` 
 
 --- 
 
