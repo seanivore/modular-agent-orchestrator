@@ -54,8 +54,9 @@
 ### 2. Logic audit of `./orchestrator/core.py` ⌛️ NEEDS ACTUAL COST AND ESTIMATE 
 
 1. Mentions ANTHROPIC specifically LINE 331. Are we calling Mao between agents correctly? The consolidated code should show agent → Mao → agent patterns
-2. Should those file operations be Mao operations without passing anthropic_client from agents?
-3. Should the ANTHROPIC_AVAILABLE checks be simpler since Mao guarantees Anthropic availability?
+2. Agents cannot save files; their document pad autosaves, but deliverables when they are done they call Mao, Mao gets understanding of what is going on from the MEMORY MCP using the WorkflowID. Then Mao REVIEWS the deliverables, very often making the next phase on the fly, but also having it redone if it isn't up to par, or maybe do more research if needed for example. Mao saves all working files in the Anthropic Files API using the Code Execution tool because it is free. Only at the very end of a workflow does Mao hand of only deliverables to an outbound path to the User. 
+3. Why are we looking for ANTHROPIC_AVAILABLE checks; shouldn't it be simpler since Mao guarantees Anthropic availability?
+4. We need to ensure that this still happens as indicated above. So we should review the "_old.py" three files and see what they each do differently. It seems like there was overlap but the separate files were because of specific new logic like described in #2 was added later. It still makes the most sense to have only `core.py` but we need to make sure it is not loosing proper functionality from the old files. We really shouldn't even be hardcoding a provider/model, but we can fix that part when we implement the ability to choose which model is Mao (which for now will still be anthropic but we need to build as if this won't necessarily always be the case; understanding that when we do open it up wider we'd have to figure out something other than Files API, but that bit we can change when we get there.)
 
 See: 
 
