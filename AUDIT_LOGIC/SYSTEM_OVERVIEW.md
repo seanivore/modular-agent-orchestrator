@@ -4,27 +4,25 @@
 
 ---
 
-## Our Review Together POA 
-
-  - I was reviewing the files one at a time and got through to buttons manager_buttons 
-  - When I went to pick up from there, I found myself wanting to note things about earlier files again 
-  - So I arranged all of the orchestrator files in order here so we can do them one at a time together 
+## Reviewing Orchestrator Updated Codebase & Audit Documents  
 
 * **Let's go through them one at a time together** 
 
   1. First, let's add all orchestrator files INTO the context 
-     - I can attach most of them to this message 
-     - I'll reply with the rest attached when you reply to confirm or give feedback on the POA 
-     - All other files are retrievable from the GitHub Project Knowledge Attachment 
-     - This way you'll have lasting visibility of our codebase files all at the same time 
-     - And then retrieving anything else, like each "analysis" and "clean" file, should save us context window tokens 
-  3. Then review this document in full for comments that applied to multiple files 
-     - Files that seemed sort of like they're doing the same thing, etc. 
-     - Import paths versus none, and more... 
-  4. Then we can start at #1 and work through them all one by one 
-     - While I do want you to review them all to make sure AI didn't mess anything up 
+     - I will attach 14 of them and this document 
+     - You please confirm that you will have a think, review our next one and the docs 
+     - Then I'll send the remaining files 
+     - Rest of codebase is Github Project Knowledge retrievable 
+       - Ensuring lasting visibility of codebase files 
+       - Anything else, like "_analysis" and "_clean" files won't persist, saving us some context window 
+  3. Then review this document in full  
+     - Comments that applied to multiple files; other notes I added 
+     - Files that seemed sort of like they're doing the same thing!  
+  3. Then review the next file we are checking (I'll confirm which at start)
+     - Read the file's "analysis" and "clean" document
+     - Make sure AI didn't mess anything up, some concerns I have, or just things I need to understand bet 
      - Let us fix things where they did either via artifact if writing the full file again, or direct me to paste in new lines 
-     - But also doing this one-by-one because I want to make sure I understand every files function 
+     - Make sure I understand file's function fully 
 
 * **LARGE CONTEXT WINDOW WARNING** 
 
@@ -36,77 +34,48 @@
     - It seem important for you to see all the orchestrator codebase files at once 
     - Just like AI did when they made these changes 
 
-* **Human questions about each file** 
+### Check All Files For 
 
-  - Some of these will be actual concerns 
-  - Others will be things that just look suspicious and might be or might be something I need to better understand 
+1. Make sure all paths, particularly imports, are absolute 
 
-### Below Is The Actual LOGIC AUDIT's System Overview 
+2. Any references to conversation_bridge.py or agent_callback.py or agent_orchestrator.py should be updated to core.py which now handles the entire workflow cycle. This includes the 10_AI_DEV_INDEX.md which we can update at the end. 
 
-  - Though reading each file's "analysis" and "clean" file will probably be more helpful 
-  - Though I added notes about creating the comprehensive final stretch implementation plan 
-  - That is needed first, for testing, and then also a web app ui implementation plan 
+3. Be on the lookout for duplicate functionality across orchestrator codebase files like we had with building and running workflows 
+
+### Fix In Files After All Are Reviewed 
+
+1. **ACTUAL COST CALCULATION AND ESTIMATE**: At the end, we'll need to go through and make all "cost estimates" possible, actual, and NOT hardcoded but pulling from whatever agent the model is set to and whatever model Mao is set to (the ability to choose is an option we need to add). Like we want to provide Mao with what they need to calculate an estimate when they are having a chat with User building a project's workflow. I guess this might need to be on all of the separate files, because that would keep things modular for when we inevitably add new functionality. But if that is the case, then we also need to have ACTUAL cost on all of the files so that when the workflow is running it can be updating live in the UI, based on actual cost pulling from JSON config for the model/provider, and based on live token usage. Any functionality missing to make this happen needs to be implemented (there is a anthropic made token counter FYC though we also have a token counting script and the documents when agents are drafting are supposed to have auto-save and have live token counting; we should double check for that).
 
 --- 
 
 ## Human Review Feedback 
 
 ### 1. Logic audit of `./orchestrator/__init__.py` ✅ DONE 
-### 2. Logic audit of `./orchestrator/agent_callback.py`
+### 2. Logic audit of `./orchestrator/core.py` ⌛️ NEEDS ACTUAL COST AND ESTIMATE 
 
-  - `AUDIT_LOGIC/DETAILS/agent_callback_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/agent_callback_clean.md`
+1. Mentions ANTHROPIC specifically LINE 331. Are we calling Mao between agents correctly? The consolidated code should show agent → Mao → agent patterns
+2. Should those file operations be Mao operations without passing anthropic_client from agents?
+3. Should the ANTHROPIC_AVAILABLE checks be simpler since Mao guarantees Anthropic availability?
 
-Critical architectural finding that the AI audit completely missed despite having all 23 files in context. This is exactly the kind of real-world insight that human analysis provides.
-  - core.py - Has create_workflow_from_goal(), execute_workflow(), complete orchestration
-  - conversation_bridge.py - Also converts goals to workflows
-  - agent_callback.py - Handles workflow progression
-  - agent_orchestrator.py - Also coordinates workflow execution
+See: 
 
-The core.py appears to be the most comprehensive and handles the full workflow lifecycle.
-  - Keep core.py as the foundation - it's most complete
-  - Eliminate redundant files - reduce from 23 files significantly
+```python
+# This suggests agents handle file storage - WRONG ARCHITECTURE
+file_id = await self.cache_manager.store_workflow_file(
+    processed_result.content,
+    f"{phase.name}_result.md",
+    anthropic_client  # <- This should be Mao's client, not agent's
+)
+```
 
-This Pattern Likely Exists Elsewhere: Since the audit missed this obvious redundancy, we should watch for similar patterns in:
-  - Manager files (multiple doing similar model/tool management?)
-  - Analytics files (user vs system analytics overlap?)
-  - Memory/state files (multiple doing similar state management?)
+1. Mao handles ALL file operations, logistics, dispatches, and returns
+2. Agents call Mao → Mao reads Memory MCP for context → Mao handles everything
+3. Agents have NO direct file access (prevents "file saved = done" behavior)
 
-Let's look over the bridge, callback, and agent orchestrator, grab anything we need to add to core.py, if there is anything, and then I'd like to delete them ASAP. 
-
-* **Placeholder Code in `agent_callback.py`**
-
-  - Functions: "Placeholder for AI-driven next step analysis" and "Placeholder for AI-driven failure recovery analysis" 
-    - See: Lines 599 to 634 
-    - What is the meaning of "In a production system" here? 
-    - Compare this to starting at lines 269 in `agent_orchestrator.py` because why can the AI provide analysis here without placeholder? 
-
-### 3. Logic audit of `./orchestrator/agent_orchestrator.py`
-
-  - `AUDIT_LOGIC/DETAILS/agent_orchestrator_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/agent_orchestrator_clean.md`
-
-* **References "previous phase" MCP build in `agent_orchestrator.py`** 
-
-  - Right at the top it says "Import MCP components built in previous phases" 
-    - See: Line 14 
-    - What does this mean? Did they implement some kind of new MCP system? 
-    - It almost sounds like they're talking about MCP built in the User's workflow 
-
-* **Cost estimates seem arbitrary in many files; start while in `agent_orchestrator.py`** 
-
-  - This is a concern/question for the cost estimate in many files 
-    - See: Lines 49 to 66 
-    - Aren't these "estimates" essentially hardcoded? Why can't they be actual costs pulled from live token usage? 
-    - All models should have costs on their JSON, right? 
-    - Users are going to look at how much they spent in the app and compare it to logged usage with their model provider... 
-
-  - Also see file `core.py` 
-    - See: 232 to 259 
-    - I see hardcoded numbers instead of pulling dynamically from a JSON for the model 
-    - Maybe there is no implementation for choosing Mao model yet, but obviously it won't always be Sonnet 4 
-    - Line 241 we even have number of estimated tokens for a phase which is *VERY* strange 
-    - Line 311 we are mentioning ANTHROPIC specifically which is also questionable 
+  - The `core.py` file has been updated and combined but might be missing specifics like above from 
+  - Old callback: `orchestrator/agent_callback_old.py`
+  - Old agent orchestrator: `orchestrator/agent_orchestrator_old.py`
+  - Old conversation bridge: `orchestrator/conversation_bridge_old.py` 
 
 ### 4. Logic audit of `./orchestrator/cache/__init__.py` 
 
@@ -251,6 +220,12 @@ Let's look over the bridge, callback, and agent orchestrator, grab anything we n
 
   - `AUDIT_LOGIC/DETAILS/workflow_state_analysis.md`
   - `AUDIT_LOGIC/DETAILS/workflow_state_clean.md`
+
+* **References "previous phase" MCP build in `workflow_state.py`** 
+
+  - Right at the top it says "Import MCP components built in previous phases" 
+    - What does this mean? Did they implement some kind of new MCP system? 
+    - It almost sounds like they're talking about MCP built in the User's workflow 
 
 ### 23. Logic audit of `./mao_v4.py`
 
