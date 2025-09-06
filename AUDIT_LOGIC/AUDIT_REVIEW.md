@@ -16,7 +16,7 @@
 
   1. Reviewing each new codebase file one at a time 
   2. Review that file's 'x_analysis.md' and 'x_clean.md' documents 
-  3. Fix any mistakes, changes that should not have been made, and further simplify 
+  3. Fix mistakes, changes that shouldn't have been made, simplify any over-engineering 
   4. Ensure I understand the file completely before moving on 
   5. Do not change or alter the names of classes 
      - It should be very unlikely we need any new classes 
@@ -25,13 +25,31 @@
      - We should be using normal language to make sure they know what to do 
      - We **NEVER** give examples and need to remove any in there now 
 
-### WARNING: Large 110,000 Token Context to Manage 
+### All Orchestrator Files Is 110,000 Token Context 
 
-  * **We want all orchestration files in context** 
+  * **All 23 files were in context window for each file audit**
 
-    - They had this during the audit 
-    - Ensures understanding of how the files worked together 
-    - See all classes and look for duplicated functionality 
+    - The window was wiped and refilled for each file
+    - Goal was comprehensive understanding of how files worked together 
+    - Ability to spot duplicated functionality across files 
+    - No completely made up or mistaken class names 
+
+  * **It didn't work!** 
+
+    - So far we've found duplicate overlapping functionality across four files 
+    - The pattern likely continues, and pulling them together has left us missing specifics 
+    - We found made up, mistaken, and even completely new classes used no where else 
+    - Even with access to the AI DEV FILE INDEX listing classes, functions, etc. 
+
+  * **Let's pragmatically avoid their issues and find better accuracy** 
+ 
+    - Fully in context, meaning uploaded as an attachment to the message 
+      - Similar functionality file groups 
+      - AI DEV FILE INDEX 
+    - Not kept in context, meaning read from Github Project Knowledge retrieval 
+      - The rest of the orchestrator files 
+
+`AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
 
   * **Use the `memory` Model Context Protocol server to manage context** 
 
