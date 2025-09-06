@@ -63,7 +63,14 @@ from .core import WorkflowOrchestrator, WorkflowPlan, WorkflowPhase, ExecutionRe
 from .manager_models import ModelManager
 from .manager_tools import ToolManager  
 from .manager_buttons import ButtonManager
-from .error_handling import (...)
+from .error_handling import (
+    OrchestrationError,
+    ValidationError,
+    ProcessingError, 
+    ResourceError,
+    APIError,
+    handle_errors,                # This one does not hyperlink
+    setup_orchestrator_logging    # This one does not hyperlink
 ```
 
 **Analysis**: This import structure is appropriate and clean. It exposes:

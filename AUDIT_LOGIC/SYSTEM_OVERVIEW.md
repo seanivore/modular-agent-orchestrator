@@ -4,12 +4,170 @@
 ---
 
 ## Human Review Feedback 
+*Has gotten through to buttons manager; need to continue from there* 
+
+### 1. Logic audit of `./orchestrator/__init__.py` 
+  
+  - `AUDIT_LOGIC/DETAILS/__init___analysis.md`
+  - `AUDIT_LOGIC/DETAILS/__init___clean.md`
+
+  > "When someone wants to use Mao's orchestration capabilities, this file determines what they can access. It's the difference between having to remember that "the workflow creator is in core.py, the model picker is in manager_models.py, and the error handler is somewhere else" versus simply importing everything you need from one location." 
+
+  - So that I fully understand this file: Based on the wording from `AUDIT_LOGIC/DETAILS/__init___clean.md` 
+    - Re: "Only add new exports when they provide clear value to external users" 
+    - It sounds like this is only for people who are not us? 
+  - Does it matter that all the class names hyperlink *EXCEPT* 
+    - "handle_errors" and "setup_orchestrator_logging" 
+    - What keeps them from hyperlinking in the IDE when the others do? 
+  - Where is "__all__" defined? And is that really the full list? 
+
+```python
+from .core import WorkflowOrchestrator, WorkflowPlan, WorkflowPhase, ExecutionResult
+from .manager_models import ModelManager
+from .manager_tools import ToolManager  
+from .manager_buttons import ButtonManager
+from .error_handling import (
+    OrchestrationError,
+    ValidationError,
+    ProcessingError, 
+    ResourceError,
+    APIError,
+    handle_errors,                # This one does not hyperlink
+    setup_orchestrator_logging    # This one does not hyperlink
+
+__all__ = [
+    'WorkflowOrchestrator',
+    'WorkflowPlan', 
+    'WorkflowPhase',
+    'ExecutionResult',
+    'ModelManager',
+    'ToolManager',
+    'ButtonManager',
+    'OrchestrationError',
+    'ValidationError',
+    'ProcessingError',
+    'ResourceError', 
+    'APIError',
+    'handle_errors',
+    'setup_orchestrator_logging'
+]
+```
+
+### 2. Logic audit of `./orchestrator/agent_callback.py`
+
+  - `AUDIT_LOGIC/DETAILS/agent_callback_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/agent_callback_clean.md`
+
+### 3. Logic audit of `./orchestrator/agent_orchestrator.py`
+
+  - `AUDIT_LOGIC/DETAILS/agent_orchestrator_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/agent_orchestrator_clean.md`
+
+### 4. Logic audit of `./orchestrator/cache/__init__.py` 
+
+  - `AUDIT_LOGIC/DETAILS/cache_init_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/cache_init_clean.md`
+
+### 5. Logic audit of `./orchestrator/cache/cache_system.py` 
+
+  - `AUDIT_LOGIC/DETAILS/cache_cache_system_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/cache_cache_system_clean.md`
+
+### 6. Logic audit of `./orchestrator/cli_manager.py` 
+
+  - `AUDIT_LOGIC/DETAILS/cli_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/cli_manager_clean.md`
+
+### 7. Logic audit of `./orchestrator/conversation_bridge.py`
+
+  - `AUDIT_LOGIC/DETAILS/conversation_bridge_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/conversation_bridge_clean.md`
+
+### 8. Logic audit of `./orchestrator/core.py`
+
+  - `AUDIT_LOGIC/DETAILS/core_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/core_clean.md`
+
+### 9. Logic audit of `./orchestrator/error_handling.py`
+
+  - `AUDIT_LOGIC/DETAILS/error_handling_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/error_handling_clean.md`
+
+### 10. Logic audit of `./orchestrator/manager_buttons.py` 
+
+  - `AUDIT_LOGIC/DETAILS/manager_buttons_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/manager_buttons_clean.md`
+
+### 11. Logic audit of `./orchestrator/manager_models.py`
+
+  - `AUDIT_LOGIC/DETAILS/manager_models_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/manager_models_clean.md`
+
+### 12. Logic audit of `./orchestrator/manager_tools.py`
+
+  - `AUDIT_LOGIC/DETAILS/manager_tools_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/manager_tools_clean.md`
+
+### 13. Logic audit of `./orchestrator/mcp_hub.py`
+
+  - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/mcp_hub_clean.md`
+
+### 14. Logic audit of `./orchestrator/memory_mcp.py`
+
+  - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/memory_mcp_clean.md`
+
+### 15. Logic audit of `./orchestrator/real_time_metrics.py`
+
+  - `AUDIT_LOGIC/DETAILS/real_time_metrics_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/real_time_metrics_clean.md`
+
+### 16. Logic audit of `./orchestrator/settings_manager.py`
+
+  - `AUDIT_LOGIC/DETAILS/settings_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/settings_manager_clean.md`
+
+### 17. Logic audit of `./orchestrator/system_analytics_manager.py`
+
+  - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/system_analytics_manager_clean.md`
+
+### 18. Logic audit of `./orchestrator/user_analytics_manager.py`
+
+  - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/user_analytics_manager_clean.md`
+
+### 19. Logic audit of `./orchestrator/user_memory_manager.py`
+
+  - `AUDIT_LOGIC/DETAILS/user_memory_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/user_memory_manager_clean.md`
+
+### 20. Logic audit of `./orchestrator/username_manager.py` 
+
+  - `AUDIT_LOGIC/DETAILS/username_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/username_manager_clean.md`
+
+### 21. Logic audit of `./orchestrator/workflow_manager.py`
+
+  - `AUDIT_LOGIC/DETAILS/workflow_manager_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/workflow_manager_clean.md`
+
+### 22. Logic audit of `./orchestrator/workflow_state.py`
+
+  - `AUDIT_LOGIC/DETAILS/workflow_state_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/workflow_state_clean.md`
+
+### 23. Logic audit of `./mao_v4.py`
+
+  - `AUDIT_LOGIC/DETAILS/mao_v4_analysis.md`
+  - `AUDIT_LOGIC/DETAILS/mao_v4_clean.md`
+
+### 24. UI/UX document `ui_ux_mao_app.md` 
+
+  - `AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
 
 ### File Functional-Logic Understanding 
-
-  - Please better explain purpose of the `__init__.py` orchestrator file 
-    - What are those listed under "all" 
-    - How are those chosen; is that list complete? 
 
   - Please explain to me the difference and need for these files 
     - Both seem to construct a workflow 
@@ -79,6 +237,18 @@
     - If anything, maybe it can be simpler and the guidelines just written text to Mao? 
 
 * **Line 261: `core.py` function "_ai_generate_workflow_name" should be based on the custom command** 
+
+* **Import path inclusion inconsistency** 
+
+  - In `manager_buttons.py` @ LINE 10 "from .manager_models import ModelManager" is not using path 
+    - Next two lines, one does: "cache.cache_system import CacheManager"
+    - Then the other doesn't: "from .error_handling import handle_errors" 
+  - Caught this because of seeing the path on `manager_models.py` LINE 8 
+    - Does: "from orchestrator.cache.cache_system import CacheManager" 
+    - Does: "from orchestrator.error_handling import" 
+    - Then CacheManager on the same file doesn't 
+  - Should make it consistent I presume; and check all files in doing so 
+
 
 ---
 
