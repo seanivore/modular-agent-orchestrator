@@ -1,10 +1,43 @@
 # Mao App System Overview
 *Final audit assessment and system readiness report*
+`/Users/seanivore/Development/modular-agent-orchestrator/AUDIT_LOGIC/SYSTEM_OVERVIEW.md` 
 
 ---
 
+## Our Review Together POA 
+
+  - I was reviewing the files one at a time and got through to buttons manager_buttons 
+  - When I went to pick up from there, I found myself wanting to note things about earlier files again 
+  - So I arranged all of the orchestrator files in order here so we can do them one at a time together 
+
+* **Let's go through them one at a time together** 
+
+  1. First, let's add all orchestrator files INTO the context 
+     - I can attach most of them to this message 
+     - I'll reply with the rest attached when you reply to confirm or give feedback on the POA 
+     - All other files are retrievable from the GitHub Project Knowledge Attachment 
+     - This way you'll have lasting visibility of our codebase files all at the same time 
+     - And then retrieving anything else, like each "analysis" and "clean" file, should save us context window tokens 
+  3. Then review this document in full for comments that applied to multiple files 
+     - Files that seemed sort of like they're doing the same thing, etc. 
+     - Import paths versus none, and more... 
+  4. Then we can start at #1 and work through them all one by one 
+     - While I do want you to review them all to make sure AI didn't mess anything up 
+     - Let us fix things where they did either via artifact if writing the full file again, or direct me to paste in new lines 
+     - But also doing this one-by-one because I want to make sure I understand every files function 
+
+* **Add to the `memory` MCP tool after every file is reviewed together** 
+
+  - Because we'll be hitting about 110,000 tokens in the context from this and then all the attachments 
+  - We need to update the Project State after every change across files AND THEN also after we review each file one at a time 
+  - NOTE: This is the model context protocol tool `memory` (lately AI has been not using it correctly the first try) 
+  - Basically we'll get context window slammed pretty fast doing this, but 
+  - It seem important for you to see all the orchestrator codebase files at once 
+  - Just like AI did when they made these changes. 
+
+--- 
+
 ## Human Review Feedback 
-*Has gotten through to buttons manager; need to continue from there* 
 
 ### 1. Logic audit of `./orchestrator/__init__.py` 
   
@@ -244,6 +277,19 @@ __all__ = [
 ### 24. UI/UX document `ui_ux_mao_app.md` 
 
   - `AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
+
+* **I didn't add `MAO_FLOW.md` but I feel like a lot of the UX, behavior guides didn't actually get added** 
+
+  - AI said they added things 
+  - But I think we'll want to look at this again 
+  - Particularly some of my specific wording guides 
+  - Basically I didn't see anything that didn't look like JUST TEXT in the code 
+  - Except a few bits that seemed more like randomly adding the guidelines on writing code, not guidelines for Mao 
+
+### 25. The rest of the AI notes are below
+
+  - But I also think we need to make sure that our AI DEV INDEX file is up-to-date still 
+  - It is here: `documentation/10_AI_DEV_INDEX.md` 
 
 ---
 
