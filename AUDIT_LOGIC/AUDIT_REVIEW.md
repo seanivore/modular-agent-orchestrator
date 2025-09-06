@@ -43,17 +43,23 @@
 
   * **Let's pragmatically avoid their issues and find better accuracy** 
  
-    - Fully in context, meaning uploaded as an attachment to the message 
+    - *Fully in context*, meaning uploaded as an attachment to the message 
       - Similar functionality file groups 
-      - AI DEV FILE INDEX 
-    - Not kept in context, meaning read from Github Project Knowledge retrieval 
+      - AI DEV FILE INDEX: `documentation/10_AI_DEV_INDEX.md` 
+      - File-guide for normal language app function and Mao behavior outline: `AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
+    - *Not kept in context*, meaning read from Github Project Knowledge retrieval 
       - The rest of the orchestrator files 
+      - The 'x_analysis.md' and 'x_clean.md' logic audit docs read for reach orchestrator file 
+      - Whatever of the Mao Flow documents are read (there are 13)
 
-`AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
+  * **After every session of any file updates, make sure AI DEV FILE INDEX is up to date**
+
+    - Let's make sure that this doesn't get dated 
+    - We want to be able to trust it for class and function names every new context window 
+    - So we need to be vigilant in keeping it accurate  
 
   * **Use the `memory` Model Context Protocol server to manage context** 
-
-    - Our context window will fill and need to be wiped fast 
+ 
     - Update project state progress to memory tool 
     - Record all big updates and when a file is complete 
     - Next AI instance will understand where to pick things up in new context window 
@@ -103,7 +109,12 @@
       - Particularly some of my specific wording guides 
       - Basically I didn't see anything that didn't look like JUST TEXT in the code 
       - Except a few bits that seemed more like randomly adding the guidelines on writing code, not guidelines for Mao 
-    - Find more behavioral details to add (small version of mao_flow.md document): `AUDIT_LOGIC/MAO_APP_FUNCTION_FLOW.md` 
+    - Find more behavioral details 
+      - To add directly into the code for Mao 
+      - That are not examples or suggestions 
+      - But that help Mao validate JSON variable 
+      - And help with sales/retention strategy 
+      - Use 13 documents of app function and Mao behavior outlines: `AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
 
 --- 
 
