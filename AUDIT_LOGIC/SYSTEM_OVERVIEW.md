@@ -41,6 +41,12 @@
   - Some of these will be actual concerns 
   - Others will be things that just look suspicious and might be or might be something I need to better understand 
 
+### Below Is The Actual LOGIC AUDIT's System Overview 
+
+  - Though reading each file's "analysis" and "clean" file will probably be more helpful 
+  - Though I added notes about creating the comprehensive final stretch implementation plan 
+  - That is needed first, for testing, and then also a web app ui implementation plan 
+
 --- 
 
 ## Human Review Feedback 
@@ -453,6 +459,8 @@ The Mao App logic audit has been successfully completed across all 23 orchestrat
     - Majority of them are complete already 
 
   1. First we need to review all of them, here: `AUDIT_LOGIC/IMPL_FINAL.md` 
+  2. They are not in any particular order in the plan, soon to be master plan 
+  3. But we'll want to figure out where in this phase list they should go, probably the top 
 
 ### Phase 1: Core System Testing (Priority 1)
 1. **Multilingual workflow testing** across different languages and cultures
