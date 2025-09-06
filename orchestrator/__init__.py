@@ -3,11 +3,11 @@ Orchestrator Package
 Modular AI workflow orchestration system
 """
 
-from .core import WorkflowOrchestrator, WorkflowPlan, WorkflowPhase, ExecutionResult
-from .manager_models import ModelManager
-from .manager_tools import ToolManager  
-from .manager_buttons import ButtonManager
-from .error_handling import (
+from orchestrator.core import WorkflowOrchestrator, WorkflowPlan, WorkflowPhase, ExecutionResult
+from orchestrator.manager_models import ModelManager
+from orchestrator.manager_tools import ToolManager  
+from orchestrator.manager_buttons import ButtonManager
+from orchestrator.error_handling import (
     OrchestrationError,
     ValidationError,
     ProcessingError, 
