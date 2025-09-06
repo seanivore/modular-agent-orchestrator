@@ -26,14 +26,20 @@
      - Let us fix things where they did either via artifact if writing the full file again, or direct me to paste in new lines 
      - But also doing this one-by-one because I want to make sure I understand every files function 
 
-* **Add to the `memory` MCP tool after every file is reviewed together** 
+* **LARGE CONTEXT WINDOW WARNING** 
 
-  - Because we'll be hitting about 110,000 tokens in the context from this and then all the attachments 
-  - We need to update the Project State after every change across files AND THEN also after we review each file one at a time 
+  - Add to the `memory` MCP tool after every file is reviewed together or other update made
+    - Because we'll be hitting about 110,000 tokens in the context from this and then all the attachments 
+    - We need to update the Project State after every change across files AND THEN also after we review each file one at a time 
   - NOTE: This is the model context protocol tool `memory` (lately AI has been not using it correctly the first try) 
   - Basically we'll get context window slammed pretty fast doing this, but 
-  - It seem important for you to see all the orchestrator codebase files at once 
-  - Just like AI did when they made these changes. 
+    - It seem important for you to see all the orchestrator codebase files at once 
+    - Just like AI did when they made these changes 
+
+* **Human questions about each file** 
+
+  - Some of these will be actual concerns 
+  - Others will be things that just look suspicious and might be or might be something I need to better understand 
 
 --- 
 
@@ -440,6 +446,13 @@ The Mao App logic audit has been successfully completed across all 23 orchestrat
 ---
 
 ## Next Steps: Development and Testing
+
+**NOTE:** There are other implementation plans to integrate into this plan. 
+  - It is a list of all the implementation plans we have started 
+    - All are things that we need for actual launch and some for testing 
+    - Majority of them are complete already 
+
+  1. First we need to review all of them, here: `AUDIT_LOGIC/IMPL_FINAL.md` 
 
 ### Phase 1: Core System Testing (Priority 1)
 1. **Multilingual workflow testing** across different languages and cultures
