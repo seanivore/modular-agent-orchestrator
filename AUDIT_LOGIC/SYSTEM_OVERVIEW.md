@@ -1,254 +1,294 @@
 # Mao App System Overview
-*Final audit assessment and system readiness report*
+*Final audit assessment and system readiness report is at the bottom from AI who did the Logic Audit*
+*First is our section on reviewing the audit files*
 `/Users/seanivore/Development/modular-agent-orchestrator/AUDIT_LOGIC/SYSTEM_OVERVIEW.md` 
 
 ---
 
-## Reviewing Orchestrator Updated Codebase & Audit Documents  
+## Orchestrator File Logic Audit 
 
-* **Let's go through them one at a time together** 
+### About the Logic Audit 
 
-  1. First, let's add all orchestrator files INTO the context 
-     - I will attach 14 of them and this document 
-     - You please confirm that you will have a think, review our next one and the docs 
-     - Then I'll send the remaining files 
-     - Rest of codebase is Github Project Knowledge retrievable 
-       - Ensuring lasting visibility of codebase files 
-       - Anything else, like "_analysis" and "_clean" files won't persist, saving us some context window 
-  3. Then review this document in full  
-     - Comments that applied to multiple files; other notes I added 
-     - Files that seemed sort of like they're doing the same thing!  
-  3. Then review the next file we are checking (I'll confirm which at start)
-     - Read the file's "analysis" and "clean" document
-     - Make sure AI didn't mess anything up, some concerns I have, or just things I need to understand bet 
-     - Let us fix things where they did either via artifact if writing the full file again, or direct me to paste in new lines 
-     - Make sure I understand file's function fully 
+* **AI read normal language functionality and simplified any over-engineering**
 
-* **LARGE CONTEXT WINDOW WARNING** 
+    - Ensured all files are following Mao rules
+    - Cleaned up all hardcoding "suggestions" 
+    - Instead, added guidelines and psychological behavior from `MAO_FLOW.md` 
+    - Removed or replaced any 'mock code' with real code 
 
-  - Add to the `memory` MCP tool after every file is reviewed together or other update made
-    - Because we'll be hitting about 110,000 tokens in the context from this and then all the attachments 
-    - We need to update the Project State after every change across files AND THEN also after we review each file one at a time 
-  - NOTE: This is the model context protocol tool `memory` (lately AI has been not using it correctly the first try) 
-  - Basically we'll get context window slammed pretty fast doing this, but 
-    - It seem important for you to see all the orchestrator codebase files at once 
-    - Just like AI did when they made these changes 
+### Reviewing the Logic Audit's Changes 
 
-### Check All Files For 
+  1. Reviewing each new codebase file one at a time 
+  2. Review that file's 'x_analysis.md' and 'x_clean.md' documents 
+  3. Fix any mistakes, changes that should not have been made, and further simplify 
+  4. Ensure I understand the file completely before moving on 
+  5. Do not change or alter the names of classes 
+     - It should be very unlikely we need any new classes 
+     - See our FILE INDEX if needed: `documentation/10_AI_DEV_INDEX.md` 
+  6. Anywhere code is telling Mao to do something 
+     - We should be using normal language to make sure they know what to do 
+     - We **NEVER** give examples and need to remove any in there now 
 
-1. Make sure all paths, particularly imports, are absolute 
+### WARNING: Large 110,000 Token Context to Manage 
 
-2. Any references to conversation_bridge.py or agent_callback.py or agent_orchestrator.py should be updated to core.py which now handles the entire workflow cycle. This includes the 10_AI_DEV_INDEX.md which we can update at the end. 
+* **We want all orchestration files in context** 
 
-3. Be on the lookout for duplicate functionality across orchestrator codebase files like we had with building and running workflows 
+    - They had this during the audit 
+    - Ensures understanding of how the files worked together 
+    - See all classes and look for duplicated functionality 
 
-### Fix In Files After All Are Reviewed 
+* **Use the `memory` Model Context Protocol server to manage context** 
 
-1. **ACTUAL COST CALCULATION AND ESTIMATE**: At the end, we'll need to go through and make all "cost estimates" possible, actual, and NOT hardcoded but pulling from whatever agent the model is set to and whatever model Mao is set to (the ability to choose is an option we need to add). Like we want to provide Mao with what they need to calculate an estimate when they are having a chat with User building a project's workflow. I guess this might need to be on all of the separate files, because that would keep things modular for when we inevitably add new functionality. But if that is the case, then we also need to have ACTUAL cost on all of the files so that when the workflow is running it can be updating live in the UI, based on actual cost pulling from JSON config for the model/provider, and based on live token usage. Any functionality missing to make this happen needs to be implemented (there is a anthropic made token counter FYC though we also have a token counting script and the documents when agents are drafting are supposed to have auto-save and have live token counting; we should double check for that).
+    - Our context window will fill and need to be wiped fast 
+    - Update project state progress to memory tool 
+    - Record all big updates and when a file is complete 
+    - Next AI instance will understand where to pick things up in new context window 
+
+### Immediately Fix in **ALL FILES** 
+
+  1. Make sure all paths, particularly imports, are absolute 
+  2. Combine overlapping functionality 
+     - `core.py` seem to have the same functioning 
+     - As `agent_callback.py`, `agent_orchestrator.py`, and `conversation_bridge.py` 
+     - See #2 below for dealing with this one 
+     - Be on the lookout for similar issues in other functionality 
+
+### Fix In All Files After Review Completion  
+
+  * **ACTUAL COST CALCULATION AND ESTIMATE** 
+
+    - We cannot only have estimated costs 
+    - All cost hardcoding must be removed 
+    - Mao needs an estimate for Users while building during chat 
+    - **REAL COSTS** must be show during workflow executions, in real time 
+    - Use JSONs for Model/Provider and create new one for estimates  
+    - Might this have something to do with the "Real time metrics" orchestrator file? 
+
+    1. Right now I only see estimate cost on each file 
+       - This *only* goes to Mao while building a workflow 
+       - Let user know what they might be spending 
+    2. Create estimated cost calculations 
+       - For each estimate, pull from the actual JSON for whatever Model/Provider it is 
+       - Pull from the JSON even if it is Mao's usage, we will be creating option to change model that is Mao 
+    3. Give each file an `Actual Cost` function as well 
+       - This must be calculated using live token usage, as it happens 
+       - This must be open to any model/provider so pull from JSON, even for Mao 
+    4. Ensure the setup for both is designed for longevity 
+       - We should never be saying "Sonnet 4" or Anthropic" 
+       - Yes we will only be using Anthropic for Mao for now, but if we change that in the future it should be easy 
+       - Updating the Model/Provider JSON pricing is all that should be required for keep accurate actual cost AND ESTIMATE costs 
+       - Both actual and estimate will change over time 
+
+  * **Add more literal Mao behavior and how to validate without example guides** 
+
+    - This needs to happen in normal language 
+      - A lot almost verbatim from my breakdown 
+      - Sales strategy; how to read user psychology 
+    - AI said they added things 
+      - But I think we'll want to look at this again 
+      - Particularly some of my specific wording guides 
+      - Basically I didn't see anything that didn't look like JUST TEXT in the code 
+      - Except a few bits that seemed more like randomly adding the guidelines on writing code, not guidelines for Mao 
 
 --- 
 
-## Human Review Feedback 
+## Orchestrator Files from Logic Audit  
 
-### 1. Logic audit of `./orchestrator/__init__.py` ✅ DONE 
-### 2. Logic audit of `./orchestrator/core.py` ⌛️ NEEDS ACTUAL COST AND ESTIMATE 
+### 1. Main INIT Orchestration File 
+  - Orchestrator Directory `./orchestrator/__init__.py` ✅ DONE 
 
-1. Mentions ANTHROPIC specifically LINE 331. Are we calling Mao between agents correctly? The consolidated code should show agent → Mao → agent patterns
-2. Agents cannot save files; their document pad autosaves, but deliverables when they are done they call Mao, Mao gets understanding of what is going on from the MEMORY MCP using the WorkflowID. Then Mao REVIEWS the deliverables, very often making the next phase on the fly, but also having it redone if it isn't up to par, or maybe do more research if needed for example. Mao saves all working files in the Anthropic Files API using the Code Execution tool because it is free. Only at the very end of a workflow does Mao hand of only deliverables to an outbound path to the User. 
-3. Why are we looking for ANTHROPIC_AVAILABLE checks; shouldn't it be simpler since Mao guarantees Anthropic availability?
-4. We need to ensure that this still happens as indicated above. So we should review the "_old.py" three files and see what they each do differently. It seems like there was overlap but the separate files were because of specific new logic like described in #2 was added later. It still makes the most sense to have only `core.py` but we need to make sure it is not loosing proper functionality from the old files. We really shouldn't even be hardcoding a provider/model, but we can fix that part when we implement the ability to choose which model is Mao (which for now will still be anthropic but we need to build as if this won't necessarily always be the case; understanding that when we do open it up wider we'd have to figure out something other than Files API, but that bit we can change when we get there.)
+### 2. Workflow Creation & Execution Files 
 
-See: 
+  * **Agent Callback `./orchestrator/agent_callback.py`** 
 
-```python
-# This suggests agents handle file storage - WRONG ARCHITECTURE
-file_id = await self.cache_manager.store_workflow_file(
-    processed_result.content,
-    f"{phase.name}_result.md",
-    anthropic_client  # <- This should be Mao's client, not agent's
-)
-```
+    - `AUDIT_LOGIC/DETAILS/agent_callback_analysis.md` 
+    - `AUDIT_LOGIC/DETAILS/agent_callback_clean.md` 
 
-1. Mao handles ALL file operations, logistics, dispatches, and returns
-2. Agents call Mao → Mao reads Memory MCP for context → Mao handles everything
-3. Agents have NO direct file access (prevents "file saved = done" behavior)
+  * **Agent Orchestrator `./orchestrator/agent_orchestrator.py`**
+    
+    - `AUDIT_LOGIC/DETAILS/agent_orchestrator_analysis.md` 
+    - `AUDIT_LOGIC/DETAILS/agent_orchestrator_clean.md` 
 
-  - The `core.py` file has been updated and combined but might be missing specifics like above from 
-  - Old callback: `orchestrator/agent_callback_old.py`
-  - Old agent orchestrator: `orchestrator/agent_orchestrator_old.py`
-  - Old conversation bridge: `orchestrator/conversation_bridge_old.py` 
+  * **Conversation Bridge `./orchestrator/conversation_bridge.py`** 
 
-### 4. Logic audit of `./orchestrator/cache/__init__.py` 
+    - `AUDIT_LOGIC/DETAILS/conversation_bridge_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/conversation_bridge_clean.md`
 
-  - `AUDIT_LOGIC/DETAILS/cache_init_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/cache_init_clean.md`
+    - It is mentioning the directory as "configs/use-case" 
+      - Should be configs/workflows
+      - Another workflow type and setup script is in next implementation batch 
+    - Explain and review 'generate_command_name" around line 194 
+      - Code is unclear to me 
+      - The user probably will have this 
+      - If anything shouldn't it just be normal language rules written to Mao 
 
-### 5. Logic audit of `./orchestrator/cache/cache_system.py` 
+  * **Core `./orchestrator/core.py`** 
 
-  - `AUDIT_LOGIC/DETAILS/cache_cache_system_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/cache_cache_system_clean.md`
+    - `AUDIT_LOGIC/DETAILS/core_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/core_clean.md`
 
-### 6. Logic audit of `./orchestrator/cli_manager.py` 
+    - For "_ai_generate_workflow_name" 
+      - This should be the custom command, always
+      - All lowercase, shish-kabob text 
+
+  * **Regarding their very similar functionality** 
+
+    1. Let's first identify the differences 
+    2. Share what they are to me in normal language 
+    3. Human to confirm and explain need functionality 
+    4. Ensure we are not missing any functionality 
+    5. Don't lose anything if we combine or just simplify files
+    6. Decide if they should be simplified or combined, then do so 
+
+### 3. Other Workflow Files (Execution?)
+
+  * **Workflow Manager `./orchestrator/workflow_manager.py`**
+
+    - `AUDIT_LOGIC/DETAILS/workflow_manager_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/workflow_manager_clean.md`
+
+  * **Maintaining state across sessions of workflow use `./orchestrator/workflow_state.py`**
+
+    - `AUDIT_LOGIC/DETAILS/workflow_state_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/workflow_state_clean.md`
+
+    - This reverences "Import MCP components built in previous phases" which means what 
+      - We don't build any MCPs in any stages 
+      - Is this supposed to be about Mao saving state to Memory? 
+
+### 4. MCP Connections for Files API & Memory Tool 
+
+  * **MCP Hub `./orchestrator/mcp_hub.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/mcp_hub_clean.md`
+
+  * **Memory MCP `./orchestrator/memory_mcp.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/memory_mcp_clean.md`
+
+    - It almost seems like maybe this is supposed to be in tools? 
+      - Like where is the Files API orchestrator file otherwise? 
+      - Or is using the file part of the memory orchestration? 
+      - There is a python file for logic in every tool 
+
+### 5. Workflow Creation Assets 
+
+  * **Human Button Maker `./orchestrator/manager_buttons.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/manager_buttons_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/manager_buttons_clean.md`
+
+    - `core.py` mentions making buttons 
+      - How do they work together with `manager_buttons.py` 
+      - Just a touch point or overlapping functionality? 
+
+  * **Model Manager `./orchestrator/manager_models.py`**
+
+    - `AUDIT_LOGIC/DETAILS/manager_models_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/manager_models_clean.md`
+
+  * **Tool Manager `./orchestrator/manager_tools.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/manager_tools_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/manager_tools_clean.md`
+
+### 6. UserID User Memory *MORE MANAGERS IF WANT TO COMBINE GROUPS*
+
+  * **User Memory Manager `./orchestrator/user_memory_manager.py`**
+
+    - `AUDIT_LOGIC/DETAILS/user_memory_manager_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/user_memory_manager_clean.md`
+
+  - This one maybe should be in the Analytics group? 
+
+  * **Username AKA UserID Manager `./orchestrator/username_manager.py`**
+
+    - `AUDIT_LOGIC/DETAILS/username_manager_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/username_manager_clean.md`
+
+    - We really need to eliminate using the term username 
+      - We now use actual ID, email or phone, for login 
+      - Login first time in setup creates a UserID 
+
+### 7. User Settings & CLI Commands *MORE MANAGERS IF WANT TO COMBINE GROUPS*
+
+  * **Settings Manager `./orchestrator/settings_manager.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/settings_manager_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/settings_manager_clean.md`
+
+  * **CLI Manager `./orchestrator/cli_manager.py`** 
 
   - `AUDIT_LOGIC/DETAILS/cli_manager_analysis.md`
   - `AUDIT_LOGIC/DETAILS/cli_manager_clean.md`
 
-* **CLI from our terminal build versus App Command in `cli_manager.py`** 
+  - Do we need to be concerned here that the logic 
+    - Is based off of this originally being an all in-terminal, local app? 
+    - I mean, we do want to let admins do all testing in a terminal but even that isn't a MUST HAVE 
 
-  - Do we need to be concerned that the logic here is based off our planning to have a terminal app at first? 
-  - I suppose we do want to use it in terminal, but are we leading with the right type of command then, as in app type? 
+### 8. Metrics & Analytics Files 
 
-### 7. Logic audit of `./orchestrator/conversation_bridge.py`
+  * **Real Time Metrics `./orchestrator/real_time_metrics.py`**
 
-  - `AUDIT_LOGIC/DETAILS/conversation_bridge_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/conversation_bridge_clean.md`
+    - `AUDIT_LOGIC/DETAILS/real_time_metrics_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/real_time_metrics_clean.md`
 
-* **Only "ONE" setup script mentioned in `conversation_bridge.py`** 
+  * **System Analytics Manager `./orchestrator/system_analytics_manager.py`**
 
-  - Right at the start, in the "ConversationToWorkflowBridge" function 
-    - See: Lines 49, 50 
-    - We have more than one setup script; how implemented are scheduled workflows, not at all? 
-    - Also, is this pulling the conversation from memory? Shouldn't Mao be able to pull it from chat in that moment first? 
-    - See: Line 124 
-    - Also, it is mentioning the directory as "configs/use-case"
-    - It is configs/workflows and configs/reoccurring/goal-assessment or project-list or scheduled or self-assessment 
+    - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/system_analytics_manager_clean.md`
 
-* **We "generate command name" in a function in `conversation_bridge.py`** 
+  * **User Analytics Manager `./orchestrator/user_analytics_manager.py`**
 
-  - This might be necessary but it might also be provided by the user, is that clear in the code? 
-    - See: 194 
-    - If anything, maybe it can be simpler and the guidelines just written text to Mao? 
+    - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/user_analytics_manager_clean.md`
 
-### 8. Logic audit of `./orchestrator/core.py`
+### 9. Cache Files 
 
-  - `AUDIT_LOGIC/DETAILS/core_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/core_clean.md`
+  * **Cache Sub-Directory INIT `./orchestrator/cache/__init__.py`** 
 
-* **Line 261: `core.py` function "_ai_generate_workflow_name" should be based on the custom command** 
+    - `AUDIT_LOGIC/DETAILS/cache_init_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/cache_init_clean.md`
 
-  - Please explain to me the difference and need for these files 
-    - Both seem to construct a workflow 
-    - Both seem to be able to do so from just a goal 
-    - See: `conversation_bridge.py` versus `core.py` 
-    - If I remember correctly the conversation bridge was originally created for the UI connection, nothing more 
-    - `core.py` seems to handle workflow execution so what is separate need for `agent_callback.py` and `agent_orchestrator.py`? 
+  * **Cache System `./orchestrator/cache/cache_system.py`** 
 
-### 9. Logic audit of `./orchestrator/error_handling.py`
+    - `AUDIT_LOGIC/DETAILS/cache_cache_system_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/cache_cache_system_clean.md`
 
-  - `AUDIT_LOGIC/DETAILS/error_handling_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/error_handling_clean.md`
+### 10. Error Handling 
 
-  - Explain to me what gets printed in `error_handling.py` 
-    - It seems like we create specific things to print 
-    - But Mao should be conveying this information conversationally
-    - Mao should also be including what the User should do, etc. 
-    - Maybe this is information needed for the UI implementation? 
+  * **Error Handling `./orchestrator/error_handling.py`**
 
-### 10. Logic audit of `./orchestrator/manager_buttons.py` 
+    - `AUDIT_LOGIC/DETAILS/error_handling_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/error_handling_clean.md`
 
-  - `AUDIT_LOGIC/DETAILS/manager_buttons_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/manager_buttons_clean.md`
+    - Explain to me what gets printed in `error_handling.py` 
+      - It seems like we create specific things to print 
+      - But Mao should be conveying this information conversationally
+      - Mao should also be including what the User should do, etc. 
+      - Maybe this is information needed for the UI implementation? 
 
-  - How does `manager_buttons.py` work integrating with `core.py` own mention of button
+### 11. Entry Point 
 
-### 11. Logic audit of `./orchestrator/manager_models.py`
+  * **Main Launch App File mao_v4.py `./mao_v4.py`**
 
-  - `AUDIT_LOGIC/DETAILS/manager_models_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/manager_models_clean.md`
+    - `AUDIT_LOGIC/DETAILS/mao_v4_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/mao_v4_clean.md`
 
-* **Import path inclusion inconsistency** 
+### 12. UI/UX Information Pulled from `MAO_FLOW.md` 
 
-  - In `manager_buttons.py` @ LINE 10 "from .manager_models import ModelManager" is not using path 
-    - Next two lines, one does: "cache.cache_system import CacheManager"
-    - Then the other doesn't: "from .error_handling import handle_errors" 
-  - Caught this because of seeing the path on `manager_models.py` LINE 8 
-    - Does: "from orchestrator.cache.cache_system import CacheManager" 
-    - Does: "from orchestrator.error_handling import" 
-    - Then CacheManager on the same file doesn't 
-  - Should make it consistent I presume; and check all files in doing so 
+  * **UI/UX Mao App Design UI description `ui_ux_mao_app.md`**
 
-### 12. Logic audit of `./orchestrator/manager_tools.py`
+    - `AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
 
-  - `AUDIT_LOGIC/DETAILS/manager_tools_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/manager_tools_clean.md`
+### 13. Reference File Index 
 
-### 13. Logic audit of `./orchestrator/mcp_hub.py`
+  * **Our Beloved File Index `documentation/10_AI_DEV_INDEX.md`**
 
-  - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/mcp_hub_clean.md`
-
-### 14. Logic audit of `./orchestrator/memory_mcp.py`
-
-  - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/memory_mcp_clean.md`
-
-### 15. Logic audit of `./orchestrator/real_time_metrics.py`
-
-  - `AUDIT_LOGIC/DETAILS/real_time_metrics_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/real_time_metrics_clean.md`
-
-### 16. Logic audit of `./orchestrator/settings_manager.py`
-
-  - `AUDIT_LOGIC/DETAILS/settings_manager_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/settings_manager_clean.md`
-
-### 17. Logic audit of `./orchestrator/system_analytics_manager.py`
-
-  - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/system_analytics_manager_clean.md`
-
-### 18. Logic audit of `./orchestrator/user_analytics_manager.py`
-
-  - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/user_analytics_manager_clean.md`
-
-### 19. Logic audit of `./orchestrator/user_memory_manager.py`
-
-  - `AUDIT_LOGIC/DETAILS/user_memory_manager_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/user_memory_manager_clean.md`
-
-### 20. Logic audit of `./orchestrator/username_manager.py` 
-
-  - `AUDIT_LOGIC/DETAILS/username_manager_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/username_manager_clean.md`
-
-### 21. Logic audit of `./orchestrator/workflow_manager.py`
-
-  - `AUDIT_LOGIC/DETAILS/workflow_manager_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/workflow_manager_clean.md`
-
-### 22. Logic audit of `./orchestrator/workflow_state.py`
-
-  - `AUDIT_LOGIC/DETAILS/workflow_state_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/workflow_state_clean.md`
-
-* **References "previous phase" MCP build in `workflow_state.py`** 
-
-  - Right at the top it says "Import MCP components built in previous phases" 
-    - What does this mean? Did they implement some kind of new MCP system? 
-    - It almost sounds like they're talking about MCP built in the User's workflow 
-
-### 23. Logic audit of `./mao_v4.py`
-
-  - `AUDIT_LOGIC/DETAILS/mao_v4_analysis.md`
-  - `AUDIT_LOGIC/DETAILS/mao_v4_clean.md`
-
-### 24. UI/UX document `ui_ux_mao_app.md` 
-
-  - `AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
-
-* **I didn't add `MAO_FLOW.md` but I feel like a lot of the UX, behavior guides didn't actually get added** 
-
-  - AI said they added things 
-  - But I think we'll want to look at this again 
-  - Particularly some of my specific wording guides 
-  - Basically I didn't see anything that didn't look like JUST TEXT in the code 
-  - Except a few bits that seemed more like randomly adding the guidelines on writing code, not guidelines for Mao 
-
-### 25. The rest of the AI notes are below
-
-  - But I also think we need to make sure that our AI DEV INDEX file is up-to-date still 
-  - It is here: `documentation/10_AI_DEV_INDEX.md` 
+  - Make sure this is still up-to-date 
+  - After all other changes 
 
 ---
 
