@@ -4,6 +4,7 @@
 ---
 
 NEXT UP: Number 2 'Workflow Creation & Execution Files' 
+MEMORY MCP ENTITY: logic-audit-review
 
 ---
 
@@ -78,12 +79,9 @@ NEXT UP: Number 2 'Workflow Creation & Execution Files'
 ### Full Orchestrator & App File for Reference 
 
   1. Logic audit of `./orchestrator/__init__.py` 
-  2. Logic audit of `./orchestrator/agent_callback.py`
-  3. Logic audit of `./orchestrator/agent_orchestrator.py`
   4. Logic audit of `./orchestrator/cache/__init__.py` 
   5. Logic audit of `./orchestrator/cache/cache_system.py` 
   6. Logic audit of `./orchestrator/cli_manager.py` 
-  7. Logic audit of `./orchestrator/conversation_bridge.py`
   8. Logic audit of `./orchestrator/core.py`
   9. Logic audit of `./orchestrator/error_handling.py`
   10. Logic audit of `./orchestrator/manager_buttons.py` 
@@ -97,7 +95,6 @@ NEXT UP: Number 2 'Workflow Creation & Execution Files'
   18. Logic audit of `./orchestrator/user_analytics_manager.py`
   19. Logic audit of `./orchestrator/user_memory_manager.py`
   20. Logic audit of `./orchestrator/username_manager.py` 
-  21. Logic audit of `./orchestrator/workflow_manager.py`
   22. Logic audit of `./orchestrator/workflow_state.py`
   23. Logic audit of `./mao_v4.py`
 

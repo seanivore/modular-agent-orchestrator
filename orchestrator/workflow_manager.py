@@ -1,19 +1,18 @@
 """
 Workflow Manager 
 Handles workflow ID generation, discovery, and tracking
+Clean implementation with proper imports and multilingual tag support
 """
 
 import json
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-from datetime import datetime, timezone
+from datetime import datetime
 import time
 
-# Standard MAO imports
+# Standard MAO imports - absolute paths
 from orchestrator.cache.cache_system import CacheManager
 from orchestrator.error_handling import handle_errors, retry_with_backoff, APIError
-
-# Analytics managers
 from orchestrator.user_analytics_manager import UserAnalyticsManager
 from orchestrator.system_analytics_manager import SystemAnalyticsManager
 from orchestrator.username_manager import UsernameManager
@@ -136,20 +135,6 @@ class WorkflowManager:
     def get_workflow(self, workflow_id: str) -> Optional[Dict[str, Any]]:
         """Alias for get_workflow_by_id for UI compatibility"""
         return self.get_workflow_by_id(workflow_id)
-    
-    @handle_errors(operation_name="duplicate_workflow", return_dict=True)
-    def duplicate_workflow(self, workflow_id: str) -> bool:
-        """Duplicate an existing workflow (placeholder for future implementation)"""
-        # TODO: Implement workflow duplication
-        # For now, return False to indicate not implemented
-        return False
-    
-    @handle_errors(operation_name="delete_workflow", return_dict=True)
-    def delete_workflow(self, workflow_id: str) -> bool:
-        """Delete a workflow (placeholder for future implementation)"""
-        # TODO: Implement workflow deletion
-        # For now, return False to indicate not implemented
-        return False
     
     @handle_errors(operation_name="get_workflow_by_command", return_dict=True)
     def get_workflow_by_command(self, custom_command: str) -> Optional[Dict[str, Any]]:
@@ -283,7 +268,6 @@ class WorkflowManager:
                 # Check for log files indicating active status
                 log_files = list(metadata_dir.glob("*_log.json"))
                 if log_files:
-                    # Could check log contents for status, but for now assume active
                     return "active"
             
             return "created"
@@ -297,6 +281,46 @@ class WorkflowManager:
             return datetime.fromtimestamp(directory.stat().st_mtime).isoformat()
         except Exception:
             return datetime.now().isoformat()
+    
+    def extract_workflow_tags(self, workflow_path: Path) -> List[str]:
+        """
+        Extract explicit tags from workflow README.md for analytics
+        
+        BEHAVIORAL GUIDANCE FOR MAO:
+        - Only extract explicit tags that users or Mao actually write
+        - Support multilingual tags - use whatever language is in the README
+        - No automatic categorization or English keyword detection
+        - Tags come from "Tags:" lines and hashtags only
+        """
+        try:
+            readme_path = workflow_path / "README.md"
+            if not readme_path.exists():
+                return []
+            
+            with open(readme_path, 'r') as f:
+                content = f.read()
+            
+            tags = []
+            
+            # Extract explicit tags from "Tags:" lines
+            if "Tags:" in content:
+                lines = content.splitlines()
+                for line in lines:
+                    if line.strip().startswith("Tags:"):
+                        tag_line = line.split("Tags:")[1].strip()
+                        tags.extend([tag.strip() for tag in tag_line.split(',')])
+                        break
+            
+            # Extract hashtags
+            import re
+            hashtags = re.findall(r'#(\w+)', content)
+            tags.extend(hashtags)
+            
+            # Remove duplicates and return
+            return list(set(tags))
+            
+        except Exception as e:
+            return []
     
     def estimate_cost(self, params: Dict[str, Any]) -> float:
         """Estimate operation cost for budget planning"""
@@ -321,9 +345,6 @@ class WorkflowManager:
                 username, workflow_id, workflow_command, "start", tags=tags or []
             )
             
-            # Track session workflow count update
-            # This would be integrated with session management
-            
             return True
             
         except Exception as e:
@@ -344,100 +365,9 @@ class WorkflowManager:
         except Exception as e:
             # Analytics failures should not break workflow execution
             return False
-    
-    @handle_errors
-    def extract_workflow_tags(self, workflow_path: Path) -> List[str]:
-        """Extract tags from workflow README.md for analytics"""
-        try:
-            readme_path = workflow_path / "README.md"
-            if not readme_path.exists():
-                return []
-            
-            with open(readme_path, 'r') as f:
-                content = f.read()
-            
-            # Extract tags from README content
-            tags = []
-            
-            # Look for explicit tags in various formats
-            if "Tags:" in content:
-                # Extract tags after "Tags:" line
-                lines = content.splitlines()
-                for line in lines:
-                    if line.strip().startswith("Tags:"):
-                        tag_line = line.split("Tags:")[1].strip()
-                        tags.extend([tag.strip() for tag in tag_line.split(',')])
-                        break
-            
-            # Look for hashtags
-            import re
-            hashtags = re.findall(r'#(\w+)', content)
-            tags.extend(hashtags)
-            
-            # NO hardcoded English keyword detection
-            # Let users explicitly tag their workflows instead of assuming categories
-            # This supports multilingual workflows and avoids cultural assumptions
-            
-            # Remove duplicates and return
-            return list(set(tags))
-            
-        except Exception as e:
-            return []
-    
-    @handle_errors
-    def start_workflow_with_analytics(self, workflow_id: str, workflow_command: str, username: str) -> Dict[str, Any]:
-        """Start workflow with analytics tracking"""
-        try:
-            # Get workflow details
-            workflow = self.get_workflow_by_id(workflow_id)
-            if not workflow:
-                return {"success": False, "error": "Workflow not found"}
-            
-            # Extract tags from workflow README
-            workflow_path = Path(workflow["path"])
-            tags = self.extract_workflow_tags(workflow_path)
-            
-            # Track workflow start
-            self.track_workflow_start(workflow_id, workflow_command, username, tags)
-            
-            # Return success with analytics tracking
-            return {
-                "success": True,
-                "workflow_id": workflow_id,
-                "workflow_command": workflow_command,
-                "tags": tags,
-                "analytics_tracked": True
-            }
-            
-        except Exception as e:
-            return {"success": False, "error": str(e)}
-    
-    @handle_errors
-    def complete_workflow_with_analytics(self, workflow_id: str, username: str, success: bool = True) -> Dict[str, Any]:
-        """Complete workflow with analytics tracking"""
-        try:
-            # Track workflow completion
-            self.track_workflow_completion(workflow_id, username, success)
-            
-            return {
-                "success": True,
-                "workflow_id": workflow_id,
-                "completion_success": success,
-                "analytics_tracked": True
-            }
-            
-        except Exception as e:
-            return {"success": False, "error": str(e)}
-    
-    @handle_errors
-    def get_workflow_analytics(self, username: str) -> Dict[str, Any]:
-        """Get workflow analytics for user"""
-        try:
-            return self.user_analytics_manager._read_analytics_file(username, "workflow_metrics.json")
-        except Exception as e:
-            return {}
 
-# Standalone functions for button imports
+
+# Standalone functions for backward compatibility
 def generate_workflow_id(with_explanation: bool = False) -> Dict[str, Any]:
     """Standalone function for generating workflow ID"""
     manager = WorkflowManager()
@@ -462,16 +392,6 @@ def get_workflow(workflow_id: str) -> Optional[Dict[str, Any]]:
     """Standalone function for getting workflow (UI compatibility)"""
     manager = WorkflowManager()
     return manager.get_workflow(workflow_id)
-
-def duplicate_workflow(workflow_id: str) -> bool:
-    """Standalone function for duplicating workflow"""
-    manager = WorkflowManager()
-    return manager.duplicate_workflow(workflow_id)
-
-def delete_workflow(workflow_id: str) -> bool:
-    """Standalone function for deleting workflow"""
-    manager = WorkflowManager()
-    return manager.delete_workflow(workflow_id)
 
 def get_workflow_by_command(custom_command: str) -> Optional[Dict[str, Any]]:
     """Standalone function for getting workflow by command"""
