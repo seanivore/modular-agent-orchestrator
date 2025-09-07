@@ -1,10 +1,8 @@
 # Orchestrator File Logic Audit Review 
 `/Users/seanivore/Development/modular-agent-orchestrator/AUDIT_LOGIC/AUDIT_REVIEW.md` 
 
----
-
-NEXT UP: Number 4 'Workflow Creation Assets' 
-MEMORY MCP ENTITY: logic-audit-review
+  - **NEXT UP** 'Grouped Files for Review: Workflow Assets' 
+  - **MEMORY MCP ENTITY TO USE** logic-audit-review
 
 ---
 
@@ -63,7 +61,7 @@ MEMORY MCP ENTITY: logic-audit-review
 
 ---
 
-## Check and Fix These Things In Every File Immediately 
+## Fix In Every File Immediately 
 
   1. Make sure all paths, particularly imports, are absolute (e.g. `orchestrator.cache.cache_system`)
   2. Look out for inaccurate classes or completely new classes, we don't want new unless we must 
@@ -76,9 +74,11 @@ MEMORY MCP ENTITY: logic-audit-review
   2. Add in actual cost calculation as well; this will be displayed in real-time, as tokens accumulate 
   3. Note anywhere that we say 'SONNET 4' or 'ANTHROPIC'; we'll be implementing model choice for Mao later 
 
-### All Orchestrator Files & Current Progress 
+--- 
 
-#### Completed Files 
+## Audited File Review Progress 
+
+### Completed Files 
 
   * **Orchestrator package** 
 
@@ -96,7 +96,7 @@ MEMORY MCP ENTITY: logic-audit-review
   2. `./orchestrator/core.py` = chat, build workflow, and full execution of workflow 
   3. `./orchestrator/workflow_manager.py` = workflow ID generation, discovery, and tracking
 
-#### Files in Groups for Review
+### Grouped Files for Review
 
   * **Workflow Assets** 
 
@@ -211,7 +211,7 @@ MEMORY MCP ENTITY: logic-audit-review
 
 --- 
 
-
+## Secondary Tasks 
 
 
 
