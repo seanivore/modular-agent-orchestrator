@@ -3,7 +3,7 @@
 
 ---
 
-NEXT UP: Number 2 'Workflow Creation & Execution Files' 
+NEXT UP: Number 4 'Workflow Creation Assets' 
 MEMORY MCP ENTITY: logic-audit-review
 
 ---
@@ -79,110 +79,37 @@ MEMORY MCP ENTITY: logic-audit-review
 ### Full Orchestrator & App File for Reference 
 
   1. Logic audit of `./orchestrator/__init__.py` 
-  4. Logic audit of `./orchestrator/cache/__init__.py` 
-  5. Logic audit of `./orchestrator/cache/cache_system.py` 
-  6. Logic audit of `./orchestrator/cli_manager.py` 
-  8. Logic audit of `./orchestrator/core.py`
-  9. Logic audit of `./orchestrator/error_handling.py`
-  10. Logic audit of `./orchestrator/manager_buttons.py` 
-  11. Logic audit of `./orchestrator/manager_models.py`
-  12. Logic audit of `./orchestrator/manager_tools.py`
-  13. Logic audit of `./orchestrator/mcp_hub.py`
-  14. Logic audit of `./orchestrator/memory_mcp.py`
-  15. Logic audit of `./orchestrator/real_time_metrics.py`
-  16. Logic audit of `./orchestrator/settings_manager.py`
-  17. Logic audit of `./orchestrator/system_analytics_manager.py`
-  18. Logic audit of `./orchestrator/user_analytics_manager.py`
-  19. Logic audit of `./orchestrator/user_memory_manager.py`
-  20. Logic audit of `./orchestrator/username_manager.py` 
-  22. Logic audit of `./orchestrator/workflow_state.py`
-  23. Logic audit of `./mao_v4.py`
+  2. Logic audit of `./orchestrator/cache/__init__.py` 
+  3. Logic audit of `./orchestrator/cache/cache_system.py` 
+  4. Logic audit of `./orchestrator/cli_manager.py` 
+  5. Logic audit of `./orchestrator/core.py`
+  6. Logic audit of `./orchestrator/error_handling.py`
+  7. Logic audit of `./orchestrator/manager_buttons.py` 
+  8. Logic audit of `./orchestrator/manager_models.py`
+  9. Logic audit of `./orchestrator/manager_tools.py`
+  10. Logic audit of `./orchestrator/mcp_hub.py`
+  11. Logic audit of `./orchestrator/memory_mcp.py`
+  12. Logic audit of `./orchestrator/real_time_metrics.py`
+  13. Logic audit of `./orchestrator/settings_manager.py`
+  14. Logic audit of `./orchestrator/system_analytics_manager.py`
+  15. Logic audit of `./orchestrator/user_analytics_manager.py`
+  16. Logic audit of `./orchestrator/user_memory_manager.py`
+  17. Logic audit of `./orchestrator/username_manager.py` 
+  18. Logic audit of `./orchestrator/workflow_state.py`
+  19. Logic audit of `./mao_v4.py`
 
 --- 
 
 ## Orchestrator Files from Logic Audit 
 
 ### 1. Main INIT Orchestration File 
-  - Orchestrator Directory `./orchestrator/__init__.py` ✅ DONE 
-
+  - Orchestrator directory `./orchestrator/__init__.py` ✅ DONE 
 ### 2. Workflow Creation & Execution Files 
+  - Chat, workflow, behavioral guidance `./orchestrator/core.py` ✅ DONE 
+### 3. Workflow Support 
+  - ID generation, discovery, analytics `./orchestrator/workflow_state.py` ✅ DONE 
 
-  - When reading other orchestrator files, look for potential other additional workflow files (manager, state)
-
-  * **Agent Callback `./orchestrator/agent_callback.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/agent_callback_analysis.md` 
-    - `AUDIT_LOGIC/DETAILS/agent_callback_clean.md` 
-
-  * **Agent Orchestrator `./orchestrator/agent_orchestrator.py`**
-    
-    - `AUDIT_LOGIC/DETAILS/agent_orchestrator_analysis.md` 
-    - `AUDIT_LOGIC/DETAILS/agent_orchestrator_clean.md` 
-
-  * **Conversation Bridge `./orchestrator/conversation_bridge.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/conversation_bridge_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/conversation_bridge_clean.md`
-
-    - 'conversation_bridge' mentions the directory as "configs/use-case" 
-      - Should be configs/workflows
-      - Another workflow type and setup script is in next implementation batch 
-    - Explain and review 'generate_command_name" around line 194 
-      - Code is unclear to me and the user probably will have this 
-      - It might be simple enough for normal language notes to Mao 
-
-  * **Core `./orchestrator/core.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/core_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/core_clean.md`
-
-    - For "_ai_generate_workflow_name" 
-      - This should be the custom command, always
-      - All lowercase, shish-kabob text 
-
-  * **Regarding their very similar functionality** 
-
-    1. Let's first identify the differences 
-    2. Share what they are to me in normal language 
-    3. Human to confirm and explain need functionality 
-    4. Ensure we are not missing any functionality 
-    5. Don't lose anything if we combine or just simplify files
-    6. Decide if they should be simplified or combined, then do so 
-
-### 3. Other Workflow Files (Execution? I'm not fully sure what the difference here is compared to above)
-
-  * **Workflow Manager `./orchestrator/workflow_manager.py`**
-
-    - `AUDIT_LOGIC/DETAILS/workflow_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/workflow_manager_clean.md`
-
-  * **Maintaining state across sessions of workflow use `./orchestrator/workflow_state.py`**
-
-    - `AUDIT_LOGIC/DETAILS/workflow_state_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/workflow_state_clean.md`
-
-    - This reverences "Import MCP components built in previous phases" which means what 
-      - We don't build any MCPs in any stages 
-      - Is this supposed to be about Mao saving state to Memory? 
-
-### 4. MCP Connections for Files API & Memory Tool 
-
-  * **MCP Hub `./orchestrator/mcp_hub.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/mcp_hub_clean.md`
-
-  * **Memory MCP `./orchestrator/memory_mcp.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/memory_mcp_clean.md`
-
-    - It almost seems like maybe this is supposed to be in tools? 
-      - Like where is the Files API orchestrator file otherwise? 
-      - Or is using the file part of the memory orchestration? 
-      - There is a python file for logic in every tool 
-
-### 5. Workflow Creation Assets 
+### 4. Workflow Creation Assets 
 
   * **Human Button Maker `./orchestrator/manager_buttons.py`** 
 
@@ -202,6 +129,23 @@ MEMORY MCP ENTITY: logic-audit-review
 
     - `AUDIT_LOGIC/DETAILS/manager_tools_analysis.md`
     - `AUDIT_LOGIC/DETAILS/manager_tools_clean.md`
+
+### 5. MCP Connections for Files API & Memory Tool 
+
+  * **MCP Hub `./orchestrator/mcp_hub.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/mcp_hub_clean.md`
+
+  * **Memory MCP `./orchestrator/memory_mcp.py`** 
+
+    - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md`
+    - `AUDIT_LOGIC/DETAILS/memory_mcp_clean.md`
+
+    - It almost seems like maybe this is supposed to be in tools? 
+      - Like where is the Files API orchestrator file otherwise? 
+      - Or is using the file part of the memory orchestration? 
+      - There is a python file for logic in every tool 
 
 ### 6. UserID User Memory *MORE MANAGERS IF WANT TO COMBINE GROUPS*
 

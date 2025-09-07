@@ -107,7 +107,7 @@ class EnhancedWorkflowOrchestrator:
     
     CRITICAL: NO tolerance for abusive behavior or rude language
     - Users must treat AI the same way they treat coworkers, friends, collaborative business partners
-    - Mao is NOT an assistant, they are your Project Manager
+    - Mao is NOT an assistant, they are a Project Manager
     - We reserve the right to refuse service to anyone at any time for any reason
     """
     

@@ -274,9 +274,9 @@ def display_command_name_result(result: Dict[str, Any]) -> str:
 ### File Responsibilities - The "Stop Grepping" Guide
 
 **When you need to:**
-- **Execute workflows** → `core.py` → `WorkflowOrchestrator` → `execute_workflow()`
-- **Coordinate agents** → `agent_orchestrator.py` → `AgentOrchestrator` → `coordinate_agent_handoff()`
-- **Track workflow state** → `workflow_state.py` → `WorkflowStateManager` → `update_workflow_state()`
+- **Execute workflows** → `core.py` → `execute_workflow()`
+- **Coordinate agents** → `core.py` → `coordinate_agent_handoff()`
+- **Track workflow state** → `workflow_manager.py` → `WorkflowStateManager` → `update_workflow_state()`
 - **Handle tool discovery** → `manager_tools.py` → `ToolManager` → `get_available_tools()`
 - **Manage models** → `manager_models.py` → `ModelManager` → `select_optimal_model()`
 - **Cache operations** → `cache/cache_system.py` → `CacheManager` → `get_cached_analysis()`
@@ -286,44 +286,35 @@ def display_command_name_result(result: Dict[str, Any]) -> str:
 
 ### Core Workflow Execution
 
-#### `orchestrator/core.py` - Main Workflow Brain
+#### `orchestrator/core.py` - Enhanced Workflow Orchestration
 **Classes:**
-- `WorkflowOrchestrator` - Primary workflow orchestration engine
+- `EnhancedWorkflowOrchestrator` - Complete workflow creation and execution engine
+- `WorkflowPhase` - Individual workflow phase dataclass
+- `WorkflowPlan` - Complete workflow plan dataclass  
+- `ExecutionResult` - Phase execution result dataclass
 
 **Key Methods:**
 ```python
-async def create_workflow_from_goal(user_goal: str, preferences: Optional[Dict] = None) -> WorkflowPlan
-def _analyze_goal(goal: str) -> Dict[str, Any]
-async def _design_workflow_phases(analysis: Dict, preferences: Dict, tool_suggestions: Dict) -> List[WorkflowPhase]
-async def execute_workflow(workflow_id: str, anthropic_client=None) -> Dict[str, Any]
-async def _execute_phase_with_caching(phase: WorkflowPhase, workflow: WorkflowPlan, workflow_memory: Dict, anthropic_client) -> ExecutionResult
-def _generate_phase_hash(phase: WorkflowPhase, workflow_description: str) -> str
-def _select_optimal_model(phase: WorkflowPhase, preferences: Dict) -> str
-def _estimate_phase_cost(phase: WorkflowPhase) -> Tuple[int, float]
+def create_workflow_from_conversation(user_goal: str, conversation_context: Optional[Dict] = None) -> Dict[str, Any]
+async def execute_workflow(workflow_id: str) -> Dict[str, Any]
+def handle_parallel_agent_returns(workflow_id: str, parallel_execution_data: List[Dict[str, Any]]) -> Dict[str, Any]
+def get_workflow_status(workflow_id: str) -> Dict[str, Any]
+def recover_interrupted_workflow(workflow_id: str) -> Dict[str, Any]
+def track_workflow_progress(workflow_id: str, update: str) -> bool
+```
+**Standalone Functions:**
+```python
+def create_workflow_from_conversation(user_goal: str, context: Dict = None) -> Dict[str, Any]
+def execute_workflow(workflow_id: str) -> Dict[str, Any]
+def get_workflow_status(workflow_id: str) -> Dict[str, Any]
+def recover_interrupted_workflow(workflow_id: str) -> Dict[str, Any]
+def handle_parallel_agent_returns(workflow_id: str, parallel_data: List[Dict[str, Any]]) -> Dict[str, Any]
 ```
 
 **Parallel Agent Implementation Points:**
 - `execute_workflow()` - Convert to `execute_workflow_async()` with phase grouping
 - Add `_group_parallel_phases()` for phase number parsing ("01a", "01b" → group "01")
 - Add `_execute_phase_async()` for AsyncAnthropic integration
-
-#### `orchestrator/agent_orchestrator.py` - Agent Coordination
-**Classes:**
-- `AgentOrchestrator` - Agent handoff and coordination system
-
-**Key Methods:**
-```python
-def __init__(self)
-def execute_workflow_phase(workflow_id: str, phase: dict) -> Dict[str, Any]
-def _create_agent_package(workflow_id: str, phase: dict, context: dict) -> dict
-def recover_interrupted_workflow(workflow_id: str) -> dict
-def estimate_cost(params: Dict[str, Any]) -> float
-```
-
-**Parallel Agent Role:**
-- Handle multiple simultaneous agent completions
-- Coordinate concurrent Files API operations
-- Manage parallel handoff package creation
 
 #### `orchestrator/workflow_state.py` - State Tracking
 **Classes:**
@@ -367,21 +358,6 @@ def estimate_cost(params: Dict[str, Any]) -> float
 - Track multiple phases executing simultaneously
 - Coordinate parallel state updates in Memory MCP
 - Handle session recovery for parallel workflows
-
-#### `orchestrator/agent_callback.py` - Result Processing
-**Classes:**
-- `AgentCallbackManager` - Agent completion and result processing
-
-**Key Methods:**
-```python
-def process_agent_result(agent_id: str, result: Dict[str, Any]) -> Dict[str, Any]
-def handle_agent_completion(agent_id: str, deliverables: Dict[str, Any]) -> Dict[str, Any]
-```
-
-**Parallel Agent Role:**
-- Process multiple simultaneous results
-- Aggregate parallel deliverables
-- Coordinate completion detection
 
 ### Tool and Model Management
 
@@ -782,20 +758,6 @@ def track_workflow(workflow_id: str, action: str, metadata: Dict = None)
 def get_workflow_status(workflow_id: str) -> Dict[str, Any]
 ```
 
-### Conversation and Bridge Systems
-
-#### `orchestrator/conversation_bridge.py` - Natural Language Processing
-**Classes:**
-- `ConversationToWorkflowBridge` - Convert natural language to workflow configs
-- `JSONConfigNormalizer` - Schema validation and normalization
-
-**Key Methods:**
-```python
-def estimate_cost(params: Dict[str, Any]) -> float
-def create_workflow_from_conversation(user_goal: str) -> Dict[str, Any]
-def normalize_config(config_data: Dict, config_type: str) -> Dict[str, Any]
-```
-
 ### Infrastructure
 
 #### `orchestrator/cache/cache_system.py` - Caching System
@@ -983,13 +945,6 @@ async def execute_workflow_async(self, workflow_id: str) -> Dict[str, Any]:
     
     return {"results": results, "parallel_groups": len([g for g in phase_groups if len(g) > 1])}
 ```
-
-### Key Files for Parallel Implementation
-1. **`core.py`** - Add async execution logic and phase grouping
-2. **`agent_orchestrator.py`** - Handle multiple simultaneous agent completions
-3. **`workflow_state.py`** - Track parallel execution states
-4. **`agent_callback.py`** - Process multiple simultaneous results
-5. **`ui_terminal.py`** - Display parallel execution progress
 
 ## Data Flow Patterns
 
