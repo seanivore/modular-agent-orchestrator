@@ -644,7 +644,7 @@ Use provided tool buttons for interactions. This phase is part of a larger workf
             }
     
     def group_phases_for_parallel_execution(self, phases: List[dict]) -> List[List[dict]]:
-        """Group phases by base number for parallel execution (01a, 01b â†’ group 01)"""
+        """Group phases by base number for parallel execution (01a, 01b → group 01)"""
         
         if not phases:
             return []
@@ -655,7 +655,7 @@ Use provided tool buttons for interactions. This phase is part of a larger workf
             # Extract base phase number from phase numbering like "01a", "01b", "02", etc.
             phase_number = phase.get('phase_number', phase.get('number', '1'))
             
-            # Extract base number (01a â†’ 01, 02b â†’ 02, 03 â†’ 03)
+            # Extract base number (01a → 01, 02b → 02, 03 → 03)
             base_number = ''.join(filter(str.isdigit, str(phase_number)))
             if not base_number:
                 base_number = "1"  # Default fallback
