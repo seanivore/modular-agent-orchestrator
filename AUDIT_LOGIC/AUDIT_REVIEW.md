@@ -1,7 +1,7 @@
 # Orchestrator File Logic Audit Review 
 `/Users/seanivore/Development/modular-agent-orchestrator/AUDIT_LOGIC/AUDIT_REVIEW.md` 
 
-  - **NEXT UP** 'Grouped Files for Review: Workflow Assets' 
+  - **NEXT UP** GROUP 3: Workflow Logistical & Creative Assets
   - **MEMORY MCP ENTITY TO USE** logic-audit-review
 
 ---
@@ -72,11 +72,11 @@
 
 ### Completed 
 
-  * **GROUP 1: Orchestrator package** 
+  * **GROUP 1: Orchestrator Package** 
 
   1. `./orchestrator/__init__.py` = though no files use imports from this file currently
 
-  * **GROUP 2: Building and managing workflow executions**
+  * **GROUP 2: Workflow Building & Execution**
 
   - Unique workflow functionality pulled from these 4 files, now all deleted 
     - Code added for agent done phase, they call Mao to continue workflow (from `agent_callback.py`) 
@@ -144,6 +144,39 @@
     - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md` & `system_analytics_manager_clean.md`
     - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md` & `user_analytics_manager_clean.md`
 
+   - Identify and make **list of data point outflow**  
+     - Exactly what each point's database column heading will say 
+     - For real-time metrics, both system and self analytics, and even user memories 
+     - Obviously need to include timestamps on every outflow ping 
+     - Any other contextual "stamped" info that can and should also be output at that time? 
+   - Determine logic for each regarding database layout 
+     - Think particularly about the real-time metrics 
+     - We definitely want to capture that outflow 
+     - I guess we can keep the granular nature 
+       - As in EVERY SECOND 
+       - Because when used, we'd just group and sum a range to be able to compare that data to any other data points 
+   - We also need to **make sure we have basic performance logging** in outflow as well 
+     - Crashes, speed of X loading and Y loading 
+     - Number of UI display updates during execution, during creation 
+     - Number of feedback rounds (this would be for users or system) 
+     - MASS TOKEN USAGE would be absolutely fascinating and basically necessary 
+   - **BEFORE WE GET TOO DEEP**, it seems like we should have analytic data points in config file form for ease of modification 
+     - configs/
+       - configs/metrics/memory/
+       - configs/metrics/real_time/
+       - configs/metrics/system_analytics/
+       - configs/metrics/user_analytics/
+       - configs/metics/system_status/
+     - Is it possible that a variable on a JSON 
+       - Be able to **inform the system as to TRIGGER PLACEMENT? because that is what would make adjusting these super easy** 
+       - Instantly starting collection is easy 
+         - Would also need to have a field for 'database name' and 
+         - Have for 'column' or row whatever 
+   - Last thing we need to include on this list of data point outflow (however we'll connect each into a database)
+     - All the user information for marketing purposes 
+     - Name, email, phone, etc. 
+     - And then perhaps we might be able to figure out what the columns might start as for subscription plan types, etc. 
+   - **WITH THESE METRICS COMBINED, we could probably freaking sell off this app or get funding ASAP because HOLY ROBUST** 
 
 
 
