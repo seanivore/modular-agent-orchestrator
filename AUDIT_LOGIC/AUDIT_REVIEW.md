@@ -76,157 +76,146 @@ MEMORY MCP ENTITY: logic-audit-review
   2. Add in actual cost calculation as well; this will be displayed in real-time, as tokens accumulate 
   3. Note anywhere that we say 'SONNET 4' or 'ANTHROPIC'; we'll be implementing model choice for Mao later 
 
-### Full Orchestrator & App File for Reference 
+### All Orchestrator Files & Current Progress 
 
-  1. `./orchestrator/__init__.py` 
-  2. `./orchestrator/cache/__init__.py` 
-  3. `./orchestrator/cache/cache_system.py` 
-  4. `./orchestrator/cli_manager.py` 
-  5. `./orchestrator/core.py`
-  6. `./orchestrator/error_handling.py`
-  7. `./orchestrator/manager_buttons.py` 
-  8. `./orchestrator/manager_models.py`
-  9. `./orchestrator/manager_tools.py`
-  10. `./orchestrator/mcp_hub.py`
-  11. `./orchestrator/memory_mcp.py`
-  12. `./orchestrator/real_time_metrics.py`
-  13. `./orchestrator/settings_manager.py`
-  14. `./orchestrator/system_analytics_manager.py`
-  15. `./orchestrator/user_analytics_manager.py`
-  16. `./orchestrator/user_memory_manager.py`
-  17. `./orchestrator/username_manager.py` 
-  18. `./orchestrator/workflow_state.py`
+#### Completed Files 
+
+  * **Orchestrator package** 
+
+  1. `./orchestrator/__init__.py` = though no files use imports from this file currently
+
+  * **Building and managing workflow executions**
+
+  - Unique workflow functionality pulled from these 4 files, now all deleted 
+    - Code added for agent done phase, they call Mao to continue workflow (from `agent_callback.py`) 
+    - General agent coordination, like parallel execution, added (from `agent_orchestrator.py`) 
+    - Normal language about determining the JSON variables from chat (deleted complex code from `conversation_bridge.py`) 
+    - Ability to track a workflows state was added (from `workflow_state.py`) 
+  - Then normal language about behavior, psychology and strategy added to convey details to Mao throughout file 
+
+  2. `./orchestrator/core.py` = chat, build workflow, and full execution of workflow 
+  3. `./orchestrator/workflow_manager.py` = workflow ID generation, discovery, and tracking
+
+#### Files in Groups for Review
+
+  * **Workflow Assets** 
+
+  4. `./orchestrator/manager_buttons.py` = turns agent's tool functions and callback for Mao to code snippet "button" 
+  5. `./orchestrator/manager_models.py` = dynamically populates all available models to sort by capabilities for agent choice 
+  6. `./orchestrator/manager_tools.py` = dynamically populates all tools for choice when planning workflow in chat 
+
+     - `AUDIT_LOGIC/DETAILS/manager_buttons_analysis.md` & `manager_buttons_clean.md`
+     - `AUDIT_LOGIC/DETAILS/manager_models_analysis.md` & `manager_models_clean.md` 
+     - `AUDIT_LOGIC/DETAILS/manager_tools_analysis.md` & `manager_tools_clean.md`
+   
+   - All need to work with the workflow files 
+     - Mao should make buttons after User approves the workflow 
+     - Models and Tools are handled earlier in the conversation 
+   - We should discuss the method for 'calculating how relevant a tool/model is' 
+     - Seems like hardcoding anyway 
+     - Will it cause any issues with multi-lingual, or even work? 
+    - Alternatively, we could have a 1-long sentence about the tool or model, sort of like the "help" blurb that comes up for the slash commands 
+     - This would be shown to the User if they are looking because they want to choose themselves 
+    - Otherwise, right now there aren't too many that Mao can't handle understanding them all without code calculations 
+     - This would then give us time to contemplate a more fool-proof, longevity proof, not english tagged solution 
+     - Though honestly, Users will know what models they want generally and know their tools 
+     - Those who don't, very likely are the same people who won't care if Mao chooses 
+
+  * **MCP & Memory** 
+
+  7. `./orchestrator/mcp_hub.py` = presumably making it so any MCP can be added later 
+  8. `./orchestrator/memory_mcp.py` = specifics for saving context info. for Mao cross-instance project understanding 
+
+    - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md` & `mcp_hub_clean.md`
+    - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md` & `memory_mcp_clean.md`
+
+   - Why is the Files API python file in tools directory 
+     - But the Memory tool isn't 
+     - Both can only be used by Mao 
+
+   - We have official memory points defined for while building the workflow 
+     - Read these two files and see the "Project State Memory Update Point" details 
+       - `AUDIT_LOGIC/MAO_FLOW/04_CHAT_PREP_WORKFLOW_ID.md` 
+       - `AUDIT_LOGIC/MAO_FLOW/05_CHAT_PSYCHOLOGY_GUIDE.md`
+       - `AUDIT_LOGIC/MAO_FLOW/07_END_CHAT_STRATEGY.md` 
+       - `AUDIT_LOGIC/MAO_FLOW/10_BUILD_WORKFLOW_PROCESS.md` 
+       - `AUDIT_LOGIC/MAO_FLOW/13_USER_WORKFLOW_FEEDBACK_PUSHING.md`
+     - They will require normal language in code defining/standardizing what should be saved each time 
+     - How do these work in conjunction with core.py? 
+
+   - In what ways is memory tied into analytics? 
+   - Does this file deal with allowing Mao to create any memory about user or is that in the user specific file? 
+   - Both should be tied into analytics somehow 
+
+  * **User Info Management** 
+
+  9. `./orchestrator/user_memory_manager.py` = handles ability for users to save anything to memory 
+  10. `./orchestrator/username_manager.py` = creates UserID, dynamically locates user settings 
+
+    - `AUDIT_LOGIC/DETAILS/user_memory_manager_analysis.md` & `user_memory_manager_clean.md`
+    - `AUDIT_LOGIC/DETAILS/username_manager_analysis.md` & `username_manager_clean.md` 
+
+   - We need to COMPLETE ELIMINATE use of the term **username** 
+      - We now use actual ID, email or phone, for login 
+      - Login first time in setup creates a UserID and directory 
+      - Read this file for better understanding, below the form UI explainer: `AUDIT_LOGIC/MAO_FLOW/01_USER_ID_CONFIG_DIR.md` 
+   - Either here or in settings manager, any non-delta app settings update needs to be saved for the user 
+
+  * **App Settings & Slash Commands** 
+
+  11. `./orchestrator/settings_manager.py` = dynamically pulls added app settings; should touch user's details for choices set 
+  12. `./orchestrator/cli_manager.py` = dynamically pulls all available slash commands and executes their logic; still works in terminal 
+
+    - `AUDIT_LOGIC/DETAILS/settings_manager_analysis.md` & `settings_manager_clean.md` 
+    - `AUDIT_LOGIC/DETAILS/cli_manager_analysis.md` & `cli_manager_clean.md`
+
+   - NOTE that the logic here was planned when we were making an all terminal-only app 
+     - We do still want full terminal functionality 
+     - This will be for testing as a way to separate UI bugs and functionality bugs 
+
+  * **Metrics & Analytics Management** 
+
+  13. `./orchestrator/real_time_metrics.py` = collection of actual, live stats for the UI and for analytics 
+  14. `./orchestrator/system_analytics_manager.py`= all system analytics, anonymous by default 
+  15. `./orchestrator/user_analytics_manager.py` = all user analytics, separate intentionally for easy legal privacy needs 
+
+    - `AUDIT_LOGIC/DETAILS/real_time_metrics_analysis.md` & `real_time_metrics_clean.md`
+    - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md` & `system_analytics_manager_clean.md`
+    - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md` & `user_analytics_manager_clean.md`
+
+  * **Hybrid Fingerprinting Cache** 
+
+  16. `./orchestrator/cache/__init__.py` = cache package 
+  17. `./orchestrator/cache/cache_system.py` = caching details and management of robust implementation 
+
+    - `AUDIT_LOGIC/DETAILS/cache_init_analysis.md` & `cache_init_clean.md`
+    - `AUDIT_LOGIC/DETAILS/cache_cache_system_analysis.md` & `cache_cache_system_clean.md`
+
+  * **Error Handling** 
+
+  18. `./orchestrator/error_handling.py`
+
+    - `AUDIT_LOGIC/DETAILS/error_handling_analysis.md` & `error_handling_clean.md` 
+
+   - I'd like to understand what gets printed for errors 
+   - This is because, technically, Mao should be conveying any errors to the User 
+     - They should put it in their own words ON THE FLY not coded 
+     - They should offer advice for fixing it 
+    - We need normal language added to code for these then 
+
+  * **App Entry Point** 
+
   19. `./mao_v4.py`
+
+    - `AUDIT_LOGIC/DETAILS/mao_v4_analysis.md` & `mao_v4_clean.md`
 
 --- 
 
-## Orchestrator Files from Logic Audit 
 
-### 1. Main INIT Orchestration File 
-  - Orchestrator directory `./orchestrator/__init__.py` ✅ DONE 
-### 2. Workflow Creation & Execution Files 
-  - Chat, workflow, behavioral guidance `./orchestrator/core.py` ✅ DONE 
-### 3. Workflow Support 
-  - ID generation, discovery, analytics `./orchestrator/workflow_state.py` ✅ DONE 
 
-### 4. Workflow Creation Assets 
 
-  * **Human Button Maker `./orchestrator/manager_buttons.py`** 
 
-    - `AUDIT_LOGIC/DETAILS/manager_buttons_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/manager_buttons_clean.md`
 
-    - How does `core.py` work together with `manager_buttons.py` 
-
-  * **Model Manager `./orchestrator/manager_models.py`**
-
-    - `AUDIT_LOGIC/DETAILS/manager_models_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/manager_models_clean.md`
-
-  * **Tool Manager `./orchestrator/manager_tools.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/manager_tools_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/manager_tools_clean.md`
-
-### 5. MCP Connections for Files API & Memory Tool 
-
-  * **MCP Hub `./orchestrator/mcp_hub.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/mcp_hub_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/mcp_hub_clean.md`
-
-  * **Memory MCP `./orchestrator/memory_mcp.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/memory_mcp_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/memory_mcp_clean.md`
-
-    - It almost seems like maybe this is supposed to be in tools? 
-      - Like where is the Files API orchestrator file otherwise? 
-      - Or is using the file part of the memory orchestration? 
-      - There is a python file for logic in every tool 
-
-### 6. UserID User Memory *MORE MANAGERS IF WANT TO COMBINE GROUPS*
-
-  * **User Memory Manager `./orchestrator/user_memory_manager.py`**
-
-    - `AUDIT_LOGIC/DETAILS/user_memory_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/user_memory_manager_clean.md`
-
-    - This one maybe should be in the Analytics group? 
-
-  * **Username AKA UserID Manager `./orchestrator/username_manager.py`**
-
-    - `AUDIT_LOGIC/DETAILS/username_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/username_manager_clean.md`
-
-    - We really need to eliminate using the term username 
-      - We now use actual ID, email or phone, for login 
-      - Login first time in setup creates a UserID 
-
-### 7. User Settings & CLI Commands *MORE MANAGERS IF WANT TO COMBINE GROUPS*
-
-  * **Settings Manager `./orchestrator/settings_manager.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/settings_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/settings_manager_clean.md`
-
-  * **CLI Manager `./orchestrator/cli_manager.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/cli_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/cli_manager_clean.md`
-
-  - Do we need to be concerned here that the logic 
-    - Is based off of this originally being an all in-terminal, local app? 
-    - I mean, we do want to let admins do all testing in a terminal but even that isn't a MUST HAVE 
-
-### 8. Metrics & Analytics Files 
-
-  * **Real Time Metrics `./orchestrator/real_time_metrics.py`**
-
-    - `AUDIT_LOGIC/DETAILS/real_time_metrics_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/real_time_metrics_clean.md`
-
-  * **System Analytics Manager `./orchestrator/system_analytics_manager.py`**
-
-    - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/system_analytics_manager_clean.md`
-
-  * **User Analytics Manager `./orchestrator/user_analytics_manager.py`**
-
-    - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/user_analytics_manager_clean.md`
-
-### 9. Cache Files 
-
-  * **Cache Sub-Directory INIT `./orchestrator/cache/__init__.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/cache_init_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/cache_init_clean.md`
-
-  * **Cache System `./orchestrator/cache/cache_system.py`** 
-
-    - `AUDIT_LOGIC/DETAILS/cache_cache_system_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/cache_cache_system_clean.md`
-
-### 10. Error Handling 
-
-  * **Error Handling `./orchestrator/error_handling.py`**
-
-    - `AUDIT_LOGIC/DETAILS/error_handling_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/error_handling_clean.md`
-
-    - Explain to me what gets printed in `error_handling.py` 
-      - It seems like we create specific things to print 
-      - But Mao should be conveying this information conversationally
-      - Mao should also be including what the User should do, etc. 
-      - Maybe this is information needed for the UI implementation? 
-
-### 11. Entry Point 
-
-  * **Main Launch App File mao_v4.py `./mao_v4.py`**
-
-    - `AUDIT_LOGIC/DETAILS/mao_v4_analysis.md`
-    - `AUDIT_LOGIC/DETAILS/mao_v4_clean.md`
 
 ### 12. UI/UX Information Pulled from `MAO_FLOW.md` 
 
