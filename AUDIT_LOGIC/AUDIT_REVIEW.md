@@ -78,25 +78,25 @@ MEMORY MCP ENTITY: logic-audit-review
 
 ### Full Orchestrator & App File for Reference 
 
-  1. Logic audit of `./orchestrator/__init__.py` 
-  2. Logic audit of `./orchestrator/cache/__init__.py` 
-  3. Logic audit of `./orchestrator/cache/cache_system.py` 
-  4. Logic audit of `./orchestrator/cli_manager.py` 
-  5. Logic audit of `./orchestrator/core.py`
-  6. Logic audit of `./orchestrator/error_handling.py`
-  7. Logic audit of `./orchestrator/manager_buttons.py` 
-  8. Logic audit of `./orchestrator/manager_models.py`
-  9. Logic audit of `./orchestrator/manager_tools.py`
-  10. Logic audit of `./orchestrator/mcp_hub.py`
-  11. Logic audit of `./orchestrator/memory_mcp.py`
-  12. Logic audit of `./orchestrator/real_time_metrics.py`
-  13. Logic audit of `./orchestrator/settings_manager.py`
-  14. Logic audit of `./orchestrator/system_analytics_manager.py`
-  15. Logic audit of `./orchestrator/user_analytics_manager.py`
-  16. Logic audit of `./orchestrator/user_memory_manager.py`
-  17. Logic audit of `./orchestrator/username_manager.py` 
-  18. Logic audit of `./orchestrator/workflow_state.py`
-  19. Logic audit of `./mao_v4.py`
+  1. `./orchestrator/__init__.py` 
+  2. `./orchestrator/cache/__init__.py` 
+  3. `./orchestrator/cache/cache_system.py` 
+  4. `./orchestrator/cli_manager.py` 
+  5. `./orchestrator/core.py`
+  6. `./orchestrator/error_handling.py`
+  7. `./orchestrator/manager_buttons.py` 
+  8. `./orchestrator/manager_models.py`
+  9. `./orchestrator/manager_tools.py`
+  10. `./orchestrator/mcp_hub.py`
+  11. `./orchestrator/memory_mcp.py`
+  12. `./orchestrator/real_time_metrics.py`
+  13. `./orchestrator/settings_manager.py`
+  14. `./orchestrator/system_analytics_manager.py`
+  15. `./orchestrator/user_analytics_manager.py`
+  16. `./orchestrator/user_memory_manager.py`
+  17. `./orchestrator/username_manager.py` 
+  18. `./orchestrator/workflow_state.py`
+  19. `./mao_v4.py`
 
 --- 
 
@@ -116,9 +116,7 @@ MEMORY MCP ENTITY: logic-audit-review
     - `AUDIT_LOGIC/DETAILS/manager_buttons_analysis.md`
     - `AUDIT_LOGIC/DETAILS/manager_buttons_clean.md`
 
-    - `core.py` mentions making buttons 
-      - How do they work together with `manager_buttons.py` 
-      - Just a touch point or overlapping functionality? 
+    - How does `core.py` work together with `manager_buttons.py` 
 
   * **Model Manager `./orchestrator/manager_models.py`**
 
