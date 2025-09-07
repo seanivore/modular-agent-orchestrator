@@ -1,129 +1,116 @@
 # Orchestrator File Logic Audit Review 
 `/Users/seanivore/Development/modular-agent-orchestrator/AUDIT_LOGIC/AUDIT_REVIEW.md` 
 
-## About the Logic Audit 
+---
 
-  * **AI read normal language functionality and simplified any over-engineering**
-
-    - Ensured all files are following Mao rules
-    - Cleaned up all hardcoding "suggestions" 
-    - Instead, added guidelines and psychological behavior from `MAO_FLOW.md` 
-    - Removed or replaced any 'mock code' with real code 
+NEXT UP: Number 2 'Workflow Creation & Execution Files' 
 
 ---
 
-## Reviewing the Logic Audit's Changes 
+## About the Logic Audit 
 
-  1. Reviewing each new codebase file one at a time 
+  * **AI read normal language functionality to simplify over-engineering and improve codebase**
+
+    - Ensured files follow Mao rules, using correct imports and classes 
+    - Cleaned up all hardcoding "suggestions", replaced 'mock code' with real 
+    - Added normal language validation methodology, retention strategy, behavior guides beside relevant code 
+
+### Reviewing the Logic Audit 
+
+  1. Review each file together, one at a time  
   2. Review that file's 'x_analysis.md' and 'x_clean.md' documents 
-  3. Fix mistakes, changes that shouldn't have been made, simplify any over-engineering 
-  4. Ensure I understand the file completely before moving on 
-  5. Do not change or alter the names of classes 
-     - It should be very unlikely we need any new classes 
-     - See our FILE INDEX if needed: `documentation/10_AI_DEV_INDEX.md` 
-  6. Anywhere code is telling Mao to do something 
-     - We should be using normal language to make sure they know what to do 
-     - We **NEVER** give examples and need to remove any in there now 
+  3. Fix mistakes, changes that shouldn't have been made, look for ways to simplify, etc.  
+  4. Ensure I understand the file completely before moving on, otherwise why is it in there, right?! 
+  5. Do not change or alter the names of classes, we shouldn't need any new; FILE INDEX RESOURCE: `documentation/10_AI_DEV_INDEX.md`
+  6. Improve behavior, psychology, strategy, normal language guidance in code for Mao, avoiding examples 
 
-### All Orchestrator Files Is 110,000 Token Context 
+### 23 Orchestrator Files for 110,00 Tokens Total 
 
-  * **All 23 files were in context window for each file audit**
+  * **AI had all files in context, did one file, then wiped and reloaded context** 
 
-    - The window was wiped and refilled for each file
-    - Goal was comprehensive understanding of how files worked together 
-    - Ability to spot duplicated functionality across files 
-    - No completely made up or mistaken class names 
+    - Hoped for comprehensive understanding of how the files worked together 
+    - That they'd find more duplicated overlapping functionality across files 
+    - Not make up any class names, only make them all accurate 
 
   * **It didn't work!** 
 
-    - So far we've found duplicate overlapping functionality across four files 
-    - The pattern likely continues, and pulling them together has left us missing specifics 
-    - We found made up, mistaken, and even completely new classes used no where else 
-    - Even with access to the AI DEV FILE INDEX listing classes, functions, etc. 
+    - We've found overlapping functionality; the pattern likely continues in other features 
+    - One new bit of placeholder code and possible new classes were used 
 
-  * **Let's pragmatically avoid their issues and find better accuracy** 
+### Our Alternate Context Management Plan 
+
+  * **Let's pragmatically avoid their issues to find better accuracy** 
  
-    - *Fully in context*, meaning uploaded as an attachment to the message 
-      - Similar functionality file groups 
-      - AI DEV FILE INDEX: `documentation/10_AI_DEV_INDEX.md` 
-      - File-guide for normal language app function and Mao behavior outline: `AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
-    - *Not kept in context*, meaning read from Github Project Knowledge retrieval 
-      - The rest of the orchestrator files 
-      - The 'x_analysis.md' and 'x_clean.md' logic audit docs read for reach orchestrator file 
-      - Whatever of the Mao Flow documents are read (there are 13)
+    - **IN CONTEXT** meaning uploaded to message directly 
+      - Just the files grouped by function listed below
+      - Our AI DEV FILE INDEX `documentation/10_AI_DEV_INDEX.md` 
+      - Indexed 13 docs from the normal language app functioning and Mao behavior guide `AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
+    - **NOT MAINTAINED IN CONTEXT**, meaning no `read_file` but instead retrieval from Github Project Knowledge  
+      - All orchestrator files not in the assigned in-context group 
+      - The 'x_analysis.md' and 'x_clean.md' logic audit docs read for the assigned in-context files 
+      - Any of the indexed 13 docs from the normal language app functioning and Mao behavior guide 
 
-  * **After every session of any file updates, make sure AI DEV FILE INDEX is up to date**
+  * **After every any file update group, make sure AI DEV FILE INDEX is still accurate**
 
-    - Let's make sure that this doesn't get dated 
-    - We want to be able to trust it for class and function names every new context window 
-    - So we need to be vigilant in keeping it accurate  
+    - This seems like the only way we've been able to maintain exact class names 
+    - We must update our best resource as we go 
 
-  * **Use the `memory` Model Context Protocol server to manage context** 
+  * **Use the `memory` Model Context Protocol server to manage context with Project State updates** 
  
-    - Update project state progress to memory tool 
     - Record all big updates and when a file is complete 
-    - Next AI instance will understand where to pick things up in new context window 
+    - Next AI instance should understand where to pick up things in new context window 
 
-### Immediately Fix in **ALL FILES** 
+---
 
-  1. Make sure all paths, particularly imports, are absolute 
-  2. Combine overlapping functionality 
-     - `core.py` seem to have the same functioning 
-     - As `agent_callback.py`, `agent_orchestrator.py`, and `conversation_bridge.py` 
-     - See #2 below for dealing with this one 
-     - Be on the lookout for similar issues in other functionality 
+## Check and Fix These Things In Every File Immediately 
 
-### Fix In All Files After Review Completion  
+  1. Make sure all paths, particularly imports, are absolute (e.g. `orchestrator.cache.cache_system`)
+  2. Look out for inaccurate classes or completely new classes, we don't want new unless we must 
+  3. Identify overlapping functionality across files and simplify 
+  4. Improve natural language guidance notes in code as much as possible, replacing and simplifying code as much as possible 
 
-  * **ACTUAL COST CALCULATION AND ESTIMATE** 
+### Ignore These Items That We'll Do For All Files At The End 
 
-    - We cannot only have estimated costs 
-    - All cost hardcoding must be removed 
-    - Mao needs an estimate for Users while building during chat 
-    - **REAL COSTS** must be show during workflow executions, in real time 
-    - Use JSONs for Model/Provider and create new one for estimates  
-    - Might this have something to do with the "Real time metrics" orchestrator file? 
+  1. Removing any cost calculation estimate hardcoding; this is used to tell User during creative chat build process 
+  2. Add in actual cost calculation as well; this will be displayed in real-time, as tokens accumulate 
+  3. Note anywhere that we say 'SONNET 4' or 'ANTHROPIC'; we'll be implementing model choice for Mao later 
 
-    1. Right now I only see estimate cost on each file 
-       - This *only* goes to Mao while building a workflow 
-       - Let user know what they might be spending 
-    2. Create estimated cost calculations 
-       - For each estimate, pull from the actual JSON for whatever Model/Provider it is 
-       - Pull from the JSON even if it is Mao's usage, we will be creating option to change model that is Mao 
-    3. Give each file an `Actual Cost` function as well 
-       - This must be calculated using live token usage, as it happens 
-       - This must be open to any model/provider so pull from JSON, even for Mao 
-    4. Ensure the setup for both is designed for longevity 
-       - We should never be saying "Sonnet 4" or Anthropic" 
-       - Yes we will only be using Anthropic for Mao for now, but if we change that in the future it should be easy 
-       - Updating the Model/Provider JSON pricing is all that should be required for keep accurate actual cost AND ESTIMATE costs 
-       - Both actual and estimate will change over time 
+### Full Orchestrator & App File for Reference 
 
-  * **Add more literal Mao behavior and how to validate without example guides** 
-
-    - This needs to happen in normal language 
-      - A lot almost verbatim from my breakdown 
-      - Sales strategy; how to read user psychology 
-    - AI said they added things 
-      - But I think we'll want to look at this again 
-      - Particularly some of my specific wording guides 
-      - Basically I didn't see anything that didn't look like JUST TEXT in the code 
-      - Except a few bits that seemed more like randomly adding the guidelines on writing code, not guidelines for Mao 
-    - Find more behavioral details 
-      - To add directly into the code for Mao 
-      - That are not examples or suggestions 
-      - But that help Mao validate JSON variable 
-      - And help with sales/retention strategy 
-      - Use 13 documents of app function and Mao behavior outlines: `AUDIT_LOGIC/MAO_FLOW/00_MAO_FLOW_CHAPTERS.md`
+  1. Logic audit of `./orchestrator/__init__.py` 
+  2. Logic audit of `./orchestrator/agent_callback.py`
+  3. Logic audit of `./orchestrator/agent_orchestrator.py`
+  4. Logic audit of `./orchestrator/cache/__init__.py` 
+  5. Logic audit of `./orchestrator/cache/cache_system.py` 
+  6. Logic audit of `./orchestrator/cli_manager.py` 
+  7. Logic audit of `./orchestrator/conversation_bridge.py`
+  8. Logic audit of `./orchestrator/core.py`
+  9. Logic audit of `./orchestrator/error_handling.py`
+  10. Logic audit of `./orchestrator/manager_buttons.py` 
+  11. Logic audit of `./orchestrator/manager_models.py`
+  12. Logic audit of `./orchestrator/manager_tools.py`
+  13. Logic audit of `./orchestrator/mcp_hub.py`
+  14. Logic audit of `./orchestrator/memory_mcp.py`
+  15. Logic audit of `./orchestrator/real_time_metrics.py`
+  16. Logic audit of `./orchestrator/settings_manager.py`
+  17. Logic audit of `./orchestrator/system_analytics_manager.py`
+  18. Logic audit of `./orchestrator/user_analytics_manager.py`
+  19. Logic audit of `./orchestrator/user_memory_manager.py`
+  20. Logic audit of `./orchestrator/username_manager.py` 
+  21. Logic audit of `./orchestrator/workflow_manager.py`
+  22. Logic audit of `./orchestrator/workflow_state.py`
+  23. Logic audit of `./mao_v4.py`
 
 --- 
 
-## Orchestrator Files from Logic Audit  
+## Orchestrator Files from Logic Audit 
 
 ### 1. Main INIT Orchestration File 
   - Orchestrator Directory `./orchestrator/__init__.py` ✅ DONE 
 
 ### 2. Workflow Creation & Execution Files 
+
+  - When reading other orchestrator files, look for potential other additional workflow files (manager, state)
 
   * **Agent Callback `./orchestrator/agent_callback.py`** 
 
@@ -140,13 +127,12 @@
     - `AUDIT_LOGIC/DETAILS/conversation_bridge_analysis.md`
     - `AUDIT_LOGIC/DETAILS/conversation_bridge_clean.md`
 
-    - It is mentioning the directory as "configs/use-case" 
+    - 'conversation_bridge' mentions the directory as "configs/use-case" 
       - Should be configs/workflows
       - Another workflow type and setup script is in next implementation batch 
     - Explain and review 'generate_command_name" around line 194 
-      - Code is unclear to me 
-      - The user probably will have this 
-      - If anything shouldn't it just be normal language rules written to Mao 
+      - Code is unclear to me and the user probably will have this 
+      - It might be simple enough for normal language notes to Mao 
 
   * **Core `./orchestrator/core.py`** 
 
@@ -166,7 +152,7 @@
     5. Don't lose anything if we combine or just simplify files
     6. Decide if they should be simplified or combined, then do so 
 
-### 3. Other Workflow Files (Execution?)
+### 3. Other Workflow Files (Execution? I'm not fully sure what the difference here is compared to above)
 
   * **Workflow Manager `./orchestrator/workflow_manager.py`**
 
