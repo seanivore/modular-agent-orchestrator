@@ -108,6 +108,13 @@
      - Make creates code snippet button for tools and calling Mao when phase completes after User approves of workflow 
      - Models and tools might be shared, but earlier in the conversation  
 
+   - One thing we might want to do during this section is to review all of their config JSON objects, make sure they don't need new fields, etc. 
+     - Like we could use a field or some way to identify what model/provider combo can be set as Mao 
+       - Connecting model/provider `configs/connections`
+       - Models `configs/models` 
+       - Providers `configs/providers` 
+     - We maybe should also do updates to the models and provider prices, new Opus, etc. Hopefully we'll be able to automate these updates soon. 
+
    - What is 'calculating how relevant a tool/model is' hardcoding 
      - Will it work with multilingual 
      - Right now, Mao can certainly provide this estimate with not code needed 
@@ -143,6 +150,10 @@
     - `AUDIT_LOGIC/DETAILS/real_time_metrics_analysis.md` & `real_time_metrics_clean.md`
     - `AUDIT_LOGIC/DETAILS/system_analytics_manager_analysis.md` & `system_analytics_manager_clean.md`
     - `AUDIT_LOGIC/DETAILS/user_analytics_manager_analysis.md` & `user_analytics_manager_clean.md`
+
+   - One thing we might want to do during this section is to review all of their config JSON objects, make sure they don't need new fields, etc. 
+     - `configs/system/analytics` 
+     - `configs/user/horvath_sean`
 
    - Identify and make **list of data point outflow**  
      - Exactly what each point's database column heading will say 
@@ -218,6 +229,9 @@
     - `AUDIT_LOGIC/DETAILS/cli_manager_analysis.md` & `cli_manager_clean.md`
     - `AUDIT_LOGIC/DETAILS/username_manager_analysis.md` & `username_manager_clean.md` 
 
+   - One thing we might want to do during this section is to review all of their config JSON objects, make sure they don't need new fields, etc. 
+     - `configs/settings` 
+
    - NOTE that the logic here was planned when we were making an all terminal-only app 
      - We do still want full terminal functionality 
      - This will be for testing as a way to separate UI bugs and functionality bugs 
@@ -227,6 +241,7 @@
       - Login first time in setup creates a UserID and directory 
       - Read this file for better understanding, below the form UI explainer: `AUDIT_LOGIC/MAO_FLOW/01_USER_ID_CONFIG_DIR.md` 
    - Either here or in settings manager, any non-delta app settings update needs to be saved for the user 
+   - Example of file JSON with fields that need updating: `configs/user/horvath_sean/user_seanivore.json` 
 
   * **GROUP 6: App Utility Cache, Error Handling, Entry Point** 
 
