@@ -120,14 +120,14 @@
      - Both Files API and `memory` MCP are only used by Mao and used during build and execute workflows  
      - **BECAUSE**: the `memory` MCP SERVER, and any other server, uses a 'MCP Connector' tool  
 
-   - Official Memory Update Points 
+   - Official Memory Update Points (9 total through workflow build process)
      - These need to be standardized, and prepared with specifics about what to save for each 
      - We have them all indicated during the workflow build process in these files 
        - `AUDIT_LOGIC/MAO_FLOW/04_CHAT_PREP_WORKFLOW_ID.md` = 1 update 
-       - `AUDIT_LOGIC/MAO_FLOW/05_CHAT_PSYCHOLOGY_GUIDE.md`
-       - `AUDIT_LOGIC/MAO_FLOW/07_END_CHAT_STRATEGY.md` 
-       - `AUDIT_LOGIC/MAO_FLOW/10_BUILD_WORKFLOW_PROCESS.md` 
-       - `AUDIT_LOGIC/MAO_FLOW/13_USER_WORKFLOW_FEEDBACK_PUSHING.md`
+       - `AUDIT_LOGIC/MAO_FLOW/05_CHAT_PSYCHOLOGY_GUIDE.md` = 1 update 
+       - `AUDIT_LOGIC/MAO_FLOW/07_END_CHAT_STRATEGY.md` = 1 update 
+       - `AUDIT_LOGIC/MAO_FLOW/10_BUILD_WORKFLOW_PROCESS.md` = 4 updates 
+       - `AUDIT_LOGIC/MAO_FLOW/13_USER_WORKFLOW_FEEDBACK_PUSHING.md` = 2 updates 
      - We need to do the same for when to do an Official Memory Update during workflows (any other instances?)
      - Then we need to put them as normal language code in the proper files 
      - I.e. how do these work in conjunction with `core.py` 
@@ -177,8 +177,20 @@
      - Name, email, phone, etc. 
      - And then perhaps we might be able to figure out what the columns might start as for subscription plan types, etc. 
    - **WITH THESE METRICS COMBINED, we could probably freaking sell off this app or get funding ASAP because HOLY ROBUST** 
-
-
+     - Basically, if you can think of anything else that might be valuable, here's why adding it all now is ROI winner 
+       - We have AI to review so we CAN have ungodly amount of data; more than anyone would normally start collecting initially 
+       - This equally means we should be including really unusual things, even if we can't think of how it might lead to an insight yet 
+       - Plus the memory stuff is just CLUTCH 
+    
+   - We need a timer or standardized points to nudge Mao to save specific things each one asks to user memory 
+     - What mood is your user in 
+     - What is something memorable they said -- idk we need to REALLY think out of the box 
+     - But basically the idea is that we nudge regularly to make it more of a habit (can LLMs have habits?)
+     - Habit so that it leads to Mao saving user memory insights on their own all the time that are super valuable 
+     - Perhaps even if it is just always part of the standardized memory project state update that they could skip 
+     - But I do think we want some prompts for this 
+     - Even if we don't figure out how exactly to categorize and tag the memories right off the bat 
+     - We need to get them rolling into the database asap with everything else 
 
    - User can add memories with **/memory 'This is something to remember'** slash command 
      - The CLI python file: `configs/cli/memory/memory.py` 
@@ -188,18 +200,13 @@
      - Mao needs to be able to do it even more often than human admin 
      - We probably don't want it coming up on screen when User is in the app, too 
    - Finally, we also need to understand how exactly these are integrated with analytics CLOSELY 
+     - Perhaps I covered this enough in above list
      - This is 'ahead of the tech curve adoption' tactic, aka the recipe for viral in social, so a must do 
-     - I saw a note about privacy in the code 
-    
-   - Making sure memory is tied CLOSELY to analytics updates 
-     - 
-     - In what ways is memory tied into analytics? 
 
-   - Does this file deal with allowing Mao to create any memory about user or is that in the user specific file? 
-     - Should also be tied to analytics somehow regardless of location 
-
-
-
+   - Is it possible for these files to have charts of the triggers, what the metric is, etc.
+     - Used by code or used by Mao or not at all 
+     - I mean we could put it in documentation but 
+     - I'm realizing that the only thing we REALLY keep up-to-date the way we should is codebase files 
 
   * **GROUP 5: App Settings, User Settings, Slash Commands** 
 
@@ -238,22 +245,3 @@
      - They should put it in their own words ON THE FLY not coded 
      - They should offer advice for fixing it 
     - We need normal language added to code for these then 
-
---- 
-
-## Secondary Tasks 
-
-
-
-### 12. UI/UX Information Pulled from `MAO_FLOW.md` 
-
-  * **UI/UX Mao App Design UI description `ui_ux_mao_app.md`**
-
-    - `AUDIT_LOGIC/DETAILS/ui_ux_mao_app.md` 
-
-### 13. Reference File Index 
-
-  * **Our Beloved File Index `documentation/10_AI_DEV_INDEX.md`**
-
-    - Make sure this is still up-to-date 
-    - After all other changes 
