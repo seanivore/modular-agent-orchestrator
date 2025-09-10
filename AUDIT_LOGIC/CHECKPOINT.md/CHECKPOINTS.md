@@ -8,18 +8,84 @@
 
 - Below are **official checkpoints flagging milestones** from project's chat start, until user's workflow deliverable is in hand. Here, **Mao answers contextually relevant prompts** about process progress in addition to saving context and data. 
 
+### Necessary to Standardize Checkpoints 
+
+  1. Standardize these across all of them; make sure nothing we should nudge for Mao to record is being forgotten 
+  2. Implement these into the codebase flow 
+  3. Create protocol for how and where these are saved; ideally searchable for future 
+
+### Checkpoint Name Numeric Coding 
+
+    ```
+    00_workflow_phase_000
+    │        │       │
+    │        │       └── 3. Return User phase count 
+    │        └────── 2. Checkpoint phase location 
+    └───────────── 1. Checkpoint Number 
+    ```
+
+  1. This shows what number checkpoint this is out of all OFFICIAL checkpoints. 
+  2. This is meant to help us easily recognize what this checkpoint's content should contain if we're looking in the future. 
+  3. This counter, starting at 001, shows how many times a return User has started this project at or gone through this checkpoint's phase. 
+
 ---
 
-## User Login, Start of Project Chat 
+## Mao's Checkpoint Workflow 
 
-### Checkpoint: `01_initiated_chat_001`
+  1. WorkflowID must label all information committed to checkpoint 
+  2. Checkpoint includes creating a memory entry  
+  3. Checkpoint requires code execution to save project assets to Files API 
 
-    - Name of update: 
-    - How to respond to first message 
-    - How to prep. for the response 
-    - Creating or finding a WorkflowID for the project 
-    - *Saving everything with WorkflowID* to memory 
-    - **First Memory update** of project creation process 
+**CONFIRM** 
+  - Do we want top level grouping by UserID? 
+  - WorkflowID directory makes sense 
+  - I think naming the subdirectories by checkpoint makes sense 
+  - But then how does AI want to format filenames inside this and any other subdirectory of a workflow directory? 
+  - FYC they could potentially REMOVE 'uid' because it will be on the front of all workflowIDs 
+  - Date seems to make sense but does a three digit counter? 
+
+```
+├── user-5253/
+│   ├── uid-kor-709/
+│   └── uid-xje-103/
+│       └── 01_initiated_chat_001/
+│           └── uid-xje-103_2025_09_10_001.json
+└── user-1166/
+    ├── uid-bei-664
+    └── uid-ktr-545
+```
+
+---
+
+## `01_initiated_chat_001` checkpoint 01
+
+  * **Phase sequence of events** 
+
+    1. User messaged to start a project chat 
+    2. Mao can see their UserID internally, uses it to search what is know about the User before responding
+       - Discover WorkflowID for recent projects; explore memories saved by Mao or User; Review system and user analytics 
+       - Review log of first messages sent to this User **MUST DISCUSS HOW TO MANAGE THIS**
+    3. Mao uses this knowledge to respond like a colleague who know User well 
+       - Intelligent, emotionally aware, contextually aware; will show if they're a return User or new User 
+       - Regarding about **DISCUSS** note, we need to somehow avoid AI using the same messages; I experience this from Dia and Claude Code and it is a terrible UX  
+    4. Provide User with a truly unique chat UX 
+
+  * **Details, response examples, guidelines, how to set the tone** 
+
+    SEE HERE: `AUDIT_LOGIC/MAO_FLOW/04_CHAT_PREP_WORKFLOW_ID.md`
+
+  * **Checkpoint Standardization** 
+
+  - First entry has minimal specifics acting more as a label for the project 
+    1. DATE
+    2. TIME 
+    3. USER ID
+    4. INDICATE IF THIS IS A NEW USER 
+    5. RECORD THE WORKFLOW ID CREATED FOR THE PROJECT 
+
+  - You have to have the WorkflowID to be able to save the information to the checkpoint
+  - The User does not need to have provided any other information 
+  - If they are a new User, include any "learning about them" information 
 
     * **Setting things up and setting the tone** 
 
