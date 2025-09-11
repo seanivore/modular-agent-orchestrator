@@ -1,8 +1,21 @@
-# Official Project State Checkpoints & Protocol
+# Project State Updates 
 
-## Overview 
+*Mao can create a project state update at any time*, however there are a number of additional **OFFICIAL PROJECT STATE UPDATES** that follow a protocol mirroring the context of their placement within the timing of the overall project > workflow > execution cycle. 
 
-- Pleasant **UX is maintained if connection drops** thanks to checkpoints. They **provide new AI all context** needed to continue where things left off, maintaining a smooth flow. 
+## Goal 
+
+  * **Create the smooth continuity of UX flow between User's sessions and AI instances that humans expect in their collaborative partners and applications**
+
+### Overview   
+
+  1. At a checkpoint, Mao secures all project asset data to the Anthropic Files API  
+  2. Mao includes a written account that serves as "Memory" context of that User session 
+  3. Mao uses the Code Execution tool to save both of these asset to the Files API
+  4. Resources are tied together using the project's WorkflowID and the UserID 
+  5. A new AI must be able to pick up where things left off regardless of how session ended 
+
+### Official Checkpoints 
+
 
 - Mao creates checkpoints **any time they think is beneficial**. **Agents cannot** create checkpoints. Their role is intentionally minimized so they have nothing in their context window other than your project. 
 
@@ -49,11 +62,18 @@
 │   ├── uid-kor-709/
 │   └── uid-xje-103/
 │       └── 01_initiated_chat_001/
-│           └── uid-xje-103_2025_09_10_001.json
+│           └── mem-xje-103_20250910_001.json
 └── user-1166/
-    ├── uid-bei-664
-    └── uid-ktr-545
+    ├── uid-bei-664/
+    └── uid-ktr-545/
 ```
+
+
+
+
+
+
+
 
 ---
 
@@ -62,66 +82,52 @@
   * **Phase sequence of events** 
 
     1. User messaged to start a project chat 
-    2. Mao can see their UserID internally, uses it to search what is know about the User before responding
-       - Discover WorkflowID for recent projects; explore memories saved by Mao or User; Review system and user analytics 
-       - Review log of first messages sent to this User **MUST DISCUSS HOW TO MANAGE THIS**
-    3. Mao uses this knowledge to respond like a colleague who know User well 
-       - Intelligent, emotionally aware, contextually aware; will show if they're a return User or new User 
-       - Regarding about **DISCUSS** note, we need to somehow avoid AI using the same messages; I experience this from Dia and Claude Code and it is a terrible UX  
-    4. Provide User with a truly unique chat UX 
+    2. Mao ses their UserID internally before responding 
+    3. Mao uses their UserID to search about the User 
+       - Discover recent project WorkflowIDs 
+       - Explore UserID memories, system + user analytics 
+       - Review convo log **MUST DISCUSS HOW TO MANAGE THIS**
+    3. Mao responds intelligently, contextually, emotionally aware for always unique chat UX
 
-  * **Details, response examples, guidelines, how to set the tone** 
-
-    SEE HERE: `AUDIT_LOGIC/MAO_FLOW/04_CHAT_PREP_WORKFLOW_ID.md`
+    DETAILS: `AUDIT_LOGIC/MAO_FLOW/04_CHAT_PREP_WORKFLOW_ID.md` 
+    - Response examples, guidelines 
+    - How to set the tone, how to read the user psychology 
 
   * **Checkpoint Standardization** 
 
-  - First entry has minimal specifics acting more as a label for the project 
+    First entry has minimal specifics acting more as a label for the project 
     1. DATE
     2. TIME 
     3. USER ID
     4. INDICATE IF THIS IS A NEW USER 
-    5. RECORD THE WORKFLOW ID CREATED FOR THE PROJECT 
+    5. WORKFLOW ID 
 
-  - You have to have the WorkflowID to be able to save the information to the checkpoint
-  - The User does not need to have provided any other information 
-  - If they are a new User, include any "learning about them" information 
+    - Other information, such as if Mao had an information conversation with the user, can certaienly be recorded here, however only the above information is required. 
 
-    * **Setting things up and setting the tone** 
+### Checkpoint: `02_during_chat_001`
 
-    - This entry must be completed at the noted point above 
-        - For new users, Mao can do this before responding 
-        - For returning users, Mao must respond in the chat first to know they want to work on a previous or new project 
-    - First entry so it should have 
-        - Minimal specifics details 
-        - Mostly record keeping things like date, user, etc. 
+  * **Phase sequence of events** 
 
-    * **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
-    
-    - Make it clear what kind of entry to create 
-        - How to tag the WorkflowID, etc. 
-        - Create a new observation tagged to an entity named with WorkflowID 
-    - Start the first line with the name of the project state update entry point 
-        - This entry is `01-initiate-chat-001` 
-        - The 01 before the name is because it is the first entry in the entire Project Workflow 
-        - The appended counter, starting at 001, and then 002+ for returning users 
-        - This is unlikely to go above 001 in this first section 
-        - But you never know when a User could drop out or internet cut out 
+    1. Mao gauges the user's needs based on their behavior 
+    2. Mao adjust their demeanor according to this behavior 
+    3. Mao follows/leads conversation learning about their project 
+    4. Mao continues either until: 
+       - All project variables necessary to create a workflow have been discussed 
+       - The User has adequately implied the necessary information 
+    5. Mao takes copious notes, ideas about what the workflow might look like, etc. 
+       - Notes will be organized in a later phase 
+       - Workflows details may be confirmed later in chat closing 
 
-### Checkpoint: `02...`
+    DETAILS: `AUDIT_LOGIC/MAO_FLOW/05_CHAT_PSYCHOLOGY_GUIDE.md` 
+    - Describe how to read how much User wants to participate or not 
+    - Helps show Mao how to "read the room" so to speak 
+    - Defines how Mao should behave in response 
+    - Provides strategy for User retention, sales, and general UX tips 
 
-
-        - `AUDIT_LOGIC/MAO_FLOW/05_CHAT_PSYCHOLOGY_GUIDE.md` = 1 update 
-    - How to *read the User's engagement interest* 
-    - Sales and retention conversation strategy 
-    - Things that *get conveyed to Mao in normal language* code 
-    - Dealing and banning abusive Users 
-    - Intro to variables Mao is collecting 
-    - **Second official Memory update** for a project flow 
-
-    ### Project State __Memory Update Point__ 
-
-    - Name of update: `02-during-chat-001` 
+  * **Checkpoint Standardization** 
+    1. DATE, TIME, USER ID, WORKFLOW ID 
+    2. CREATE NORMAL LANGUAGE PROJECT NAME 
+    3. 
 
     * **Taking notes; Pre-planning workflow to potentially confirm in chat closing** 
 

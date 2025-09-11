@@ -1,34 +1,34 @@
 {
-  "_metadata": {
-    "config_type": "provider_config",
+    "_metadata": {
+        "config_type": "provider_config",
+        "created_date": "2025-07-23T08:26:00.000000Z",
+        "last_updated": "2025-07-23T08:26:00.000000Z",
+        "schema_version": "2.0",
+        "version": "1.0.0"
+    },
+    "api_base": "default_api_base",
+    "api_type": "anthropic",
+    "auth_header": "x-api-key",
+    "base_url": "https://api.anthropic.com",
     "created_date": "2025-07-23T08:26:00.000000Z",
+    "data_collection": {
+        "default": true,
+        "description": "Enable provider analytics",
+        "type": "boolean"
+    },
+    "default": false,
+    "description": "Official Anthropic API with full Claude 4 feature support",
+    "display_name": "Anthropic Direct API",
+    "enabled": true,
+    "env_var": "ANTHROPIC_API_KEY",
     "last_updated": "2025-07-23T08:26:00.000000Z",
-    "schema_version": "2.0",
-    "version": "1.0.0"
-  },
-  "api_base": "default_api_base",
-  "api_type": "anthropic",
-  "auth_header": "x-api-key",
-  "base_url": "https://api.anthropic.com",
-  "created_date": "2025-07-23T08:26:00.000000Z",
-  "data_collection": {
-    "default": true,
-    "description": "Enable provider analytics",
-    "type": "boolean"
-  },
-  "default": false,
-  "description": "Official Anthropic API with full Claude 4 feature support",
-  "display_name": "Anthropic Direct API",
-  "enabled": true,
-  "env_var": "ANTHROPIC_API_KEY",
-  "last_updated": "2025-07-23T08:26:00.000000Z",
-  "name": "anthropic-direct",
-  "rate_limits": {
-    "requests_per_minute": 1000,
-    "tokens_per_minute": 200000
-  },
-  "secure": true,
-  "supports_streaming": true,
-  "timeout": 30,
-  "type": "default_type"
+    "name": "anthropic-direct",
+    "rate_limits": {
+        "requests_per_minute": 1000,
+        "tokens_per_minute": 200000
+    },
+    "secure": true,
+    "supports_streaming": true,
+    "timeout": 30,
+    "type": "default_type"
 }
