@@ -1,51 +1,61 @@
 # Project State Updates 
 
-*Mao can create a project state update at any time*, however there are a number of additional **OFFICIAL PROJECT STATE UPDATES** that follow a protocol mirroring the context of their placement within the timing of the overall project > workflow > execution cycle. 
-
 ## Goal 
 
   * **Create the smooth continuity of UX flow between User's sessions and AI instances that humans expect in their collaborative partners and applications**
 
-### Overview   
+### About 
 
-  1. At a checkpoint, Mao secures all project asset data to the Anthropic Files API  
-  2. Mao includes a written account that serves as "Memory" context of that User session 
-  3. Mao uses the Code Execution tool to save both of these asset to the Files API
-  4. Resources are tied together using the project's WorkflowID and the UserID 
-  5. A new AI must be able to pick up where things left off regardless of how session ended 
+  - Mao can create a project state update any time they think is beneficial for the goal 
+  - Agents cannot; they handle zero logistical work and only report directly to Mao  
 
-### Official Checkpoints 
+### Overview 
 
-
-- Mao creates checkpoints **any time they think is beneficial**. **Agents cannot** create checkpoints. Their role is intentionally minimized so they have nothing in their context window other than your project. 
-
-- Below are **official checkpoints flagging milestones** from project's chat start, until user's workflow deliverable is in hand. Here, **Mao answers contextually relevant prompts** about process progress in addition to saving context and data. 
-
-### Necessary to Standardize Checkpoints 
-
-  1. Standardize these across all of them; make sure nothing we should nudge for Mao to record is being forgotten 
-  2. Implement these into the codebase flow 
-  3. Create protocol for how and where these are saved; ideally searchable for future 
-
-### Checkpoint Name Numeric Coding 
-
-    ```
-    00_workflow_phase_000
-    │        │       │
-    │        │       └── 3. Return User phase count 
-    │        └────── 2. Checkpoint phase location 
-    └───────────── 1. Checkpoint Number 
-    ```
-
-  1. This shows what number checkpoint this is out of all OFFICIAL checkpoints. 
-  2. This is meant to help us easily recognize what this checkpoint's content should contain if we're looking in the future. 
-  3. This counter, starting at 001, shows how many times a return User has started this project at or gone through this checkpoint's phase. 
+  1. All project asset data is secured in the Anthropic Files API 
+  2. Includes a written account that serves as "Memory" context for that section of the User session 
+  3. Mao must use the Code Execution tool to save anything to the Files API 
+  4. Assets and memory is organized and connected using the WorkflowID and the UserID 
 
 ---
 
-## Mao's Checkpoint Workflow 
+## Official Checkpoints 
 
-  1. WorkflowID must label all information committed to checkpoint 
+  - These are predetermined checkpoints flagging milestones throughout the entire process   
+  - Project State entries are anchored in context throughout the process with relevant prompts 
+  - They're placed at the start of a project chat, until the User's workflow deliverables are in hand 
+
+### Standardizing the Checkpoints  
+
+  1. Ensure nothing we would nudge Mao to record is forgotten  
+  2. Implement these checkpoints and their prompts into the codebase 
+  3. Create protocol for archiving entries to keep Files API clean as a working space 
+
+### Checkpoint Numeric Coded Naming 
+
+  - First number just counts official checkpoints: 1, 2, 3... 
+  - Middle is to help us easily recognize what the checkpoint's contents should contain 
+  - Last number is a counter for cases where users return to the same phase to continue work 
+
+    ```
+    00_workflow_phase_000
+    │        │         │
+    │        │         └── 3. Return User phase count 
+    │        └─── 2. Checkpoint phase's primary content 
+    └────── 1. Checkpoint count out of total **OFFICIAL** checkpoints 
+    ```
+
+## Saving Project State to Checkpoint 
+
+### Project Assets 
+
+  1. Organize all current documents created when working on the project including drafts and notes 
+  2. Rewrite notes if needed to ensure that someone else, another AI, will understand if they need to 
+  2. Clearly label these documents to maintain their organization and purpose when returning to them 
+  3. Keep the WorkflowID and UserID easily locatable on the document or header  
+  3. The WorkflowID's last 6 characters should start **EVERY AND ANY** file in the Files API storage 
+
+### Project State Memory Context  
+
   2. Checkpoint includes creating a memory entry  
   3. Checkpoint requires code execution to save project assets to Files API 
 
