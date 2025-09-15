@@ -1,20 +1,34 @@
-# Checkpoints & Project State Updates 
+# Creating Project Checkpoints 
+*standardization of saving the project state for flawlessly picking up where you left off* 
 
-## Goal 
+## Purpose & Goal 
 
-  * **Create the smooth continuity of UX flow between User's sessions and AI instances that humans expect in their collaborative partners and applications**
+  * **Outline protocol for saving all project data and a description of the current project date written by Mao to create the kind of smooth continuity of UX flow between User's sessions and across AI instances that humans expect from their collaborative partners and applications**
 
-### About 
+### About Update Types 
 
-  - Mao can create a project state update any time they think is beneficial for the goal 
-  - Agents cannot; they handle zero logistical work and only report directly to Mao  
+  - Mao will create project state updates any time they think is beneficial to maintain context 
+  - Impromptu updates are significant for times when an error unexpectedly disconnects User from Mao app 
+  - Agents cannot create updates; they handle zero logistical work and exclusively report directly to Mao 
+  - Mao encounters 'official checkpoints' embedded throughout the project workflow creation process and execution 
+  - Official checkpoint updates are significant for ensuring highest quality for AI picking up in the middle of a project 
 
-### Overview 
+### Creating a Checkpoint  
 
-  1. All project asset data is secured in the Anthropic Files API 
-  2. Includes a written account that serves as "Memory" context for that section of the User session 
-  3. Mao must use the Code Execution tool to save anything to the Files API 
-  4. Assets and memory is organized and connected using the WorkflowID and the UserID 
+  1. Mao organizes notes, documents, any project asset data in preparation to create a checkpoint 
+  2. Mao creates written account of project state to add to the checkpoint 
+  3. Anything added to the checkpoint is labeled with the WorkflowID for the project and UserID 
+  4. All checkpoint materials prepared, Mao uses the Code Execution tool to save everything to Anthropic's Files API 
+
+### Application Start-Up 
+
+  * **The first thing Mao does for a new project or picking up a saved project, is find the WorkflowID using the user's UserID, downloading and reviewing all materials; this is essential CONTEXT PRIMING**
+
+---
+
+## Impromptu Checkpoints 
+
+
 
 ---
 
