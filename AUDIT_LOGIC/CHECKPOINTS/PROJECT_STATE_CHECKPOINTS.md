@@ -130,7 +130,7 @@
 
 ---
 
-## Impromptu Checkpoints 
+## Impromptu Checkpoints Basics 
 
 ### When to Create Checkpoint 
 
@@ -147,7 +147,7 @@
 
 ---
 
-## Official Checkpoints 
+## Official Checkpoints Basics 
 
   - Checkpoints flagged in Mao's code at milestones throughout process 
   - They're spread through from project chat initiation until the User's workflow deliverables are in hand
@@ -174,7 +174,9 @@
 
 ---
 
-## `01_initiated_chat_001` checkpoint 01
+## List of Official Checkpoints 
+
+### 1. Checkpoint `01_initiated_chat_001` 
 
   * **Phase sequence of events** 
 
@@ -201,7 +203,7 @@
 
     - Other information, such as if Mao had an information conversation with the user, can certaienly be recorded here, however only the above information is required. 
 
-### Checkpoint: `02_during_chat_001`
+### 2. Checkpoint: `02_during_chat_001`
 
   * **Phase sequence of events** 
 
@@ -238,7 +240,7 @@
 
     * **Create a *STANDARDIZATION* for each entry type (see names) and also for *ALL ENTRIES***
 
-### Checkpoint `3...`
+### 3. Checkpoint `3...`
 
             - `AUDIT_LOGIC/MAO_FLOW/07_END_CHAT_STRATEGY.md` = 1 update 
 
