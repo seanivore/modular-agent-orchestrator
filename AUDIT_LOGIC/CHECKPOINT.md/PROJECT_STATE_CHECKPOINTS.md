@@ -1,4 +1,4 @@
-# Project State Updates 
+# Checkpoints & Project State Updates 
 
 ## Goal 
 
@@ -50,14 +50,19 @@
 
   1. Organize all current documents created when working on the project including drafts and notes 
   2. Rewrite notes if needed to ensure that someone else, another AI, will understand if they need to 
-  2. Clearly label these documents to maintain their organization and purpose when returning to them 
-  3. Keep the WorkflowID and UserID easily locatable on the document or header  
-  3. The WorkflowID's last 6 characters should start **EVERY AND ANY** file in the Files API storage 
+  3. Clearly label these documents to maintain their organization and purpose when returning to them 
+  4. Keep the WorkflowID and UserID easily locatable on the document or header  
+  5. The WorkflowID's last 6 characters should start **EVERY AND ANY** file in the Files API storage 
 
 ### Project State Memory Context  
 
-  2. Checkpoint includes creating a memory entry  
-  3. Checkpoint requires code execution to save project assets to Files API 
+  1. Project state memory entry is created on a prepared JSON template   
+  2. Define the task, make sure any new AI reading will understand exactly what was being done 
+  3. Include any interesting updates from during or after the task that may be important or insightful 
+  4. If planned or discussed, please then detail what the next tasks are to follow this task 
+  5. This is ESSENTIAL for help our AI instances create a flawless UX; ask, what would I need to know 
+
+
 
 **CONFIRM** 
   - Do we want top level grouping by UserID? 
