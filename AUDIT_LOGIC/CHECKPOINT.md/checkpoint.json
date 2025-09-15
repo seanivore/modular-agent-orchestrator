@@ -1,21 +1,36 @@
 {
     "_metadata": {
-        "config_type": "project_state_memory_update",
-        "last_updated": "2025-09-10T19:45:00.000000Z",
+        "config_type": "project_state_checkpoint",
+        "last_updated": "2025-09-15T11:45:00.000000Z",
         "schema_version": "1.0",
         "version": "1.0.0"
     },
-    "memory_date": "2025-09-10T19:45:00.000000Z",
-    "workflow_id": "uid-kor-709",
-    "user_id": "user-5253",
-    "project_name": "project_state": {
-        "method": "Files API",
-        "description": "All notes, drafts, written or other materials for project saved via code execution tool to Anthropic's Files API",
-        "file_type(s)": "any"
+    "update_details": {
+        "checkpoint_date": "2025-09-15T11:45:00.000000Z",
+        "workflow_id": "uid-kor-709",
+        "project_name": "<custom-command> or temporary drafted name",
+        "user_id": "user-5253",
+        "user_first_name": "Sean",
+        "save_method": "Code Execution to Anthropic Files API",
+        "checkpoint_cost": "Files API is free; Mao writing tokens count as per usual"
     },
-    "asset_data": {
-        "workflow_id": true,
-        "description": "Enable provider analytics",
-        "file_type": "boolean"
+    "update_directions": {
+        "file_type(s)": "any",
+        "checkpoint_data": "File name of all files related to this project start with same last 6 characters of WorkflowID. List all names of files uploaded now, or that were uploaded earlier but are still relevant.",
+        "project_state": "Written information provided by Mao as project is planned and steps are taken, recording anything notable and next steps."
+    },
+    "checkpoint_data": {
+        "files_uploaded": [
+            "kor-709-chat-notes.md",
+            "kor-709-goal-project-phases.md",
+            "kor-709-preliminary-sample-data.csv"
+        ],
+        "file_description": ""
+    },
+    "project_state": {
+        "completed_steps": "",
+        "current_focus": "",
+        "next_steps": "",
+        "notes": ""
     }
 }

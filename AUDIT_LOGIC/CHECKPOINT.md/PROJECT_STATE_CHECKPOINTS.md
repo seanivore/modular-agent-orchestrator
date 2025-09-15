@@ -28,7 +28,20 @@
 
 ## Impromptu Checkpoints 
 
+### Eliminate LLM Limitations 
 
+  1. Use the native `think` tool if you are able to write notes, use tools between thoughts 
+     Or start `sequential_thinking` Model Context Protocol server; think while you review the following 
+  2. Maintain project state via updates for across AI instance flow 
+
+### When to Create Checkpoint 
+
+   Create/Use entity `mao-<project-task-name>` 
+   Add entry milestones that maintain context even if suddenly disconnected  
+    1. About to start a series of tasks, record what you're about to do 
+    2. Also record the next steps in case connection is interrupted during first tasks 
+    3. Add updates throughout completing the tasks, particularly anything notable or necessary for next steps
+    4. Update after completion of those tasks; add what is next or reference having mentioned it if nothing has changed 
 
 ---
 
