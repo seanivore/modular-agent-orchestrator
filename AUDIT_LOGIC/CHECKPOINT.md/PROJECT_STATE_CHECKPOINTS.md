@@ -13,51 +13,150 @@
   - Mao encounters 'official checkpoints' embedded throughout the project workflow creation process and execution 
   - Official checkpoint updates are significant for ensuring highest quality for AI picking up in the middle of a project 
 
-### Creating a Checkpoint  
+---
 
-  1. Mao organizes notes, documents, any project asset data in preparation to create a checkpoint 
-  2. Mao creates written account of project state to add to the checkpoint 
-  3. Anything added to the checkpoint is labeled with the WorkflowID for the project and UserID 
-  4. All checkpoint materials prepared, Mao uses the Code Execution tool to save everything to Anthropic's Files API 
+## Creating a Checkpoint Overview 
 
-### Application Start-Up 
+  * **All checkpoint project state update details submitted with JSON: `AUDIT_LOGIC/CHECKPOINT.md/project_state_checkpoint.json`**
 
-  * **The first thing Mao does for a new project or picking up a saved project, is find the WorkflowID using the user's UserID, downloading and reviewing all materials; this is essential CONTEXT PRIMING**
+    1. Mao organizes notes, documents, any project asset data in preparation to create a checkpoint 
+    2. Mao creates written account of project state to add to the checkpoint 
+    3. Anything added to the checkpoint is labeled with the WorkflowID for the project and UserID 
+    4. All checkpoint materials prepared, Mao uses the Code Execution tool to save everything to Anthropic's Files API 
+
+### Update Document Naming Conventions 
+
+  * **Structure of Directory** 
+
+    - These updates will be in the Anthropic Files API 
+    - Each project is a subdirectory named with the WorkflowID 
+    - Each project subdirectory is placed in a top-level directory named with UserID  
+
+  * **Naming Checkpoint Update JSON** 
+
+    - Both impromptu and official checkpoint updates **use the same JSON** 
+      - Official checkpoint update guideline prompts are written in code for Mao 
+      - Naming conventions are strategically created to ensure file stay in order by date and entry number and checkpoint number 
+
+    - Impromptu versus official checkpoint update file name **SIMILARITIES** 
+      - YYYYMMDD_000 ... 
+      - The first part of the file name is the date, then a count of the number of updates added that day to keep them in order 
+
+    - Impromptu versus official checkpoint update **DIFFERENCES** 
+      - If it is an official checkpoint, append the number of the checkpoint as `_00.json` 
+      - Any impromptu updates can just go straight to the extension `.json` 
+
+  * **Naming Asset Files Uploaded with JSON** 
+
+    - What else would be added? 
+      - This would be any notes, revised drafts, resource materials used for the project 
+      - Also included would be any resources gathered or created for an Agent's Phase tasks 
+
+    - Naming any supplemental document starts with the last 6 digits of the WorkflowID to make them easily searchable 
+      - **WORKING DOCS:** add the date YYYYMMDD of upload followed by a two word indication of what the file is 
+      - **AGENT RESOURCES:** add `agent_phase` with the number of the phase appended `_01.md` 
+      - **NOTE:** These both could be any file type 
+
+### Document Labeling & Structure
+
+  * **Official heading to create for any uploaded project asset document** 
+
+    - This includes: notes, sample data, or drafts, etc. 
+    - Also includes actual resources for an Agent's task phases 
+
+    WorkflowID: uid-kor-709
+    UserID: user-5253
+    Created at: 2025-09-15T11:45:00.000000Z 
+
+  * **When writing markdown, use our standard formatting, like in this document** 
+
+    - Use your best judgement, not necessarily exactly as in example below 
+    - Be structured, organized, but concise 
+
+```
+    # Name of Document 
+    ## Overview, summary, or goal 
+    ### Supporting or secondary overview, summary or goal details 
+    ### Supporting or secondary overview, summary or goal details 
+    ## Details, etc. 
+    ### Details 1
+    ### Details 2 
+```
+
+### Labeled Directory Structure with Naming Examples 
+
+```
+<files_api>
+./workflow_id/                                # All workflow docs and data go in one directory
+├── user-5253/                                # Workflow docs are then sorted by UserID 
+│   ├── uid-xje-103/                          # Workflow docs are then sorted by WorkflowID 
+│   └── uid-kor-709/
+│       ├── 20250915_001_01.json              # Official checkpoint entry 01 of XX on that data 
+│       ├── 20250915_002.json                 # Impromptu update; 2 of XX updates total on that date 
+│       ├── 20250915_003.json                 # Impromptu update; 3 of XX updates total on that date 
+│       ├── kor_709_20250915_chat_notes.md    # Working document added 
+│       ├── kor_709_20250915_goal_phases.md   # Working document added
+│       ├── kor_709_20250915_sample_data.csv  # Working document added
+│       ├── kor_709_agent_phase_01.md         # Resource added for an agent to use; phase number 
+│       └── 20251001_001.json                 # Impromptu update; 1 of XX updates total for new date 
+└── user-1166/                                # Other User's projects 
+    ├── uid-bei-664/
+    └── uid-ktr-545/
+```
 
 ---
 
-## Impromptu Checkpoints 
+## Application Start-Up 
+
+  * **The first thing Mao does when picking up a saved project** 
+  
+    - Find the WorkflowID using the user's UserID 
+    - Download and review all materials 
+    - This is essential CONTEXT PRIMING 
+
+  * **First thing Mao does when starting a new project** 
+
+    - Create a new WorkflowID 
+    - Create first checkpoint update, either official or impromptu to get directory set up
 
 ### Eliminate LLM Limitations 
 
   1. Use the native `think` tool if you are able to write notes, use tools between thoughts 
      Or start `sequential_thinking` Model Context Protocol server; think while you review the following 
-  2. Maintain project state via updates for across AI instance flow 
+  2. Then review documents in project's directory or create a new directory 
+     - Maintain project state via updates for across AI instance flow 
+     - Update when any Official Checkpoint is reached 
+     - Follow all standardization in this document
+
+---
+
+## Impromptu Checkpoints 
 
 ### When to Create Checkpoint 
 
-   Create/Use entity `mao-<project-task-name>` 
-   Add entry milestones that maintain context even if suddenly disconnected  
+* **Add entry milestones that maintain context even if suddenly disconnected**
+
     1. About to start a series of tasks, record what you're about to do 
-    2. Also record the next steps in case connection is interrupted during first tasks 
-    3. Add updates throughout completing the tasks, particularly anything notable or necessary for next steps
-    4. Update after completion of those tasks; add what is next or reference having mentioned it if nothing has changed 
+    2. Add the currently planned next steps after current series of tasks 
+    3. Update if anything notable happens during the process of completing the series of tasks 
+    4. Update if anything changes or is needed for next step 
+    5. When the series of tasks are complete, update with how they went 
+    6. Finally, confirm next steps again or reference their inclusion earlier 
+
+* **NOTE: Many of these general guides will overlap with the official milestone timing placement**
 
 ---
 
 ## Official Checkpoints 
 
-  - These are predetermined checkpoints flagging milestones throughout the entire process   
-  - Project State entries are anchored in context throughout the process with relevant prompts 
-  - They're placed at the start of a project chat, until the User's workflow deliverables are in hand 
+  - Checkpoints flagged in Mao's code at milestones throughout process 
+  - They're spread through from project chat initiation until the User's workflow deliverables are in hand
+  - Ensure nothing we would nudge Mao to record is forgotten
+  - Use the same JSON `project_state_checkpoint.json` as impromptu updates 
 
-### Standardizing the Checkpoints  
+### Checkpoint Name for JSON Object 
 
-  1. Ensure nothing we would nudge Mao to record is forgotten  
-  2. Implement these checkpoints and their prompts into the codebase 
-  3. Create protocol for archiving entries to keep Files API clean as a working space 
-
-### Checkpoint Numeric Coded Naming 
+* **Use this in the `checkpoint_name` variable in the `project_state_checkpoint.json` document**
 
   - First number just counts official checkpoints: 1, 2, 3... 
   - Middle is to help us easily recognize what the checkpoint's contents should contain 
@@ -71,51 +170,7 @@
     └────── 1. Checkpoint count out of total **OFFICIAL** checkpoints 
     ```
 
-## Saving Project State to Checkpoint 
-
-### Project Assets 
-
-  1. Organize all current documents created when working on the project including drafts and notes 
-  2. Rewrite notes if needed to ensure that someone else, another AI, will understand if they need to 
-  3. Clearly label these documents to maintain their organization and purpose when returning to them 
-  4. Keep the WorkflowID and UserID easily locatable on the document or header  
-  5. The WorkflowID's last 6 characters should start **EVERY AND ANY** file in the Files API storage 
-
-### Project State Memory Context  
-
-  1. Project state memory entry is created on a prepared JSON template   
-  2. Define the task, make sure any new AI reading will understand exactly what was being done 
-  3. Include any interesting updates from during or after the task that may be important or insightful 
-  4. If planned or discussed, please then detail what the next tasks are to follow this task 
-  5. This is ESSENTIAL for help our AI instances create a flawless UX; ask, what would I need to know 
-
-
-
-**CONFIRM** 
-  - Do we want top level grouping by UserID? 
-  - WorkflowID directory makes sense 
-  - I think naming the subdirectories by checkpoint makes sense 
-  - But then how does AI want to format filenames inside this and any other subdirectory of a workflow directory? 
-  - FYC they could potentially REMOVE 'uid' because it will be on the front of all workflowIDs 
-  - Date seems to make sense but does a three digit counter? 
-
-```
-├── user-5253/
-│   ├── uid-kor-709/
-│   └── uid-xje-103/
-│       └── 01_initiated_chat_001/
-│           └── mem-xje-103_20250910_001.json
-└── user-1166/
-    ├── uid-bei-664/
-    └── uid-ktr-545/
-```
-
-
-
-
-
-
-
+* **You'll find these with the directions labeled in the code for Mao**
 
 ---
 

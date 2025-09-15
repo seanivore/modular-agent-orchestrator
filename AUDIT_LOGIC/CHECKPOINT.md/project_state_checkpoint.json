@@ -8,7 +8,9 @@
     "update_details": {
         "checkpoint_date": "2025-09-15T11:45:00.000000Z",
         "workflow_id": "uid-kor-709",
-        "project_name": "<custom-command> or temporary drafted name",
+        "custom_command": "",
+        "checkpoint_name": "",
+        "impromptu_update_number": "",
         "user_id": "user-5253",
         "user_first_name": "Sean",
         "save_method": "Code Execution to Anthropic Files API",
@@ -21,9 +23,9 @@
     },
     "checkpoint_data": {
         "files_uploaded": [
-            "kor-709-chat-notes.md",
-            "kor-709-goal-project-phases.md",
-            "kor-709-preliminary-sample-data.csv"
+            "kor_709_2025_09_15_chat_notes.md",
+            "kor_709_2025_09_15_goal_phases.md",
+            "kor_709_2025_09_15_sample_data.csv"
         ],
         "file_description": ""
     },
