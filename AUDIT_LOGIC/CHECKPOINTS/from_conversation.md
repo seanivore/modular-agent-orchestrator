@@ -10,6 +10,8 @@ We have an implementation plan for a later update to create our own actual Memor
 
 We'll instead be implementing a config-driven memory system. The following are the directions that AI last left me with, however while preparing for it I have some slight questions.
 
+Full txt convo from before (9k tks): `./AUDIT_LOGIC/CHECKPOINTS/FULL_CONVO.txt` 
+
 ---
 
 ## Updated Group 3 Final Plan 
@@ -114,4 +116,34 @@ self.mao_memory.trigger_save_point("01_workflow_creation", {
    - Make any other changes to other files that maintain the conversation and display, etc. Way more tokens than I was even thinking about but I guess not that crazy if we can save a temp file to be able to code execute it to the free Files API, which 
    - Figure out how the Files API and the Code Execution works and make sure it is implemented throughout the process. 
    
-* **Only then will we be ready to return back to GROUP 3 that we were working on of the Audit Review: `./AUDIT_LOGIC/AUDIT_REVIEW.md` 
+* **Only then will we be ready to return back to GROUP 3 that we were working on of the Audit Review: `./AUDIT_LOGIC/AUDIT_REVIEW.md`**
+
+---
+
+# GROUP 3 from Logic Audit Review 
+
+Perfect! Much cleaner execution order. Let me organize the **Group 3 Radical Simplification Plan** with the corrected sequence:
+
+## Group 3 Execution Order 
+
+### Phase 1+2 Combined: MCP Research + Over-Engineering Deletion
+**Research MCP Connector mechanism:**
+- Sounds great but since we don't need it for memory MCP let's fix and focus on adding it in a more formal way later. DELETE. 
+
+### Phase 2: State Management Deep Dive
+**Thoroughly compare `workflow_manager.py` vs `memory_mcp.py`:**
+- SOUNDS LIKE WE NEED A COMPLETELY NEW STATE MANAGEMENT METHOD 
+
+### Phase 3: Memory Updates Documentation 
+**Read MAO_FLOW documents to extract specifics:**
+- COMBINED WITH NEXT PHASE 
+
+### Phase 4: Manager Models + JSON Config Review
+**After seeing MAO_FLOW context:**
+- All already detailed above, and in `PROJECT_STATE_CHECKPOINTS
+### Phase 5: Button Integration Verification
+**After memory points established:**
+- Ensure button generation properly integrated in core.py
+- Verify all integration points work with simplified structure
+
+Ready to start with Phase 1+2: MCP Connector research + deletion of over-engineering?
